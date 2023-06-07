@@ -88,3 +88,13 @@ require_once get_template_directory() . '/core/inc/compatibility/rankmath/class-
  * The Events Calendar.
  */
 require_once get_template_directory() . '/core/inc/compatibility/events-calendar/class-uncode-events-calendar.php';
+
+/**
+ * MemberPress.
+ */
+require_once get_template_directory() . '/core/inc/compatibility/memberpress/memberpress-helpers.php';
+
+/**
+ * BuddyPress.
+ */
+require_once get_template_directory() . '/core/inc/compatibility/buddypress/class-uncode-buddypress.php';

@@ -398,7 +398,7 @@ function uncode_resize_image( $media_id, $url, $path, $originalWidth, $originalH
 	}
 
 	if ($remote) {
-		$remote_url = $as3cf->get_attachment_url($media_id);
+		$remote_url = as3cf_get_attachment_url($media_id);
 		if (empty($remote_url)) {
 			$remote = false;
 		} else {
@@ -629,6 +629,8 @@ function uncode_resize_image( $media_id, $url, $path, $originalWidth, $originalH
 				'new_crop'      => true,
 			);
 
+			$media_data_key = '';
+
 			// Add this new size entry to the parent image metadata
 			if ( ! $has_meta_data && $register_adaptive_meta ) {
 				$media_data_key = $file_info[ 'filename' ] . '-uai_' . $new_img_size[ 0 ] . 'x' . $new_img_size[ 1 ] . '.' . $file_info[ 'extension' ];
@@ -646,6 +648,8 @@ function uncode_resize_image( $media_id, $url, $path, $originalWidth, $originalH
 
 				do_action( 'uncode_after_crop_resize', $media_id, $media_data, $remote );
 			}
+
+			do_action( 'uncode_after_new_crop', $media_id, $vt_image['url'], $vt_image['width'], $vt_image['height'],  $media_data_key, $remote );
 
 			//If using Wp Smushit
 			if( class_exists('WpSmush') ){
@@ -754,7 +758,18 @@ function uncode_get_oembed($id, $url, $mime, $with_poster = false, $excerpt = nu
 
 	if ($with_poster) {
 		$poster = get_post_meta($id, "_uncode_poster_image", true);
-		$poster_id = $poster;
+		$poster_id = $poster;	
+		
+		if ( defined( 'ICL_SITEPRESS_VERSION' ) && !$poster ) {
+			global $sitepress;
+			$default_lang = $sitepress->get_default_language();
+			$curr_lang = ICL_LANGUAGE_CODE;
+
+			if ( $curr_lang != $default_lang ) {
+				$_id = icl_object_id( $id, 'attachment', false, $default_lang );
+				$poster = get_post_meta($_id, "_uncode_poster_image", true);
+			}
+		}
 	}
 
 	$consent_id = str_replace( 'oembed/', '', $mime );
@@ -1552,6 +1567,7 @@ function uncode_get_content_cb(){
 			$content_cb = get_post_meta( $post->ID, '_uncode_specific_content_block', true );
 		} elseif ( ot_get_option('_uncode_' . $post_type . '_select_content') === 'uncodeblock' && ot_get_option('_uncode_' . $post_type . '_content_block') !== '' && get_post_meta( $post->ID, '_uncode_specific_select_content', true ) === '' ) {
 			$content_cb = ot_get_option('_uncode_' . $post_type . '_content_block');
+			$content_cb = apply_filters( 'wpml_object_id', $content_cb );
 		}
 	}
 
@@ -1771,8 +1787,12 @@ if ( ! function_exists( 'uncode_get_header_from_content' ) ) :
 /**
  * @since Uncode 2.3.0
  */
-function uncode_get_header_from_content($output = 'header') {
-	global $post;
+function uncode_get_header_from_content($output = 'header', $post_id = false) {
+	if ( $post_id === false ) {
+		global $post;
+	} else {
+		$post = get_post($post_id);
+	}
 
 	$post_id = $post->ID;
 	$content = $post->post_content;
@@ -1793,8 +1813,15 @@ if ( ! function_exists( 'uncode_get_the_content' ) ) :
 /**
  * @since Uncode 2.3.0
  */
-function uncode_get_the_content($content = false, $check = false) {
-	global $post, $metabox_data, $is_cb;
+function uncode_get_the_content($content = false, $check = false, $post_id = false) {
+	global $uncode_vc_index;
+	
+	if ( $post_id === false ) {
+		global $post;
+	} else {
+		$post = get_post($post_id);
+	}
+	global $metabox_data, $is_cb;
 
 	$content_cb = false;
 
@@ -1808,7 +1835,7 @@ function uncode_get_the_content($content = false, $check = false) {
 			return get_the_password_form( $post );
 		}
 
-		if ( !$content ) {
+		if ( $content === false ) {
 
 			if ( ( ot_get_option('_uncode_' . $post_type . '_select_content') === 'none' && ( !isset($metabox_data['_uncode_specific_select_content'][0]) || $metabox_data['_uncode_specific_select_content'][0] === '' )
 				|| ( isset($metabox_data['_uncode_specific_select_content'][0]) && $metabox_data['_uncode_specific_select_content'][0] == 'none' ) ) ) {
@@ -1833,6 +1860,10 @@ function uncode_get_the_content($content = false, $check = false) {
 
 	if ( $check ) {
 		$content = $content_cb;
+	}
+
+	if ( $uncode_vc_index !== true ) {
+		$content = apply_filters( 'uncode_get_single_content_raw', $content );
 	}
 
 	return $content;
@@ -2152,3 +2183,32 @@ function uncode_setup_limit_width()
 }
 endif;//uncode_setup_limit_width
 add_action('wp', 'uncode_setup_limit_width');
+
+function uncode_fo8l_op() {
+	$is_valid      = true;
+	$purchase_code = trim( uncode_get_purchase_code() );
+
+	if ( $purchase_code && ! preg_match("/^([a-f0-9]{8})-(([a-f0-9]{4})-){3}([a-f0-9]{12})$/i", $purchase_code ) ) {
+		$is_valid = false;
+	}
+
+	$purchase_code_chars = str_replace('-', '', $purchase_code );
+
+	if ( strlen( $purchase_code_chars ) > 0 && isset( $purchase_code_chars[0] ) ) {
+		$first_char          = $purchase_code_chars[0];
+		$has_same_chars      = true;
+
+		for ( $i = 1; $i < strlen( $purchase_code_chars ); $i++ ) {
+			if ( $purchase_code_chars[$i] != $first_char ) {
+				$has_same_chars = false;
+			}
+		}
+
+		if ( $has_same_chars ) {
+			$is_valid = false;
+		}
+	}
+
+
+	return $is_valid;
+}

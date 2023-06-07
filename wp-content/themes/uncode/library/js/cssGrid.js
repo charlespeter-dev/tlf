@@ -100,6 +100,7 @@
 							twttr.widgets.load(cssGridContainersArray[i]);
 						}
 
+						UNCODE.carousel($(newElements));
 						requestTimeout(function() {
 							$cssGrid.trigger('more-items-loaded');
 						}, 1000);

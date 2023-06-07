@@ -26,6 +26,7 @@ require_once get_template_directory() . '/core/inc/helpers/assets/tests/bootstra
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/jquery-fullpage.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/onepage.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/collapse.php';
+require_once get_template_directory() . '/core/inc/helpers/assets/tests/accordion.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/tab.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/tooltip.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/rellax.php';

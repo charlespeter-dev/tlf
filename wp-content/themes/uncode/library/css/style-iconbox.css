@@ -148,6 +148,10 @@ div > .icon-box:last-child {
 .icon-box-heading > * {
   line-height: 1.5em;
 }
+.icon-box-top .icon-box-icon,
+.icon-box-bottom .icon-box-icon {
+  width: auto;
+}
 .icon-box-left .icon-box-icon,
 .icon-box-right .icon-box-icon,
 .icon-box-left .icon-box-content,

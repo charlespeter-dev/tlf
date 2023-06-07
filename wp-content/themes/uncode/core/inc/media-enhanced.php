@@ -160,23 +160,23 @@ function uncode_addScripts() {
 	<script>
 
 		var arrayRegex = new Array();
-		arrayRegex[0] = {domain: '((http|https):\/\/)?(www\.)?(youtube\.com|youtu\.be)(\/)?([a-zA-Z0-9\-\.]+)\/?', type: 'oembed/youtube'};
-		arrayRegex[1] = {domain: '((http|https):\/\/)?(www\.)?(blip\.tv)(\/)?([a-zA-Z0-9\-\.]+)\/?', type: 'oembed/blip'};
-		arrayRegex[2] = {domain: '((http|https):\/\/)?(www\.)?(vimeo\.com)(\/)?([a-zA-Z0-9\-\.]+)\/?', type: 'oembed/vimeo'};
-		arrayRegex[3] = {domain: '((http|https):\/\/)?(www\.)?(dailymotion\.com)(\/)?([a-zA-Z0-9\-\.]+)\/?', type: 'oembed/dailymotion'};
-		arrayRegex[4] = {domain: '((http|https):\/\/)?(www\.)?(qik\.com)(\/)?([a-zA-Z0-9\-\.]+)\/?', type: 'oembed/qik'};
-		arrayRegex[5] = {domain: '((http|https):\/\/)?(www\.)?(flickr\.com)(\/)?([a-zA-Z0-9\-\.]+)\/?', type: 'oembed/flickr'};
-		arrayRegex[6] = {domain: '((http|https):\/\/)?(www\.)?(hulu\.com)(\/)?([a-zA-Z0-9\-\.]+)\/?', type: 'oembed/hulu'};
-		arrayRegex[7] = {domain: '((http|https):\/\/)?(www\.)?(viddler\.com)(\/)?([a-zA-Z0-9\-\.]+)\/?', type: 'oembed/viddler'};
-		arrayRegex[8] = {domain: '((http|https):\/\/)?(www\.)?(slideshare\.net)(\/)?([a-zA-Z0-9\-\.]+)\/?', type: 'oembed/slideshare'};
-		arrayRegex[9] = {domain: '((http|https):\/\/)?(www\.)?(wordpress\.tv)(\/)?([a-zA-Z0-9\-\.]+)\/?', type: 'oembed/wordpress'};
-		arrayRegex[10] = {domain: '((http|https):\/\/)?(www\.)?(twitter\.com)(\/)?([a-zA-Z0-9\-\.]+)\/?', type: 'oembed/twitter'};
-		arrayRegex[11] = {domain: '((http|https):\/\/)?(www\.)?(scribd\.com)(\/)?([a-zA-Z0-9\-\.]+)\/?', type: 'oembed/scribd'};
-		arrayRegex[12] = {domain: '((http|https):\/\/)?(www\.)?(photobucket\.com)(\/)?([a-zA-Z0-9\-\.]+)\/?', type: 'oembed/photobucket'};
-		arrayRegex[13] = {domain: '((http|https):\/\/)?(www\.)?(soundcloud\.com)(\/)?([a-zA-Z0-9\-\.]+)\/?', type: 'oembed/soundcloud'};
-		arrayRegex[15] = {domain: '((http|https):\/\/)?(www\.)?(flic\.kr)(\/)?([a-zA-Z0-9\-\.]+)\/?', type: 'oembed/flickr'};
+		arrayRegex[0] = {domain: '((http|https):\/\/)?(www\.)?(youtube\.com|youtu\.be)(\/)?([A-Za-z0-9\-\_]+)\/?', type: 'oembed/youtube'};
+		arrayRegex[1] = {domain: '((http|https):\/\/)?(www\.)?(blip\.tv)(\/)?([A-Za-z0-9\-\_]+)\/?', type: 'oembed/blip'};
+		arrayRegex[2] = {domain: '((http|https):\/\/)?(www\.)?(vimeo\.com)(\/)?([A-Za-z0-9\-\_]+)\/?', type: 'oembed/vimeo'};
+		arrayRegex[3] = {domain: '((http|https):\/\/)?(www\.)?(dailymotion\.com)(\/)?([A-Za-z0-9\-\_]+)\/?', type: 'oembed/dailymotion'};
+		arrayRegex[4] = {domain: '((http|https):\/\/)?(www\.)?(qik\.com)(\/)?([A-Za-z0-9\-\_]+)\/?', type: 'oembed/qik'};
+		arrayRegex[5] = {domain: '((http|https):\/\/)?(www\.)?(flickr\.com)(\/)?([A-Za-z0-9\-\_]+)\/?', type: 'oembed/flickr'};
+		arrayRegex[6] = {domain: '((http|https):\/\/)?(www\.)?(hulu\.com)(\/)?([A-Za-z0-9\-\_]+)\/?', type: 'oembed/hulu'};
+		arrayRegex[7] = {domain: '((http|https):\/\/)?(www\.)?(viddler\.com)(\/)?([A-Za-z0-9\-\_]+)\/?', type: 'oembed/viddler'};
+		arrayRegex[8] = {domain: '((http|https):\/\/)?(www\.)?(slideshare\.net)(\/)?([A-Za-z0-9\-\_]+)\/?', type: 'oembed/slideshare'};
+		arrayRegex[9] = {domain: '((http|https):\/\/)?(www\.)?(wordpress\.tv)(\/)?([A-Za-z0-9\-\_]+)\/?', type: 'oembed/wordpress'};
+		arrayRegex[10] = {domain: '((http|https):\/\/)?(www\.)?(twitter\.com)(\/)?([A-Za-z0-9\-\_]+)\/?', type: 'oembed/twitter'};
+		arrayRegex[11] = {domain: '((http|https):\/\/)?(www\.)?(scribd\.com)(\/)?([A-Za-z0-9\-\_]+)\/?', type: 'oembed/scribd'};
+		arrayRegex[12] = {domain: '((http|https):\/\/)?(www\.)?(photobucket\.com)(\/)?([A-Za-z0-9\-\_]+)\/?', type: 'oembed/photobucket'};
+		arrayRegex[13] = {domain: '((http|https):\/\/)?(www\.)?(soundcloud\.com)(\/)?([A-Za-z0-9\-\_]+)\/?', type: 'oembed/soundcloud'};
+		arrayRegex[15] = {domain: '((http|https):\/\/)?(www\.)?(flic\.kr)(\/)?([A-Za-z0-9\-\_]+)\/?', type: 'oembed/flickr'};
 		arrayRegex[16] = {domain: '((http|https):\/\/.+?\.jpg|jpeg|png|webp|gif|tiff/gi)/?', type: 'image/url'};
-		arrayRegex[17] = {domain: '((http|https):\/\/)?(www\.)?(spotify\.com)(\/)?([a-zA-Z0-9\-\.]+)\/?', type: 'oembed/spotify'};
+		arrayRegex[17] = {domain: '((http|https):\/\/)?(www\.)?(spotify\.com)(\/)?([A-Za-z0-9\-\_]+)\/?', type: 'oembed/spotify'};
 		arrayRegex[19] = {domain: '(.*?<\/svg>)\/?', type: 'oembed/svg'};
 		arrayRegex[20] = {domain: '(.*?<\/iframe>)\/?', type: 'oembed/iframe'};
 

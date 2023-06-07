@@ -10,7 +10,7 @@ UNCODE.textMarquee = function( $titles ) {
 		$titles = $('.un-text-marquee');
 	}
 
-	if ( ! $titles.length ) {
+	if ( ! $titles.length || SiteParameters.is_frontend_editor ) {
 		return;
 	}
 

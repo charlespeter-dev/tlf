@@ -1609,7 +1609,7 @@
 				}
 			}
 			//Uncode edit ##END##
-			this.onSlideObjectLoad(currentSlide, isHTML5VideoWithoutPoster, function () {
+			this.onSlideObjectLoad(currentSlide, true, function () {
 				_this.triggerSlideItemLoad(currentSlide, index, delay, speed, isFirstSlide);
 			}, function () {
 				currentSlide.addClass('lg-complete lg-complete_');

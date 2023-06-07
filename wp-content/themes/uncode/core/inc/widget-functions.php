@@ -16,6 +16,7 @@ function uncode_get_default_widget_args( $id, $_args = array() ) {
 		'before_title'  => '<' . $tag . ' class="widget-title">',
 		'after_title'   => '</' . $tag . '>',
 	);
+	$_args = is_array( $_args ) ? $_args : array();
 	$args = array_merge($args, $_args);
 	return $args;
 }

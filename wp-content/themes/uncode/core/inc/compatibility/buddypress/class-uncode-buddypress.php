@@ -1,23 +1,23 @@
 <?php
 /**
- * The Events Calendar support
+ * MemberPress helpers
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-// Check if The Events Calendar is active
-if ( ! class_exists( 'Tribe__Events__Main' ) ) {
+// Check if BuddyPress is active
+if ( ! class_exists( 'BuddyPress' ) ) {
 	return;
 }
 
-if ( ! class_exists( 'Uncode_Events_Calendar' ) ) :
+if ( ! class_exists( 'Uncode_BuddyPress' ) ) :
 
 /**
- * Uncode_Events_Calendar Class
+ * Uncode_BuddyPress Class
  */
-class Uncode_Events_Calendar {
+class Uncode_BuddyPress {
 
 	/**
 	 * Construct.
@@ -40,4 +40,4 @@ class Uncode_Events_Calendar {
 
 endif;
 
-return new Uncode_Events_Calendar();
+return new Uncode_BuddyPress();

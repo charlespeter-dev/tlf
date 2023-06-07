@@ -187,7 +187,7 @@ if ($column_width_use_pixel === 'yes' && $column_width_pixel !== '') {
 	}
 }
 
-global $metabox_data, $inner_column_style, $previous_blend, $is_cb;
+global $metabox_data, $inner_column_style, $previous_blend, $is_cb, $is_footer;
 if (isset($metabox_data['_uncode_specific_style'][0]) && $metabox_data['_uncode_specific_style'][0] !== '') {
 	$general_style = $metabox_data['_uncode_specific_style'][0];
 } else {
@@ -214,7 +214,7 @@ if (!empty($mobile_height)) {
 	$uncoltable_style .= 'min-height: ' . preg_replace("/[^0-9,.]/", "", $mobile_height) . 'px;';
 }
 
-if ( $back_image_auto === 'yes' && $featured_image !== "yes" && is_singular() && $is_cb ) {
+if ( $back_image_auto === 'yes' && $featured_image !== "yes" && is_singular() && ( $is_cb || $is_footer ) ) {
 	$featured_id = get_post_thumbnail_id(get_the_id());
 	$featured_id = apply_filters( 'uncode_featured_image_id', $featured_id, get_the_id() );
 

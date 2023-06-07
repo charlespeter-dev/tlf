@@ -5,9 +5,19 @@
 	window.UNCODE_WC = UNCODE_WC;
 
 	function get_cart() {
+		var ajaxurl = '';
+
 		if (window.wc_add_to_cart_params != undefined) {
+			ajaxurl = wc_add_to_cart_params.ajax_url
+		}
+
+		if (window.woocommerce_params != undefined) {
+			ajaxurl = woocommerce_params.ajax_url
+		}
+
+		if (ajaxurl) {
 			$.post({
-				url: wc_add_to_cart_params.ajax_url,
+				url: ajaxurl,
 				dataType: 'JSON',
 				data: {
 					action: 'woomenucart_ajax'
@@ -416,6 +426,7 @@
 					items: 1,
 					autoHeight: true,
 					dots: dots,
+					rtl: $('body').hasClass('rtl') ? true : false,
 					responsiveRefreshRate: 200,
 				}).on('changed.owl.carousel', function(event) {
 					if (event.namespace && event.property.name === 'position') {
@@ -441,13 +452,25 @@
 					margin: gutter,
 					autoHeight: true,
 					nav: true,
+					rtl: $('body').hasClass('rtl') ? true : false,
 					mouseDrag: cols < thumbsL,
 					navText: ['<div class="owl-nav-container btn-default btn-hover-nobg"><i class="fa fa-fw fa-angle-left"></i></div>', '<div class="owl-nav-container btn-default btn-hover-nobg"><i class="fa fa-fw fa-angle-right"></i></div>'],
 					responsiveRefreshRate: 100,
 				});
-				$(window).on('load uncode-quick-view-first-hover woocommerce_variation_has_loaded', function(){
+				$(window).on('load uncode-quick-view-first-hover woocommerce_variation_has_loaded', function () {
 					$main.trigger('refresh.owl.carousel');
 					$thumbs.trigger('refresh.owl.carousel');
+
+					var product_div = $main.closest('div.woocommerce-product-gallery--with-variation-gallery');
+
+					if (!product_div.length > 0) {
+						if (!$('.owl-item', $main).eq(0).hasClass('active')) {
+							$main.owlCarousel( 'to', 0, 300, true );
+						}
+						if (!$('.owl-item', $thumbs).eq(0).hasClass('active')) {
+							$thumbs.owlCarousel( 'to', 0, 300, true );
+						}
+					}
 				});
 			}
 		}
@@ -745,7 +768,7 @@
 			clearTimeout(cartShow);
 			clearTimeout(cartHover);
 
-			if ( $sidecart.length ) {
+			if ( $sidecart.length && ( ! ( $body.hasClass('uncode-sidecart-mobile-disabled') && UNCODE.wwidth <= UNCODE.mediaQuery ) ) ) {
 				$sidecart.imagesLoaded().done( function( instance ) {
 					setTimeout(function(){
 						sideCart_scrollTop = $('html, body').scrollTop();
@@ -793,7 +816,7 @@
 	 * View Cart Button
 	************************************************************/
 	$( document.body ).on( 'wc_cart_button_updated', function(e, $button){
-		if ( $(document.body).hasClass('minicart-notification') ) {
+		if ( $(document.body).hasClass('minicart-notification') || wc_add_to_cart_params == undefined ) {
 			return false;
 		}
 

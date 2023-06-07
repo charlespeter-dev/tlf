@@ -1964,11 +1964,11 @@ button[type="submit"] {
   body:not(.navbar-hover) .menu-desktop-transparent.style-light-override.top-menu p {
     color: <?php echo sanitize_text_field($color_menu_text); ?>;
   }
-  body:not(.navbar-hover) .menu-desktop-transparent.style-light-override .menu-smart a {
+  body:not(.navbar-hover) .menu-desktop-transparent.style-light-override .menu-smart > li > a {
     color: <?php echo sanitize_text_field($color_menu_text); ?>;
   }
-  body:not(.navbar-hover) .menu-desktop-transparent.style-light-override .menu-smart a:hover,
-  body:not(.navbar-hover) .menu-desktop-transparent.style-light-override .menu-smart a:focus {
+  body:not(.navbar-hover) .menu-desktop-transparent.style-light-override .menu-smart > li > a:hover,
+  body:not(.navbar-hover) .menu-desktop-transparent.style-light-override .menu-smart > li > a:focus {
     color: <?php echo sanitize_text_field($color_menu_text_hover); ?>;
   }
   body:not(.navbar-hover) .menu-desktop-transparent.style-light-override .mobile-additional-icon {
@@ -1979,11 +1979,11 @@ button[type="submit"] {
   body:not(.open-overlay-menu) .menu-mobile-transparent.style-light-override.top-menu p {
     color: <?php echo sanitize_text_field($color_menu_text); ?>;
   }
-  body:not(.open-overlay-menu) .menu-mobile-transparent.style-light-override .menu-smart a {
+  body:not(.open-overlay-menu) .menu-mobile-transparent.style-light-override .menu-smart > li > a {
     color: <?php echo sanitize_text_field($color_menu_text); ?>;
   }
-  body:not(.open-overlay-menu) .menu-mobile-transparent.style-light-override .menu-smart a:hover,
-  body:not(.open-overlay-menu) .menu-mobile-transparent.style-light-override .menu-smart a:focus {
+  body:not(.open-overlay-menu) .menu-mobile-transparent.style-light-override .menu-smart > li > a:hover,
+  body:not(.open-overlay-menu) .menu-mobile-transparent.style-light-override .menu-smart > li > a:focus {
     color: <?php echo sanitize_text_field($color_menu_text_hover); ?>;
   }
   body:not(.open-overlay-menu) .menu-mobile-transparent.style-light-override .mobile-additional-icon {
@@ -2024,13 +2024,13 @@ button[type="submit"] {
     color: <?php echo sanitize_text_field($color_menu_text_inverted); ?>;
   }
   body:not(.navbar-hover) .menu-desktop-transparent.style-dark-override a.menu-smart-toggle,
-  body:not(.navbar-hover) .menu-desktop-transparent.style-dark-override .menu-smart a {
+  body:not(.navbar-hover) .menu-desktop-transparent.style-dark-override .menu-smart > li > a {
     color: <?php echo sanitize_text_field($color_menu_text_inverted); ?>;
   }
   body:not(.navbar-hover) .menu-desktop-transparent.style-dark-override a.menu-smart-toggle:hover,
-  body:not(.navbar-hover) .menu-desktop-transparent.style-dark-override .menu-smart a:hover,
+  body:not(.navbar-hover) .menu-desktop-transparent.style-dark-override .menu-smart > li > a:hover,
   body:not(.navbar-hover) .menu-desktop-transparent.style-dark-override a.menu-smart-toggle:focus,
-  body:not(.navbar-hover) .menu-desktop-transparent.style-dark-override .menu-smart a:focus {
+  body:not(.navbar-hover) .menu-desktop-transparent.style-dark-override .menu-smart > li > a:focus {
     color: <?php echo sanitize_text_field($color_menu_text_inverted_hover); ?>;
   }
   body:not(.navbar-hover) .menu-desktop-transparent.style-dark-override .mobile-additional-icon {
@@ -2429,6 +2429,7 @@ body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_st
 .top-menu.top-menu-enhanced.top-menu-border.menu-light::after,
 body.menu-mobile-borders .submenu-light .menu-container .main-menu-container .menu-horizontal,
 body:not(.menu-force-opacity) .menu-light .menu-borders.needs-after .navbar-nav-last > *:first-child::after,
+body:not(.menu-force-opacity) .menu-light .menu-borders.needs-after .navbar-nav + .navbar-cta:not(.hmenu-center-split-child) > *:first-child::after,
 body:not(.menu-force-opacity) .menu-light .menu-borders.needs-after .navbar-nav-first > *:first-child::after,
 .top-menu.top-menu-enhanced.submenu-light:not(.top-menu-border) .row-menu-inner .menu-horizontal ul.menu-smart > li > ul {
   border-color: <?php echo sanitize_text_field($color_menu_border_light); ?> !important;
@@ -2436,6 +2437,7 @@ body:not(.menu-force-opacity) .menu-light .menu-borders.needs-after .navbar-nav-
 .top-menu.top-menu-enhanced.top-menu-border.menu-dark .row-menu-inner::after,
 body.menu-mobile-borders .submenu-dark .menu-container .main-menu-container .menu-horizontal,
 body:not(.menu-force-opacity) .menu-dark .menu-borders.needs-after .navbar-nav-last > *:first-child::after,
+body:not(.menu-force-opacity) .menu-dark .menu-borders.needs-after .navbar-nav + .navbar-cta:not(.hmenu-center-split-child) > *:first-child::after,
 body:not(.menu-force-opacity) .menu-dark .menu-borders.needs-after .navbar-nav-first > *:first-child::after,
 .top-menu.top-menu-enhanced.submenu-dark:not(.top-menu-border) .row-menu-inner .menu-horizontal ul.menu-smart > li > ul {
   border-color: <?php echo sanitize_text_field($color_menu_border_dark); ?> !important;

@@ -1,29 +1,32 @@
 <?php
 /**
- * The Events Calendar support
+ * MemberPress helpers
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-// Check if The Events Calendar is active
-if ( ! class_exists( 'Tribe__Events__Main' ) ) {
+// Check if MemberPress is active
+if ( ! class_exists( 'MeprRulesCtrl' ) ) {
 	return;
 }
 
-if ( ! class_exists( 'Uncode_Events_Calendar' ) ) :
+if ( ! class_exists( 'Uncode_Mepr' ) ) :
 
 /**
- * Uncode_Events_Calendar Class
+ * Uncode_Mepr Class
  */
-class Uncode_Events_Calendar {
+class Uncode_Mepr {
 
 	/**
 	 * Construct.
 	 */
 	public function __construct() {
 		add_filter( 'uncode_apply_the_content', array( $this, 'apply_the_content' ) );
+        if ( apply_filters( 'uncode_mp_single_content_raw', '__return_true' ) ) {
+            add_filter( 'uncode_get_single_content_raw', 'MeprRulesCtrl::rule_content', 999999, 1 );
+        }
 	}
 	
 	/**
@@ -40,4 +43,4 @@ class Uncode_Events_Calendar {
 
 endif;
 
-return new Uncode_Events_Calendar();
+return new Uncode_Mepr();

@@ -21,7 +21,7 @@
 
 	// Handle detection for mouse input (i.e. desktop browsers, tablets with a mouse, etc.)
 	function initMouseDetection(disable) {
-		if (!mouseDetectionEnabled && !disable) {
+		if (!mouseDetectionEnabled && !disable && !$('body').hasClass('vmenu')) {
 			// if we get two consecutive mousemoves within 2 pixels from each other and within 300ms, we assume a real mouse/cursor is present
 			// in practice, this seems like impossible to trick unintentianally with a real mouse and a pretty safe detection on touch devices (even with older browsers that do not support touch events)
 			var firstTime = true,

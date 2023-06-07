@@ -218,24 +218,24 @@
 				caller: $this,
 				hd: 1,
 				onReady: function(player) {
-					var getPlayer = player.c || player.h || player,
-					$iframe,
-					getContainer = $(getPlayer).closest('.background-element');
+					var getPlayer = player.g || player,
+					$iframe = $(getPlayer),
+					$drop = $iframe.closest('.drop-move'),
+					getContainer = $iframe.closest('.background-element');
 					if (getContainer.length) {
 						UNCODE.initVideoComponent(getContainer[0], '.uncode-video-container.video:not(.drop-move)');
 					}
 
-					if ( $this.hasClass('drop-move') ) {
+					if ( $drop.length ) {
 
-						var $iframe = $(getPlayer),
-							w = parseFloat($iframe.attr('width')),
-							h = parseFloat($iframe.attr('height')),
+						var w = parseFloat($drop.attr('data-width')),
+							h = parseFloat($drop.attr('data-height')),
 							ratio = h / w,
 							setResizeiFto,
 						resizeiFrame = function(){
 							var dataW = $this.attr('data-w'),
 								newW = UNCODE.wwidth / 12 * parseFloat( dataW ),
-								newH = newW * ratio;
+								newH = parseFloat(newW) * parseFloat(ratio);
 							$iframe.css({
 								width: newW,
 								height: newH

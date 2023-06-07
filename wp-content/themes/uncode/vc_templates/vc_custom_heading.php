@@ -173,7 +173,7 @@ if ($css_animation !== '' && uncode_animations_enabled() && strpos( $css_animati
 	}
 }
 
- if ( strpos( $css_animation, 'marquee') !== false ) {
+ if ( strpos( $css_animation, 'marquee') !== false) {
 	$content = str_replace(array("\r", "\n"), ' ', $content);
 	$classes[] = 'un-text-marquee';
 	$classes[] = 'un-' . $css_animation;
@@ -186,7 +186,7 @@ if ( $skew === 'yes' ) {
 	$resp_classes[] = 'uncode-skew';
 }
 
-if ( $sticky_trigger === 'yes' ) {
+if ( $sticky_trigger === 'yes' && ( ! function_exists('vc_is_page_editable') || ! vc_is_page_editable() )  ) {
 	$resp_classes[] = 'sticky-trigger';
 
 	if ( $sticky_trigger_option !== '' ) {

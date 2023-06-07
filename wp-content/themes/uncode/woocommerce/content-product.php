@@ -41,7 +41,7 @@ $overlay_back_color = 'style-' . $overlay_style . '-bg';
 
 $item_thumb_id = get_post_meta($post->ID, '_uncode_featured_media', 1);
 if ( $item_thumb_id === '' || $item_thumb_id == 0 ) {
-	$item_thumb_id = get_post_thumbnail_id($post->ID);
+	$item_thumb_id = $product->get_image_id();
 }
 
 $block_classes = array(

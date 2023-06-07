@@ -148,7 +148,7 @@ if ( $gdpr_consent_id !== '' && uncode_privacy_check_needed($gdpr_consent_id) ) 
 	}
 }
 
-global $row_cols_md_counter, $row_cols_sm_counter, $inner_column_style, $front_background_colors, $previous_blend, $is_cb, $uncode_vc_block, $uncode_colors_flat_array, $changer_back_first, $changer_back_color_div, $changer_back_color_row, $changer_back_color_row_inner, $changer_back_color_column_inner;
+global $row_cols_md_counter, $row_cols_sm_counter, $inner_column_style, $front_background_colors, $previous_blend, $is_cb, $uncode_vc_block, $uncode_colors_flat_array, $changer_back_first, $changer_back_color_div, $changer_back_color_row, $changer_back_color_row_inner, $changer_back_color_column_inner, $is_footer;
 $row_cols_md_counter = $row_cols_sm_counter = 0;
 
 $inner_column_style = '';
@@ -252,8 +252,7 @@ if ( $previous_blend === true ) {
 	$row_cont_classes[] = 'row-next-to-blend';
 }
 $previous_blend = false;
-
-if ( $back_image_auto === 'yes' && $featured_image !== "yes" && is_singular() && ( $is_cb || $uncode_vc_block ) ) {
+if ( $back_image_auto === 'yes' && $featured_image !== "yes" && is_singular() && ( $is_cb || $uncode_vc_block || $is_footer ) ) {
 	$featured_id = get_post_thumbnail_id(get_the_id());
 	$featured_id = apply_filters( 'uncode_featured_image_id', $featured_id, get_the_id() );
 
@@ -1059,7 +1058,7 @@ if ($shift_y != '0' && $shift_y != '') {
         break;
     }
     if ($shift_y_fixed === 'yes') {
-    	$uncol_classes[] = 'shift_y_fixed';
+    	$row_inner_classes[] = 'shift_y_fixed';
     }
 }
 /** END - shift construction **/

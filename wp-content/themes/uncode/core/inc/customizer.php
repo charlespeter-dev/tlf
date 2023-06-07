@@ -62,6 +62,8 @@ function uncode_remove_p_tag( $content, $autop = false ) {
 		$content = wp_filter_content_tags( $content );
 	}
 
+	$content = apply_filters( 'uncode_remove_p_tag_output', $content );
+
 	return $content;
 }
 

@@ -7,6 +7,8 @@
  * @package uncode
  */
 
+do_action( 'uncode_before_footer_output' );
+
 if ( ! function_exists( 'uncode_get_current_post_type' ) || uncode_get_current_post_type() !== 'uncodeblock' ) {
 
 	global $metabox_data, $is_redirect, $menutype, $is_footer;

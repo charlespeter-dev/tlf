@@ -75,7 +75,9 @@ function uncode_check_for_row_with_custom_ajax_filters( $content ) {
 				$post_module_shortcode = $first_match[0];
 
 				if ( $post_module_shortcode ) {
-					global $uncode_index_query;
+					global $uncode_index_query, $has_ajax_filters;
+
+					$has_ajax_filters = true;
 
 					preg_match_all( $regex_attr, trim( $post_module_shortcode ), $matches_attr, PREG_SET_ORDER );
 					foreach ( $matches_attr as $key_attr => $value_attr ) {
@@ -103,7 +105,7 @@ function uncode_check_for_row_with_custom_ajax_filters( $content ) {
 /**
  * Function that populates the module with tax terms
  */
-function uncode_filters_populate_tax_terms( $tax_source, $tax_to_query, $query_args, $multiple, $hierarchy ) {
+function uncode_filters_populate_tax_terms( $tax_source, $tax_to_query, $query_args, $multiple, $hierarchy, $order_by, $sort_by ) {
 	// Populate terms
 	$tax_terms = array();
 
@@ -115,10 +117,12 @@ function uncode_filters_populate_tax_terms( $tax_source, $tax_to_query, $query_a
 
 		if ( ! empty( $post_terms ) && ! is_wp_error( $post_terms ) ) {
 			foreach ( $post_terms as $post_term ) {
-				$tax_terms[ $post_term->term_id ] = array(
-					'count' => $post_term->count,
-					'term'  => $post_term,
-				);
+				if ( $post_term->count > 0 ) {
+					$tax_terms[ $post_term->term_id ] = array(
+						'count' => $post_term->count,
+						'term'  => $post_term,
+					);
+				}
 			}
 		}
 	} else {
@@ -225,13 +229,32 @@ function uncode_filters_populate_tax_terms( $tax_source, $tax_to_query, $query_a
 						$post_terms = uncode_add_missing_parent_terms( $post_terms_with_index );
 
 						foreach ( $post_terms as $post_term ) {
-							if ( isset( $tax_terms[ $post_term->term_id ] ) ) {
-								$tax_terms[ $post_term->term_id ]['count']++;
+							$add_to_count = false;
+
+							if ( class_exists( 'WooCommerce' ) && $tax_source === 'product_att' && apply_filters( 'uncode_use_woocommerce_nav_attributes_query', false ) && get_option( 'woocommerce_attribute_lookup_enabled' ) === 'yes' && 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) ) {
+								global $wpdb;
+
+								$lookup_table_name = $wpdb->prefix . 'wc_product_attributes_lookup';
+
+								$results_query = $wpdb->get_results( $wpdb->prepare("SELECT * FROM $lookup_table_name WHERE product_or_parent_id = %d AND term_id = %d AND in_stock = 1", $post->ID, $post_term->term_id ), ARRAY_A );
+
+								if ( is_array( $results_query ) && count( $results_query ) > 0 ) {
+									$add_to_count = true;
+								}
 							} else {
-								$tax_terms[ $post_term->term_id ] = array(
-									'count' => 1,
-									'term'  => $post_term,
-								);
+								$add_to_count = true;
+
+							}
+
+							if ( $add_to_count ) {
+								if ( isset( $tax_terms[ $post_term->term_id ] ) ) {
+									$tax_terms[ $post_term->term_id ]['count']++;
+								} else {
+									$tax_terms[ $post_term->term_id ] = array(
+										'count' => 1,
+										'term'  => $post_term,
+									);
+								}
 							}
 						}
 					}
@@ -247,9 +270,15 @@ function uncode_filters_populate_tax_terms( $tax_source, $tax_to_query, $query_a
 	}
 
 	// Order terms
-	$tax_terms = uncode_sort_filters_by_name( $tax_terms );
+	if ( $order_by === 'count' ) {
+		$tax_terms = uncode_sort_filters_by_count( $tax_terms, $sort_by );
+	} else if ( $order_by === 'custom' ) {
+		$tax_terms = uncode_sort_filters_by_custom_order( $tax_terms, $sort_by );
+	} else {
+		$tax_terms = uncode_sort_filters_by_name( $tax_terms, $sort_by );
+	}
 
-	$tax_terms = apply_filters( 'uncode_filters_get_tax_terms', $tax_terms );
+	$tax_terms = apply_filters( 'uncode_filters_get_tax_terms', $tax_terms, $tax_source, $tax_to_query, $query_args, $multiple, $hierarchy, $order_by, $sort_by );
 
 	return $tax_terms;
 }
@@ -257,7 +286,7 @@ function uncode_filters_populate_tax_terms( $tax_source, $tax_to_query, $query_a
 /**
  * Function that populates the module with author terms
  */
-function uncode_filters_populate_author_terms( $query_args ) {
+function uncode_filters_populate_author_terms( $query_args, $sort_by ) {
 	// Populate terms
 	$author_terms = array();
 
@@ -372,9 +401,9 @@ function uncode_filters_populate_author_terms( $query_args ) {
 	}
 
 	// Order terms
-	$author_terms = uncode_sort_filters_by_author_name( $author_terms );
+	$author_terms = uncode_sort_filters_by_author_name( $author_terms, $sort_by );
 
-	$author_terms = apply_filters( 'uncode_filters_get_author_terms', $author_terms );
+	$author_terms = apply_filters( 'uncode_filters_get_author_terms', $author_terms, $query_args, $sort_by );
 
 	return $author_terms;
 }
@@ -546,7 +575,7 @@ function uncode_filters_populate_date_terms( $query_args, $date_type, $date_sort
 	// Order terms
 	$date_terms = uncode_sort_filters_by_date( $date_terms, $date_sort );
 
-	$date_terms = apply_filters( 'uncode_filters_get_date_terms', $date_terms );
+	$date_terms = apply_filters( 'uncode_filters_get_date_terms', $date_terms, $query_args, $date_type, $date_sort );
 
 	return $date_terms;
 }
@@ -672,7 +701,7 @@ function uncode_filters_populate_product_status_terms( $query_args, $multiple ) 
 		}
 	}
 
-	$filter_terms = apply_filters( 'uncode_filters_get_product_status_terms', $filter_terms );
+	$filter_terms = apply_filters( 'uncode_filters_get_product_status_terms', $filter_terms, $query_args, $multiple );
 
 	return $filter_terms;
 }
@@ -738,7 +767,7 @@ function uncode_filters_populate_product_price_terms( $lines, $query_args ) {
 				$price = floatval( $line );
 
 				$price_ranges[] = array(
-					'name'      => sprintf( __( 'Under %s', 'uncode' ), wc_price( $price ) ),
+					'name'      => sprintf( _x( 'Under %s', 'ajax_price_filter', 'uncode' ), wc_price( $price ) ),
 					'min_price' => 0,
 					'max_price' => $price,
 					'count'     => 0
@@ -748,7 +777,7 @@ function uncode_filters_populate_product_price_terms( $lines, $query_args ) {
 				$price = floatval( $line );
 
 				$price_ranges[] = array(
-					'name'      => sprintf( __( 'Over %s', 'uncode' ), wc_price( $price ) ),
+					'name'      => sprintf( _x( 'Over %s', 'ajax_price_filter', 'uncode' ), wc_price( $price ) ),
 					'min_price' => $price,
 					'max_price' => 0,
 					'count'     => 0
@@ -851,7 +880,7 @@ function uncode_filters_populate_product_price_terms( $lines, $query_args ) {
 
 					$price_ranges = $new_filter_terms;
 
-					$price_ranges = apply_filters( 'uncode_filters_get_product_price_terms', $price_ranges );
+					$price_ranges = apply_filters( 'uncode_filters_get_product_price_terms', $price_ranges, $lines, $query_args );
 
 					return $price_ranges;
 				}
@@ -864,11 +893,24 @@ function uncode_filters_populate_product_price_terms( $lines, $query_args ) {
 				global $post, $product;
 
 				if ( is_a( $product, 'WC_Product' ) ) {
-					$price = $product->get_price();
+					$price = floatval( $product->get_price() );
+
+					$is_variable_product = $product->get_type() === 'variable' ? true : false;
 
 					foreach ( $price_ranges as $key => $price_range ) {
-						if ( uncode_filters_is_product_in_price_range( $price, $price_range ) ) {
-							$price_ranges[$key]['count']++;
+						if ( $is_variable_product ) {
+							$variation_min_price = floatval( $product->get_variation_price( 'min', true ) );
+							$variation_max_price = floatval( $product->get_variation_price( 'max', true ) );
+
+							$variable_price = array( 'min_price' => $variation_min_price,   'max_price' => $variation_max_price );
+
+							if ( uncode_filters_is_product_in_price_range( $variable_price, $price_range, true ) ) {
+								$price_ranges[$key]['count']++;
+							}
+						} else {
+							if ( uncode_filters_is_product_in_price_range( $price, $price_range ) ) {
+								$price_ranges[$key]['count']++;
+							}
 						}
 					}
 				}
@@ -884,7 +926,7 @@ function uncode_filters_populate_product_price_terms( $lines, $query_args ) {
 		}
 	}
 
-	$price_ranges = apply_filters( 'uncode_filters_get_product_price_terms', $price_ranges );
+	$price_ranges = apply_filters( 'uncode_filters_get_product_price_terms', $price_ranges, $lines, $query_args );
 
 	return $price_ranges;
 }
@@ -985,7 +1027,7 @@ function uncode_filters_populate_product_ratings_terms( $query_args, $multiple )
 
 					$filter_terms = $new_filter_terms;
 
-					$filter_terms = apply_filters( 'uncode_filters_get_product_ratings_terms', $filter_terms );
+					$filter_terms = apply_filters( 'uncode_filters_get_product_ratings_terms', $filter_terms, $query_args, $multiple );
 
 					return $filter_terms;
 				}
@@ -1016,7 +1058,7 @@ function uncode_filters_populate_product_ratings_terms( $query_args, $multiple )
 		}
 	}
 
-	$filter_terms = apply_filters( 'uncode_filters_get_product_ratings_terms', $filter_terms );
+	$filter_terms = apply_filters( 'uncode_filters_get_product_ratings_terms', $filter_terms, $query_args, $multiple );
 
 	return $filter_terms;
 }
@@ -1047,7 +1089,7 @@ function uncode_filters_get_label( $type, $count = 0 ) {
 /**
  * Sort found terms by name
  */
-function uncode_sort_filters_by_name( $terms ) {
+function uncode_sort_filters_by_name( $terms, $sort_by ) {
 	$sorted_array = array();
 
 	foreach ( $terms as $term_id => $term_data ) {
@@ -1056,7 +1098,61 @@ function uncode_sort_filters_by_name( $terms ) {
 		$sorted_array[$term_id] = $name;
 	}
 
-	asort( $sorted_array );
+	if ( $sort_by === 'desc' ) {
+		arsort( $sorted_array );
+	} else {
+		asort( $sorted_array );
+	}
+
+	foreach ( $sorted_array as $key => $value ) {
+		$sorted_array[$key] = $terms[$key];
+	}
+
+	return $sorted_array;
+}
+
+/**
+ * Sort found terms by count
+ */
+function uncode_sort_filters_by_count( $terms, $sort_by ) {
+	$sorted_array = array();
+
+	foreach ( $terms as $term_id => $term_data ) {
+		$term  = $term_data['term'];
+		$count = $term_data['count'];
+		$sorted_array[$term_id] = $count;
+	}
+
+	if ( $sort_by === 'desc' ) {
+		arsort( $sorted_array, SORT_NUMERIC );
+	} else {
+		asort( $sorted_array, SORT_NUMERIC );
+	}
+
+	foreach ( $sorted_array as $key => $value ) {
+		$sorted_array[$key] = $terms[$key];
+	}
+
+	return $sorted_array;
+}
+
+/**
+ * Sort found terms by custom order
+ */
+function uncode_sort_filters_by_custom_order( $terms, $sort_by ) {
+	$sorted_array = array();
+
+	foreach ( $terms as $term_id => $term_data ) {
+		$term  = $term_data['term'];
+		$term_order = get_term_meta( $term_id, 'order', true );
+		$sorted_array[$term_id] = $term_order;
+	}
+
+	if ( $sort_by === 'desc' ) {
+		arsort( $sorted_array, SORT_NUMERIC );
+	} else {
+		asort( $sorted_array, SORT_NUMERIC );
+	}
 
 	foreach ( $sorted_array as $key => $value ) {
 		$sorted_array[$key] = $terms[$key];
@@ -1068,7 +1164,7 @@ function uncode_sort_filters_by_name( $terms ) {
 /**
  * Sort found authors by name
  */
-function uncode_sort_filters_by_author_name( $authors ) {
+function uncode_sort_filters_by_author_name( $authors, $sort_by ) {
 	$sorted_array = array();
 
 	foreach ( $authors as $author_id => $author_data ) {
@@ -1076,7 +1172,11 @@ function uncode_sort_filters_by_author_name( $authors ) {
 		$sorted_array[$author_id] = $name;
 	}
 
-	asort( $sorted_array );
+	if ( $sort_by === 'desc' ) {
+		arsort( $sorted_array );
+	} else {
+		asort( $sorted_array );
+	}
 
 	foreach ( $sorted_array as $key => $value ) {
 		$sorted_array[$key] = $authors[$key];
@@ -1176,7 +1276,11 @@ function uncode_build_filter_link( $link, $query_args ) {
 		if ( ! $value ) {
 			unset( $query_args[$key] );
 		} else {
-			$value = str_replace( '%2C', ',', urlencode( sanitize_text_field( wp_unslash( $value ) ) ) );
+			if ( apply_filters( 'uncode_filters_sanitize_value', true ) ) {
+				$value = str_replace( '%2C', ',', urlencode( sanitize_text_field( wp_unslash( $value ) ) ) );
+			} else {
+				$value = str_replace( '%2C', ',', wp_unslash( $value ) );
+			}
 			$query_args[$key] = $value;
 		}
 	}
@@ -1413,6 +1517,17 @@ function uncode_get_filter_link_attributes( $term, $key_to_query, $query_args = 
 		}
 
 		if ( isset( $query_args[$key_to_query] ) ) {
+			if ( ! apply_filters( 'uncode_filters_sanitize_value', true ) ) {
+				$query_args_in_query = $query_args[$key_to_query];
+				foreach( $query_args_in_query as $query_args_in_query_key => $query_args_in_query_value ) {
+					$query_args_in_query_sanitized_value = sanitize_title( $query_args_in_query_value );
+
+					if ( $key_value === $query_args_in_query_sanitized_value ) {
+						$key_value = $query_args_in_query_value;
+					}
+				}
+			}
+
 			// Remove current term if already chosen
 			if ( in_array( $key_value, $query_args[$key_to_query] ) ) {
 				$taxonomy_values = $query_args[$key_to_query];
@@ -1621,16 +1736,30 @@ function uncode_get_filters_query_relation( $taxonomy, $query_args, $tax_source 
 /**
  * Check if a price is in a range of prices
  */
-function uncode_filters_is_product_in_price_range( $price, $price_range ) {
-	$price = floatval( $price );
-
-	if ( $price_range['max_price'] > 0 ) {
-		if ( $price >= $price_range['min_price'] && $price <= $price_range['max_price'] ) {
-			return true;
+function uncode_filters_is_product_in_price_range( $price, $price_range, $is_variable = false ) {
+	if ( $is_variable ) {
+		if ( $price_range['min_price'] > 0 && $price_range['max_price'] > 0 ) {
+			if ( $price['max_price'] >= $price_range['min_price'] && $price['min_price'] <= $price_range['max_price'] ) {
+				return true;
+			}
+		} else if ( $price_range['max_price'] > 0 ) {
+			if ( $price['max_price'] <= $price_range['max_price'] ) {
+				return true;
+			}
+		} else {
+			if ( $price['max_price'] >= $price_range['min_price'] ) {
+				return true;
+			}
 		}
 	} else {
-		if ( $price >= $price_range['min_price'] ) {
-			return true;
+		if ( $price_range['max_price'] > 0 ) {
+			if ( $price >= $price_range['min_price'] && $price <= $price_range['max_price'] ) {
+				return true;
+			}
+		} else {
+			if ( $price >= $price_range['min_price'] ) {
+				return true;
+			}
 		}
 	}
 

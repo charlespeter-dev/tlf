@@ -486,6 +486,7 @@ body:not(.lg-from-hash) .lg-outer.lg-start-opacity .lg-item:not(.lg-zoomable).lg
   -o-transition: opacity 0s;
   transition: opacity 0s;
   white-space: nowrap;
+  direction: ltr;
 }
 .lg-outer .lg-item {
   display: none !important;

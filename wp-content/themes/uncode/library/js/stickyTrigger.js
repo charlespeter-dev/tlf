@@ -41,8 +41,14 @@
 	$(window).on( 'load', function(){
 		stickyTrigger();
 	});
-	$(window).on( 'resize', function(){
+	var oldW = UNCODE.wwidth;
+	$(window).on( 'resize uncode.re-layout', function(e){
 		clearRequestTimeout(setResizeSticky);
+		if ( e.type === 'resize' && oldW === UNCODE.wwidth ) {
+			return;
+		} else {
+			oldW = UNCODE.wwidth;
+		}
 		setResizeSticky = requestTimeout( function(){
 			stickyTrigger();
 			ScrollTrigger.refresh();

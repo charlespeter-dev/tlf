@@ -53,6 +53,8 @@ function uncode_wc_localize_scripts() {
 		'i18n_add_to_cart_text'           => __( 'Add to cart', 'woocommerce' ),
 		'i18n_variation_add_to_cart_text' => __( 'Select options', 'woocommerce' ),
 		'pa_filter_prefix'                => UNCODE_FILTER_PREFIX_PA,
+		'yith_ajax_wishlist'              => ! is_product() && class_exists( 'YITH_WCWL' ) && 'yes' === get_option( 'yith_wcwl_ajax_enable', 'no' ) ? true : false,
+		'swatches_use_custom_find'        => apply_filters( 'uncode_woocommerce_swatches_use_custom_find', false ),
 	) );
 
 	wp_localize_script( 'woocommerce-uncode', 'UncodeWCParameters', $uncode_wc_parameters );
@@ -291,3 +293,15 @@ function uncode_woocommerce_track_product_view() {
 	wc_setcookie( 'woocommerce_recently_viewed', implode( '|', $viewed_products ) );
 }
 add_action( 'template_redirect', 'uncode_woocommerce_track_product_view', 20 );
+
+/**
+ * Wrapper for wc_wp_theme_get_element_class_name()
+ * that checks if the functions exists
+ */
+function uncode_wc_wp_theme_get_element_class_name( $element ) {
+	if ( function_exists( 'wc_wp_theme_get_element_class_name' ) ) {
+		return wc_wp_theme_get_element_class_name( $element );
+	} else {
+		return '';
+	}
+}

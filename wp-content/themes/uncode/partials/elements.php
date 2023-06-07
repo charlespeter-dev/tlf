@@ -43,8 +43,8 @@ if (!function_exists('uncode_get_back_html')) {
 
 				if (strpos($background_mime, 'image/') !== false) {
 					$back_metavalues = unserialize($back_attributes->metadata);
-					$image_orig_w = $back_metavalues['width'];
-					$image_orig_h = $back_metavalues['height'];
+					$image_orig_w = isset( $back_metavalues['width'] ) ? $back_metavalues['width'] : 1;
+					$image_orig_h = isset( $back_metavalues['height'] ) ? $back_metavalues['height'] : 1;
 					if ($background_mime === 'image/gif' || $background_mime === 'image/url') {
 						$background_url = $back_attributes->guid;
 					} else {
@@ -69,7 +69,7 @@ if (!function_exists('uncode_get_back_html')) {
 					if ( $adaptive_images === 'off' && $dynamic_srcset_active && $do_bg_replace ) {
 						$back_url = '';
 					} else {
-						$back_url = ($background_url != '') ? 'background-image: url(' . $background_url . ');' : '';
+						$back_url = ($background_url != '') ? 'background-image: url(' . str_replace(' ', '%20', $background_url) . ');' : '';
 					}
 				} elseif (strpos($background_mime, 'video/') !== false) {
 					$poster = get_post_meta($background['background-image'], "_uncode_poster_image", true);
@@ -149,7 +149,12 @@ if (!function_exists('uncode_get_back_html')) {
 					$header_background_selfvideo = str_replace('<video','<video loop '. $background_mobile_attr . 'muted', $header_background_selfvideo);
 
 					$get_video_meta = unserialize($back_attributes->metadata);
-					$video_ratio = $get_video_meta['width'] / $get_video_meta['height'];
+					$get_video_meta = unserialize($back_attributes->metadata);
+					$get_video_w = (int) $get_video_meta['width'];
+					$get_video_w = !$get_video_w ? 16 : $get_video_w;
+					$get_video_h = (int) $get_video_meta['height'];
+					$get_video_h = !$get_video_h ? 9 : $get_video_h;
+					$video_ratio = $get_video_w / $get_video_h;
 					$header_background_selfvideo = str_replace('class="background-video-shortcode"','class="background-video-shortcode" data-ratio="'.$video_ratio.'"', $header_background_selfvideo);
 				} else {
 					switch ($background_mime) {
@@ -168,8 +173,8 @@ if (!function_exists('uncode_get_back_html')) {
 						case 'oembed/vimeo':
 						case 'oembed/youtube':
 							$back_metavalues = unserialize($back_attributes->metadata);
-							$video_orig_w = $back_metavalues['width'];
-							$video_orig_h = $back_metavalues['height'];
+							$video_orig_w = absint($back_metavalues['width']);
+							$video_orig_h = absint($back_metavalues['height']);
 							$video_ratio = ($video_orig_h === 0) ? 1.777 : $video_orig_w / $video_orig_h;
 							$parse_video_url = parse_url(html_entity_decode($back_attributes->guid));
 							$video_url = strtok($back_attributes->guid, '?');
@@ -812,9 +817,9 @@ if (!function_exists('uncode_create_single_block')) {
 					case 'media':
 						if ( $is_table ) {
 							$inner_entry .= '[uncode_type_media_output]';
-							$single_width = $table_col;
 
-							if ( isset($images_size) && $images_size !== '' ) {
+							if ( isset($images_size) && $images_size !== '' && isset( $table_col ) ) {
+								$single_width = $table_col;
 								switch ($images_size) {
 									case ('one-one'):
 										$single_height = $single_width;
@@ -1785,7 +1790,7 @@ if (!function_exists('uncode_create_single_block')) {
 							}
 						} elseif ( isset($block_data['media_subtitle_custom']) && $block_data['media_subtitle_custom'] !== '' ) {
 							if ( isset( $block_data['table_heading'] ) ) {
-								$inner_entry .= '<p class="' . trim(implode(' ', $meta_class)) . ' ">' . $esc_attr( $block_data['media_subtitle_custom'] ) . '</p>';
+								$inner_entry .= '<p class="' . trim(implode(' ', $meta_class)) . ' ">' . esc_attr( $block_data['media_subtitle_custom'] ) . '</p>';
 							} else {
 								$inner_entry .= '<p class="t-entry-excerpt '.$text_size.'">' . esc_attr( $block_data['media_subtitle_custom'] ) . '</p>';
 							}
@@ -1918,7 +1923,7 @@ if (!function_exists('uncode_create_single_block')) {
 					break;
 
 					default:
-						if ($key !== 'media') {
+						if ($key !== 'media' && isset($block_data['id'])) {	
 							$get_cf_value = get_post_meta($block_data['id'], $key, true);
 							if (isset($get_cf_value) && $get_cf_value !== '') {
 								$inner_entry.= '<div class="t-entry-cf-'.$key;
@@ -2018,6 +2023,21 @@ if (!function_exists('uncode_create_single_block')) {
 							</div>';
 					}
 				}
+			}
+		}
+
+		$block_data['layout'] = $layout;
+		
+		if ( empty( $item_thumb_id ) && $is_product && $product->get_type() === 'variation' ) {
+			if ( apply_filters( 'uncode_woocommerce_use_get_image_id_original_hook', false ) ) {
+				$parent_product = wc_get_product( $product->get_parent_id() );
+				$product_parent_thumb_id = $parent_product->get_image_id();
+			} else {
+				$product_parent_thumb_id = get_post_thumbnail_id( $product->get_parent_id() );
+			}
+
+			if ( $product_parent_thumb_id ) {
+				$item_thumb_id = $product_parent_thumb_id;
 			}
 		}
 
@@ -2174,8 +2194,8 @@ if (!function_exists('uncode_create_single_block')) {
 								$single_height = $single_height / ( 12 / $single_image_size );
 							}
 						}
-						global $woocommerce_loop, $uncode_vc_index, $uncode_vc_gallery, $is_footer;
- 						if ( !$uncode_vc_index && !$uncode_vc_gallery && !$is_footer && ( !function_exists('is_product') || !is_product() ) && ( ( isset($woocommerce_loop['is_shortcode']) && $woocommerce_loop['is_shortcode'] ) || ( function_exists('is_product_category') && is_product_category() ) || ( function_exists('is_product_tag') && is_product_tag() ) || apply_filters( 'uncode_wc_apply_customizer_sizes', false, $block_data ) ) ) {
+						global $woocommerce_loop, $uncode_vc_index, $uncode_vc_gallery, $is_footer, $is_header_cb;
+ 						if ( !$uncode_vc_index && !$uncode_vc_gallery && !$is_footer && !$is_header_cb && ( !function_exists('is_product') || !is_product() ) && ( ( isset($woocommerce_loop['is_shortcode']) && $woocommerce_loop['is_shortcode'] ) || ( function_exists('is_product_category') && is_product_category() ) || ( function_exists('is_product_tag') && is_product_tag() ) || apply_filters( 'uncode_wc_apply_customizer_sizes', false, $block_data ) ) ) {
 							$WC_vers = uncode_get_WC_version();
 							if ( version_compare( $WC_vers, '3.3', '<' ) ) {
 								$wc_catalog_image_size = get_option('shop_catalog_image_size');
@@ -2775,7 +2795,7 @@ if (!function_exists('uncode_create_single_block')) {
 
 				}
 
-				if (($single_text !== 'overlay' || $single_elements_click !== 'yes') && $media_type === 'image' && !isset($block_data['is_avatar'])) {
+				if (($single_text !== 'overlay' || $single_elements_click !== 'yes') && ( $media_type === 'image' || ( $media_mime === 'image/svg+xml' && apply_filters( 'uncode_use_svgs_for_links', false ) ) ) && !isset($block_data['is_avatar'])) {
 
 					if ($style_preset === 'masonry') {
 						$a_classes[] = 'pushed';
@@ -2952,12 +2972,12 @@ if (!function_exists('uncode_create_single_block')) {
 
 					if ( $lbox_enhance ) {
 						if ( $media_attributes->post_mime_type !== 'video/mp4' && $media_attributes->post_mime_type !== 'oembed/spotify' && ( ! isset($block_data['album_id']) || $block_data['album_id'] === '' ) ) {
-							$href_att = ' href="'. (($media_type === 'image') ? $create_link : '').'"';
+							$href_att = ' href="'. ( ($media_type === 'image' || ( $media_mime === 'image/svg+xml' && apply_filters( 'uncode_use_svgs_for_links', false ) ) ) ? $create_link : '').'"';
 						} else {
 							$href_att = '';
 						}
 					} else {
-						$href_att = ' href="'. (($media_type === 'image') ? $create_link : '').'"';
+						$href_att = ' href="'. ( ($media_type === 'image' || ( $media_mime === 'image/svg+xml' && apply_filters( 'uncode_use_svgs_for_links', false ) ) ) ? $create_link : '').'"';
 					}
 
 					$media_output .= '<a tabindex="-1"' . $href_att .((count($a_classes) > 0 ) ? ' class="'.trim(implode(' ', $a_classes)).'"' : '').$lightbox_data.$data_values.'>';
@@ -3198,8 +3218,8 @@ if (!function_exists('uncode_create_single_block')) {
 								} elseif ( strpos($background_mime, 'oembed/youtube') !== false || strpos($background_mime, 'oembed/vimeo') !== false ) {
 
 									$back_metavalues = unserialize($media_attributes->metadata);
-									$video_orig_w = $back_metavalues['width'];
-									$video_orig_h = $back_metavalues['height'];
+									$video_orig_w = absint($back_metavalues['width']);
+									$video_orig_h = absint($back_metavalues['height']);
 									$video_ratio = ($video_orig_h === 0) ? 1.777 : $video_orig_w / $video_orig_h;
 									$parse_video_url = parse_url(html_entity_decode($media_attributes->guid));
 									$video_url = strtok($media_attributes->guid, '?');
@@ -3365,10 +3385,8 @@ if (!function_exists('uncode_create_single_block')) {
 
 			}
 
-			if (($single_text !== 'overlay' || $single_elements_click !== 'yes') && $media_type === 'image' && !isset($block_data['is_avatar'])) {
-
+			if (($single_text !== 'overlay' || $single_elements_click !== 'yes') && ( $media_type === 'image' || ( $media_mime === 'image/svg+xml' && apply_filters( 'uncode_use_svgs_for_links', false ) ) ) && !isset($block_data['is_avatar'])) {
 				$media_output .= '</a>';
-
 			}
 
 			$has_add_to_cart_overlay = false;

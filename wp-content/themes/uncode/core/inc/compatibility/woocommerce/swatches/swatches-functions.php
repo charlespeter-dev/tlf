@@ -94,17 +94,30 @@ function uncode_wc_get_attribute_swatch_value( $attribute_name, $attribute_value
 	if ( $swatch_type === 'thumbnail' ) {
 		$selected_variation = uncode_wc_get_selected_variation_for_attr( $attribute_name, $attribute_value, $available_variations );
 		$thumbnail_id       = false;
+		$hidden             = false;
+
+		if ( empty( $selected_variation ) && false !== $available_variations ) {
+			$hidden = true;
+		}
 
 		if ( is_array( $selected_variation ) && isset( $selected_variation['image_id'] ) ) {
 			$thumbnail_id = $selected_variation['image_id'] ? absint( $selected_variation['image_id'] ) : false;
 		}
 
 		$swatch = array(
-			'type'  => 'featured',
-			'value' => $thumbnail_id,
+			'type'   => 'featured',
+			'value'  => $thumbnail_id,
+			'hidden' => $hidden,
 		);
 
 	} else {
+		$selected_variation = uncode_wc_get_selected_variation_for_attr( $attribute_name, $attribute_value, $available_variations );
+		$hidden             = false;
+
+		if ( empty( $selected_variation ) && false !== $available_variations ) {
+			$hidden = true;
+		}
+
 		$term = get_term_by( 'slug', $attribute_value, $attribute_name );
 
 		if ( $term ) {
@@ -114,8 +127,9 @@ function uncode_wc_get_attribute_swatch_value( $attribute_name, $attribute_value
 					$color = $color ? $color : '#EEEEEF';
 
 					$swatch = array(
-						'type'  => 'color',
-						'value' => $color,
+						'type'   => 'color',
+						'value'  => $color,
+						'hidden' => $hidden,
 					);
 					break;
 
@@ -124,16 +138,18 @@ function uncode_wc_get_attribute_swatch_value( $attribute_name, $attribute_value
 					$thumbnail_id = $thumbnail_id ? $thumbnail_id : false;
 
 					$swatch = array(
-						'type'  => 'image',
-						'value' => $thumbnail_id,
+						'type'   => 'image',
+						'value'  => $thumbnail_id,
+						'hidden' => $hidden,
 					);
 
 					break;
 
 				case 'label':
 					$swatch = array(
-						'type'  => 'label',
-						'value' => $term->name,
+						'type'   => 'label',
+						'value'  => $term->name,
+						'hidden' => $hidden,
 					);
 					break;
 
@@ -156,7 +172,10 @@ function uncode_wc_print_swatches( $product, $swatches, $attribute_name, $option
 			$default_selected = $product->get_variation_default_attribute( $attribute_name );
 			$selected         = uncode_wc_get_default_selected_attribute( $attribute_name, $default_selected );
 
-			echo '<div class="swatches-select swatches-select--single" data-swatch-id="' . esc_attr( $attribute_name ) . '">';
+			$tax_props = uncode_wc_get_taxonomy_props( $attribute_name );
+			$swatch_type = isset( $tax_props->attribute_type ) && $tax_props->attribute_type ? $tax_props->attribute_type : 'select';
+
+			echo '<div class="swatches-select swatches-select--single swatches-select--type-' . $swatch_type . '" data-swatch-id="' . esc_attr( $attribute_name ) . '">';
 				$options_fliped = array_flip( $options );
 
 				if ( ! empty( $options ) ) {
@@ -236,7 +255,12 @@ function uncode_wc_print_single_swatch( $swatches, $key, $term, $selected, $attr
 				if ( $color === '#FFFFFF' || $color === '#ffffff' || $color === '#FFF' || $color === '#fff' ) {
 					$swatch_classes[] = 'swatch--white';
 				}
-				echo '<div class="' . esc_attr( implode( ' ', $swatch_classes ) ) . '" data-swatch-value="' . esc_attr( $term->slug ) . '" data-swatch-title="' . esc_attr( $term->name ) . '" style="background-color:'. esc_attr( $color ) . '" ' . $data_variation . '>' . esc_html( $term->name ) . $swatch_description. '</div>';
+
+				if ( isset( $swatches[$key]['hidden'] ) && $swatches[$key]['hidden'] ) {
+					$swatch_classes[] = 'hidden';
+				}
+
+				echo '<div class="' . esc_attr( implode( ' ', $swatch_classes ) ) . '" data-swatch-value="' . esc_attr( $term->slug ) . '" data-swatch-title="' . esc_attr( $term->name ) . '" style="background-color:'. esc_attr( $color ) . '" ' . $data_variation . '><span>' . esc_html( $term->name ) . $swatch_description. '</span></div>';
 				break;
 
 			case 'image':
@@ -246,18 +270,32 @@ function uncode_wc_print_single_swatch( $swatches, $key, $term, $selected, $attr
 
 				$thumbnail_id = isset( $swatches[$key]['value'] ) ? $swatches[$key]['value'] : false;
 				$image        = $thumbnail_id ? wp_get_attachment_image_url( $thumbnail_id, $thumbnail_size ) : wc_placeholder_img_src( $thumbnail_size );
-				echo '<div class="' . esc_attr( implode( ' ', $swatch_classes ) ) . '" data-swatch-value="' . esc_attr( $term->slug ) . '" data-swatch-title="' . esc_attr( $term->name ) . '" style="background-image:url('. esc_url( $image ) . ')" ' . $data_variation . '>' . esc_html( $term->name ) . $swatch_description . '</div>';
+
+				if ( isset( $swatches[$key]['hidden'] ) && $swatches[$key]['hidden'] ) {
+					$swatch_classes[] = 'hidden';
+				}
+
+				echo '<div class="' . esc_attr( implode( ' ', $swatch_classes ) ) . '" data-swatch-value="' . esc_attr( $term->slug ) . '" data-swatch-title="' . esc_attr( $term->name ) . '" style="background-image:url('. esc_url( $image ) . ')" ' . $data_variation . '><span>' . esc_html( $term->name ) . $swatch_description . '</span></div>';
 				break;
 
 			case 'featured':
 				$thumbnail_id   = isset( $swatches[$key]['value'] ) ? $swatches[$key]['value'] : false;
 				$thumbnail_size = apply_filters( 'uncode_woocommerce_swatches_thumbnail_size', 'uncode_woocommerce_nav_thumbnail_crop', $term );
 				$image        = $thumbnail_id ? wp_get_attachment_image( $thumbnail_id, $thumbnail_size ) : wc_placeholder_img( $thumbnail_size );
-				echo '<div class="' . esc_attr( implode( ' ', $swatch_classes ) ) . '" data-swatch-value="' . esc_attr( $term->slug ) . '" data-swatch-title="' . esc_attr( $term->name ) . '" ' . $data_variation . '>' . $image . $swatch_description . '</div>';
+
+				if ( isset( $swatches[$key]['hidden'] ) && $swatches[$key]['hidden'] ) {
+					$swatch_classes[] = 'hidden';
+				}
+
+				echo '<div class="' . esc_attr( implode( ' ', $swatch_classes ) ) . '" data-swatch-value="' . esc_attr( $term->slug ) . '" data-swatch-title="' . esc_attr( $term->name ) . '" ' . $data_variation . '><span>' . $image . $swatch_description . '</span></div>';
 				break;
 
 			case 'label':
-				echo '<div class="' . esc_attr( implode( ' ', $swatch_classes ) ) . '" data-swatch-value="' . esc_attr( $term->slug ) . '" data-swatch-title="' . esc_attr( $term->name ) . '" ' . $data_variation . '>' . esc_html( $term->name ) . $swatch_description . '</div>';
+				if ( isset( $swatches[$key]['hidden'] ) && $swatches[$key]['hidden'] ) {
+					$swatch_classes[] = 'hidden';
+				}
+
+				echo '<div class="' . esc_attr( implode( ' ', $swatch_classes ) ) . '" data-swatch-value="' . esc_attr( $term->slug ) . '" data-swatch-title="' . esc_attr( $term->name ) . '" ' . $data_variation . '><span>' . esc_html( $term->name ) . $swatch_description . '</span></div>';
 				break;
 		}
 	}

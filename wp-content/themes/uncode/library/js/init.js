@@ -549,6 +549,7 @@ function whichAnimationEvent() {
 		$mainWrapper,
 		$initBox,
 		menusticky,
+		menuStickyMobile,
 		menuHeight = 0,
 		menuMobileHeight = 0,
 		mainmenu = new Array(),
@@ -564,11 +565,13 @@ function whichAnimationEvent() {
 		lastScrollValue = 0,
 		wwidth = uaInfo.getIpadApp() == 'ipad_app' ? document.documentElement.clientWidth : window.innerWidth || document.documentElement.clientWidth,
 		wheight = uaInfo.getIpadApp() == 'ipad_app' ? document.documentElement.clientHeight : window.innerHeight || document.documentElement.clientHeight,
+		mediaQuery = 959,
+		mediaQueryMobile = 569,
 		printDialogOpen = false,
 		isScrolling = false,
 		boxWrapper,
 		docheight = 0,
-		isMobile = classie.hasClass(document.documentElement, 'touch') ? true : false,
+		isMobile = wwidth <= mediaQuery,
 		isIE = classie.hasClass(document.documentElement, 'ie') || classie.hasClass(document.documentElement, 'opera12') ? true : false,
 		isFF = classie.hasClass(document.documentElement, 'firefox') ? true : false,
 		isFullPage,
@@ -577,8 +580,6 @@ function whichAnimationEvent() {
 		transitionEvent = whichTransitionEvent(),
 		animationEvent = whichAnimationEvent(),
 		footerScroller = false,
-		mediaQuery = 959,
-		mediaQueryMobile = 569,
 		menuOpened = false,
 		overlayOpened = false,
 		menuMobileTriggerEvent = new CustomEvent('menuMobileTrigged'),
@@ -594,6 +595,7 @@ function whichAnimationEvent() {
 		already_font = false,
 		scrollRowHeight_fix = window.pageYOffset,
 		isQuickView = false,
+		menuStickyMobileOverlay = false,
 
 	checkVisible = function( elm ) {
 		var rect = elm.getBoundingClientRect();
@@ -652,7 +654,7 @@ function whichAnimationEvent() {
 
 			if (!isMobileTransparent) {
 				if (wwidth > mediaQuery && classie.hasClass(document.body, 'menu-force-opacity')) classie.removeClass(document.body, 'menu-force-opacity');
-				if (wwidth < mediaQuery && !classie.hasClass(document.body, 'menu-force-opacity')) classie.addClass(document.body, 'menu-force-opacity');
+				if (wwidth <= mediaQuery && !classie.hasClass(document.body, 'menu-force-opacity')) classie.addClass(document.body, 'menu-force-opacity');
 			}
 
 			UNCODE.isQuickView = isQuickView;
@@ -681,7 +683,7 @@ function whichAnimationEvent() {
 				var second_array = Array.prototype.slice.call(mainmenucenter);
 				mainmenu = first_array.concat(second_array);
 			}
-			secmenu = document.querySelectorAll('.menu-secondary:not(.menu-primary)');
+			secmenu = document.querySelectorAll('.menu-secondary');
 			calculateMenuHeight(true);
 			for (var k = 0; k < menuItemsButton.length; k++) {
 				var a_item = menuItemsButton[k].parentNode,
@@ -777,6 +779,7 @@ function whichAnimationEvent() {
 				}
 				menuHeight += secmenuHeight;
 			} else {
+				secmenu = document.querySelectorAll('.menu-secondary:not(.menu-primary)');
 				menuHeight = UNCODE.menuMobileHeight;
 				if (isMobileTransparent) {
 					for (var i = 0; i < mainmenu.length; i++) {
@@ -852,7 +855,6 @@ function whichAnimationEvent() {
 				UNCODE.adaptive_srcset_replace_bg(pageHeader);
 			}
 			UNCODE.adaptive();
-			headerHeight('.header-wrapper');
 
 			parallaxHeaders = document.querySelectorAll('.header-parallax > .header-bg-wrapper');
 			header = document.querySelectorAll('.header-wrapper.header-uncode-block, .header-wrapper.header-revslider, .header-wrapper.header-layerslider, .header-basic .header-wrapper, .header-uncode-block > .row-container:first-child > .row > .row-inner > .col-lg-12 > .uncol, .header-uncode-block .uncode-slider .owl-carousel > .row-container:first-child .column_child .uncoltable');
@@ -878,6 +880,9 @@ function whichAnimationEvent() {
 								if (!!backsCarousel[j].style.backgroundImage && backsCarousel[j].style.backgroundImage !== void 0) {
 									var url = (backsCarousel[j].style.backgroundImage).match(uri_pattern),
 										image = new Image();
+									if ( url === null ) {
+                                        url = (backsCarousel[j].style.backgroundImage).slice(4, -1).replace(/"/g, "");
+									}
 									image.onload = function() {
 										pageHeader.setAttribute('data-imgready', 'true');
 									};
@@ -893,6 +898,9 @@ function whichAnimationEvent() {
 								if (!!backs[i].style.backgroundImage && backs[i].style.backgroundImage !== void 0) {
 									var url = (backs[i].style.backgroundImage).match(uri_pattern),
 										image = new Image();
+                                    if ( url === null ) {
+                                        url = (backs[i].style.backgroundImage).slice(4, -1).replace(/"/g, "");
+                                    }
 									image.onload = function() {
 										pageHeader.setAttribute('data-imgready', 'true');
 									};
@@ -966,6 +974,7 @@ function whichAnimationEvent() {
 			if (typeof transmenuel === 'undefined' || !transmenuel.length) isMobileTransparent = false;
 			bodyTop = document.documentElement['scrollTop'] || document.body['scrollTop'];
 			UNCODE.bodyTop = bodyTop;
+			headerHeight('.header-wrapper');
 			if (!classie.hasClass(document.body, 'vmenu'))
 				initBox();
 			scrollFunction();
@@ -1020,6 +1029,9 @@ function whichAnimationEvent() {
 					if (!!obj.style.backgroundImage && obj.style.backgroundImage !== void 0) {
 						var url = (obj.style.backgroundImage).match(uri_pattern),
 							image = new Image();
+                        if ( url === null ) {
+                            url = (obj.style.backgroundImage).slice(4, -1).replace(/"/g, "");
+                        }
 						image.onload = function() {
 							el.setAttribute('data-imgready', 'true');
 							el.dispatchEvent(new CustomEvent('imgLoaded'));
@@ -2097,7 +2109,24 @@ function whichAnimationEvent() {
 				}
 			});
 			if (masthead != undefined) {
+				menuStickyMobile = UNCODE.isMobile ? document.querySelectorAll('.menu-sticky-mobile') : null;
 				masthead.parentNode.style.height = menuHeight + 'px';
+				var $overlay = masthead.parentNode.parentNode.querySelector('div.overlay-menu'),
+					$navbarmain;
+
+				if ( typeof $overlay == 'object' && $overlay != null ) {
+					if ( menuStickyMobile !== null && menuStickyMobile.length ) {
+						UNCODE.menuStickyMobileOverlay = true;
+						$overlay.style.top = menuHeight + 'px';
+					} else {
+						UNCODE.menuStickyMobileOverlay = false;
+						$overlay.style.top = '0';
+						if ( isMobileTransparent && menuMobileTransparent !== null ) {
+							$navbarmain = $overlay.querySelector('div.navbar-main');
+							$navbarmain.style.paddingTop = menuHeight + 'px';
+						}
+					}
+				}
 				if (header != undefined && header.length) {
 					if (classie.hasClass(masthead, 'menu-transparent')) {
 						if ( ( isMobileTransparent && menuMobileTransparent !== null ) || wwidth > mediaQuery) {
@@ -2913,6 +2942,7 @@ function whichAnimationEvent() {
 		setScrollPosition,
 		scrollFunction = function() {
 			if ( ! UNCODE.isFullPage ) {
+				menusticky = UNCODE.isMobile ? document.querySelectorAll('.menu-sticky-mobile') : document.querySelectorAll('.menu-sticky, .menu-sticky-vertical');
 				if (menusticky != undefined && menusticky.length) stickMenu(bodyTop);
 				kenburnsHeader(bodyTop);
 				kenburnsRowCol(bodyTop);
@@ -3151,7 +3181,6 @@ function whichAnimationEvent() {
 		if (isMobile && (oldWidth == wwidth)) return false;
 		calculateMenuHeight(false);
 		initBox();
-		headerHeight('.header-wrapper');
 		window.dispatchEvent(boxEvent);
 		scrollFunction();
 		shapeDivider();
@@ -3165,7 +3194,9 @@ function whichAnimationEvent() {
 				if (SiteParameters.dynamic_srcset_active === '1') {
 					UNCODE.refresh_dynamic_srcset_size(false);
 				}
+				UNCODE.isMobile = UNCODE.wwidth <= UNCODE.mediaQuery;
 				menuOpacity();
+				headerHeight('.header-wrapper');
 			}, 100
 		);
 		if ( UNCODE.setIsScrolling !== true ) {

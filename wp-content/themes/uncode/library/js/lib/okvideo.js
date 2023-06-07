@@ -13,7 +13,11 @@ function onYouTubeIframeAPIReady() {
 	jQuery('.no-touch .uncode-video-container.video').each(function() {
 		var playerY;
 		if (jQuery(this).attr('data-provider') == 'youtube') {
-			var id = jQuery(this).attr('data-id');
+			var id = jQuery(this).attr('data-id'),
+				start = jQuery(this).attr('data-start'),
+				end = jQuery(this).attr('data-end');
+			start = typeof start && start !== null ? start : 0;
+			end = typeof end && end !== null ? end : 0;
 			options = jQuery(window).data('okoptions-' + id);
 			options.time = jQuery(this).attr('data-t');
 			playerY = new YT.Player('okplayer-' + id, {
@@ -34,7 +38,9 @@ function onYouTubeIframeAPIReady() {
 					'rel': 0,
 					'wmode': 'opaque',
 					'hd': options.hd,
-					'mute': 1
+					'mute': 1,
+					'start': start,
+					'end': end
 				},
 				events: {
 					'onReady': OKEvents.yt.ready,

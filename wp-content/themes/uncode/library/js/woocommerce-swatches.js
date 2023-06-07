@@ -1,6 +1,38 @@
 (function($) {
 	"use strict";
 
+	function find_select(variation_form, id) {
+		var selects = variation_form.find('select');
+		var select = false;
+
+		selects.each(function() {
+			var _this = $(this);
+
+			if (_this.attr('id').toLowerCase() == encodeURIComponent(id).toLowerCase()) {
+				select = _this;
+				return true;
+			}
+		});
+
+		return select;
+	}
+
+	function find_swatch(swatch_selector, value) {
+		var swatches = swatch_selector.find('.swatch');
+		var swatch = false;
+
+		swatches.each(function() {
+			var _this = $(this);
+
+			if (_this.attr('data-swatch-value') == value) {
+				swatch = _this;
+				return true;
+			}
+		});
+
+		return swatch;
+	}
+
 	function init_general_swatches() {
 		var variation_forms = $('.variations_form');
 
@@ -33,7 +65,13 @@
 					return;
 				}
 
-				variation_form.find('select#' + id).val(value).trigger('change');
+				if (window.UncodeWCParameters != undefined && window.UncodeWCParameters.swatches_use_custom_find === '1') {
+					var select = find_select(variation_form, id);
+					select.val(value).trigger('change');
+				} else {
+					variation_form.find('select#' + id).val(value).trigger('change');
+				}
+
 				_this.parent().find('.swatch--active').removeClass('swatch--active');
 				_this.addClass('swatch--active');
 				reset_general_swatches(variation_form);
@@ -48,6 +86,12 @@
 	}
 
 	function reset_general_swatches(variation_form) {
+		if (variation_form.data('product_variations') === false) {
+			return;
+		}
+
+		var has_hidden_swatch = false;
+
 		variation_form.find('.variations select').each(function() {
 			var select = $(this);
 			var swatch_selector = select.parent().find('.swatches-select');
@@ -61,12 +105,37 @@
 				var value = $(this).val();
 
 				if ($(this).hasClass('enabled')) {
-					swatch_selector.find('.swatch[data-swatch-value="' + value + '"]').removeClass('swatch--disabled').addClass('swatch--enabled');
+					if (window.UncodeWCParameters != undefined && window.UncodeWCParameters.swatches_use_custom_find === '1') {
+						var swatch = find_swatch(swatch_selector, value);
+						if (swatch) {
+							swatch.removeClass('swatch--disabled').addClass('swatch--enabled');
+						}
+					} else {
+						swatch_selector.find('.swatch[data-swatch-value="' + value + '"]').removeClass('swatch--disabled').addClass('swatch--enabled');
+					}
 				} else {
-					swatch_selector.find('.swatch[data-swatch-value="' + value + '"]').addClass('swatch--disabled').removeClass('swatch--enabled');
+					if (window.UncodeWCParameters != undefined && window.UncodeWCParameters.swatches_use_custom_find === '1') {
+						var swatch = find_swatch(swatch_selector, value);
+						if (swatch) {
+							swatch.removeClass('swatch--disabled').addClass('swatch--enabled');
+						}
+					} else {
+						swatch_selector.find('.swatch[data-swatch-value="' + value + '"]').addClass('swatch--disabled').removeClass('swatch--enabled');
+					}
 				}
 			});
+
+			var hidden_swatches = swatch_selector.find('> .swatch--active.hidden');
+
+			if (hidden_swatches.length > 0) {
+				hidden_swatches.remove();
+				has_hidden_swatch = true;
+			}
 		});
+
+		if (has_hidden_swatch) {
+			$('.swatch--active').removeClass('swatch--active');
+		}
 	}
 
 	function init_more_swacthes_link() {

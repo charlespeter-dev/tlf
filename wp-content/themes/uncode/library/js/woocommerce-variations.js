@@ -170,6 +170,7 @@
 			if (clear && !Single_Product.has_variation_changed) {
 				var form = $(event.target);
 				$('.product-gallery-placeholder').removeClass('product-gallery-placeholder');
+				$(window).trigger('uncode_wc_variation_gallery_loaded');
 				form.removeClass('is-updating-gallery');
 				return;
 			}
@@ -225,6 +226,7 @@
 								var main_gallery = appended_gallery.find('.woocommerce-product-gallery');
 								appended_gallery.removeClass('hidden');
 								$('.product-gallery-placeholder').removeClass('product-gallery-placeholder');
+								$(window).trigger('uncode_wc_variation_gallery_loaded');
 
 								old_gallery.remove();
 
@@ -308,6 +310,7 @@
 										original_images = new_images;
 									} else {
 										$('.product-gallery-placeholder').removeClass('product-gallery-placeholder');
+										$(window).trigger('uncode_wc_variation_gallery_loaded');
 										form.removeClass('is-updating-gallery');
 									}
 								} else {

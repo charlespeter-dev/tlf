@@ -13,7 +13,7 @@
  * @see 	https://docs.woothemes.com/document/template-structure/
  * @author  WooThemes
  * @package WooCommerce/Templates
- * @version 4.6.0
+ * @version 7.7.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -67,7 +67,7 @@ if ( $show_downloads ) {
 					?>
 					<tr>
 						<th scope="row"><?php echo wp_kses_post( $total['label'] ); ?></th>
-						<td><?php echo ( 'payment_method' === $key ) ? wp_kses_post( $total['value'] ) : $total['value']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></td>
+						<td><?php echo wp_kses_post( $total['value'] ); ?></td>
 					</tr>
 					<?php
 				}

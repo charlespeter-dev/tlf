@@ -22,6 +22,9 @@ extract(shortcode_atts(array(
 	'disable_ajax' => '',
 	'date_type' => '',
 	'date_sort' => '',
+	'author_order_by' => '',
+	'order_by' => '',
+	'sort_by' => '',
 	'price_ranges' =>
 '25-
 25>100
@@ -124,6 +127,8 @@ $disable_ajax = $disable_ajax === 'yes' ? true : false;
 $search_type  = '';
 $date_type    = $date_type === 'year' ? 'year' : 'default';
 $date_sort    = $date_sort === 'asc' ? 'asc' : 'desc';
+$order_by     = $order_by === 'custom' || $order_by === 'count' ? $order_by : 'default';
+$sort_by      = $sort_by === 'desc' ? 'desc' : 'asc';
 
 // Get current parameters
 $current_url = uncode_get_current_url();
@@ -154,7 +159,7 @@ $filter_terms = array();
 if ( $filter_type === 'taxonomy' ) {
 	$tax_source   = $tax_source ? 'product_att': 'tax';
 	$tax_to_query = $tax_source === 'tax' ? $taxonomy : $product_att;
-	$filter_terms = uncode_filters_populate_tax_terms( $tax_source, $tax_to_query, $query_args, $multiple, $hierarchy );
+	$filter_terms = uncode_filters_populate_tax_terms( $tax_source, $tax_to_query, $query_args, $multiple, $hierarchy, $order_by, $sort_by );
 	$key_to_query = $tax_to_query;
 	$disable_ajax = is_tax( $tax_to_query ) ? true : $disable_ajax;
 
@@ -179,7 +184,7 @@ if ( $filter_type === 'taxonomy' ) {
 	$filter_terms = uncode_filters_populate_product_price_terms( $price_ranges, $query_args );
 } else if ( $filter_type === 'author' ) {
 	$key_to_query = UNCODE_FILTER_KEY_AUTHOR;
-	$filter_terms = uncode_filters_populate_author_terms( $query_args );
+	$filter_terms = uncode_filters_populate_author_terms( $query_args, $sort_by );
 
 	$disable_ajax = is_author() ? true : $disable_ajax;
 
@@ -246,7 +251,7 @@ if ( is_search() && $filter_group === 'search' ) {
 ?>
 
 <?php if ( $can_show && ( ( is_array( $filter_terms ) && count( $filter_terms ) > 0 ) || $filter_group === 'search' ) ) : ?>
-	<div class="uncode_widget widget-ajax-filters wpb_content_element<?php echo esc_attr( $el_class ); ?>" <?php echo esc_attr( $el_id ); ?> data-id="<?php echo esc_attr( $widget_unique_id ); ?>">
+	<div class="uncode_widget widget-ajax-filters wpb_content_element<?php echo esc_attr( $el_class ); ?>" <?php echo uncode_switch_stock_string( $el_id ); ?> data-id="<?php echo esc_attr( $widget_unique_id ); ?>">
 		<?php if ( $use_widget_style === 'yes' ) : ?>
 			<aside class="widget widget-style widget-container sidebar-widgets">
 		<?php endif; ?>
@@ -276,6 +281,8 @@ if ( is_search() && $filter_group === 'search' ) {
 			'disable_ajax'   => $disable_ajax,
 			'is_logo'        => $logo_group,
 			'search_type'    => $search_type,
+			'order_by'       => $order_by,
+			'sort_by'        => $sort_by,
 		);
 		?>
 

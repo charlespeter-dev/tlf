@@ -82,7 +82,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<input type="hidden" name="uncode_deregister_product" value="1" />
 							<?php wp_nonce_field( 'uncode-deregister-product-nonce', 'uncode_deregister_product_nonce' ); ?>
 
-							<button class="button button-primary button--product-registration" type="submit"><span><span class="uncode-ot-spinner"></span><?php esc_html_e( 'Deregister your product', 'uncode' ); ?></span></button>
+							<button class="button button-primary button--product-registration" type="submit"><span><span class="uncode-ot-spinner"></span><?php esc_html_e( 'Deregister to insert a new Purchase Code', 'uncode' ); ?></span></button>
 						</div>
 
 					</form>
@@ -307,14 +307,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 <script type="text/javascript">
 
 	jQuery( document ).ready( function ( $ ) {
-		$( '.help_tip' ).tipTip({
-			attribute: 'data-tip'
-		});
-
-		$( 'a.help_tip' ).click( function() {
-			return false;
-		});
-
 		var max_vars_nonce = $('#test_input_vars_from_system_status_nonce').val();
 		var enable_debug = <?php echo apply_filters( 'uncode_enable_debug_on_js_scripts', false ) ? 'true' : 'false'; ?>;
 
@@ -331,7 +323,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				$yes.add($errors).add($checker).fadeOut(200);
 				setTimeout(function(){
 					$calculating.fadeIn(200);
-					uncode_test_max_input_vars(10000);
+					uncode_test_max_input_vars(3000);
 				}, 200);
 
 			});
@@ -382,6 +374,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							// It can be enabled for debugging purposes setting
 							// the 'uncode_enable_debug_on_js_scripts' filter to true
 							console.log('Max vars test failed');
+							console.log(response);
 						}
 					} else if (response && response.success === true) {
 						intData = parseInt(response.data.count);
@@ -398,7 +391,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							var_string.add('#max_vars_checker').fadeIn();
 
 						} else {
-							uncode_test_max_input_vars($vars+10000);
+							uncode_test_max_input_vars($vars+1000);
 						}
 
 						$.ajax({
@@ -417,6 +410,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								// It can be enabled for debugging purposes setting
 								// the 'uncode_enable_debug_on_js_scripts' filter to true
 								console.log('Max vars update failed');
+								console.log(response);
 							}
 						}).fail(function() {
 							if (enable_debug == true) {
@@ -426,6 +420,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								// It can be enabled for debugging purposes setting
 								// the 'uncode_enable_debug_on_js_scripts' filter to true
 								console.log('Max vars update failed');
+								console.log(response);
 							}
 						});
 					} else {
@@ -437,6 +432,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							// It can be enabled for debugging purposes setting
 							// the 'uncode_enable_debug_on_js_scripts' filter to true
 							console.log('Unknown error during max vars text');
+							console.log(response);
 						}
 					}
 				}
@@ -492,7 +488,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		});
 		<?php if ( current_user_can( 'switch_themes' ) && $uncode_test_max_input_vars == '' ) { ?>
-		uncode_test_max_input_vars(10000);
+		uncode_test_max_input_vars(3000);
 		<?php } ?>
 
 	});

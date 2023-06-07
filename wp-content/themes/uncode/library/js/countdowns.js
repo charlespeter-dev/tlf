@@ -7,7 +7,7 @@
 		var $this = $(this).addClass('counter-init'),
 			finalDate = $(this).data('uncode-countdown');
 		$this.countdown(finalDate, function(event) {
-			$this.html(event.strftime('%D <small>' + SiteParameters.days + '</small> %H <small>' + SiteParameters.hours + '</small> %M <small>' + SiteParameters.minutes + '</small> %S <small>' + SiteParameters.seconds + '</small>'));
+			$this.html(event.strftime('<span>%D <small>' + SiteParameters.days + '</small></span> <span>%H <small>' + SiteParameters.hours + '</small></span> <span>%M <small>' + SiteParameters.minutes + '</small></span> <span>%S <small>' + SiteParameters.seconds + '</small></span>'));
 		});
 	});
 };

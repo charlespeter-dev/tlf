@@ -92,7 +92,7 @@ $active_filters_output = ob_get_clean();
 ?>
 
 <?php if ( $active_filters_output ) : ?>
-	<div class="uncode_widget widget-ajax-active-filters wpb_content_element<?php echo esc_attr( $el_class ); ?>" <?php echo esc_attr( $el_id ); ?>>
+	<div class="uncode_widget widget-ajax-active-filters wpb_content_element<?php echo esc_attr( $el_class ); ?>" <?php echo uncode_switch_stock_string( $el_id ); ?>>
 		<?php if ( $use_widget_style === 'yes' ) : ?>
 			<aside class="widget widget-style widget-container sidebar-widgets">
 		<?php endif; ?>

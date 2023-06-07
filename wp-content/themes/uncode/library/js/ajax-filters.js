@@ -264,15 +264,25 @@
  ************************/
  	var widget_hover_hack = function() {
  		$('.widget, .uncode_widget').each(function(){
- 			var $widget = $(this),
- 				$lis = $('ul > li', $widget).has('a');
+			var $widget = $(this),
+				class_w = $widget.attr('class'),
+				$lis = $('ul > li', $widget).has('a'),
+				$footer = $widget.closest('#colophon');
+
+			if ( class_w.indexOf('widget_yith') > 0 ) {
+				return true;
+			}
 
 			$lis.each(function(){
- 				var $li = $(this).addClass('no-evts'),
+ 				var $li = $(this),
  					$a = $('a', $li),
  					$label = $a.closest('label');
 
- 				if ( ! $('span', $a).length ) {
+				if ( !$footer.length ) {
+					$li.addClass('no-evts');
+				}
+		
+				if ( ! $('span', $a).length ) {
  					$li.addClass( 'li-hover' );
  				}
 
@@ -402,13 +412,15 @@
 		});
 
 		$(document).on('click', '.uncode-woocommerce-sorting-dropdown__link', function(e) {
-			e.preventDefault();
 
 			var _this = $(this);
 			var container = get_filters_container();
 			var url = _this.attr('href');
 
-			reload_items(container, url, true);
+			if ( container.length ) {
+				e.preventDefault();
+				reload_items(container, url, true);
+			}
 		});
 
 		$(document).on('click', '.uncode_woocommerce_widget--price-filter .button', function(e) {

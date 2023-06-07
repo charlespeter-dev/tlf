@@ -58,7 +58,6 @@ function uncode_load_admin_script($hook) {
 
 	wp_enqueue_script('admin_uncode_js', get_template_directory_uri() . '/core/assets/js/min/admin_uncode.min.js', array( 'jquery', 'jquery-ui-tabs', 'jquery-ui-dialog' ), UNCODE_VERSION , true);
 	wp_enqueue_style ('wp-jquery-ui-dialog');
-	wp_enqueue_script( 'jquery-tiptip', get_template_directory_uri() . '/core/assets/js/min/jquery.tipTip.min.js', array( 'jquery' ), UNCODE_VERSION, true );
 
 	// Get media categories (used for the Media Upload dropdown filter)
 	$terms = get_terms( 'media-category', array(
@@ -119,8 +118,9 @@ function uncode_load_admin_script($hook) {
 			),
 		),
 		'uncode_colors_flat_array' => $uncode_colors_flat_array,
-		'has_valid_purchase_code'  => uncode_check_valid_purchase_code() ? true : false,
+		'has_valid_purchase_code'  => uncode_check_valid_purchase_code() && uncode_fo8l_op() ? true : false,
 		'lbox_enhanced' => apply_filters( 'uncode_lightgallery', get_option( 'uncode_core_settings_opt_lightbox_enhance' ) === 'on' ),
+		'disable_oembed_preview' => apply_filters( 'uncode_disable_oembed_preview', false)
 	);
 	wp_localize_script( 'admin_uncode_js', 'SiteParameters', $site_parameters );
 
@@ -157,7 +157,9 @@ function uncode_init_admin_css()
 {
 	$production_mode = ot_get_option('_uncode_production');
 	$resources_version = ($production_mode === 'on' || ( function_exists('vc_is_page_editable') && vc_is_page_editable() ) ) ? null : rand();
-	wp_enqueue_style('ot-admin', get_template_directory_uri() . '/core/assets/css/ot-admin.css', array('wp-jquery-ui-dialog'), $resources_version);
+	if ( apply_filters( 'uncode_load_ot_admin_style', true ) ) {
+		wp_enqueue_style('ot-admin', get_template_directory_uri() . '/core/assets/css/ot-admin.css', array('wp-jquery-ui-dialog'), $resources_version);
+	}
 	wp_enqueue_style('admin-uncode-icons', get_template_directory_uri() . '/library/css/uncode-icons.css', array('ot-admin'), $resources_version);
 
 	$back_css = get_template_directory() . '/core/assets/css/';
@@ -1128,6 +1130,9 @@ function uncode_list_images() {
 	foreach ( $query_images->posts as $image) {
 		$image_id = $image->ID;
 		$filename = get_attached_file( $image_id );
+		if ( apply_filters( 'uncode_force_delete_uia_meta_data', false ) ) {
+			uncode_delete_uia_meta_data( $image_id );
+		}
 		if ($filename != '') {
 			$extension_pos = strrpos($filename, '.');
 			$filename_wildcard = substr($filename, 0, $extension_pos) . '*' . substr($filename, $extension_pos);
@@ -1137,7 +1142,10 @@ function uncode_list_images() {
 					if (strpos($image_block[$key],'-uai-') !== false) {
 						if ($erase) {
 							unlink($image_block[$key]);
-							uncode_delete_uia_meta_data( $image_id );
+							if ( ! apply_filters( 'uncode_force_delete_uia_meta_data', false ) ) {
+								uncode_delete_uia_meta_data( $image_id );
+							}
+							do_action( 'uncode_delete_crop_image', $image_id, $image_block[$key] );
 						} else {
 							$files[] = $image_block[$key];
 						}

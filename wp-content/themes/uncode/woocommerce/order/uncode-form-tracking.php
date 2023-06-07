@@ -12,7 +12,7 @@
  *
  * @see https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce/Templates
- * @version 6.5.0
+ * @version 7.0.1
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -50,7 +50,7 @@ $form_button_classes = implode( ' ', $form_classes[ 'button' ] );
 	do_action( 'woocommerce_order_tracking_form' );
 	?>
 
-	<p class="form-row"><button type="submit" class="button btn <?php echo esc_attr( $form_button_classes ); ?>" name="track" value="<?php esc_attr_e( 'Track', 'woocommerce' ); ?>" style="<?php echo esc_attr( $button_adjust_value ? 'margin-top:' . $button_adjust_value . 'px' : '' ); ?>"><?php esc_html_e( 'Track', 'woocommerce' ); ?></button></p>
+	<p class="form-row"><button type="submit" class="button btn <?php echo esc_attr( $form_button_classes ); ?><?php echo esc_attr( uncode_wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . uncode_wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>" name="track" value="<?php esc_attr_e( 'Track', 'woocommerce' ); ?>" style="<?php echo esc_attr( $button_adjust_value ? 'margin-top:' . $button_adjust_value . 'px' : '' ); ?>"><?php esc_html_e( 'Track', 'woocommerce' ); ?></button></p>
 	<?php wp_nonce_field( 'woocommerce-order_tracking', 'woocommerce-order-tracking-nonce' ); ?>
 
 	<?php

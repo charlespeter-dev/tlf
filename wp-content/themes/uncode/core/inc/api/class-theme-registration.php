@@ -128,7 +128,7 @@ class Uncode_Theme_Registration {
 				break;
 
 			case 5:
-				$message = __( 'According to the Envato License Terms, you have exceeded the maximum number of activations permitted for a single Purchase Code. Therefore, please purchase an additional license, or follow the procedure for deregistering the Purchase Code. <a href="https://support.undsgn.com/hc/en-us/articles/360000849998" target="_blank">More info</a>', 'uncode' );
+				$message = __( 'According to the Envato License Terms, you have exceeded the number of activations permitted for a single Purchase Code. Therefore, please purchase an additional license. If you think there is an error or you are migrating the website to a new domain, please follow the dedicated procedure. <a href="https://support.undsgn.com/hc/en-us/articles/360000849998" target="_blank">More info</a>', 'uncode' );
 				break;
 
 			case 6:
@@ -236,8 +236,9 @@ class Uncode_Theme_Registration {
 	 */
 	public function show_notices() {
 		$is_valid_purchase_code = uncode_check_valid_purchase_code();
+		$fo8l_op = uncode_fo8l_op();
 
-		if ( $is_valid_purchase_code ) {
+		if ( $is_valid_purchase_code && $fo8l_op ) {
 			return;
 		}
 		?>

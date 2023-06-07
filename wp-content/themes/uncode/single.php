@@ -88,7 +88,7 @@ if ($media_display === '') {
 
 $media = get_post_meta($post->ID, '_uncode_featured_media', 1);
 $featured_image = get_post_thumbnail_id($post->ID);
-if ( $featured_image === '' || $featured_image == 0 ) {
+if ( apply_filters( 'uncode_use_medias_when_featured_empty', true ) && ( $featured_image === '' || $featured_image == 0 ) ) {
 	$featured_image = $media;
 }
 
@@ -361,7 +361,7 @@ while (have_posts()):
 	}
 
 	if ( !$with_builder ) {
-		if ( apply_filters( 'uncode_apply_the_content', false ) ) {
+		if ( apply_filters( 'uncode_apply_the_content', false ) || $post_type !== 'post' ) {
 			if ( $the_content !== '' ) {
 				$the_content = apply_filters('the_content', $the_content);
 				$the_content = $title_content . $the_content;
@@ -795,10 +795,13 @@ while (have_posts()):
 		}
 	}
 
+	$the_content = uncode_remove_p_tag( $the_content );
+	$the_content = apply_filters( 'uncode_single_content_final_output', $the_content );
+
 	/** Display post html **/
 	echo 	'<article id="post-'. get_the_ID().'" class="'.implode(' ', get_post_class('page-body' . $bg_color)) .'">
           <div class="post-wrapper">
-          	<div class="post-body">' . uncode_remove_p_tag( $the_content ) . '</div>' .
+          	<div class="post-body">' . $the_content . '</div>' .
           	$navigation_content . '
           </div>
         </article>';

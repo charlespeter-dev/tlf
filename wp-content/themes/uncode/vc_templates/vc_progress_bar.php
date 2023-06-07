@@ -4,6 +4,7 @@ extract( shortcode_atts( array(
 	'title' => '',
 	'values' => '%5B%7B%22label%22%3A%22Development%22%2C%22value%22%3A%2290%22%7D%2C%7B%22label%22%3A%22Design%22%2C%22value%22%3A%2280%22%7D%2C%7B%22label%22%3A%22Marketing%22%2C%22value%22%3A%2270%22%7D%5D',
 	'units' => '',
+	'empty_space' => '',
 	'options' => '',
 	'css_animation' => '',
 	'animation_delay' => '',
@@ -59,6 +60,8 @@ foreach ( $values as $data ) {
 	}
 	$graph_lines_data[] = $new_line;
 }
+
+$empty_space = $empty_space === 'yes' ? ' ' : '';
 
 foreach ( $graph_lines_data as $line ) {
 	$bar_style = '';
@@ -116,7 +119,7 @@ foreach ( $graph_lines_data as $line ) {
 	}
 
 	$back_color = isset($line['back_color']) ? ' style-' . esc_attr( $line['back_color'] ) . '-bg style-override' : '';
-	$unit = ( $units != '' ) ? ' <span class="vc_label_units">' . esc_attr( $line['value'] . $units ) . '</span>' : '';
+	$unit = ( $units != '' ) ? ' <span class="vc_label_units"><span class="vc_progress_value">' . esc_attr( $line['value'] ) . '</span><span class="vc_progress_unit">' . esc_attr( $empty_space ) . esc_attr( $units ) . '</span></span>' : '';
 
 	$div_data_attributes = array_map(function ($v, $k) { return $k . '="' . $v . '"'; }, $div_data, array_keys($div_data));
 

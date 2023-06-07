@@ -24,8 +24,9 @@ function uncode_ajax_term_filter_list_html( $key_to_query, $filter_terms, $query
 	<?php if ( $hierarchy === 'yes' && ! $display && ! in_array( $key_to_query, uncode_get_special_filter_keys() ) ) : ?>
 		<?php
 		$args['filter_terms'] = $filter_terms;
+		$sort_by = $args['sort_by'] === 'desc' ? 'DESC' : 'ASC';
 
-		$terms_list = wp_list_categories( array(
+		$wp_list_args = array(
 			'title_li'   => '',
 			'style'      => 'list',
 			'echo'       => false,
@@ -33,8 +34,18 @@ function uncode_ajax_term_filter_list_html( $key_to_query, $filter_terms, $query
 			'depth'      => 100,
 			'show_count' => $show_count,
 			'include'    => array_keys( $filter_terms ),
+			'order'      => $sort_by,
 			'walker'     => new Uncode_Walker_Filters( $query_args, $args, $is_checkbox )
-		) );
+		);
+
+		if ( $args['order_by'] === 'count' ) {
+			$wp_list_args['order_by'] = 'count';
+		} else if ( $args['order_by'] === 'custom' ) {
+			$wp_list_args['orderby'] = 'meta_value_num';
+			$wp_list_args['meta_key'] = 'order';
+		}
+
+		$terms_list = wp_list_categories( $wp_list_args );
 		?>
 		<ul class="term-filters-list <?php echo esc_attr( $filter_list_class ); ?>">
 			<?php echo uncode_switch_stock_string( $terms_list ); ?>
@@ -554,13 +565,13 @@ function uncode_show_active_ajax_filters( $align = 'left', $clear = '', $class =
 				unset( $query_args['min_price'] );
 				$link = uncode_build_filter_link( uncode_get_current_url(), $query_args );
 
-				$out .= '<li class="filter-list__item"><a href="' . esc_url( $link ) . '" class="filter-list__link">' . sprintf( __( 'Over %s', 'uncode' ), wc_price( $original_query_args['min_price'] ) ) . '</a></li>';
+				$out .= '<li class="filter-list__item"><a href="' . esc_url( $link ) . '" class="filter-list__link">' . sprintf( _x( 'Over %s', 'ajax_price_filter', 'uncode' ), wc_price( $original_query_args['min_price'] ) ) . '</a></li>';
 			} else if ( isset( $original_query_args['max_price'] ) ) {
 				$query_args = $original_query_args;
 				unset( $query_args['max_price'] );
 				$link = uncode_build_filter_link( uncode_get_current_url(), $query_args );
 
-				$out .= '<li class="filter-list__item"><a href="' . esc_url( $link ) . '" class="filter-list__link">' . sprintf( __( 'Under %s', 'uncode' ), wc_price( $original_query_args['max_price'] ) ) . '</a></li>';
+				$out .= '<li class="filter-list__item"><a href="' . esc_url( $link ) . '" class="filter-list__link">' . sprintf( _x( 'Under %s', 'ajax_price_filter', 'uncode' ), wc_price( $original_query_args['max_price'] ) ) . '</a></li>';
 			}
 		$out .= '</ul>
 	</div>';

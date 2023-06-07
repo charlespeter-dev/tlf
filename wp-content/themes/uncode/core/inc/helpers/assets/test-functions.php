@@ -723,6 +723,17 @@ function uncode_get_page_assets() {
 		);
 	}
 
+	// Accordion
+	if ( uncode_page_require_asset_accordion( $content_array ) ) {
+		$assets['uncode-checkScrollForTabs'] = array(
+			'handle'    => 'uncode-checkScrollForTabs',
+			'path'      => get_template_directory_uri() . '/library/js/checkScrollForTabs' . $suffix . '.js',
+			'deps'      => array( 'jquery' ),
+			'type'      => 'js',
+			'in_footer' => true,
+		);
+	}
+
 	// Tabs
 	if ( uncode_page_require_asset_tab( $content_array ) ) {
 		$assets['tab'] = array(

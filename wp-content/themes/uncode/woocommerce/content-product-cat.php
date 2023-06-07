@@ -82,7 +82,7 @@ $block_data['text_padding'] = 'half-block-padding';
 $block_data['title_classes'] = $title_classes;
 $block_data['link'] = get_term_link( $category, 'product_cat' );
 $block_data['text_length'] = 300;
-$block_data['product'] = true;
+// $block_data['product'] = true;
 
 
 if ($item_thumb_id !== '') {

@@ -75,7 +75,7 @@
 							$elSelector.find('.owl-item:not(.new-indexed)').removeClass('index-active');
 							$elSelector.find('.owl-item[data-index="' + itendIndex + '"]').addClass('index-active').addClass('new-indexed');
 							if ($.fn.counterUp) {
-								$elSelector.find('.owl-item[data-index="' + itendIndex + '"] .counter').each(function(){
+								$elSelector.find('.owl-item[data-index="' + itendIndex + '"] .uncode-counter').each(function(){
 									var $counter = $(this);
 									$counter.addClass('started').counterUp({
 										delay: 10,

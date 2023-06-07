@@ -24,9 +24,9 @@ function uncode_center_nav_menu_items($items, $args) {
 			$new_item->button = '';
 			$new_item->megamenu = '';
 			$new_item->logo = true;
-			$new_item->classes = 'mobile-hidden tablet-hidden';
+			$new_item->classes = array('mobile-hidden','tablet-hidden');
 			$new_item_array[] = $new_item;
-			$get_position = floor(count($menu_items) / 2) - 1;
+			$get_position = apply_filters( 'uncode_split_menu_logo_position' , floor(count($menu_items) / 2) - 1 );
 			array_splice($items, $menu_items[$get_position], 0, $new_item_array);
 		}
 	}
@@ -95,7 +95,7 @@ if (!class_exists('unmenu')) {
 						$logo_alt = esc_html__('logo','uncode');
 					}
 					$logo_info = uncode_get_media_info($value);
-					$media_metavalues = (isset($logo_info->metadata)) ? unserialize($logo_info->metadata) : '';
+					$media_metavalues = (isset($logo_info->metadata)) ? unserialize($logo_info->metadata) : array();
 					$logoSkinClass = 'mobile-logo ';
 					if (!empty($logo_info)) {
 						if (count($LOGO->logo_mobile_id) === 2) {
@@ -112,7 +112,9 @@ if (!class_exists('unmenu')) {
 						}
 						if ($logo_info->post_mime_type === 'oembed/svg') {
 							$media_code = $logo_info->post_content;
-							$logo_ratio = (isset($media_metavalues['width']) && isset($media_metavalues['height'])) ? $media_metavalues['width'] / $media_metavalues['height'] : 1;
+							$media_width = isset($media_metavalues['width']) ? absint( isset($media_metavalues['width'])) : 1;
+							$media_height = isset($media_metavalues['height']) ? absint( isset($media_metavalues['height'])) : 1;
+							$logo_ratio = $media_width / $media_height;
 							$media_code = preg_replace('#\s(id)="([^"]+)"#', ' $1="$2-' .rand() .'"', $media_code);
 							$media_code = preg_replace('#\s(xmlns)="([^"]+)"#', '', $media_code);
 							$media_code = preg_replace('#\s(xmlns:svg)="([^"]+)"#', '', $media_code);
@@ -151,20 +153,19 @@ if (!class_exists('unmenu')) {
 								}
 							}
 							$logoMobileInner .= '<div class="html-code '.$logoSkinClass.'" data-maxheight="'.$logo_height.'" style="height: '.$logo_height.'px;'.$logo_hide.'">';
-							$logoMobileInner .= '<canvas class="logo-canvas" height="'.round($logo_height).'" width="'.round($logo_ratio * $logo_height) .'"></canvas>';
+							$logoMobileInner .= '<canvas class="logo-canvas" height="'.round(absint($logo_height)).'" width="'.round($logo_ratio * $logo_height) .'"></canvas>';
 							$logoMobileInner .= $media_code . '</div>' ;
 						} elseif ($logo_info->post_mime_type === 'oembed/html') {
 							$logoMobileInner .= '<h2 class="text-logo h3 '.$logoSkinClass.'" data-maxheight="'.$logo_height.'" style="font-size:'.$logo_height.'px;'.$logo_hide.'">' . esc_html($logo_info->post_content) . '</h2>' ;
 						} else {
-							$logo_metavalues = unserialize($logo_info->metadata);
-							if (empty($logo_metavalues)) {
-								$logo_metavalues['width'] = $logo_metavalues['height'] = 1;
-							}
+							$logo_metavalues = (isset($logo_info->metadata)) ? unserialize($logo_info->metadata) : array();
+							$logo_metavalues['width'] = isset($logo_metavalues['width']) ? absint( $logo_metavalues['width']) : 1;
+							$logo_metavalues['height'] = isset($logo_metavalues['height']) ? absint( $logo_metavalues['height']) : 1;
 
 							$logoMobileInner .= '<div class="logo-image '.$logoSkinClass.'" data-maxheight="'.$logo_height.'" style="height: '.$logo_height.'px;'.$logo_hide.'">';
 							if ($logo_info->post_mime_type === 'image/svg+xml') {
 								if ($logo_info->animated_svg) {
-									if (isset($logo_metavalues['width']) && $logo_metavalues['width'] !== '1') {
+									if (isset($logo_metavalues['width']) && $logo_metavalues['width'] !== 1) {
 										$icon_width = ' style="width:'.$logo_metavalues['width'].'px"';
 									} else {
 										$icon_width = '';
@@ -174,11 +175,11 @@ if (!class_exists('unmenu')) {
 									$logoMobileInner .= '<div id="'.$id_icon.'"'.$icon_width.' class="icon-media"></div>';
 									$logoMobileInner .= "<script type='text/javascript'>document.addEventListener('DOMContentLoaded', function(event) { UNCODE.vivus('".$id_icon."', '".$icon_time."', false, '".$logo_info->guid."'); });</script>";
 								} else {
-									$logoMobileInner .= '<img src="'.$logo_info->guid.'" alt="logo" width="'.round($logo_metavalues['width']).'" height="'.round($logo_metavalues['height']).'" class="img-responsive" />';
+									$logoMobileInner .= '<img src="'.$logo_info->guid.'" alt="logo" width="'.round(absint($logo_metavalues['width'])).'" height="'.round(absint($logo_metavalues['height'])).'" class="img-responsive" />';
 								}
 							} else {
 								$logo_class = ' class="img-responsive"';
-								$logoMobileInner .= '<img src="'.$logo_info->guid.'" alt="'.$logo_alt.'" width="'.round($logo_metavalues['width']).'" height="'.round($logo_metavalues['height']).'"'.$logo_class.' />';
+								$logoMobileInner .= '<img src="'.$logo_info->guid.'" alt="'.$logo_alt.'" width="'.round(absint($logo_metavalues['width'])).'" height="'.round(absint($logo_metavalues['height'])).'"'.$logo_class.' />';
 							}
 							$logoMobileInner .= '</div>';
 						}
@@ -195,7 +196,9 @@ if (!class_exists('unmenu')) {
 						$logo_alt = esc_html__('logo','uncode');
 					}
 					$logo_info = uncode_get_media_info($value);
-					$media_metavalues = (isset($logo_info->metadata)) ? unserialize($logo_info->metadata) : '';
+					$media_metavalues = (isset($logo_info->metadata)) ? unserialize($logo_info->metadata) : array();
+					$media_metavalues['width'] = isset($media_metavalues['width']) ? absint( $media_metavalues['width']) : 1;
+					$media_metavalues['height'] = isset($media_metavalues['height']) ? absint( $media_metavalues['height']) : 1;
 					$logoSkinClass = 'main-logo ';
 					if (!empty($logo_info)) {
 						if (count($LOGO->logo_id) === 2) {
@@ -251,20 +254,19 @@ if (!class_exists('unmenu')) {
 								}
 							}
 							$logoDivInner .= '<div class="html-code '.$logoSkinClass.'" data-maxheight="'.$logo_height.'" style="height: '.$logo_height.'px;'.$logo_hide.'">';
-							$logoDivInner .= '<canvas class="logo-canvas" height="'.round($logo_height).'" width="'.round($logo_ratio * $logo_height) .'"></canvas>';
+							$logoDivInner .= '<canvas class="logo-canvas" height="'.round(absint($logo_height)).'" width="'.round($logo_ratio * $logo_height) .'"></canvas>';
 							$logoDivInner .= $media_code . '</div>' ;
 						} elseif ($logo_info->post_mime_type === 'oembed/html') {
 							$logoDivInner .= '<h2 class="text-logo h3 '.$logoSkinClass.'" data-maxheight="'.$logo_height.'" style="font-size:'.$logo_height.'px;'.$logo_hide.'">' . esc_html($logo_info->post_content) . '</h2>' ;
 						} else {
-							$logo_metavalues = unserialize($logo_info->metadata);
-							if (empty($logo_metavalues)) {
-								$logo_metavalues['width'] = $logo_metavalues['height'] = 1;
-							}
+							$logo_metavalues = (isset($logo_info->metadata)) ? unserialize($logo_info->metadata) : array();
+							$logo_metavalues['width'] = isset($logo_metavalues['width']) ? absint( $logo_metavalues['width']) : 1;
+							$logo_metavalues['height'] = isset($logo_metavalues['height']) ? absint( $logo_metavalues['height']) : 1;
 
 							$logoDivInner .= '<div class="logo-image '.$logoSkinClass.'" data-maxheight="'.$logo_height.'" style="height: '.$logo_height.'px;'.$logo_hide.'">';
 							if ($logo_info->post_mime_type === 'image/svg+xml') {
 								if ($logo_info->animated_svg) {
-									if (isset($logo_metavalues['width']) && $logo_metavalues['width'] !== '1') {
+									if (isset($logo_metavalues['width']) && $logo_metavalues['width'] !== 1) {
 										$icon_width = ' style="width:'.$logo_metavalues['width'].'px"';
 									} else {
 										$icon_width = '';
@@ -297,7 +299,7 @@ if (!class_exists('unmenu')) {
 				$customizer_logo_id   = get_theme_mod( 'custom_logo' );
 				$customizer_logo_data = wp_get_attachment_image_src( $customizer_logo_id , 'full' );
 
-				$logoDiv = '<a href="'.esc_url( home_url( get_current_blog_id(), '/' ) ).'" class="navbar-brand"><div class="logo-customizer"><img src="' . esc_url( $customizer_logo_data[0] ) . '" alt="' . esc_attr( get_bloginfo( 'name' ) ) . '" width="' . esc_attr( $customizer_logo_data[1] ) . '" height="' . esc_attr( $customizer_logo_data[2] ) . '" /></div></a>';
+				$logoDiv = '<a href="'.esc_url( home_url( get_current_blog_id(), '/' ) ).'" class="navbar-brand" data-minheight="20"><div class="logo-customizer"><img src="' . esc_url( $customizer_logo_data[0] ) . '" alt="' . esc_attr( get_bloginfo( 'name' ) ) . '" width="' . esc_attr( $customizer_logo_data[1] ) . '" height="' . esc_attr( $customizer_logo_data[2] ) . '" /></div></a>';
 			}
 
 			$socials = ot_get_option( '_uncode_social_list');
@@ -386,7 +388,6 @@ if (!class_exists('unmenu')) {
 			$get_menu_hide = ot_get_option( (wp_is_mobile() ? '_uncode_menu_hide_mobile' : '_uncode_menu_hide') );
 			$menu_hide = ($get_menu_hide === 'on')  ? ' menu-hide' : '';
 			$menu_sticky = (ot_get_option( (wp_is_mobile() ? '_uncode_menu_sticky_mobile' : '_uncode_menu_sticky')) === 'on') || ( uncode_is_full_page(true) ) ? ' menu-sticky' : (($get_menu_hide === 'on') ? ' menu-hide-only' : '');
-
 			$menu_no_arrow = (ot_get_option( '_uncode_menu_no_arrows') === 'on')  ? ' menu-no-arrows' : '';
 			if ($type === 'vmenu' && $menu_hide != '') {
 				if ($menu_sticky !== '' && !uncode_is_full_page(true) ) {
@@ -395,6 +396,10 @@ if (!class_exists('unmenu')) {
 				if ($menu_sticky !== '') {
 					$menu_sticky .= '-vertical';
 				}
+			}
+
+			if ( ot_get_option( '_uncode_menu_sticky_mobile' ) === 'on' ) {
+				$menu_sticky .= ' menu-sticky-mobile';
 			}
 
 			$effects = '';
@@ -511,7 +516,7 @@ if (!class_exists('unmenu')) {
 			$stylemaincombo .= ' style-' . $stylemain . '-original';
 			$lateral_padding_style = '';
 
-			if ( $menu_full_width === true ) {
+			if ( $menu_full_width === true || $boxed === 'on' ) {
 				$lateral_padding_option = ot_get_option( '_uncode_menu_custom_lateral_padding' );
 				switch ($lateral_padding_option) {
 					case 72:
@@ -849,8 +854,7 @@ if (!class_exists('unmenu')) {
 			}
 
 
-			if (!empty($socials) && strpos($type, 'vmenu') !== false) {
-
+			if (!empty($socials) && strpos($type, 'vmenu') !== false && $socials_active === 'on') {
 				$social_html .= '<div class="nav navbar-nav navbar-social"><ul class="menu-smart'.(is_rtl() ? ' sm-rtl' : '').' sm menu-social mobile-hidden tablet-hidden">';
 				$social_html .= $social_html_inner;
 				$social_html .= '</ul></div>';
@@ -922,7 +926,7 @@ if (!class_exists('unmenu')) {
 																					$menu_bloginfo_class .= ot_get_option( '_uncode_menu_bloginfo_mobile' ) === 'on' ? ' mobile-hidden' : '';
 																					$menu_bloginfo_html = '<div class="menu-bloginfo top-enhanced-inner top-enhanced-' .  $menu_bloginfo_show . $menu_bloginfo_class . '">
 																							<div class="menu-bloginfo-inner style-' . $stylesecmenu . $bloginfo_breakpoint .'">
-																								' . strip_tags( $menu_bloginfo ) . '
+																								' . strip_tags( $menu_bloginfo,  apply_filters( 'uncode_bloginfo_tags', array ("img", "a", "span", "strong", "em", "i", "b") ) ) . '
 																							</div>
 																					</div>';
 																				}
@@ -1171,8 +1175,8 @@ if (!class_exists('unmenu')) {
 													</div>
 													<div class="mmb-container"><div class="mobile-menu-button '.$buttonstyle_primary.' lines-button"><span class="lines"><span></span></span></div></div>
 												</div>';
-					add_filter('wp_nav_menu_objects', 'uncode_center_nav_menu_items', 10, 2);
-					$this->html = '<div class="menu-wrapper'.$menu_shrink.$menu_sticky.$menu_no_arrow.$menu_sub_animation.'">
+												add_filter('wp_nav_menu_objects', 'uncode_center_nav_menu_items', apply_filters( 'uncode_center_nav_menu_items_priority', 10 ), 2);
+												$this->html = '<div class="menu-wrapper'.$menu_shrink.$menu_sticky.$menu_no_arrow.$menu_sub_animation.'">
 													'.($no_secondary !== 'on' ? $secondary_menu_html : '').'
 													<header id="masthead" class="navbar'.$stylemaincombo.$main_absolute.' menu-with-logo">
 														<div class="menu-container'.$effects.$stylemainbackfull.$needs_after.'">

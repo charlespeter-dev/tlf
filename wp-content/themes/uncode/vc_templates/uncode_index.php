@@ -570,16 +570,48 @@ if ( $auto_query_type === 'navigation' ) {
 
 $loop = apply_filters( 'uncode_index_loop_query', $loop );
 
-if ( is_search() && ( $using_plugin === 'yes' || $auto_query === 'yes' ) ) {
-	if ( isset( $_GET['s'] ) ) {
-		$query_options['s'] = sanitize_text_field( $_GET['s'] );
 
-		if ( isset( $_GET['post_type'] ) ) {
-			$query_options['post_type'] = sanitize_text_field( $_GET['post_type'] );
+$search_query = false;
+
+if ( is_search() && ( $using_plugin === 'yes' || $auto_query === 'yes' ) ) {
+	if ( $using_plugin === 'yes' || apply_filters( 'uncode_use_legacy_search_query', false ) ) {
+		$search_query = $wp_query;
+	} else {
+		$_loop = $loop;
+		$loop  = '';
+
+		if ( isset( $_GET['s'] ) ) {
+			$query_options['s'] = sanitize_text_field( $_GET['s'] );
+
+			$search_loop = array();
+
+			$_loop_args = uncode_parse_loop_data( $_loop );
+
+			if ( isset( $_loop_args['post_type'] ) ) {
+				$search_loop['post_type'] = sanitize_text_field( $_loop_args['post_type'] );
+			}
+
+			if ( isset( $_GET['post_type'] ) ) {
+				$search_loop['post_type'] = sanitize_text_field( $_GET['post_type'] );
+			}
+
+			if ( $paged ) {
+				$search_loop['paged'] = $paged;
+			}
+
+			if ( isset( $_GET['ucat'] ) ) {
+				$search_loop['category'] = absint( $_GET['ucat'] );
+			}
+			
+			if ( isset( $_loop_args['size'] ) ) {
+				$search_loop['size'] = $_loop_args['size'];
+			}
+
+			if ( count( $search_loop ) > 0 ) {
+				$loop = uncode_unparse_loop_data( $search_loop );
+			}
 		}
 	}
-
-	$loop = '';
 }
 
 $query_options = apply_filters( 'uncode_index_query_options', $query_options );
@@ -614,7 +646,9 @@ if ( $pagination !== 'yes' && $infinite !== 'yes' ) {
 	}
 }
 
-if ( $filtering === 'ajax' && $ajax_filters_content_block_id > 0 ) {
+global $has_ajax_filters;
+
+if ( ( isset( $has_ajax_filters ) && $has_ajax_filters ) || ( $filtering === 'ajax' && $ajax_filters_content_block_id > 0 ) ) {
 	global $uncode_ajax_filter_query, $uncode_ajax_filter_query_unfiltered;
 
 	$query_options['has_filters'] = true;
@@ -642,7 +676,11 @@ $this->getLoop( $loop, $offset, $auto_query, $auto_query_type, $query_options );
 
 global $uncode_index_query;
 
-$uncode_index_query = $this->query;
+if ( $search_query ) {
+	$uncode_index_query = $search_query;
+} else {
+	$uncode_index_query = $this->query;
+}
 
 $args = $this->loop_args;
 
@@ -1175,7 +1213,7 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 					$parse_query = $this->parseData($loop_pagination);
 					$parse_query['size'] = '-1';
 					$this->getLoop( $parse_query );
-					$uncode_index_query_filter = $uncode_index_query;
+					$uncode_index_query_filter = $this->query;
 					foreach ($uncode_index_query_filter->posts as &$value) {
 						$get_cat = $this->getCategoriesCss( $value->ID );
 						$post->categories_css = $get_cat['cat_css'];
@@ -1304,11 +1342,26 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 									<li class="<?php echo esc_attr($show_all_class); ?>">
 										<span>
 											<?php if (($infinite === 'yes' || $pagination !== 'yes' || $uncode_index_query->max_num_pages == 1) && !isset($_GET['id'])) :
-											?><a href="#" data-filter="*" class="<?php if (!isset($_GET['ucat'])) echo 'active'; if ($filtering_uppercase !== 'yes') echo ' no-letterspace'; ?> isotope-nav-link grid-nav-link"><?php
-												else:
-											?><a href="<?php echo esc_url( $current_url ); ?>" class="<?php if (!isset($_GET['ucat'])) echo 'active'; if ($filtering_uppercase !== 'yes') echo ' no-letterspace'; ?>  <?php echo esc_attr( $isotope_nav_link_class ); ?>"><?php
-												endif;
-												echo esc_html( $filter_all_text === '' ? esc_html__('Show all' , 'uncode') : $filter_all_text );
+											?>
+												<a href="#" data-filter="*" class="<?php if (!isset($_GET['ucat'])) echo 'active'; if ($filtering_uppercase !== 'yes') echo ' no-letterspace'; ?> isotope-nav-link grid-nav-link">
+											<?php else: ?>
+												<?php
+												$filter_url_args = array();
+
+												if ( isset( $_GET['s'] ) ) {
+													$filter_url_args['s'] = $_GET['s'];
+												}
+
+												if ( isset( $_GET['post_type'] ) ) {
+													$filter_url_args['post_type'] = $_GET['post_type'];
+												}
+
+												$filter_url = add_query_arg( $filter_url_args, $current_url );
+												?>
+												<a href="<?php echo esc_url( $filter_url ); ?>" class="<?php if (!isset($_GET['ucat'])) echo 'active'; if ($filtering_uppercase !== 'yes') echo ' no-letterspace'; ?>  <?php echo esc_attr( $isotope_nav_link_class ); ?>">
+											<?php
+											endif;
+											echo esc_html( $filter_all_text === '' ? esc_html__('Show all' , 'uncode') : $filter_all_text );
 											?></a>
 										</span>
 									</li>
@@ -1317,7 +1370,25 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 											<?php if (($infinite === 'yes' || $pagination !== 'yes' || $uncode_index_query->max_num_pages == 1) && !isset($_GET['ucat'])) : ?>
 												<li class="filter-cat-<?php echo esc_attr($cat->term_id); ?> filter-cat"><span><a href="#" data-filter="grid-cat-<?php echo esc_attr($cat->term_id); ?>" class="<?php if (isset($_GET['ucat']) && $_GET['ucat'] == $cat->term_id) echo 'active'; ?> isotope-nav-link grid-nav-link"><?php echo esc_attr( $cat->name ) ?></a></span></li>
 											<?php else : ?>
-												<li class="filter-cat-<?php echo esc_attr($cat->term_id); ?> filter-cat"><span><a href="<?php echo esc_url( $current_url ); ?>?id=<?php echo esc_attr($el_id); ?>&amp;ucat=<?php echo esc_attr($cat->term_id); ?>" class="<?php if (isset($_GET['ucat']) && $_GET['ucat'] == $cat->term_id) { echo 'active'; } ?>  <?php echo esc_attr( $isotope_nav_link_class ); ?>"><?php echo esc_attr( $cat->name ) ?></a></span></li>
+
+												<?php
+												$filter_url_args = array(
+													'id'   => $el_id,
+													'ucat' => $cat->term_id,
+												);
+
+												if ( isset( $_GET['s'] ) ) {
+													$filter_url_args['s'] = $_GET['s'];
+												}
+
+												if ( isset( $_GET['post_type'] ) ) {
+													$filter_url_args['post_type'] = $_GET['post_type'];
+												}
+
+												$filter_url = add_query_arg( $filter_url_args, $current_url );
+												?>
+
+												<li class="filter-cat-<?php echo esc_attr($cat->term_id); ?> filter-cat"><span><a href="<?php echo esc_url( $filter_url ); ?>" class="<?php if (isset($_GET['ucat']) && $_GET['ucat'] == $cat->term_id) { echo 'active'; } ?>  <?php echo esc_attr( $isotope_nav_link_class ); ?>"><?php echo esc_attr( $cat->name ) ?></a></span></li>
 											<?php endif; ?>
 										<?php endif;
 									endforeach; ?>
@@ -2216,7 +2287,7 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 									$item_thumb_id = uncode_get_term_featured_thumbnail_id( $post->id );
 								} else {
 									$item_thumb_id = get_post_thumbnail_id($post->id);
-									if ( $item_thumb_id === '' || $item_thumb_id == 0 ) {
+									if ( $item_thumb_id === '' || $item_thumb_id == 0 && apply_filters( 'uncode_use_medias_when_featured_empty', true )) {
 										$item_thumb_id = get_post_meta( $post->id, '_uncode_featured_media', 1);
 										$medias = explode(',', $item_thumb_id);
 										if (is_array($medias) && isset($medias[0])) {
@@ -2305,7 +2376,7 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 					}
 
 					$block_data['id'] = $post->id;
-					$block_data['content'] = $post->content;
+					$block_data['content'] = uncode_get_the_content($post->content, false, $post->id);
 					$block_data['classes'] = $block_classes;
 					$block_data['drop_classes'] = $drop_classes;
 					$block_data['tmb_data'] = $tmb_data;
@@ -2641,7 +2712,7 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 						}
 					}
 
-					$block_data = apply_filters( 'uncode_index_shortcode_block_data', $block_data );
+					$block_data = apply_filters( 'uncode_index_shortcode_block_data', $block_data, $atts );
 
 					if ( ! $wrong_layout ) {
 						if ( $index_type === 'custom_grid' && $custom_grid_content_block_id ) {
@@ -2805,7 +2876,7 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 						<div class="<?php echo esc_attr( $index_type === 'css_grid' ? 'cssgrid' : $index_type ); ?>-footer-inner grid-footer-inner<?php if ($footer_full_width !== 'yes') { echo ' limit-width'; ?> menu-<?php echo esc_attr($footer_style); } ?> text-center">
 							<ul class='pagination'>
 								<?php if ( $paged > 1 ) : ?>
-									<li class="page-prev"><a class="' . $btn_class . ' text-default-color" href="<?php echo esc_url( $prev_link ); ?>"><i class="fa fa-angle-left"></i></a></li>
+									<li class="page-prev"><a class="<?php echo esc_attr( $btn_class ); ?> text-default-color" href="<?php echo esc_url( $prev_link ); ?>"><i class="fa fa-angle-left"></i></a></li>
 								<?php else : ?>
 									<li class="page-prev"><span class="<?php echo esc_attr( $btn_class ); ?> btn-disable-hover"><i class="fa fa-angle-left"></i></a></li>
 								<?php endif; ?>

@@ -459,7 +459,7 @@ function uncode_equeue() {
 		'bg_changer_time'			 => floatval( apply_filters( 'uncode_bg_changer_time', 1000 ) ),
 		'update_wc_fragments'		 => apply_filters( 'uncode_update_wc_fragments_on_load', true ),
 		'optimize_shortpixel_image'	 => apply_filters( 'uncode_optimize_shortpixel_image', false ),
-		'custom_cursor_selector'	 => apply_filters( 'uncode_custom_cursor_selector', '[href], .trigger-overlay, .owl-next, .owl-prev, .owl-dot, input[type="submit"], button[type="submit"], a[class^="ilightbox"], .ilightbox-thumbnail, .ilightbox-prev, .ilightbox-next, .overlay-close, .unmodal-close, .qty-inset > span, .share-button li, .uncode-post-titles .tmb.tmb-click-area, .btn-link, .tmb-click-row .t-inside, .lg-outer button, .lg-thumb img' ),
+		'custom_cursor_selector'	 => apply_filters( 'uncode_custom_cursor_selector', '[href], .trigger-overlay, .owl-next, .owl-prev, .owl-dot, input[type="submit"], input[type="checkbox"], button[type="submit"], a[class^="ilightbox"], .ilightbox-thumbnail, .ilightbox-prev, .ilightbox-next, .overlay-close, .unmodal-close, .qty-inset > span, .share-button li, .uncode-post-titles .tmb.tmb-click-area, .btn-link, .tmb-click-row .t-inside, .lg-outer button, .lg-thumb img' ),
 		'mobile_parallax_animation'  => apply_filters( 'uncode_mobile_parallax_animation_allowed', false ),
 		'lbox_enhanced'				 => apply_filters( 'uncode_lightgallery', get_option( 'uncode_core_settings_opt_lightbox_enhance' ) === 'on' ),
 		'native_media_player'		 => apply_filters( 'uncode_native_mediaplayer', $native_media_player ),
@@ -688,7 +688,7 @@ function uncode_equeue() {
 
 	}
 
-	$output_css .= "\n#changer-back-color { transition: background-color " . floatval( apply_filters( 'uncode_bg_changer_time', 1000 ) ) . "ms cubic-bezier(0.25, 1, 0.5, 1) !important; } #changer-back-color > div { transition: opacity " . floatval( apply_filters( 'uncode_bg_changer_time', 1000 ) ) . "ms cubic-bezier(0.25, 1, 0.5, 1) !important; } body.bg-changer-init.disable-hover .main-wrapper .style-light,  body.bg-changer-init.disable-hover .main-wrapper .style-light h1,  body.bg-changer-init.disable-hover .main-wrapper .style-light h2, body.bg-changer-init.disable-hover .main-wrapper .style-light h3, body.bg-changer-init.disable-hover .main-wrapper .style-light h4, body.bg-changer-init.disable-hover .main-wrapper .style-light h5, body.bg-changer-init.disable-hover .main-wrapper .style-light h6, body.bg-changer-init.disable-hover .main-wrapper .style-light a, body.bg-changer-init.disable-hover .main-wrapper .style-dark, body.bg-changer-init.disable-hover .main-wrapper .style-dark h1, body.bg-changer-init.disable-hover .main-wrapper .style-dark h2, body.bg-changer-init.disable-hover .main-wrapper .style-dark h3, body.bg-changer-init.disable-hover .main-wrapper .style-dark h4, body.bg-changer-init.disable-hover .main-wrapper .style-dark h5, body.bg-changer-init.disable-hover .main-wrapper .style-dark h6, body.bg-changer-init.disable-hover .main-wrapper .style-dark a { transition: color " . floatval( apply_filters( 'uncode_bg_changer_time', 1000 ) ) . "ms cubic-bezier(0.25, 1, 0.5, 1) !important; } body.bg-changer-init.disable-hover .main-wrapper .heading-text-highlight-inner { transition-property: right, background; transition-duration: " . floatval( apply_filters( 'uncode_bg_changer_time', 1000 ) ) . "ms }";
+	$output_css .= "\n#changer-back-color { transition: background-color " . floatval( apply_filters( 'uncode_bg_changer_time', 1000 ) ) . "ms cubic-bezier(0.25, 1, 0.5, 1) !important; } #changer-back-color > div { transition: opacity " . floatval( apply_filters( 'uncode_bg_changer_time', 1000 ) ) . "ms cubic-bezier(0.25, 1, 0.5, 1) !important; } body.bg-changer-init.disable-hover .main-wrapper .style-light,  body.bg-changer-init.disable-hover .main-wrapper .style-light h1,  body.bg-changer-init.disable-hover .main-wrapper .style-light h2, body.bg-changer-init.disable-hover .main-wrapper .style-light h3, body.bg-changer-init.disable-hover .main-wrapper .style-light h4, body.bg-changer-init.disable-hover .main-wrapper .style-light h5, body.bg-changer-init.disable-hover .main-wrapper .style-light h6, body.bg-changer-init.disable-hover .main-wrapper .style-light a, body.bg-changer-init.disable-hover .main-wrapper .style-dark, body.bg-changer-init.disable-hover .main-wrapper .style-dark h1, body.bg-changer-init.disable-hover .main-wrapper .style-dark h2, body.bg-changer-init.disable-hover .main-wrapper .style-dark h3, body.bg-changer-init.disable-hover .main-wrapper .style-dark h4, body.bg-changer-init.disable-hover .main-wrapper .style-dark h5, body.bg-changer-init.disable-hover .main-wrapper .style-dark h6, body.bg-changer-init.disable-hover .main-wrapper .style-dark a { transition: color " . floatval( apply_filters( 'uncode_bg_changer_time', 1000 ) ) . "ms cubic-bezier(0.25, 1, 0.5, 1) !important; }";
 
 	if ($output_css !== '') {
 		wp_add_inline_style('uncode-style', $output_css);
@@ -722,7 +722,7 @@ add_action( 'init', 'uncode_add_excerpts_to_pages' );
  * @return array
  */
 function uncode_body_classes($classes){
-	global $LOGO, $post, $menutype, $metabox_data, $adaptive_images, $adaptive_images_async;
+	global $LOGO, $post, $menutype, $metabox_data, $adaptive_images, $adaptive_images_async, $general_style;
 
 	// Adds a class of group-blog to blogs with more than 1 published author.
 	if (is_multi_author())
@@ -841,8 +841,11 @@ function uncode_body_classes($classes){
 
 	$menu_mobile_overlay = ot_get_option('_uncode_menu_mobile_centered');
 	$menu_stick_mobile = ot_get_option('_uncode_menu_sticky_mobile');
-	if ($menu_mobile_overlay === 'on' && $menu_stick_mobile === 'on') {
-		$classes[] = 'menu-mobile-centered';
+	if ($menu_stick_mobile === 'on') {
+		$classes[] = 'menu-sticky-mobile';
+		if ($menu_mobile_overlay === 'on') {
+			$classes[] = 'menu-mobile-centered';
+		}
 	}
 
 	if (uncode_is_full_page()) {
@@ -973,7 +976,7 @@ function uncode_body_classes($classes){
 	$no_cta = apply_filters( 'uncode_cta_menu_hide', ot_get_option('_uncode_menu_no_cta') );
 	if ($no_cta === 'off' && isset($theme_locations['cta'])) {
 		$cta_obj = get_term( $theme_locations['cta'], 'nav_menu' );
-		$cta_menu = $cta_obj->name;
+		$cta_menu = isset( $cta_obj->name ) ? $cta_obj->name : false;
 	} else {
 		$cta_menu = false;
 	}

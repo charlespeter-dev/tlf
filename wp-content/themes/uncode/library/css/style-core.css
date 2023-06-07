@@ -2422,10 +2422,10 @@ body.compose-mode .main-container .row-container .with-zoomout .background-inner
   }
 }
 .main-container .row-container .row-parent .uncont > *.ilightbox-html:first-child + *,
-.main-container .row-container .row-parent .uncont > *:first-child,
-.main-container .row-container .row-parent .uncont > *:first-child:not(.divider-wrapper):not(.edit-account) > *:first-child:not(.isotope-wrapper):not(.justified-wrapper):not(.index-wrapper):not(.edit-account),
-.main-container .row-container .row-parent .uncont > *:first-child:not(.divider-wrapper):not(.edit-account) > *:first-child > *:first-child,
-.main-container .row-container .row-parent .uncont > *:first-child:not(.divider-wrapper):not(.edit-account) > *:first-child:not(.isotope-wrapper):not(.justified-wrapper):not(.index-wrapper):not(.edit-account) > *:first-child > *:first-child {
+.main-container .row-container .row-parent .uncont > *:first-child:not([class*=shift_y_]),
+.main-container .row-container .row-parent .uncont > *:first-child:not(.divider-wrapper):not(.edit-account) > *:first-child:not(.isotope-wrapper):not(.justified-wrapper):not(.index-wrapper):not(.edit-account):not([class*=shift_y_]),
+.main-container .row-container .row-parent .uncont > *:first-child:not(.divider-wrapper):not(.edit-account) > *:first-child > *:first-child:not([class*=shift_y_]),
+.main-container .row-container .row-parent .uncont > *:first-child:not(.divider-wrapper):not(.edit-account) > *:first-child:not(.isotope-wrapper):not(.justified-wrapper):not(.index-wrapper):not(.edit-account) > *:first-child > *:first-child:not([class*=shift_y_]) {
   margin-top: 0px !important;
 }
 .main-container .row-container .row-parent .uncont > *.desktop-hidden:first-child + * {
@@ -7032,7 +7032,7 @@ body[class*=vmenu-] #main-logo {
   margin: auto;
 }
 .menu-container {
-  float: none!important;
+  float: none !important;
 }
 .menu-container:before,
 .menu-container:after {
@@ -7092,6 +7092,9 @@ body[class*=vmenu-] #main-logo {
     top: 0;
     width: 100%;
     z-index: 99;
+  }
+  html.firefox .hmenu .needs-after:not(.isotope-filters).menu-container:after {
+    transition: inherit;
   }
 }
 @media (max-width: 959px) {
@@ -7498,8 +7501,8 @@ body[class*=vmenu-]:not(.menu-overlay):not(.menu-offcanvas) .logo-container {
   }
 }
 @media (max-width: 959px) {
-  .menu-wrapper .row-menu .row-menu-inner,
-  .menu-container .row-brand {
+  body.menu-mobile-borders .menu-wrapper .row-menu .row-menu-inner,
+  body.menu-mobile-borders .menu-container .row-brand {
     border-bottom: 1px solid transparent;
   }
   .hmenu-center:not(.open-overlay-menu) .menu-wrapper #masthead .row-menu .row-menu-inner {
@@ -7723,11 +7726,11 @@ body[class*=vmenu-] .vmenu-container .logo-container > *:first-child {
     position: absolute;
     z-index: 1000;
   }
-  .menu-overlay .menu-sticky + .overlay-menu {
+  .menu-overlay .menu-sticky-mobile + .overlay-menu {
     position: fixed;
     z-index: 1000;
   }
-  .menu-overlay .menu-sticky + .overlay-menu .main-menu-container {
+  .menu-overlay .menu-sticky-mobile + .overlay-menu .main-menu-container {
     overflow-y: scroll;
   }
   .menu-sticky-vertical {
@@ -7901,6 +7904,9 @@ body[class*=vmenu-] .vmenu-container .logo-container > *:first-child {
     padding-top: 18px;
     padding-bottom: 18px;
   }
+}
+.top-menu.top-menu-enhanced .menu-bloginfo .menu-bloginfo-inner > img {
+  max-width: none;
 }
 .top-menu.top-menu-enhanced:after {
   border-bottom: 1px solid transparent;
@@ -8314,44 +8320,44 @@ body[class*=vmenu-] .vmenu-container .logo-container > *:first-child {
   width: auto;
 }
 @media (min-width: 960px) {
-  body.vmenu-position-left .single-h-padding#masthead .row-offcanvas .row-menu-inner .main-menu-container,
-  body.menu-overlay-left .single-h-padding#masthead .row-offcanvas .row-menu-inner .main-menu-container {
+  body.vmenu-position-left #masthead .row-offcanvas .row-menu-inner .main-menu-container,
+  body.menu-overlay-left #masthead .row-offcanvas .row-menu-inner .main-menu-container {
     left: calc(40px + 36px);
   }
-  body.vmenu-position-left .single-h-padding#masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-1,
-  body.menu-overlay-left .single-h-padding#masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-1 {
+  body.vmenu-position-left #masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-1,
+  body.menu-overlay-left #masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-1 {
     left: calc(95px + 36px);
   }
-  body.vmenu-position-left .single-h-padding#masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-2,
-  body.menu-overlay-left .single-h-padding#masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-2 {
+  body.vmenu-position-left #masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-2,
+  body.menu-overlay-left #masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-2 {
     left: calc(133px + 36px);
   }
-  body.vmenu-position-left .single-h-padding#masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-3,
-  body.menu-overlay-left .single-h-padding#masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-3 {
+  body.vmenu-position-left #masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-3,
+  body.menu-overlay-left #masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-3 {
     left: calc(167px + 36px);
   }
-  body.vmenu-position-left .single-h-padding#masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-4,
-  body.menu-overlay-left .single-h-padding#masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-4 {
+  body.vmenu-position-left #masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-4,
+  body.menu-overlay-left #masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-4 {
     left: calc(202px + 36px);
   }
-  body.vmenu-position-right .single-h-padding#masthead .row-offcanvas .row-menu-inner .main-menu-container,
-  body:not(.menu-overlay-left) .single-h-padding#masthead .row-offcanvas .row-menu-inner .main-menu-container {
+  body.vmenu-position-right #masthead .row-offcanvas .row-menu-inner .main-menu-container,
+  body:not(.menu-overlay-left) #masthead .row-offcanvas .row-menu-inner .main-menu-container {
     right: calc(40px + 36px);
   }
-  body.vmenu-position-right .single-h-padding#masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-1,
-  body:not(.menu-overlay-left):not(.menu-offcanvas) .single-h-padding#masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-1 {
+  body.vmenu-position-right #masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-1,
+  body:not(.menu-overlay-left):not(.menu-offcanvas) #masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-1 {
     right: calc(94px + 36px);
   }
-  body.vmenu-position-right .single-h-padding#masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-2,
-  body:not(.menu-overlay-left):not(.menu-offcanvas) .single-h-padding#masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-2 {
+  body.vmenu-position-right #masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-2,
+  body:not(.menu-overlay-left):not(.menu-offcanvas) #masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-2 {
     right: calc(132px + 36px);
   }
-  body.vmenu-position-right .single-h-padding#masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-3,
-  body:not(.menu-overlay-left):not(.menu-offcanvas) .single-h-padding#masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-3 {
+  body.vmenu-position-right #masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-3,
+  body:not(.menu-overlay-left):not(.menu-offcanvas) #masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-3 {
     right: calc(166px + 36px);
   }
-  body.vmenu-position-right .single-h-padding#masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-4,
-  body:not(.menu-overlay-left):not(.menu-offcanvas) .single-h-padding#masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-4 {
+  body.vmenu-position-right #masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-4,
+  body:not(.menu-overlay-left):not(.menu-offcanvas) #masthead .row-offcanvas .row-menu-inner .main-menu-container.cta-with-icons-4 {
     right: calc(201px + 36px);
   }
 }
@@ -8860,8 +8866,8 @@ body[class*=vmenu-] .vmenu-container .logo-container > *:first-child {
   }
 }
 @media (min-width: 960px) {
-  #masthead[class*="-h-padding"] .row-menu .row-menu-inner .logo-container,
-  .top-menu.navbar[class*="-h-padding"] .row-menu .row-menu-inner .logo-container {
+  body:not(.hmenu-center-split) #masthead[class*="-h-padding"] .row-menu .row-menu-inner .logo-container,
+  body:not(.hmenu-center-split) .top-menu.navbar[class*="-h-padding"] .row-menu .row-menu-inner .logo-container {
     padding-left: 0 !important;
     padding-right: 0 !important;
     position: static !important;
@@ -8877,7 +8883,6 @@ body[class*=vmenu-] .vmenu-container .logo-container > *:first-child {
   #masthead[class*="-h-padding"] .overlay.overlay-search .mmb-container,
   .top-menu.navbar[class*="-h-padding"] .overlay.overlay-search .mmb-container {
     order: 2;
-    right: -36px;
   }
   #masthead[class*="-h-padding"] .overlay.overlay-search .search-container form,
   .top-menu.navbar[class*="-h-padding"] .overlay.overlay-search .search-container form {
@@ -10094,6 +10099,7 @@ body:not(.single-product) .header-wrapper .owl-stage-outer {
   z-index: 1;
   opacity: 1;
   animation: spin 2s infinite linear;
+  pointer-events: none;
 }
 .style-light .header-wrapper:not(.header-only-text):before,
 .style-light .uncode-slider:not(.slider-loaded):before,
@@ -12233,13 +12239,13 @@ img.aligncenter {
 ----------------------------------------------------------
 */
 /* CSS Animations */
-@media (max-width: 959px) {
+@media (hover: none) and (pointer: coarse) {
   #uncode-custom-cursor,
   #uncode-custom-cursor-pilot {
     display: none;
   }
 }
-@media (min-width: 960px) {
+@media (hover: hover) and (pointer: fine) {
   #uncode-custom-cursor,
   #uncode-custom-cursor-pilot {
     height: 0px;

@@ -23,6 +23,7 @@
 			<key name="_uncode_logo_light"/>
 			<key name="_uncode_logo_dark"/>
 			<key name="_uncode_menu_bloginfo"/>
+			<key name="_uncode_hmenu_position"/>
 			<key name="_uncode_post_navigation_index_label"/>
 			<key name="_uncode_portfolio_navigation_index_label"/>
 			<key name="_uncode_product_navigation_index_label"/>
@@ -260,6 +261,7 @@
 			<tag>vc_button</tag>
 			<attributes>
 				<attribute>link</attribute>
+				<attribute>media_lightbox</attribute>
 			</attributes>
 		</shortcode>
 		<shortcode>

@@ -2,7 +2,7 @@
 	"use strict";
 
 	UNCODE.revslider = function() {
-	$(window).on("load", function() {
+	var revSliderIn = function(){
 		$('rs-module').each(function(){
 			var $slider = $(this);
 
@@ -27,8 +27,9 @@
 			});
 
 		});
-	});
+	};
+	revSliderIn();
+	$(window).on("load", revSliderIn );
 };
-
 
 })(jQuery);

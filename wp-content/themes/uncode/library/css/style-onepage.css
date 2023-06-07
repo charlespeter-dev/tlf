@@ -35,10 +35,8 @@
   width: 30px;
   transform: translateY(-50%);
 }
-@media (max-width: 959px) {
-  .onepage-pagination {
-    display: none;
-  }
+.touch .onepage-pagination {
+  display: none;
 }
 .no-touch .onepage-pagination li {
   text-align: right;

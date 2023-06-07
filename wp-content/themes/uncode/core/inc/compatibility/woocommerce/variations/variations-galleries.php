@@ -112,10 +112,6 @@ add_action( 'woocommerce_save_product_variation', 'uncode_wc_save_variation_on_a
  * Save images when saving the post (no AJAX)
  */
 function uncode_wc_save_variation( $post_id, $post ) {
-	if ( ! isset( $_POST['uncode_variation_gallery_ids'] ) ) {
-		return;
-	}
-
 	// Check the nonce
 	if ( empty( $_POST['woocommerce_meta_nonce'] ) || ! wp_verify_nonce( $_POST['woocommerce_meta_nonce'], 'woocommerce_save_data' ) ) {
 		return;
@@ -145,6 +141,13 @@ function uncode_wc_save_variation( $post_id, $post ) {
 
 	// Check the post type
 	if ( ! in_array( $post->post_type, array( 'product' ) ) ) {
+		return;
+	}
+
+	// Delete check
+	delete_post_meta( $post_id, 'has_variation_gallery' );
+
+	if ( ! isset( $_POST['uncode_variation_gallery_ids'] ) ) {
 		return;
 	}
 

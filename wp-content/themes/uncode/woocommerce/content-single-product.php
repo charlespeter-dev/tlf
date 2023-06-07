@@ -80,9 +80,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		}
 
+		if ( apply_filters( 'uncode_is_product_page_module', false ) ) {
+			echo '<div class="product">';
+		}
+
 		echo uncode_remove_p_tag($product_cb_content);
 
 		do_action( 'uncode_woocommerce_after_single_product_builder' );
+
+		if ( apply_filters( 'uncode_is_product_page_module', false ) ) {
+			echo '</div>';
+		}
 
 		$is_cb = false;
 

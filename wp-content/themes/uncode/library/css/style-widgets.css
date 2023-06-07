@@ -406,6 +406,9 @@ footer .widget-container.widget_recent_reviews li {
   .widget-tablet-collapse .collapse-init .widget-title {
     display: block;
   }
+  .widget-tablet-collapse:first-child .widget-title {
+    padding-top: 18px !important;
+  }
   .widget-tablet-collapse .widget-title {
     cursor: pointer;
     position: relative;

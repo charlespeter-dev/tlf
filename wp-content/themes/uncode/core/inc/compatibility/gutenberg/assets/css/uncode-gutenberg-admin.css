@@ -10,8 +10,8 @@
 
 .gutenberg-editor-page .edit-post-layout__metaboxes .postbox,
 .block-editor-page .edit-post-layout__metaboxes .postbox {
-	margin-left: -20px;
-	margin-right: -20px;
+	margin-left: 0;
+	margin-right: 0;
 }
 
 .gutenberg-editor-page .edit-post-layout__metaboxes,

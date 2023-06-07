@@ -60,7 +60,8 @@ add_action( 'wp_ajax_nopriv_uncode_ajax_add_to_cart', 'uncode_wc_variations_add_
  * Append JSON data to the image for variations (Dynamic SRCSET)
  */
 function uncode_wc_variations_add_srcset_json( $async_data, $type, $block_data, $dynamic_srcset_sizes, $id, $media_attributes, $resized_image, $orig_w, $orig_h, $single_w, $single_h, $crop, $fixed = null ) {
-	if ( isset( $block_data['id'] ) && $block_data['id'] && isset( $block_data['product'] ) && $block_data['product'] ) {
+	$layout = isset( $block_data['layout'] ) ? $block_data['layout'] : array();
+	if ( isset( $layout['variations'] ) && $layout['variations'] &&  isset( $block_data['id'] ) && $block_data['id'] && isset( $block_data['product'] ) && $block_data['product'] ) {
 		$product = wc_get_product( $block_data['id'] );
 
 		if ( $product && $product->is_type( 'variable' ) ) {
@@ -219,21 +220,34 @@ function uncode_wc_product_class( $classes, $class = '', $post_id = 0 ) {
 		return $classes;
 	}
 
+	if ( ot_get_option( '_uncode_woocommerce_catalog_mode' ) === 'on' && ot_get_option( '_uncode_woocommerce_catalog_mode_show_variations' ) !== 'on' ) {
+		return $classes;
+	}
+
 	$product = wc_get_product( $post_id );
 
 	if ( $product && $product->is_type( 'variable' ) ) {
-		$available_variations = $product->get_available_variations();
+		$has_variation_gallery = get_post_meta( $post_id, 'has_variation_gallery', true );
 
-		foreach ( $available_variations as $variation ) {
-			$variation_id          = $variation['variation_id'];
-			$variation_gallery_ids = uncode_wc_get_variation_gallery_ids( $variation_id );
+		if ( empty( $has_variation_gallery ) ) {
+			$available_variations = $product->get_available_variations();
 
-			if ( is_array( $variation_gallery_ids ) && count( $variation_gallery_ids ) > 0 ) {
-				$classes[] = 'woocommerce-product-gallery--with-variation-gallery product-gallery-placeholder';
+			foreach ( $available_variations as $variation ) {
+				$variation_id          = $variation['variation_id'];
+				$variation_gallery_ids = uncode_wc_get_variation_gallery_ids( $variation_id );
 
-				return $classes;
+				if ( is_array( $variation_gallery_ids ) && count( $variation_gallery_ids ) > 0 ) {
+					$classes[] = 'woocommerce-product-gallery--with-variation-gallery product-gallery-placeholder';
+
+					update_post_meta( $post_id, 'has_variation_gallery', 1 );
+
+					return $classes;
+				}
 			}
 
+			update_post_meta( $post_id, 'has_variation_gallery', 0 );
+		} else if ( $has_variation_gallery === '1' ) {
+			$classes[] = 'woocommerce-product-gallery--with-variation-gallery product-gallery-placeholder';
 		}
 	}
 
@@ -257,24 +271,37 @@ function uncode_wc_page_header_product_class( $classes, $post_id = 0, $product =
 		return $classes;
 	}
 
+	if ( ot_get_option( '_uncode_woocommerce_catalog_mode' ) === 'on' && ot_get_option( '_uncode_woocommerce_catalog_mode_show_variations' ) !== 'on' ) {
+		return $classes;
+	}
+
 	if ( ! $post_id ) {
 		return $classes;
 	}
 
 	if ( $product && $product->is_type( 'variable' ) ) {
-		$available_variations = $product->get_available_variations();
+		$has_variation_gallery = get_post_meta( $post_id, 'has_variation_gallery', true );
 
-		foreach ( $available_variations as $variation ) {
-			$variation_id          = $variation['variation_id'];
-			$variation_gallery_ids = uncode_wc_get_variation_gallery_ids( $variation_id );
+		if ( empty( $has_variation_gallery ) ) {
+			$available_variations = $product->get_available_variations();
 
-			if ( is_array( $variation_gallery_ids ) && count( $variation_gallery_ids ) > 0 ) {
-				$classes[] = 'woocommerce-product-gallery--with-variation-gallery';
-				$classes[] = 'product-gallery-placeholder';
+			foreach ( $available_variations as $variation ) {
+				$variation_id          = $variation['variation_id'];
+				$variation_gallery_ids = uncode_wc_get_variation_gallery_ids( $variation_id );
 
-				return $classes;
+				if ( is_array( $variation_gallery_ids ) && count( $variation_gallery_ids ) > 0 ) {
+					$classes[] = 'woocommerce-product-gallery--with-variation-gallery';
+					$classes[] = 'product-gallery-placeholder';
+
+					update_post_meta( $post_id, 'has_variation_gallery', 1 );
+
+					return $classes;
+				}
 			}
 
+			update_post_meta( $post_id, 'has_variation_gallery', 0 );
+		} else if ( $has_variation_gallery === '1' ) {
+			$classes[] = 'woocommerce-product-gallery--with-variation-gallery product-gallery-placeholder';
 		}
 	}
 

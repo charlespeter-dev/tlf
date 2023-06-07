@@ -324,7 +324,16 @@
 					? videoInfo.youtube[2] + '&'
 					: '';
 				// For youtube first parms gets priority if duplicates found
-				var youTubePlayerParams = "?" + slideUrlParams + "wmode=opaque&autoplay=0&mute=1&enablejsapi=1";
+				// Uncode edit ##START##
+				// var youTubePlayerParams = "?" + slideUrlParams + "wmode=opaque&autoplay=0&mute=1&enablejsapi=1";
+				var youTubePlayerParams = "?" + slideUrlParams + "wmode=opaque&enablejsapi=1";
+				if ( slideUrlParams.indexOf('autoplay=') < 0 && youTubePlayerParams.indexOf('autoplay=') < 0 ) {
+					youTubePlayerParams += '&autoplay=0';
+				}
+				if ( slideUrlParams.indexOf('mute=') < 0 && youTubePlayerParams.indexOf('mute=') < 0 ) {
+					youTubePlayerParams += '&mute=1';
+				}
+				// Uncode edit ##END##
 				var playerParams = youTubePlayerParams +
 					(this.settings.youTubePlayerParams
 						? '&' + param(this.settings.youTubePlayerParams)

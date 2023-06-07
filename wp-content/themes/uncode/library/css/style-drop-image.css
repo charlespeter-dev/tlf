@@ -24,7 +24,8 @@
     width: 0;
   }
   .drop-mobile-block.uncode-post-titles .titles-display-inline .tmb .drop-image-separator-empty {
-    display: none;
+    overflow: hidden;
+    width: 0;
   }
 }
 .uncode-post-titles .tmb {
@@ -195,7 +196,8 @@
 }
 .row div[class*=col-lg-].align_center .drop-image-separator-before .drop-image-separator-inner,
 .row div[class*=col-lg-] .row-inner .align_center .drop-image-separator-before .drop-image-separator-inner {
-  display: none;
+  overflow: hidden;
+  width: 0;
 }
 .row div[class*=col-lg-].align_left .drop-image-separator-before,
 .row div[class*=col-lg-] .row-inner .align_left .drop-image-separator-before {
@@ -203,7 +205,8 @@
 }
 .row div[class*=col-lg-].align_left .drop-image-separator-before .drop-image-separator-inner,
 .row div[class*=col-lg-] .row-inner .align_left .drop-image-separator-before .drop-image-separator-inner {
-  display: none;
+  overflow: hidden;
+  width: 0;
 }
 .row div[class*=col-lg-].align_left .drop-image-separator-after,
 .row div[class*=col-lg-] .row-inner .align_left .drop-image-separator-after {
@@ -223,7 +226,8 @@
 }
 .row div[class*=col-lg-].align_right .drop-image-separator-after .drop-image-separator-inner,
 .row div[class*=col-lg-] .row-inner .align_right .drop-image-separator-after .drop-image-separator-inner {
-  display: none;
+  overflow: hidden;
+  width: 0;
 }
 .row div[class*=col-lg-].align_right .drop-image-separator-before,
 .row div[class*=col-lg-] .row-inner .align_right .drop-image-separator-before {
@@ -252,7 +256,8 @@
   }
   .row div[class*=col-lg-].align_center_tablet .drop-image-separator-before .drop-image-separator-inner,
   .row div[class*=col-lg-] .row-inner .align_center_tablet .drop-image-separator-before .drop-image-separator-inner {
-    display: none;
+    overflow: hidden;
+    width: 0;
   }
   .row div[class*=col-lg-].align_center_tablet .drop-image-separator-after,
   .row div[class*=col-lg-] .row-inner .align_center_tablet .drop-image-separator-after {
@@ -276,7 +281,8 @@
   }
   .row div[class*=col-lg-].align_left_tablet .drop-image-separator-before .drop-image-separator-inner,
   .row div[class*=col-lg-] .row-inner .align_left_tablet .drop-image-separator-before .drop-image-separator-inner {
-    display: none;
+    overflow: hidden;
+    width: 0;
   }
   .row div[class*=col-lg-].align_left_tablet .drop-image-separator-after,
   .row div[class*=col-lg-] .row-inner .align_left_tablet .drop-image-separator-after {
@@ -300,7 +306,8 @@
   }
   .row div[class*=col-lg-].align_right_tablet .drop-image-separator-after .drop-image-separator-inner,
   .row div[class*=col-lg-] .row-inner .align_right_tablet .drop-image-separator-after .drop-image-separator-inner {
-    display: none;
+    overflow: hidden;
+    width: 0;
   }
   .row div[class*=col-lg-].align_right_tablet .drop-image-separator-before,
   .row div[class*=col-lg-] .row-inner .align_right_tablet .drop-image-separator-before {
@@ -334,7 +341,8 @@
   }
   .row div[class*=col-lg-].align_center_mobile .drop-image-separator-before .drop-image-separator-inner,
   .row div[class*=col-lg-] .row-inner .align_center_mobile .drop-image-separator-before .drop-image-separator-inner {
-    display: none;
+    overflow: hidden;
+    width: 0;
   }
   .row div[class*=col-lg-].align_center_mobile .drop-image-separator-after,
   .row div[class*=col-lg-] .row-inner .align_center_mobile .drop-image-separator-after {
@@ -358,7 +366,8 @@
   }
   .row div[class*=col-lg-].align_left_mobile .drop-image-separator-before .drop-image-separator-inner,
   .row div[class*=col-lg-] .row-inner .align_left_mobile .drop-image-separator-before .drop-image-separator-inner {
-    display: none;
+    overflow: hidden;
+    width: 0;
   }
   .row div[class*=col-lg-].align_left_mobile .drop-image-separator-after,
   .row div[class*=col-lg-] .row-inner .align_left_mobile .drop-image-separator-after {
@@ -382,7 +391,8 @@
   }
   .row div[class*=col-lg-].align_right_mobile .drop-image-separator-after .drop-image-separator-inner,
   .row div[class*=col-lg-] .row-inner .align_right_mobile .drop-image-separator-after .drop-image-separator-inner {
-    display: none;
+    overflow: hidden;
+    width: 0;
   }
   .row div[class*=col-lg-].align_right_mobile .drop-image-separator-before,
   .row div[class*=col-lg-] .row-inner .align_right_mobile .drop-image-separator-before {
@@ -589,6 +599,23 @@
   position: absolute;
 }
 @media (max-width: 959px) {
+  .t-entry-drop.drop-parent.active.fixed-attachment::before {
+    background-image: inherit;
+    content: '';
+    background-repeat: inherit;
+    background-size: inherit;
+    background-position: inherit;
+    height: 100vh;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    transform: translateZ(0);
+    width: 100vw;
+    z-index: -1;
+  }
+}
+@media only screen and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
   .t-entry-drop.drop-parent.active.fixed-attachment::before {
     background-image: inherit;
     content: '';

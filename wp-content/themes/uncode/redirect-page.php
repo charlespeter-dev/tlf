@@ -15,7 +15,7 @@ $post = get_post($redirect_page);
 $media = get_post_meta($redirect_page, '_uncode_featured_media', 1);
 $featured_image = get_post_thumbnail_id($redirect_page);
 
-if ( $featured_image === '' || $featured_image == 0 ) {
+if ( apply_filters( 'uncode_use_medias_when_featured_empty', true ) && ( $featured_image === '' || $featured_image == 0 ) ) {
 	$featured_image = $media;
 }
 

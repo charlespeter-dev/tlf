@@ -89,12 +89,8 @@ global $wp_widget_factory;
 // to avoid unwanted warnings let's check before using widget
 if ( is_object( $wp_widget_factory ) && isset( $wp_widget_factory->widgets, $wp_widget_factory->widgets[ $type ] ) ) {
 	ob_start();
-	$args = $use_widget_style === 'yes' ? uncode_get_default_widget_args( 'rss', $_args ) : $args;
 	the_widget( $type, $atts, $args );
 	$widget = ob_get_clean();
-	if ( $atts['use_widget_style'] === 'yes' && $atts['widget_collapse'] === 'yes' ) {
-		$widget = uncode_add_default_widget_title( $widget, false, esc_html__( 'RSS', 'uncode' ) );
-	}
 	$output .= $widget;
 
 	$output .= '</div>';
