@@ -1,0 +1,220 @@
+/*
+Theme Name: Uncode Child
+Description: Child theme for Uncode theme
+Author: Undsgn™
+Author URI: http://www.undsgn.com
+Template: uncode
+Version: 1.0.0
+Text Domain: uncode
+*/
+
+@font-face {
+    font-family: 'gotham_boldregular';
+    src: url('gotham-bold-webfont.woff2') format('woff2'),
+         url('gotham-bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'gotham_bookregular';
+    src: url('gotham-book-webfont.woff2') format('woff2'),
+         url('gotham-book-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*.uncode_text_column p {
+    text-align:justify;
+}
+.uncode_text_column.center p {
+    text-align: center;
+}*/
+li#menu-item-20425 a {
+    color: white !important;
+    padding: 0px !important;
+}
+li#menu-item-20425 {
+    height: auto !important;
+}
+/* Careers XML */
+p.appLocation, p.appSchedule, p.appCategory {
+	color:#0c2d69;
+}
+p.appLocation:before {
+    content: 'Location: ';
+	color:#e30613;
+}
+p.appSchedule:before {
+    content: 'Schedule: ';
+	color:#e30613;
+}
+p.appCategory:before {
+    content: 'Category: ';
+	color:#e30613;
+}
+.entryOffice, .entrySchedule {
+	font-size: 20px;
+    color: #052e6f;
+    line-height: 22px;
+}
+.entryOffice {
+	padding-bottom:20px;
+}
+/*.entrySchedule {
+    text-transform: initial !important;
+}*/
+.cb-subheading p {
+    max-width: 700px;
+    width: 100%;
+}
+.wpcf7-form-control-wrap.Name .wpcf7-form-control.wpcf7-text.wpcf7-validates-as-required {
+    margin-bottom: 20px !important;
+}
+.headerVacature .background-inner {
+    background-position: 90% 0% !important;
+}
+article.type-vacatures h4 {
+    font-size: 19px;
+    color: #0c2d69;
+    text-transform: uppercase;
+    letter-spacing: 0.00em;
+    font-weight: 100;
+    font-family: 'gotham_boldregular';
+}
+.entryOffice:before {
+    padding: 5px;
+    content: url(/wp-content/uploads/2018/02/location-small-red.png);
+    display: grid;
+    width: 20px;
+    float: left;
+    margin-right: 35px;
+}
+.entrySchedule:before {
+    padding: 5px;
+    content: url(/wp-content/uploads/2018/02/checkmark-small-red.png);
+    display: grid;
+    width: 20px;
+    float: left;
+    margin-right: 35px;
+    position: relative;
+    bottom: 3px;
+}
+.grid-cat-72 .entryOffice:after {
+    content: "Ahmedabad";
+    display: block;
+}
+.grid-cat-73 .entryOffice:after {
+    content: "'s-Hertogenbosch";
+    display: block;
+}
+.grid-cat-74 .entryOffice:after {
+    content: "Liverpool";
+    display: block;
+}
+.grid-cat-75 .entryOffice:after {
+    content: "Ardmore";
+    display: block;
+}
+/**/
+.disableLink {
+    pointer-events: none;
+}
+.shadowText {
+	text-shadow: 0px 3px 20px rgba(0,0,0,0.3);
+}
+.headingShadow h1, span.headingShadow {
+    text-shadow: 0px 3px 10px rgba(0,0,0,0.7);
+}
+.headerContainer {
+	position:relative;
+}
+.headerService h3.t-entry-title.fontsize-109641.font-204143.font-weight-800 {
+    width: 1130px;
+    margin: 0 auto;
+}
+.galleryContainer {
+	position:absolute !important;
+	top:0px;
+	left:0px;
+	z-index:1;
+}
+.headerTextContainer {
+	position: absolute !important;
+	z-index:999;
+}
+.uncode_text_column.footerLinks a:hover {
+    color: red;
+}
+a.geralLinkBtn_Fsize {
+    font-size: 16px;
+}
+/* Contact */
+input.wpcf7-form-control.wpcf7-text.wpcf7-tel.wpcf7-validates-as-tel {
+    /*background-color: white !important;*/
+    padding: 15px 20px !important;
+    width: 100%;
+}
+
+/* ASSETS CPT UI */
+#index-152998.related-assets-module .tmb .t-inside, #index-330113.related-assets-module .tmb .t-inside {
+    border: 1px solid #DDDDDD !important;
+}
+#index-152998.related-assets-module .tmb-light.tmb .t-entry-text h3.t-entry-title {
+    padding: 0px 18px;
+}
+#index-330113.related-assets-module .tmb-light.tmb .t-entry-text h3.t-entry-title {
+    padding: 18px 18px;
+}
+#index-152998.related-assets-module .tmb-light.tmb .t-entry-text .t-entry-title a, #index-330113.related-assets-module .tmb-light.tmb .t-entry-text .t-entry-title a {
+    color: #002257 !important;
+    font-size: 15px;
+}
+#index-152998.related-assets-module .tmb-light.tmb .t-entry-text .t-entry-title a:hover, #index-330113.related-assets-module .tmb-light.tmb .t-entry-text .t-entry-title a:hover {
+    color: #e30613 !important;
+}
+a.pdf-fullscreen {
+    background-color: #d60006;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 13px 31px !important;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    display: inline-block;
+    margin-bottom: 36px;
+    border: 1px solid #d60006;
+    animation: .3s ease-in-out;
+	color:white !important;
+}
+a.pdf-fullscreen:hover {
+    background-color: white;
+	color:#d60006 !important;
+}
+
+/* responsive */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) { 
+	.headerHeight .wpb_row.row-inner {
+    	height: 375px !important;
+	}
+}
+
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) { 
+	.headerHeight .wpb_row.row-inner {
+    	height: 375px !important;
+	}
+}
+
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) { 
+	.headerHeight .wpb_row.row-inner {
+    	height: 395px !important;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.headerHeight .wpb_row.row-inner {
+    	height: 325px !important;
+	}
+	h1 {
+    	font-size: 30px !important;
+	}
+}
