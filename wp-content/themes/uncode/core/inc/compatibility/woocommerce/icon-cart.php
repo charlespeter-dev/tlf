@@ -24,6 +24,11 @@ function uncode_get_cart_items() {
 
 				if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_widget_cart_item_visible', true, $cart_item, $cart_item_key ) ) {
 
+					/**
+					 * Filter the product name.
+					 *
+					 * @param string $product_name Name of the product in the cart.
+					 */
 					$product_name  = apply_filters( 'woocommerce_cart_item_name', $_product->get_title(), $cart_item, $cart_item_key );
 					$thumbnail     = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key );
 					$product_price = apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ), $cart_item, $cart_item_key );
@@ -35,7 +40,8 @@ function uncode_get_cart_items() {
 						$cart .= apply_filters( 'woocommerce_cart_item_remove_link', sprintf(
 							'<a href="%s" class="remove" aria-label="%s" data-product_id="%s" data-item_key="%s" data-product_sku="%s"><i class="fa fa-cross"></i></a>',
 							esc_url( uncode_wc_get_cart_remove_url( $cart_item_key ) ),
-							__( 'Remove this item', 'woocommerce' ),
+							/* translators: %s is the product name */
+							esc_attr( sprintf( __( 'Remove %s from cart', 'woocommerce' ), $product_name ) ),
 							esc_attr( $product_id ),
 							esc_attr( $cart_item_key ),
 							esc_attr( $_product->get_sku() )

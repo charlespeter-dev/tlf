@@ -266,7 +266,7 @@
  		$('.widget, .uncode_widget').each(function(){
 			var $widget = $(this),
 				class_w = $widget.attr('class'),
-				$lis = $('ul > li', $widget).has('a'),
+				$lis = $('ul:not(.menu-horizontal) > li', $widget).has('a'),
 				$footer = $widget.closest('#colophon');
 
 			if ( class_w.indexOf('widget_yith') > 0 ) {

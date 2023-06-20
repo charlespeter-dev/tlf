@@ -16,20 +16,14 @@
 		$logolink = $('[data-minheight]', $logo),
 		logoMinScale = $logolink.data('minheight'),
 		logoMaxScale = $('[data-maxheight]', $logo).data('maxheight'),
-		$mainWrapper = $('.main-wrapper')[0],
 		$container = $('.main-container .post-content'),
-		$mobileMenuWrapper = $('.menu-wrapper'),
-		mobMenuPos,
 		$rows = $container.find('.vc_row[data-parent]').addClass('uncode-scroll-lock fp-auto-height'),
 		$header = $('#page-header').addClass('uncode-scroll-lock fp-auto-height'),
 		headerName = $('.vc_row[data-name]', $header).attr('data-name'),
 		headerLabel = $('.vc_row[data-label]', $header).attr('data-label'),
 		headerWithOpacity = $('.header-scroll-opacity', $header).length,
 		menuHidden = ! $('body').hasClass('vmenu') && $('body').hasClass('uncode-fp-menu-hide') ? true : false,
-		menuHeight = $masthead.hasClass('menu-transparent') || menuHidden ? 0 : UNCODE.menuHeight,
-		footerAdd = ( $('body').hasClass('hmenu') && $('body').hasClass('uncode-fp-menu-shrink') && !$masthead.hasClass('menu-transparent') ) ? -18 : 0,
 		$footer = $('#colophon').addClass('uncode-scroll-lock fp-auto-height'),
-		$scrollTop = $('.scroll-top'),
 		scrollBar = true,
 		effect,
 		animationEndTimeOut,
@@ -54,8 +48,6 @@
 		theres_footer = false;
 
 	if ( !UNCODE.isFullPageSnap ) {
-		/*if ( theres_footer )
-			$footer.css({ marginTop: ( menuHeight + footerAdd + UNCODE.bodyBorder ) * -1 })*/
 
 		if ( $('body').hasClass('uncode-fullpage-zoom') )
 			effect = 'scaleDown';
@@ -467,15 +459,10 @@
 			transitionEnd = 'webkitTransitionEnd transitionend',
 			animOut = effect != 'scaleDown' ? effect + direction : effect,
 			animIn,
-			animInDelay = effect == 'scaleDown' ? 0 : 0,
 			isFooter = false,
 			isFooterNext = false,
-			isHeader = false,
-			isHeaderNext = false,
-			containerOff = $container.offset().top,
 			footerH = $footer.outerHeight(),
 			timeout,
-			dataHash = $nextSlide.attr('data-anchor'),
 			player, iframe,
 			footerCoeff;
 		switch( direction ) {
@@ -537,9 +524,6 @@
 
 		if ( $nextSlide.is($footer) )
 			isFooterNext = true;
-
-		// if ( typeof dataHash && dataHash && !no_history && dataHash != SiteParameters.slide_footer )
-		// 	window.location.hash = '#' + dataHash;
 
 		if ( ! UNCODE.isMobile && headerWithOpacity ) {
 			if ( $currentSlide.is($header) )
@@ -857,11 +841,28 @@
 			$footer = document.getElementById('colophon'),
 			$maincontainer = document.querySelector('.main-wrapper'),
 			$boxcontainer = document.querySelector('.box-container'),
+			$sections = document.querySelectorAll('.fp-section'),
 			rect = $maincontainer.getBoundingClientRect(),
-			rect2 = $boxcontainer.getBoundingClientRect();
+			rect2 = $boxcontainer.getBoundingClientRect(),
+			$masthead = document.getElementById('masthead'),
+			_hideMenu = false,
+			menuHeight = UNCODE.menuHeight;
 		$body.style.height = UNCODE.wheight + 'px';
+
+		if ( !document.body.classList.contains('vmenu') && document.body.classList.contains('uncode-fp-menu-hide') ) {
+			_hideMenu = true;
+		}
+		if ( $masthead.classList.contains('menu-transparent') || _hideMenu === true ) {
+			menuHeight = 0
+		}
+
+
 		if ( theres_footer )
 			$footer.style.top = (rect.height || rect2.height) + 'px';
+
+		for (var i = 0; i < $sections.length; i++) {
+			$sections[i].style.maxHeight = UNCODE.wheight - menuHeight + 'px';
+		}
 	};
 
 	setFPheight();

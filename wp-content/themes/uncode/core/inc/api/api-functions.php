@@ -280,7 +280,7 @@ if ( ! function_exists( 'uncode_get_premium_plugins' ) ) :
 				'remote_url'         => 'https://api.undsgn.com/downloads/uncode/plugins/vc-clipboard/api.json',
 				'zip_url'            => 'https://api.undsgn.com/downloads/uncode/plugins/vc-clipboard/vc_clipboard.zip',
 				'required'           => false,
-				'version'            => '5.0.2',
+				'version'            => '5.0.4',
 				'force_activation'   => false,
 				'force_deactivation' => false,
 			),

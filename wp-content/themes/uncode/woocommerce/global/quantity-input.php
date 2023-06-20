@@ -12,7 +12,7 @@
  *
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce/Templates
- * @version 7.4.0
+ * @version 7.8.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -48,7 +48,7 @@ $classes[] = $quantity_wide;
 			class="<?php echo esc_attr( join( ' ', (array) $classes ) ); ?>"
 			name="<?php echo esc_attr( $input_name ); ?>"
 			value="<?php echo esc_attr( $input_value ); ?>"
-			title="<?php echo esc_attr_x( 'Qty', 'Product quantity input tooltip', 'woocommerce' ); ?>"
+			aria-label="<?php esc_attr_e( 'Product quantity', 'woocommerce' ); ?>"
 			size="4"
 			min="<?php echo esc_attr( $min_value ); ?>"
 			max="<?php echo esc_attr( 0 < $max_value ? $max_value : '' ); ?>"

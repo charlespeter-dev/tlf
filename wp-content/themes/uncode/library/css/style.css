@@ -7246,6 +7246,9 @@ body.uncode-scroll-snap .post-content > div:not(#colophon) ul {
     z-index: 1;
   }
 }
+.is_stucked + div {
+  margin-top: 0 !important;
+}
 /*
 ----------------------------------------------------------
 

@@ -12,7 +12,7 @@
  *
  * @see 	    https://docs.woocommerce.com/document/template-structure/
  * @package 	WooCommerce/Templates
- * @version     3.5.1
+ * @version     7.8.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -233,7 +233,7 @@ $product_gallery_data      = function_exists( 'wc_esc_json' ) ? wc_esc_json( $pr
 ?>
 
 <div class="<?php echo esc_attr( implode( ' ', array_map( 'sanitize_html_class', $wrapper_classes ) ) ); ?>" data-columns="<?php echo esc_attr( $columns ); ?>"<?php if ( ( ! function_exists('vc_is_page_editable') || ! vc_is_page_editable() ) && $post_type !== 'uncodeblock' ) { ?> style="opacity: 0; transition: opacity .05s ease-in-out;"<?php } ?> data-gallery-options="<?php echo uncode_switch_stock_string( $product_gallery_data ); ?>">
-	<figure class="woocommerce-product-gallery__wrapper<?php if ( $woo_carousel && ( $_uncode_thumb_layout === '' || $_uncode_thumb_layout === 'std-lateral' ) ) { echo ' owl-carousel'; } ?>">
+	<div class="woocommerce-product-gallery__wrapper<?php if ( $woo_carousel && ( $_uncode_thumb_layout === '' || $_uncode_thumb_layout === 'std-lateral' ) ) { echo ' owl-carousel'; } ?>">
 
 	<?php echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', $html, $post_thumbnail_id ); ?>
 
@@ -258,7 +258,7 @@ $product_gallery_data      = function_exists( 'wc_esc_json' ) ? wc_esc_json( $pr
 		}
 	} ?>
 
-	</figure>
+	</div>
 </div>
 
 <?php

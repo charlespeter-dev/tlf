@@ -82,8 +82,5 @@ add_action( 'init', 'custom_post_type', 0 );
 add_filter('ai1wm_exclude_content_from_export', function ($exclude_filters) {
     $exclude_filters[] = 'updraft';
     $exclude_filters[] = 'plugins/updraftplus';
-    $exclude_filters[] = 'plugins/wps-hide-login';
-    $exclude_filters[] = 'plugins/wp-security-audit';
-    $exclude_filters[] = 'plugins/wordfence';
     return $exclude_filters;
 });

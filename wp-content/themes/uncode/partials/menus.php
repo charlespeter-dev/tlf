@@ -276,7 +276,7 @@ if (!class_exists('unmenu')) {
 									$logoDivInner .= '<div id="'.$id_icon.'"'.$icon_width.' class="icon-media"></div>';
 									$logoDivInner .= "<script type='text/javascript'>document.addEventListener('DOMContentLoaded', function(event) { UNCODE.vivus('".$id_icon."', '".$icon_time."', false, '".$logo_info->guid."'); });</script>";
 								} else {
-									$logoDivInner .= '<img src="'.$logo_info->guid.'" alt="logo" width="'.round(absint($logo_metavalues['width'])).'" height="'.round(absint($logo_metavalues['height'])).'" class="img-responsive" />';
+									$logoDivInner .= '<img src="'.$logo_info->guid.'" alt="'.$logo_alt.'" width="'.round(absint($logo_metavalues['width'])).'" height="'.round(absint($logo_metavalues['height'])).'" class="img-responsive" />';
 								}
 							} else {
 								$logo_class = ' class="img-responsive"';

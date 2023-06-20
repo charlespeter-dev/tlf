@@ -3716,7 +3716,7 @@ div.product div.images .zoomImg {
   transition: opacity 150ms linear;
   z-index: 1;
 }
-div.product div.images figure.woocommerce-product-gallery__wrapper {
+div.product div.images div.woocommerce-product-gallery__wrapper {
   float: left;
   width: 100%;
 }
