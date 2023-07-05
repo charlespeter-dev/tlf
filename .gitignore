@@ -20,3 +20,5 @@
 /wp-content/package.json
 /wp-content/themes/twentytwentytwo
 /wp-content/themes/twentytwentythree
+node_modules
+package-lock.json

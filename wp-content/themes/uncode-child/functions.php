@@ -84,3 +84,5 @@ add_filter('ai1wm_exclude_content_from_export', function ($exclude_filters) {
     $exclude_filters[] = 'plugins/updraftplus';
     return $exclude_filters;
 });
+
+require '2x/functions.php';
