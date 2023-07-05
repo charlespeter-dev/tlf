@@ -13,32 +13,32 @@ global $post;
  * hero carousels
  */
 
-$hero_carousels = get_field('hero_carousel', $post->ID);
+$hero_carousels = []; //get_field('hero_carousel', $post->ID);
 
 /**
  * customer logo
  */
 
-$customer_logo = get_field('customer_logo', $post->ID);
+$customer_logo = []; //get_field('customer_logo', $post->ID);
 
 /**
  * callout with cards
  */
 
-$callout_with_cards = get_field('callout_with_cards', $post->ID);
+$callout_with_cards = []; //get_field('callout_with_cards', $post->ID);
 
 
 /**
  * testimonials
  */
 
-$testimonials = get_field('testimonials', $post->ID);
+$testimonials = []; //get_field('testimonials', $post->ID);
 
 /**
  * featured post
  */
 
-$featured_post = get_field('featured_post', $post->ID);
+$featured_post = []; //get_field('featured_post', $post->ID);
 
 /**
  * news
@@ -61,7 +61,7 @@ $news_splitted = []; //$news->posts ? array_chunk($news->posts, 3) : [];
  * resources_callout
  */
 
-$resources_callout = []; //get_field('resources_callout', $post->ID);
+$resources_callout = get_field('resources_callout', $post->ID);
 
 /**
  * footer_callout_banner
@@ -213,7 +213,7 @@ get_header() ?>
                                 <p class="d-block text-center mb-4"><?= $callout_with_cards['sub_heading'] ?></p>
                             </div>
                         </div>
-                        <div class="row gy-5">
+                        <div class="row gy-4">
                             <?php foreach ($callout_with_cards['cards'] as $k => $item) : ?>
                                 <div class="col">
                                     <div class="card h-100">
@@ -313,71 +313,94 @@ get_header() ?>
 
             <?php if ($news_splitted) : ?>
                 <section class="bootstrap-container">
-                    <div id="_2x-carousel-news" class="carousel">
-                        <div class="carousel-inner">
+                    <div class="news py-5">
+                        <div id="_2x-carousel-news" class="carousel">
+                            <div class="carousel-inner">
 
-                            <?php foreach ($news_splitted as $k => $items) : ?>
+                                <?php foreach ($news_splitted as $k => $items) : ?>
 
-                                <div class="carousel-item <?= ($k == 0) ? 'active' : '' ?>">
+                                    <div class="carousel-item <?= ($k == 0) ? 'active' : '' ?>">
 
-                                    <div class="row">
+                                        <div class="row gy-4">
 
-                                        <?php foreach ($items as $item) : ?>
-                                            <div class="col">
-                                                <div class="card h-100">
-                                                    <div class="card-body">
-                                                        <p><?= get_the_date('F j, Y', $item->ID) ?></p>
-                                                        <p><?= $item->post_title ?></p>
+                                            <?php foreach ($items as $item) : ?>
+                                                <div class="col">
+                                                    <div class="card h-100">
+                                                        <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($item->ID), '_2x-carousel-news') ?>" class="img-top" alt="">
+                                                        <div class="card-body">
+                                                            <p class="date"><?= get_the_date('F j, Y', $item->ID) ?></p>
+                                                            <p class="post-title"><?= $item->post_title ?></p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        <?php endforeach ?>
+                                            <?php endforeach ?>
+
+                                        </div>
 
                                     </div>
 
-                                </div>
+                                <?php endforeach ?>
 
-                            <?php endforeach ?>
+                            </div>
+
+                            <?php if (count($news_splitted) > 1) : ?>
+                                <div class="carousel-indicators">
+                                    <?php foreach ($news_splitted as $k => $item) : ?>
+                                        <button type="button" data-bs-target="#_2x-carousel-news" data-bs-slide-to="<?= $k ?>" class="<?= ($k == 0) ? 'active' : '' ?>"></button>
+                                    <?php endforeach ?>
+                                </div>
+                            <?php endif ?>
 
                         </div>
                     </div>
-
                 </section>
             <?php endif ?>
 
 
             <?php if ($resources_callout) : ?>
                 <section class="bootstrap-container">
-                    <div id="_2x-carousel-resources-callout" class="carousel">
-                        <div class="carousel-inner">
+                    <div class="resources-callout py-5">
+                        <div id="_2x-carousel-resources-callout" class="carousel">
+                            <div class="carousel-inner">
 
-                            <?php foreach ($resources_callout as $k => $item) : ?>
-                                <div class="carousel-item <?= ($k == 0) ? 'active' : '' ?>">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="text-center">
-                                                <h2><?= $item['main_heading'] ?></h2>
-                                                <p><?= $item['sub_heading'] ?></p>
+                                <?php foreach ($resources_callout as $k => $item) : ?>
+                                    <div class="carousel-item <?= ($k == 0) ? 'active' : '' ?>">
+                                        <div class="row mb-3">
+                                            <div class="col">
+                                                <div class="text-center">
+                                                    <h2 class="main-heading"><?= $item['main_heading'] ?></h2>
+                                                    <p class="sub-heading"><?= $item['sub_heading'] ?></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6 order-1 order-lg-0">
+
+                                                <div class="main-content">
+                                                    <?= $item['main_content'] ?>
+                                                </div>
+
+                                                <div class="cta mt-4">
+                                                    <a href="<?= $item['cta_url'] ?>"> <?= $item['cta_text'] ?> <i class="fa fa-arrow-right2 t-icon-size-lg"></i></a>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-lg-6 order-0 order-lg-1">
+                                                <img src="<?= $item['right_image'] ?>" class="d-block w-100 mb-4" alt="">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-lg-6">
+                                <?php endforeach ?>
 
-                                            <div>
-                                                <?= $item['main_content'] ?>
-                                            </div>
-                                            <div>
-                                                <a href="<?= $item['cta_url'] ?>"> <?= $item['cta_text'] ?></a>
-                                            </div>
+                            </div>
 
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <img src="<?= $item['right_image'] ?>" class="d-block w-100" alt="">
-                                        </div>
-                                    </div>
+                            <?php if (count($resources_callout) > 1) : ?>
+                                <div class="carousel-indicators">
+                                    <?php foreach ($resources_callout as $k => $item) : ?>
+                                        <button type="button" data-bs-target="#_2x-carousel-resources-callout" data-bs-slide-to="<?= $k ?>" class="<?= ($k == 0) ? 'active' : '' ?>"></button>
+                                    <?php endforeach ?>
                                 </div>
-                            <?php endforeach ?>
+                            <?php endif ?>
 
                         </div>
                     </div>
