@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build-css": "npx sass assets/src/scss:assets/css"
+    "dev": "npx sass --watch assets/src/scss:assets/css",
+    "build": "npx sass --style=compressed assets/src/scss:assets/css"
   },
   "keywords": [],
   "author": "",

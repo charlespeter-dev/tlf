@@ -13,26 +13,26 @@ global $post;
  * hero carousels
  */
 
-$hero_carousels = []; //get_field('hero_carousel', $post->ID);
+$hero_carousels = get_field('hero_carousel', $post->ID);
 
 /**
  * customer logo
  */
 
-$customer_logo = []; //get_field('customer_logo', $post->ID);
+$customer_logo = get_field('customer_logo', $post->ID);
 
 /**
  * callout with cards
  */
 
-$callout_with_cards = []; //get_field('callout_with_cards', $post->ID);
+$callout_with_cards = get_field('callout_with_cards', $post->ID);
 
 
 /**
  * testimonials
  */
 
-$testimonials = []; //get_field('testimonials', $post->ID);
+$testimonials = get_field('testimonials', $post->ID);
 
 /**
  * featured post
@@ -55,7 +55,7 @@ $news = new WP_Query($newsargs);
 
 wp_reset_postdata();
 
-$news_splitted = []; //$news->posts ? array_chunk($news->posts, 3) : [];
+$news_splitted = $news->posts ? array_chunk($news->posts, 3) : [];
 
 /**
  * resources_callout
@@ -67,7 +67,7 @@ $resources_callout = get_field('resources_callout', $post->ID);
  * footer_callout_banner
  */
 
-$footer_callout_banner = []; //get_field('footer_callout_banner', $post->ID);
+$footer_callout_banner = get_field('footer_callout_banner', $post->ID);
 
 
 get_header() ?>
@@ -113,7 +113,7 @@ get_header() ?>
                                     <div class="mb-3">
                                         <h2 class="mb-0"><?= $item['main_heading'] ?></h2>
                                     </div>
-                                    <div class="mb-3">
+                                    <div class="mb-4">
                                         <div class="sub-heading"><?= $item['sub_heading'] ?></div>
                                     </div>
                                     <div>
