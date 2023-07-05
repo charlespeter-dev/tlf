@@ -98,44 +98,46 @@ get_header() ?>
 
 <?php if ($hero_carousels) : ?>
     <section class="bootstrap-container">
-        <div id="_2x-carousel-hero" class="_2x-carousel-hero carousel carousel-fade" data-bs-interval="10000" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <?php foreach ($hero_carousels as $k => $item) : ?>
-                    <div class="carousel-item <?= ($k == 0) ? 'active' : '' ?>">
+        <div class="hero-carousels">
+            <div id="_2x-carousel-hero" class="carousel carousel-fade" data-bs-interval="10000" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <?php foreach ($hero_carousels as $k => $item) : ?>
+                        <div class="carousel-item <?= ($k == 0) ? 'active' : '' ?>">
 
-                        <div class="row-container">
+                            <div class="row-container">
 
-                            <div class="single-h-padding limit-width position-relative">
+                                <div class="single-h-padding limit-width position-relative">
 
-                                <img src="<?= wp_get_attachment_image_url($item['background_image'], '_2x-carousel-hero') ?>" class="full-width" alt="">
+                                    <img src="<?= wp_get_attachment_image_url($item['background_image'], '_2x-carousel-hero') ?>" class="full-width" alt="">
 
-                                <div class="_2x-hero-content">
-                                    <div class="mb-3">
-                                        <h2 class="mb-0"><?= $item['main_heading'] ?></h2>
+                                    <div class="_2x-hero-content">
+                                        <div class="mb-3">
+                                            <h2 class="mb-0"><?= $item['main_heading'] ?></h2>
+                                        </div>
+                                        <div class="mb-4">
+                                            <div class="sub-heading"><?= $item['sub_heading'] ?></div>
+                                        </div>
+                                        <div>
+                                            <a class="btn btn-primary" href="<?= $item['cta_url'] ?>"><?= $item['cta_text'] ?></a>
+                                        </div>
                                     </div>
-                                    <div class="mb-4">
-                                        <div class="sub-heading"><?= $item['sub_heading'] ?></div>
-                                    </div>
-                                    <div>
-                                        <a class="btn btn-primary" href="<?= $item['cta_url'] ?>"><?= $item['cta_text'] ?></a>
-                                    </div>
+
                                 </div>
-
                             </div>
                         </div>
-                    </div>
-                <?php endforeach ?>
-            </div>
-
-            <?php if (count($hero_carousels) > 1) : ?>
-                <div class="carousel-indicators">
-                    <?php foreach ($hero_carousels as $k => $item) : ?>
-                        <button type="button" data-bs-target="#_2x-carousel-hero" data-bs-slide-to="<?= $k ?>" class="<?= ($k == 0) ? 'active' : '' ?>"></button>
                     <?php endforeach ?>
-
                 </div>
-            <?php endif ?>
 
+                <?php if (count($hero_carousels) > 1) : ?>
+                    <div class="carousel-indicators">
+                        <?php foreach ($hero_carousels as $k => $item) : ?>
+                            <button type="button" data-bs-target="#_2x-carousel-hero" data-bs-slide-to="<?= $k ?>" class="<?= ($k == 0) ? 'active' : '' ?>"></button>
+                        <?php endforeach ?>
+
+                    </div>
+                <?php endif ?>
+
+            </div>
         </div>
     </section>
 <?php endif ?>
@@ -415,12 +417,17 @@ get_header() ?>
 
 <?php if ($footer_callout_banner) : ?>
     <section class="bootstrap-container">
-        <div style="position: relative;">
-            <img src="<?= $footer_callout_banner['background_image'] ?>" class="d-block w-100" alt="">
-            <div style="position: absolute; z-index: 2; top: 0;">
-                <div><?= $footer_callout_banner['page_name'] ?></div>
-                <div><?= $footer_callout_banner['main_heading'] ?></div>
-                <div><a href="<?= $footer_callout_banner['cta_url'] ?>"><?= $footer_callout_banner['cta_text'] ?></a></div>
+        <div class="footer-callout-banner">
+            <div class="row-container">
+                <div class="single-h-padding limit-width position-relative">
+                    <img src="<?= wp_get_attachment_image_url($footer_callout_banner['background_image'], '_2x_footer-callout-banner') ?>" class="full-width" alt="">
+
+                    <div class="footer-callout-banner-content">
+                        <div class="page-name mb-4"><?= $footer_callout_banner['page_name'] ?></div>
+                        <div class="main-heading mb-4"><?= $footer_callout_banner['main_heading'] ?></div>
+                        <div class="cta"><a class="btn btn-primary" href="<?= $footer_callout_banner['cta_url'] ?>"><?= $footer_callout_banner['cta_text'] ?></a></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

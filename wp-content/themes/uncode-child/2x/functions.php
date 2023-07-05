@@ -43,7 +43,7 @@ add_filter('acf/settings/save_json', function ($path) {
 
 add_action('after_setup_theme',  function () {
     add_theme_support('post-thumbnails');
-    add_image_size('_2x-carousel-hero', 1920, 450, true);
+    add_image_size('_2x-carousel-hero', 1920, 550, true);
     add_image_size('_2x-carousel-testimonials', 1920, 520, true);
-    add_image_size('_2x-carousel-news', 430, 330, true);
+    add_image_size('_2x_footer-callout-banner', 1920, 350, true);
 });
