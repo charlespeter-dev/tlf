@@ -38,7 +38,7 @@ $testimonials = []; //get_field('testimonials', $post->ID);
  * featured post
  */
 
-$featured_post = []; //get_field('featured_post', $post->ID);
+$featured_post = get_field('featured_post', $post->ID);
 
 /**
  * news
@@ -300,7 +300,7 @@ get_header() ?>
                             </div>
                             <div class="col-lg-7">
                                 <p class="post-type"><?= $featured_post['post_type'] ?></p>
-                                <h2 class="main-heading"><?= $featured_post['main_heading'] ?></h2>
+                                <h2 class="main-heading mb-4"><?= $featured_post['main_heading'] ?></h2>
                                 <p class="sub-heading"><?= $featured_post['sub_heading'] ?></p>
                                 <div class="cta mt-4">
                                     <a href="<?= get_the_permalink($featured_post['cta_url'][0]->ID) ?>"><?= $featured_post['cta_text'] ?> <i class="fa fa-arrow-right2 t-icon-size-lg"></i></a>

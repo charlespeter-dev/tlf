@@ -11240,6 +11240,7 @@ a > .bootstrap-container code {
 .bootstrap-container .featured-post .main-heading {
   font-size: calc(1.40625rem + 1.875vw);
   color: #003375;
+  line-height: normal;
 }
 @media (min-width: 1200px) {
   .bootstrap-container .featured-post .main-heading {
@@ -11248,6 +11249,7 @@ a > .bootstrap-container code {
 }
 .bootstrap-container .featured-post .sub-heading {
   font-size: 1.25rem;
+  line-height: normal;
 }
 .bootstrap-container .featured-post .cta a {
   color: #E30613 !important;
@@ -11334,6 +11336,7 @@ a > .bootstrap-container code {
 }
 .bootstrap-container .resources-callout .sub-heading {
   font-size: 1.25rem;
+  line-height: normal;
 }
 .bootstrap-container .resources-callout .main-content h3, .bootstrap-container .resources-callout .main-content .h3 {
   font-size: calc(1.34375rem + 1.125vw);

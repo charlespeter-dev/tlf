@@ -313,10 +313,12 @@
         .main-heading {
             @include font-size(2.8125rem); // 45px
             color: #003375;
+            line-height: normal;
         }
 
         .sub-heading {
-            @include font-size(1.25rem); // 20px 
+            @include font-size(1.25rem); // 20px
+            line-height: normal;
         }
 
         .cta {
@@ -418,6 +420,7 @@
 
         .sub-heading {
             @include font-size(1.25rem); // 20px
+            line-height: normal;
         }
 
         .main-content {
