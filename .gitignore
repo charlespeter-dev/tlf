@@ -22,3 +22,5 @@
 /wp-content/themes/twentytwentythree
 node_modules
 package-lock.json
+*.zip
+*.rar

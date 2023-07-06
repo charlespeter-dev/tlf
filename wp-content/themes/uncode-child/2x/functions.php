@@ -46,4 +46,6 @@ add_action('after_setup_theme',  function () {
     add_image_size('_2x-carousel-hero', 1920, 550, true);
     add_image_size('_2x-carousel-testimonials', 1920, 520, true);
     add_image_size('_2x_footer-callout-banner', 1920, 350, true);
+    add_image_size('_2x-carousel-news', 350, 350, true);
+    add_image_size('_2x-carousel-resources-callout', 540, 340, true);
 });

@@ -10986,6 +10986,7 @@ a > .bootstrap-container code {
   width: 15px;
   height: 15px;
   background-color: #58879B;
+  border: 1px solid #FFF;
 }
 .bootstrap-container .carousel .carousel-indicators button {
   width: 20px;
@@ -11015,6 +11016,9 @@ a > .bootstrap-container code {
 .bootstrap-container .hero-carousels .carousel-item {
   transition-delay: 120ms;
   transition-duration: 380ms;
+}
+.bootstrap-container .hero-carousels .carousel-indicators [data-bs-target] {
+  background-color: #FFF;
 }
 .bootstrap-container .hero-carousels ._2x-hero-content {
   position: absolute;
@@ -11283,6 +11287,9 @@ a > .bootstrap-container code {
   margin-right: -50vw;
   z-index: -1;
 }
+.bootstrap-container .news a {
+  text-decoration: none !important;
+}
 .bootstrap-container .news .card {
   --bs-body-bg: #fff;
   --bs-border-radius: 10px;
@@ -11301,6 +11308,12 @@ a > .bootstrap-container code {
   color: #000;
   font-weight: 600;
   line-height: 26px;
+}
+.bootstrap-container .news .card .card-body {
+  min-height: 200px;
+}
+.bootstrap-container .news .card .card-body.wpk-box-brand:before {
+  border-top-right-radius: 0;
 }
 .bootstrap-container .news .carousel-indicators {
   margin-bottom: -30px;
@@ -11412,6 +11425,29 @@ a > .bootstrap-container code {
   color: #E30613 !important;
   border-radius: 5px !important;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.7);
+}
+
+body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
+  background-color: #EDEFF0;
+}
+
+.submenu-light .menu-horizontal .menu-smart ul {
+  background-color: #EDEFF0;
+}
+
+.btnMenu {
+  background-color: #002257;
+  border-color: #002257 !important;
+  color: #fff;
+  text-transform: uppercase;
+  padding: 9px 36px 9px 36px !important;
+}
+
+@media screen and (min-width: 992px) {
+  .btnMenu {
+    padding: 0.6rem 2rem !important;
+    border-radius: 20px;
+  }
 }
 
 /*# sourceMappingURL=bootstrap-container.css.map */

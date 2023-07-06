@@ -218,7 +218,7 @@ get_header() ?>
                         <div class="row gy-4">
                             <?php foreach ($callout_with_cards['cards'] as $k => $item) : ?>
                                 <div class="col">
-                                    <div class="card h-100">
+                                    <div class="card h-100 wpk-box-brand">
 
                                         <div class="card-body">
                                             <img src="<?= $item['icon'] ?>" alt="">
@@ -327,13 +327,15 @@ get_header() ?>
 
                                             <?php foreach ($items as $item) : ?>
                                                 <div class="col">
-                                                    <div class="card h-100">
-                                                        <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($item->ID), '_2x-carousel-news') ?>" class="img-top" alt="">
-                                                        <div class="card-body">
-                                                            <p class="date"><?= get_the_date('F j, Y', $item->ID) ?></p>
-                                                            <p class="post-title"><?= $item->post_title ?></p>
+                                                    <a href="<?= get_the_permalink($item->ID) ?>">
+                                                        <div class="card h-100">
+                                                            <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($item->ID), '_2x-carousel-news') ?>" class="img-top" alt="">
+                                                            <div class="card-body position-relative wpk-box-brand">
+                                                                <p class="date"><?= get_the_date('F j, Y', $item->ID) ?></p>
+                                                                <p class="post-title"><?= $item->post_title ?></p>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    </a>
                                                 </div>
                                             <?php endforeach ?>
 
