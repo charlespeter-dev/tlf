@@ -212,7 +212,7 @@ get_header() ?>
                         <div class="row">
                             <div class="col">
                                 <h2 class="d-block text-center mb-4"><?= $callout_with_cards['main_heading'] ?></h2>
-                                <p class="d-block text-center mb-4"><?= $callout_with_cards['sub_heading'] ?></p>
+                                <p class="d-block text-center mb-5"><?= $callout_with_cards['sub_heading'] ?></p>
                             </div>
                         </div>
                         <div class="row gy-4">
@@ -390,7 +390,7 @@ get_header() ?>
 
                                             </div>
                                             <div class="col-lg-6 order-0 order-lg-1">
-                                                <img src="<?= $item['right_image'] ?>" class="d-block w-100 mb-4" alt="">
+                                                <img class="mb-4" src="<?= wp_get_attachment_image_url($item['right_image'], '_2x-carousel-resources-callout') ?>" alt="">
                                             </div>
                                         </div>
                                     </div>
@@ -425,7 +425,7 @@ get_header() ?>
                     <img src="<?= wp_get_attachment_image_url($footer_callout_banner['background_image'], '_2x_footer-callout-banner') ?>" class="full-width" alt="">
 
                     <div class="footer-callout-banner-content">
-                        <div class="page-name mb-4"><?= $footer_callout_banner['page_name'] ?></div>
+                        <div class="page-name mb-3"><?= $footer_callout_banner['page_name'] ?></div>
                         <div class="main-heading mb-4"><?= $footer_callout_banner['main_heading'] ?></div>
                         <div class="cta"><a class="btn btn-primary" href="<?= $footer_callout_banner['cta_url'] ?>"><?= $footer_callout_banner['cta_text'] ?></a></div>
                     </div>

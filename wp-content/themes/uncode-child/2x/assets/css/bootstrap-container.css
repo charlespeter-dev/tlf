@@ -10986,7 +10986,6 @@ a > .bootstrap-container code {
   width: 15px;
   height: 15px;
   background-color: #58879B;
-  border: 1px solid #FFF;
 }
 .bootstrap-container .carousel .carousel-indicators button {
   width: 20px;
@@ -11004,6 +11003,20 @@ a > .bootstrap-container code {
   object-fit: cover;
   display: unset;
   max-width: unset;
+}
+.bootstrap-container .quote {
+  position: relative;
+  quotes: "“" "”" "‘" "’";
+}
+.bootstrap-container .quote::before {
+  content: open-quote;
+  font-size: 15rem;
+  position: absolute;
+  top: -50px;
+  left: 0;
+  font-family: sans-serif;
+  color: white;
+  opacity: 0.5;
 }
 .bootstrap-container .hero-carousels {
   margin-top: 114px;
@@ -11130,6 +11143,7 @@ a > .bootstrap-container code {
 .bootstrap-container .callout-with-cards {
   /* overrides .col in BS */
   position: relative;
+  padding-block-end: 5rem !important;
 }
 @media (max-width: 575.98px) {
   .bootstrap-container .callout-with-cards .col {
@@ -11264,6 +11278,7 @@ a > .bootstrap-container code {
 }
 .bootstrap-container .news {
   position: relative;
+  padding-block: 5rem !important;
 }
 .bootstrap-container .news .col {
   padding-block-end: 1rem;
@@ -11316,7 +11331,7 @@ a > .bootstrap-container code {
   border-top-right-radius: 0;
 }
 .bootstrap-container .news .carousel-indicators {
-  margin-bottom: -30px;
+  margin-bottom: -50px;
 }
 .bootstrap-container .resources-callout {
   position: relative;
@@ -11394,9 +11409,9 @@ a > .bootstrap-container code {
   margin-left: -36px;
   margin-right: -36px;
   padding-left: 36px;
+  padding-right: 36px;
 }
 .bootstrap-container .footer-callout-banner .footer-callout-banner-content .page-name {
-  text-shadow: 0px 3px 10px rgba(0, 0, 0, 0.9);
   font-size: calc(1.28125rem + 0.375vw);
   color: #fff;
   font-weight: 600;
@@ -11408,7 +11423,6 @@ a > .bootstrap-container code {
   }
 }
 .bootstrap-container .footer-callout-banner .footer-callout-banner-content .main-heading {
-  text-shadow: 0px 3px 10px rgba(0, 0, 0, 0.9);
   font-size: calc(1.40625rem + 1.875vw);
   color: #fff;
   font-weight: 700;
@@ -11424,7 +11438,45 @@ a > .bootstrap-container code {
   border-color: #fff !important;
   color: #E30613 !important;
   border-radius: 5px !important;
-  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.7);
+}
+.bootstrap-container ._2x_footer {
+  background-color: #2C3444;
+  color: #fff;
+}
+.bootstrap-container ._2x_footer .single-h-padding.limit-width {
+  padding-left: 36px;
+  padding-right: 36px;
+}
+@media (max-width: 575.98px) {
+  .bootstrap-container ._2x_footer .col {
+    flex: unset;
+  }
+}
+.bootstrap-container ._2x_footer .page-name {
+  text-transform: uppercase;
+}
+.bootstrap-container ._2x_footer a {
+  text-decoration: none;
+}
+.bootstrap-container ._2x_footer ul {
+  padding-inline-start: 0;
+}
+.bootstrap-container ._2x_footer ul li {
+  margin-block-end: 0.7rem;
+}
+.bootstrap-container ._2x_footer ul.follow-us {
+  display: flex;
+  gap: 1rem;
+}
+.bootstrap-container ._2x_footer hr {
+  border: 1px solid;
+}
+.bootstrap-container ._2x_footer small > p, .bootstrap-container ._2x_footer .small > p {
+  font-size: small;
+}
+.bootstrap-container ._2x_footer small > p a, .bootstrap-container ._2x_footer .small > p a {
+  text-decoration: underline;
+  margin-inline-start: 0.5rem;
 }
 
 body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
@@ -11446,7 +11498,7 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
 @media screen and (min-width: 992px) {
   .btnMenu {
     padding: 0.6rem 2rem !important;
-    border-radius: 20px;
+    border-radius: 5px;
   }
 }
 

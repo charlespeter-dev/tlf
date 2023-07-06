@@ -13,19 +13,17 @@ show_admin_bar(false);
 
 add_action('wp_enqueue_scripts', function () {
 
-    if (is_front_page()) {
-        /**
-         * enqueue jailed boostrap css
-         */
+    /**
+     * enqueue jailed boostrap css
+     */
 
-        wp_enqueue_style('_2x-css-bootstrap', sprintf('%s/2x/assets/css/bootstrap-container.css', get_stylesheet_directory_uri()), ['uncode-icons', 'rs-plugin-settings'], time());
+    wp_enqueue_style('_2x-css-bootstrap', sprintf('%s/2x/assets/css/bootstrap-container.css', get_stylesheet_directory_uri()), ['uncode-icons', 'rs-plugin-settings'], time());
 
-        /**
-         * enqueue bootstrap js
-         */
+    /**
+     * enqueue bootstrap js
+     */
 
-        wp_enqueue_script('_2x-js-bootstrap', sprintf('%s/2x/assets/js/bootstrap.min.js', get_stylesheet_directory_uri()), [], false, true);
-    }
+    wp_enqueue_script('_2x-js-bootstrap', sprintf('%s/2x/assets/js/bootstrap.min.js', get_stylesheet_directory_uri()), [], false, true);
 });
 
 /**
@@ -49,3 +47,32 @@ add_action('after_setup_theme',  function () {
     add_image_size('_2x-carousel-news', 350, 350, true);
     add_image_size('_2x-carousel-resources-callout', 540, 340, true);
 });
+
+/**
+ * register new theme options using ACF
+ */
+
+if (function_exists('acf_add_options_page')) {
+
+    acf_add_options_page(array(
+        'page_title'    => 'Theme General Settings',
+        'menu_title'    => 'Theme Settings',
+        'menu_slug'     => 'theme-general-settings',
+        'capability'    => 'edit_posts',
+        'redirect'      => false
+    ));
+
+    acf_add_options_sub_page(array(
+        'page_title'    => 'Theme Header Settings',
+        'menu_title'    => 'Header',
+        'parent_slug'   => 'theme-general-settings',
+    ));
+
+    acf_add_options_sub_page(array(
+        'page_title'    => 'Theme Footer Settings',
+        'menu_title'    => 'Footer',
+        'parent_slug'   => 'theme-general-settings',
+    ));
+}
+
+
