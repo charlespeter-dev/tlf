@@ -704,6 +704,26 @@
             ]
         },
         {
+            "key": "field_64a7c5890788e",
+            "label": "News Main Heading",
+            "name": "news_main_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "News and Event Updates",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_64a4de9ec4546",
             "label": "Resources Callout",
             "name": "resources_callout",
@@ -992,5 +1012,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1688622109
+    "modified": 1688716707
 }

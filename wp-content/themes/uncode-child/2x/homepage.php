@@ -44,6 +44,8 @@ $featured_post = get_field('featured_post', $post->ID);
  * news
  */
 
+$news_main_heading = get_field('news_main_heading', $post->ID);
+
 $newsargs = [
     'category_name' => 'news',
     'order' => 'DESC',
@@ -156,7 +158,7 @@ get_header() ?>
                             <h2 class="mb-0"><?= $customer_logo['logo_heading'] ?></h2>
                         </div>
 
-                        <div id="_2x-carousel-customer-logo" class="carousel" data-bs-interval="10000" data-bs-ride="carousel">
+                        <div id="_2x-carousel-customer-logo" class="carousel" data-bs-interval="5000" data-bs-ride="carousel">
                             <div class="carousel-inner">
 
                                 <?php foreach ($customer_logo['logo_detail'] as $k => $item) : ?>
@@ -315,7 +317,12 @@ get_header() ?>
 
             <?php if ($news_splitted) : ?>
                 <section class="bootstrap-container">
-                    <div class="news py-5">
+                    <div class="news">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <h2><?= $news_main_heading ?></h2>
+                            </div>
+                        </div>
                         <div id="_2x-carousel-news" class="carousel">
                             <div class="carousel-inner">
 
