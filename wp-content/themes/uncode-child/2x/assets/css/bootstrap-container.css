@@ -11026,7 +11026,7 @@ a > .bootstrap-container code {
     margin-top: unset;
   }
 }
-.bootstrap-container .hero-carousels .carousel-item {
+.bootstrap-container .hero-carousels .carousel-item > * {
   transition-delay: 120ms;
   transition-duration: 380ms;
 }
@@ -11076,8 +11076,8 @@ a > .bootstrap-container code {
 }
 .bootstrap-container .customer-logo {
   position: relative;
-  /* medium and up screens */
-  /* bs overrides */
+  /* display 4 */
+  /* display 6 */
 }
 .bootstrap-container .customer-logo::before {
   content: "";
@@ -11102,7 +11102,7 @@ a > .bootstrap-container code {
     font-size: 2.8125rem;
   }
 }
-@media (max-width: 767px) {
+@media (max-width: 992px) {
   .bootstrap-container .customer-logo .carousel-inner .carousel-item > div {
     display: none;
   }
@@ -11111,34 +11111,52 @@ a > .bootstrap-container code {
   }
 }
 .bootstrap-container .customer-logo .carousel-inner .carousel-item.active,
+.bootstrap-container .customer-logo .carousel-inner .carousel-item-start,
 .bootstrap-container .customer-logo .carousel-inner .carousel-item-next,
 .bootstrap-container .customer-logo .carousel-inner .carousel-item-prev {
   display: flex;
 }
 @media (min-width: 768px) {
-  .bootstrap-container .customer-logo .carousel-inner .carousel-item-end.active,
-  .bootstrap-container .customer-logo .carousel-inner .carousel-item-next {
-    transform: translateX(25%);
+  .bootstrap-container .customer-logo .carousel-inner .carousel-item-right.active,
+  .bootstrap-container .customer-logo .carousel-inner .carousel-item-next,
+  .bootstrap-container .customer-logo .carousel-item-next:not(.carousel-item-start) {
+    transform: translateX(25%) !important;
   }
-  .bootstrap-container .customer-logo .carousel-inner .carousel-item-start.active,
-  .bootstrap-container .customer-logo .carousel-inner .carousel-item-prev {
-    transform: translateX(-25%);
+  .bootstrap-container .customer-logo .carousel-inner .carousel-item-left.active,
+  .bootstrap-container .customer-logo .carousel-item-prev:not(.carousel-item-end),
+  .bootstrap-container .customer-logo .active.carousel-item-start,
+  .bootstrap-container .customer-logo .carousel-item-prev:not(.carousel-item-end) {
+    transform: translateX(-25%) !important;
+  }
+  .bootstrap-container .customer-logo .carousel-item-next.carousel-item-start,
+  .bootstrap-container .customer-logo .active.carousel-item-end {
+    transform: translateX(0) !important;
+  }
+  .bootstrap-container .customer-logo .carousel-inner .carousel-item-prev,
+  .bootstrap-container .customer-logo .carousel-item-prev:not(.carousel-item-end) {
+    transform: translateX(-25%) !important;
   }
 }
-.bootstrap-container .customer-logo .carousel-inner .carousel-item-end,
-.bootstrap-container .customer-logo .carousel-inner .carousel-item-start {
-  transform: translateX(0);
-}
-.bootstrap-container .customer-logo .carousel-item {
-  text-align: center;
-}
-.bootstrap-container .customer-logo .card {
-  --bs-card-bg: #fff;
-  align-items: center;
-}
-.bootstrap-container .customer-logo #_2x-carousel-customer-logo .carousel-item {
-  transition-delay: 120ms;
-  transition-duration: 380ms;
+@media (min-width: 992px) {
+  .bootstrap-container .customer-logo .carousel-inner .carousel-item-right.active,
+  .bootstrap-container .customer-logo .carousel-inner .carousel-item-next,
+  .bootstrap-container .customer-logo .carousel-item-next:not(.carousel-item-start) {
+    transform: translateX(16.6666666667%) !important;
+  }
+  .bootstrap-container .customer-logo .carousel-inner .carousel-item-left.active,
+  .bootstrap-container .customer-logo .carousel-item-prev:not(.carousel-item-end),
+  .bootstrap-container .customer-logo .active.carousel-item-start,
+  .bootstrap-container .customer-logo .carousel-item-prev:not(.carousel-item-end) {
+    transform: translateX(-16.6666666667%) !important;
+  }
+  .bootstrap-container .customer-logo .carousel-item-next.carousel-item-start,
+  .bootstrap-container .customer-logo .active.carousel-item-end {
+    transform: translateX(0) !important;
+  }
+  .bootstrap-container .customer-logo .carousel-inner .carousel-item-prev,
+  .bootstrap-container .customer-logo .carousel-item-prev:not(.carousel-item-end) {
+    transform: translateX(-16.6666666667%) !important;
+  }
 }
 .bootstrap-container .callout-with-cards {
   /* overrides .col in BS */

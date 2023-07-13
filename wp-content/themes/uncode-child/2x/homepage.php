@@ -21,6 +21,9 @@ $hero_carousels = get_field('hero_carousel', $post->ID);
 
 $customer_logo = get_field('customer_logo', $post->ID);
 
+$customer_logo_splitted = $customer_logo['logo_detail'] ? array_chunk($customer_logo['logo_detail'], 6) : [];
+
+
 /**
  * callout with cards
  */
@@ -101,7 +104,7 @@ get_header() ?>
 <?php if ($hero_carousels) : ?>
     <section class="bootstrap-container">
         <div class="hero-carousels">
-            <div id="_2x-carousel-hero" class="carousel carousel-fade" data-bs-interval="10000" data-bs-ride="carousel">
+            <div id="_2x-carousel-hero" class="carousel carousel-fade" data-bs-pause="false" data-bs-interval="10000" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <?php foreach ($hero_carousels as $k => $item) : ?>
                         <div class="carousel-item <?= ($k == 0) ? 'active' : '' ?>">
@@ -158,53 +161,49 @@ get_header() ?>
                             <h2 class="mb-0"><?= $customer_logo['logo_heading'] ?></h2>
                         </div>
 
-                        <div id="_2x-carousel-customer-logo" class="carousel" data-bs-interval="5000" data-bs-ride="carousel">
-                            <div class="carousel-inner">
+                        <div class="_2x-carousel slide container" data-bs-pause="false" data-bs-interval="3000" data-bs-ride="carousel">
+                            <div class="carousel-inner w-100 p-0 m-0">
 
                                 <?php foreach ($customer_logo['logo_detail'] as $k => $item) : ?>
 
-                                    <div class="carousel-item <?= ($k == 0) ? 'active' : '' ?>">
-
-                                        <div class="col col-md-3">
-                                            <div class="card">
-                                                <div class="card-img">
-                                                    <img src="<?= $item['logo_image'] ?>" alt="" class="img-fluid">
-                                                </div>
+                                    <div class="carousel-item <?= $k == 0 ? 'active' : '' ?>">
+                                        <div class="col col-md-3 col-lg-2 p-0 m-0">
+                                            <div class="card card-body p-0 m-0">
+                                                <img class="img-fluid p-0 m-0" src="<?= $item['logo_image'] ?>" alt="">
                                             </div>
                                         </div>
-
                                     </div>
 
                                 <?php endforeach ?>
 
                             </div>
+
                         </div>
-                        <script>
-                            document.addEventListener('DOMContentLoaded', function() {
-                                const _2x_carousel_customer_logo = document.querySelectorAll('#_2x-carousel-customer-logo');
-
-                                _2x_carousel_customer_logo.forEach(function(el) {
-
-                                    const items = el.querySelectorAll('.carousel-item');
-
-                                    items.forEach(function(el) {
-                                        const minPerSlide = 4;
-                                        let next = el.nextElementSibling;
-                                        for (var i = 1; i < minPerSlide; i++) {
-                                            if (!next) {
-                                                // wrap carousel by using first child
-                                                next = items[0];
-                                            }
-                                            let cloneChild = next.cloneNode(true);
-                                            el.appendChild(cloneChild.children[0]);
-                                            next = next.nextElementSibling;
-                                        }
-                                    });
-                                });
-                            });
-                        </script>
                     </div>
+
                 </section>
+                
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                <script>
+                    $('._2x-carousel .carousel-item').each(function() {
+                        var minPerSlide = 6;
+                        var next = $(this).next();
+                        if (!next.length) {
+                            next = $(this).siblings(':first');
+                        }
+                        next.children(':first-child').clone().appendTo($(this));
+
+                        for (var i = 0; i < minPerSlide; i++) {
+                            next = next.next();
+                            if (!next.length) {
+                                next = $(this).siblings(':first');
+                            }
+
+                            next.children(':first-child').clone().appendTo($(this));
+                        }
+                    });
+                </script>
+
             <?php endif ?>
 
             <?php if ($callout_with_cards) : ?>
