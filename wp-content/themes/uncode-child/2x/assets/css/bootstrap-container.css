@@ -11218,7 +11218,12 @@ a > .bootstrap-container code {
   padding-inline-start: 0.3rem;
 }
 .bootstrap-container .testimonials .full-width {
-  height: 520px;
+  height: 650px;
+}
+@media (min-width: 992px) {
+  .bootstrap-container .testimonials .full-width {
+    height: 520px;
+  }
 }
 .bootstrap-container .testimonials ._2x-carousel-testimonials-content {
   position: absolute;
@@ -11530,6 +11535,17 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
     padding: 0.6rem 2rem !important;
     border-radius: 5px;
   }
+}
+.menu-light .menu-smart .menu-item-button a:hover {
+  color: #ffffff;
+}
+
+.menu-horizontal .menu-btn-table:hover {
+  background-color: #002257;
+}
+
+.menu-horizontal .menu-btn-table .btn:hover {
+  border-color: #002257;
 }
 
 /*# sourceMappingURL=bootstrap-container.css.map */

@@ -53,7 +53,7 @@ $newsargs = [
     'category_name' => 'news',
     'order' => 'DESC',
     'orderby' => 'date',
-    'posts_per_page' => 9
+    'posts_per_page' => 3
 ];
 
 $news = new WP_Query($newsargs);
@@ -182,7 +182,7 @@ get_header() ?>
                     </div>
 
                 </section>
-                
+
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                 <script>
                     $('._2x-carousel .carousel-item').each(function() {
@@ -246,7 +246,7 @@ get_header() ?>
 <?php if ($testimonials) : ?>
     <section class="bootstrap-container">
         <div class="testimonials">
-            <div id="_2x-carousel-testimonials" class="carousel">
+            <div id="_2x-carousel-testimonials" class="carousel slide">
                 <div class="carousel-inner">
 
                     <?php foreach ($testimonials as $k => $item) : ?>
@@ -262,7 +262,7 @@ get_header() ?>
                                     <div class="_2x-carousel-testimonials-content">
                                         <div class="icon-brand-logo mb-3"><img src="<?= $item['company_icon'] ?>" alt=""></div>
                                         <div class="company-name mb-4"><?= $item['company_name'] ?></div>
-                                        <div class="quote mb-4"><?= $item['quote'] ?></div>
+                                        <div class="mb-4"><?= $item['quote'] ?></div>
                                         <div class="source"><?= $item['source'] ?></div>
                                     </div>
 
@@ -273,15 +273,17 @@ get_header() ?>
 
                     <?php endforeach ?>
 
+                    <?php if (count($testimonials) > 1) : ?>
+                        <div class="carousel-indicators">
+                            <?php foreach ($testimonials as $k => $item) : ?>
+                                <button type="button" data-bs-target="#_2x-carousel-testimonials" data-bs-slide-to="<?= $k ?>" class="<?= ($k == 0) ? 'active' : '' ?>"></button>
+                            <?php endforeach ?>
+                        </div>
+                    <?php endif ?>
+
                 </div>
 
-                <?php if (count($testimonials) > 1) : ?>
-                    <div class="carousel-indicators">
-                        <?php foreach ($testimonials as $k => $item) : ?>
-                            <button type="button" data-bs-target="#_2x-carousel-testimonials" data-bs-slide-to="<?= $k ?>" class="<?= ($k == 0) ? 'active' : '' ?>"></button>
-                        <?php endforeach ?>
-                    </div>
-                <?php endif ?>
+
 
             </div>
         </div>
@@ -322,7 +324,7 @@ get_header() ?>
                                 <h2><?= $news_main_heading ?></h2>
                             </div>
                         </div>
-                        <div id="_2x-carousel-news" class="carousel">
+                        <div id="_2x-carousel-news" class="carousel slide">
                             <div class="carousel-inner">
 
                                 <?php foreach ($news_splitted as $k => $items) : ?>
@@ -370,7 +372,7 @@ get_header() ?>
             <?php if ($resources_callout) : ?>
                 <section class="bootstrap-container">
                     <div class="resources-callout py-5">
-                        <div id="_2x-carousel-resources-callout" class="carousel">
+                        <div id="_2x-carousel-resources-callout" class="carousel slide">
                             <div class="carousel-inner">
 
                                 <?php foreach ($resources_callout as $k => $item) : ?>
