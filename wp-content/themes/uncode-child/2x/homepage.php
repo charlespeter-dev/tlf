@@ -49,18 +49,7 @@ $featured_post = get_field('featured_post', $post->ID);
 
 $news_main_heading = get_field('news_main_heading', $post->ID);
 
-$newsargs = [
-    'category_name' => 'news',
-    'order' => 'DESC',
-    'orderby' => 'date',
-    'posts_per_page' => 3
-];
-
-$news = new WP_Query($newsargs);
-
-wp_reset_postdata();
-
-$news_splitted = $news->posts ? array_chunk($news->posts, 3) : [];
+$news_items = get_field('news_items', $post->ID);
 
 /**
  * resources_callout
@@ -291,7 +280,7 @@ get_header() ?>
 <?php endif ?>
 
 
-<?php if ($featured_post || $news_splitted || $resources_callout) : ?>
+<?php if ($featured_post || $news_items || $resources_callout) : ?>
 
     <div class="row-container">
         <div class="single-h-padding limit-width">
@@ -316,7 +305,7 @@ get_header() ?>
                 </section>
             <?php endif ?>
 
-            <?php if ($news_splitted) : ?>
+            <?php if ($news_items) : ?>
                 <section class="bootstrap-container">
                     <div class="news">
                         <div class="row mb-3">
@@ -324,45 +313,24 @@ get_header() ?>
                                 <h2><?= $news_main_heading ?></h2>
                             </div>
                         </div>
-                        <div id="_2x-carousel-news" class="carousel slide">
-                            <div class="carousel-inner">
 
-                                <?php foreach ($news_splitted as $k => $items) : ?>
+                        <div class="row gy-4">
 
-                                    <div class="carousel-item <?= ($k == 0) ? 'active' : '' ?>">
+                            <?php foreach ($news_items as $k => $item) : ?>
 
-                                        <div class="row gy-4">
-
-                                            <?php foreach ($items as $item) : ?>
-                                                <div class="col">
-                                                    <a href="<?= get_the_permalink($item->ID) ?>">
-                                                        <div class="card h-100">
-                                                            <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($item->ID), '_2x-carousel-news') ?>" class="img-top" alt="">
-                                                            <div class="card-body position-relative wpk-box-brand">
-                                                                <p class="date"><?= get_the_date('F j, Y', $item->ID) ?></p>
-                                                                <p class="post-title"><?= $item->post_title ?></p>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            <?php endforeach ?>
-
+                                <div class="col">
+                                    <a href="<?= get_the_permalink($item['the_post']->ID) ?>">
+                                        <div class="card h-100">
+                                            <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($item['the_post']->ID), '_2x-carousel-news') ?>" class="img-top" alt="">
+                                            <div class="card-body position-relative wpk-box-brand">
+                                                <p class="date"><?= get_the_date('F j, Y', $item['the_post']->ID) ?></p>
+                                                <p class="post-title"><?= $item['the_post']->post_title ?></p>
+                                            </div>
                                         </div>
-
-                                    </div>
-
-                                <?php endforeach ?>
-
-                            </div>
-
-                            <?php if (count($news_splitted) > 1) : ?>
-                                <div class="carousel-indicators">
-                                    <?php foreach ($news_splitted as $k => $item) : ?>
-                                        <button type="button" data-bs-target="#_2x-carousel-news" data-bs-slide-to="<?= $k ?>" class="<?= ($k == 0) ? 'active' : '' ?>"></button>
-                                    <?php endforeach ?>
+                                    </a>
                                 </div>
-                            <?php endif ?>
 
+                            <?php endforeach ?>
                         </div>
                     </div>
                 </section>

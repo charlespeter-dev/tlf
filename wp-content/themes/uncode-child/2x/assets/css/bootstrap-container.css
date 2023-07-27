@@ -11302,7 +11302,7 @@ a > .bootstrap-container code {
 .bootstrap-container .news {
   position: relative;
   padding-block-start: 3rem !important;
-  padding-block-end: 5rem !important;
+  padding-block-end: 3rem !important;
 }
 .bootstrap-container .news .col {
   padding-block-end: 1rem;
