@@ -134,14 +134,19 @@ function uncode_ajax_term_filter_list_html( $key_to_query, $filter_terms, $query
  * Output term filter in select mode
  */
 function uncode_ajax_term_filter_select_html( $key_to_query, $filter_terms, $query_args, $args = array() ) {
-	$show_count = isset( $args['show_count'] ) ? $args['show_count'] : false;
-	$display    = isset( $args['display'] ) ? $args['display'] : false;
-	$filter_id  = 'filter_' . rand() . '_' . $key_to_query;
+	$show_count   = isset( $args['show_count'] ) ? $args['show_count']: false;
+	$display      = isset( $args['display'] ) ? $args['display']      : false;
+	$filter_id    = 'filter_' . rand() . '_' . $key_to_query;
+	$first_option = isset( $args['first_option'] ) && $args['first_option'] !== '' ? $args['first_option'] : false;
 	?>
 	<select class="term-filters-list select--term-filters" name="<?php echo esc_attr( $filter_id ); ?>" id="<?php echo esc_attr( $filter_id ); ?>">
 		<?php
 		$has_checked = false;
 		?>
+
+		<?php if ( $first_option ) : ?>
+			<option data-term-filter-url="<?php echo esc_url( uncode_clear_key_filters( $key_to_query, uncode_get_current_url(), $query_args ) ); ?>"><?php echo esc_html( $first_option ); ?></option>
+		<?php endif; ?>
 
 		<?php foreach ( $filter_terms as $filter_term_key => $filter_term_value ) : ?>
 			<?php

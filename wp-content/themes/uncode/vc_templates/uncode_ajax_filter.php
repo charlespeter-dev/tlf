@@ -25,6 +25,7 @@ extract(shortcode_atts(array(
 	'author_order_by' => '',
 	'order_by' => '',
 	'sort_by' => '',
+	'select_first_option' => '',
 	'price_ranges' =>
 '25-
 25>100
@@ -302,6 +303,7 @@ if ( is_search() && $filter_group === 'search' ) {
 					break;
 
 				case 'select':
+					$filter_args['first_option'] = $select_first_option;
 					uncode_ajax_term_filter_select_html( $key_to_query, $filter_terms, $query_args, $filter_args );
 					break;
 

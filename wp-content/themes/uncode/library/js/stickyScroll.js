@@ -385,6 +385,7 @@
 			horScrollSizes();
 		});
 		var setResize,
+			setReLayout,
 			doubleResize = true,
 			oldW = UNCODE.wwidth;
 		$(window).on( 'resize orientationchange', function(){
@@ -421,8 +422,25 @@
 		};
 		ScrollTrigger.addEventListener("refresh", show_pins);
 		$(window).on( 'uncode.re-layout', function(){
-			$('.index-scroll').css({'opacity':'0'});
+			//$('.index-scroll').css({'opacity':'0'});
+			$('.pin-spacer').each(function(){
+				var space_h = $(this).outerHeight(),
+					$row = $(this).closest('.row-container');
+				$row.css({
+					'height': space_h,
+					'overflow': 'hidden'
+				});
+			});
 			ScrollTrigger.refresh(true);
+			clearRequestTimeout(setReLayout);
+			setReLayout = requestTimeout( function(){
+				$('.row-container').each(function(){
+					$(this).css({
+						'height': '',
+						'overflow': ''
+					});
+				});
+			}, 1000);
 		});
 	}
 

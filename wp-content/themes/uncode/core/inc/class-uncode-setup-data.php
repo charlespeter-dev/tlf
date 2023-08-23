@@ -82,6 +82,7 @@ class Uncode_Setup_Post_Data {
 		if ( is_singular() ) {
 			$post_data['is_singular'] = true;
 			$metabox_data             = get_post_meta( $queried_object->ID );
+			$_post_type = $queried_object->post_type === 'product_variation' ? 'product' : $queried_object->post_type;
 
 			// Header
 			if ( isset( $metabox_data['_uncode_header_type'][0] ) && $metabox_data['_uncode_header_type'][0] !== '' ) {
@@ -97,7 +98,7 @@ class Uncode_Setup_Post_Data {
 					}
 				}
 			} else {
-				$header_cb_id = $this->get_header_content_block( $queried_object->post_type );
+				$header_cb_id = $this->get_header_content_block( $_post_type );
 				if ( $header_cb_id ) {
 					$post_data['header_cb_id'] = absint( $header_cb_id );
 				}
@@ -111,7 +112,8 @@ class Uncode_Setup_Post_Data {
 					$post_data['footer_cb_id'] = absint( $footer_block );
 				}
 			} else {
-				$footer_block_id = $this->get_footer_content_block( $queried_object->post_type );
+				$_post_type = $queried_object->post_type === 'product_variation' ? 'product' : $queried_object->post_type;
+				$footer_block_id = $this->get_footer_content_block( $_post_type );
 				if ( $footer_block_id ) {
 					$post_data['footer_cb_id'] = absint( $footer_block_id );
 				}
@@ -123,19 +125,19 @@ class Uncode_Setup_Post_Data {
 				&& get_post_meta( $queried_object->ID, '_uncode_specific_content_block', true ) !== ''
 				&& get_post_meta( $queried_object->ID, '_uncode_specific_content_block', true ) !== 'none') {
 				$content_cb = get_post_meta( $queried_object->ID, '_uncode_specific_content_block', true );
-			} else if ( ot_get_option('_uncode_' . $queried_object->post_type . '_select_content') === 'uncodeblock' && ot_get_option('_uncode_' . $queried_object->post_type . '_content_block') !== '' && get_post_meta( $queried_object->ID, '_uncode_specific_select_content', true ) === '' ) {
-				$content_cb = ot_get_option('_uncode_' . $queried_object->post_type . '_content_block');
+			} else if ( ot_get_option('_uncode_' . $_post_type . '_select_content') === 'uncodeblock' && ot_get_option('_uncode_' . $_post_type . '_content_block') !== '' && get_post_meta( $queried_object->ID, '_uncode_specific_select_content', true ) === '' ) {
+				$content_cb = ot_get_option('_uncode_' . $_post_type . '_content_block');
 			}
 			if ( $content_cb && $content_cb !== '' && $content_cb !== 'none' ) {
 				$post_data['content_cb_id'] = absint( $content_cb );
 			}
 
 			// Content Pre (Posts)
-			if ( $queried_object->post_type === 'post' ) {
+			if ( $_post_type === 'post' ) {
 				$content_block_pre      = 0;
 				$page_content_block_pre = isset( $metabox_data['_uncode_specific_content_block_after_pre'][0] ) ? $metabox_data['_uncode_specific_content_block_after_pre'][0] : '';
 				if ( $page_content_block_pre === '' ) {
-					$generic_content_block_pre = ot_get_option('_uncode_' . $queried_object->post_type . '_content_block_after_pre');
+					$generic_content_block_pre = ot_get_option('_uncode_' . $_post_type . '_content_block_after_pre');
 					$content_block_pre = $generic_content_block_pre !== '' ? $generic_content_block_pre : false;
 				} else {
 					$content_block_pre = $page_content_block_pre !== 'none' ? $page_content_block_pre : false;
@@ -149,7 +151,7 @@ class Uncode_Setup_Post_Data {
 			$content_block_after      = 0;
 			$page_content_block_after = isset( $metabox_data['_uncode_specific_content_block_after'][0] ) ? $metabox_data['_uncode_specific_content_block_after'][0] : '';
 			if ( $page_content_block_after === '' ) {
-				$generic_content_block_after = ot_get_option('_uncode_' . $queried_object->post_type . '_content_block_after');
+				$generic_content_block_after = ot_get_option('_uncode_' . $_post_type . '_content_block_after');
 				$content_block_after = $generic_content_block_after !== '' ? $generic_content_block_after : false;
 			} else {
 				$content_block_after = $page_content_block_after !== 'none' ? $page_content_block_after : false;
@@ -159,7 +161,7 @@ class Uncode_Setup_Post_Data {
 			}
 
 			// Navigation
-			$generic_navigation_type = ot_get_option('_uncode_' . $queried_object->post_type . '_navigation_activate');
+			$generic_navigation_type = ot_get_option('_uncode_' . $_post_type . '_navigation_activate');
 			$specific_navigation_type = isset( $metabox_data['_uncode_specific_navigation_hide'][0] ) ? $metabox_data['_uncode_specific_navigation_hide'][0] : '';
 			if ( ( $generic_navigation_type === 'uncodeblock' && ( $specific_navigation_type !== 'on' && $specific_navigation_type !== 'default' ) ) || $specific_navigation_type === 'uncodeblock' ) {
 				$specific_navigation_content_block = ( isset( $metabox_data['_uncode_specific_navigation_content_block'][0] ) ) ? $metabox_data['_uncode_specific_navigation_content_block'][0] : '';
@@ -167,7 +169,7 @@ class Uncode_Setup_Post_Data {
 				if ( $specific_navigation_content_block && $specific_navigation_type === 'uncodeblock' ) {
 					$navigation_content_block = $specific_navigation_content_block;
 				} else {
-					$generic_navigation_content_block = ot_get_option( '_uncode_' . $queried_object->post_type . '_navigation_content_block' );
+					$generic_navigation_content_block = ot_get_option( '_uncode_' . $_post_type . '_navigation_content_block' );
 					$navigation_content_block = $generic_navigation_content_block ? $generic_navigation_content_block : false;
 				}
 
@@ -230,8 +232,13 @@ class Uncode_Setup_Post_Data {
 			$post_data['is_archive'] = true;
 
 			if (isset($post->post_type)) {
-				$post_type = $post->post_type . '_index';
-				$post_data['post_type'] = $post->post_type;
+				if ( class_exists( 'WooCommerce' ) && ( is_shop() || is_product_category() || is_product_tag() ) ) {
+					$post_type = 'product_index';
+					$post_data['post_type'] = 'product';
+				} else {
+					$post_type = $post->post_type . '_index';
+					$post_data['post_type'] = $post->post_type;
+				}
 			} else {
 				global $wp_taxonomies, $wp_query;
 				if ( ! is_null( $wp_query ) && $wp_query->get_queried_object() ) {

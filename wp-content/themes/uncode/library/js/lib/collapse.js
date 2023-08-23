@@ -43,7 +43,12 @@
 		if (actives && actives.length) {
 			var hasData = actives.data('bs.collapse')
 			if (hasData && hasData.transitioning) return
-			actives.collapse('hide')
+			//START UNCODE EDIT
+			var parentNoToggle = this.$parent.data('no-toggle')
+			if (!parentNoToggle) {
+				actives.collapse('hide')
+			}
+			//END UNCODE EDIT
 			hasData || actives.data('bs.collapse', null)
 		}
 

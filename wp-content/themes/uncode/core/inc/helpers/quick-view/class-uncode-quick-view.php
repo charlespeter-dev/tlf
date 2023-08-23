@@ -206,14 +206,24 @@ class Uncode_Quick_View {
 		}
 
 		$post_type = get_post_type( $post_id );
-		$label     = __( 'Quick-View', 'uncode' );
+		$atts_json = '';
+
+		if ( $post_type === 'product_variation' ) {
+			$variation = wc_get_product( $post_id );
+			$post_id   = $variation->get_parent_id();
+			$post_type = 'product';
+			$atts_json = wp_json_encode( $variation->get_attributes() );
+			$atts_json = function_exists( 'wc_esc_json' ) ? wc_esc_json( $atts_json ) : _wp_specialchars( $atts_json, ENT_QUOTES, 'UTF-8', true );
+		}
+
+		$label = __( 'Quick-View', 'uncode' );
 
 		$this->print_modal = true;
 
 		if ( isset( $block_data['is_table'] ) && $block_data['is_table'] === true ) {
-			echo '<a href="#" class="open-unmodal quick-view-button" data-post-type="' . esc_attr( $post_type ) . '" data-post-id="' . esc_attr( $post_id ) . '" data-post-url="' . esc_url( get_permalink( $post_id ) ) .'">' . esc_html( $label ) . '</a>';
+			echo '<a href="#" class="open-unmodal quick-view-button" data-post-type="' . esc_attr( $post_type ) . '" data-post-id="' . esc_attr( $post_id ) . '" data-post-url="' . esc_url( get_permalink( $post_id ) ) .'" data-single-variation="' . $atts_json . '">' . esc_html( $label ) . '</a>';
 		} else {
-			echo '<div class="quick-view-button-overlay icon-badge"><a href="#" class="open-unmodal quick-view-button" data-post-type="' . esc_attr( $post_type ) . '" data-post-id="' . esc_attr( $post_id ) . '" data-post-url="' . esc_url( get_permalink( $post_id ) ) .'">' . esc_html( $label ) . '</a></div>';
+			echo '<div class="quick-view-button-overlay icon-badge"><a href="#" class="open-unmodal quick-view-button" data-post-type="' . esc_attr( $post_type ) . '" data-post-id="' . esc_attr( $post_id ) . '" data-post-url="' . esc_url( get_permalink( $post_id ) ) .'" data-single-variation="' . $atts_json . '">' . esc_html( $label ) . '</a></div>';
 		}
 	}
 

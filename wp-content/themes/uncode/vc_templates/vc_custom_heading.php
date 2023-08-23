@@ -1,5 +1,5 @@
 <?php
-$subheading = $subtext_one = $subtext_two = $heading_semantic = $text_size = $text_height = $text_space = $text_font = $text_weight = $text_transform = $text_italic = $text_color = $separator = $separator_color = $separator_double = $sub_text = $sub_lead = $sub_reduced = $desktop_visibility = $medium_visibility = $mobile_visibility = $css_animation = $marquee_clone = $animation_delay = $animation_speed = $interval_animation = $output = $el_id = $el_class = $skew = $sticky_trigger = $sticky_trigger_option = $sub_class = $is_header = $auto_text = '';
+$subheading = $subtext_one = $subtext_two = $heading_semantic = $text_size = $text_height = $text_space = $text_font = $text_weight = $text_transform = $text_italic = $text_color = $back_color = $separator = $separator_color = $separator_double = $sub_text = $sub_lead = $sub_reduced = $desktop_visibility = $medium_visibility = $mobile_visibility = $css_animation = $marquee_clone = $animation_delay = $animation_speed = $interval_animation = $output = $el_id = $el_class = $skew = $sticky_trigger = $sticky_trigger_option = $sub_class = $is_header = $auto_text = '';
 extract( shortcode_atts( array(
 	'uncode_shortcode_id' => '',
 	'subheading' => '',
@@ -17,12 +17,19 @@ extract( shortcode_atts( array(
 	'text_color_type' => '',
 	'text_color_solid' => '',
 	'text_color_gradient' => '',
+	'badge_style' => '',
+	'radius' => '',
+	'back_color' => '',
+	'back_color_type' => '',
+	'back_color_solid' => '',
+	'back_color_gradient' => '',
 	'separator' => '',
 	'separator_color' => '',
 	'separator_double' => '',
 	'sub_text' => '',
 	'sub_lead' => '',
 	'sub_reduced' => '',
+	'heading_display' => '',
 	'desktop_visibility' => '',
 	'medium_visibility' => '',
 	'mobile_visibility' => '',
@@ -64,10 +71,15 @@ $inline_style_css = uncode_get_dynamic_colors_css_from_shortcode( array(
 		'text_color_type'     => $text_color_type,
 		'text_color_solid'    => $text_color_solid,
 		'text_color_gradient' => $text_color_gradient,
+		'back_color'          => $back_color,
+		'back_color_type'     => $back_color_type,
+		'back_color_solid'    => $back_color_solid,
+		'back_color_gradient' => $back_color_gradient,
 	)
 ) );
 
 $text_color = uncode_get_shortcode_color_attribute_value( 'text_color', $uncode_shortcode_id, $text_color_type, $text_color, $text_color_solid, $text_color_gradient );
+$back_color = uncode_get_shortcode_color_attribute_value( 'back_color', $uncode_shortcode_id, $back_color_type, $back_color, $back_color_solid, $back_color_gradient );
 
 $fonts = (function_exists('ot_get_option')) ? ot_get_option('_uncode_font_groups') : array();
 $headings_font = (function_exists('ot_get_option')) ? ot_get_option('_uncode_heading_font_family') : '';
@@ -106,6 +118,17 @@ if ($text_weight !== '') {
 }
 if ($text_color !== '') {
 	$classes[] = 'text-' . $text_color . '-color';
+}
+if ( $badge_style === 'yes' ) {
+	$classes[] = 'badge-style';
+
+	if ( $radius !== '' ) {
+		$classes[] = 'unradius-' . $radius;
+	}
+
+	if ($back_color !== '') {
+		$classes[] = 'style-' . $back_color . '-bg';
+	}
 }
 if ($text_transform !== '') {
 	$classes[] = 'text-' . $text_transform;
@@ -202,7 +225,7 @@ if ( strpos( $content, '[uncode_hl_text') !== false ) {
 	$cont_classes[] = 'heading-lines';
 }
 
-$output .= '<div class="vc_custom_heading_wrap ' . esc_attr(trim(implode( ' ', $resp_classes ))) . '"><div class="' . esc_attr(trim(implode( ' ', $cont_classes ))) . '" '.implode(' ', $div_data_attributes). $el_id . '>';
+$output .= '<div class="vc_custom_heading_wrap ' . esc_attr( $heading_display === 'inline' ? 'heading-inline ' : '' ) . esc_attr(trim(implode( ' ', $resp_classes ))) . '"><div class="' . esc_attr(trim(implode( ' ', $cont_classes ))) . '" '.implode(' ', $div_data_attributes). $el_id . '>';
 if ($separator === 'over') {
 	$output .= '<hr class="' . esc_attr(trim(implode( ' ', $separator_classes ))) . '" />';
 }

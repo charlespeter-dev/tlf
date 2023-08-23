@@ -299,6 +299,10 @@ if ( ! function_exists( 'uncode_create_dynamic_css' ) ) {
 
 		require(get_template_directory() . '/core/inc/style-custom.css.php'); // Generate CSS
 
+		if ( apply_filters( 'uncode_use_style_custom_ver', false ) ) {
+			update_option( 'uncode_style_custom_last_update', strtotime("now"), false );
+		}
+
 		$css = ob_get_clean(); // Get generated CSS (output buffering)
 
 		if ($css === 'exit') {

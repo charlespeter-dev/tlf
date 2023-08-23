@@ -75,7 +75,7 @@ function uncode_check_for_row_with_custom_ajax_filters( $content ) {
 				$post_module_shortcode = $first_match[0];
 
 				if ( $post_module_shortcode ) {
-					global $uncode_index_query, $has_ajax_filters;
+					global $has_ajax_filters;
 
 					$has_ajax_filters = true;
 
@@ -116,51 +116,57 @@ function uncode_filters_populate_tax_terms( $tax_source, $tax_to_query, $query_a
 		$post_terms = get_terms( $tax_to_query );
 
 		if ( ! empty( $post_terms ) && ! is_wp_error( $post_terms ) ) {
+			global $uncode_query_options;
+
+			if ( isset( $uncode_query_options['single_variations'] ) && $uncode_query_options['single_variations'] ) {
+				if ( isset( $uncode_query_options['single_variations_hide_parent'] ) && $uncode_query_options['single_variations_hide_parent'] ) {
+					$terms_count = get_option( 'uncode_terms_hidden_parent_count' );
+				} else {
+					$terms_count = get_option( 'uncode_terms_all_count' );
+				}
+			}
+
 			foreach ( $post_terms as $post_term ) {
 				if ( $post_term->count > 0 ) {
+					$count = $post_term->count;
+
+					if ( isset( $uncode_query_options['single_variations'] ) && $uncode_query_options['single_variations'] ) {
+						if ( isset( $terms_count[$post_term->term_id] ) ) {
+							$count = $terms_count[$post_term->term_id];
+						}
+					}
+
 					$tax_terms[ $post_term->term_id ] = array(
-						'count' => $post_term->count,
+						'count' => $count,
 						'term'  => $post_term,
 					);
 				}
 			}
 		}
 	} else {
-		global $uncode_index_query;
-		global $uncode_index_query_unfiltered;
 		global $uncode_ajax_filter_query;
 		global $uncode_ajax_filter_query_unfiltered;
 
-		$posts_query = false;
+		$posts_query = null;
 
 		if ( is_tax( $tax_to_query ) || ( ( ! $multiple || uncode_get_filters_query_relation( $tax_to_query, $query_args, $tax_source ) === 'or' ) && uncode_is_only_current_filter( $tax_to_query, $query_args, $tax_source ) ) ) {
-			if ( ! is_null( $uncode_ajax_filter_query_unfiltered ) && $uncode_ajax_filter_query_unfiltered instanceof WP_Query ) {
-				// AJAX filters inside the posts module - Unfiltered loop
+			if ( ! is_null( $uncode_ajax_filter_query_unfiltered ) ) {
 				$posts_query = $uncode_ajax_filter_query_unfiltered;
-			} else if ( ! is_null( $uncode_index_query_unfiltered ) && $uncode_index_query_unfiltered instanceof WP_Query ) {
-				// AJAX filters outside the posts module - Unfiltered loop
-				$posts_query = $uncode_index_query_unfiltered;
 			}
 		} else {
 			// We have filters, so use terms attached to posts we found
 			// We use them also for AND queries
-			if ( ! is_null( $uncode_ajax_filter_query ) && $uncode_ajax_filter_query instanceof WP_Query ) {
-				// AJAX filters inside the posts module - Filtered loop
+			if ( ! is_null( $uncode_ajax_filter_query ) ) {
 				$posts_query = $uncode_ajax_filter_query;
-			} else if ( ! is_null( $uncode_index_query ) && $uncode_index_query instanceof WP_Query ) {
-				// AJAX filters outside the posts module - Filtered loop
-				$posts_query = $uncode_index_query;
 			}
 		}
 
-		if ( $posts_query && $posts_query instanceof WP_Query ) {
-			if ( ! $posts_query->have_posts() ) {
+		if ( ! is_null( $posts_query ) ) {
+			if ( ! count( $posts_query ) > 0 ) {
 				$no_results = false;
 
-				if ( ! is_null( $uncode_ajax_filter_query ) && $uncode_ajax_filter_query instanceof WP_Query ) {
-					if ( ! $uncode_ajax_filter_query->have_posts() ) {
-						$no_results = true;
-					} else if ( ! is_null( $uncode_index_query ) && $uncode_index_query instanceof WP_Query ) {
+				if ( ! is_null( $uncode_ajax_filter_query ) ) {
+					if ( ! count( $uncode_ajax_filter_query ) > 0 ) {
 						$no_results = true;
 					}
 				}
@@ -187,19 +193,35 @@ function uncode_filters_populate_tax_terms( $tax_source, $tax_to_query, $query_a
 						}
 
 						if ( ! $known_terms && $unknown_terms > 0 ) {
-							if ( ! is_null( $uncode_ajax_filter_query_unfiltered ) && $uncode_ajax_filter_query_unfiltered instanceof WP_Query ) {
+							if ( ! is_null( $uncode_ajax_filter_query_unfiltered ) ) {
 								$unfiltered_posts_query = $uncode_ajax_filter_query_unfiltered;
-							} else if ( ! is_null( $uncode_index_query_unfiltered ) && $uncode_index_query_unfiltered instanceof WP_Query ) {
-								$unfiltered_posts_query = $uncode_index_query_unfiltered;
 							}
 
 							if ( $unfiltered_posts_query ) {
-								while ( $unfiltered_posts_query->have_posts() ) {
-									$uncode_ajax_filter_query_unfiltered->the_post();
-									global $post;
-									$post_terms = get_the_terms( $post->ID, $tax_to_query );
+								if ( uncode_ajax_filters_cache_enabled() ) {
+									$post_objects_data  = get_transient( 'uncode_ajax_filters_post_objects_data' );
+									$cache_needs_update = false;
+								}
 
-									if ( ! empty( $post_terms ) && ! is_wp_error( $post_terms ) ) {
+								foreach	( $posts_query as $post_id ) {
+									if ( uncode_ajax_filters_cache_enabled() ) {
+										// Load from cache
+										$new_post_objects_data = uncode_ajax_filters_get_post_terms_from_cache( $post_objects_data, $post_id, $tax_to_query, $tax_source );
+
+										$post_objects_data = $new_post_objects_data['data'];
+
+										if ( $new_post_objects_data['from_cache'] === false ) {
+											$cache_needs_update = true;
+										}
+
+										$post_terms = isset( $post_objects_data[$post_id] ) && isset( $post_objects_data[ $post_id ]['terms'] ) && isset( $post_objects_data[ $post_id ]['terms'][ $tax_to_query ] ) ? $post_objects_data[ $post_id ]['terms'][ $tax_to_query ] : array();
+									} else {
+										// Rebuild each time, no cache
+										$post_terms = get_the_terms( $post_id, $tax_to_query );
+										$post_terms = is_wp_error( $post_terms ) ? $post_terms : array();
+									}
+
+									if ( ! empty( $post_terms ) ) {
 										foreach ( $post_terms as $post_term ) {
 											$tax_terms[ $post_term->term_id ] = array(
 												'count' => 0,
@@ -208,45 +230,35 @@ function uncode_filters_populate_tax_terms( $tax_source, $tax_to_query, $query_a
 										}
 									}
 								}
+
+								if ( uncode_ajax_filters_cache_enabled() && $cache_needs_update ) {
+									set_transient( 'uncode_ajax_filters_post_objects_data', $post_objects_data, uncode_ajax_filters_get_transient_lifespan() );
+								}
 							}
 						}
 					}
 				}
 			} else {
-				while ( $posts_query->have_posts() ) {
-					$posts_query->the_post();
-					global $post;
-					$post_terms = get_the_terms( $post->ID, $tax_to_query );
+				if ( uncode_ajax_filters_cache_enabled() ) {
+					$post_objects_data  = get_transient( 'uncode_ajax_filters_post_objects_data' );
+					$cache_needs_update = false;
+				}
 
-					if ( ! empty( $post_terms ) && ! is_wp_error( $post_terms ) ) {
-						$post_terms_with_index = array();
+				foreach	( $posts_query as $post_id ) {
+					if ( uncode_ajax_filters_cache_enabled() ) {
+						// Load from cache
+						$new_post_objects_data = uncode_ajax_filters_get_post_terms_from_cache( $post_objects_data, $post_id, $tax_to_query, $tax_source );
 
-						foreach ( $post_terms as $post_term ) {
-							$post_terms_with_index[$post_term->term_id] = $post_term;
+						$post_objects_data = $new_post_objects_data['data'];
+
+						if ( $new_post_objects_data['from_cache'] === false ) {
+							$cache_needs_update = true;
 						}
 
-						// Add missing parent terms
-						$post_terms = uncode_add_missing_parent_terms( $post_terms_with_index );
+						$post_terms = isset( $post_objects_data[$post_id] ) && isset( $post_objects_data[ $post_id ]['terms'] ) && isset( $post_objects_data[ $post_id ]['terms'][ $tax_to_query ] ) ? $post_objects_data[ $post_id ]['terms'][ $tax_to_query ] : array();
 
-						foreach ( $post_terms as $post_term ) {
-							$add_to_count = false;
-
-							if ( class_exists( 'WooCommerce' ) && $tax_source === 'product_att' && apply_filters( 'uncode_use_woocommerce_nav_attributes_query', false ) && get_option( 'woocommerce_attribute_lookup_enabled' ) === 'yes' && 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) ) {
-								global $wpdb;
-
-								$lookup_table_name = $wpdb->prefix . 'wc_product_attributes_lookup';
-
-								$results_query = $wpdb->get_results( $wpdb->prepare("SELECT * FROM $lookup_table_name WHERE product_or_parent_id = %d AND term_id = %d AND in_stock = 1", $post->ID, $post_term->term_id ), ARRAY_A );
-
-								if ( is_array( $results_query ) && count( $results_query ) > 0 ) {
-									$add_to_count = true;
-								}
-							} else {
-								$add_to_count = true;
-
-							}
-
-							if ( $add_to_count ) {
+						if ( ! empty( $post_terms ) ) {
+							foreach ( $post_terms as $post_term ) {
 								if ( isset( $tax_terms[ $post_term->term_id ] ) ) {
 									$tax_terms[ $post_term->term_id ]['count']++;
 								} else {
@@ -257,9 +269,56 @@ function uncode_filters_populate_tax_terms( $tax_source, $tax_to_query, $query_a
 								}
 							}
 						}
+					} else {
+						// Rebuild each time, no cache
+						$post_terms = get_the_terms( $post_id, $tax_to_query );
+
+						if ( ! empty( $post_terms ) && ! is_wp_error( $post_terms ) ) {
+							$post_terms_with_index = array();
+
+							foreach ( $post_terms as $post_term ) {
+								$post_terms_with_index[$post_term->term_id] = $post_term;
+							}
+
+							// Add missing parent terms
+							$post_terms = uncode_add_missing_parent_terms( $post_terms_with_index );
+
+							foreach ( $post_terms as $post_term ) {
+								$add_to_count = false;
+
+								if ( class_exists( 'WooCommerce' ) && $tax_source === 'product_att' && apply_filters( 'uncode_use_woocommerce_nav_attributes_query', false ) && get_option( 'woocommerce_attribute_lookup_enabled' ) === 'yes' && 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) ) {
+									global $wpdb;
+
+									$lookup_table_name = $wpdb->prefix . 'wc_product_attributes_lookup';
+
+									$results_query = $wpdb->get_results( $wpdb->prepare("SELECT * FROM $lookup_table_name WHERE product_or_parent_id = %d AND term_id = %d AND in_stock = 1", $post_id, $post_term->term_id ), ARRAY_A );
+
+									if ( is_array( $results_query ) && count( $results_query ) > 0 ) {
+										$add_to_count = true;
+									}
+								} else {
+									$add_to_count = true;
+
+								}
+
+								if ( $add_to_count ) {
+									if ( isset( $tax_terms[ $post_term->term_id ] ) ) {
+										$tax_terms[ $post_term->term_id ]['count']++;
+									} else {
+										$tax_terms[ $post_term->term_id ] = array(
+											'count' => 1,
+											'term'  => $post_term,
+										);
+									}
+								}
+							}
+						}
 					}
 				}
-				wp_reset_query();
+
+				if ( uncode_ajax_filters_cache_enabled() && $cache_needs_update ) {
+					set_transient( 'uncode_ajax_filters_post_objects_data', $post_objects_data, uncode_ajax_filters_get_transient_lifespan() );
+				}
 			}
 		}
 	}
@@ -305,36 +364,28 @@ function uncode_filters_populate_author_terms( $query_args, $sort_by ) {
 			}
 		}
 	} else {
-		global $uncode_index_query;
-		global $uncode_index_query_unfiltered;
 		global $uncode_ajax_filter_query;
 		global $uncode_ajax_filter_query_unfiltered;
 
-		$posts_query = false;
+		$posts_query = null;
 
 		if ( is_author() || ( uncode_is_only_current_filter( UNCODE_FILTER_KEY_AUTHOR, $query_args ) ) ) {
-			if ( ! is_null( $uncode_ajax_filter_query_unfiltered ) && $uncode_ajax_filter_query_unfiltered instanceof WP_Query ) {
+			if ( ! is_null( $uncode_ajax_filter_query_unfiltered ) ) {
 				$posts_query = $uncode_ajax_filter_query_unfiltered;
-			} else if ( ! is_null( $uncode_index_query_unfiltered ) && $uncode_index_query_unfiltered instanceof WP_Query ) {
-				$posts_query = $uncode_index_query_unfiltered;
 			}
 		} else {
 			// We have filters, so use terms attached to posts we found
-			if ( ! is_null( $uncode_ajax_filter_query ) && $uncode_ajax_filter_query instanceof WP_Query ) {
+			if ( ! is_null( $uncode_ajax_filter_query ) ) {
 				$posts_query = $uncode_ajax_filter_query;
-			} else if ( ! is_null( $uncode_index_query ) && $uncode_index_query instanceof WP_Query ) {
-				$posts_query = $uncode_index_query;
 			}
 		}
 
-		if ( $posts_query && $posts_query instanceof WP_Query ) {
-			if ( ! $posts_query->have_posts() ) {
+		if ( ! is_null( $posts_query ) ) {
+			if ( ! count( $posts_query ) > 0 ) {
 				$no_results = false;
 
-				if ( ! is_null( $uncode_ajax_filter_query ) && $uncode_ajax_filter_query instanceof WP_Query ) {
-					if ( ! $uncode_ajax_filter_query->have_posts() ) {
-						$no_results = true;
-					} else if ( ! is_null( $uncode_index_query ) && $uncode_index_query instanceof WP_Query ) {
+				if ( ! is_null( $uncode_ajax_filter_query ) ) {
+					if ( ! count( $uncode_ajax_filter_query ) > 0 ) {
 						$no_results = true;
 					}
 				}
@@ -377,12 +428,29 @@ function uncode_filters_populate_author_terms( $query_args, $sort_by ) {
 					}
 				}
 			} else {
-				while ( $posts_query->have_posts() ) {
-					$posts_query->the_post();
-					global $post;
+				if ( uncode_ajax_filters_cache_enabled() ) {
+					$post_objects_data  = get_transient( 'uncode_ajax_filters_post_objects_data' );
+					$cache_needs_update = false;
+				}
 
-					$author_id    = get_the_author_meta( 'ID' );
-					$display_name = get_the_author_meta( 'display_name' );
+				foreach ( $posts_query as $post_id ) {
+					if ( uncode_ajax_filters_cache_enabled() ) {
+						// Load from cache
+						$new_post_objects_data = uncode_ajax_filters_get_author_data_from_cache( $post_objects_data, $post_id );
+
+						$post_objects_data = $new_post_objects_data['data'];
+
+						if ( $new_post_objects_data['from_cache'] === false ) {
+							$cache_needs_update = true;
+						}
+
+						$author_id    = isset( $post_objects_data[$post_id] ) && isset( $post_objects_data[ $post_id ]['author_data'] ) && isset( $post_objects_data[ $post_id ]['author_data']['author_id'] ) ? $post_objects_data[ $post_id ]['author_data']['author_id'] : '';
+						$display_name = isset( $post_objects_data[$post_id] ) && isset( $post_objects_data[ $post_id ]['author_data'] ) && isset( $post_objects_data[ $post_id ]['author_data']['author_name'] ) ? $post_objects_data[ $post_id ]['author_data']['author_name'] : '';
+					} else {
+						// Rebuild each time, no cache
+						$author_id    = get_post_field( 'post_author', $post_id );
+						$display_name = get_the_author_meta( 'display_name' );
+					}
 
 					if ( $author_id && $display_name ) {
 						if ( isset( $author_terms[ $author_id ] ) ) {
@@ -395,7 +463,10 @@ function uncode_filters_populate_author_terms( $query_args, $sort_by ) {
 						}
 					}
 				}
-				wp_reset_query();
+
+				if ( uncode_ajax_filters_cache_enabled() && $cache_needs_update ) {
+					set_transient( 'uncode_ajax_filters_post_objects_data', $post_objects_data, uncode_ajax_filters_get_transient_lifespan() );
+				}
 			}
 		}
 	}
@@ -412,53 +483,82 @@ function uncode_filters_populate_author_terms( $query_args, $sort_by ) {
  * Function that populates the module with date terms
  */
 function uncode_filters_populate_date_terms( $query_args, $date_type, $date_sort ) {
+	global $uncode_ajax_filter_query_post_type;
+
 	$date_format  = $date_type === 'year' ? 'Y' : 'Y_m';
 	$display_date = $date_type === 'year' ? 'Y' : 'F Y';
 
 	// Populate terms
 	$date_terms = array();
 
-	$posts_query = false;
+	$posts_query = null;
 
 	$current_post_type = uncode_get_current_post_type();
-	if ( is_date() || ( function_exists('vc_is_page_editable') && vc_is_page_editable() ) || $current_post_type == 'uncodeblock' ) {
+	if ( ( function_exists('vc_is_page_editable') && vc_is_page_editable() || $current_post_type == 'uncodeblock' ) ) {
+		$args = array(
+			'post_type'      => 'post',
+			'posts_per_page' => apply_filters( 'uncode_ajax_filters_all_posts_query_limit', 50 ),
+			'fields'         => 'ids',
+		);
+
+		$all_posts_query = new WP_Query( $args );
+		$posts_query     = $all_posts_query->have_posts() ? $all_posts_query->posts : array();
+
+	} else if ( is_date() ) {
 		$args = array(
 			'post_type'      => 'post',
 			'posts_per_page' => -1,
+			'fields'         => 'ids',
 		);
 
-		$posts_query = new WP_Query( $args );
+		if ( uncode_ajax_filters_cache_enabled() && is_array( $uncode_ajax_filter_query_post_type ) ) {
+			$all_posts_query_transient = get_transient( 'uncode_ajax_filters_all_posts' );
+			$all_posts_query_transient = is_array( $all_posts_query_transient ) ? $all_posts_query_transient : array();
 
+			$posts_query = array();
+
+			foreach ( $uncode_ajax_filter_query_post_type as $cpt ) {
+				// Valid cache found
+				if ( isset( $all_posts_query_transient[ $cpt ] ) ) {
+					$posts_query = array_merge( $posts_query, $all_posts_query_transient[ $cpt ] );
+				} else {
+					// Add this CPT to cache
+					$args['post_type'] = $cpt;
+					$all_posts_cpt_query = new WP_Query( $args );
+					$all_posts_cpt_query_ids = $all_posts_cpt_query->have_posts() ? $all_posts_cpt_query->posts : array();
+					$posts_query = array_merge( $posts_query, $all_posts_cpt_query_ids );
+
+					// Update transient
+					$all_posts_query_transient[$cpt] = $all_posts_cpt_query_ids;
+					set_transient( 'uncode_ajax_filters_all_posts', $all_posts_query_transient, uncode_ajax_filters_get_transient_lifespan() );
+				}
+			}
+		} else {
+			$all_posts_query = new WP_Query( $args );
+			$posts_query     = $all_posts_query->have_posts() ? $all_posts_query->posts : array();
+		}
 	} else {
-		global $uncode_index_query;
-		global $uncode_index_query_unfiltered;
 		global $uncode_ajax_filter_query;
 		global $uncode_ajax_filter_query_unfiltered;
 
 		if ( is_date() || ( uncode_is_only_current_filter( UNCODE_FILTER_KEY_DATE, $query_args ) ) ) {
-			if ( ! is_null( $uncode_ajax_filter_query_unfiltered ) && $uncode_ajax_filter_query_unfiltered instanceof WP_Query ) {
+			if ( ! is_null( $uncode_ajax_filter_query_unfiltered ) ) {
 				$posts_query = $uncode_ajax_filter_query_unfiltered;
-			} else if ( ! is_null( $uncode_index_query_unfiltered ) && $uncode_index_query_unfiltered instanceof WP_Query ) {
-				$posts_query = $uncode_index_query_unfiltered;
 			}
 		} else {
 			// We have filters, so use terms attached to posts we found
-			if ( ! is_null( $uncode_ajax_filter_query ) && $uncode_ajax_filter_query instanceof WP_Query ) {
+			if ( ! is_null( $uncode_ajax_filter_query ) ) {
 				$posts_query = $uncode_ajax_filter_query;
-			} else if ( ! is_null( $uncode_index_query ) && $uncode_index_query instanceof WP_Query ) {
-				$posts_query = $uncode_index_query;
 			}
 		}
 	}
 
-	if ( $posts_query && $posts_query instanceof WP_Query ) {
-		if ( ! $posts_query->have_posts() ) {
+	if ( ! is_null( $posts_query ) ) {
+		if ( ! count( $posts_query ) > 0 ) {
 			$no_results = false;
 
-			if ( ! is_null( $uncode_ajax_filter_query ) && $uncode_ajax_filter_query instanceof WP_Query ) {
-				if ( ! $uncode_ajax_filter_query->have_posts() ) {
-					$no_results = true;
-				} else if ( ! is_null( $uncode_index_query ) && $uncode_index_query instanceof WP_Query ) {
+			if ( ! is_null( $uncode_ajax_filter_query ) ) {
+				if ( ! count( $uncode_ajax_filter_query ) > 0 ) {
 					$no_results = true;
 				}
 			}
@@ -489,8 +589,9 @@ function uncode_filters_populate_date_terms( $query_args, $date_type, $date_sort
 
 						if ( $valid_date && $year ) {
 							$args = array(
-								'post_type'      => 'post',
+								'post_type'      => $uncode_ajax_filter_query_post_type,
 								'posts_per_page' => -1,
+								'fields'         => 'ids',
 							);
 
 							if ( $year ) {
@@ -501,15 +602,13 @@ function uncode_filters_populate_date_terms( $query_args, $date_type, $date_sort
 								$args['monthnum'] = $month;
 							}
 
-							$no_results_posts_query = new WP_Query( $args );
+							$all_posts_query        = new WP_Query( $args );
+							$no_results_posts_query = $all_posts_query->have_posts() ? $all_posts_query->posts : array();
 
-							if ( $no_results_posts_query->have_posts() ) {
-								while ( $no_results_posts_query->have_posts() ) {
-									$no_results_posts_query->the_post();
-									global $post;
-
-									$date      = get_the_date( $date_format );
-									$timestamp = get_the_time('U');
+							if ( count( $no_results_posts_query ) > 0 ) {
+								foreach ( $no_results_posts_query as $post_id ) {
+									$date      = get_the_date( $date_format, $post_id );
+									$timestamp = get_the_time( 'U', $post_id );
 
 									if ( isset( $date_terms[ $date ] ) ) {
 										$date_terms[ $date ]['count']++;
@@ -526,19 +625,14 @@ function uncode_filters_populate_date_terms( $query_args, $date_type, $date_sort
 						}
 
 						if ( ! $date_terms ) {
-							if ( ! is_null( $uncode_ajax_filter_query_unfiltered ) && $uncode_ajax_filter_query_unfiltered instanceof WP_Query ) {
+							if ( ! is_null( $uncode_ajax_filter_query_unfiltered ) ) {
 								$unfiltered_posts_query = $uncode_ajax_filter_query_unfiltered;
-							} else if ( ! is_null( $uncode_index_query_unfiltered ) && $uncode_index_query_unfiltered instanceof WP_Query ) {
-								$unfiltered_posts_query = $uncode_index_query_unfiltered;
 							}
 
 							if ( $unfiltered_posts_query ) {
-								while ( $unfiltered_posts_query->have_posts() ) {
-									$uncode_ajax_filter_query_unfiltered->the_post();
-									global $post;
-
-									$date      = get_the_date( $date_format );
-									$timestamp = get_the_time('U');
+								foreach ( $unfiltered_posts_query as $post_id ) {
+									$date      = get_the_date( $date_format, $post_id );
+									$timestamp = get_the_time( 'U', $post_id );
 
 									$date_terms[ $date ] = array(
 										'name'  => wp_date( $display_date, $timestamp ),
@@ -551,24 +645,45 @@ function uncode_filters_populate_date_terms( $query_args, $date_type, $date_sort
 				}
 			}
 		} else {
-			while ( $posts_query->have_posts() ) {
-				$posts_query->the_post();
-				global $post;
+			if ( uncode_ajax_filters_cache_enabled() ) {
+				$post_objects_data  = get_transient( 'uncode_ajax_filters_post_objects_data' );
+				$cache_needs_update = false;
+			}
 
-				$date = get_the_date( $date_format );
-				$timestamp = get_the_time('U');
+			foreach ( $posts_query as $post_id ) {
+				if ( uncode_ajax_filters_cache_enabled() ) {
+					// Load from cache
+					$new_post_objects_data = uncode_ajax_filters_get_date_data_from_cache( $post_objects_data, $post_id, $date_format );
 
-				if ( isset( $date_terms[ $date ] ) ) {
-					$date_terms[ $date ]['count']++;
+					$post_objects_data = $new_post_objects_data['data'];
+
+					if ( $new_post_objects_data['from_cache'] === false ) {
+						$cache_needs_update = true;
+					}
+
+					$date      = isset( $post_objects_data[$post_id] ) && isset( $post_objects_data[ $post_id ]['date_data'] ) && isset( $post_objects_data[ $post_id ]['date_data']['date'] ) ? $post_objects_data[ $post_id ]['date_data']['date'] : '';
+					$timestamp = isset( $post_objects_data[$post_id] ) && isset( $post_objects_data[ $post_id ]['date_data'] ) && isset( $post_objects_data[ $post_id ]['date_data']['timestamp'] ) ? $post_objects_data[ $post_id ]['date_data']['timestamp'] : '';
 				} else {
-					$date_terms[ $date ] = array(
-						'name'  => wp_date( $display_date, $timestamp ),
-						'count' => 1,
-					);
+					// Rebuild each time, no cache
+					$date      = get_the_date( $date_format, $post_id );
+					$timestamp = get_the_time( 'U', $post_id);
+				}
+
+				if ( $date && $timestamp ) {
+					if ( isset( $date_terms[ $date ] ) ) {
+						$date_terms[ $date ]['count']++;
+					} else {
+						$date_terms[ $date ] = array(
+							'name'  => wp_date( $display_date, $timestamp ),
+							'count' => 1,
+						);
+					}
 				}
 			}
 
-			wp_reset_query();
+			if ( uncode_ajax_filters_cache_enabled() && $cache_needs_update ) {
+				set_transient( 'uncode_ajax_filters_post_objects_data', $post_objects_data, uncode_ajax_filters_get_transient_lifespan() );
+			}
 		}
 	}
 
@@ -599,44 +714,38 @@ function uncode_filters_populate_product_status_terms( $query_args, $multiple ) 
 
 	if ( ( function_exists('vc_is_page_editable') && vc_is_page_editable() ) || $current_post_type == 'uncodeblock' ) {
 		$args = array(
-			'post_type'           => 'product',
-			'posts_per_page'      => -1,
+			'post_type'      => 'product',
+			'posts_per_page' => apply_filters( 'uncode_ajax_filters_all_posts_query_limit', 50 ),
+			'fields'         => 'ids',
 		);
 
-		$posts_query = new WP_Query( $args );
+		$all_posts_query = new WP_Query( $args );
+		$posts_query     = $all_posts_query->have_posts() ? $all_posts_query->posts : array();
 	} else {
-		global $uncode_index_query;
-		global $uncode_index_query_unfiltered;
 		global $uncode_ajax_filter_query;
 		global $uncode_ajax_filter_query_unfiltered;
 
-		$posts_query = false;
+		$posts_query = null;
 
 		if ( ( ! $multiple || uncode_get_filters_query_relation( UNCODE_FILTER_KEY_STATUS, $query_args ) === 'or' ) && uncode_is_only_current_filter( UNCODE_FILTER_KEY_STATUS, $query_args ) ) {
-			if ( ! is_null( $uncode_ajax_filter_query_unfiltered ) && $uncode_ajax_filter_query_unfiltered instanceof WP_Query ) {
+			if ( ! is_null( $uncode_ajax_filter_query_unfiltered ) ) {
 				$posts_query = $uncode_ajax_filter_query_unfiltered;
-			} else if ( ! is_null( $uncode_index_query_unfiltered ) && $uncode_index_query_unfiltered instanceof WP_Query ) {
-				$posts_query = $uncode_index_query_unfiltered;
 			}
 		} else {
 			// We have filters, so use terms attached to posts we found
 			// We use them also for AND queries
-			if ( ! is_null( $uncode_ajax_filter_query ) && $uncode_ajax_filter_query instanceof WP_Query ) {
+			if ( ! is_null( $uncode_ajax_filter_query ) ) {
 				$posts_query = $uncode_ajax_filter_query;
-			} else if ( ! is_null( $uncode_index_query ) && $uncode_index_query instanceof WP_Query ) {
-				$posts_query = $uncode_index_query;
 			}
 		}
 	}
 
-	if ( $posts_query && $posts_query instanceof WP_Query ) {
-		if ( ! $posts_query->have_posts() ) {
+	if ( ! is_null( $posts_query ) ) {
+		if ( ! count( $posts_query ) > 0 ) {
 			$no_results = false;
 
-			if ( ! is_null( $uncode_ajax_filter_query ) && $uncode_ajax_filter_query instanceof WP_Query ) {
-				if ( ! $uncode_ajax_filter_query->have_posts() ) {
-					$no_results = true;
-				} else if ( ! is_null( $uncode_index_query ) && $uncode_index_query instanceof WP_Query ) {
+			if ( ! is_null( $uncode_ajax_filter_query ) ) {
+				if ( ! count( $uncode_ajax_filter_query ) > 0 ) {
 					$no_results = true;
 				}
 			}
@@ -672,25 +781,57 @@ function uncode_filters_populate_product_status_terms( $query_args, $multiple ) 
 				return false;
 			}
 		} else {
-			while ( $posts_query->have_posts() ) {
-				$posts_query->the_post();
-				global $post, $product;
+			if ( uncode_ajax_filters_cache_enabled() ) {
+				$post_objects_data  = get_transient( 'uncode_ajax_filters_post_objects_data' );
+				$cache_needs_update = false;
+			}
 
-				if ( is_a( $product, 'WC_Product' ) ) {
-					if ( $product->get_type() === 'grouped' ) {
+			foreach ( $posts_query as $post_id ) {
+				if ( uncode_ajax_filters_cache_enabled() ) {
+					// Load from cache
+					$new_post_objects_data = uncode_ajax_filters_get_product_data_from_cache( $post_objects_data, $post_id, array( 'on_sale', 'instock' ) );
+
+					$post_objects_data = $new_post_objects_data['data'];
+
+					if ( $new_post_objects_data['from_cache'] === false ) {
+						$cache_needs_update = true;
+					}
+
+					$product_data = isset( $post_objects_data[$post_id] ) && isset( $post_objects_data[ $post_id ]['product_data'] ) ? $post_objects_data[ $post_id ]['product_data'] : array();
+
+					if ( ! isset( $product_data['type'] ) || $product_data['type'] === 'grouped' ) {
 						continue;
 					}
 
-					if ( $product->is_on_sale() ) {
+					if ( isset( $product_data['on_sale'] ) && $product_data['on_sale'] ) {
 						$filter_terms['sale']['count']++;
 					}
 
-					if ( $product->is_in_stock() ) {
+					if ( isset( $product_data['instock'] ) && $product_data['instock'] ) {
 						$filter_terms['instock']['count']++;
+					}
+				} else {
+					$product = wc_get_product( $post_id );
+
+					if ( is_a( $product, 'WC_Product' ) ) {
+						if ( $product->get_type() === 'grouped' ) {
+							continue;
+						}
+
+						if ( $product->is_on_sale() ) {
+							$filter_terms['sale']['count']++;
+						}
+
+						if ( $product->is_in_stock() ) {
+							$filter_terms['instock']['count']++;
+						}
 					}
 				}
 			}
-			wp_reset_query();
+
+			if ( uncode_ajax_filters_cache_enabled() && $cache_needs_update ) {
+				set_transient( 'uncode_ajax_filters_post_objects_data', $post_objects_data, uncode_ajax_filters_get_transient_lifespan() );
+			}
 
 			// Remove empty terms
 			foreach ( $filter_terms as $key => $value ) {
@@ -810,43 +951,38 @@ function uncode_filters_populate_product_price_terms( $lines, $query_args ) {
 
 	if ( ( function_exists('vc_is_page_editable') && vc_is_page_editable() ) || $current_post_type == 'uncodeblock' ) {
 		$args = array(
-			'post_type'           => 'product',
-			'posts_per_page'      => -1,
+			'post_type'      => 'product',
+			'posts_per_page' => apply_filters( 'uncode_ajax_filters_all_posts_query_limit', 50 ),
+			'fields'         => 'ids',
 		);
 
-		$posts_query = new WP_Query( $args );
+		$all_posts_query = new WP_Query( $args );
+		$posts_query     = $all_posts_query->have_posts() ? $all_posts_query->posts : array();
+
 	} else {
-		global $uncode_index_query;
-		global $uncode_index_query_unfiltered;
 		global $uncode_ajax_filter_query;
 		global $uncode_ajax_filter_query_unfiltered;
 
-		$posts_query = false;
+		$posts_query = null;
 
 		if ( uncode_is_only_current_filter( 'custom_price', $query_args ) ) {
-			if ( ! is_null( $uncode_ajax_filter_query_unfiltered ) && $uncode_ajax_filter_query_unfiltered instanceof WP_Query ) {
+			if ( ! is_null( $uncode_ajax_filter_query_unfiltered ) ) {
 				$posts_query = $uncode_ajax_filter_query_unfiltered;
-			} else if ( ! is_null( $uncode_index_query_unfiltered ) && $uncode_index_query_unfiltered instanceof WP_Query ) {
-				$posts_query = $uncode_index_query_unfiltered;
 			}
 		} else {
 			// We have filters, so use terms attached to posts we found
-			if ( ! is_null( $uncode_ajax_filter_query ) && $uncode_ajax_filter_query instanceof WP_Query ) {
+			if ( ! is_null( $uncode_ajax_filter_query ) ) {
 				$posts_query = $uncode_ajax_filter_query;
-			} else if ( ! is_null( $uncode_index_query ) && $uncode_index_query instanceof WP_Query ) {
-				$posts_query = $uncode_index_query;
 			}
 		}
 	}
 
-	if ( $posts_query && $posts_query instanceof WP_Query ) {
-		if ( ! $posts_query->have_posts() ) {
+	if ( ! is_null( $posts_query ) ) {
+		if ( ! count( $posts_query ) > 0 ) {
 			$no_results = false;
 
-			if ( ! is_null( $uncode_ajax_filter_query ) && $uncode_ajax_filter_query instanceof WP_Query ) {
-				if ( ! $uncode_ajax_filter_query->have_posts() ) {
-					$no_results = true;
-				} else if ( ! is_null( $uncode_index_query ) && $uncode_index_query instanceof WP_Query ) {
+			if ( ! is_null( $uncode_ajax_filter_query ) ) {
+				if ( ! count( $uncode_ajax_filter_query ) > 0 ) {
 					$no_results = true;
 				}
 			}
@@ -888,19 +1024,34 @@ function uncode_filters_populate_product_price_terms( $lines, $query_args ) {
 				return false;
 			}
 		} else {
-			while ( $posts_query->have_posts() ) {
-				$posts_query->the_post();
-				global $post, $product;
+			if ( uncode_ajax_filters_cache_enabled() ) {
+				$post_objects_data  = get_transient( 'uncode_ajax_filters_post_objects_data' );
+				$cache_needs_update = false;
+			}
 
-				if ( is_a( $product, 'WC_Product' ) ) {
-					$price = floatval( $product->get_price() );
+			foreach ( $posts_query as $post_id ) {
+				if ( uncode_ajax_filters_cache_enabled() ) {
+					// Load from cache
+					$new_post_objects_data = uncode_ajax_filters_get_product_data_from_cache( $post_objects_data, $post_id, array( 'price' ) );
 
-					$is_variable_product = $product->get_type() === 'variable' ? true : false;
+					$post_objects_data = $new_post_objects_data['data'];
+
+					if ( $new_post_objects_data['from_cache'] === false ) {
+						$cache_needs_update = true;
+					}
+
+					$product_data = isset( $post_objects_data[$post_id] ) && isset( $post_objects_data[ $post_id ]['product_data'] ) ? $post_objects_data[ $post_id ]['product_data'] : array();
+
+					if ( ! isset( $product_data['type'] ) || ! isset( $product_data['price'] ) ) {
+						continue;
+					}
+
+					$is_variable_product = $product_data['type'] === 'variable' ? true : false;
 
 					foreach ( $price_ranges as $key => $price_range ) {
 						if ( $is_variable_product ) {
-							$variation_min_price = floatval( $product->get_variation_price( 'min', true ) );
-							$variation_max_price = floatval( $product->get_variation_price( 'max', true ) );
+							$variation_min_price = $product_data['min_price'];
+							$variation_max_price = $product_data['max_price'];
 
 							$variable_price = array( 'min_price' => $variation_min_price,   'max_price' => $variation_max_price );
 
@@ -908,14 +1059,42 @@ function uncode_filters_populate_product_price_terms( $lines, $query_args ) {
 								$price_ranges[$key]['count']++;
 							}
 						} else {
-							if ( uncode_filters_is_product_in_price_range( $price, $price_range ) ) {
+							if ( uncode_filters_is_product_in_price_range( $product_data['price'], $price_range ) ) {
 								$price_ranges[$key]['count']++;
+							}
+						}
+					}
+				} else {
+					$product = wc_get_product( $post_id );
+
+					if ( is_a( $product, 'WC_Product' ) ) {
+						$price = floatval( $product->get_price() );
+
+						$is_variable_product = $product->get_type() === 'variable' ? true : false;
+
+						foreach ( $price_ranges as $key => $price_range ) {
+							if ( $is_variable_product ) {
+								$variation_min_price = floatval( $product->get_variation_price( 'min', true ) );
+								$variation_max_price = floatval( $product->get_variation_price( 'max', true ) );
+
+								$variable_price = array( 'min_price' => $variation_min_price,   'max_price' => $variation_max_price );
+
+								if ( uncode_filters_is_product_in_price_range( $variable_price, $price_range, true ) ) {
+									$price_ranges[$key]['count']++;
+								}
+							} else {
+								if ( uncode_filters_is_product_in_price_range( $price, $price_range ) ) {
+									$price_ranges[$key]['count']++;
+								}
 							}
 						}
 					}
 				}
 			}
-			wp_reset_query();
+
+			if ( uncode_ajax_filters_cache_enabled() && $cache_needs_update ) {
+				set_transient( 'uncode_ajax_filters_post_objects_data', $post_objects_data, uncode_ajax_filters_get_transient_lifespan() );
+			}
 
 			// Remove empty terms
 			foreach ( $price_ranges as $key => $value ) {
@@ -962,44 +1141,38 @@ function uncode_filters_populate_product_ratings_terms( $query_args, $multiple )
 
 	if ( ( function_exists('vc_is_page_editable') && vc_is_page_editable() ) || $current_post_type == 'uncodeblock' ) {
 		$args = array(
-			'post_type'           => 'product',
-			'posts_per_page'      => -1,
+			'post_type'      => 'product',
+			'posts_per_page' => apply_filters( 'uncode_ajax_filters_all_posts_query_limit', 50 ),
+			'fields'         => 'ids',
 		);
 
-		$posts_query = new WP_Query( $args );
+		$all_posts_query = new WP_Query( $args );
+		$posts_query     = $all_posts_query->have_posts() ? $all_posts_query->posts : array();
 	} else {
-		global $uncode_index_query;
-		global $uncode_index_query_unfiltered;
 		global $uncode_ajax_filter_query;
 		global $uncode_ajax_filter_query_unfiltered;
 
-		$posts_query = false;
+		$posts_query = null;
 
 		if ( ( ! $multiple || uncode_get_filters_query_relation( UNCODE_FILTER_KEY_RATING, $query_args ) === 'or' ) && uncode_is_only_current_filter( UNCODE_FILTER_KEY_RATING, $query_args ) ) {
-			if ( ! is_null( $uncode_ajax_filter_query_unfiltered ) && $uncode_ajax_filter_query_unfiltered instanceof WP_Query ) {
+			if ( ! is_null( $uncode_ajax_filter_query_unfiltered ) ) {
 				$posts_query = $uncode_ajax_filter_query_unfiltered;
-			} else if ( ! is_null( $uncode_index_query_unfiltered ) && $uncode_index_query_unfiltered instanceof WP_Query ) {
-				$posts_query = $uncode_index_query_unfiltered;
 			}
 		} else {
 			// We have filters, so use terms attached to posts we found
 			// We use them also for AND queries
-			if ( ! is_null( $uncode_ajax_filter_query ) && $uncode_ajax_filter_query instanceof WP_Query ) {
+			if ( ! is_null( $uncode_ajax_filter_query ) ) {
 				$posts_query = $uncode_ajax_filter_query;
-			} else if ( ! is_null( $uncode_index_query ) && $uncode_index_query instanceof WP_Query ) {
-				$posts_query = $uncode_index_query;
 			}
 		}
 	}
 
-	if ( $posts_query && $posts_query instanceof WP_Query ) {
-		if ( ! $posts_query->have_posts() ) {
+	if ( ! is_null( $posts_query ) ) {
+		if ( ! count( $posts_query ) > 0 ) {
 			$no_results = false;
 
-			if ( ! is_null( $uncode_ajax_filter_query ) && $uncode_ajax_filter_query instanceof WP_Query ) {
-				if ( ! $uncode_ajax_filter_query->have_posts() ) {
-					$no_results = true;
-				} else if ( ! is_null( $uncode_index_query ) && $uncode_index_query instanceof WP_Query ) {
+			if ( ! is_null( $uncode_ajax_filter_query ) ) {
+				if ( ! count( $uncode_ajax_filter_query ) > 0 ) {
 					$no_results = true;
 				}
 			}
@@ -1035,19 +1208,60 @@ function uncode_filters_populate_product_ratings_terms( $query_args, $multiple )
 				return false;
 			}
 		} else {
-			while ( $posts_query->have_posts() ) {
-				$posts_query->the_post();
-				global $post, $product;
+			if ( uncode_ajax_filters_cache_enabled() ) {
+				$post_objects_data  = get_transient( 'uncode_ajax_filters_post_objects_data' );
+				$cache_needs_update = false;
+			}
 
-				if ( is_a( $product, 'WC_Product' ) ) {
-					$rating = round( $product->get_average_rating() );
+			foreach ( $posts_query as $post_id ) {
+				if ( uncode_ajax_filters_cache_enabled() ) {
+					// Load from cache
+					$new_post_objects_data = uncode_ajax_filters_get_product_data_from_cache( $post_objects_data, $post_id, array( 'rating' ) );
+
+					$post_objects_data = $new_post_objects_data['data'];
+
+					if ( $new_post_objects_data['from_cache'] === false ) {
+						$cache_needs_update = true;
+					}
+
+					$product_data = isset( $post_objects_data[$post_id] ) && isset( $post_objects_data[ $post_id ]['product_data'] ) ? $post_objects_data[ $post_id ]['product_data'] : array();
+
+					if ( ! isset( $product_data['type'] ) || ! isset( $product_data['rating'] ) ) {
+						continue;
+					}
+
+					$rating = $product_data['rating'];
 
 					if ( $rating > 1 ) {
 						$filter_terms[$rating]['count']++;
 					}
+				} else {
+					$product = wc_get_product( $post_id );
+
+					if ( is_a( $product, 'WC_Product' ) ) {
+						$rating = round( $product->get_average_rating() );
+
+						global $uncode_query_options;
+
+						if ( isset( $uncode_query_options['single_variations'] ) && $uncode_query_options['single_variations'] && $product->get_type() === 'variation' ) {
+							$parent_id = $product->get_parent_id();
+
+							if ( $parent_id > 0 ) {
+								$_rating = get_post_meta( $parent_id, '_wc_average_rating', true );
+
+								if ( $_rating ) {
+									$rating = round( $_rating );
+								}
+							}
+						}
+
+						if ( $rating > 1 ) {
+							$filter_terms[$rating]['count']++;
+						}
+					}
 				}
+
 			}
-			wp_reset_query();
 
 			// Remove empty terms
 			foreach ( $filter_terms as $key => $value ) {
@@ -1315,6 +1529,77 @@ function uncode_build_filter_link( $link, $query_args ) {
 }
 
 /**
+ * Remove all filters of a specific key from the URL
+ */
+function uncode_clear_key_filters( $current_key, $link, $query_args ) {
+	unset( $query_args[UNCODE_FILTER_PREFIX] );
+
+	$prefix_pa = 'pa_';
+
+	if ( ! in_array( $current_key, uncode_get_special_filter_keys() ) ) {
+		if ( substr( $current_key, 0, strlen( $prefix_pa ) ) == $prefix_pa ) {
+			$key_with_prefix = UNCODE_FILTER_PREFIX_PA . substr( $current_key, strlen( $prefix_pa ) );
+		} else {
+			$key_with_prefix = UNCODE_FILTER_PREFIX_TAX . $current_key;
+		}
+	} else {
+		$key_with_prefix = $current_key;
+	}
+
+	if ( $current_key === 'custom_price' ) {
+		unset( $query_args['min_price'] );
+		unset( $query_args['max_price'] );
+	} else {
+		unset( $query_args[$key_with_prefix] );
+	}
+
+	foreach ( $query_args as $key => $value ) {
+		if ( is_array( $value ) ) {
+			$value = implode( ',', $value );
+		}
+
+		if ( ! $value ) {
+			unset( $query_args[$key] );
+		} else {
+			if ( apply_filters( 'uncode_filters_sanitize_value', true ) ) {
+				$value = str_replace( '%2C', ',', urlencode( sanitize_text_field( wp_unslash( $value ) ) ) );
+			} else {
+				$value = str_replace( '%2C', ',', wp_unslash( $value ) );
+			}
+			$query_args[$key] = $value;
+		}
+	}
+
+	// Remove relation args if related key is not set
+	foreach ( $query_args as $key => $value ) {
+		if ( substr( $key, 0, strlen( UNCODE_FILTER_PREFIX_QUERY_TYPE_PA ) ) == UNCODE_FILTER_PREFIX_QUERY_TYPE_PA ) {
+			$key_to_search = UNCODE_FILTER_PREFIX_PA . substr( $key, strlen( UNCODE_FILTER_PREFIX_QUERY_TYPE_PA ) );
+			if ( ! isset( $query_args[$key_to_search] ) ) {
+				unset( $query_args[$key] );
+			}
+		} else if ( substr( $key, 0, strlen( UNCODE_FILTER_PREFIX_QUERY_TYPE_TAX ) ) == UNCODE_FILTER_PREFIX_QUERY_TYPE_TAX ) {
+			$key_to_search = UNCODE_FILTER_PREFIX_TAX . substr( $key, strlen( UNCODE_FILTER_PREFIX_QUERY_TYPE_TAX ) );
+			if ( ! isset( $query_args[$key_to_search] ) ) {
+				unset( $query_args[$key] );
+			}
+		} else if ( $key === UNCODE_FILTER_PREFIX_QUERY_TYPE_STATUS ) {
+			$key_to_search = UNCODE_FILTER_KEY_STATUS;
+			if ( ! isset( $query_args[$key_to_search] ) ) {
+				unset( $query_args[$key] );
+			}
+		}
+	}
+
+	if ( count( $query_args ) > 0 ) {
+		$query_args[UNCODE_FILTER_PREFIX] = 1;
+	}
+
+	$link = add_query_arg( $query_args, $link );
+
+	return $link;
+}
+
+/**
  * Remove 'pa_' and use 'filter_' prefix for product attributes
  */
 function uncode_get_filter_pa_key( $taxonomy ) {
@@ -1404,79 +1689,73 @@ function uncode_get_filter_link_attributes( $term, $key_to_query, $query_args = 
 
 			if ( $disable_ajax ) {
 				if ( $key_to_query === UNCODE_FILTER_KEY_AUTHOR || $key_to_query === UNCODE_FILTER_KEY_DATE ) {
-					global $uncode_ajax_filter_query, $uncode_index_query;
+					global $uncode_ajax_filter_query, $uncode_ajax_filter_query_post_type;
 
 					$posts_query = false;
+					$post_type   = false;
 
-					if ( ! is_null( $uncode_ajax_filter_query ) && $uncode_ajax_filter_query instanceof WP_Query ) {
-						// AJAX filters inside the posts module - Filtered loop
+					if ( ! is_null( $uncode_ajax_filter_query ) ) {
 						$posts_query = $uncode_ajax_filter_query;
-					} else if ( ! is_null( $uncode_index_query ) && $uncode_index_query instanceof WP_Query ) {
-						// AJAX filters outside the posts module - Filtered loop
-						$posts_query = $uncode_index_query;
+						$post_type   = $uncode_ajax_filter_query_post_type;
 					}
 
-					if ( $posts_query && $posts_query instanceof WP_Query ) {
-						if ( isset( $posts_query->query_vars ) && isset( $posts_query->query_vars['post_type'] ) ) {
-							$post_type = $posts_query->query_vars['post_type'];
+					if ( $posts_query && $post_type ) {
+						if ( is_array( $post_type ) && count( $post_type ) === 1 && in_array( 'post', $post_type ) ) {
+							if ( $key_to_query === UNCODE_FILTER_KEY_DATE ) {
+								$date  = $key_value;
+								$year  = false;
+								$month = false;
 
-							if ( is_array( $post_type ) && count( $post_type ) === 1 && in_array( 'post', $post_type ) ) {
-								if ( $key_to_query === UNCODE_FILTER_KEY_DATE ) {
-									$date  = $key_value;
-									$year  = false;
-									$month = false;
+								if ( strpos( $date, '_' ) !== false ) {
+									$dates          = explode( '_', $date );
+									$date_to_search = $dates[0] . '-' . $dates[1] . '-01';
+									$year           = absint( $dates[0] );
+									$month          = absint( $dates[1] );
+									$valid_date     = uncode_filters_validate_date( $date_to_search );
+								} else {
+									$date_to_search = $date;
+									$year           = absint( $date );
+									$valid_date     = uncode_filters_validate_date( $date_to_search, 'Y' );
+								}
 
-									if ( strpos( $date, '_' ) !== false ) {
-										$dates          = explode( '_', $date );
-										$date_to_search = $dates[0] . '-' . $dates[1] . '-01';
-										$year           = absint( $dates[0] );
-										$month          = absint( $dates[1] );
-										$valid_date     = uncode_filters_validate_date( $date_to_search );
-									} else {
-										$date_to_search = $date;
-										$year           = absint( $date );
-										$valid_date     = uncode_filters_validate_date( $date_to_search, 'Y' );
+								if ( $valid_date && $year ) {
+									$link = get_month_link( $year, $month );
+
+									if ( is_date() ) {
+										$query_year     = get_query_var('year');
+										$query_monthnum = get_query_var('monthnum');
+
+										if ( $year === $query_year && $month && $month === $query_monthnum ) {
+											$atts['checked'] = true;
+										} else if ( $year === $query_year ) {
+											$atts['checked'] = true;
+
+										}
 									}
 
-									if ( $valid_date && $year ) {
-										$link = get_month_link( $year, $month );
+									return array(
+										$link,
+										$atts,
+									);
+								}
+							} else if ( $key_to_query === UNCODE_FILTER_KEY_AUTHOR ) {
+								$link = get_author_posts_url( $key_value );
 
-										if ( is_date() ) {
-											$query_year     = get_query_var('year');
-											$query_monthnum = get_query_var('monthnum');
+								if ( $link ) {
+									if ( is_author( $key_value ) ) {
+										$queried_object = get_queried_object();
 
-											if ( $year === $query_year && $month && $month === $query_monthnum ) {
+										if ( ! is_wp_error( $queried_object ) && $queried_object ) {
+											if ( isset( $queried_object->ID ) && $queried_object->ID === $key_value ) {
 												$atts['checked'] = true;
-											} else if ( $year === $query_year ) {
-												$atts['checked'] = true;
-
 											}
 										}
-
-										return array(
-											$link,
-											$atts,
-										);
 									}
-								} else if ( $key_to_query === UNCODE_FILTER_KEY_AUTHOR ) {
-									$link = get_author_posts_url( $key_value );
 
-									if ( $link ) {
-										if ( is_author( $key_value ) ) {
-											$queried_object = get_queried_object();
-
-											if ( ! is_wp_error( $queried_object ) && $queried_object ) {
-												if ( isset( $queried_object->ID ) && $queried_object->ID === $key_value ) {
-													$atts['checked'] = true;
-												}
-											}
-										}
-
-										return array(
-											$link,
-											$atts,
-										);
-									}
+									return array(
+										$link,
+										$atts,
+									);
 								}
 							}
 						}
@@ -1840,8 +2119,6 @@ function uncode_filters_get_clear_all_url() {
  * Loop the query to find the search type
  */
 function uncode_filters_get_search_type() {
-	global $uncode_index_query;
-	global $uncode_index_query_unfiltered;
 	global $uncode_ajax_filter_query;
 	global $uncode_ajax_filter_query_unfiltered;
 
@@ -1850,8 +2127,6 @@ function uncode_filters_get_search_type() {
 
 	if ( ! is_null( $uncode_ajax_filter_query_unfiltered ) && $uncode_ajax_filter_query_unfiltered instanceof WP_Query ) {
 		$posts_query = $uncode_ajax_filter_query_unfiltered;
-	} else if ( ! is_null( $uncode_index_query_unfiltered ) && $uncode_index_query_unfiltered instanceof WP_Query ) {
-		$posts_query = $uncode_index_query_unfiltered;
 	}
 
 	if ( $posts_query && $posts_query instanceof WP_Query ) {

@@ -89,11 +89,15 @@ hr.separator-break.separator-accent {
 }
 /* #Paragraph-color */
 .style-dark .body-color,
-.style-light .style-dark .body-color {
+.style-light .style-dark .body-color,
+.style-dark .nav-tabs > li > a span.tab-excerpt,
+.style-light .style-dark .nav-tabs > li > a span.tab-excerpt {
   color: <?php echo sanitize_text_field($color_text_inverted); ?>;
 }
 .style-light .body-color,
-.style-dark .style-light .body-color {
+.style-dark .style-light .body-color,
+.style-light .nav-tabs > li > a span.tab-excerpt,
+.style-dark .style-light .nav-tabs > li > a span.tab-excerpt {
   color: <?php echo sanitize_text_field($color_text); ?>;
 }
 .style-dark .body-color-light,
@@ -270,6 +274,9 @@ blockquote {
 }
 .color-accent-background,
 mark,
+.nav-tabs.tab-active-anim:not(.tab-switch).switch-init .switcher-cursor,
+.nav-tabs.nav-tabs.tab-no-border:not(.tabs-vertical):not(.tab-switch).switch-init .switcher-cursor,
+.tab-active-anim:not(.tab-switch):not(.switch-init):not(.tab-active-anim):not(.tab-no-border).nav-tabs > li.active:after,
 .mejs-controls .mejs-time-rail .mejs-time-loaded {
   background-color: <?php echo sanitize_text_field($color_primary); ?>;
 }
@@ -519,14 +526,34 @@ ul.dwls_search_results .daves-wordpress-live-search_title .search-title {
 .style-dark .headings-bg,
 .style-light .style-dark .headings-bg,
 .style-dark input[type=radio]:checked:before,
-.style-light .style-dark input[type=radio]:checked:before {
+.style-light .style-dark input[type=radio]:checked:before,
+.style-dark .nav-tabs.tab-switch li:before,
+.style-light .style-dark .nav-tabs.tab-switch li:before {
   background-color: <?php echo sanitize_text_field($color_heading_inverted); ?>;
 }
 .style-light .headings-bg,
 .style-dark .style-light .headings-bg,
 .style-light input[type=radio]:checked:before,
-.style-dark .style-light input[type=radio]:checked:before {
+.style-dark .style-light input[type=radio]:checked:before,
+.style-light .nav-tabs.tab-switch li:before,
+.style-dark .style-light .nav-tabs.tab-switch li:before {
   background-color: <?php echo sanitize_text_field($color_heading); ?>;
+}
+.style-dark .headings-bg-inverted,
+.style-light .style-dark .headings-bg-inverted,
+.style-dark .nav-tabs.tab-switch.switch-init .switcher-cursor,
+.style-light .style-dark .nav-tabs.tab-switch.switch-init .switcher-cursor,
+.style-dark .tab-switch:not(.switch-init).nav-tabs > li.active:after,
+.style-light .style-dark .tab-switch:not(.switch-init).nav-tabs > li.active:after {
+  background-color: <?php echo sanitize_text_field($color_heading); ?>;
+}
+.style-light .headings-bg-inverted,
+.style-dark .style-light .headings-bg-inverted,
+.style-light .nav-tabs.tab-switch.switch-init .switcher-cursor,
+.style-dark .style-light .nav-tabs.tab-switch.switch-init .switcher-cursor,
+.style-light .tab-switch:not(.switch-init).nav-tabs > li.active:after,
+.style-dark .style-light .tab-switch:not(.switch-init).nav-tabs > li.active:after {
+  background-color: <?php echo sanitize_text_field($color_heading_inverted); ?>;
 }
 /* #Button-style */
 .buttons-style,
@@ -616,14 +643,14 @@ button[type="submit"] {
 .style-light .style-dark .nav-tabs > li.active > a,
 .style-dark .border-100 .tab-content::before,
 .style-light .style-dark .border-100 .tab-content::before,
-.style-dark .vertical-tab-menu .nav-tabs,
-.style-light .style-dark .vertical-tab-menu .nav-tabs,
 .style-dark .tab-content.vertical,
 .style-light .style-dark .tab-content.vertical,
+.style-dark .nav-tabs.tabs-vertical > li,
+.style-light .style-dark .nav-tabs.tabs-vertical > li,
 .style-dark .panel,
 .style-light .style-dark .panel,
-.style-dark .panel-group .panel-heading + .panel-collapse .panel-body,
-.style-light .style-dark .panel-group .panel-heading + .panel-collapse .panel-body,
+.style-dark .panel-group .panel-heading + .panel-collapse:before,
+.style-light .style-dark .panel-group .panel-heading + .panel-collapse:before,
 .style-dark .divider:before,
 .style-light .style-dark .divider:before,
 .style-dark .divider:after,
@@ -706,14 +733,14 @@ button[type="submit"] {
 .style-dark .style-light .nav-tabs > li.active > a,
 .style-light .border-100 .tab-content::before,
 .style-dark .style-light .border-100 .tab-content::before,
-.style-light .vertical-tab-menu .nav-tabs,
-.style-dark .style-light .vertical-tab-menu .nav-tabs,
 .style-light .tab-content.vertical,
 .style-dark .style-light .tab-content.vertical,
+.style-light .nav-tabs.tabs-vertical > li,
+.style-dark .style-light .nav-tabs.tabs-vertical > li,
 .style-light .panel,
 .style-dark .style-light .panel,
-.style-light .panel-group .panel-heading + .panel-collapse .panel-body,
-.style-dark .style-light .panel-group .panel-heading + .panel-collapse .panel-body,
+.style-light .panel-group .panel-heading + .panel-collapse:before,
+.style-dark .style-light .panel-group .panel-heading + .panel-collapse:before,
 .style-light .divider:before,
 .style-dark .style-light .divider:before,
 .style-light .divider:after,
@@ -1853,6 +1880,7 @@ button[type="submit"] {
 .top-menu.top-menu-enhanced ul.menu-smart,
 .menu-container:not(.grid-filters) ul.menu-smart a:not(.social-menu-link):not(.vc_control-btn),
 .top-menu.top-menu-enhanced ul.menu-smart a:not(.social-menu-link):not(.vc_control-btn),
+.uncode-menu-additional-text,
 .burger-label,
 #masthead .overlay .overlay-search-wrapper .search-container form .search-container-inner input {
   font-family: <?php echo sanitize_text_field($font_family_menu); ?>;
@@ -1897,6 +1925,14 @@ button[type="submit"] {
   .menu-bloginfo .menu-bloginfo-inner > * {
     font-size: <?php echo sanitize_text_field($secondary_menu_font_size); ?>px;
   }
+  .font-size-overlay-menu,
+  .menu-overlay .vmenu-container.menu-container:not(.grid-filters) .menu-smart a:not(.wc-forward) {
+    font-size: <?php echo sanitize_text_field($menu_overlay_font_size); ?>;
+  }
+  .font-size-overlay-submenu,
+  .menu-overlay .vmenu-container.menu-container:not(.grid-filters) .menu-smart ul a:not(.wc-forward) {
+    font-size: <?php echo sanitize_text_field($submenu_overlay_font_size); ?>;
+  }
 }
 @media (max-width: 959px) {
   .font-size-menu-mobile,
@@ -1907,6 +1943,34 @@ button[type="submit"] {
   .top-menu-enhanced .menu-mini.menu-smart a,
   .top-menu-enhanced .menu-bloginfo .menu-bloginfo-inner {
     font-size: <?php echo sanitize_text_field($secondary_menu_mobile_font_size); ?>px;
+  }
+  .font-size-mobile-centered-menu,
+  body.menu-mobile-centered .main-menu-container .menu-horizontal .menu-horizontal-inner ul.menu-smart.menu-primary-inner > li > a,
+  body.menu-mobile-centered .vmenu-container .vmenu-row-wrapper .vmenu-wrap-cell ul.menu-smart.menu-primary-inner > li > a,
+  body.menu-mobile-centered .overlay-menu .navbar-main .menu-sidebar-inner ul.menu-smart.menu-primary-inner > li > a {
+    font-size: <?php echo sanitize_text_field($menu_mobile_centered_font_size); ?> !important;
+  }
+  .font-size-mobile-centered-submenu,
+  .menu-smart > li > a > div > div > div.btn,
+  body.menu-mobile-centered .main-menu-container .menu-horizontal .menu-horizontal-inner ul.menu-smart:not(.menu-primary-inner) li.menu-item:not(.uncode-cart) > a,
+  body.menu-mobile-centered .vmenu-container .vmenu-row-wrapper .vmenu-wrap-cell ul.menu-smart:not(.menu-primary-inner) li.menu-item:not(.uncode-cart) > a,
+  body.menu-mobile-centered .overlay-menu .navbar-main .menu-sidebar-inner ul.menu-smart:not(.menu-primary-inner) li.menu-item:not(.uncode-cart) > a,
+  body.menu-mobile-centered .main-menu-container .menu-horizontal .menu-horizontal-inner ul.menu-smart.menu-primary-inner ul li.menu-item:not(.uncode-cart) > a,
+  body.menu-mobile-centered .vmenu-container .vmenu-row-wrapper .vmenu-wrap-cell ul.menu-smart.menu-primary-inner ul li.menu-item:not(.uncode-cart) > a,
+  body.menu-mobile-centered .overlay-menu .navbar-main .menu-sidebar-inner ul.menu-smart.menu-primary-inner ul li.menu-item:not(.uncode-cart) > a,
+  body.menu-mobile-centered .main-menu-container .menu-horizontal .menu-horizontal-inner ul.menu-smart:not(.menu-primary-inner) li.menu-item > a,
+  body.menu-mobile-centered .vmenu-container .vmenu-row-wrapper .vmenu-wrap-cell ul.menu-smart:not(.menu-primary-inner) li.menu-item > a,
+  body.menu-mobile-centered .overlay-menu .navbar-main .menu-sidebar-inner ul.menu-smart:not(.menu-primary-inner) li.menu-item > a,
+  body.menu-mobile-centered .main-menu-container .menu-horizontal .menu-horizontal-inner ul.menu-smart.menu-primary-inner ul li.menu-item > a,
+  body.menu-mobile-centered .vmenu-container .vmenu-row-wrapper .vmenu-wrap-cell ul.menu-smart.menu-primary-inner ul li.menu-item > a,
+  body.menu-mobile-centered .overlay-menu .navbar-main .menu-sidebar-inner ul.menu-smart.menu-primary-inner ul li.menu-item > a,
+  body.menu-mobile-centered .main-menu-container .menu-horizontal .menu-horizontal-inner ul.menu-smart:not(.menu-primary-inner) li.menu-item-link > a,
+  body.menu-mobile-centered .vmenu-container .vmenu-row-wrapper .vmenu-wrap-cell ul.menu-smart:not(.menu-primary-inner) li.menu-item-link > a,
+  body.menu-mobile-centered .overlay-menu .navbar-main .menu-sidebar-inner ul.menu-smart:not(.menu-primary-inner) li.menu-item-link > a,
+  body.menu-mobile-centered .main-menu-container .menu-horizontal .menu-horizontal-inner ul.menu-smart.menu-primary-inner ul li.menu-item-link > a,
+  body.menu-mobile-centered .vmenu-container .vmenu-row-wrapper .vmenu-wrap-cell ul.menu-smart.menu-primary-inner ul li.menu-item-link > a,
+  body.menu-mobile-centered .overlay-menu .navbar-main .menu-sidebar-inner ul.menu-smart.menu-primary-inner ul li.menu-item-link > a {
+    font-size: <?php echo sanitize_text_field($submenu_mobile_centered_font_size); ?> !important;
   }
 }
 /* #Font-weight-menu */
@@ -2067,6 +2131,7 @@ button[type="submit"] {
     color: <?php echo sanitize_text_field($color_menu_text_hover); ?> !important;
   }
   body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open) .mobile-additional-icon,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-desktop-transparent)).is_mobile_open.menu-parent-off-canvas .mobile-additional-icon,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override .mobile-additional-icon {
     color: <?php echo sanitize_text_field($color_menu_text); ?> !important;
   }
@@ -2081,6 +2146,7 @@ button[type="submit"] {
     color: <?php echo sanitize_text_field($color_menu_text_inverted_hover); ?> !important;
   }
   body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .mobile-additional-icon,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-desktop-transparent)).is_mobile_open.menu-parent-off-canvas.menu-transparent .mobile-additional-icon,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override .mobile-additional-icon {
     color: <?php echo sanitize_text_field($color_menu_text_inverted); ?> !important;
   }
@@ -2097,6 +2163,7 @@ button[type="submit"] {
     color: <?php echo sanitize_text_field($color_menu_text_hover); ?> !important;
   }
   body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).menu-transparent .mobile-additional-icon,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-mobile-transparent)).is_mobile_open.menu-parent-off-canvas.menu-transparent .mobile-additional-icon,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override .mobile-additional-icon {
     color: <?php echo sanitize_text_field($color_menu_text); ?> !important;
   }
@@ -2111,6 +2178,7 @@ button[type="submit"] {
     color: <?php echo sanitize_text_field($color_menu_text_inverted_hover); ?> !important;
   }
   body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).menu-transparent .mobile-additional-icon,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-mobile-transparent)).is_mobile_open.menu-parent-off-canvas.menu-transparent .mobile-additional-icon,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override .mobile-additional-icon {
     color: <?php echo sanitize_text_field($color_menu_text_inverted); ?> !important;
   }
@@ -2270,6 +2338,18 @@ body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_st
   .submenu-light:not(.isotope-filters) .menu-smart a:focus {
     color: <?php echo sanitize_text_field($color_menu_text_hover); ?>;
   }
+}
+.submenu-light:not(.isotope-filters) .uncode-menu-additional-text,
+.submenu-light:not(.isotope-filters) .uncode-menu-additional-text a {
+  color: <?php echo sanitize_text_field($color_menu_text); ?>;
+}
+.submenu-light:not(.isotope-filters) .uncode-menu-additional-text a:hover,
+.submenu-light:not(.isotope-filters) .uncode-menu-additional-text a a:hover,
+.submenu-light:not(.isotope-filters) .uncode-menu-additional-text a:focus,
+.submenu-light:not(.isotope-filters) .uncode-menu-additional-text a a:focus {
+  color: <?php echo sanitize_text_field($color_menu_text_hover); ?>;
+}
+@media (max-width: 959px) {
   .submenu-dark:not(.isotope-filters) .menu-smart a {
     color: <?php echo sanitize_text_field($color_menu_text_inverted); ?>;
   }
@@ -2277,6 +2357,16 @@ body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_st
   .submenu-dark:not(.isotope-filters) .menu-smart a:focus {
     color: <?php echo sanitize_text_field($color_menu_text_inverted_hover); ?>;
   }
+}
+.submenu-dark:not(.isotope-filters) .uncode-menu-additional-text {
+  color: <?php echo sanitize_text_field($color_text_inverted); ?>;
+}
+.submenu-dark:not(.isotope-filters) .uncode-menu-additional-text a {
+  color: <?php echo sanitize_text_field($color_menu_text_inverted); ?>;
+}
+.submenu-dark:not(.isotope-filters) .uncode-menu-additional-text a:hover,
+.submenu-dark:not(.isotope-filters) .uncode-menu-additional-text a:focus {
+  color: <?php echo sanitize_text_field($color_menu_text_inverted_hover); ?>;
 }
 /* Menu submenu colors active*/
 .submenu-light .menu-smart ul li.current-menu-parent > a,
@@ -2373,23 +2463,24 @@ body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_st
   }
 }
 @media (max-width: 959px) {
-  .menu-light .row-brand,
-  .menu-light .row-menu .row-menu-inner {
+  body.menu-mobile-borders .menu-light .row-brand,
+  body.menu-mobile-borders .menu-light .row-menu .row-menu-inner {
     border-bottom-color: <?php echo sanitize_text_field($color_menu_border_light); ?>;
   }
-  .submenu-light .menu-smart,
-  .submenu-light .menu-smart li {
+  body.menu-mobile-borders .submenu-light .menu-smart,
+  body.menu-mobile-borders .submenu-light .menu-smart li {
     border-color: <?php echo sanitize_text_field($color_submenu_border_light); ?>;
   }
-  .menu-dark .row-brand,
-  .menu-dark .row-menu .row-menu-inner {
+  body.menu-mobile-borders .menu-dark .row-brand,
+  body.menu-mobile-borders .menu-dark .row-menu .row-menu-inner {
     border-bottom-color: <?php echo sanitize_text_field($color_menu_border_dark); ?>;
   }
-  .submenu-dark .menu-smart,
-  .submenu-dark .menu-smart li {
+  body.menu-mobile-borders .submenu-dark .menu-smart,
+  body.menu-mobile-borders .submenu-dark .menu-smart li {
     border-color: <?php echo sanitize_text_field($color_submenu_border_dark); ?>;
   }
-  .menu-mobile-transparent .menu-transparent:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open) .row-menu .row-menu-inner {
+  .menu-mobile-transparent .menu-transparent:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open) .row-menu .row-menu-inner,
+  .menu-mobile-transparent .menu-transparent:not(.is_stuck:not(.menu-mobile-transparent)).is_mobile_open.menu-parent-off-canvas .row-menu .row-menu-inner {
     border-color: transparent !important;
   }
 }
@@ -2429,7 +2520,7 @@ body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_st
 .top-menu.top-menu-enhanced.top-menu-border.menu-light::after,
 body.menu-mobile-borders .submenu-light .menu-container .main-menu-container .menu-horizontal,
 body:not(.menu-force-opacity) .menu-light .menu-borders.needs-after .navbar-nav-last > *:first-child::after,
-body:not(.menu-force-opacity) .menu-light .menu-borders.needs-after .navbar-nav + .navbar-cta:not(.hmenu-center-split-child) > *:first-child::after,
+body:not(.menu-force-opacity) .menu-light .menu-borders.needs-after .navbar-nav + .navbar-cta > *:first-child::after,
 body:not(.menu-force-opacity) .menu-light .menu-borders.needs-after .navbar-nav-first > *:first-child::after,
 .top-menu.top-menu-enhanced.submenu-light:not(.top-menu-border) .row-menu-inner .menu-horizontal ul.menu-smart > li > ul {
   border-color: <?php echo sanitize_text_field($color_menu_border_light); ?> !important;
@@ -2437,7 +2528,7 @@ body:not(.menu-force-opacity) .menu-light .menu-borders.needs-after .navbar-nav-
 .top-menu.top-menu-enhanced.top-menu-border.menu-dark .row-menu-inner::after,
 body.menu-mobile-borders .submenu-dark .menu-container .main-menu-container .menu-horizontal,
 body:not(.menu-force-opacity) .menu-dark .menu-borders.needs-after .navbar-nav-last > *:first-child::after,
-body:not(.menu-force-opacity) .menu-dark .menu-borders.needs-after .navbar-nav + .navbar-cta:not(.hmenu-center-split-child) > *:first-child::after,
+body:not(.menu-force-opacity) .menu-dark .menu-borders.needs-after .navbar-nav + .navbar-cta > *:first-child::after,
 body:not(.menu-force-opacity) .menu-dark .menu-borders.needs-after .navbar-nav-first > *:first-child::after,
 .top-menu.top-menu-enhanced.submenu-dark:not(.top-menu-border) .row-menu-inner .menu-horizontal ul.menu-smart > li > ul {
   border-color: <?php echo sanitize_text_field($color_menu_border_dark); ?> !important;
@@ -2510,33 +2601,45 @@ body:not(.menu-force-opacity):not(.navbar-hover).menu-overlay .menu-transparent:
 }
 /* Menu transparent backgrounds colors */
 @media (min-width: 960px) {
-  body:not(.menu-overlay):not(.hmenu-center):not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent.style-light-original,
-  body:not(.menu-overlay):not(.hmenu-center):not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent.style-dark-original.style-light-override {
+  body:not(.menu-overlay):not(.hmenu-center):not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).style-light-original,
+  body:not(.menu-overlay):not(.hmenu-center):not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-desktop-transparent)).is_mobile_open.menu-parent-off-canvas.style-light-original,
+  body:not(.menu-overlay):not(.hmenu-center):not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).style-dark-original.style-light-override,
+  body:not(.menu-overlay):not(.hmenu-center):not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-desktop-transparent)).is_mobile_open.menu-parent-off-canvas.style-dark-original.style-light-override {
     opacity: 0;
   }
-  body:not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent.style-light-original > *:not(.overlay-search),
-  body:not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent.style-dark-original.style-light-override > *:not(.overlay-search) {
+  body:not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).style-light-original > *:not(.overlay-search),
+  body:not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-desktop-transparent)).is_mobile_open.menu-parent-off-canvas.style-light-original > *:not(.overlay-search),
+  body:not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).style-dark-original.style-light-override > *:not(.overlay-search),
+  body:not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-desktop-transparent)).is_mobile_open.menu-parent-off-canvas.style-dark-original.style-light-override > *:not(.overlay-search) {
     background: transparent;
     background-color: <?php echo sanitize_text_field($color_menu_background_alpha_light); ?>;
   }
-  body:not(.menu-overlay):not(.hmenu-center):not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent.style-dark-original,
-  body:not(.menu-overlay):not(.hmenu-center):not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent.style-light-original.style-dark-override {
+  body:not(.menu-overlay):not(.hmenu-center):not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).style-dark-original,
+  body:not(.menu-overlay):not(.hmenu-center):not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-desktop-transparent)).is_mobile_open.menu-parent-off-canvas.style-dark-original,
+  body:not(.menu-overlay):not(.hmenu-center):not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).style-light-original.style-dark-override,
+  body:not(.menu-overlay):not(.hmenu-center):not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-desktop-transparent)).is_mobile_open.menu-parent-off-canvas.style-light-original.style-dark-override {
     opacity: 0;
   }
-  body:not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent.style-dark-original > *:not(.overlay-search),
-  body:not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent.style-light-original.style-dark-override > *:not(.overlay-search) {
+  body:not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).style-dark-original > *:not(.overlay-search),
+  body:not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-desktop-transparent)).is_mobile_open.menu-parent-off-canvas.style-dark-original > *:not(.overlay-search),
+  body:not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).style-light-original.style-dark-override > *:not(.overlay-search),
+  body:not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-desktop-transparent)).is_mobile_open.menu-parent-off-canvas.style-light-original.style-dark-override > *:not(.overlay-search) {
     background: transparent;
     background-color: <?php echo sanitize_text_field($color_menu_background_alpha_dark); ?>;
   }
 }
 @media (max-width: 959px) {
-  body:not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).menu-transparent.style-light-original > *:not(.overlay-search),
-  body:not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).menu-transparent.style-dark-original.style-light-override > *:not(.overlay-search) {
+  body:not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).style-light-original > *:not(.overlay-search),
+  body:not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-mobile-transparent)).is_mobile_open.menu-parent-off-canvas.style-light-original > *:not(.overlay-search),
+  body:not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).style-dark-original.style-light-override > *:not(.overlay-search),
+  body:not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-mobile-transparent)).is_mobile_open.menu-parent-off-canvas.style-dark-original.style-light-override > *:not(.overlay-search) {
     background: transparent;
     background-color: <?php echo sanitize_text_field($color_menu_background_alpha_light); ?>;
   }
-  body:not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).menu-transparent.style-dark-original > *:not(.overlay-search),
-  body:not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).menu-transparent.style-light-original.style-dark-override > *:not(.overlay-search) {
+  body:not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).style-dark-original > *:not(.overlay-search),
+  body:not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-mobile-transparent)).is_mobile_open.menu-parent-off-canvas.style-dark-original > *:not(.overlay-search),
+  body:not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).style-light-original.style-dark-override > *:not(.overlay-search),
+  body:not(.menu-force-opacity):not(.navbar-hover) .menu-wrapper:not(.no-header) .menu-transparent:not(.is_stuck:not(.menu-mobile-transparent)).is_mobile_open.menu-parent-off-canvas.style-light-original.style-dark-override > *:not(.overlay-search) {
     background: transparent;
     background-color: <?php echo sanitize_text_field($color_menu_background_alpha_dark); ?>;
   }
@@ -2584,13 +2687,21 @@ body:not(.menu-force-opacity):not(.navbar-hover).menu-overlay .menu-transparent:
 .mobile-menu-button-dark .lines:not(.lines-dropdown),
 .mobile-menu-button-dark .lines:not(.lines-dropdown):before,
 .mobile-menu-button-dark .lines:not(.lines-dropdown):after,
-.mobile-menu-button-dark .lines:not(.lines-dropdown) > span {
+.mobile-menu-button-dark .lines:not(.lines-dropdown) > span,
+.vmenu-container.menu-dark .lines:not(.lines-dropdown),
+.vmenu-container.menu-dark .lines:not(.lines-dropdown):before,
+.vmenu-container.menu-dark .lines:not(.lines-dropdown):after,
+.vmenu-container.menu-dark .lines:not(.lines-dropdown) > span {
   background: <?php echo sanitize_text_field($color_menu_text_inverted); ?>;
 }
 .mobile-menu-button-light .lines:not(.lines-dropdown),
 .mobile-menu-button-light .lines:not(.lines-dropdown):before,
 .mobile-menu-button-light .lines:not(.lines-dropdown):after,
-.mobile-menu-button-light .lines:not(.lines-dropdown) > span {
+.mobile-menu-button-light .lines:not(.lines-dropdown) > span,
+.vmenu-container.menu-light .lines:not(.lines-dropdown),
+.vmenu-container.menu-light .lines:not(.lines-dropdown):before,
+.vmenu-container.menu-light .lines:not(.lines-dropdown):after,
+.vmenu-container.menu-light .lines:not(.lines-dropdown) > span {
   background: <?php echo sanitize_text_field($color_menu_text); ?>;
 }
 .mobile-menu-button-dark .burger-label {
@@ -2601,53 +2712,91 @@ body:not(.menu-force-opacity):not(.navbar-hover).menu-overlay .menu-transparent:
 }
 @media (min-width: 960px) {
   body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .lines:not(.lines-dropdown),
-  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .lines:not(.lines-dropdown):before,
-  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .lines:not(.lines-dropdown):after,
-  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .lines:not(.lines-dropdown) > span,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-desktop-transparent)).is_mobile_open.menu-parent-off-canvas.menu-transparent .mmb-container .lines:not(.lines-dropdown),
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override .lines:not(.lines-dropdown),
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .lines:not(.lines-dropdown):before,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-desktop-transparent)).is_mobile_open.menu-parent-off-canvas.menu-transparent .mmb-container .lines:not(.lines-dropdown):before,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override .lines:not(.lines-dropdown):before,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .lines:not(.lines-dropdown):after,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-desktop-transparent)).is_mobile_open.menu-parent-off-canvas.menu-transparent .mmb-container .lines:not(.lines-dropdown):after,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override .lines:not(.lines-dropdown):after,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .lines:not(.lines-dropdown) > span,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-desktop-transparent)).is_mobile_open.menu-parent-off-canvas.menu-transparent .mmb-container .lines:not(.lines-dropdown) > span,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override .lines:not(.lines-dropdown) > span {
     background: <?php echo sanitize_text_field($color_menu_text); ?>;
   }
   body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .lines:not(.lines-dropdown),
-  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .lines:not(.lines-dropdown):before,
-  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .lines:not(.lines-dropdown):after,
-  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .lines:not(.lines-dropdown) > span,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-desktop-transparent)).is_mobile_open.menu-parent-off-canvas.menu-transparent .mmb-container .lines:not(.lines-dropdown),
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override .lines:not(.lines-dropdown),
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .lines:not(.lines-dropdown):before,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-desktop-transparent)).is_mobile_open.menu-parent-off-canvas.menu-transparent .mmb-container .lines:not(.lines-dropdown):before,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override .lines:not(.lines-dropdown):before,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .lines:not(.lines-dropdown):after,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-desktop-transparent)).is_mobile_open.menu-parent-off-canvas.menu-transparent .mmb-container .lines:not(.lines-dropdown):after,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override .lines:not(.lines-dropdown):after,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .lines:not(.lines-dropdown) > span,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-desktop-transparent)).is_mobile_open.menu-parent-off-canvas.menu-transparent .mmb-container .lines:not(.lines-dropdown) > span,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override .lines:not(.lines-dropdown) > span {
     background: <?php echo sanitize_text_field($color_menu_text_inverted); ?>;
   }
   body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck):not(.is_mobile_open).menu-transparent .burger-label,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck).is_mobile_open.menu-parent-off-canvas.menu-transparent .mmb-container .burger-label,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override .burger-label {
     color: <?php echo sanitize_text_field($color_menu_text); ?>;
   }
   body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck):not(.is_mobile_open).menu-transparent .burger-label,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck).is_mobile_open.menu-parent-off-canvas.menu-transparent .mmb-container .burger-label,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override .burger-label {
     color: <?php echo sanitize_text_field($color_menu_text_inverted); ?>;
   }
 }
 @media (max-width: 959px) {
   body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).menu-transparent .lines:not(.lines-dropdown),
-  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).menu-transparent .lines:not(.lines-dropdown):before,
-  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).menu-transparent .lines:not(.lines-dropdown):after,
-  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).menu-transparent .lines:not(.lines-dropdown) > span,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-mobile-transparent)).is_mobile_open.menu-parent-off-canvas.menu-transparent .mmb-container .lines:not(.lines-dropdown),
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override .lines:not(.lines-dropdown),
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).menu-transparent .lines:not(.lines-dropdown):before,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-mobile-transparent)).is_mobile_open.menu-parent-off-canvas.menu-transparent .mmb-container .lines:not(.lines-dropdown):before,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override .lines:not(.lines-dropdown):before,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).menu-transparent .lines:not(.lines-dropdown):after,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-mobile-transparent)).is_mobile_open.menu-parent-off-canvas.menu-transparent .mmb-container .lines:not(.lines-dropdown):after,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override .lines:not(.lines-dropdown):after,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).menu-transparent .lines:not(.lines-dropdown) > span,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-mobile-transparent)).is_mobile_open.menu-parent-off-canvas.menu-transparent .mmb-container .lines:not(.lines-dropdown) > span,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override .lines:not(.lines-dropdown) > span {
     background: <?php echo sanitize_text_field($color_menu_text); ?>;
   }
+  body.menu-mobile-off-canvas .menu-container.style-light .lines:not(.lines-dropdown),
+  body.menu-mobile-off-canvas .menu-primary.submenu-light .uncode-close-offcanvas-mobile .lines:not(.lines-dropdown),
+  body.menu-mobile-off-canvas .menu-container.style-light .lines:not(.lines-dropdown):before,
+  body.menu-mobile-off-canvas .menu-primary.submenu-light .uncode-close-offcanvas-mobile .lines:not(.lines-dropdown):before,
+  body.menu-mobile-off-canvas .menu-container.style-light .lines:not(.lines-dropdown):after,
+  body.menu-mobile-off-canvas .menu-primary.submenu-light .uncode-close-offcanvas-mobile .lines:not(.lines-dropdown):after,
+  body.menu-mobile-off-canvas .menu-container.style-light .lines:not(.lines-dropdown) > span,
+  body.menu-mobile-off-canvas .menu-primary.submenu-light .uncode-close-offcanvas-mobile .lines:not(.lines-dropdown) > span {
+    background: <?php echo sanitize_text_field($color_menu_text); ?>;
+  }
   body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).menu-transparent .lines:not(.lines-dropdown),
-  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).menu-transparent .lines:not(.lines-dropdown):before,
-  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).menu-transparent .lines:not(.lines-dropdown):after,
-  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).menu-transparent .lines:not(.lines-dropdown) > span,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-mobile-transparent)).is_mobile_open.menu-parent-off-canvas.menu-transparent .mmb-container .lines:not(.lines-dropdown),
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override .lines:not(.lines-dropdown),
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).menu-transparent .lines:not(.lines-dropdown):before,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-mobile-transparent)).is_mobile_open.menu-parent-off-canvas.menu-transparent .mmb-container .lines:not(.lines-dropdown):before,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override .lines:not(.lines-dropdown):before,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).menu-transparent .lines:not(.lines-dropdown):after,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-mobile-transparent)).is_mobile_open.menu-parent-off-canvas.menu-transparent .mmb-container .lines:not(.lines-dropdown):after,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override .lines:not(.lines-dropdown):after,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).menu-transparent .lines:not(.lines-dropdown) > span,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-mobile-transparent)).is_mobile_open.menu-parent-off-canvas.menu-transparent .mmb-container .lines:not(.lines-dropdown) > span,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override .lines:not(.lines-dropdown) > span {
+    background: <?php echo sanitize_text_field($color_menu_text_inverted); ?>;
+  }
+  body.menu-mobile-off-canvas .menu-container.style-dark .lines:not(.lines-dropdown),
+  body.menu-mobile-off-canvas .menu-primary.submenu-dark .uncode-close-offcanvas-mobile .lines:not(.lines-dropdown),
+  body.menu-mobile-off-canvas .menu-container.style-dark .lines:not(.lines-dropdown):before,
+  body.menu-mobile-off-canvas .menu-primary.submenu-dark .uncode-close-offcanvas-mobile .lines:not(.lines-dropdown):before,
+  body.menu-mobile-off-canvas .menu-container.style-dark .lines:not(.lines-dropdown):after,
+  body.menu-mobile-off-canvas .menu-primary.submenu-dark .uncode-close-offcanvas-mobile .lines:not(.lines-dropdown):after,
+  body.menu-mobile-off-canvas .menu-container.style-dark .lines:not(.lines-dropdown) > span,
+  body.menu-mobile-off-canvas .menu-primary.submenu-dark .uncode-close-offcanvas-mobile .lines:not(.lines-dropdown) > span {
     background: <?php echo sanitize_text_field($color_menu_text_inverted); ?>;
   }
 }
@@ -2688,11 +2837,13 @@ body:not(.menu-force-opacity) .menu-primary:not(.is_stuck:not(.menu-desktop-tran
 }
 /* #Menu-mobile-colors */
 /* Menu Accordion */
-.submenu-light .menu-accordion .menu-smart ul {
-  background-color: <?php echo (((strpos($color_menu_background_light, 'background') === false) ? sanitize_text_field($color_menu_background_light) : 'initial; ' . substr(sanitize_text_field($color_menu_background_light), 0, -1))); ?>;
-}
-.submenu-dark .menu-accordion .menu-smart ul {
-  background-color: <?php echo (((strpos($color_menu_background_dark, 'background') === false) ? sanitize_text_field($color_menu_background_dark) : 'initial; ' . substr(sanitize_text_field($color_menu_background_dark), 0, -1))); ?>;
+@media (min-width: 960px) {
+  .submenu-light .menu-accordion .menu-smart ul {
+    background-color: <?php echo (((strpos($color_menu_background_light, 'background') === false) ? sanitize_text_field($color_menu_background_light) : 'initial; ' . substr(sanitize_text_field($color_menu_background_light), 0, -1))); ?>;
+  }
+  .submenu-dark .menu-accordion .menu-smart ul {
+    background-color: <?php echo (((strpos($color_menu_background_dark, 'background') === false) ? sanitize_text_field($color_menu_background_dark) : 'initial; ' . substr(sanitize_text_field($color_menu_background_dark), 0, -1))); ?>;
+  }
 }
 /* Menu Overlay */
 .menu-overlay .menu-accordion .menu-smart:not(.menu-cta-inner) ul {
@@ -2740,84 +2891,104 @@ body:not(.menu-force-opacity) .menu-primary:not(.is_stuck:not(.menu-desktop-tran
 }
 @media (min-width: 960px) {
   body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .navbar-brand .logo-skinnable,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-desktop-transparent)).is_mobile_open.menu-transparent.menu-parent-off-canvas .navbar-brand .logo-skinnable,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override .navbar-brand .logo-skinnable {
     color: <?php echo sanitize_text_field($color_logo); ?>;
   }
   body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .navbar-brand .logo-skinnable > *,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-desktop-transparent)).is_mobile_open.menu-transparent.menu-parent-off-canvas .navbar-brand .logo-skinnable > *,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override .navbar-brand .logo-skinnable > * {
     color: <?php echo sanitize_text_field($color_logo); ?>;
   }
   body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .navbar-brand .logo-skinnable svg *,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-desktop-transparent)).is_mobile_open.menu-transparent.menu-parent-off-canvas .navbar-brand .logo-skinnable svg *,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override .navbar-brand .logo-skinnable svg * {
     fill: <?php echo sanitize_text_field($color_logo); ?>;
   }
   body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .navbar-brand .logo-skinnable,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-desktop-transparent)).is_mobile_open.menu-transparent.menu-parent-off-canvas .navbar-brand .logo-skinnable,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override .navbar-brand .logo-skinnable {
     color: <?php echo sanitize_text_field($color_logo_inverted); ?>;
   }
   body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .navbar-brand .logo-skinnable > *,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-desktop-transparent)).is_mobile_open.menu-transparent.menu-parent-off-canvas .navbar-brand .logo-skinnable > *,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override .navbar-brand .logo-skinnable > * {
     color: <?php echo sanitize_text_field($color_logo_inverted); ?>;
   }
   body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .navbar-brand .logo-skinnable svg *,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-desktop-transparent)).is_mobile_open.menu-transparent.menu-parent-off-canvas .navbar-brand .logo-skinnable svg *,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override .navbar-brand .logo-skinnable svg * {
     fill: <?php echo sanitize_text_field($color_logo_inverted); ?>;
   }
   body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .navbar-brand .logo-dark,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-desktop-transparent)).is_mobile_open.menu-transparent.menu-parent-off-canvas .navbar-brand .logo-dark,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override .navbar-brand .logo-dark {
     display: none !important;
   }
   body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .navbar-brand .logo-light,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-desktop-transparent)).is_mobile_open.menu-transparent.menu-parent-off-canvas .navbar-brand .logo-light,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override .navbar-brand .logo-light {
     display: block !important;
   }
   body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .navbar-brand .logo-dark,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-desktop-transparent)).is_mobile_open.menu-transparent.menu-parent-off-canvas .navbar-brand .logo-dark,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override .navbar-brand .logo-dark {
     display: block !important;
   }
   body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .navbar-brand .logo-light,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-desktop-transparent)).is_mobile_open.menu-transparent.menu-parent-off-canvas .navbar-brand .logo-light,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override .navbar-brand .logo-light {
     display: none !important;
   }
 }
 @media (max-width: 959px) {
   body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).menu-transparent .navbar-brand .logo-skinnable,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-mobile-transparent)).is_mobile_open.menu-transparent.menu-parent-off-canvas .navbar-brand .logo-skinnable,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override .navbar-brand .logo-skinnable {
     color: <?php echo sanitize_text_field($color_logo); ?>;
   }
   body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).menu-transparent .navbar-brand .logo-skinnable > *,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-mobile-transparent)).is_mobile_open.menu-transparent.menu-parent-off-canvas .navbar-brand .logo-skinnable > *,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override .navbar-brand .logo-skinnable > * {
     color: <?php echo sanitize_text_field($color_logo); ?>;
   }
   body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).menu-transparent .navbar-brand .logo-skinnable svg *,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-mobile-transparent)).is_mobile_open.menu-transparent.menu-parent-off-canvas .navbar-brand .logo-skinnable svg *,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override .navbar-brand .logo-skinnable svg * {
     fill: <?php echo sanitize_text_field($color_logo); ?>;
   }
   body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).menu-transparent .navbar-brand .logo-skinnable,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-mobile-transparent)).is_mobile_open.menu-transparent.menu-parent-off-canvas .navbar-brand .logo-skinnable,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override .navbar-brand .logo-skinnable {
     color: <?php echo sanitize_text_field($color_logo_inverted); ?>;
   }
   body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).menu-transparent .navbar-brand .logo-skinnable > *,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-mobile-transparent)).is_mobile_open.menu-transparent.menu-parent-off-canvas .navbar-brand .logo-skinnable > *,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override .navbar-brand .logo-skinnable > * {
     color: <?php echo sanitize_text_field($color_logo_inverted); ?>;
   }
   body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).menu-transparent .navbar-brand .logo-skinnable svg *,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-mobile-transparent)).is_mobile_open.menu-transparent.menu-parent-off-canvas .navbar-brand .logo-skinnable svg *,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override .navbar-brand .logo-skinnable svg * {
     fill: <?php echo sanitize_text_field($color_logo_inverted); ?>;
   }
   body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).menu-transparent .navbar-brand .logo-dark,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-mobile-transparent)).is_mobile_open.menu-transparent.menu-parent-off-canvas .navbar-brand .logo-dark,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override .navbar-brand .logo-dark {
     display: none !important;
   }
   body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).menu-transparent .navbar-brand .logo-light,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-mobile-transparent)).is_mobile_open.menu-transparent.menu-parent-off-canvas .navbar-brand .logo-light,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override .navbar-brand .logo-light {
     display: block !important;
   }
   body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).menu-transparent .navbar-brand .logo-dark,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-mobile-transparent)).is_mobile_open.menu-transparent.menu-parent-off-canvas .navbar-brand .logo-dark,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override .navbar-brand .logo-dark {
     display: block !important;
   }
   body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-mobile-transparent)):not(.is_mobile_open).menu-transparent .navbar-brand .logo-light,
+  body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-mobile-transparent)).is_mobile_open.menu-transparent.menu-parent-off-canvas .navbar-brand .logo-light,
   html.overlay-open body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override .navbar-brand .logo-light {
     display: none !important;
   }

@@ -138,11 +138,17 @@
 		if (typeof UNCODE.verticalText !== 'undefined') {
 			UNCODE.verticalText();
 		}
+		if (typeof UNCODE.videoThumbs !== 'undefined') {
+			UNCODE.videoThumbs();
+		}
 		if (typeof UNCODE.revslider !== 'undefined') {
 			UNCODE.revslider();
 		}
 		if (typeof UNCODE.layerslider !== 'undefined') {
 			UNCODE.layerslider();
+		}
+		if (typeof UNCODE.lottie !== 'undefined') {
+			UNCODE.lottie();
 		}
 		$(window).on('load',function(){
 			clearRequestTimeout(waypoint_request);

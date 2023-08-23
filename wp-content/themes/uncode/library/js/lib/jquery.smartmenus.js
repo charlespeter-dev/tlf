@@ -21,7 +21,7 @@
 
 	// Handle detection for mouse input (i.e. desktop browsers, tablets with a mouse, etc.)
 	function initMouseDetection(disable) {
-		if (!mouseDetectionEnabled && !disable && !$('body').hasClass('vmenu')) {
+		if (!mouseDetectionEnabled && !disable) {
 			// if we get two consecutive mousemoves within 2 pixels from each other and within 300ms, we assume a real mouse/cursor is present
 			// in practice, this seems like impossible to trick unintentianally with a real mouse and a pretty safe detection on touch devices (even with older browsers that do not support touch events)
 			var firstTime = true,
@@ -131,15 +131,15 @@
 					var eNamespace = '.smartmenus' + this.rootId;
 					// hide menus on tap or click outside the root UL
 					if (this.opts.hideOnClick) {
-						$(document).bind('touchstart' + eNamespace, $.proxy(this.docTouchStart, this))
-							.bind('touchmove' + eNamespace, $.proxy(this.docTouchMove, this))
-							.bind('touchend' + eNamespace, $.proxy(this.docTouchEnd, this))
-							// for Opera Mobile < 11.5, webOS browser, etc. we'll check click too
-							.bind('click' + eNamespace, $.proxy(this.docClick, this));
+							$(document).on('touchstart' + eNamespace, $.proxy(this.docTouchStart, this))
+								.on('touchmove' + eNamespace, $.proxy(this.docTouchMove, this))
+								.on('touchend' + eNamespace, $.proxy(this.docTouchEnd, this))
+								// for Opera Mobile < 11.5, webOS browser, etc. we'll check click too
+								.on('click' + eNamespace, $.proxy(this.docClick, this));
 					}
 					// hide sub menus on resize
-					$(window).bind('resize' + eNamespace + ' orientationchange' + eNamespace, $.proxy(this.winResize, this));
-					$(window).bind('scroll' + eNamespace + ' orientationchange' + eNamespace, $.proxy(this.winResize, this));
+					$(window).on('resize' + eNamespace + ' orientationchange' + eNamespace, $.proxy(this.winResize, this));
+					$(window).on('scroll' + eNamespace + ' orientationchange' + eNamespace, $.proxy(this.winResize, this));
 
 					if (this.opts.subIndicators) {
 						this.$subArrow = $('<span/>').addClass('sub-arrow');
@@ -305,10 +305,19 @@
 			// returns precise width/height float values in IE9+, FF4+, recent WebKit
 			// http://vadikom.com/dailies/offsetwidth-offsetheight-useless-in-ie9-firefox4/
 			getOffset: function($elm, height) {
-				var old;
+				var old,
+					$win = $(window),
+					winW = $win.width();
 				if ($elm.css('display') == 'none') {
 					old = { position: $elm[0].style.position, visibility: $elm[0].style.visibility };
 					$elm.css({ position: 'absolute', visibility: 'hidden' }).show();
+					if ( 
+						($('body').hasClass('menu-mobile-off-canvas') && winW < 960 && $elm.closest('.main-menu-container').length)
+						||
+						($('body').hasClass('vmenu-offcanvas-overlay') && winW >= 960 && $elm.closest('.main-menu-container').length)
+					) {
+						$elm.closest('li').addClass('smartmenu-open-item');
+					}
 				}
 				var defaultView = $elm[0].ownerDocument.defaultView,
 					compStyle = defaultView && defaultView.getComputedStyle && defaultView.getComputedStyle($elm[0], null),
@@ -368,7 +377,9 @@
 				// hide any visible deeper level sub menus
 				if (this.visibleSubMenus.length > level) {
 					for (var i = this.visibleSubMenus.length - 1, l = !this.activatedItems[level - 1] || this.activatedItems[level - 1][0] != $a[0] ? level - 1 : level; i > l; i--) {
-						this.menuHide(this.visibleSubMenus[i]);
+						//if ( !this.visibleSubMenus[i].closest('.menu-accordion').length ) {
+							this.menuHide(this.visibleSubMenus[i]);
+						//}
 					}
 				}
 				// save new active item and sub menu for this level
@@ -548,16 +559,22 @@
 				if ($item != undefined && $item.parent().hasClass('menu-item') && !$item.parent().hasClass('menu-item-has-children')) return;
 				var $win = $(window),
 					winW = $win.width();
-				if ( $('body').hasClass('vmenu') && winW >= 560 ) {
-					return;
-				}
 				if (this.showTimeout) {
 					clearTimeout(this.showTimeout);
 					this.showTimeout = 0;
 				}
 				// hide all subs
 				for (var i = this.visibleSubMenus.length - 1; i > 0; i--) {
-					this.menuHide(this.visibleSubMenus[i]);
+					if ( this.visibleSubMenus[i].closest('.smartmenu-open-item').length ) {
+						if ( $item != undefined && $item.closest('.smartmenu-open-item').length ) {
+							this.menuHide(this.visibleSubMenus[i]);
+							$(this.visibleSubMenus[i]).closest('.smartmenu-open-item').removeClass('smartmenu-open-item');
+						} else {
+							return;
+						}
+					} else {
+						this.menuHide(this.visibleSubMenus[i]);
+					}
 				}
 				// hide root if it's popup
 				if (this.opts.isPopup) {

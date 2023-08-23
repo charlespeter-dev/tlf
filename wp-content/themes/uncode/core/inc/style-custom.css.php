@@ -322,16 +322,16 @@ $h4 = isset($uncode_option['_uncode_heading_h4']) ? $uncode_option['_uncode_head
 $h5 = isset($uncode_option['_uncode_heading_h5']) ? $uncode_option['_uncode_heading_h5'] : '';
 $h6 = isset($uncode_option['_uncode_heading_h6']) ? $uncode_option['_uncode_heading_h6'] : '';
 if ($default_font_size !== '') {
-	echo "\n" . 'body,p,li,dt,dd,dl,address,label,pre,code { font-size: ' . $default_font_size . 'px; }';
+	echo "\n" . 'body,p,li,dt,dd,dl,address,label,pre,code,.nav-tabs .tab-excerpt { font-size: ' . $default_font_size . 'px; }';
 }
 if ($large_text_font_size !== '') {
-	echo "\n.text-lead, .text-lead > * { font-size: " . intval($large_text_font_size) . "px; }".
+	echo "\n.text-lead, .text-lead > *, .nav-tabs .tab-excerpt.text-lead { font-size: " . intval($large_text_font_size) . "px; }".
 	"\n.module-text-lead,.module-text-lead > *,.module-text-lead p,.module-text-lead li,.module-text-lead dt,.module-text-lead dd,.module-text-lead dl,.module-text-lead address,.module-text-lead label,.module-text-lead small,.uncode-wc-module.text-lead pre,.module-text-lead code { font-size: " . intval($large_text_font_size) . "px; }".
 	"\n@media (max-width: 1499px) { .uncode-slider .text-lead > * { font-size: " . ( ( intval($large_text_font_size) / 9 ) * 8 ) . "px; } }".
 	"\n@media (max-width: 959px) { .uncode-slider .text-lead > * { font-size: " . ( ( intval($large_text_font_size) / 18 ) * 13 ) . "px; } }";
 }
 if ($small_text_font_size !== '') {
-	echo "\n.text-small, .text-small > * { font-size: " . intval($small_text_font_size) . "px; }".
+	echo "\n.text-small, .text-small > *, .nav-tabs .tab-excerpt.text-small { font-size: " . intval($small_text_font_size) . "px; }".
 	"\n.module-text-small,.module-text-small > *,.module-text-small p,.module-text-small li,.module-text-small dt,.module-text-small dd,.module-text-small dl,.module-text-small address,.module-text-small label,.module-text-small small,.uncode-wc-module.text-small pre,.module-text-small code { font-size: " . intval($small_text_font_size) . "px; }".
 	"\n@media (max-width: 1499px) { .uncode-slider .text-small > * { font-size: " . ( ( intval($small_text_font_size) / 9 ) * 8 ) . "px; } }".
 	"\n@media (max-width: 959px) { .uncode-slider .text-small > * { font-size: " . ( ( intval($small_text_font_size) / 18 ) * 13 ) . "px; } }";
@@ -463,6 +463,7 @@ $color_menu_text_inverted_hover_static = 'rgba('.$color_menu_text_inverted_hover
 $color_heading = $cs_heading_color_light;
 $color_heading_alpha = function_exists('uncode_hex2rgb') ? uncode_hex2rgb($color_heading) : array(0,0,0);
 $color_heading_alpha = 'rgba('.$color_heading_alpha[0].','.$color_heading_alpha[1].','.$color_heading_alpha[2].',0.75)';
+$color_heading_alpha_01 = 'rgba('.$color_heading_alpha[0].','.$color_heading_alpha[1].','.$color_heading_alpha[2].',0.1)';
 
 $color_heading_inverted = $cs_heading_color_dark;
 $color_text = $cs_text_color_light;
@@ -498,6 +499,51 @@ $submenu_font_size = $uncode_option['_uncode_submenu_font_size'];
 if ($submenu_font_size === '') {
 	$submenu_font_size = 12;
 }
+
+if ( isset( $uncode_option['_uncode_menu_overlay_font_size'] ) ) {
+	$menu_overlay_font_size = $uncode_option['_uncode_menu_overlay_font_size'];
+} else {
+	$menu_overlay_font_size = '';
+}
+if ($menu_overlay_font_size === '') {
+	$menu_overlay_font_size = '3.5vh';
+} elseif ( is_numeric($menu_overlay_font_size) ) {
+	$menu_overlay_font_size = $menu_overlay_font_size . 'px';
+}
+
+if ( isset( $uncode_option['_uncode_submenu_overlay_font_size'] ) ) {
+	$submenu_overlay_font_size = $uncode_option['_uncode_submenu_overlay_font_size'];
+} else {
+	$submenu_overlay_font_size = '';
+}
+if ($submenu_overlay_font_size === '') {
+	$submenu_overlay_font_size = '3.5vh';
+} elseif ( is_numeric($submenu_overlay_font_size) ) {
+	$submenu_overlay_font_size = $submenu_overlay_font_size . 'px';
+}
+
+if ( isset( $uncode_option['_uncode_menu_mobile_centered_font_size'] ) ) {
+	$menu_mobile_centered_font_size = $uncode_option['_uncode_menu_mobile_centered_font_size'];
+} else {
+	$menu_mobile_centered_font_size = '';
+}
+if ($menu_mobile_centered_font_size === '') {
+	$menu_mobile_centered_font_size = '5.5vw';
+} elseif ( is_numeric($menu_mobile_centered_font_size) ) {
+	$menu_mobile_centered_font_size = $menu_mobile_centered_font_size . 'px';
+}
+
+if ( isset( $uncode_option['_uncode_submenu_mobile_centered_font_size'] ) ) {
+	$submenu_mobile_centered_font_size = $uncode_option['_uncode_submenu_mobile_centered_font_size'];
+} else {
+	$submenu_mobile_centered_font_size = '';
+}
+if ($submenu_mobile_centered_font_size === '') {
+	$submenu_mobile_centered_font_size = '5.5vw';
+} elseif ( is_numeric($submenu_mobile_centered_font_size) ) {
+	$submenu_mobile_centered_font_size = $submenu_mobile_centered_font_size . 'px';
+}
+
 if ( isset( $uncode_option['_uncode_secondary_menu_font_size'] ) ) {
 	$secondary_menu_font_size = $uncode_option['_uncode_secondary_menu_font_size'];
 } else {
@@ -590,7 +636,7 @@ include get_template_directory() . '/core/inc/style-skins.css.php';
 
 // WooCommerce dynamic styles
 if ( class_exists( 'WooCommerce' ) ) {
-	update_option( 'uncode_has_wc_dynamic_css', true );
+	update_option( 'uncode_has_wc_dynamic_css', true, false );
 	include get_template_directory() . '/core/inc/style-skins-woocommerce.css.php';
 } else {
 	delete_option( 'uncode_has_wc_dynamic_css' );
@@ -600,3 +646,5 @@ if ( class_exists( 'WooCommerce' ) ) {
 if ( class_exists( 'YITH_WCWL' ) ) {
 	include get_template_directory() . '/core/inc/style-skins-wishlist.css.php';
 }
+
+// Tab switch

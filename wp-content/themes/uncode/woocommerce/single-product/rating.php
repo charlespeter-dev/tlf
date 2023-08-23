@@ -27,6 +27,14 @@ if ( ! $product && $post_type == 'uncodeblock' ) {
 	$product = uncode_populate_post_object();
 }
 
+$_product_type = $product->get_type();
+
+if ( $_product_type === 'variation' ) {
+	$or_product = $product;
+	$parent_id  = $product->get_parent_id();
+	$product    = wc_get_product( $parent_id );
+}
+
 if ( ! wc_review_ratings_enabled() || ! $product ) {
 	return;
 }
@@ -56,3 +64,8 @@ if ( $display_count > 0 ) : ?>
 	</div>
 
 <?php endif; ?>
+
+<?php
+if ( $_product_type === 'variation' ) {
+	$product = $or_product;
+}

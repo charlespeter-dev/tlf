@@ -1,7 +1,7 @@
 <?php
-global $history_tab, $first_tab_active, $product;
+global $history_tab, $first_tab_active, $product, $tab_no_fade;
 /** @var $this WPBakeryShortCode_VC_Tab */
-$output = $title = $tab_id = $gutter_size = $first = $slug = $icon = $icon_position = $product_from_builder = $column_padding = '';
+$output = $title = $tab_id = $gutter_size = $first = $slug = $icon = $icon_position = $icon_size = $product_from_builder = $column_padding = $excerpt = '';
 extract( shortcode_atts( array(
 	'title' => '',
 	'tab_id' => 0,
@@ -9,8 +9,10 @@ extract( shortcode_atts( array(
 	'gutter_size' => '2',
 	'column_padding' => '2',
 	'icon_position' => '',
+	'icon_size' => '',
 	'product_from_builder' => '',
 	'icon' => '',
+	'excerpt' => ''
 ), $atts ) );
 
 $history_tag = $history_tab !== '' ? 'data-id' : 'id';
@@ -18,7 +20,10 @@ $history_tag = $history_tab !== '' ? 'data-id' : 'id';
 if ($first_tab_active) {
 	$first = ' in active';
 }
-$css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'tab-pane fade' . $first, $this->settings['base'], $atts );
+$css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'tab-pane' . $first, $this->settings['base'], $atts );
+if ( $tab_no_fade !== 'yes' ) {
+	$css_class .= ' fade';
+}
 
 switch ($gutter_size) {
 	case 0:

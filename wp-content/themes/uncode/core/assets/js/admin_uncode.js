@@ -1552,6 +1552,94 @@
 			}, 3000);
 		});
 	});
+
+	//////////////////////////////////////////////////////
+	/// Process variations
+	//////////////////////////////////////////////////////
+	var processVariationsButton = $('#_uncode_woocommerce_process_variations');
+	var processVariationsButtonContainer = processVariationsButton.closest('.format-setting-inner');
+
+	if (SiteParameters.process_variations.process_status === 'processed') {
+		processVariationsButton.find('.button__text').html(SiteParameters.process_variations.locale.reprocess_text);
+	}
+
+	processVariationsButton.on('click', function(e) {
+		e.preventDefault();
+		var post_data = {
+			action: 'uncode_process_variations',
+			uncode_process_variations_nonce: SiteParameters.process_variations.nonce
+		};
+
+		processVariationsButton.addClass('uncode-ajax-loading uncode-spinning');
+		processVariationsButton.find('.uncode-ot-spinner-placeholder').removeClass('uncode-ot-spinner-placeholder').addClass('uncode-ot-spinner');
+
+		$.post(ajaxurl, post_data, function (response) {
+			if (response) {
+				if (response.success === false) {
+					processVariationsButtonContainer.append('<p class="uncode-ui-notice uncode-ui-notice--error">' + response.data.message + '</p>');
+				} else {
+					processVariationsButtonContainer.append('<p class="uncode-ui-notice uncode-ui-notice--success">' + response.data.message + '</p>');
+				}
+			}
+		}).always(function () {
+			processVariationsButton.removeClass('uncode-ajax-loading ');
+
+			setTimeout(function () {
+				processVariationsButton.removeClass(' uncode-spinning');
+				processVariationsButton.find('.uncode-ot-spinner').removeClass('uncode-ot-spinner').addClass('uncode-ot-spinner-placeholder');
+			}, 500);
+
+			processVariationsButton.find('.button__text').html(SiteParameters.process_variations.locale.reprocess_text);
+
+			setTimeout(function () {
+				$('.uncode-ui-notice').hide().remove();
+			}, 3000);
+		});
+	});
+
+	/// Delete AJAX Filters transients
+	//////////////////////////////////////////////////////
+	if ($('#setting__uncode_enable_ajax_filters_transients').find('.option-tree-ui-radio:checked').val() === 'on') {
+		$('.clear-ajax-filters-transients-help').show();
+	}
+
+	$('#setting__uncode_enable_ajax_filters_transients').find('.option-tree-ui-radio').on('click', function () {
+		var _this = $(this);
+
+		if (_this.val() === 'on') {
+			$('.clear-ajax-filters-transients-help').show();
+		} else {
+			$('.clear-ajax-filters-transients-help').hide();
+		}
+	});
+	var clearTransientsButton = $('.clear-ajax-filters-transients-help__button');
+
+	clearTransientsButton.on('click', function (e) {
+		e.preventDefault();
+
+		var _this = $(this);
+		var deletingText = _this.attr('data-deleting');
+		var originalText = _this.attr('data-original');
+
+		_this.html(deletingText);
+
+		$.ajax({
+			url: ajaxurl,
+			type: 'post',
+			data: {
+				action: 'uncode_delete_ajax_filters_transients',
+				delete_ajax_filters_transients_nonce: SiteParameters.delete_ajax_filters_transients.nonce
+			}
+		}).done(function (response) {
+			if (response && response.success === false) {
+				console.log('Transients delete failed');
+			}
+		}).fail(function () {
+			console.log('Transients delete failed');
+		}).always(function () {
+			_this.html(originalText);
+		});
+	});
 })(jQuery);
 
 

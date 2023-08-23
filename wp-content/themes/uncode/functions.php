@@ -93,7 +93,7 @@ require_once get_template_directory() . '/core/inc/media-enhanced.php';
 require_once get_template_directory() . '/core/inc/wp-bootstrap-navwalker.php';
 
 /**
- * Load the bootstrap navwalker.
+ * Load the comment navwalker.
  */
 require_once get_template_directory() . '/core/inc/uncode-comment-walker.php';
 

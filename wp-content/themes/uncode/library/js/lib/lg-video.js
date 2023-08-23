@@ -110,11 +110,20 @@
 		// For vimeo last params gets priority if duplicates found
 		// Uncode edit ##START##
 		var vimeoPlayerParams = '?autoplay=0';
-		if ( typeof SiteParameters !== 'undefined' && typeof SiteParameters.vimeoPlayerParams !== 'undefined' && SiteParameters.vimeoPlayerParams !== '' ) {
-			vimeoPlayerParams = SiteParameters.vimeoPlayerParams;
+		if ( videoInfo.autoplay !== '' ) {
+			vimeoPlayerParams = vimeoPlayerParams.replace(new RegExp('([?&])autoplay=(.*?)(&|$)'), '$1$3' );
+			vimeoPlayerParams = vimeoPlayerParams.replace(new RegExp('([?&])autoplay(&|$)'), '$1$2' );
+		} else {
+			if ( typeof SiteParameters !== 'undefined' && typeof SiteParameters.vimeoPlayerParams !== 'undefined' && SiteParameters.vimeoPlayerParams !== '' ) {
+				vimeoPlayerParams = SiteParameters.vimeoPlayerParams;
+			}
 		}
-		if ( urlParams.indexOf('muted=') < 0 && vimeoPlayerParams.indexOf('muted=') < 0 ) {
-			vimeoPlayerParams += '&muted=1';
+		if ( videoInfo.muted !== '' ) {
+			vimeoPlayerParams += '&muted=' + (videoInfo.muted === 'yes');
+		} else {
+			if ( urlParams.indexOf('muted=') < 0 && vimeoPlayerParams.indexOf('muted=') < 0 ) {
+				vimeoPlayerParams += '&muted=1';
+			}
 		}
 		// var vimeoPlayerParams = "?autoplay=0&muted=1" + (isPrivate ? "&h=" + hash : '') + defaultPlayerParams + urlParams;
 		vimeoPlayerParams += (isPrivate ? "&h=" + hash : '') + defaultPlayerParams + urlParams;
@@ -193,8 +202,10 @@
 			if (!isFirstSlide &&
 				this.settings.autoplayVideoOnSlide &&
 				index === this.core.index) {
-				this.loadAndPlayVideo(index);
-			}
+					setTimeout(function () {
+						_this.loadAndPlayVideo(index);
+					}, 500);
+				}
 		};
 		/**
 		 * @desc Event triggered when video url or poster found
@@ -212,6 +223,10 @@
 					addClass: 'lg-object',
 					index: index,
 					html5Video: html5Video,
+					// Uncode edit ##START##
+					autoplay: event.target.getAttribute('data-lb-autoplay'),
+					muted: event.target.getAttribute('data-lb-muted'),
+					// Uncode edit ##END##
 				});
 				// Automatically navigate to next slide once video reaches the end.
 				this.gotoNextSlideOnVideoEnd(src, index);
@@ -232,23 +247,30 @@
 				this.pauseVideo(prevIndex);
 			}
 			// Uncode edit ##START##
-			var _a = event.detail, index = _a.index, src = _a.info.src;
-			if ( typeof src !== 'undefined' && src.indexOf("autoplay") > -1 ) {
-				this.loadAndPlayVideo(index);
+			var _a = event.detail, index = _a.index;
+			var $slide = this.core.getSlideItem(index);
+			
+			var iframe = $slide.selector.querySelector('iframe');
+			if ( iframe != null ) {
 
-				var videoInfo = this.core.galleryItems[index].__slideVideoInfo || {},
-					$videoElement = this.core.getSlideItem(index).find('.lg-video-object').first();
-				if (videoInfo.vimeo) {
-					var vimeoPlayer = new Vimeo.Player($videoElement.get());
-					vimeoPlayer.on('play', function () {
-						vimeoPlayer.setCurrentTime(0);
-					});
-				} else if ( videoInfo.youtube ) {
-					try {
-						$videoElement.get().contentWindow.postMessage("{\"event\":\"command\",\"func\":\"seekTo\",\"args\":[0, true]}", '*');
-					}
-					catch (e) {
-						console.warn(e);
+				var data_play = iframe.getAttribute('data-autoplay');
+				if ( typeof data_play !== 'undefined' && data_play === '1' ) {
+					this.loadAndPlayVideo(index);
+
+					var videoInfo = this.core.galleryItems[index].__slideVideoInfo || {},
+						$videoElement = this.core.getSlideItem(index).find('.lg-video-object').first();
+					if (videoInfo.vimeo) {
+						var vimeoPlayer = new Vimeo.Player($videoElement.get());
+						vimeoPlayer.on('play', function () {
+							vimeoPlayer.setCurrentTime(0);
+						});
+					} else if ( videoInfo.youtube ) {
+						try {
+							$videoElement.get().contentWindow.postMessage("{\"event\":\"command\",\"func\":\"seekTo\",\"args\":[0, true]}", '*');
+						}
+						catch (e) {
+							console.warn(e);
+						}
 					}
 				}
 			}
@@ -285,12 +307,15 @@
 			else {
 				//Uncode edit ##START##
 				// this.playVideo(index);
-				var src = currentGalleryItem.src;
-				if ( typeof src !== 'undefined' && src.indexOf("autoplay") > -1) {
-					if ( this.core.index == index ) {
-						this.playVideo(index);
-					} else {
-						this.pauseVideo(index);
+				var iframe = $slide.selector.querySelector('iframe');
+				if ( iframe != null ) {
+					var data_play = iframe.getAttribute('data-autoplay');
+					if ( typeof data_play !== 'undefined' ) {
+						if ( data_play === '1' && this.core.index == index ) {
+							this.playVideo(index);
+						} else {
+							this.pauseVideo(index);
+						}
 					}
 				}
 				//Uncode edit ##END##
@@ -310,7 +335,10 @@
 		Video.prototype.pauseVideo = function (index) {
 			this.controlVideo(index, 'pause');
 		};
-		Video.prototype.getVideoHtml = function (src, addClass, index, html5Video) {
+		// Uncode edit ##START##
+		//Video.prototype.getVideoHtml = function (src, addClass, index, html5Video) {
+		Video.prototype.getVideoHtml = function (src, addClass, index, html5Video, autoplay, muted) {
+		// Uncode edit ##END##
 			var video = '';
 			var videoInfo = this.core.galleryItems[index]
 				.__slideVideoInfo || {};
@@ -327,23 +355,69 @@
 				// Uncode edit ##START##
 				// var youTubePlayerParams = "?" + slideUrlParams + "wmode=opaque&autoplay=0&mute=1&enablejsapi=1";
 				var youTubePlayerParams = "?" + slideUrlParams + "wmode=opaque&enablejsapi=1";
-				if ( slideUrlParams.indexOf('autoplay=') < 0 && youTubePlayerParams.indexOf('autoplay=') < 0 ) {
+				if ( ( slideUrlParams.indexOf('autoplay=') < 0 && youTubePlayerParams.indexOf('autoplay=') < 0 ) ) {
 					youTubePlayerParams += '&autoplay=0';
 				}
 				if ( slideUrlParams.indexOf('mute=') < 0 && youTubePlayerParams.indexOf('mute=') < 0 ) {
 					youTubePlayerParams += '&mute=1';
 				}
+				var data_video = '';
+				if ( autoplay !== '' ) {
+					//youTubePlayerParams = youTubePlayerParams.replace(new RegExp('([?&])autoplay=(.*?)(&|$)'), '$1autoplay=' + (autoplay === 'yes' ? 1 : 0) + '$3' );
+					youTubePlayerParams = youTubePlayerParams.replace(new RegExp('([?&])autoplay=(.*?)(&|$)'), '$1$3' );
+					youTubePlayerParams = youTubePlayerParams.replace(new RegExp('([?&])autoplay'), '$1' );
+					data_video = ' data-autoplay="' + (autoplay === 'yes' ? 1 : 0) + '"';
+				}
+				// if ( muted !== '' ) {
+				// 	youTubePlayerParams = youTubePlayerParams.replace(new RegExp('([?&])mute=(.*?)(&|$)'), '$1mute=' + (muted === 'yes' ? 1 : 0) + '$3' );
+				// }
+				youTubePlayerParams = youTubePlayerParams.replace(new RegExp('([?&])mute=(.*?)(&|$)'), '$1$3' );
+
+				youTubePlayerParams = youTubePlayerParams.replace('??', '?');
 				// Uncode edit ##END##
 				var playerParams = youTubePlayerParams +
 					(this.settings.youTubePlayerParams
 						? '&' + param(this.settings.youTubePlayerParams)
 						: '');
-				video = "<iframe allow=\"autoplay\" id=" + videoId + " class=\"lg-video-object lg-youtube " + addClass + "\" " + videoTitle + " src=\"//www.youtube.com/embed/" + (videoInfo.youtube[1] + playerParams) + "\" " + commonIframeProps + "></iframe>";
+				// Uncode edit ##START##
+				// video = "<iframe allow=\"autoplay\" id=" + videoId + " class=\"lg-video-object lg-youtube " + addClass + "\" " + videoTitle + " src=\"//www.youtube.com/embed/" + (videoInfo.youtube[1] + playerParams) + "\" " + commonIframeProps + "></iframe>";
+				video = "<iframe allow=\"autoplay\"" + data_video + " id=" + videoId + " class=\"lg-video-object lg-youtube " + addClass + "\" " + videoTitle + " src=\"//www.youtube.com/embed/" + (videoInfo.youtube[1] + playerParams) + "\" " + commonIframeProps + "></iframe>";
+				var tag = document.createElement('script');
+				tag.src = "//www.youtube.com/player_api";
+				var firstScriptTag = document.getElementsByTagName('script')[0];
+				firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+				// Replace the 'ytplayer' element with an <iframe> and
+				// YouTube player after the API code downloads.
+				var ytIframeplayer,
+					setMute = muted === 'yes' ? 0 : 100;
+				window.onYouTubePlayerAPIReady = function() {
+					ytIframeplayer = new YT.Player(videoId, {
+						videoId: videoInfo.youtube[1],
+						events: {
+							'onReady': function (event) {
+								event.target.setVolume(setMute);
+							}
+						}
+					});
+				}
+				// Uncode edit ##END##
 			}
 			else if (videoInfo.vimeo) {
 				var videoId = 'lg-vimeo' + index;
+				// Uncode edit ##START##
+				videoInfo.autoplay = autoplay;
+				videoInfo.muted = muted;
+				// Uncode edit ##END##
 				var playerParams = getVimeoURLParams(this.settings.vimeoPlayerParams, videoInfo);
-				video = "<iframe allow=\"autoplay\" id=" + videoId + " class=\"lg-video-object lg-vimeo " + addClass + "\" " + videoTitle + " src=\"//player.vimeo.com/video/" + (videoInfo.vimeo[1] + playerParams) + "\" " + commonIframeProps + "></iframe>";
+				// Uncode edit ##START##
+				// video = "<iframe allow=\"autoplay\" id=" + videoId + " class=\"lg-video-object lg-vimeo " + addClass + "\" " + videoTitle + " src=\"//player.vimeo.com/video/" + (videoInfo.vimeo[1] + playerParams) + "\" " + commonIframeProps + "></iframe>";
+				var data_video = '';
+				if ( autoplay !== '' ) {
+					data_video = ' data-autoplay="' + (autoplay === 'yes' ? 1 : 0) + '"';
+				}
+				video = "<iframe allow=\"autoplay\"" + data_video + " id=" + videoId + " class=\"lg-video-object lg-vimeo " + addClass + "\" " + videoTitle + " src=\"//player.vimeo.com/video/" + (videoInfo.vimeo[1] + playerParams) + "\" " + commonIframeProps + "></iframe>";
+				// Uncode edit ##END##
 			}
 			else if (videoInfo.wistia) {
 				var wistiaId = 'lg-wistia' + index;
@@ -388,7 +462,10 @@
 		 */
 		Video.prototype.appendVideos = function (el, videoParams) {
 			var _a;
-			var videoHtml = this.getVideoHtml(videoParams.src, videoParams.addClass, videoParams.index, videoParams.html5Video);
+			// Uncode edit ##START##
+			// var videoHtml = this.getVideoHtml(videoParams.src, videoParams.addClass, videoParams.index, videoParams.html5Video);
+			var videoHtml = this.getVideoHtml(videoParams.src, videoParams.addClass, videoParams.index, videoParams.html5Video, videoParams.autoplay, videoParams.muted);
+			// Uncode edit ##END##
 			el.find('.lg-video-cont').append(videoHtml);
 			var $videoElement = el.find('.lg-video-object').first();
 			if (videoParams.html5Video) {

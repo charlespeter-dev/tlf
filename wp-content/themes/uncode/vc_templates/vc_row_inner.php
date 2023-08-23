@@ -1006,14 +1006,30 @@ if ($equal_height == 'yes') {
 	$row_classes[] = 'unequal';
 }
 
-if ($gutter_size == '0') {
-	$row_classes[] = 'col-no-gutter';
-} elseif ($gutter_size == '1') {
-	$row_classes[] = 'col-one-gutter';
-} elseif ($gutter_size == '2') {
-	$row_classes[] = 'col-half-gutter';
-} elseif ($gutter_size == '4') {
-	$row_classes[] = 'col-double-gutter';
+switch ($gutter_size) {
+	case '0':
+		$row_classes[] = 'col-no-gutter';
+		break;
+	
+	case '1':
+		$row_classes[] = 'col-one-gutter';
+		break;
+
+	case '2':
+		$row_classes[] = 'col-half-gutter';
+		break;
+
+	case '4':
+		$row_classes[] = 'col-double-gutter';
+		break;
+
+	case '5':
+		$row_classes[] = 'col-triple-gutter';
+		break;
+
+	case '6':
+		$row_classes[] = 'col-quad-gutter';
+		break;
 }
 
 if (!$with_slider) {

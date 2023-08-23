@@ -163,9 +163,22 @@ endif;
  */
 if ( ! function_exists( 'uncode_get_posts_element_term_count' ) ) :
 	function uncode_get_posts_element_term_count( $block_data, $value ) {
-		$count      = false;
-		$term       = get_term( $block_data['id'] );
-		$term_count = isset( $term->count ) ? absint( $term->count ) : false;
+		global $uncode_query_options;
+
+		$count = false;
+
+		if ( is_array( $uncode_query_options ) && isset( $uncode_query_options['single_variations'] ) ) {
+			if ( isset( $uncode_query_options['single_variations_hide_parent'] ) && $uncode_query_options['single_variations_hide_parent'] ) {
+				$terms_count = get_option( 'uncode_terms_hidden_parent_count' );
+			} else {
+				$terms_count = get_option( 'uncode_terms_all_count' );
+			}
+
+			$term_count = isset( $terms_count[$block_data['id']] ) ? $terms_count[$block_data['id']] : false;
+		} else {
+			$term       = get_term( $block_data['id'] );
+			$term_count = isset( $term->count ) ? absint( $term->count ) : false;
+		}
 
 		if ( $term_count !== false ) {
 			if (isset($value[0]) && $value[0] === 'bordered') {

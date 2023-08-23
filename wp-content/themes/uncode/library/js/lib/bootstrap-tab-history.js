@@ -307,7 +307,9 @@ BootstrapTabHistory = {
     })(selector);
 
     if($tabElement) {
-      $tabElement.trigger('click');
+      if ( !$tabElement.parent().hasClass('active') ) {
+        $tabElement.trigger('click');
+      }
       //$tabElement.tab('show');
     }
 

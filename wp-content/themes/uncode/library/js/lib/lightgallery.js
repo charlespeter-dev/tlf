@@ -806,7 +806,7 @@
 		 * @todo - this information can be moved to dynamicEl to avoid frequent calls
 		 */
 		isVideo: function (src, isHTML5VIdeo, index) {
-			if (!src) {
+			if (!src || src.match(/\.(mp4|m4v|ogg|webm)$/) ) {
 				if (isHTML5VIdeo) {
 					return {
 						html5: true,

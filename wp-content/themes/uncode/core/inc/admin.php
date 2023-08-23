@@ -101,6 +101,9 @@ function uncode_load_admin_script($hook) {
 				'empty_terms'         => esc_html__( 'You must accept the Terms of Service in order to perform this action', 'uncode' ),
 			),
 		),
+		'delete_ajax_filters_transients' => array(
+			'nonce'                   => wp_create_nonce( 'uncode-delete-ajax-filters-transients-nonce' ),
+		),
 		'theme_options_input_vars' => array(
 			'enable_max_input_vars_popup' => apply_filters( 'uncode_enable_max_input_vars_popup', true ),
 			'max_input_vars'              => uncode_get_minimum_max_input_vars(),
@@ -116,6 +119,13 @@ function uncode_load_admin_script($hook) {
 					. '<p>' . sprintf( __( 'Before saving Theme Options you need to increase the <em><strong>max_input_vars</strong></em> value of your PHP configuration. Your current allowed value is too low and you risk to loose your settings if you choose to continue, please set it to at least <strong class="vars-placeholder">dddd</strong>: <a href="%s" target="_blank">more info</a>.', 'uncode' ), 'https://support.undsgn.com/hc/en-us/articles/213459869' ) . '</p>'
 					. '<p>' . sprintf( __( 'If you decide to continue, we strongly suggest you to perform a backup first, <a href="%s" target="_blank">more info</a>.', 'uncode' ), 'https://undsgn.zendesk.com/hc/en-us/articles/360001216518' ) . '</p></div>',
 			),
+		),
+		'process_variations'=> array(
+			'nonce'          => wp_create_nonce( 'uncode-process-variations-nonce' ),
+			'process_status' => get_option( 'uncode_variations_status' ),
+			'locale'         => array(
+				'reprocess_text' => esc_html__( 'Re-process All Variations', 'uncode' ),
+			)
 		),
 		'uncode_colors_flat_array' => $uncode_colors_flat_array,
 		'has_valid_purchase_code'  => uncode_check_valid_purchase_code() && uncode_fo8l_op() ? true : false,
@@ -256,6 +266,7 @@ function uncode_add_additional_fields($form_fields, $post)
 	$animated_svg_time = get_post_meta($post->ID, "_uncode_animated_svg_time", true);
 	$team_social = get_post_meta($post->ID, "_uncode_team_member_social", true);
 	$poster = get_post_meta($post->ID, "_uncode_poster_image", true);
+	$poster_video = get_post_meta($post->ID, "_uncode_poster_video", true);
 	$video_loop = (bool) get_post_meta($post->ID, "_uncode_video_loop", true);
 	$video_auto = (bool) get_post_meta($post->ID, "_uncode_video_autoplay", true);
 	$video_mobile = (bool) get_post_meta($post->ID, "_uncode_video_mobile_bg", true);
@@ -303,6 +314,13 @@ function uncode_add_additional_fields($form_fields, $post)
 		$form_fields["poster_image"] = array(
 			"label" => esc_html__("Media Poster (Image ID)", 'uncode') ,
 			"value" => $poster,
+		);
+	}
+
+	if (strpos($post->post_mime_type, 'oembed/youtube') !== false || strpos($post->post_mime_type, 'oembed/vimeo') !== false || strpos($post->post_mime_type, 'video/') !== false) {
+		$form_fields["poster_video"] = array(
+			"label" => esc_html__("Loop Poster (Video ID)", 'uncode') ,
+			"value" => $poster_video,
 		);
 	}
 
@@ -476,6 +494,13 @@ function uncode_save_additional_fields($attachment_id)
 			update_post_meta($attachment_id, '_uncode_poster_image', $poster);
 		} else {
 			delete_post_meta($attachment_id, '_uncode_poster_image');
+		}
+
+		if (isset($_REQUEST['attachments'][$attachment_id]['poster_video']) && $_REQUEST['attachments'][$attachment_id]['poster_video'] !== '') {
+			$poster_video = $_REQUEST['attachments'][$attachment_id]['poster_video'];
+			update_post_meta($attachment_id, '_uncode_poster_video', $poster_video);
+		} else {
+			delete_post_meta($attachment_id, '_uncode_poster_video');
 		}
 
 		if (!isset($_REQUEST['attachments'][$attachment_id]['video_alt_1']) && !isset($_REQUEST['attachments'][$attachment_id]['video_alt_2'])) {
@@ -858,7 +883,7 @@ function uncode_save_taxonomy_custom_meta( $term_id ) {
 			}
 		}
 		// Save the option array.
-		update_option( "_uncode_taxonomy_$t_id", $term_meta );
+		update_option( "_uncode_taxonomy_$t_id", $term_meta, false );
 	}
 }
 add_action( 'edited_category', 'uncode_save_taxonomy_custom_meta', 10, 2 );

@@ -26,6 +26,7 @@ if ( ! function_exists( 'uncode_get_current_post_type' ) || uncode_get_current_p
 	$footer_last_bg = ($footer_last_bg == '') ? ' style-'.$footer_last_style.'-bg' : ' style-'.$footer_last_bg.'-bg';
 
 	$post_type = isset( $post->post_type ) ? $post->post_type : 'post';
+	$post_type = $post_type === 'product_variation' ? 'product' : $post_type;
 	if (is_author()) {
 		$post_type = 'author';
 	}

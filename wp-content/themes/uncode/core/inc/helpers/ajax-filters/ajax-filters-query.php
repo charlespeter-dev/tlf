@@ -11,14 +11,18 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Alter the loop query options adding the dynamic ($_GET) data
  */
 function uncode_index_query_options_add_filters( $query_options = array() ) {
-	$query_options = is_array( $query_options ) ? $query_options : array();
-	$filters_query = array();
+	$query_options    = is_array( $query_options ) ? $query_options : array();
+	$filters_query    = array();
 
-	if ( isset( $_GET ) ) {
+	if ( isset( $_GET ) && is_array( $_GET ) ) {
+		ksort( $_GET );
+
 		foreach ( $_GET as $key => $value ) {
 			$value             = str_replace( '%2C', ',', urlencode( sanitize_text_field( wp_unslash( $value ) ) ) );
 			$selected_term_ids = array();
 			$selected_terms    = explode( ',', $value );
+
+			asort( $selected_terms );
 
 			if ( $key === UNCODE_FILTER_KEY_STATUS ) {
 				$filters_query = uncode_add_terms_to_filters_query( $filters_query, $selected_terms, $key );
@@ -33,6 +37,7 @@ function uncode_index_query_options_add_filters( $query_options = array() ) {
 			} else if ( $key === UNCODE_FILTER_KEY_SEARCH ) {
 				$filters_query = uncode_add_terms_to_filters_query( $filters_query, $selected_terms, $key );
 			} else if ( substr( $key, 0, strlen( UNCODE_FILTER_PREFIX_QUERY_TYPE_STATUS ) ) == UNCODE_FILTER_PREFIX_QUERY_TYPE_STATUS ) {
+				// Product status relation
 				$filters_query[$key]['relation'] = $value;
 			} else if ( substr( $key, 0, strlen( UNCODE_FILTER_PREFIX_QUERY_TYPE_PA ) ) == UNCODE_FILTER_PREFIX_QUERY_TYPE_PA ) {
 				// Product attribute relation
@@ -115,15 +120,19 @@ function uncode_filter_uncode_index_args( $args, $query_options ) {
 		foreach ( $filters_query as $key => $filter_args ) {
 			if ( $key === UNCODE_FILTER_KEY_STATUS && class_exists( 'WooCommerce' ) ) {
 				$values = isset( $filter_args['terms'] ) && is_array( $filter_args['terms'] ) ? $filter_args['terms'] : array();
+				$ids_on_sale = wc_get_product_ids_on_sale();
 
 				foreach ( $values as $value ) {
-					$ids_on_sale = wc_get_product_ids_on_sale();
 					$product_ids = array();
 
 					foreach ( $ids_on_sale as $id ) {
-						$product   = wc_get_product( $id );
+						$product = wc_get_product( $id );
 
 						if ( is_a( $product, 'WC_Product' ) ) {
+							if ( isset( $query_options['single_variations'] ) && $query_options['single_variations'] && $product->get_type() === 'variation' ) {
+								$product_ids[] = $id;
+							}
+
 							$parent_id = $product->get_parent_id();
 
 							if ( $parent_id > 0 ) {

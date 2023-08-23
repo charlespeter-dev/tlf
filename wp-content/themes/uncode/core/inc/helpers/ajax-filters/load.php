@@ -13,4 +13,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once get_template_directory() . '/core/inc/helpers/ajax-filters/ajax-filters.php';
 require_once get_template_directory() . '/core/inc/helpers/ajax-filters/ajax-filters-views.php';
 require_once get_template_directory() . '/core/inc/helpers/ajax-filters/ajax-filters-query.php';
+require_once get_template_directory() . '/core/inc/helpers/ajax-filters/ajax-filters-cache.php';
 require_once get_template_directory() . '/core/inc/helpers/ajax-filters/class-uncode-walker-filters.php';

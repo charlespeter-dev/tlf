@@ -327,6 +327,7 @@
 			<tag>uncode_ajax_filter</tag>
 			<attributes>
 				<attribute>title</attribute>
+				<attribute>select_first_option</attribute>
 			</attributes>
 		</shortcode>
 	</shortcodes>

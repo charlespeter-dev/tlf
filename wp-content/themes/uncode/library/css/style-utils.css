@@ -1121,35 +1121,43 @@ body.open-overlay-menu .overlay.overlay-menu {
     transition: transform 0.5s, opacity 0.5s;
   }
   .overlay.overlay-sequential .menu-sidebar-inner .menu-smart > li,
+  .overlay.overlay-sequential .uncode-menu-additional-text,
   .overlay.overlay-sequential .search-container form {
     opacity: 0;
     transform: translateY(-40px);
     animation-timing-function: cubic-bezier(0.45, 0.005, 0, 1);
   }
   .open-items.overlay.overlay-sequential .menu-sidebar-inner .menu-smart > li,
+  .open-items.overlay.overlay-sequential .uncode-menu-additional-text,
   .open-items.overlay.overlay-sequential .search-container form {
     opacity: 1;
     transform: translateY(0px);
     transition: transform 0.2s, opacity 0.2s;
   }
   .close.overlay.overlay-sequential .menu-sidebar-inner .menu-smart > li,
+  .close.overlay.overlay-sequential .uncode-menu-additional-text,
   .close.overlay.overlay-sequential .search-container form {
     transform: translateY(0px);
     transition: opacity 0.4s 0s !important;
   }
   .overlay.overlay-simple .menu-sidebar-inner .menu-smart > li,
+  .overlay.overlay-simple .uncode-menu-additional-text,
   .overlay.overlay-simple .search-container form {
     opacity: 0;
     animation-timing-function: cubic-bezier(0.45, 0.005, 0, 1);
+    transform: translateY(-0.5em);
   }
   .open.overlay.overlay-simple .menu-sidebar-inner .menu-smart > li,
+  .open.overlay.overlay-simple .uncode-menu-additional-text,
   .open.overlay.overlay-simple .search-container form {
+    transform: translateY(0px);
     opacity: 1;
-    transition: opacity 0.4s 0.5s;
+    transition: transform 0.4s 0.5s cubic-bezier(0.35, 0.81, 0.41, 1), opacity 0.4s 0.5s;
   }
   .close.overlay.overlay-simple .menu-sidebar-inner .menu-smart > li,
+  .close.overlay.overlay-simple .uncode-menu-additional-text,
   .close.overlay.overlay-simple .search-container form {
-    transition: opacity 0.4s 0s !important;
+    transition: transform 1s 0s cubic-bezier(0.35, 0.81, 0.41, 1), opacity 0.4s 0s !important;
   }
 }
 .overlay.overlay-search {
@@ -1319,6 +1327,9 @@ footer .footer-last.footer-center .social-icon i,
 footer .footer-last:not(.footer-center) .social-icon i,
 .uncode-vc-social:not(.icons-lead) .social-icon i {
   font-size: 18px;
+}
+.footer-links span {
+  line-height: 2.5em !important;
 }
 .vmenu-footer {
   padding: 36px 54px 0px 54px;

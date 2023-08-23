@@ -67,7 +67,7 @@ $post_type = uncode_get_current_post_type();
 			}
 		} else {
 			$link['url']    = apply_filters( 'not_purchasable_url', get_permalink( $product->get_id() ) );
-			$link['label']  = apply_filters( 'not_purchasable_text', esc_html__( 'Read More', 'woocommerce' ) );
+			$link['label']  = apply_filters( 'not_purchasable_text', esc_html__( 'Read more', 'woocommerce' ) );
 		}
 
 		$link['class'] = isset( $button_class ) ? $button_class : $link['class'] . ' btn-default';

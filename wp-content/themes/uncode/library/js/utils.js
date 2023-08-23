@@ -108,7 +108,7 @@ UNCODE.utils = function() {
 						scroll_offset += UNCODE.menuMobileHeight;
 					} else {
 						if ( typeof target !== 'undefined' && target.closest('.main-menu-container') != null && UNCODE.wwidth < UNCODE.mediaQuery && ! $('body').hasClass('vmenu') && ! $('body').hasClass('menu-mobile-transparent') && ! $('.menu-sticky').length ) {
-							scroll_offset += $('.main-menu-container > div:first-child()').height() - 2;
+							//scroll_offset += $('.main-menu-container > div:first-child()').height() - 2;
 						} else {
 							if ( $(trigger)[0] !== $(document)[0] && $(trigger).length && typeof $(trigger).offset() !== 'undefined' && window.scrollY > ($(trigger).offset().top + UNCODE.menuMobileHeight) ) {
 								scroll_offset += UNCODE.menuMobileHeight;

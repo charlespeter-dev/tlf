@@ -44,6 +44,7 @@ require_once get_template_directory() . '/core/inc/helpers/assets/tests/sticky-t
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/unmodal.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/livesearch.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/vivus.php';
+require_once get_template_directory() . '/core/inc/helpers/assets/tests/lottie.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/pricing-tables.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/iconbox.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/dividers.php';
@@ -65,6 +66,7 @@ require_once get_template_directory() . '/core/inc/helpers/assets/tests/sticky-s
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/vc_navigation.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/ajax-filters.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/swatches.php';
+require_once get_template_directory() . '/core/inc/helpers/assets/tests/video-thumbs.php';
 
 /**
  * Check if we can split the CSS

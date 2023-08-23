@@ -91,6 +91,8 @@ if ( ! function_exists( 'uncode_gutenberg_content_block_skin_classes' ) ) :
 	function uncode_gutenberg_content_block_skin_classes() {
 		global $metabox_data;
 
+		$bg_color = '';
+
 		if (isset($metabox_data['_uncode_specific_style'][0]) && $metabox_data['_uncode_specific_style'][0] !== '') {
 			$style = $metabox_data['_uncode_specific_style'][0];
 			if (isset($metabox_data['_uncode_specific_bg_color'][0]) && $metabox_data['_uncode_specific_bg_color'][0] !== '') {

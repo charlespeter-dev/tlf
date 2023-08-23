@@ -25,14 +25,25 @@
 				success: function(data, textStatus, XMLHttpRequest) {
 					$('.uncode-cart-dropdown').html(data.cart);
 					if (data != '') {
-						if ($('.uncode-cart .badge, .mobile-shopping-cart .badge').length) {
-							if (data.articles > 0) {
+						if ( SiteParameters.uncode_wc_popup_cart_qty ) {
+							if ($('.uncode-cart .badge, .mobile-shopping-cart .badge').length) {
 								$('.uncode-cart .badge, .mobile-shopping-cart .badge').html(data.articles);
-								$('.uncode-cart .badge, .mobile-shopping-cart .badge').show();
 							} else {
-								$('.uncode-cart .badge, .mobile-shopping-cart .badge').hide();
+								$('.uncode-cart .cart-icon-container').append('<span class="badge init-product-counter">' + data.articles + '</span>'); //$('.uncode-cart .badge').html(data.articles);
 							}
-						} else $('.uncode-cart .cart-icon-container').append('<span class="badge">' + data.articles + '</span>'); //$('.uncode-cart .badge').html(data.articles);
+							$(document.body).trigger('uncode_get_cart', [data.articles]);
+						} else {
+							if ($('.uncode-cart .badge, .mobile-shopping-cart .badge').length) {
+								if (data.articles > 0) {
+									$('.uncode-cart .badge, .mobile-shopping-cart .badge').html(data.articles);
+									$('.uncode-cart .badge, .mobile-shopping-cart .badge').show();
+								} else {
+									$('.uncode-cart .badge, .mobile-shopping-cart .badge').hide();
+								}
+							} else {
+								$('.uncode-cart .cart-icon-container').append('<span class="badge">' + data.articles + '</span>'); //$('.uncode-cart .badge').html(data.articles);
+							}
+						}
 					}
 				}
 			});
@@ -425,9 +436,16 @@
 				$main.owlCarousel({
 					items: 1,
 					autoHeight: true,
-					dots: dots,
 					rtl: $('body').hasClass('rtl') ? true : false,
 					responsiveRefreshRate: 200,
+					responsive: {
+						0: {
+							dots: $('.woocommerce-product-gallery__wrapper-nav.lateral-nav', $parent).length
+						},
+						960: {
+							dots: dots
+						}
+					}
 				}).on('changed.owl.carousel', function(event) {
 					if (event.namespace && event.property.name === 'position') {
 						var target = event.relatedTarget.relative(event.property.value, true);
@@ -949,21 +967,34 @@
 		var product_id = _this.data('post-id');
 		var post_type = _this.data('post-type');
 		var post_url = _this.attr('data-post-url');
+		var single_variation_atts = _this.attr('data-single-variation');
 
 		// Empty modal
 		if (modal_quick_view_content.length > 0) {
 			modal_quick_view_content.html('');
 		}
 
+		var data = {
+			action: 'uncode_load_ajax_quick_view',
+			post_id: product_id,
+			post_type: post_type,
+			post_url: post_url,
+		};
+
+		if (single_variation_atts) {
+			var variation_atts_obj = JSON.parse(single_variation_atts)
+
+			for (var att_key in variation_atts_obj) {
+				if (variation_atts_obj[att_key]) {
+					data['attribute_' + att_key] = variation_atts_obj[att_key];
+				}
+			}
+		}
+
 		// Get quick view content via AJAX
 		$.ajax({
 			url: woocommerce_params.ajax_url,
-			data: {
-				action: 'uncode_load_ajax_quick_view',
-				post_id: product_id,
-				post_type: post_type,
-				post_url: post_url,
-			},
+			data: data,
 			type: 'post',
 			error: function(data) {
 				if (SiteParameters.enable_debug == true) {
@@ -1116,5 +1147,23 @@
 			$(document.body).trigger('wc_fragment_refresh');
 		});
 	}
+
+	/************************************************************
+	 * Cart badge
+	 ************************************************************/
+	$(document).ready(function() {
+		if ( SiteParameters.uncode_wc_popup_cart_qty ) {
+			$(document.body).on('wc_fragments_loaded', function(){
+				$('.cart-icon-container .badge').removeClass('init-product-counter');
+			})
+			.on('uncode_get_cart', function(e, data){
+				if ( $('.cart-icon-container .badge').text() !== '' || ( data > 0 ) ) {
+					$('.cart-icon-container .badge').addClass('init-product-counter');
+				} else {
+					$('.cart-icon-container .badge').removeClass('init-product-counter');
+				}
+			});
+		}
+	});
 
 })(jQuery);

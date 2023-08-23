@@ -60,7 +60,7 @@ class Uncode_Theme_Registration {
 
 			if ( $is_valid_purchase_code ) {
 				// Save purchase code
-				update_option( uncode_get_purchase_code_option_name(), $purchase_code );
+				update_option( uncode_get_purchase_code_option_name(), $purchase_code, false );
 
 				wp_send_json_success(
 					array(
@@ -216,7 +216,7 @@ class Uncode_Theme_Registration {
 
 			if ( $is_valid_purchase_code ) {
 				// Save purchase code
-				update_option( uncode_get_purchase_code_option_name(), $envato_purchase_code );
+				update_option( uncode_get_purchase_code_option_name(), $envato_purchase_code, false );
 			}
 
 			// Delete old legacy options

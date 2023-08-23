@@ -10,7 +10,7 @@ var player, OKEvents, options, videoWidth, videoHeight, YTplayers, youtubePlayer
 // youtube player ready
 function onYouTubeIframeAPIReady() {
 	YTplayers = new Array();
-	jQuery('.no-touch .uncode-video-container.video').each(function() {
+	jQuery('.uncode-video-container.video').each(function() {
 		var playerY;
 		if (jQuery(this).attr('data-provider') == 'youtube') {
 			var id = jQuery(this).attr('data-id'),
@@ -19,12 +19,15 @@ function onYouTubeIframeAPIReady() {
 			start = typeof start && start !== null ? start : 0;
 			end = typeof end && end !== null ? end : 0;
 			options = jQuery(window).data('okoptions-' + id);
+			if ( typeof options === 'undefined' ) {
+				return true;
+			}
 			options.time = jQuery(this).attr('data-t');
 			playerY = new YT.Player('okplayer-' + id, {
 				videoId: options.video ? options.video.id : null,
 				playerVars: {
 					'autohide': 1,
-					'autoplay': 0, //options.autoplay,
+					'autoplay': jQuery(this).hasClass('is-no-control') ? options.autoplay : 0, //options.autoplay,
 					'disablekb': 1,
 					'cc_load_policy': options.captions,
 					'controls': 0,
@@ -57,6 +60,9 @@ function onYouTubeIframeAPIReady() {
 // vimeo player ready
 function vimeoPlayerReady(id) {
 	options = jQuery(window).data('okoptions-' + id);
+	if ( typeof options === 'undefined' ) {
+		return true;
+	}
 	var jIframe = options.jobject,
 		iframe = jIframe[0];
 
@@ -76,12 +82,15 @@ function vimeoPlayerReady(id) {
 		} else {
 			playerV.on('play', function(){
 				OKEvents.v.onPlay(playerV);
+				jQuery(window).trigger('okevents.v.play', [playerV]);
 			});
 			playerV.on('pause', function(){
 				OKEvents.v.onPause;
+				jQuery(window).trigger('okevents.v.pause', [playerV]);
 			});
 			playerV.on('ended', function(){
 				OKEvents.v.onFinish
+				jQuery(window).trigger('okevents.v.ended', [playerV]);
 			});
 		}
 		if (options.time != null) {
@@ -116,19 +125,25 @@ function vimeoPlayerReady(id) {
 		jQuery(iframe).closest('#page-header').addClass('video-started');
 		jQuery(iframe).closest('.background-wrapper').find('.block-bg-blend-mode.not-ie').css('opacity', '1');
 
+		jQuery(window).trigger('okevents.v.loaded', [playerV]);
 	});
 }
 OKEvents = {
 	yt: {
 		ready: function(event) {
-			var id = event.target.videoId;
+			var id = event.target.videoId,
+				$video = jQuery('#okplayer-' + id),
+				options = jQuery(window).data('okoptions-' + id);
+			if ( typeof options === 'undefined' ) {
+				return true;
+			}
 			youtubePlayers[id] = event.target;
 			event.target.setVolume(options.volume);
 			if (options.autoplay === 1) {
 				if (options.playlist.list) {
 					player.loadPlaylist(options.playlist.list, options.playlist.index, options.playlist.startSeconds, options.playlist.suggestedQuality);
 				} else {
-					var inCarousel = jQuery('#okplayer-' + id).closest('.owl-item');
+					var inCarousel = $video.closest('.owl-item');
 					if (!inCarousel.length || (inCarousel.length && inCarousel.hasClass('active'))) {
 						if (options.time != null) {
 							event.target.seekTo(parseInt(options.time));
@@ -141,7 +156,7 @@ OKEvents = {
 			}
 			OKEvents.utils.isFunction(options.onReady) && options.onReady(event.target);
 
-			jQuery('#okplayer-' + id).closest('[data-provider]').on('uncode-resume', function(){
+			$video.closest('[data-provider]').on('uncode-resume', function(){
 				if (options.time != null) {
 					event.target.seekTo(parseInt(options.time)).playVideo();
 				} else {
@@ -149,16 +164,27 @@ OKEvents = {
 				}
 			});
 
-			jQuery('#okplayer-' + id).closest('[data-provider]').on('uncode-pause', function(){
+			$video.closest('[data-provider]').on('uncode-pause', function(){
 				if (options.time != null) {
 					event.target.seekTo(parseInt(options.time)).pauseVideo();
 				} else {
 					event.target.seekTo(0).pauseVideo();
 				}
 			});
+			jQuery(window).trigger('okevents.y.loaded', [event]);
 		},
 		onStateChange: function(event) {
-			var id = event.target.videoId;
+			var id = event.target.videoId,
+				$video = jQuery('#okplayer-' + id),
+				options = jQuery(window).data('okoptions-' + id);
+			if ( typeof options === 'undefined' ) {
+				return true;
+			}
+			youtubePlayers[id] = event.target;
+			event.target.setVolume(options.volume);
+			var $fluid = $video.closest('.fluid-object'),
+				$tmb = $video.closest('.tmb'),
+				setTime;
 			switch (event.data) {
 				case -1:
 					OKEvents.utils.isFunction(options.unstarted) && options.unstarted();
@@ -175,7 +201,7 @@ OKEvents = {
 						jQuery('#okplayer-' + id).closest('#page-header').addClass('video-started');
 						jQuery('#okplayer-' + id).closest('.background-wrapper').find('.block-bg-blend-mode.not-ie').css('opacity', '1');
 					}, 300);
-					break;
+				break;
 				case 2:
 					OKEvents.utils.isFunction(options.onPause) && options.onPause();
 					break;
@@ -188,6 +214,8 @@ OKEvents = {
 				default:
 					throw "OKVideo: received invalid data from YT player.";
 			}
+
+			jQuery(window).trigger('okevents.y.change', [event]);
 		},
 		error: function(event) {
 			throw event;
@@ -195,9 +223,15 @@ OKEvents = {
 	},
 	v: {
 		onReady: function(target) {
+			if ( typeof options === 'undefined' ) {
+				return true;
+			}
 			OKEvents.utils.isFunction(options.onReady) && options.onReady(target);
 		},
 		onPlay: function(player) {
+			if ( typeof options === 'undefined' ) {
+				return true;
+			}
 			if (!OKEvents.utils.isMobile()) player.setVolume(options.volume);
 			OKEvents.utils.isFunction(options.onPlay) && options.onPlay();
 			jQuery(player.element).closest('.uncode-video-container:not(.t-entry-drop)').css('opacity', '1');
@@ -205,9 +239,15 @@ OKEvents = {
 			jQuery(player.element).closest('.background-wrapper').find('.block-bg-blend-mode.not-ie').css('opacity', '1');
 		},
 		onPause: function() {
+			if ( typeof options === 'undefined' ) {
+				return true;
+			}
 			OKEvents.utils.isFunction(options.onPause) && options.onPause();
 		},
 		onFinish: function() {
+			if ( typeof options === 'undefined' ) {
+				return true;
+			}
 			OKEvents.utils.isFunction(options.onFinish) && options.onFinish();
 		}
 	},

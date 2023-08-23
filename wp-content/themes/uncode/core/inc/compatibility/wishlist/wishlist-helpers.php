@@ -27,9 +27,7 @@ function uncode_add_wishlist_in_menu( $woo_wishlist_icon, $woo_wishlist_class ) 
 	$tot_articles_in_wishlist = absint( yith_wcwl_count_all_products() );
 
 	ob_start();
-	?>
-
-	<li class="<?php echo esc_attr( $woo_wishlist_class ); ?> uncode-wishlist menu-item-link menu-item">
+	?><li class="<?php echo esc_attr( $woo_wishlist_class ); ?> uncode-wishlist menu-item-link menu-item">
 		<a href="<?php echo esc_url( $wishlist_url ); ?>" data-type="title" title="wishlist">
 			<span class="wishlist-icon-container">
 				<?php if ( $horizontal_menu ) : ?>
@@ -45,9 +43,7 @@ function uncode_add_wishlist_in_menu( $woo_wishlist_icon, $woo_wishlist_class ) 
 				<?php endif; ?>
 			</span>
 		</a>
-	</li>
-
-	<?php
+	</li><?php
 	$icon = ob_get_clean();
 
     return $icon;

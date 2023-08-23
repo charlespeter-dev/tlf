@@ -41,6 +41,7 @@
 	$(window).on( 'load', function(){
 		stickyTrigger();
 	});
+
 	var oldW = UNCODE.wwidth;
 	$(window).on( 'resize uncode.re-layout', function(e){
 		clearRequestTimeout(setResizeSticky);

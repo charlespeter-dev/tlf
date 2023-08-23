@@ -48,6 +48,7 @@ class Uncode_Install {
 				'_uncode_vmenu_width' => '252',
 				'_uncode_menu_accordion_active' => 'off',
 				'_uncode_menu_full' => 'off',
+				'_uncode_offcanvas_overlay' => 'off',
 				'_uncode_submenu_style' => '',
 				'_uncode_menu_shadows' => 'on',
 				'_uncode_submenu_shadows' => '',
@@ -831,9 +832,13 @@ class Uncode_Install {
 				'_uncode_secondary_menu_style' => 'dark',
 				'_uncode_menu_font_size' => '12',
 				'_uncode_submenu_font_size' => '12',
+				'_uncode_menu_overlay_font_size' => '3.5vh',
+				'_uncode_submenu_overlay_font_size' => '',
 				'_uncode_secondary_menu_font_size' => '12',
 				'_uncode_secondary_menu_mobile_font_size' => '10',
 				'_uncode_menu_mobile_font_size' => '12',
+				'_uncode_menu_mobile_centered_font_size' => '5.5vw',
+				'_uncode_submenu_mobile_centered_font_size' => '',
 				'_uncode_menu_font_family' => 'font-555555',
 				'_uncode_menu_font_weight' => '600',
 				'_uncode_menu_letter_spacing' => '0.05',
@@ -892,6 +897,7 @@ class Uncode_Install {
 				'_uncode_custom_css' => '',
 				'_uncode_custom_js' => '',
 				'_uncode_custom_tracking' => '',
+				'_uncode_custom_tracking_head' => '',
 				'_uncode_adaptive' => 'on',
 				'_uncode_adaptive_async' => 'off',
 				'_uncode_adaptive_async_blur' => 'off',
@@ -1047,10 +1053,10 @@ class Uncode_Install {
 			update_option( 'uncode_ajax_theme_panel', 'yes', false );
 
 			// New Lightbox
-			update_option( 'uncode_core_settings_opt_lightbox_enhance', 'on' );
+			update_option( 'uncode_core_settings_opt_lightbox_enhance', 'on', false );
 
 			// New Top-Bar
-			update_option( 'uncode_core_settings_opt_enhanced_top_bar', 'on' );
+			update_option( 'uncode_core_settings_opt_enhanced_top_bar', 'on', false );
 
 		}
 	}

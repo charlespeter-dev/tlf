@@ -23,6 +23,7 @@ require_once get_template_directory() . '/core/inc/helpers/dynamic-css/modules/v
 require_once get_template_directory() . '/core/inc/helpers/dynamic-css/modules/vc_column_inner.php';
 require_once get_template_directory() . '/core/inc/helpers/dynamic-css/modules/uncode_author_profile.php';
 require_once get_template_directory() . '/core/inc/helpers/dynamic-css/modules/uncode_consent_notice.php';
+require_once get_template_directory() . '/core/inc/helpers/dynamic-css/modules/vc_accordion.php';
 require_once get_template_directory() . '/core/inc/helpers/dynamic-css/modules/vc_button.php';
 require_once get_template_directory() . '/core/inc/helpers/dynamic-css/modules/vc_custom_heading.php';
 require_once get_template_directory() . '/core/inc/helpers/dynamic-css/modules/vc_icon.php';
@@ -34,6 +35,7 @@ require_once get_template_directory() . '/core/inc/helpers/dynamic-css/modules/v
 require_once get_template_directory() . '/core/inc/helpers/dynamic-css/modules/vc_separator.php';
 require_once get_template_directory() . '/core/inc/helpers/dynamic-css/modules/vc_gmaps.php';
 require_once get_template_directory() . '/core/inc/helpers/dynamic-css/modules/vc_pie.php';
+require_once get_template_directory() . '/core/inc/helpers/dynamic-css/modules/vc_tabs.php';
 require_once get_template_directory() . '/core/inc/helpers/dynamic-css/modules/uncode_list.php';
 require_once get_template_directory() . '/core/inc/helpers/dynamic-css/modules/uncode_princing.php';
 require_once get_template_directory() . '/core/inc/helpers/dynamic-css/modules/uncode_index.php';

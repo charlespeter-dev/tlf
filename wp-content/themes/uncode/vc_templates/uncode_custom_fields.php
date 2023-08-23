@@ -107,7 +107,7 @@ if ( is_array( $all_custom_fields ) && ! empty( $all_custom_fields ) ) {
 				$detail_content .= '<span class="detail-label ' . esc_attr( trim( implode( ' ', $detail_class ) ) ) . '">' . esc_html( $field['title'] ) . '</span>';
 			}
 			if ( $field_elements === '' || ( $field_elements && $field_elements === 'value' ) ) {
-				$detail_content .= '<span class="detail-value ' . esc_attr( trim( implode( ' ', $detail_class ) ) ) . '">' . esc_html( $value ) . '</span>';
+				$detail_content .= '<span class="detail-value ' . esc_attr( trim( implode( ' ', $detail_class ) ) ) . '">' . wp_kses_post( $value ) . '</span>';
 			}
 			$detail_content .= '</span>';
 		}

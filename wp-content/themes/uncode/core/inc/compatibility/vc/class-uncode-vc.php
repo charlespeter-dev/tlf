@@ -32,7 +32,7 @@ class Uncode_VC_Functions {
 		global $wp_version;
 
 		if ( ! get_option( 'wpb_js_gutenberg_disable' ) && ! get_option( 'uncode_check_for_vc_gutenberg_disable_option' ) ) {
-			update_option( 'wpb_js_gutenberg_disable', true );
+			update_option( 'wpb_js_gutenberg_disable', true, false );
 		}
 
 		update_option( 'uncode_check_for_vc_gutenberg_disable_option', true, false );

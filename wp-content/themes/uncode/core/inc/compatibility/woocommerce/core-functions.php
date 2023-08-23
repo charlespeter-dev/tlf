@@ -34,7 +34,7 @@ function uncode_wc_scripts() {
 	}
 
 	if ( ! $split_js ) {
-		wp_enqueue_script( 'woocommerce-uncode', get_template_directory_uri() . '/library/js/woocommerce-uncode' . $suffix . '.js', array() , $resources_version, 'all');
+		wp_enqueue_script( 'woocommerce-uncode', get_template_directory_uri() . '/library/js/woocommerce-uncode' . $suffix . '.js', array( 'jquery', 'wc-cart-fragments' ) , $resources_version, 'all');
 		uncode_wc_localize_scripts();
 	}
 }

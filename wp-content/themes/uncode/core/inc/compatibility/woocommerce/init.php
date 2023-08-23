@@ -86,7 +86,7 @@ require_once get_template_directory() . '/core/inc/compatibility/woocommerce/pro
  * Variations.
  */
 require_once get_template_directory() . '/core/inc/compatibility/woocommerce/variations/variations-functions.php';
-require_once get_template_directory() . '/core/inc/compatibility/woocommerce/variations/variations-galleries.php';
+require_once get_template_directory() . '/core/inc/compatibility/woocommerce/variations/variations-admin-settings.php';
 
 /**
  * Swatches.

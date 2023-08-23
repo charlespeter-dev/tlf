@@ -57,7 +57,7 @@
 					}
 				}
 
-				$(window).on('resize', function(event) {
+				$(window).on('resize lateral_resize', function(event) {
 					if ($(window).width() > UNCODE.mediaQuery) {
 						initStickyElement();
 					} else {

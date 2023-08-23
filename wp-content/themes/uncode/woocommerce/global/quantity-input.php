@@ -42,8 +42,8 @@ $classes[] = $quantity_wide;
 				?><span class="qty-minus"><i class="fa fa-minus2"></i></span><?php
 				}
 				?><input
-			type="<?php echo $quantity_controller === true ? 'text' : 'number'; ?>"
-			<?php echo $readonly ? 'readonly="readonly"' : ''; ?>
+			type="<?php echo uncode_switch_stock_string( $quantity_controller === true ? 'text' : 'number' ); ?>"
+			<?php echo uncode_switch_stock_string( $readonly ? 'readonly="readonly"' : '' ); ?>
 			id="<?php echo esc_attr( $input_id ); ?>"
 			class="<?php echo esc_attr( join( ' ', (array) $classes ) ); ?>"
 			name="<?php echo esc_attr( $input_name ); ?>"

@@ -233,7 +233,17 @@ $product_gallery_data      = function_exists( 'wc_esc_json' ) ? wc_esc_json( $pr
 ?>
 
 <div class="<?php echo esc_attr( implode( ' ', array_map( 'sanitize_html_class', $wrapper_classes ) ) ); ?>" data-columns="<?php echo esc_attr( $columns ); ?>"<?php if ( ( ! function_exists('vc_is_page_editable') || ! vc_is_page_editable() ) && $post_type !== 'uncodeblock' ) { ?> style="opacity: 0; transition: opacity .05s ease-in-out;"<?php } ?> data-gallery-options="<?php echo uncode_switch_stock_string( $product_gallery_data ); ?>">
-	<div class="woocommerce-product-gallery__wrapper<?php if ( $woo_carousel && ( $_uncode_thumb_layout === '' || $_uncode_thumb_layout === 'std-lateral' ) ) { echo ' owl-carousel'; } ?>">
+	<?php 
+		$woo_carousel_atts = '';
+		if ( $woo_carousel ) {
+			if ( $_uncode_thumb_layout === '' ) {
+				$woo_carousel_atts = ' owl-carousel';
+			} elseif ( $_uncode_thumb_layout === 'std-lateral' ) {
+				$woo_carousel_atts = ' owl-carousel owl-dots-outside" data-dots="true" data-dotsmobile="true';
+			}
+		}
+	?>
+	<div class="woocommerce-product-gallery__wrapper<?php echo uncode_switch_stock_string( $woo_carousel_atts ); ?>">
 
 	<?php echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', $html, $post_thumbnail_id ); ?>
 

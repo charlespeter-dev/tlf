@@ -97,7 +97,8 @@ class wp_bootstrap_navwalker extends Walker_Nav_Menu {
 		$indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
 
 		if ($item->description !== '' && ($menutype === 'menu-overlay' || $menutype === 'menu-overlay-center')) {
-			$description = '<span class="menu-item-description">' . $item->description . '</span>';
+		// if ($item->description !== '') {
+				$description = '<span class="menu-item-description depth-' . $depth . '">' . $item->description . '</span>';
 		}
 
 		/**
@@ -368,3 +369,55 @@ class Uncode_Nav_Menu_Widget extends WP_Nav_Menu_Widget {
 if ( function_exists( 'uncode_custom_menu_widget' ) ) {
 	add_action("widgets_init", "uncode_custom_menu_widget");
 }
+
+/**
+* Additional mobile menu elements
+*
+* @since 2.8.0
+*/
+if ( ! function_exists( 'uncode_mobile_menu_additional_elems' ) ) {
+	function uncode_mobile_menu_additional_elems() {
+		global $menutype;
+
+		$nav_menu = $additional_text_visibility = '';
+
+		$additional_textarea = ot_get_option('_uncode_vmenu_textarea');
+		$additional_mobile_textarea = ot_get_option('_uncode_menu_mobile_centered_textarea');
+
+		if ( ( strpos($menutype, 'vmenu') !== false || strpos($menutype, 'menu-overlay') !== false ) && $additional_textarea !== '' ) {
+			$additional_textarea = wpautop($additional_textarea);
+		} else {
+			$additional_textarea = '';
+		}
+
+		if ( $additional_textarea === '' ) {
+			$additional_text_visibility = 'desktop-hidden';
+		}
+
+		if ( ot_get_option('_uncode_menu_sticky_mobile') === 'on' && ot_get_option('_uncode_menu_mobile_centered') !== 'off' && $additional_mobile_textarea !== ''  ) {
+			$additional_mobile_textarea = wpautop($additional_mobile_textarea);
+		} else {
+			$additional_mobile_textarea = '';
+		}
+
+		if ( $additional_mobile_textarea === '' ) {
+			$additional_text_visibility = 'mobile-hidden tablet-hidden';
+		}
+
+		if ( $additional_textarea !== '' || $additional_mobile_textarea !== '' ) {
+			$nav_menu .= '<div class="uncode-menu-additional-text navbar-mobile-el ' . esc_attr($additional_text_visibility) . ' ">';
+			if ( $additional_textarea !== '' ) {	
+				$nav_menu .= '<div class="mobile-hidden tablet-hidden">' . $additional_textarea . '</div>';
+			}
+			if ( $additional_mobile_textarea !== '' ) {
+				$nav_menu .= '<div class="desktop-hidden">' . $additional_mobile_textarea . '</div>';
+			}
+			$nav_menu .= '</div>';
+		}
+
+		$nav_menu .= '<div class="uncode-close-offcanvas-mobile lines-button close navbar-mobile-el"><span class="lines"></span></div>';
+
+		return $nav_menu;
+	}
+}
+add_filter("uncode_menu_before_socials", "uncode_mobile_menu_additional_elems", 10);

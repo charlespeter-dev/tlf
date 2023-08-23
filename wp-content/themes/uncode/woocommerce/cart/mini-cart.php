@@ -14,7 +14,7 @@
  * @see     http://docs.woothemes.com/document/template-structure/
  * @author  WooThemes
  * @package WooCommerce/Templates
- * @version 7.8.0
+ * @version 7.9.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php do_action( 'woocommerce_before_mini_cart' ); ?>
 
 <div class="woocommerce-mini-cart-header">
-	<div class="close-mini-cart btn btn-link"><?php echo wp_kses_post( apply_filters( 'uncode_close_mini_cart_text', __( '<span>&times;</span> Close', 'uncode' ) ) ); ?></div>
+	<div class="close-mini-cart btn btn-link"><?php echo wp_kses_post( apply_filters( 'uncode_close_mini_cart_text', __( '<span class="cart-close-icon">&times;</span><span class="cart-close-label">Close</span>', 'uncode' ) ) ); ?></div>
 </div>
 <div class="woocommerce-mini-cart-body">
 	<ul class="woocommerce-mini-cart cart_list product_list_widget <?php echo esc_attr( $args['list_class'] ); ?>">
@@ -58,7 +58,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 									'<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s"><i class="fa fa-cross"></i></a>',
 									esc_url( wc_get_cart_remove_url( $cart_item_key ) ),
 									/* translators: %s is the product name */
-									esc_attr( sprintf( __( 'Remove %s from cart', 'woocommerce' ), $product_name ) ),
+									esc_attr( sprintf( __( 'Remove %s from cart', 'woocommerce' ), wp_strip_all_tags( $product_name ) ) ),
 									esc_attr( $product_id ),
 									esc_attr( $cart_item_key ),
 									esc_attr( $_product->get_sku() )

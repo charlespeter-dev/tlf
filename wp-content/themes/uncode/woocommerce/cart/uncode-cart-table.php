@@ -53,7 +53,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 										'<a href="%s" class="remove" aria-label="%s" data-product_id="%s" data-product_sku="%s"></a>',
 										esc_url( wc_get_cart_remove_url( $cart_item_key ) ),
 										/* translators: %s is the product name */
-										esc_attr( sprintf( __( 'Remove %s from cart', 'woocommerce' ), $product_name ) ),
+										esc_attr( sprintf( __( 'Remove %s from cart', 'woocommerce' ), wp_strip_all_tags( $product_name ) ) ),
 										esc_attr( $product_id ),
 										esc_attr( $_product->get_sku() )
 									),
@@ -77,15 +77,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<td class="product-name" data-title="<?php esc_attr_e( 'Product', 'woocommerce' ); ?>">
 						<?php
 						if ( ! $product_permalink ) {
-							/**
-							 * Filter the product name.
-							 *
-							 * @since 7.8.0
-							 * @param string $product_name Name of the product in the cart.
-							 * @param array $cart_item The product in the cart.
-							 * @param string $cart_item_key Key for the product in the cart.
-							 */
-							echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', $product_name, $cart_item, $cart_item_key ) . '&nbsp;' );
+							echo wp_kses_post( $product_name . '&nbsp;' );
 						} else {
 							/**
 							 * Filter the product name.
@@ -93,7 +85,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							 * @since 7.8.0
 							 * @param string $product_url URL the product in the cart.
 							 */
-							echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s</a>', esc_url( $product_permalink ), $product_name ), $cart_item, $cart_item_key ) );
+							echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s</a>', esc_url( $product_permalink ), $_product->get_name() ), $cart_item, $cart_item_key ) );
 						}
 
 						do_action( 'woocommerce_after_cart_item_name', $cart_item, $cart_item_key );

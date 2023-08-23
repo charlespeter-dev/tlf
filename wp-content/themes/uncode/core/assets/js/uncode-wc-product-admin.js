@@ -20,8 +20,6 @@
 					},
 					method: 'post',
 					success: function(response) {
-						console.log(response);
-
 						if (response.success === false || !(response.data && response.data.images)) {
 							if (UncodeAdminProductParams.enable_debug == true) {
 								// This console log is disabled by default

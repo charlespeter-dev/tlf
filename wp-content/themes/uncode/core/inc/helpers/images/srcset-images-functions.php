@@ -484,3 +484,15 @@ function uncode_regenerate_srcset_bg_async() {
 }
 add_action( 'wp_ajax_regenerate_srcset_bg_async', 'uncode_regenerate_srcset_bg_async' );
 add_action( 'wp_ajax_nopriv_regenerate_srcset_bg_async', 'uncode_regenerate_srcset_bg_async' );
+
+/**
+ * Don't enable lazy load on imported home.
+ */
+function uncode_fix_home_demo_import_perf( $enabled ) {
+	if ( is_page( 4816 ) ) {
+		return false;
+	}
+
+	return $enabled;
+}
+add_filter( 'uncode_dynamic_srcset_lazy_loading_enabled', 'uncode_fix_home_demo_import_perf' );

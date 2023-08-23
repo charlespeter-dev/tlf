@@ -1,5 +1,5 @@
 <?php
-$url = $link = $target = $button_color = $size = $width = $text_skin = $hover_fx = $outline = $wide = $icon = $icon_position = $icon_animation = $border_animation = $radius = $shadow = $shadow_weight = $italic = $display = $inline_mobile = $scale_mobile = $top_margin = $onclick = $rel = $media_lightbox = $lbox_transparency = $lbox_skin = $lbox_dir = $lbox_title = $lbox_caption = $lbox_social = $lbox_deep = $lbox_no_tmb = $lbox_no_arrows = $lbox_gallery_arrows = $lbox_gallery_arrows_bg = $lbox_connected = $lbox_actual_size = $lbox_full = $lbox_download = $lbox_counter = $lbox_transition = $css_animation = $animation_delay = $animation_speed = $el_id = $el_class = $lightbox_data = $custom_typo = $font_family = $font_weight = $text_transform = $letter_spacing = $border_width = $btn_link_size = $dynamic = $quantity = '';
+$url = $link = $target = $button_color = $size = $width = $text_skin = $hover_fx = $outline = $wide = $icon = $icon_position = $icon_animation = $border_animation = $radius = $shadow = $shadow_weight = $italic = $display = $inline_mobile = $scale_mobile = $top_margin = $onclick = $rel = $media_lightbox = $lbox_skin = $lbox_transparency = $lbox_dir = $lbox_title = $lbox_caption = $lbox_social = $lbox_deep = $lbox_deep_id = $lbox_no_tmb = $lbox_no_arrows = $lbox_gallery_arrows = $lbox_gallery_arrows_bg = $lbox_zoom_origin = $lbox_connected = $lbox_actual_size = $lbox_full = $lbox_download = $lbox_counter = $lbox_transition = $lb_video_advanced = $lb_autoplay = $lb_muted = $css_animation = $animation_delay = $animation_speed = $el_id = $el_class = $lightbox_data = $custom_typo = $font_family = $font_weight = $text_transform = $letter_spacing = $border_width = $btn_link_size = $dynamic = $quantity = '';
 extract(shortcode_atts(array(
 	'uncode_shortcode_id' => '',
 	'url' => '',
@@ -65,6 +65,9 @@ extract(shortcode_atts(array(
 	'el_class' => '',
 	'dynamic' => '',
 	'quantity' => '',
+	'lb_video_advanced' => '',
+	'lb_autoplay' => '',
+	'lb_muted' => '',
 ) , $atts));
 
 if ( $el_id !== '' ) {
@@ -362,6 +365,12 @@ if ($media_lightbox !== '') {
 			if ($lbox_skin !== '') {
 				$lightbox_classes['data-skin'] = $lbox_skin;
 			}
+			if ($lbox_caption !== '') {
+				$lightbox_classes['data-caption'] = get_the_excerpt($media_lightbox);
+			}
+			if ($lbox_transparency !== '') {
+				$lightbox_classes['data-transparency'] = $lbox_transparency;
+			}
 			if ($lbox_transparency !== '') {
 				$lightbox_classes['data-transparency'] = $lbox_transparency;
 			}
@@ -372,7 +381,7 @@ if ($media_lightbox !== '') {
 				$lightbox_classes['data-social'] = true;
 			}
 			if ($lbox_deep !== '') {
-				$lightbox_classes['data-deep'] = 'gallery_' . $media_lightbox;
+				$lightbox_classes['data-deep'] = $media_lightbox;
 			}
 			if ($lbox_no_tmb !== '') {
 				$lightbox_classes['data-notmb'] = true;
@@ -385,6 +394,9 @@ if ($media_lightbox !== '') {
 			}
 			if ($lbox_gallery_arrows_bg !== '') {
 				$lightbox_classes['data-arrows-bg'] = $lbox_gallery_arrows_bg;
+			}
+			if ($lbox_zoom_origin !== '') {
+				$lightbox_classes['data-zoom-origin'] = true;
 			}
 			if ($lbox_actual_size !== '') {
 				$lightbox_classes['data-actual-size'] = true;
@@ -400,9 +412,6 @@ if ($media_lightbox !== '') {
 			}
 			if ( $lbox_transition !== '' ) {
 				$lightbox_classes['data-transition'] = esc_attr($lbox_transition);
-			}
-			if ( $lbox_connected !== '' ) {
-				$lightbox_classes['data-connect'] = true;
 			}
 			if (count($lightbox_classes) === 0) {
 				$lightbox_classes['data-active'] = true;
@@ -501,6 +510,8 @@ if ($custom_typo==='yes') {
 
 if ($border_width!=='') {
 	$classes[] = 'border-width-' . intval($border_width);
+} else {
+	$classes[] = 'border-width-0';
 }
 
 // Additional classes
@@ -632,6 +643,14 @@ if ($width !== '') {
 $title = ($a_title !== '') ? ' title="' . esc_attr( $a_title ) . '"' : '';
 $target = (trim($a_target) !== '') ? ' target="' . esc_attr( trim($a_target) ) . '"' : '';
 
+if ( $lb_video_advanced === 'yes' ) {
+	if ( $lb_autoplay !== '' ) {
+		$div_data['data-lb-autoplay'] = $lb_autoplay;
+	}
+	if ( $lb_muted !== '' ) {
+		$div_data['data-lb-muted'] = $lb_muted;
+	}
+}	
 $div_data_attributes = array_map(function ($v, $k) { return $k . '="' . $v . '"'; }, $div_data, array_keys($div_data));
 
 $bigtext_start = $bigtext_end = '';

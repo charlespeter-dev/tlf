@@ -1,6 +1,7 @@
 <?php
-global $history_tab;
-$output = $title = $id = $active = $tab_id = $slug = $icon = $icon_position = $column_padding = $column_padding = '';
+global $history_tab, $tab_titles_typography, $acc_tab_active_bg_color, $acc_tab_active_txt_color, $parent_panel_class, $panel_a_class; 
+
+$output = $title = $id = $active = $tab_id = $slug = $icon = $icon_position = $column_padding = '';
 
 extract(shortcode_atts(array(
 	'title' => esc_html__("Section", "uncode"),
@@ -9,6 +10,7 @@ extract(shortcode_atts(array(
 	'tab_id' => '',
 	'slug' => '',
 	'icon' => '',
+	'icon_size' => '',
 	'icon_position' => '',
 	'gutter_size' => '2',
 	'column_padding' => '2',
@@ -82,10 +84,49 @@ switch ($column_padding) {
 	break;
 }
 
-$css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'panel panel-default wpb_accordion_section group', $this->settings['base'], $atts );
+$panel_title_class = array();
+if ( is_array($tab_titles_typography)) {
+	extract($tab_titles_typography);
+	if ( isset($titles_font) ) {
+		$panel_title_class[] = $titles_font;
+	}
+	if ( isset($titles_size) ) {
+		$panel_title_class[] = $titles_size;
+	}
+	if ( isset($titles_weight) ) {
+		$panel_title_class[] = 'font-weight-' . $titles_weight;
+	}
+	if ( isset($titles_transform) ) {
+		$panel_title_class[] = 'text-' . $titles_transform;
+	}
+	if ( isset($titles_height) ) {
+		$panel_title_class[] = $titles_height;
+	}
+	if ( isset($titles_space) ) {
+		$panel_title_class[] = $titles_space;
+	}
+}
+$panel_title_class[] = 'icon-size-' . esc_attr($icon_size ? $icon_size : 'rg');
+
+$panel_class = '';
+if (!empty($acc_tab_active_bg_color)) {
+	$panel_class .= ' has-active-bg';
+	$panel_class .= ' style-' . $acc_tab_active_bg_color . '-bg';
+}
+
+if (!empty($acc_tab_active_txt_color)) {
+	$panel_class .= ' has-active-color';
+	$panel_class .= ' text-' . $acc_tab_active_txt_color . '-color';
+}
+
+$css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'panel panel-default wpb_accordion_section group ' . $panel_class . $parent_panel_class . ($active ? ' active-group' : ''), $this->settings['base'], $atts );
 $output .= '<div class="'.esc_attr(trim($css_class)).'">';
 $output .= '<div class="panel-heading wpb_accordion_header ui-accordion-header" role="tab">';
-$output .= '<p class="panel-title'.($active ? ' active' : '').'"><a data-toggle="collapse" data-parent="#'.$id.'" href="#'.$hash.'"' . $history_rend . '>' . $icon_left . '<span>' . $title . '</span>' . $icon_right . '</a></p>';
+$panel_a_class_str = '';
+if ( $panel_a_class !== '' ) {
+	$panel_a_class_str = ' class="' . $panel_a_class . '"';
+}
+$output .= '<p class="panel-title'.($active ? ' active' : '').' ' . esc_attr(trim(implode(' ', $panel_title_class))) . '"><a data-toggle="collapse" data-parent="#'.$id.'" href="#'.$hash.'"' . $history_rend . $panel_a_class_str . '>' . $icon_left . '<span>' . $title . '</span>' . $icon_right . '</a></p>';
 $output .= '</div>';
 $output .= '<div ' . esc_attr( $history_tag ) . '="' . esc_attr( $hash ) . '" class="panel-collapse collapse'.($active ? ' in' : '').'" role="tabpanel">';
 $output .= '<div class="panel-body wpb_accordion_content ui-accordion-content' .  $body_class . '">';

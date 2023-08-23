@@ -82,7 +82,7 @@
   }
 }
 @media (max-width: 959px) {
-  .grid-filters a {
+  .grid-filters .menu-smart a {
     padding: 5px 9px 5px 9px;
   }
 }
@@ -722,7 +722,7 @@ body.rtl .grid-filters .menu-smart--filter-cats_mobile-toggle-trigger:after {
   transition: opacity 0.5s ease;
   opacity: 1;
   background-repeat: no-repeat;
-  background-position: center ;
+  background-position: center;
   top: 0;
   left: 0;
   width: 38px;

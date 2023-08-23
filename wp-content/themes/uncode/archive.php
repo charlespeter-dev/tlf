@@ -23,7 +23,7 @@ $limit_width = $limit_content_width = $the_content = $main_content = $layout = $
 $index_has_navigation = false;
 
 if (isset($post->post_type)) {
-	$post_type = $post->post_type . '_index';
+	$post_type = $post->post_type === 'product_variation' ? 'product_index' : $post->post_type . '_index';
 } else {
 	global $wp_taxonomies;
 	if ( isset($wp_taxonomies[$wp_query->get_queried_object()->taxonomy]) ) {

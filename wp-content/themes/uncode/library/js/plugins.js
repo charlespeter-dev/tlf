@@ -23,10 +23,10 @@
   }
 
   /*!
-   * GSAP 3.6.1
+   * GSAP 3.11.3
    * https://greensock.com
    *
-   * @license Copyright 2008-2021, GreenSock. All rights reserved.
+   * @license Copyright 2008-2022, GreenSock. All rights reserved.
    * Subject to the terms at https://greensock.com/standard-license or for
    * Club GreenSock members, the agreement issued with that membership.
    * @author: Jack Doyle, jack@greensock.com
@@ -45,6 +45,8 @@
     delay: 0
   },
       _suppressOverwrites,
+      _reverting,
+      _context,
       _bigNum = 1e8,
       _tinyNum = 1 / _bigNum,
       _2PI = Math.PI * 2,
@@ -84,8 +86,8 @@
       _numWithUnitExp = /[-+=.]*\d+[.e-]*\d*[a-z%]*/g,
       _complexStringNumExp = /[-+=.]*\d+\.?\d*(?:e-|e\+)?\d*/gi,
       _relExp = /[+-]=-?[.\d]+/,
-      _delimitedValueExp = /[#\-+.]*\b[a-z\d-=+%.]+/gi,
-      _unitExp = /[\d.+\-=]+(?:e[-+]\d*)*/i,
+      _delimitedValueExp = /[^,'"\[\]\s]+/gi,
+      _unitExp = /^[+\-=e\s\d]*\d+[.\d]*([a-z]*|%)\s*$/i,
       _globalTimeline,
       _win,
       _coreInitted,
@@ -107,6 +109,18 @@
   },
       _emptyFunc = function _emptyFunc() {
     return 0;
+  },
+      _startAtRevertConfig = {
+    suppressEvents: true,
+    isStart: true,
+    kill: false
+  },
+      _revertConfigNoKill = {
+    suppressEvents: true,
+    kill: false
+  },
+      _revertConfig = {
+    suppressEvents: true
   },
       _reservedProps = {},
       _lazyTweens = [],
@@ -151,6 +165,15 @@
       _round = function _round(value) {
     return Math.round(value * 100000) / 100000 || 0;
   },
+      _roundPrecise = function _roundPrecise(value) {
+    return Math.round(value * 10000000) / 10000000 || 0;
+  },
+      _parseRelative = function _parseRelative(start, value) {
+    var operator = value.charAt(0),
+        end = parseFloat(value.substr(2));
+    start = parseFloat(start);
+    return operator === "+" ? start + end : operator === "-" ? start - end : operator === "*" ? start * end : start / end;
+  },
       _arrayContainsAny = function _arrayContainsAny(toSearch, toFind) {
     var l = toFind.length,
         i = 0;
@@ -158,29 +181,6 @@
     for (; toSearch.indexOf(toFind[i]) < 0 && ++i < l;) {}
 
     return i < l;
-  },
-      _parseVars = function _parseVars(params, type, parent) {
-    var isLegacy = _isNumber(params[1]),
-        varsIndex = (isLegacy ? 2 : 1) + (type < 2 ? 0 : 1),
-        vars = params[varsIndex],
-        irVars;
-
-    isLegacy && (vars.duration = params[1]);
-    vars.parent = parent;
-
-    if (type) {
-      irVars = vars;
-
-      while (parent && !("immediateRender" in irVars)) {
-        irVars = parent.vars.defaults || {};
-        parent = _isNotFalse(parent.vars.inherit) && parent.parent;
-      }
-
-      vars.immediateRender = _isNotFalse(irVars.immediateRender);
-      type < 2 ? vars.runBackwards = 1 : vars.startAt = params[varsIndex - 1];
-    }
-
-    return vars;
   },
       _lazyRender = function _lazyRender() {
     var l = _lazyTweens.length,
@@ -198,7 +198,7 @@
   },
       _lazySafeRender = function _lazySafeRender(animation, time, suppressEvents, force) {
     _lazyTweens.length && _lazyRender();
-    animation.render(time, suppressEvents, force);
+    animation.render(time, suppressEvents, force || _reverting && time < 0 && (animation._initted || animation._startAt));
     _lazyTweens.length && _lazyRender();
   },
       _numericIfPossible = function _numericIfPossible(value) {
@@ -215,10 +215,12 @@
 
     return obj;
   },
-      _setKeyframeDefaults = function _setKeyframeDefaults(obj, defaults) {
-    for (var p in defaults) {
-      p in obj || p === "duration" || p === "ease" || (obj[p] = defaults[p]);
-    }
+      _setKeyframeDefaults = function _setKeyframeDefaults(excludeDuration) {
+    return function (obj, defaults) {
+      for (var p in defaults) {
+        p in obj || p === "duration" && excludeDuration || p === "ease" || (obj[p] = defaults[p]);
+      }
+    };
   },
       _merge = function _merge(base, toMerge) {
     for (var p in toMerge) {
@@ -246,7 +248,7 @@
   },
       _inheritDefaults = function _inheritDefaults(vars) {
     var parent = vars.parent || _globalTimeline,
-        func = vars.keyframes ? _setKeyframeDefaults : _setDefaults;
+        func = vars.keyframes ? _setKeyframeDefaults(_isArray(vars.keyframes)) : _setDefaults;
 
     if (_isNotFalse(vars.inherit)) {
       while (parent) {
@@ -356,6 +358,9 @@
 
     return animation;
   },
+      _rewindStartAt = function _rewindStartAt(tween, totalTime, suppressEvents, force) {
+    return tween._startAt && (_reverting ? tween._startAt.revert(_revertConfigNoKill) : tween.vars.immediateRender && !tween.vars.autoRevert || tween._startAt.render(totalTime, true, force));
+  },
       _hasNoPausedAncestors = function _hasNoPausedAncestors(animation) {
     return !animation || animation._ts && _hasNoPausedAncestors(animation.parent);
   },
@@ -370,13 +375,13 @@
     return (parentTime - child._start) * child._ts + (child._ts >= 0 ? 0 : child._dirty ? child.totalDuration() : child._tDur);
   },
       _setEnd = function _setEnd(animation) {
-    return animation._end = _round(animation._start + (animation._tDur / Math.abs(animation._ts || animation._rts || _tinyNum) || 0));
+    return animation._end = _roundPrecise(animation._start + (animation._tDur / Math.abs(animation._ts || animation._rts || _tinyNum) || 0));
   },
       _alignPlayhead = function _alignPlayhead(animation, totalTime) {
     var parent = animation._dp;
 
     if (parent && parent.smoothChildTiming && animation._ts) {
-      animation._start = _round(parent._time - (animation._ts > 0 ? totalTime / animation._ts : ((animation._dirty ? animation.totalDuration() : animation._tDur) - totalTime) / -animation._ts));
+      animation._start = _roundPrecise(parent._time - (animation._ts > 0 ? totalTime / animation._ts : ((animation._dirty ? animation.totalDuration() : animation._tDur) - totalTime) / -animation._ts));
 
       _setEnd(animation);
 
@@ -411,29 +416,30 @@
   },
       _addToTimeline = function _addToTimeline(timeline, child, position, skipChecks) {
     child.parent && _removeFromParent(child);
-    child._start = _round(position + child._delay);
-    child._end = _round(child._start + (child.totalDuration() / Math.abs(child.timeScale()) || 0));
+    child._start = _roundPrecise((_isNumber(position) ? position : position || timeline !== _globalTimeline ? _parsePosition(timeline, position, child) : timeline._time) + child._delay);
+    child._end = _roundPrecise(child._start + (child.totalDuration() / Math.abs(child.timeScale()) || 0));
 
     _addLinkedListItem(timeline, child, "_first", "_last", timeline._sort ? "_start" : 0);
 
-    timeline._recent = child;
+    _isFromOrFromStart(child) || (timeline._recent = child);
     skipChecks || _postAddChecks(timeline, child);
+    timeline._ts < 0 && _alignPlayhead(timeline, timeline._tTime);
     return timeline;
   },
       _scrollTrigger = function _scrollTrigger(animation, trigger) {
     return (_globals.ScrollTrigger || _missingPlugin("scrollTrigger", trigger)) && _globals.ScrollTrigger.create(trigger, animation);
   },
-      _attemptInitTween = function _attemptInitTween(tween, totalTime, force, suppressEvents) {
-    _initTween(tween, totalTime);
+      _attemptInitTween = function _attemptInitTween(tween, time, force, suppressEvents, tTime) {
+    _initTween(tween, time, tTime);
 
     if (!tween._initted) {
       return 1;
     }
 
-    if (!force && tween._pt && (tween._dur && tween.vars.lazy !== false || !tween._dur && tween.vars.lazy) && _lastRenderedFrame !== _ticker.frame) {
+    if (!force && tween._pt && !_reverting && (tween._dur && tween.vars.lazy !== false || !tween._dur && tween.vars.lazy) && _lastRenderedFrame !== _ticker.frame) {
       _lazyTweens.push(tween);
 
-      tween._lazy = [totalTime, suppressEvents];
+      tween._lazy = [tTime, suppressEvents];
       return 1;
     }
   },
@@ -441,9 +447,13 @@
     var parent = _ref.parent;
     return parent && parent._ts && parent._initted && !parent._lock && (parent.rawTime() < 0 || _parentPlayheadIsBeforeStart(parent));
   },
+      _isFromOrFromStart = function _isFromOrFromStart(_ref2) {
+    var data = _ref2.data;
+    return data === "isFromStart" || data === "isStart";
+  },
       _renderZeroDurationTween = function _renderZeroDurationTween(tween, totalTime, suppressEvents, force) {
     var prevRatio = tween.ratio,
-        ratio = totalTime < 0 || !totalTime && (!tween._start && _parentPlayheadIsBeforeStart(tween) || (tween._ts < 0 || tween._dp._ts < 0) && tween.data !== "isFromStart" && tween.data !== "isStart") ? 0 : 1,
+        ratio = totalTime < 0 || !totalTime && (!tween._start && _parentPlayheadIsBeforeStart(tween) && !(!tween._initted && _isFromOrFromStart(tween)) || (tween._ts < 0 || tween._dp._ts < 0) && !_isFromOrFromStart(tween)) ? 0 : 1,
         repeatDelay = tween._rDelay,
         tTime = 0,
         pt,
@@ -453,17 +463,16 @@
     if (repeatDelay && tween._repeat) {
       tTime = _clamp(0, tween._tDur, totalTime);
       iteration = _animationCycle(tTime, repeatDelay);
-      prevIteration = _animationCycle(tween._tTime, repeatDelay);
       tween._yoyo && iteration & 1 && (ratio = 1 - ratio);
 
-      if (iteration !== prevIteration) {
+      if (iteration !== _animationCycle(tween._tTime, repeatDelay)) {
         prevRatio = 1 - ratio;
         tween.vars.repeatRefresh && tween._initted && tween.invalidate();
       }
     }
 
-    if (ratio !== prevRatio || force || tween._zTime === _tinyNum || !totalTime && tween._zTime) {
-      if (!tween._initted && _attemptInitTween(tween, totalTime, force, suppressEvents)) {
+    if (ratio !== prevRatio || _reverting || force || tween._zTime === _tinyNum || !totalTime && tween._zTime) {
+      if (!tween._initted && _attemptInitTween(tween, totalTime, force, suppressEvents, tTime)) {
         return;
       }
 
@@ -481,14 +490,14 @@
         pt = pt._next;
       }
 
-      tween._startAt && totalTime < 0 && tween._startAt.render(totalTime, true, true);
+      totalTime < 0 && _rewindStartAt(tween, totalTime, suppressEvents, true);
       tween._onUpdate && !suppressEvents && _callback(tween, "onUpdate");
       tTime && tween._repeat && !suppressEvents && tween.parent && _callback(tween, "onRepeat");
 
       if ((totalTime >= tween._tDur || totalTime < 0) && tween.ratio === ratio) {
         ratio && _removeFromParent(tween, 1);
 
-        if (!suppressEvents) {
+        if (!suppressEvents && !_reverting) {
           _callback(tween, ratio ? "onComplete" : "onReverseComplete", true);
 
           tween._prom && tween._prom();
@@ -505,7 +514,7 @@
       child = animation._first;
 
       while (child && child._start <= time) {
-        if (!child._dur && child.data === "isPause" && child._start > prevTime) {
+        if (child.data === "isPause" && child._start > prevTime) {
           return child;
         }
 
@@ -515,7 +524,7 @@
       child = animation._last;
 
       while (child && child._start >= time) {
-        if (!child._dur && child.data === "isPause" && child._start < prevTime) {
+        if (child.data === "isPause" && child._start < prevTime) {
           return child;
         }
 
@@ -525,12 +534,13 @@
   },
       _setDuration = function _setDuration(animation, duration, skipUncache, leavePlayhead) {
     var repeat = animation._repeat,
-        dur = _round(duration) || 0,
+        dur = _roundPrecise(duration) || 0,
         totalProgress = animation._tTime / animation._tDur;
     totalProgress && !leavePlayhead && (animation._time *= dur / animation._dur);
     animation._dur = dur;
-    animation._tDur = !repeat ? dur : repeat < 0 ? 1e10 : _round(dur * (repeat + 1) + animation._rDelay * repeat);
-    totalProgress && !leavePlayhead ? _alignPlayhead(animation, animation._tTime = animation._tDur * totalProgress) : animation.parent && _setEnd(animation);
+    animation._tDur = !repeat ? dur : repeat < 0 ? 1e10 : _roundPrecise(dur * (repeat + 1) + animation._rDelay * repeat);
+    totalProgress > 0 && !leavePlayhead && _alignPlayhead(animation, animation._tTime = animation._tDur * totalProgress);
+    animation.parent && _setEnd(animation);
     skipUncache || _uncache(animation.parent, animation);
     return animation;
   },
@@ -539,34 +549,67 @@
   },
       _zeroPosition = {
     _start: 0,
-    endTime: _emptyFunc
+    endTime: _emptyFunc,
+    totalDuration: _emptyFunc
   },
-      _parsePosition = function _parsePosition(animation, position) {
+      _parsePosition = function _parsePosition(animation, position, percentAnimation) {
     var labels = animation.labels,
         recent = animation._recent || _zeroPosition,
         clippedDuration = animation.duration() >= _bigNum ? recent.endTime(false) : animation._dur,
         i,
-        offset;
+        offset,
+        isPercent;
 
     if (_isString(position) && (isNaN(position) || position in labels)) {
-      i = position.charAt(0);
-
-      if (i === "<" || i === ">") {
-        return (i === "<" ? recent._start : recent.endTime(recent._repeat >= 0)) + (parseFloat(position.substr(1)) || 0);
-      }
-
+      offset = position.charAt(0);
+      isPercent = position.substr(-1) === "%";
       i = position.indexOf("=");
+
+      if (offset === "<" || offset === ">") {
+        i >= 0 && (position = position.replace(/=/, ""));
+        return (offset === "<" ? recent._start : recent.endTime(recent._repeat >= 0)) + (parseFloat(position.substr(1)) || 0) * (isPercent ? (i < 0 ? recent : percentAnimation).totalDuration() / 100 : 1);
+      }
 
       if (i < 0) {
         position in labels || (labels[position] = clippedDuration);
         return labels[position];
       }
 
-      offset = +(position.charAt(i - 1) + position.substr(i + 1));
-      return i > 1 ? _parsePosition(animation, position.substr(0, i - 1)) + offset : clippedDuration + offset;
+      offset = parseFloat(position.charAt(i - 1) + position.substr(i + 1));
+
+      if (isPercent && percentAnimation) {
+        offset = offset / 100 * (_isArray(percentAnimation) ? percentAnimation[0] : percentAnimation).totalDuration();
+      }
+
+      return i > 1 ? _parsePosition(animation, position.substr(0, i - 1), percentAnimation) + offset : clippedDuration + offset;
     }
 
     return position == null ? clippedDuration : +position;
+  },
+      _createTweenType = function _createTweenType(type, params, timeline) {
+    var isLegacy = _isNumber(params[1]),
+        varsIndex = (isLegacy ? 2 : 1) + (type < 2 ? 0 : 1),
+        vars = params[varsIndex],
+        irVars,
+        parent;
+
+    isLegacy && (vars.duration = params[1]);
+    vars.parent = timeline;
+
+    if (type) {
+      irVars = vars;
+      parent = timeline;
+
+      while (parent && !("immediateRender" in irVars)) {
+        irVars = parent.vars.defaults || {};
+        parent = _isNotFalse(parent.vars.inherit) && parent.parent;
+      }
+
+      vars.immediateRender = _isNotFalse(irVars.immediateRender);
+      type < 2 ? vars.runBackwards = 1 : vars.startAt = params[varsIndex - 1];
+    }
+
+    return new Tween(params[0], vars, params[varsIndex + 1]);
   },
       _conditionalReturn = function _conditionalReturn(value, func) {
     return value || value === 0 ? func(value) : func;
@@ -574,14 +617,8 @@
       _clamp = function _clamp(min, max, value) {
     return value < min ? min : value > max ? max : value;
   },
-      getUnit = function getUnit(value) {
-    if (typeof value !== "string") {
-      return "";
-    }
-
-    var v = _unitExp.exec(value);
-
-    return v ? value.substr(v.index + v[0].length) : "";
+      getUnit = function getUnit(value, v) {
+    return !_isString(value) || !(v = _unitExp.exec(value)) ? "" : v[1];
   },
       clamp = function clamp(min, max, value) {
     return _conditionalReturn(value, function (v) {
@@ -603,8 +640,15 @@
       return _isString(value) && !leaveStrings || _isArrayLike(value, 1) ? (_accumulator = accumulator).push.apply(_accumulator, toArray(value)) : accumulator.push(value);
     }) || accumulator;
   },
-      toArray = function toArray(value, leaveStrings) {
-    return _isString(value) && !leaveStrings && (_coreInitted || !_wake()) ? _slice.call(_doc.querySelectorAll(value), 0) : _isArray(value) ? _flatten(value, leaveStrings) : _isArrayLike(value) ? _slice.call(value, 0) : value ? [value] : [];
+      toArray = function toArray(value, scope, leaveStrings) {
+    return _context && !scope && _context.selector ? _context.selector(value) : _isString(value) && !leaveStrings && (_coreInitted || !_wake()) ? _slice.call((scope || _doc).querySelectorAll(value), 0) : _isArray(value) ? _flatten(value, leaveStrings) : _isArrayLike(value) ? _slice.call(value, 0) : value ? [value] : [];
+  },
+      selector = function selector(value) {
+    value = toArray(value)[0] || _warn("Invalid scope") || {};
+    return function (v) {
+      var el = value.current || value.nativeElement || value;
+      return toArray(v, el.querySelectorAll ? el : el === value ? _warn("Invalid scope") || _doc.createElement("div") : value);
+    };
   },
       shuffle = function shuffle(a) {
     return a.sort(function () {
@@ -666,7 +710,7 @@
 
         distances = cache[l] = [];
         originX = ratios ? Math.min(wrapAt, l) * ratioX - .5 : from % wrapAt;
-        originY = ratios ? l * ratioY / wrapAt - .5 : from / wrapAt | 0;
+        originY = wrapAt === _bigNum ? 0 : ratios ? l * ratioY / wrapAt - .5 : from / wrapAt | 0;
         max = 0;
         min = _bigNum;
 
@@ -688,13 +732,14 @@
       }
 
       l = (distances[i] - distances.min) / distances.max || 0;
-      return _round(distances.b + (ease ? ease(l) : l) * distances.v) + distances.u;
+      return _roundPrecise(distances.b + (ease ? ease(l) : l) * distances.v) + distances.u;
     };
   },
       _roundModifier = function _roundModifier(v) {
-    var p = v < 1 ? Math.pow(10, (v + "").length - 2) : 1;
+    var p = Math.pow(10, ((v + "").split(".")[1] || "").length);
     return function (raw) {
-      var n = Math.round(parseFloat(raw) / v) * v * p;
+      var n = _roundPrecise(Math.round(parseFloat(raw) / v) * v * p);
+
       return (n - n % 1) / p + (_isNumber(raw) ? 0 : getUnit(raw));
     };
   },
@@ -895,8 +940,11 @@
       _callback = function _callback(animation, type, executeLazyFirst) {
     var v = animation.vars,
         callback = v[type],
+        prevContext = _context,
+        context = animation._ctx,
         params,
-        scope;
+        scope,
+        result;
 
     if (!callback) {
       return;
@@ -905,12 +953,15 @@
     params = v[type + "Params"];
     scope = v.callbackScope || animation;
     executeLazyFirst && _lazyTweens.length && _lazyRender();
-    return params ? callback.apply(scope, params) : callback.call(scope);
+    context && (_context = context);
+    result = params ? callback.apply(scope, params) : callback.call(scope);
+    _context = prevContext;
+    return result;
   },
       _interrupt = function _interrupt(animation) {
     _removeFromParent(animation);
 
-    animation.scrollTrigger && animation.scrollTrigger.kill(false);
+    animation.scrollTrigger && animation.scrollTrigger.kill(!!_reverting);
     animation.progress() < 1 && _callback(animation, "onInterrupt");
     return animation;
   },
@@ -988,7 +1039,7 @@
     transparent: [_255, _255, _255, 0]
   },
       _hue = function _hue(h, m1, m2) {
-    h = h < 0 ? h + 1 : h > 1 ? h - 1 : h;
+    h += h < 0 ? 1 : h > 1 ? -1 : 0;
     return (h * 6 < 1 ? m1 + (m2 - m1) * h * 6 : h < .5 ? m2 : h * 3 < 2 ? m1 + (m2 - m1) * (2 / 3 - h) * 6 : m1) * _255 + .5 | 0;
   },
       splitColor = function splitColor(v, toHSL, forceAlpha) {
@@ -1246,13 +1297,22 @@
         _gap = 1000 / (_fps || 240);
         _nextTime = _self.time * 1000 + _gap;
       },
-      add: function add(callback) {
-        _listeners.indexOf(callback) < 0 && _listeners.push(callback);
+      add: function add(callback, once, prioritize) {
+        var func = once ? function (t, d, f, v) {
+          callback(t, d, f, v);
+
+          _self.remove(func);
+        } : callback;
+
+        _self.remove(callback);
+
+        _listeners[prioritize ? "unshift" : "push"](func);
 
         _wake();
+
+        return func;
       },
-      remove: function remove(callback) {
-        var i;
+      remove: function remove(callback, i) {
         ~(i = _listeners.indexOf(callback)) && _listeners.splice(i, 1) && _i >= i && _i--;
       },
       _listeners: _listeners
@@ -1474,8 +1534,7 @@
     this.set = harness ? harness.getSetter : _getSetter;
   };
   var Animation = function () {
-    function Animation(vars, time) {
-      var parent = vars.parent || _globalTimeline;
+    function Animation(vars) {
       this.vars = vars;
       this._delay = +vars.delay || 0;
 
@@ -1489,10 +1548,14 @@
       _setDuration(this, +vars.duration, 1, 1);
 
       this.data = vars.data;
+
+      if (_context) {
+        this._ctx = _context;
+
+        _context.data.push(this);
+      }
+
       _tickerActive || _ticker.wake();
-      parent && _addToTimeline(parent, this, time || time === 0 ? time : parent._time, 1);
-      vars.reversed && this.reverse();
-      vars.paused && this.paused(true);
     }
 
     var _proto = Animation.prototype;
@@ -1534,7 +1597,7 @@
 
         !parent._dp || parent.parent || _postAddChecks(parent, this);
 
-        while (parent.parent) {
+        while (parent && parent.parent) {
           if (parent.parent._time !== parent._start + (parent._ts >= 0 ? parent._tTime / parent._ts : (parent.totalDuration() - parent._tTime) / -parent._ts)) {
             parent.totalTime(parent._tTime, true);
           }
@@ -1557,7 +1620,7 @@
     };
 
     _proto.time = function time(value, suppressEvents) {
-      return arguments.length ? this.totalTime(Math.min(this.totalDuration(), value + _elapsedCycleDuration(this)) % this._dur || (value ? this._dur : 0), suppressEvents) : this._time;
+      return arguments.length ? this.totalTime(Math.min(this.totalDuration(), value + _elapsedCycleDuration(this)) % (this._dur + this._rDelay) || (value ? this._dur : 0), suppressEvents) : this._time;
     };
 
     _proto.totalProgress = function totalProgress(value, suppressEvents) {
@@ -1586,7 +1649,11 @@
       var tTime = this.parent && this._ts ? _parentToChildTotalTime(this.parent._time, this) : this._tTime;
       this._rts = +value || 0;
       this._ts = this._ps || value === -_tinyNum ? 0 : this._rts;
-      return _recacheAncestors(this.totalTime(_clamp(-this._delay, this._tDur, tTime), true));
+      this.totalTime(_clamp(-this._delay, this._tDur, tTime), true);
+
+      _setEnd(this);
+
+      return _recacheAncestors(this);
     };
 
     _proto.paused = function paused(value) {
@@ -1604,7 +1671,7 @@
           _wake();
 
           this._ts = this._rts;
-          this.totalTime(this.parent && !this.parent.smoothChildTiming ? this.rawTime() : this._tTime || this._pTime, this.progress() === 1 && (this._tTime -= _tinyNum) && Math.abs(this._zTime) !== _tinyNum);
+          this.totalTime(this.parent && !this.parent.smoothChildTiming ? this.rawTime() : this._tTime || this._pTime, this.progress() === 1 && Math.abs(this._zTime) !== _tinyNum && (this._tTime -= _tinyNum));
         }
       }
 
@@ -1623,12 +1690,30 @@
     };
 
     _proto.endTime = function endTime(includeRepeats) {
-      return this._start + (_isNotFalse(includeRepeats) ? this.totalDuration() : this.duration()) / Math.abs(this._ts);
+      return this._start + (_isNotFalse(includeRepeats) ? this.totalDuration() : this.duration()) / Math.abs(this._ts || 1);
     };
 
     _proto.rawTime = function rawTime(wrapRepeats) {
       var parent = this.parent || this._dp;
       return !parent ? this._tTime : wrapRepeats && (!this._ts || this._repeat && this._time && this.totalProgress() < 1) ? this._tTime % (this._dur + this._rDelay) : !this._ts ? this._tTime : _parentToChildTotalTime(parent.rawTime(wrapRepeats), this);
+    };
+
+    _proto.revert = function revert(config) {
+      if (config === void 0) {
+        config = _revertConfig;
+      }
+
+      var prevIsReverting = _reverting;
+      _reverting = config;
+
+      if (this._initted || this._startAt) {
+        this.timeline && this.timeline.revert(config);
+        this.totalTime(-0.01, config.suppressEvents);
+      }
+
+      this.data !== "nested" && config.kill !== false && this.kill();
+      _reverting = prevIsReverting;
+      return this;
     };
 
     _proto.globalTime = function globalTime(rawTime) {
@@ -1640,7 +1725,7 @@
         animation = animation._dp;
       }
 
-      return time;
+      return !this.parent && this.vars.immediateRender ? -1 : time;
     };
 
     _proto.repeat = function repeat(value) {
@@ -1654,8 +1739,12 @@
 
     _proto.repeatDelay = function repeatDelay(value) {
       if (arguments.length) {
+        var time = this._time;
         this._rDelay = value;
-        return _onUpdateTotalDuration(this);
+
+        _onUpdateTotalDuration(this);
+
+        return time ? this.time(time) : this;
       }
 
       return this._rDelay;
@@ -1788,19 +1877,21 @@
   var Timeline = function (_Animation) {
     _inheritsLoose(Timeline, _Animation);
 
-    function Timeline(vars, time) {
+    function Timeline(vars, position) {
       var _this;
 
       if (vars === void 0) {
         vars = {};
       }
 
-      _this = _Animation.call(this, vars, time) || this;
+      _this = _Animation.call(this, vars) || this;
       _this.labels = {};
       _this.smoothChildTiming = !!vars.smoothChildTiming;
       _this.autoRemoveChildren = !!vars.autoRemoveChildren;
       _this._sort = _isNotFalse(vars.sortChildren);
-      _this.parent && _postAddChecks(_this.parent, _assertThisInitialized(_this));
+      _globalTimeline && _addToTimeline(vars.parent || _globalTimeline, _assertThisInitialized(_this), position);
+      vars.reversed && _this.reverse();
+      vars.paused && _this.paused(true);
       vars.scrollTrigger && _scrollTrigger(_assertThisInitialized(_this), vars.scrollTrigger);
       return _this;
     }
@@ -1808,17 +1899,20 @@
     var _proto2 = Timeline.prototype;
 
     _proto2.to = function to(targets, vars, position) {
-      new Tween(targets, _parseVars(arguments, 0, this), _parsePosition(this, _isNumber(vars) ? arguments[3] : position));
+      _createTweenType(0, arguments, this);
+
       return this;
     };
 
     _proto2.from = function from(targets, vars, position) {
-      new Tween(targets, _parseVars(arguments, 1, this), _parsePosition(this, _isNumber(vars) ? arguments[3] : position));
+      _createTweenType(1, arguments, this);
+
       return this;
     };
 
     _proto2.fromTo = function fromTo(targets, fromVars, toVars, position) {
-      new Tween(targets, _parseVars(arguments, 2, this), _parsePosition(this, _isNumber(fromVars) ? arguments[4] : position));
+      _createTweenType(2, arguments, this);
+
       return this;
     };
 
@@ -1832,7 +1926,7 @@
     };
 
     _proto2.call = function call(callback, params, position) {
-      return _addToTimeline(this, Tween.delayedCall(0, callback, params), _parsePosition(this, position));
+      return _addToTimeline(this, Tween.delayedCall(0, callback, params), position);
     };
 
     _proto2.staggerTo = function staggerTo(targets, duration, vars, stagger, position, onCompleteAll, onCompleteAllParams) {
@@ -1861,7 +1955,7 @@
       var prevTime = this._time,
           tDur = this._dirty ? this.totalDuration() : this._tDur,
           dur = this._dur,
-          tTime = this !== _globalTimeline && totalTime > tDur - _tinyNum && totalTime >= 0 ? tDur : totalTime < _tinyNum ? 0 : totalTime,
+          tTime = totalTime <= 0 ? 0 : _roundPrecise(totalTime),
           crossingStart = this._zTime < 0 !== totalTime < 0 && (this._initted || !dur),
           time,
           child,
@@ -1875,6 +1969,7 @@
           prevIteration,
           yoyo,
           isYoyo;
+      this !== _globalTimeline && tTime > tDur && totalTime >= 0 && (tTime = tDur);
 
       if (tTime !== this._tTime || force || crossingStart) {
         if (prevTime !== this._time && dur) {
@@ -1900,7 +1995,7 @@
             return this.totalTime(cycleDuration * 100 + totalTime, suppressEvents, force);
           }
 
-          time = _round(tTime % cycleDuration);
+          time = _roundPrecise(tTime % cycleDuration);
 
           if (tTime === tDur) {
             iteration = this._repeat;
@@ -1930,7 +2025,8 @@
             iteration < prevIteration && (rewinding = !rewinding);
             prevTime = rewinding ? 0 : dur;
             this._lock = 1;
-            this.render(prevTime || (isYoyo ? 0 : _round(iteration * cycleDuration)), suppressEvents, !dur)._lock = 0;
+            this.render(prevTime || (isYoyo ? 0 : _roundPrecise(iteration * cycleDuration)), suppressEvents, !dur)._lock = 0;
+            this._tTime = tTime;
             !suppressEvents && this.parent && _callback(this, "onRepeat");
             this.vars.repeatRefresh && !isYoyo && (this.invalidate()._lock = 1);
 
@@ -1945,6 +2041,7 @@
               this._lock = 2;
               prevTime = rewinding ? dur : -0.0001;
               this.render(prevTime, true);
+              this.vars.repeatRefresh && !isYoyo && this.invalidate();
             }
 
             this._lock = 0;
@@ -1958,7 +2055,7 @@
         }
 
         if (this._hasPause && !this._forcing && this._lock < 2) {
-          pauseTween = _findNextPauseTween(this, _round(prevTime), _round(time));
+          pauseTween = _findNextPauseTween(this, _roundPrecise(prevTime), _roundPrecise(time));
 
           if (pauseTween) {
             tTime -= time - (time = pauseTween._start);
@@ -1976,7 +2073,13 @@
           prevTime = 0;
         }
 
-        !prevTime && time && !suppressEvents && _callback(this, "onStart");
+        if (!prevTime && time && !suppressEvents) {
+          _callback(this, "onStart");
+
+          if (this._tTime !== tTime) {
+            return this;
+          }
+        }
 
         if (time >= prevTime && totalTime >= 0) {
           child = this._first;
@@ -2012,7 +2115,7 @@
                 return this.render(totalTime, suppressEvents, force);
               }
 
-              child.render(child._ts > 0 ? (adjustedTime - child._start) * child._ts : (child._dirty ? child.totalDuration() : child._tDur) + (adjustedTime - child._start) * child._ts, suppressEvents, force);
+              child.render(child._ts > 0 ? (adjustedTime - child._start) * child._ts : (child._dirty ? child.totalDuration() : child._tDur) + (adjustedTime - child._start) * child._ts, suppressEvents, force || _reverting && (child._initted || child._startAt));
 
               if (time !== this._time || !this._ts && !prevPaused) {
                 pauseTween = 0;
@@ -2039,11 +2142,11 @@
         }
 
         this._onUpdate && !suppressEvents && _callback(this, "onUpdate", true);
-        if (tTime === tDur && tDur >= this.totalDuration() || !tTime && prevTime) if (prevStart === this._start || Math.abs(timeScale) !== Math.abs(this._ts)) if (!this._lock) {
+        if (tTime === tDur && this._tTime >= this.totalDuration() || !tTime && prevTime) if (prevStart === this._start || Math.abs(timeScale) !== Math.abs(this._ts)) if (!this._lock) {
           (totalTime || !dur) && (tTime === tDur && this._ts > 0 || !tTime && this._ts < 0) && _removeFromParent(this, 1);
 
-          if (!suppressEvents && !(totalTime < 0 && !prevTime) && (tTime || prevTime)) {
-            _callback(this, tTime === tDur ? "onComplete" : "onReverseComplete", true);
+          if (!suppressEvents && !(totalTime < 0 && !prevTime) && (tTime || prevTime || !tDur)) {
+            _callback(this, tTime === tDur && totalTime >= 0 ? "onComplete" : "onReverseComplete", true);
 
             this._prom && !(tTime < tDur && this.timeScale() > 0) && this._prom();
           }
@@ -2056,7 +2159,7 @@
     _proto2.add = function add(child, position) {
       var _this2 = this;
 
-      _isNumber(position) || (position = _parsePosition(this, position));
+      _isNumber(position) || (position = _parsePosition(this, position, child));
 
       if (!(child instanceof Animation)) {
         if (_isArray(child)) {
@@ -2153,7 +2256,7 @@
       this._forcing = 1;
 
       if (!this._dp && this._ts) {
-        this._start = _round(_ticker.time - (this._ts > 0 ? _totalTime2 / this._ts : (this.totalDuration() - _totalTime2) / -this._ts));
+        this._start = _roundPrecise(_ticker.time - (this._ts > 0 ? _totalTime2 / this._ts : (this.totalDuration() - _totalTime2) / -this._ts));
       }
 
       _Animation.prototype.totalTime.call(this, _totalTime2, suppressEvents);
@@ -2235,6 +2338,7 @@
           _onStart = _vars.onStart,
           onStartParams = _vars.onStartParams,
           immediateRender = _vars.immediateRender,
+          initted,
           tween = Tween.to(tl, _setDefaults({
         ease: vars.ease || "none",
         lazy: false,
@@ -2244,8 +2348,13 @@
         duration: vars.duration || Math.abs((endTime - (startAt && "time" in startAt ? startAt.time : tl._time)) / tl.timeScale()) || _tinyNum,
         onStart: function onStart() {
           tl.pause();
-          var duration = vars.duration || Math.abs((endTime - tl._time) / tl.timeScale());
-          tween._dur !== duration && _setDuration(tween, duration, 0, 1).render(tween._time, true, true);
+
+          if (!initted) {
+            var duration = vars.duration || Math.abs((endTime - (startAt && "time" in startAt ? startAt.time : tl._time)) / tl.timeScale());
+            tween._dur !== duration && _setDuration(tween, duration, 0, 1).render(tween._time, true, true);
+            initted = 1;
+          }
+
           _onStart && _onStart.apply(tween, onStartParams || []);
         }
       }, vars));
@@ -2314,16 +2423,16 @@
       return _uncache(this);
     };
 
-    _proto2.invalidate = function invalidate() {
+    _proto2.invalidate = function invalidate(soft) {
       var child = this._first;
       this._lock = 0;
 
       while (child) {
-        child.invalidate();
+        child.invalidate(soft);
         child = child._next;
       }
 
-      return _Animation.prototype.invalidate.call(this);
+      return _Animation.prototype.invalidate.call(this, soft);
     };
 
     _proto2.clear = function clear(includeLabels) {
@@ -2473,7 +2582,7 @@
           _next: pt._pt,
           p: chunk || matchIndex === 1 ? chunk : ",",
           s: startNum,
-          c: endNum.charAt(1) === "=" ? parseFloat(endNum.substr(2)) * (endNum.charAt(0) === "-" ? -1 : 1) : parseFloat(endNum) - startNum,
+          c: endNum.charAt(1) === "=" ? _parseRelative(startNum, endNum) - startNum : parseFloat(endNum) - startNum,
           m: color && color < 4 ? Math.round : 0
         };
         index = _complexStringNumExp.lastIndex;
@@ -2490,7 +2599,7 @@
     this._pt = pt;
     return pt;
   },
-      _addPropTween = function _addPropTween(target, prop, start, end, index, targets, modifier, stringFilter, funcParam) {
+      _addPropTween = function _addPropTween(target, prop, start, end, index, targets, modifier, stringFilter, funcParam, optional) {
     _isFunction(end) && (end = end(index || 0, target, targets));
     var currentValue = target[prop],
         parsedStart = start !== "get" ? start : !_isFunction(currentValue) ? currentValue : funcParam ? target[prop.indexOf("set") || !_isFunction(target["get" + prop.substr(3)]) ? prop : "get" + prop.substr(3)](funcParam) : target[prop](),
@@ -2503,12 +2612,16 @@
       }
 
       if (end.charAt(1) === "=") {
-        end = parseFloat(parsedStart) + parseFloat(end.substr(2)) * (end.charAt(0) === "-" ? -1 : 1) + (getUnit(parsedStart) || 0);
+        pt = _parseRelative(parsedStart, end) + (getUnit(parsedStart) || 0);
+
+        if (pt || pt === 0) {
+          end = pt;
+        }
       }
     }
 
-    if (parsedStart !== end) {
-      if (!isNaN(parsedStart * end)) {
+    if (!optional || parsedStart !== end || _forceAllPropTweens) {
+      if (!isNaN(parsedStart * end) && end !== "") {
         pt = new PropTween(this._pt, target, prop, +parsedStart || 0, end - (parsedStart || 0), typeof currentValue === "boolean" ? _renderBoolean : _renderPlain, 0, setter);
         funcParam && (pt.fp = funcParam);
         modifier && pt.modifier(modifier, this, target);
@@ -2554,7 +2667,8 @@
     return plugin;
   },
       _overwritingTween,
-      _initTween = function _initTween(tween, time) {
+      _forceAllPropTweens,
+      _initTween = function _initTween(tween, time, tTime) {
     var vars = tween.vars,
         ease = vars.ease,
         startAt = vars.startAt,
@@ -2571,7 +2685,7 @@
         prevStartAt = tween._startAt,
         targets = tween._targets,
         parent = tween.parent,
-        fullTargets = parent && parent.data === "nested" ? parent.parent._targets : targets,
+        fullTargets = parent && parent.data === "nested" ? parent.vars.targets : targets,
         autoOverwrite = tween._overwrite === "auto" && !_suppressOverwrites,
         tl = tween.timeline,
         cleanVars,
@@ -2597,11 +2711,18 @@
       tween._ease = yoyoEase;
     }
 
-    if (!tl) {
+    tween._from = !tl && !!vars.runBackwards;
+
+    if (!tl || keyframes && !vars.stagger) {
       harness = targets[0] ? _getCache(targets[0]).harness : 0;
       harnessVars = harness && vars[harness.prop];
       cleanVars = _copyExcluding(vars, _reservedProps);
-      prevStartAt && prevStartAt.render(-1, true).kill();
+
+      if (prevStartAt) {
+        prevStartAt._zTime < 0 && prevStartAt.progress(1);
+        time < 0 && runBackwards && immediateRender && !autoRevert ? prevStartAt.render(-1, true) : prevStartAt.revert(runBackwards && dur ? _revertConfigNoKill : _startAtRevertConfig);
+        prevStartAt._lazy = 0;
+      }
 
       if (startAt) {
         _removeFromParent(tween._startAt = Tween.set(targets, _setDefaults({
@@ -2618,20 +2739,17 @@
           stagger: 0
         }, startAt)));
 
+        tween._startAt._dp = 0;
+        time < 0 && (_reverting || !immediateRender && !autoRevert) && tween._startAt.revert(_revertConfigNoKill);
+
         if (immediateRender) {
-          if (time > 0) {
-            autoRevert || (tween._startAt = 0);
-          } else if (dur && !(time < 0 && prevStartAt)) {
+          if (dur && time <= 0 && tTime <= 0) {
             time && (tween._zTime = time);
             return;
           }
-        } else if (autoRevert === false) {
-          tween._startAt = 0;
         }
       } else if (runBackwards && dur) {
-        if (prevStartAt) {
-          !autoRevert && (tween._startAt = 0);
-        } else {
+        if (!prevStartAt) {
           time && (immediateRender = false);
           p = _setDefaults({
             overwrite: false,
@@ -2645,15 +2763,19 @@
 
           _removeFromParent(tween._startAt = Tween.set(targets, p));
 
+          tween._startAt._dp = 0;
+          time < 0 && (_reverting ? tween._startAt.revert(_revertConfigNoKill) : tween._startAt.render(-1, true));
+          tween._zTime = time;
+
           if (!immediateRender) {
-            _initTween(tween._startAt, _tinyNum);
+            _initTween(tween._startAt, _tinyNum, _tinyNum);
           } else if (!time) {
             return;
           }
         }
       }
 
-      tween._pt = 0;
+      tween._pt = tween._ptCache = 0;
       lazy = dur && _isNotFalse(lazy) || lazy && !dur;
 
       for (i = 0; i < targets.length; i++) {
@@ -2688,7 +2810,7 @@
         if (autoOverwrite && tween._pt) {
           _overwritingTween = tween;
 
-          _globalTimeline.killTweensOf(target, ptLookup, tween.globalTime(0));
+          _globalTimeline.killTweensOf(target, ptLookup, tween.globalTime(time));
 
           overwritten = !tween.parent;
           _overwritingTween = 0;
@@ -2701,9 +2823,57 @@
       tween._onInit && tween._onInit(tween);
     }
 
-    tween._from = !tl && !!vars.runBackwards;
     tween._onUpdate = onUpdate;
     tween._initted = (!tween._op || tween._pt) && !overwritten;
+    keyframes && time <= 0 && tl.render(_bigNum, true, true);
+  },
+      _updatePropTweens = function _updatePropTweens(tween, property, value, start, startIsRelative, ratio, time) {
+    var ptCache = (tween._pt && tween._ptCache || (tween._ptCache = {}))[property],
+        pt,
+        rootPT,
+        lookup,
+        i;
+
+    if (!ptCache) {
+      ptCache = tween._ptCache[property] = [];
+      lookup = tween._ptLookup;
+      i = tween._targets.length;
+
+      while (i--) {
+        pt = lookup[i][property];
+
+        if (pt && pt.d && pt.d._pt) {
+          pt = pt.d._pt;
+
+          while (pt && pt.p !== property && pt.fp !== property) {
+            pt = pt._next;
+          }
+        }
+
+        if (!pt) {
+          _forceAllPropTweens = 1;
+          tween.vars[property] = "+=0";
+
+          _initTween(tween, time);
+
+          _forceAllPropTweens = 0;
+          return 1;
+        }
+
+        ptCache.push(pt);
+      }
+    }
+
+    i = ptCache.length;
+
+    while (i--) {
+      rootPT = ptCache[i];
+      pt = rootPT._pt || rootPT;
+      pt.s = (start || start === 0) && !startIsRelative ? start : pt.s + (start || 0) + ratio * pt.c;
+      pt.c = value - pt.s;
+      rootPT.e && (rootPT.e = _round(value) + getUnit(rootPT.e));
+      rootPT.b && (rootPT.b = pt.s + getUnit(rootPT.b));
+    }
   },
       _addAliasesToVars = function _addAliasesToVars(targets, vars) {
     var harness = targets[0] ? _getCache(targets[0]).harness : 0,
@@ -2732,25 +2902,54 @@
 
     return copy;
   },
+      _parseKeyframe = function _parseKeyframe(prop, obj, allProps, easeEach) {
+    var ease = obj.ease || easeEach || "power1.inOut",
+        p,
+        a;
+
+    if (_isArray(obj)) {
+      a = allProps[prop] || (allProps[prop] = []);
+      obj.forEach(function (value, i) {
+        return a.push({
+          t: i / (obj.length - 1) * 100,
+          v: value,
+          e: ease
+        });
+      });
+    } else {
+      for (p in obj) {
+        a = allProps[p] || (allProps[p] = []);
+        p === "ease" || a.push({
+          t: parseFloat(prop),
+          v: obj[p],
+          e: ease
+        });
+      }
+    }
+  },
       _parseFuncOrString = function _parseFuncOrString(value, tween, i, target, targets) {
     return _isFunction(value) ? value.call(tween, i, target, targets) : _isString(value) && ~value.indexOf("random(") ? _replaceRandom(value) : value;
   },
-      _staggerTweenProps = _callbackNames + "repeat,repeatDelay,yoyo,repeatRefresh,yoyoEase",
-      _staggerPropsToSkip = (_staggerTweenProps + ",id,stagger,delay,duration,paused,scrollTrigger").split(",");
+      _staggerTweenProps = _callbackNames + "repeat,repeatDelay,yoyo,repeatRefresh,yoyoEase,autoRevert",
+      _staggerPropsToSkip = {};
+
+  _forEachName(_staggerTweenProps + ",id,stagger,delay,duration,paused,scrollTrigger", function (name) {
+    return _staggerPropsToSkip[name] = 1;
+  });
 
   var Tween = function (_Animation2) {
     _inheritsLoose(Tween, _Animation2);
 
-    function Tween(targets, vars, time, skipInherit) {
+    function Tween(targets, vars, position, skipInherit) {
       var _this3;
 
       if (typeof vars === "number") {
-        time.duration = vars;
-        vars = time;
-        time = null;
+        position.duration = vars;
+        vars = position;
+        position = null;
       }
 
-      _this3 = _Animation2.call(this, skipInherit ? vars : _inheritDefaults(vars), time) || this;
+      _this3 = _Animation2.call(this, skipInherit ? vars : _inheritDefaults(vars)) || this;
       var _this3$vars = _this3.vars,
           duration = _this3$vars.duration,
           delay = _this3$vars.delay,
@@ -2761,7 +2960,7 @@
           defaults = _this3$vars.defaults,
           scrollTrigger = _this3$vars.scrollTrigger,
           yoyoEase = _this3$vars.yoyoEase,
-          parent = _this3.parent,
+          parent = vars.parent || _globalTimeline,
           parsedTargets = (_isArray(targets) || _isTypedArray(targets) ? _isNumber(targets[0]) : "length" in vars) ? [targets] : toArray(targets),
           tl,
           i,
@@ -2779,23 +2978,16 @@
         vars = _this3.vars;
         tl = _this3.timeline = new Timeline({
           data: "nested",
-          defaults: defaults || {}
+          defaults: defaults || {},
+          targets: parent && parent.data === "nested" ? parent.vars.targets : parsedTargets
         });
         tl.kill();
         tl.parent = tl._dp = _assertThisInitialized(_this3);
         tl._start = 0;
 
-        if (keyframes) {
-          _setDefaults(tl.vars.defaults, {
-            ease: "none"
-          });
-
-          keyframes.forEach(function (frame) {
-            return tl.to(parsedTargets, frame, ">");
-          });
-        } else {
+        if (stagger || _isFuncOrString(duration) || _isFuncOrString(delay)) {
           l = parsedTargets.length;
-          staggerFunc = stagger ? distribute(stagger) : _emptyFunc;
+          staggerFunc = stagger && distribute(stagger);
 
           if (_isObject(stagger)) {
             for (p in stagger) {
@@ -2807,14 +2999,7 @@
           }
 
           for (i = 0; i < l; i++) {
-            copy = {};
-
-            for (p in vars) {
-              if (_staggerPropsToSkip.indexOf(p) < 0) {
-                copy[p] = vars[p];
-              }
-            }
-
+            copy = _copyExcluding(vars, _staggerPropsToSkip);
             copy.stagger = 0;
             yoyoEase && (copy.yoyoEase = yoyoEase);
             staggerVarsToMerge && _merge(copy, staggerVarsToMerge);
@@ -2828,10 +3013,56 @@
               copy.delay = 0;
             }
 
-            tl.to(curTarget, copy, staggerFunc(i, curTarget, parsedTargets));
+            tl.to(curTarget, copy, staggerFunc ? staggerFunc(i, curTarget, parsedTargets) : 0);
+            tl._ease = _easeMap.none;
           }
 
           tl.duration() ? duration = delay = 0 : _this3.timeline = 0;
+        } else if (keyframes) {
+          _inheritDefaults(_setDefaults(tl.vars.defaults, {
+            ease: "none"
+          }));
+
+          tl._ease = _parseEase(keyframes.ease || vars.ease || "none");
+          var time = 0,
+              a,
+              kf,
+              v;
+
+          if (_isArray(keyframes)) {
+            keyframes.forEach(function (frame) {
+              return tl.to(parsedTargets, frame, ">");
+            });
+            tl.duration();
+          } else {
+            copy = {};
+
+            for (p in keyframes) {
+              p === "ease" || p === "easeEach" || _parseKeyframe(p, keyframes[p], copy, keyframes.easeEach);
+            }
+
+            for (p in copy) {
+              a = copy[p].sort(function (a, b) {
+                return a.t - b.t;
+              });
+              time = 0;
+
+              for (i = 0; i < a.length; i++) {
+                kf = a[i];
+                v = {
+                  ease: kf.e,
+                  duration: (kf.t - (i ? a[i - 1].t : 0)) / 100 * duration
+                };
+                v[p] = kf.v;
+                tl.to(parsedTargets, v, time);
+                time += v.duration;
+              }
+            }
+
+            tl.duration() < duration && tl.to({}, {
+              duration: duration - tl.duration()
+            });
+          }
         }
 
         duration || _this3.duration(duration = tl.duration());
@@ -2847,12 +3078,15 @@
         _overwritingTween = 0;
       }
 
-      parent && _postAddChecks(parent, _assertThisInitialized(_this3));
+      _addToTimeline(parent, _assertThisInitialized(_this3), position);
 
-      if (immediateRender || !duration && !keyframes && _this3._start === _round(parent._time) && _isNotFalse(immediateRender) && _hasNoPausedAncestors(_assertThisInitialized(_this3)) && parent.data !== "nested") {
+      vars.reversed && _this3.reverse();
+      vars.paused && _this3.paused(true);
+
+      if (immediateRender || !duration && !keyframes && _this3._start === _roundPrecise(parent._time) && _isNotFalse(immediateRender) && _hasNoPausedAncestors(_assertThisInitialized(_this3)) && parent.data !== "nested") {
         _this3._tTime = -_tinyNum;
 
-        _this3.render(Math.max(0, -delay));
+        _this3.render(Math.max(0, -delay) || 0);
       }
 
       scrollTrigger && _scrollTrigger(_assertThisInitialized(_this3), scrollTrigger);
@@ -2865,7 +3099,8 @@
       var prevTime = this._time,
           tDur = this._tDur,
           dur = this._dur,
-          tTime = totalTime > tDur - _tinyNum && totalTime >= 0 ? tDur : totalTime < _tinyNum ? 0 : totalTime,
+          isNegative = totalTime < 0,
+          tTime = totalTime > tDur - _tinyNum && !isNegative ? tDur : totalTime < _tinyNum ? 0 : totalTime,
           time,
           pt,
           iteration,
@@ -2878,18 +3113,18 @@
 
       if (!dur) {
         _renderZeroDurationTween(this, totalTime, suppressEvents, force);
-      } else if (tTime !== this._tTime || !totalTime || force || !this._initted && this._tTime || this._startAt && this._zTime < 0 !== totalTime < 0) {
+      } else if (tTime !== this._tTime || !totalTime || force || !this._initted && this._tTime || this._startAt && this._zTime < 0 !== isNegative) {
         time = tTime;
         timeline = this.timeline;
 
         if (this._repeat) {
           cycleDuration = dur + this._rDelay;
 
-          if (this._repeat < -1 && totalTime < 0) {
+          if (this._repeat < -1 && isNegative) {
             return this.totalTime(cycleDuration * 100 + totalTime, suppressEvents, force);
           }
 
-          time = _round(tTime % cycleDuration);
+          time = _roundPrecise(tTime % cycleDuration);
 
           if (tTime === tDur) {
             iteration = this._repeat;
@@ -2915,6 +3150,7 @@
           prevIteration = _animationCycle(this._tTime, cycleDuration);
 
           if (time === prevTime && !force && this._initted) {
+            this._tTime = tTime;
             return this;
           }
 
@@ -2923,14 +3159,18 @@
 
             if (this.vars.repeatRefresh && !isYoyo && !this._lock) {
               this._lock = force = 1;
-              this.render(_round(cycleDuration * iteration), true).invalidate()._lock = 0;
+              this.render(_roundPrecise(cycleDuration * iteration), true).invalidate()._lock = 0;
             }
           }
         }
 
         if (!this._initted) {
-          if (_attemptInitTween(this, totalTime < 0 ? totalTime : time, force, suppressEvents)) {
+          if (_attemptInitTween(this, isNegative ? totalTime : time, force, suppressEvents, tTime)) {
             this._tTime = 0;
+            return this;
+          }
+
+          if (prevTime !== this._time) {
             return this;
           }
 
@@ -2953,7 +3193,14 @@
           this.ratio = ratio = 1 - ratio;
         }
 
-        time && !prevTime && !suppressEvents && _callback(this, "onStart");
+        if (time && !prevTime && !suppressEvents) {
+          _callback(this, "onStart");
+
+          if (this._tTime !== tTime) {
+            return this;
+          }
+        }
+
         pt = this._pt;
 
         while (pt) {
@@ -2961,10 +3208,10 @@
           pt = pt._next;
         }
 
-        timeline && timeline.render(totalTime < 0 ? totalTime : !time && isYoyo ? -_tinyNum : timeline._dur * ratio, suppressEvents, force) || this._startAt && (this._zTime = totalTime);
+        timeline && timeline.render(totalTime < 0 ? totalTime : !time && isYoyo ? -_tinyNum : timeline._dur * timeline._ease(time / this._dur), suppressEvents, force) || this._startAt && (this._zTime = totalTime);
 
         if (this._onUpdate && !suppressEvents) {
-          totalTime < 0 && this._startAt && this._startAt.render(totalTime, true, force);
+          isNegative && _rewindStartAt(this, totalTime, suppressEvents, force);
 
           _callback(this, "onUpdate");
         }
@@ -2972,10 +3219,10 @@
         this._repeat && iteration !== prevIteration && this.vars.onRepeat && !suppressEvents && this.parent && _callback(this, "onRepeat");
 
         if ((tTime === this._tDur || !tTime) && this._tTime === tTime) {
-          totalTime < 0 && this._startAt && !this._onUpdate && this._startAt.render(totalTime, true, true);
+          isNegative && !this._onUpdate && _rewindStartAt(this, totalTime, true, true);
           (totalTime || !dur) && (tTime === this._tDur && this._ts > 0 || !tTime && this._ts < 0) && _removeFromParent(this, 1);
 
-          if (!suppressEvents && !(totalTime < 0 && !prevTime) && (tTime || prevTime)) {
+          if (!suppressEvents && !(isNegative && !prevTime) && (tTime || prevTime || isYoyo)) {
             _callback(this, tTime === tDur ? "onComplete" : "onReverseComplete", true);
 
             this._prom && !(tTime < tDur && this.timeScale() > 0) && this._prom();
@@ -2990,11 +3237,30 @@
       return this._targets;
     };
 
-    _proto3.invalidate = function invalidate() {
-      this._pt = this._op = this._startAt = this._onUpdate = this._lazy = this.ratio = 0;
+    _proto3.invalidate = function invalidate(soft) {
+      (!soft || !this.vars.runBackwards) && (this._startAt = 0);
+      this._pt = this._op = this._onUpdate = this._lazy = this.ratio = 0;
       this._ptLookup = [];
-      this.timeline && this.timeline.invalidate();
-      return _Animation2.prototype.invalidate.call(this);
+      this.timeline && this.timeline.invalidate(soft);
+      return _Animation2.prototype.invalidate.call(this, soft);
+    };
+
+    _proto3.resetTo = function resetTo(property, value, start, startIsRelative) {
+      _tickerActive || _ticker.wake();
+      this._ts || this.play();
+      var time = Math.min(this._dur, (this._dp._time - this._start) * this._ts),
+          ratio;
+      this._initted || _initTween(this, time);
+      ratio = this._ease(time / this._dur);
+
+      if (_updatePropTweens(this, property, value, start, startIsRelative, ratio, time)) {
+        return this.resetTo(property, value, start, startIsRelative);
+      }
+
+      _alignPlayhead(this, 0);
+
+      this.parent || _addLinkedListItem(this._dp, this, "_first", "_last", this._dp._sort ? "_start" : 0);
+      return this.render(0);
     };
 
     _proto3.kill = function kill(targets, vars) {
@@ -3089,7 +3355,7 @@
     };
 
     Tween.from = function from(targets, vars) {
-      return new Tween(targets, _parseVars(arguments, 1));
+      return _createTweenType(1, arguments);
     };
 
     Tween.delayedCall = function delayedCall(delay, callback, params, scope) {
@@ -3107,7 +3373,7 @@
     };
 
     Tween.fromTo = function fromTo(targets, fromVars, toVars) {
-      return new Tween(targets, _parseVars(arguments, 2));
+      return _createTweenType(2, arguments);
     };
 
     Tween.set = function set(targets, vars) {
@@ -3157,7 +3423,7 @@
     return _isFunction(target[property]) ? _setterFunc : _isUndefined(target[property]) && target.setAttribute ? _setterAttribute : _setterPlain;
   },
       _renderPlain = function _renderPlain(ratio, data) {
-    return data.set(data.t, data.p, Math.round((data.s + data.c * ratio) * 10000) / 10000, data);
+    return data.set(data.t, data.p, Math.round((data.s + data.c * ratio) * 1000000) / 1000000, data);
   },
       _renderBoolean = function _renderBoolean(ratio, data) {
     return data.set(data.t, data.p, !!(data.s + data.c * ratio), data);
@@ -3298,6 +3564,221 @@
     smoothChildTiming: true
   });
   _config.stringFilter = _colorStringFilter;
+
+  var _media = [],
+      _listeners = {},
+      _emptyArray = [],
+      _lastMediaTime = 0,
+      _dispatch = function _dispatch(type) {
+    return (_listeners[type] || _emptyArray).map(function (f) {
+      return f();
+    });
+  },
+      _onMediaChange = function _onMediaChange() {
+    var time = Date.now(),
+        matches = [];
+
+    if (time - _lastMediaTime > 2) {
+      _dispatch("matchMediaInit");
+
+      _media.forEach(function (c) {
+        var queries = c.queries,
+            conditions = c.conditions,
+            match,
+            p,
+            anyMatch,
+            toggled;
+
+        for (p in queries) {
+          match = _win.matchMedia(queries[p]).matches;
+          match && (anyMatch = 1);
+
+          if (match !== conditions[p]) {
+            conditions[p] = match;
+            toggled = 1;
+          }
+        }
+
+        if (toggled) {
+          c.revert();
+          anyMatch && matches.push(c);
+        }
+      });
+
+      _dispatch("matchMediaRevert");
+
+      matches.forEach(function (c) {
+        return c.onMatch(c);
+      });
+      _lastMediaTime = time;
+
+      _dispatch("matchMedia");
+    }
+  };
+
+  var Context = function () {
+    function Context(func, scope) {
+      this.selector = scope && selector(scope);
+      this.data = [];
+      this._r = [];
+      this.isReverted = false;
+      func && this.add(func);
+    }
+
+    var _proto5 = Context.prototype;
+
+    _proto5.add = function add(name, func, scope) {
+      if (_isFunction(name)) {
+        scope = func;
+        func = name;
+        name = _isFunction;
+      }
+
+      var self = this,
+          f = function f() {
+        var prev = _context,
+            prevSelector = self.selector,
+            result;
+        prev && prev !== self && prev.data.push(self);
+        scope && (self.selector = selector(scope));
+        _context = self;
+        result = func.apply(self, arguments);
+        _isFunction(result) && self._r.push(result);
+        _context = prev;
+        self.selector = prevSelector;
+        self.isReverted = false;
+        return result;
+      };
+
+      self.last = f;
+      return name === _isFunction ? f(self) : name ? self[name] = f : f;
+    };
+
+    _proto5.ignore = function ignore(func) {
+      var prev = _context;
+      _context = null;
+      func(this);
+      _context = prev;
+    };
+
+    _proto5.getTweens = function getTweens() {
+      var a = [];
+      this.data.forEach(function (e) {
+        return e instanceof Context ? a.push.apply(a, e.getTweens()) : e instanceof Tween && !(e.parent && e.parent.data === "nested") && a.push(e);
+      });
+      return a;
+    };
+
+    _proto5.clear = function clear() {
+      this._r.length = this.data.length = 0;
+    };
+
+    _proto5.kill = function kill(revert, matchMedia) {
+      var _this4 = this;
+
+      if (revert) {
+        var tweens = this.getTweens();
+        this.data.forEach(function (t) {
+          if (t.data === "isFlip") {
+            t.revert();
+            t.getChildren(true, true, false).forEach(function (tween) {
+              return tweens.splice(tweens.indexOf(tween), 1);
+            });
+          }
+        });
+        tweens.map(function (t) {
+          return {
+            g: t.globalTime(0),
+            t: t
+          };
+        }).sort(function (a, b) {
+          return b.g - a.g || -1;
+        }).forEach(function (o) {
+          return o.t.revert(revert);
+        });
+        this.data.forEach(function (e) {
+          return !(e instanceof Animation) && e.revert && e.revert(revert);
+        });
+
+        this._r.forEach(function (f) {
+          return f(revert, _this4);
+        });
+
+        this.isReverted = true;
+      } else {
+        this.data.forEach(function (e) {
+          return e.kill && e.kill();
+        });
+      }
+
+      this.clear();
+
+      if (matchMedia) {
+        var i = _media.indexOf(this);
+
+        !!~i && _media.splice(i, 1);
+      }
+    };
+
+    _proto5.revert = function revert(config) {
+      this.kill(config || {});
+    };
+
+    return Context;
+  }();
+
+  var MatchMedia = function () {
+    function MatchMedia(scope) {
+      this.contexts = [];
+      this.scope = scope;
+    }
+
+    var _proto6 = MatchMedia.prototype;
+
+    _proto6.add = function add(conditions, func, scope) {
+      _isObject(conditions) || (conditions = {
+        matches: conditions
+      });
+      var context = new Context(0, scope || this.scope),
+          cond = context.conditions = {},
+          mq,
+          p,
+          active;
+      this.contexts.push(context);
+      func = context.add("onMatch", func);
+      context.queries = conditions;
+
+      for (p in conditions) {
+        if (p === "all") {
+          active = 1;
+        } else {
+          mq = _win.matchMedia(conditions[p]);
+
+          if (mq) {
+            _media.indexOf(context) < 0 && _media.push(context);
+            (cond[p] = mq.matches) && (active = 1);
+            mq.addListener ? mq.addListener(_onMediaChange) : mq.addEventListener("change", _onMediaChange);
+          }
+        }
+      }
+
+      active && func(context);
+      return this;
+    };
+
+    _proto6.revert = function revert(config) {
+      this.kill(config || {});
+    };
+
+    _proto6.kill = function kill(revert) {
+      this.contexts.forEach(function (c) {
+        return c.kill(revert, true);
+      });
+    };
+
+    return MatchMedia;
+  }();
+
   var _gsap = {
     registerPlugin: function registerPlugin() {
       for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
@@ -3359,6 +3840,17 @@
         return setter(target, p, unit ? value + unit : value, cache, 1);
       };
     },
+    quickTo: function quickTo(target, property, vars) {
+      var _merge2;
+
+      var tween = gsap.to(target, _merge((_merge2 = {}, _merge2[property] = "+=0.1", _merge2.paused = true, _merge2), vars || {})),
+          func = function func(value, start, startIsRelative) {
+        return tween.resetTo(property, value, start, startIsRelative);
+      };
+
+      func.tween = tween;
+      return func;
+    },
     isTweening: function isTweening(targets) {
       return _globalTimeline.getTweensOf(targets, true).length > 0;
     },
@@ -3369,12 +3861,12 @@
     config: function config(value) {
       return _mergeDeep(_config, value || {});
     },
-    registerEffect: function registerEffect(_ref2) {
-      var name = _ref2.name,
-          effect = _ref2.effect,
-          plugins = _ref2.plugins,
-          defaults = _ref2.defaults,
-          extendTimeline = _ref2.extendTimeline;
+    registerEffect: function registerEffect(_ref3) {
+      var name = _ref3.name,
+          effect = _ref3.effect,
+          plugins = _ref3.plugins,
+          defaults = _ref3.defaults,
+          extendTimeline = _ref3.extendTimeline;
       (plugins || "").split(",").forEach(function (pluginName) {
         return pluginName && !_plugins[pluginName] && !_globals[pluginName] && _warn(name + " effect requires " + pluginName + " plugin.");
       });
@@ -3428,6 +3920,37 @@
 
       return tl;
     },
+    context: function context(func, scope) {
+      return func ? new Context(func, scope) : _context;
+    },
+    matchMedia: function matchMedia(scope) {
+      return new MatchMedia(scope);
+    },
+    matchMediaRefresh: function matchMediaRefresh() {
+      return _media.forEach(function (c) {
+        var cond = c.conditions,
+            found,
+            p;
+
+        for (p in cond) {
+          if (cond[p]) {
+            cond[p] = false;
+            found = 1;
+          }
+        }
+
+        found && c.revert();
+      }) || _onMediaChange();
+    },
+    addEventListener: function addEventListener(type, callback) {
+      var a = _listeners[type] || (_listeners[type] = []);
+      ~a.indexOf(callback) || a.push(callback);
+    },
+    removeEventListener: function removeEventListener(type, callback) {
+      var a = _listeners[type],
+          i = a && a.indexOf(callback);
+      i >= 0 && a.splice(i, 1);
+    },
     utils: {
       wrap: wrap,
       wrapYoyo: wrapYoyo,
@@ -3439,6 +3962,7 @@
       clamp: clamp,
       splitColor: splitColor,
       toArray: toArray,
+      selector: selector,
       mapRange: mapRange,
       pipe: pipe,
       unitize: unitize,
@@ -3459,6 +3983,18 @@
       Animation: Animation,
       getCache: _getCache,
       _removeLinkedListItem: _removeLinkedListItem,
+      reverting: function reverting() {
+        return _reverting;
+      },
+      context: function context(toAdd) {
+        if (toAdd && _context) {
+          _context.data.push(toAdd);
+
+          toAdd._ctx = _context;
+        }
+
+        return _context;
+      },
       suppressOverwrites: function suppressOverwrites(value) {
         return _suppressOverwrites = value;
       }
@@ -3543,13 +4079,24 @@
   var gsap = _gsap.registerPlugin({
     name: "attr",
     init: function init(target, vars, tween, index, targets) {
-      var p, pt;
+      var p, pt, v;
+      this.tween = tween;
 
       for (p in vars) {
-        pt = this.add(target, "setAttribute", (target.getAttribute(p) || 0) + "", vars[p], index, targets, 0, 0, p);
-        pt && (pt.op = p);
+        v = target.getAttribute(p) || "";
+        pt = this.add(target, "setAttribute", (v || 0) + "", vars[p], index, targets, 0, 0, p);
+        pt.op = p;
+        pt.b = v;
 
         this._props.push(p);
+      }
+    },
+    render: function render(ratio, data) {
+      var pt = data._pt;
+
+      while (pt) {
+        _reverting ? pt.set(pt.t, pt.p, pt.b, pt) : pt.r(ratio, pt.d);
+        pt = pt._next;
       }
     }
   }, {
@@ -3558,17 +4105,13 @@
       var i = value.length;
 
       while (i--) {
-        this.add(target, i, target[i] || 0, value[i]);
+        this.add(target, i, target[i] || 0, value[i], 0, 0, 0, 0, 0, 1);
       }
     }
   }, _buildModifierPlugin("roundProps", _roundModifier), _buildModifierPlugin("modifiers"), _buildModifierPlugin("snap", snap)) || _gsap;
-  Tween.version = Timeline.version = gsap.version = "3.6.1";
+  Tween.version = Timeline.version = gsap.version = "3.11.3";
   _coreReady = 1;
-
-  if (_windowExists()) {
-    _wake();
-  }
-
+  _windowExists() && _wake();
   var Power0 = _easeMap.Power0,
       Power1 = _easeMap.Power1,
       Power2 = _easeMap.Power2,
@@ -3595,6 +4138,7 @@
       _tempDiv,
       _tempDivStyler,
       _recentSetterPlugin,
+      _reverting$1,
       _windowExists$1 = function _windowExists() {
     return typeof window !== "undefined";
   },
@@ -3604,7 +4148,7 @@
       _atan2 = Math.atan2,
       _bigNum$1 = 1e8,
       _capsExp = /([A-Z])/g,
-      _horizontalExp = /(?:left|right|width|margin|padding|x)/i,
+      _horizontalExp = /(left|right|width|margin|padding|x)/i,
       _complexExp = /[\s,\(]\S/,
       _propertyAliases = {
     autoAlpha: "opacity,visibility",
@@ -3654,6 +4198,86 @@
   },
       _transformProp = "transform",
       _transformOriginProp = _transformProp + "Origin",
+      _saveStyle = function _saveStyle(property, isNotCSS) {
+    var _this = this;
+
+    var target = this.target,
+        style = target.style;
+
+    if (property in _transformProps) {
+      this.tfm = this.tfm || {};
+
+      if (property !== "transform") {
+        property = _propertyAliases[property] || property;
+        ~property.indexOf(",") ? property.split(",").forEach(function (a) {
+          return _this.tfm[a] = _get(target, a);
+        }) : this.tfm[property] = target._gsap.x ? target._gsap[property] : _get(target, property);
+      }
+
+      if (this.props.indexOf(_transformProp) >= 0) {
+        return;
+      }
+
+      if (target._gsap.svg) {
+        this.svgo = target.getAttribute("data-svg-origin");
+        this.props.push(_transformOriginProp, isNotCSS, "");
+      }
+
+      property = _transformProp;
+    }
+
+    (style || isNotCSS) && this.props.push(property, isNotCSS, style[property]);
+  },
+      _removeIndependentTransforms = function _removeIndependentTransforms(style) {
+    if (style.translate) {
+      style.removeProperty("translate");
+      style.removeProperty("scale");
+      style.removeProperty("rotate");
+    }
+  },
+      _revertStyle = function _revertStyle() {
+    var props = this.props,
+        target = this.target,
+        style = target.style,
+        cache = target._gsap,
+        i,
+        p;
+
+    for (i = 0; i < props.length; i += 3) {
+      props[i + 1] ? target[props[i]] = props[i + 2] : props[i + 2] ? style[props[i]] = props[i + 2] : style.removeProperty(props[i].replace(_capsExp, "-$1").toLowerCase());
+    }
+
+    if (this.tfm) {
+      for (p in this.tfm) {
+        cache[p] = this.tfm[p];
+      }
+
+      if (cache.svg) {
+        cache.renderTransform();
+        target.setAttribute("data-svg-origin", this.svgo || "");
+      }
+
+      i = _reverting$1();
+
+      if (i && !i.isStart && !style[_transformProp]) {
+        _removeIndependentTransforms(style);
+
+        cache.uncache = 1;
+      }
+    }
+  },
+      _getStyleSaver = function _getStyleSaver(target, properties) {
+    var saver = {
+      target: target,
+      props: [],
+      revert: _revertStyle,
+      save: _saveStyle
+    };
+    properties && properties.split(",").forEach(function (p) {
+      return saver.save(p);
+    });
+    return saver;
+  },
       _supports3D,
       _createElement = function _createElement(type, ns) {
     var e = _doc$1.createElementNS ? _doc$1.createElementNS((ns || "http://www.w3.org/1999/xhtml").replace(/^https/, "http"), type) : _doc$1.createElement(type);
@@ -3692,6 +4316,7 @@
       _transformOriginProp = _transformProp + "Origin";
       _tempDiv.style.cssText = "border-width:0;line-height:0;position:absolute;padding:0";
       _supports3D = !!_checkPropPrefix("perspective");
+      _reverting$1 = gsap.core.reverting;
       _pluginInitted = 1;
     }
   },
@@ -3793,6 +4418,10 @@
     rad: 1,
     turn: 1
   },
+      _nonStandardLayouts = {
+    grid: 1,
+    flex: 1
+  },
       _convertToUnit = function _convertToUnit(target, property, value, unit) {
     var curValue = parseFloat(value) || 0,
         curUnit = (value + "").trim().substr((curValue + "").length) || "px",
@@ -3833,10 +4462,10 @@
 
     cache = parent._gsap;
 
-    if (cache && toPercent && cache.width && horizontal && cache.time === _ticker.time) {
+    if (cache && toPercent && cache.width && horizontal && cache.time === _ticker.time && !cache.uncache) {
       return _round(curValue / cache.width * amount);
     } else {
-      (toPercent || curUnit === "%") && (style.position = _getComputedProperty(target, "position"));
+      (toPercent || curUnit === "%") && !_nonStandardLayouts[_getComputedProperty(parent, "display")] && (style.position = _getComputedProperty(target, "position"));
       parent === target && (style.position = "static");
       parent.appendChild(_tempDiv);
       px = _tempDiv[measureProperty];
@@ -3866,7 +4495,7 @@
 
     if (_transformProps[property] && property !== "transform") {
       value = _parseTransform(target, uncache);
-      value = property !== "transformOrigin" ? value[property] : _firstTwoOnly(_getComputedProperty(target, _transformOriginProp)) + " " + value.zOrigin + "px";
+      value = property !== "transformOrigin" ? value[property] : value.svg ? value.origin : _firstTwoOnly(_getComputedProperty(target, _transformOriginProp)) + " " + value.zOrigin + "px";
     } else {
       value = target.style[property];
 
@@ -3904,7 +4533,6 @@
         chunk,
         endUnit,
         startUnit,
-        relative,
         endValues;
     pt.b = start;
     pt.e = end;
@@ -3940,12 +4568,7 @@
         if (endValue !== (startValue = startValues[matchIndex++] || "")) {
           startNum = parseFloat(startValue) || 0;
           startUnit = startValue.substr((startNum + "").length);
-          relative = endValue.charAt(1) === "=" ? +(endValue.charAt(0) + "1") : 0;
-
-          if (relative) {
-            endValue = endValue.substr(2);
-          }
-
+          endValue.charAt(1) === "=" && (endValue = _parseRelative(startNum, endValue) + startUnit);
           endNum = parseFloat(endValue);
           endUnit = endValue.substr((endNum + "").length);
           index = _numWithUnitExp.lastIndex - endUnit.length;
@@ -3967,7 +4590,7 @@
             _next: pt._pt,
             p: chunk || matchIndex === 1 ? chunk : ",",
             s: startNum,
-            c: relative ? relative * endNum : endNum - startNum,
+            c: endNum - startNum,
             m: color && color < 4 || prop === "zIndex" ? Math.round : 0
           };
         }
@@ -4042,6 +4665,8 @@
           _parseTransform(target, 1);
 
           cache.uncache = 1;
+
+          _removeIndependentTransforms(style);
         }
       }
     }
@@ -4090,7 +4715,7 @@
 
       if (!parent || !target.offsetParent) {
         addedToDOM = 1;
-        nextSibling = target.nextSibling;
+        nextSibling = target.nextElementSibling;
 
         _docElement.appendChild(target);
       }
@@ -4176,6 +4801,7 @@
         invertedScaleX = cache.scaleX < 0,
         px = "px",
         deg = "deg",
+        cs = getComputedStyle(target),
         origin = _getComputedProperty(target, _transformOriginProp) || "0",
         x,
         y,
@@ -4212,10 +4838,25 @@
     x = y = z = rotation = rotationX = rotationY = skewX = skewY = perspective = 0;
     scaleX = scaleY = 1;
     cache.svg = !!(target.getCTM && _isSVG(target));
+
+    if (cs.translate) {
+      if (cs.translate !== "none" || cs.scale !== "none" || cs.rotate !== "none") {
+        style[_transformProp] = (cs.translate !== "none" ? "translate3d(" + (cs.translate + " 0 0").split(" ").slice(0, 3).join(", ") + ") " : "") + (cs.rotate !== "none" ? "rotate(" + cs.rotate + ") " : "") + (cs.scale !== "none" ? "scale(" + cs.scale.split(" ").join(",") + ") " : "") + (cs[_transformProp] !== "none" ? cs[_transformProp] : "");
+      }
+
+      style.scale = style.rotate = style.translate = "none";
+    }
+
     matrix = _getMatrix(target, cache.svg);
 
     if (cache.svg) {
-      t1 = !cache.uncache && !uncache && target.getAttribute("data-svg-origin");
+      if (cache.uncache) {
+        t2 = target.getBBox();
+        origin = cache.xOrigin - t2.x + "px " + (cache.yOrigin - t2.y) + "px";
+        t1 = "";
+      } else {
+        t1 = !uncache && target.getAttribute("data-svg-origin");
+      }
 
       _applySVGOrigin(target, t1 || origin, !!t1 || cache.originIsAbsolute, cache.smooth !== false, matrix);
     }
@@ -4329,8 +4970,9 @@
       }
     }
 
-    cache.x = x - ((cache.xPercent = x && (cache.xPercent || (Math.round(target.offsetWidth / 2) === Math.round(-x) ? -50 : 0))) ? target.offsetWidth * cache.xPercent / 100 : 0) + px;
-    cache.y = y - ((cache.yPercent = y && (cache.yPercent || (Math.round(target.offsetHeight / 2) === Math.round(-y) ? -50 : 0))) ? target.offsetHeight * cache.yPercent / 100 : 0) + px;
+    uncache = uncache || cache.uncache;
+    cache.x = x - ((cache.xPercent = x && (!uncache && cache.xPercent || (Math.round(target.offsetWidth / 2) === Math.round(-x) ? -50 : 0))) ? target.offsetWidth * cache.xPercent / 100 : 0) + px;
+    cache.y = y - ((cache.yPercent = y && (!uncache && cache.yPercent || (Math.round(target.offsetHeight / 2) === Math.round(-y) ? -50 : 0))) ? target.offsetHeight * cache.yPercent / 100 : 0) + px;
     cache.z = z + px;
     cache.scaleX = _round(scaleX);
     cache.scaleY = _round(scaleY);
@@ -4524,11 +5166,11 @@
     target.setAttribute("transform", temp);
     forceCSS && (target.style[_transformProp] = temp);
   },
-      _addRotationalPropTween = function _addRotationalPropTween(plugin, target, property, startNum, endValue, relative) {
+      _addRotationalPropTween = function _addRotationalPropTween(plugin, target, property, startNum, endValue) {
     var cap = 360,
         isString = _isString(endValue),
         endNum = parseFloat(endValue) * (isString && ~endValue.indexOf("rad") ? _RAD2DEG : 1),
-        change = relative ? endNum * relative : endNum - startNum,
+        change = endNum - startNum,
         finalValue = startNum + change + "deg",
         direction,
         pt;
@@ -4667,8 +5309,12 @@
           transformPropTween,
           cache,
           smooth,
-          hasPriority;
+          hasPriority,
+          inlineProps;
       _pluginInitted || _initCore();
+      this.styles = this.styles || _getStyleSaver(target);
+      inlineProps = this.styles.props;
+      this.tween = tween;
 
       for (p in vars) {
         if (p === "autoRound") {
@@ -4707,17 +5353,20 @@
 
           endUnit ? startUnit !== endUnit && (startValue = _convertToUnit(target, p, startValue, endUnit) + endUnit) : startUnit && (endValue += startUnit);
           this.add(style, "setProperty", startValue, endValue, index, targets, 0, 0, p);
+          props.push(p);
+          inlineProps.push(p, 0, style[p]);
         } else if (type !== "undefined") {
           if (startAt && p in startAt) {
             startValue = typeof startAt[p] === "function" ? startAt[p].call(tween, index, target, targets) : startAt[p];
-            p in _config.units && !getUnit(startValue) && (startValue += _config.units[p]);
+            _isString(startValue) && ~startValue.indexOf("random(") && (startValue = _replaceRandom(startValue));
+            getUnit(startValue + "") || (startValue += _config.units[p] || getUnit(_get(target, p)) || "");
             (startValue + "").charAt(1) === "=" && (startValue = _get(target, p));
           } else {
             startValue = _get(target, p);
           }
 
           startNum = parseFloat(startValue);
-          relative = type === "string" && endValue.charAt(1) === "=" ? +(endValue.charAt(0) + "1") : 0;
+          relative = type === "string" && endValue.charAt(1) === "=" && endValue.substr(0, 2);
           relative && (endValue = endValue.substr(2));
           endNum = parseFloat(endValue);
 
@@ -4726,6 +5375,8 @@
               if (startNum === 1 && _get(target, "visibility") === "hidden" && endNum) {
                 startNum = 0;
               }
+
+              inlineProps.push("visibility", 0, style.visibility);
 
               _addNonTweeningPT(this, style, "visibility", startNum ? "inherit" : "hidden", endNum ? "inherit" : "hidden", !endNum);
             }
@@ -4739,6 +5390,8 @@
           isTransformRelated = p in _transformProps;
 
           if (isTransformRelated) {
+            this.styles.save(p);
+
             if (!transformPropTween) {
               cache = target._gsap;
               cache.renderTransform && !vars.parseTransform || _parseTransform(target, vars.parseTransform);
@@ -4748,10 +5401,12 @@
             }
 
             if (p === "scale") {
-              this._pt = new PropTween(this._pt, cache, "scaleY", cache.scaleY, relative ? relative * endNum : endNum - cache.scaleY);
+              this._pt = new PropTween(this._pt, cache, "scaleY", startNum, (relative ? _parseRelative(startNum, relative + endNum) : endNum) - startNum || 0, _renderCSSProp);
+              this._pt.u = 0;
               props.push("scaleY", p);
               p += "X";
             } else if (p === "transformOrigin") {
+              inlineProps.push(_transformOriginProp, 0, style[_transformOriginProp]);
               endValue = _convertKeywordsToPercentages(endValue);
 
               if (cache.svg) {
@@ -4769,7 +5424,7 @@
 
               continue;
             } else if (p in _rotationalProperties) {
-              _addRotationalPropTween(this, cache, p, startNum, endValue, relative);
+              _addRotationalPropTween(this, cache, p, startNum, relative ? _parseRelative(startNum, relative + endValue) : endValue);
 
               continue;
             } else if (p === "smoothOrigin") {
@@ -4793,30 +5448,43 @@
             endNum || (endNum = 0);
             endUnit = getUnit(endValue) || (p in _config.units ? _config.units[p] : startUnit);
             startUnit !== endUnit && (startNum = _convertToUnit(target, p, startValue, endUnit));
-            this._pt = new PropTween(this._pt, isTransformRelated ? cache : style, p, startNum, relative ? relative * endNum : endNum - startNum, !isTransformRelated && (endUnit === "px" || p === "zIndex") && vars.autoRound !== false ? _renderRoundedCSSProp : _renderCSSProp);
+            this._pt = new PropTween(this._pt, isTransformRelated ? cache : style, p, startNum, (relative ? _parseRelative(startNum, relative + endNum) : endNum) - startNum, !isTransformRelated && (endUnit === "px" || p === "zIndex") && vars.autoRound !== false ? _renderRoundedCSSProp : _renderCSSProp);
             this._pt.u = endUnit || 0;
 
-            if (startUnit !== endUnit) {
+            if (startUnit !== endUnit && endUnit !== "%") {
               this._pt.b = startValue;
               this._pt.r = _renderCSSPropWithBeginning;
             }
           } else if (!(p in style)) {
             if (p in target) {
-              this.add(target, p, target[p], endValue, index, targets);
+              this.add(target, p, startValue || target[p], relative ? relative + endValue : endValue, index, targets);
             } else {
               _missingPlugin(p, endValue);
 
               continue;
             }
           } else {
-            _tweenComplexCSSString.call(this, target, p, startValue, endValue);
+            _tweenComplexCSSString.call(this, target, p, startValue, relative ? relative + endValue : endValue);
           }
 
+          isTransformRelated || (p in style ? inlineProps.push(p, 0, style[p]) : inlineProps.push(p, 1, startValue || target[p]));
           props.push(p);
         }
       }
 
       hasPriority && _sortPropTweensByPriority(this);
+    },
+    render: function render(ratio, data) {
+      if (data.tween._time || !_reverting$1()) {
+        var pt = data._pt;
+
+        while (pt) {
+          pt.r(ratio, pt.d);
+          pt = pt._next;
+        }
+      } else {
+        data.styles.revert();
+      }
     },
     get: _get,
     aliases: _propertyAliases,
@@ -4831,6 +5499,7 @@
     }
   };
   gsap.utils.checkPrefix = _checkPropPrefix;
+  gsap.core.getStyleSaver = _getStyleSaver;
 
   (function (positionAndScale, rotation, others, aliases) {
     var all = _forEachName(positionAndScale + "," + rotation + "," + others, function (name) {
@@ -11680,7 +12349,7 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 
 	// Handle detection for mouse input (i.e. desktop browsers, tablets with a mouse, etc.)
 	function initMouseDetection(disable) {
-		if (!mouseDetectionEnabled && !disable && !$('body').hasClass('vmenu')) {
+		if (!mouseDetectionEnabled && !disable) {
 			// if we get two consecutive mousemoves within 2 pixels from each other and within 300ms, we assume a real mouse/cursor is present
 			// in practice, this seems like impossible to trick unintentianally with a real mouse and a pretty safe detection on touch devices (even with older browsers that do not support touch events)
 			var firstTime = true,
@@ -11790,15 +12459,15 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 					var eNamespace = '.smartmenus' + this.rootId;
 					// hide menus on tap or click outside the root UL
 					if (this.opts.hideOnClick) {
-						$(document).bind('touchstart' + eNamespace, $.proxy(this.docTouchStart, this))
-							.bind('touchmove' + eNamespace, $.proxy(this.docTouchMove, this))
-							.bind('touchend' + eNamespace, $.proxy(this.docTouchEnd, this))
-							// for Opera Mobile < 11.5, webOS browser, etc. we'll check click too
-							.bind('click' + eNamespace, $.proxy(this.docClick, this));
+							$(document).on('touchstart' + eNamespace, $.proxy(this.docTouchStart, this))
+								.on('touchmove' + eNamespace, $.proxy(this.docTouchMove, this))
+								.on('touchend' + eNamespace, $.proxy(this.docTouchEnd, this))
+								// for Opera Mobile < 11.5, webOS browser, etc. we'll check click too
+								.on('click' + eNamespace, $.proxy(this.docClick, this));
 					}
 					// hide sub menus on resize
-					$(window).bind('resize' + eNamespace + ' orientationchange' + eNamespace, $.proxy(this.winResize, this));
-					$(window).bind('scroll' + eNamespace + ' orientationchange' + eNamespace, $.proxy(this.winResize, this));
+					$(window).on('resize' + eNamespace + ' orientationchange' + eNamespace, $.proxy(this.winResize, this));
+					$(window).on('scroll' + eNamespace + ' orientationchange' + eNamespace, $.proxy(this.winResize, this));
 
 					if (this.opts.subIndicators) {
 						this.$subArrow = $('<span/>').addClass('sub-arrow');
@@ -11964,10 +12633,19 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 			// returns precise width/height float values in IE9+, FF4+, recent WebKit
 			// http://vadikom.com/dailies/offsetwidth-offsetheight-useless-in-ie9-firefox4/
 			getOffset: function($elm, height) {
-				var old;
+				var old,
+					$win = $(window),
+					winW = $win.width();
 				if ($elm.css('display') == 'none') {
 					old = { position: $elm[0].style.position, visibility: $elm[0].style.visibility };
 					$elm.css({ position: 'absolute', visibility: 'hidden' }).show();
+					if ( 
+						($('body').hasClass('menu-mobile-off-canvas') && winW < 960 && $elm.closest('.main-menu-container').length)
+						||
+						($('body').hasClass('vmenu-offcanvas-overlay') && winW >= 960 && $elm.closest('.main-menu-container').length)
+					) {
+						$elm.closest('li').addClass('smartmenu-open-item');
+					}
 				}
 				var defaultView = $elm[0].ownerDocument.defaultView,
 					compStyle = defaultView && defaultView.getComputedStyle && defaultView.getComputedStyle($elm[0], null),
@@ -12027,7 +12705,9 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 				// hide any visible deeper level sub menus
 				if (this.visibleSubMenus.length > level) {
 					for (var i = this.visibleSubMenus.length - 1, l = !this.activatedItems[level - 1] || this.activatedItems[level - 1][0] != $a[0] ? level - 1 : level; i > l; i--) {
-						this.menuHide(this.visibleSubMenus[i]);
+						//if ( !this.visibleSubMenus[i].closest('.menu-accordion').length ) {
+							this.menuHide(this.visibleSubMenus[i]);
+						//}
 					}
 				}
 				// save new active item and sub menu for this level
@@ -12207,16 +12887,22 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 				if ($item != undefined && $item.parent().hasClass('menu-item') && !$item.parent().hasClass('menu-item-has-children')) return;
 				var $win = $(window),
 					winW = $win.width();
-				if ( $('body').hasClass('vmenu') && winW >= 560 ) {
-					return;
-				}
 				if (this.showTimeout) {
 					clearTimeout(this.showTimeout);
 					this.showTimeout = 0;
 				}
 				// hide all subs
 				for (var i = this.visibleSubMenus.length - 1; i > 0; i--) {
-					this.menuHide(this.visibleSubMenus[i]);
+					if ( this.visibleSubMenus[i].closest('.smartmenu-open-item').length ) {
+						if ( $item != undefined && $item.closest('.smartmenu-open-item').length ) {
+							this.menuHide(this.visibleSubMenus[i]);
+							$(this.visibleSubMenus[i]).closest('.smartmenu-open-item').removeClass('smartmenu-open-item');
+						} else {
+							return;
+						}
+					} else {
+						this.menuHide(this.visibleSubMenus[i]);
+					}
 				}
 				// hide root if it's popup
 				if (this.opts.isPopup) {
@@ -12754,7 +13440,6 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 	};
 
 })(jQuery);
-
 /*
  * jQuery Easing v1.4.1 - http://gsgd.co.uk/sandbox/jquery/easing/
  * Open source under the BSD License.
@@ -17135,7 +17820,7 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 		 * @todo - this information can be moved to dynamicEl to avoid frequent calls
 		 */
 		isVideo: function (src, isHTML5VIdeo, index) {
-			if (!src) {
+			if (!src || src.match(/\.(mp4|m4v|ogg|webm)$/) ) {
 				if (isHTML5VIdeo) {
 					return {
 						html5: true,
@@ -21318,11 +22003,20 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 		// For vimeo last params gets priority if duplicates found
 		// Uncode edit ##START##
 		var vimeoPlayerParams = '?autoplay=0';
-		if ( typeof SiteParameters !== 'undefined' && typeof SiteParameters.vimeoPlayerParams !== 'undefined' && SiteParameters.vimeoPlayerParams !== '' ) {
-			vimeoPlayerParams = SiteParameters.vimeoPlayerParams;
+		if ( videoInfo.autoplay !== '' ) {
+			vimeoPlayerParams = vimeoPlayerParams.replace(new RegExp('([?&])autoplay=(.*?)(&|$)'), '$1$3' );
+			vimeoPlayerParams = vimeoPlayerParams.replace(new RegExp('([?&])autoplay(&|$)'), '$1$2' );
+		} else {
+			if ( typeof SiteParameters !== 'undefined' && typeof SiteParameters.vimeoPlayerParams !== 'undefined' && SiteParameters.vimeoPlayerParams !== '' ) {
+				vimeoPlayerParams = SiteParameters.vimeoPlayerParams;
+			}
 		}
-		if ( urlParams.indexOf('muted=') < 0 && vimeoPlayerParams.indexOf('muted=') < 0 ) {
-			vimeoPlayerParams += '&muted=1';
+		if ( videoInfo.muted !== '' ) {
+			vimeoPlayerParams += '&muted=' + (videoInfo.muted === 'yes');
+		} else {
+			if ( urlParams.indexOf('muted=') < 0 && vimeoPlayerParams.indexOf('muted=') < 0 ) {
+				vimeoPlayerParams += '&muted=1';
+			}
 		}
 		// var vimeoPlayerParams = "?autoplay=0&muted=1" + (isPrivate ? "&h=" + hash : '') + defaultPlayerParams + urlParams;
 		vimeoPlayerParams += (isPrivate ? "&h=" + hash : '') + defaultPlayerParams + urlParams;
@@ -21401,8 +22095,10 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 			if (!isFirstSlide &&
 				this.settings.autoplayVideoOnSlide &&
 				index === this.core.index) {
-				this.loadAndPlayVideo(index);
-			}
+					setTimeout(function () {
+						_this.loadAndPlayVideo(index);
+					}, 500);
+				}
 		};
 		/**
 		 * @desc Event triggered when video url or poster found
@@ -21420,6 +22116,10 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 					addClass: 'lg-object',
 					index: index,
 					html5Video: html5Video,
+					// Uncode edit ##START##
+					autoplay: event.target.getAttribute('data-lb-autoplay'),
+					muted: event.target.getAttribute('data-lb-muted'),
+					// Uncode edit ##END##
 				});
 				// Automatically navigate to next slide once video reaches the end.
 				this.gotoNextSlideOnVideoEnd(src, index);
@@ -21440,23 +22140,30 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 				this.pauseVideo(prevIndex);
 			}
 			// Uncode edit ##START##
-			var _a = event.detail, index = _a.index, src = _a.info.src;
-			if ( typeof src !== 'undefined' && src.indexOf("autoplay") > -1 ) {
-				this.loadAndPlayVideo(index);
+			var _a = event.detail, index = _a.index;
+			var $slide = this.core.getSlideItem(index);
+			
+			var iframe = $slide.selector.querySelector('iframe');
+			if ( iframe != null ) {
 
-				var videoInfo = this.core.galleryItems[index].__slideVideoInfo || {},
-					$videoElement = this.core.getSlideItem(index).find('.lg-video-object').first();
-				if (videoInfo.vimeo) {
-					var vimeoPlayer = new Vimeo.Player($videoElement.get());
-					vimeoPlayer.on('play', function () {
-						vimeoPlayer.setCurrentTime(0);
-					});
-				} else if ( videoInfo.youtube ) {
-					try {
-						$videoElement.get().contentWindow.postMessage("{\"event\":\"command\",\"func\":\"seekTo\",\"args\":[0, true]}", '*');
-					}
-					catch (e) {
-						console.warn(e);
+				var data_play = iframe.getAttribute('data-autoplay');
+				if ( typeof data_play !== 'undefined' && data_play === '1' ) {
+					this.loadAndPlayVideo(index);
+
+					var videoInfo = this.core.galleryItems[index].__slideVideoInfo || {},
+						$videoElement = this.core.getSlideItem(index).find('.lg-video-object').first();
+					if (videoInfo.vimeo) {
+						var vimeoPlayer = new Vimeo.Player($videoElement.get());
+						vimeoPlayer.on('play', function () {
+							vimeoPlayer.setCurrentTime(0);
+						});
+					} else if ( videoInfo.youtube ) {
+						try {
+							$videoElement.get().contentWindow.postMessage("{\"event\":\"command\",\"func\":\"seekTo\",\"args\":[0, true]}", '*');
+						}
+						catch (e) {
+							console.warn(e);
+						}
 					}
 				}
 			}
@@ -21493,12 +22200,15 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 			else {
 				//Uncode edit ##START##
 				// this.playVideo(index);
-				var src = currentGalleryItem.src;
-				if ( typeof src !== 'undefined' && src.indexOf("autoplay") > -1) {
-					if ( this.core.index == index ) {
-						this.playVideo(index);
-					} else {
-						this.pauseVideo(index);
+				var iframe = $slide.selector.querySelector('iframe');
+				if ( iframe != null ) {
+					var data_play = iframe.getAttribute('data-autoplay');
+					if ( typeof data_play !== 'undefined' ) {
+						if ( data_play === '1' && this.core.index == index ) {
+							this.playVideo(index);
+						} else {
+							this.pauseVideo(index);
+						}
 					}
 				}
 				//Uncode edit ##END##
@@ -21518,7 +22228,10 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 		Video.prototype.pauseVideo = function (index) {
 			this.controlVideo(index, 'pause');
 		};
-		Video.prototype.getVideoHtml = function (src, addClass, index, html5Video) {
+		// Uncode edit ##START##
+		//Video.prototype.getVideoHtml = function (src, addClass, index, html5Video) {
+		Video.prototype.getVideoHtml = function (src, addClass, index, html5Video, autoplay, muted) {
+		// Uncode edit ##END##
 			var video = '';
 			var videoInfo = this.core.galleryItems[index]
 				.__slideVideoInfo || {};
@@ -21535,23 +22248,69 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 				// Uncode edit ##START##
 				// var youTubePlayerParams = "?" + slideUrlParams + "wmode=opaque&autoplay=0&mute=1&enablejsapi=1";
 				var youTubePlayerParams = "?" + slideUrlParams + "wmode=opaque&enablejsapi=1";
-				if ( slideUrlParams.indexOf('autoplay=') < 0 && youTubePlayerParams.indexOf('autoplay=') < 0 ) {
+				if ( ( slideUrlParams.indexOf('autoplay=') < 0 && youTubePlayerParams.indexOf('autoplay=') < 0 ) ) {
 					youTubePlayerParams += '&autoplay=0';
 				}
 				if ( slideUrlParams.indexOf('mute=') < 0 && youTubePlayerParams.indexOf('mute=') < 0 ) {
 					youTubePlayerParams += '&mute=1';
 				}
+				var data_video = '';
+				if ( autoplay !== '' ) {
+					//youTubePlayerParams = youTubePlayerParams.replace(new RegExp('([?&])autoplay=(.*?)(&|$)'), '$1autoplay=' + (autoplay === 'yes' ? 1 : 0) + '$3' );
+					youTubePlayerParams = youTubePlayerParams.replace(new RegExp('([?&])autoplay=(.*?)(&|$)'), '$1$3' );
+					youTubePlayerParams = youTubePlayerParams.replace(new RegExp('([?&])autoplay'), '$1' );
+					data_video = ' data-autoplay="' + (autoplay === 'yes' ? 1 : 0) + '"';
+				}
+				// if ( muted !== '' ) {
+				// 	youTubePlayerParams = youTubePlayerParams.replace(new RegExp('([?&])mute=(.*?)(&|$)'), '$1mute=' + (muted === 'yes' ? 1 : 0) + '$3' );
+				// }
+				youTubePlayerParams = youTubePlayerParams.replace(new RegExp('([?&])mute=(.*?)(&|$)'), '$1$3' );
+
+				youTubePlayerParams = youTubePlayerParams.replace('??', '?');
 				// Uncode edit ##END##
 				var playerParams = youTubePlayerParams +
 					(this.settings.youTubePlayerParams
 						? '&' + param(this.settings.youTubePlayerParams)
 						: '');
-				video = "<iframe allow=\"autoplay\" id=" + videoId + " class=\"lg-video-object lg-youtube " + addClass + "\" " + videoTitle + " src=\"//www.youtube.com/embed/" + (videoInfo.youtube[1] + playerParams) + "\" " + commonIframeProps + "></iframe>";
+				// Uncode edit ##START##
+				// video = "<iframe allow=\"autoplay\" id=" + videoId + " class=\"lg-video-object lg-youtube " + addClass + "\" " + videoTitle + " src=\"//www.youtube.com/embed/" + (videoInfo.youtube[1] + playerParams) + "\" " + commonIframeProps + "></iframe>";
+				video = "<iframe allow=\"autoplay\"" + data_video + " id=" + videoId + " class=\"lg-video-object lg-youtube " + addClass + "\" " + videoTitle + " src=\"//www.youtube.com/embed/" + (videoInfo.youtube[1] + playerParams) + "\" " + commonIframeProps + "></iframe>";
+				var tag = document.createElement('script');
+				tag.src = "//www.youtube.com/player_api";
+				var firstScriptTag = document.getElementsByTagName('script')[0];
+				firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+				// Replace the 'ytplayer' element with an <iframe> and
+				// YouTube player after the API code downloads.
+				var ytIframeplayer,
+					setMute = muted === 'yes' ? 0 : 100;
+				window.onYouTubePlayerAPIReady = function() {
+					ytIframeplayer = new YT.Player(videoId, {
+						videoId: videoInfo.youtube[1],
+						events: {
+							'onReady': function (event) {
+								event.target.setVolume(setMute);
+							}
+						}
+					});
+				}
+				// Uncode edit ##END##
 			}
 			else if (videoInfo.vimeo) {
 				var videoId = 'lg-vimeo' + index;
+				// Uncode edit ##START##
+				videoInfo.autoplay = autoplay;
+				videoInfo.muted = muted;
+				// Uncode edit ##END##
 				var playerParams = getVimeoURLParams(this.settings.vimeoPlayerParams, videoInfo);
-				video = "<iframe allow=\"autoplay\" id=" + videoId + " class=\"lg-video-object lg-vimeo " + addClass + "\" " + videoTitle + " src=\"//player.vimeo.com/video/" + (videoInfo.vimeo[1] + playerParams) + "\" " + commonIframeProps + "></iframe>";
+				// Uncode edit ##START##
+				// video = "<iframe allow=\"autoplay\" id=" + videoId + " class=\"lg-video-object lg-vimeo " + addClass + "\" " + videoTitle + " src=\"//player.vimeo.com/video/" + (videoInfo.vimeo[1] + playerParams) + "\" " + commonIframeProps + "></iframe>";
+				var data_video = '';
+				if ( autoplay !== '' ) {
+					data_video = ' data-autoplay="' + (autoplay === 'yes' ? 1 : 0) + '"';
+				}
+				video = "<iframe allow=\"autoplay\"" + data_video + " id=" + videoId + " class=\"lg-video-object lg-vimeo " + addClass + "\" " + videoTitle + " src=\"//player.vimeo.com/video/" + (videoInfo.vimeo[1] + playerParams) + "\" " + commonIframeProps + "></iframe>";
+				// Uncode edit ##END##
 			}
 			else if (videoInfo.wistia) {
 				var wistiaId = 'lg-wistia' + index;
@@ -21596,7 +22355,10 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 		 */
 		Video.prototype.appendVideos = function (el, videoParams) {
 			var _a;
-			var videoHtml = this.getVideoHtml(videoParams.src, videoParams.addClass, videoParams.index, videoParams.html5Video);
+			// Uncode edit ##START##
+			// var videoHtml = this.getVideoHtml(videoParams.src, videoParams.addClass, videoParams.index, videoParams.html5Video);
+			var videoHtml = this.getVideoHtml(videoParams.src, videoParams.addClass, videoParams.index, videoParams.html5Video, videoParams.autoplay, videoParams.muted);
+			// Uncode edit ##END##
 			el.find('.lg-video-cont').append(videoHtml);
 			var $videoElement = el.find('.lg-video-object').first();
 			if (videoParams.html5Video) {
@@ -26894,7 +27656,9 @@ BootstrapTabHistory = {
     })(selector);
 
     if($tabElement) {
-      $tabElement.trigger('click');
+      if ( !$tabElement.parent().hasClass('active') ) {
+        $tabElement.trigger('click');
+      }
       //$tabElement.tab('show');
     }
 
@@ -35368,7 +36132,12 @@ if ( typeof module != 'undefined' && module.exports ) {
 		if (actives && actives.length) {
 			var hasData = actives.data('bs.collapse')
 			if (hasData && hasData.transitioning) return
-			actives.collapse('hide')
+			//START UNCODE EDIT
+			var parentNoToggle = this.$parent.data('no-toggle')
+			if (!parentNoToggle) {
+				actives.collapse('hide')
+			}
+			//END UNCODE EDIT
 			hasData || actives.data('bs.collapse', null)
 		}
 
@@ -35556,7 +36325,7 @@ if ( typeof module != 'undefined' && module.exports ) {
   }
 
   Tab.prototype.activate = function (element, container, callback) {
-    var $active    = container.find('> .active')
+    var $active    = container.find('> .active').add(container.find('> .active > .active'))
     var transition = callback
       && $.support.transition
       && $active.hasClass('fade')
@@ -35567,14 +36336,18 @@ if ( typeof module != 'undefined' && module.exports ) {
         .find('> .dropdown-menu > .active')
         .removeClass('active')
 
-      element.addClass('active')
+      $active
+        .find('.tab-excerpt').slideUp();
 
-      if (transition) {
+      element.addClass('active')
+      $('.tab-excerpt', element).slideDown();
+
+      //if (transition) {
         element[0].offsetWidth // reflow for transition
-        element.addClass('in')
-      } else {
+        element.add($active).addClass('in')
+      /*} else {
         element.removeClass('fade')
-      }
+      }*/
 
       if (element.parent('.dropdown-menu')) {
         element.closest('li.dropdown').addClass('active')
@@ -36612,7 +37385,7 @@ var player, OKEvents, options, videoWidth, videoHeight, YTplayers, youtubePlayer
 // youtube player ready
 function onYouTubeIframeAPIReady() {
 	YTplayers = new Array();
-	jQuery('.no-touch .uncode-video-container.video').each(function() {
+	jQuery('.uncode-video-container.video').each(function() {
 		var playerY;
 		if (jQuery(this).attr('data-provider') == 'youtube') {
 			var id = jQuery(this).attr('data-id'),
@@ -36621,12 +37394,15 @@ function onYouTubeIframeAPIReady() {
 			start = typeof start && start !== null ? start : 0;
 			end = typeof end && end !== null ? end : 0;
 			options = jQuery(window).data('okoptions-' + id);
+			if ( typeof options === 'undefined' ) {
+				return true;
+			}
 			options.time = jQuery(this).attr('data-t');
 			playerY = new YT.Player('okplayer-' + id, {
 				videoId: options.video ? options.video.id : null,
 				playerVars: {
 					'autohide': 1,
-					'autoplay': 0, //options.autoplay,
+					'autoplay': jQuery(this).hasClass('is-no-control') ? options.autoplay : 0, //options.autoplay,
 					'disablekb': 1,
 					'cc_load_policy': options.captions,
 					'controls': 0,
@@ -36659,6 +37435,9 @@ function onYouTubeIframeAPIReady() {
 // vimeo player ready
 function vimeoPlayerReady(id) {
 	options = jQuery(window).data('okoptions-' + id);
+	if ( typeof options === 'undefined' ) {
+		return true;
+	}
 	var jIframe = options.jobject,
 		iframe = jIframe[0];
 
@@ -36678,12 +37457,15 @@ function vimeoPlayerReady(id) {
 		} else {
 			playerV.on('play', function(){
 				OKEvents.v.onPlay(playerV);
+				jQuery(window).trigger('okevents.v.play', [playerV]);
 			});
 			playerV.on('pause', function(){
 				OKEvents.v.onPause;
+				jQuery(window).trigger('okevents.v.pause', [playerV]);
 			});
 			playerV.on('ended', function(){
 				OKEvents.v.onFinish
+				jQuery(window).trigger('okevents.v.ended', [playerV]);
 			});
 		}
 		if (options.time != null) {
@@ -36718,19 +37500,25 @@ function vimeoPlayerReady(id) {
 		jQuery(iframe).closest('#page-header').addClass('video-started');
 		jQuery(iframe).closest('.background-wrapper').find('.block-bg-blend-mode.not-ie').css('opacity', '1');
 
+		jQuery(window).trigger('okevents.v.loaded', [playerV]);
 	});
 }
 OKEvents = {
 	yt: {
 		ready: function(event) {
-			var id = event.target.videoId;
+			var id = event.target.videoId,
+				$video = jQuery('#okplayer-' + id),
+				options = jQuery(window).data('okoptions-' + id);
+			if ( typeof options === 'undefined' ) {
+				return true;
+			}
 			youtubePlayers[id] = event.target;
 			event.target.setVolume(options.volume);
 			if (options.autoplay === 1) {
 				if (options.playlist.list) {
 					player.loadPlaylist(options.playlist.list, options.playlist.index, options.playlist.startSeconds, options.playlist.suggestedQuality);
 				} else {
-					var inCarousel = jQuery('#okplayer-' + id).closest('.owl-item');
+					var inCarousel = $video.closest('.owl-item');
 					if (!inCarousel.length || (inCarousel.length && inCarousel.hasClass('active'))) {
 						if (options.time != null) {
 							event.target.seekTo(parseInt(options.time));
@@ -36743,7 +37531,7 @@ OKEvents = {
 			}
 			OKEvents.utils.isFunction(options.onReady) && options.onReady(event.target);
 
-			jQuery('#okplayer-' + id).closest('[data-provider]').on('uncode-resume', function(){
+			$video.closest('[data-provider]').on('uncode-resume', function(){
 				if (options.time != null) {
 					event.target.seekTo(parseInt(options.time)).playVideo();
 				} else {
@@ -36751,16 +37539,27 @@ OKEvents = {
 				}
 			});
 
-			jQuery('#okplayer-' + id).closest('[data-provider]').on('uncode-pause', function(){
+			$video.closest('[data-provider]').on('uncode-pause', function(){
 				if (options.time != null) {
 					event.target.seekTo(parseInt(options.time)).pauseVideo();
 				} else {
 					event.target.seekTo(0).pauseVideo();
 				}
 			});
+			jQuery(window).trigger('okevents.y.loaded', [event]);
 		},
 		onStateChange: function(event) {
-			var id = event.target.videoId;
+			var id = event.target.videoId,
+				$video = jQuery('#okplayer-' + id),
+				options = jQuery(window).data('okoptions-' + id);
+			if ( typeof options === 'undefined' ) {
+				return true;
+			}
+			youtubePlayers[id] = event.target;
+			event.target.setVolume(options.volume);
+			var $fluid = $video.closest('.fluid-object'),
+				$tmb = $video.closest('.tmb'),
+				setTime;
 			switch (event.data) {
 				case -1:
 					OKEvents.utils.isFunction(options.unstarted) && options.unstarted();
@@ -36777,7 +37576,7 @@ OKEvents = {
 						jQuery('#okplayer-' + id).closest('#page-header').addClass('video-started');
 						jQuery('#okplayer-' + id).closest('.background-wrapper').find('.block-bg-blend-mode.not-ie').css('opacity', '1');
 					}, 300);
-					break;
+				break;
 				case 2:
 					OKEvents.utils.isFunction(options.onPause) && options.onPause();
 					break;
@@ -36790,6 +37589,8 @@ OKEvents = {
 				default:
 					throw "OKVideo: received invalid data from YT player.";
 			}
+
+			jQuery(window).trigger('okevents.y.change', [event]);
 		},
 		error: function(event) {
 			throw event;
@@ -36797,9 +37598,15 @@ OKEvents = {
 	},
 	v: {
 		onReady: function(target) {
+			if ( typeof options === 'undefined' ) {
+				return true;
+			}
 			OKEvents.utils.isFunction(options.onReady) && options.onReady(target);
 		},
 		onPlay: function(player) {
+			if ( typeof options === 'undefined' ) {
+				return true;
+			}
 			if (!OKEvents.utils.isMobile()) player.setVolume(options.volume);
 			OKEvents.utils.isFunction(options.onPlay) && options.onPlay();
 			jQuery(player.element).closest('.uncode-video-container:not(.t-entry-drop)').css('opacity', '1');
@@ -36807,9 +37614,15 @@ OKEvents = {
 			jQuery(player.element).closest('.background-wrapper').find('.block-bg-blend-mode.not-ie').css('opacity', '1');
 		},
 		onPause: function() {
+			if ( typeof options === 'undefined' ) {
+				return true;
+			}
 			OKEvents.utils.isFunction(options.onPause) && options.onPause();
 		},
 		onFinish: function() {
+			if ( typeof options === 'undefined' ) {
+				return true;
+			}
 			OKEvents.utils.isFunction(options.onFinish) && options.onFinish();
 		}
 	},

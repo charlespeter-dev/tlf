@@ -734,6 +734,17 @@ function uncode_get_page_assets() {
 		);
 	}
 
+	// Video Thumbs
+	if ( uncode_page_require_asset_video_thumbs( $content_array ) ) {
+		$assets['uncode-video-thumbs'] = array(
+			'handle'    => 'uncode-video-thumbs',
+			'path'      => get_template_directory_uri() . '/library/js/video-thumbs' . $suffix . '.js',
+			'deps'      => array( 'jquery' ),
+			'type'      => 'js',
+			'in_footer' => true,
+		);
+	}
+
 	// Tabs
 	if ( uncode_page_require_asset_tab( $content_array ) ) {
 		$assets['tab'] = array(
@@ -1324,7 +1335,7 @@ function uncode_get_page_assets() {
 		$assets['woocommerce-uncode'] = array(
 			'handle'    => 'woocommerce-uncode',
 			'path'      => get_template_directory_uri() . '/library/js/woocommerce-uncode' . $suffix . '.js',
-			'deps'      => array( 'jquery' ),
+			'deps'      => array( 'jquery', 'wc-cart-fragments' ),
 			'type'      => 'js',
 			'in_footer' => true,
 		);
@@ -1366,6 +1377,23 @@ function uncode_get_page_assets() {
 		$uncode_check_asset['wishlist'] = true;
 	}
 
+	// Lottie
+	if ( uncode_page_require_asset_lottie( $content_array ) ) {
+		$assets['uncode-lottie'] = array(
+			'handle'    => 'uncode-lottie',
+			'path'      => get_template_directory_uri() . '/library/js/uncode-lottie' . $suffix . '.js',
+			'deps'      => array( 'jquery', 'uncode-lottie-interactivity' ),
+			'type'      => 'js',
+			'in_footer' => true,
+		);
+
+		$assets['uncode-style-lottie'] = array(
+			'handle'    => 'uncode-style-lottie',
+			'path'      => get_template_directory_uri() . '/library/css/style-lottie.css',
+			'type'      => 'css',
+		);
+	}
+
 	// App loader
 	$assets['uncode-app'] = array(
 		'handle'    => 'uncode-app',
@@ -1375,6 +1403,40 @@ function uncode_get_page_assets() {
 		'in_footer' => true,
 		'required'  => true,
 	);
+
+	return $assets;
+}
+
+/**
+ * Always split assets
+ */
+function uncode_get_whenever_page_assets() {
+
+	$assets = array();
+
+	// Get an array that contains all the raw content attached to the page
+	$content_array = uncode_get_post_data_content_array();
+
+	// Lottie Player
+	if ( uncode_page_require_asset_lottie( $content_array ) ) {
+		$assets['lottie'] = array(
+			'handle'    => 'uncode-lottie-player',
+			'path'      => get_template_directory_uri() . '/library/js/lib/lottie-player.js',
+			'deps'      => array(),
+			'type'      => 'js',
+			'in_footer' => true,
+		);
+
+		if ( uncode_page_require_asset_lottie_interactivity( $content_array ) ) {
+			$assets['lottie-interactivity'] = array(
+				'handle'    => 'uncode-lottie-interactivity',
+				'path'      => get_template_directory_uri() . '/library/js/lib/lottie-interactivity.js',
+				'deps'      => array('uncode-lottie-player'),
+				'type'      => 'js',
+				'in_footer' => true,
+			);
+		}
+	}
 
 	return $assets;
 }

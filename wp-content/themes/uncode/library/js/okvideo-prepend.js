@@ -110,8 +110,8 @@
 		};
 		// load the vimeo api by replacing the div with an iframe and loading js
 		base.loadVimeoAPI = function() {
-			var source = '//player.vimeo.com/video/' + base.options.video.id + '?background=1&api=1&title=0&byline=0&portrait=0&playbar=0&loop=' + base.options.loop + '&autoplay=' + (base.options.autoplay === 1 ? 1 : 0) + '&player_id=okplayer-' + base.options.id,
-			jIframe = $('<iframe data-src="'+source+'" frameborder="0" id="okplayer-' + base.options.id +'" style="visibility: hidden;" class="vimeo-background" webkitallowfullscreen mozallowfullscreen allowfullscreen>');
+			var source = '//player.vimeo.com/video/' + base.options.video.id + '?background=1&api=1&title=0&byline=0&portrait=0&playbar=0&loop=' + base.options.loop + '&autoplay=' + (base.options.autoplay === 1 ? 1 : 0) + '&player_id=okplayer-' + base.options.id + '&autopause=0',
+			jIframe = $('<iframe data-src="'+source+'" frameborder="0" id="okplayer-' + base.options.id +'" style="visibility: hidden;" class="vimeo-background" webkitallowfullscreen mozallowfullscreen allowfullscreen >');
 			$(window).data('okoptions-' + base.options.id).jobject = jIframe;
 			$('#okplayer-' + base.options.id).replaceWith(jIframe[0]);
 			base.insertJS('//player.vimeo.com/api/player.js', function() {
@@ -167,6 +167,10 @@
 		};
 		base.init();
 	};
+
+	var checkResize,
+		newW = UNCODE.wwidth;
+
 	$.okvideo.options = {
 		id: null,
 		source: null, // Deprecate dis l8r
@@ -201,61 +205,69 @@
 		});
 	};
 
-	$(".no-touch .uncode-video-container.video").each(function(index, el) {
-		var $this = $(this),
-			url = $this.attr('data-video'),
-			id = $this.attr('data-id'),
-			cloned = $this.closest('.owl-item');
-		if (!cloned.hasClass('cloned') || cloned.length == 0) {
-			$this.okvideo({
-				id: id,
-				source: url.split('#')[0],
-				time: ((url).indexOf("#") > -1) ? (url).substring((url).indexOf('#') + 1) : null,
-				autoplay: 1,
-				controls: 0,
-				volume: 0,
-				adproof: 0,
-				caller: $this,
-				hd: 1,
-				onReady: function(player) {
-					var getPlayer = player.g || player,
-					$iframe = $(getPlayer),
-					$drop = $iframe.closest('.drop-move'),
-					getContainer = $iframe.closest('.background-element');
-					if (getContainer.length) {
-						UNCODE.initVideoComponent(getContainer[0], '.uncode-video-container.video:not(.drop-move)');
-					}
+	var checkForVideos = function(){
+		$(".uncode-video-container.video").each(function(index, el) {
+			var $this = $(this),
+				mobile_ready = $this.hasClass('no-control-mobile-autoplay'),
+				url = $this.attr('data-video'),
+				id = $this.attr('data-id'),
+				cloned = $this.closest('.owl-item');
 
-					if ( $drop.length ) {
+			if ( mobile_ready || newW >= UNCODE.mediaQuery ) {
+				if (!cloned.hasClass('cloned') || cloned.length == 0) {
+					$this.okvideo({
+						id: id,
+						source: url.split('#')[0],
+						time: ((url).indexOf("#") > -1) ? (url).substring((url).indexOf('#') + 1) : null,
+						autoplay: 1,
+						controls: 0,
+						volume: 0,
+						adproof: 0,
+						caller: $this,
+						hd: 1,
+						onReady: function(player) {
+							var getPlayer = player.c || player.h || player,
+							$iframe,
+							getContainer = $(getPlayer).closest('.background-element');
+							if (getContainer.length) {
+								UNCODE.initVideoComponent(getContainer[0], '.uncode-video-container.video:not(.drop-move)');
+							}
 
-						var w = parseFloat($drop.attr('data-width')),
-							h = parseFloat($drop.attr('data-height')),
-							ratio = h / w,
-							setResizeiFto,
-						resizeiFrame = function(){
-							var dataW = $this.attr('data-w'),
-								newW = UNCODE.wwidth / 12 * parseFloat( dataW ),
-								newH = parseFloat(newW) * parseFloat(ratio);
-							$iframe.css({
-								width: newW,
-								height: newH
-							});
-						};
-						resizeiFrame();
-						$(window).on( 'load', resizeiFrame );
-						$(window).on( 'resize', function(){
-							clearRequestTimeout(setResizeiFto);
-							setResizeiFto = requestTimeout( function() {
+							if ( $this.hasClass('drop-move') ) {
+
+								var $iframe = $(getPlayer),
+									w = parseFloat($iframe.attr('width')),
+									h = parseFloat($iframe.attr('height')),
+									ratio = h / w,
+									setResizeiFto,
+								resizeiFrame = function(){
+									var dataW = $this.attr('data-w'),
+										newW = UNCODE.wwidth / 12 * parseFloat( dataW ),
+										newH = newW * ratio;
+									$iframe.css({
+										width: newW,
+										height: newH
+									});
+								};
 								resizeiFrame();
-							}, 10 );
-						});
+								$(window).on( 'load', resizeiFrame );
+								$(window).on( 'resize', function(){
+									clearRequestTimeout(setResizeiFto);
+									setResizeiFto = requestTimeout( function() {
+										resizeiFrame();
+									}, 10 );
+								});
 
-					}
+							}
 
+						}
+					});
 				}
-			});
-		}
-	});
+			}
+		});
+	};
+
+	checkForVideos();
 
 	$(window).on('load', function(){
 		$('.mejs-fullscreen-button button').on('click', function(){
@@ -268,6 +280,20 @@
 			}
 		});
 	});
+
+	var checkVideoResize = function(){
+		clearRequestTimeout(checkResize);
+		checkResize = requestTimeout(function(){
+			if ( newW !== UNCODE.wwidth ) {
+				newW = UNCODE.wwidth;
+				checkForVideos();
+			}
+		}, 1000);
+	};
+
+	$(window).off('resize', checkVideoResize)
+	.on( 'resize', checkVideoResize);
+
 };
 
 

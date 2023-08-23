@@ -58,7 +58,8 @@
 					var infoJson = JSON.parse(info.video);
 				}
 				var src = infoJson.source[0].src,
-					autoplay = $(item).attr('data-autoplay'),
+					autoplay = $(item).attr('data-autoplay') || event.target.autoplay === true || $(item).closest('[data-lb-autoplay=yes]').length || $(event.target).attr('data-lb-autoplay') === 'yes',
+					muted = $(item).closest('[data-lb-muted=yes]').length || $(event.target).attr('data-lb-muted') === 'yes',
 					loop = $(item).attr('data-loop');
 
 			} else if ( isAudio ) {
@@ -75,6 +76,9 @@
 				video.controlsList = 'nodownload';
 				if ( autoplay ) {
 					video.autoplay = 'autoplay';
+				}
+				if ( muted ) {
+					video.muted = 'muted';
 				}
 				if ( loop ) {
 					video.loop = 'loop';
@@ -180,7 +184,6 @@
 			transition = typeof $_first.attr('data-transition') !== 'undefined' ? $_first.attr('data-transition') : 'lg-slide',
 			containerClass = $_first.closest('[data-skin="white"]').length ? 'lg-light-skin' : '',
 			connect = $_first.attr('data-connect'),
-			$currentVideo = false,
 			lgPlugins = [lgVideo],
 			itemsLoadedTimeOut;
 
@@ -222,6 +225,7 @@
 			iframeMaxHeight: '90%',
 			exThumbImage: 'data-external-thumb-image',
 			loadYouTubeThumbnail: false,
+			autoplayVideoOnSlide: ( $gallery.attr('data-lb-autoplay') === 'yes' ),
 			// autoplayFirstVideo: false,
 			pager: false,
 			startClass: 'lg-start-opacity',
@@ -277,7 +281,6 @@
 				tmb = $(val).attr('data-notmb'),
 				social = $(val).attr('data-social'),
 				deep = $(val).attr('data-deep'),
-				zoom = $(val).attr('data-zoom-origin'),
 				actual = $(val).attr('data-actual-size'),
 				download = $(val).attr('data-download'),
 				controls = $(val).attr('data-arrows') !== 'no',
@@ -285,7 +288,6 @@
 				counter = $(val).attr('data-counter'),
 				transition = typeof $(val).attr('data-transition') !== 'undefined' ? $(val).attr('data-transition') : 'lg-slide',
 				containerClass = $(val).closest('[data-skin="white"]').length ? 'lg-light-skin' : '',
-				$currentVideo = false,
 				lgPlugins = [lgVideo];
 
 			$(val).attr('data-lbox-init','true');
@@ -321,6 +323,7 @@
 				iframeMaxWidth: '90%',
 				iframeMaxHeight: '90%',
 				loadYouTubeThumbnail: false,
+				autoplayVideoOnSlide: ( $album.attr('data-lb-autoplay') === 'yes' ),
 				// autoplayFirstVideo: false,
 				pager: false,
 				startClass: 'lg-start-opacity',

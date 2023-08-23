@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 function uncode_get_dynamic_colors_css_for_shortcode_vc_custom_heading( $shortcode, $custom_color_keys ) {
 	$accepted_keys = array(
 		'text_color' => array( 'text' ),
+		'back_color' => array( 'bg' ),
 	);
 
 	$css = '';

@@ -23,7 +23,7 @@
 
 	function changeCursor($wrap){
 		$wrap = typeof $wrap === 'undefined' ? $('body') : $wrap;
-		var href = SiteParameters.custom_cursor_selector != '' ? SiteParameters.custom_cursor_selector : '[href]',
+		var href = SiteParameters.custom_cursor_selector != '' ? SiteParameters.custom_cursor_selector : '[href], a[data-lbox]',
 			$href = $wrap.find(href),
 			cursorType,
 			setTime, set_delay;

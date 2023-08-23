@@ -56,7 +56,7 @@
   }
 
   Tab.prototype.activate = function (element, container, callback) {
-    var $active    = container.find('> .active')
+    var $active    = container.find('> .active').add(container.find('> .active > .active'))
     var transition = callback
       && $.support.transition
       && $active.hasClass('fade')
@@ -67,14 +67,18 @@
         .find('> .dropdown-menu > .active')
         .removeClass('active')
 
-      element.addClass('active')
+      $active
+        .find('.tab-excerpt').slideUp();
 
-      if (transition) {
+      element.addClass('active')
+      $('.tab-excerpt', element).slideDown();
+
+      //if (transition) {
         element[0].offsetWidth // reflow for transition
-        element.addClass('in')
-      } else {
+        element.add($active).addClass('in')
+      /*} else {
         element.removeClass('fade')
-      }
+      }*/
 
       if (element.parent('.dropdown-menu')) {
         element.closest('li.dropdown').addClass('active')

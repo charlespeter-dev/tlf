@@ -722,7 +722,7 @@
 		 */
 		update_product_urls: function(wrapper, variation) {
 			if (variation.variation_selected_url) {
-				var links = wrapper.find('a');
+				var links = wrapper.find('a').not('.t-entry-category a').not('.t-entry-attribute-image__link');
 				var quick_view_button = wrapper.find('.quick-view-button');
 
 				links.attr('href', variation.variation_selected_url);
@@ -734,7 +734,7 @@
 		 * Reset product URLs
 		 */
 		reset_product_urls: function(wrapper, original_url) {
-			var links = wrapper.find('a');
+			var links = wrapper.find('a').not('.t-entry-category a').not('.t-entry-attribute-image__link');
 			var quick_view_button = wrapper.find('.quick-view-button');
 
 			links.attr('href', original_url);

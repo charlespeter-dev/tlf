@@ -119,7 +119,7 @@
 
 	window.waypoint_animation = function(ev) {
 		$.each($('.animate_when_almost_visible:not(.start_animation):not(.t-inside):not(.drop-image-separator), .index-scroll .animate_when_almost_visible, .tmb-media .animate_when_almost_visible:not(.start_animation), .animate_when_almost_visible.has-rotating-text, .custom-grid-container .animate_when_almost_visible:not(.start_animation)'), function(index, val) {
-			if ( $(val).hasClass('el-text-split') || ( ( $(val).closest('.unscroll-horizontal').length || $(val).closest('.index-scroll').length ) && !SiteParameters.is_frontend_editor ) ) {
+			if ( $(val).hasClass('el-text-split') || ( ( $(val).closest('.unscroll-horizontal').length || $(val).closest('.index-scroll').length || $(val).closest('.tab-pane:not(.active)').length || $(val).closest('.panel:not(.active-group)').length ) && !SiteParameters.is_frontend_editor ) ) {
 				return true;
 			}
 			if (UNCODE.isUnmodalOpen && !val.closest('#unmodal-content')) {

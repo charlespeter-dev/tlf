@@ -136,12 +136,6 @@ function uncode_video_data_ignore($output, $atts, $video, $post_id, $library){
 }
 endif;
 
-if ( ! function_exists( 'uncode_back_video_muted' ) ):
-function uncode_back_video_muted($output, $atts, $video, $post_id, $library){
-	return str_ireplace( '<video ', '<video muted ', $output );
-}
-endif;
-
 if ( ! function_exists( 'uncode_strlen' ) ) :
 function uncode_strlen( $s ) {
 	// Return mb_strlen with encoding UTF-8.
@@ -264,6 +258,8 @@ function uncode_resize_image( $media_id, $url, $path, $originalWidth, $originalH
 			}
 
 			if ( $single_width === '' && $single_height !== null ) {
+				$single_height = floatval( $single_height );
+				$single_height = $single_height ? $single_height : 1;
 				$single_height = $single_height * 1.25;
 				$single_width = round( 12 / ( $ai_screen / (($originalWidth / $originalHeight) * $single_height) ) );
 			}
@@ -745,7 +741,7 @@ function uncode_get_media_info($media_id)
  * @param  [string] $url
  * @return [array]
  */
-function uncode_get_oembed($id, $url, $mime, $with_poster = false, $excerpt = null, $html = null, $lighbox_code = false, $single_width = '', $single_height = null, $single_fixed = null, $is_metro = false, $is_text_carousel = false)
+function uncode_get_oembed($id, $url, $mime, $with_poster = false, $excerpt = null, $html = null, $lighbox_code = false, $single_width = '', $single_height = null, $single_fixed = null, $is_metro = false, $is_text_carousel = false, $params = array())
 {
 	global $front_background_colors;
 	$object_class = $poster = $poster_id = '';
@@ -788,30 +784,52 @@ function uncode_get_oembed($id, $url, $mime, $with_poster = false, $excerpt = nu
 			}
 		break;
 		case 'oembed/youtube':
+			$get_url = parse_url(wp_specialchars_decode($url));
 			if ((isset($poster) && $poster !== '' && $with_poster) || $lighbox_code) {
-				$get_url = parse_url(wp_specialchars_decode($url));
+				$get_id = '';
 				if (isset($get_url['query'])) {
 					parse_str($get_url['query'], $query);
 					if (isset($query['v'])) {
 						$get_id = $query['v'];
 						unset($query['v']);
 					}
+					if ( isset($params['no-control']) ) {
+						$query['autoplay'] = !$params['play_hover'];
+					}
+					$query['autoplay'] = 0;
+					$media_oembed = wp_oembed_get($url, $query);
 					$get_id .= '?' . http_build_query($query);
 					$src_id = $get_id;
 				}
 				else $src_id = basename($url);
 				$nocookie = ! apply_filters('uncode_nocookie', false) ? '' : '-nocookie';
 				$media_oembed = 'https://www.youtube' . esc_attr( $nocookie ) . '.com/embed/' . $src_id;
-			}
-			else {
-				$get_url = parse_url(wp_specialchars_decode($url));
+			} else {
 				if (isset($get_url['query'])) {
-					parse_str($get_url['query'], $arguments);
-					$media_oembed = wp_oembed_get($url, $arguments);
+					parse_str($get_url['query'], $query);
+					if (isset($query['v'])) {
+						$get_id = $query['v'];
+					}
+					if ( isset($params['no-control']) ) {
+						$query['autoplay'] = !$params['play_hover'];
+						$query['autoplay'] = 0;
+					}
+					$media_oembed = wp_oembed_get($url, $query);
 				} else {
-					$media_oembed = wp_oembed_get($url);
+					$query = [];
+					if ( isset($params['no-control']) ) {
+						$query['autoplay'] = !$params['play_hover'];
+						$query['autoplay'] = 0;
+					}
+					$media_oembed = wp_oembed_get($url, $query);
 				}
 			}
+			if (isset($get_id)) {
+				$embed_id = $get_id;
+			} else {
+				$embed_id = $id;
+			}
+			$object_class = 'youtube-video';
 			$media_oembed = uncode_replace_disallowed_videos( 'youtube', $id, $media_oembed, $single_width, $single_height, $single_fixed, $is_metro );
 			break;
 
@@ -822,19 +840,21 @@ function uncode_get_oembed($id, $url, $mime, $with_poster = false, $excerpt = nu
 				$get_url = parse_url(wp_specialchars_decode($url));
 				if (isset($get_url['query'])) {
 					parse_str($get_url['query'], $arguments);
-					$arguments['title'] = 0;
-					$arguments['byline'] = 0;
-					$arguments['portrait'] = 0;
-					$arguments['dnt'] = 1;
 				} else {
 					$arguments = array();
-					$arguments['title'] = 0;
-					$arguments['byline'] = 0;
-					$arguments['portrait'] = 0;
-					$arguments['dnt'] = 1;
 				}
+				if ( isset($params['no-control']) ) {
+					$arguments['loop'] = 1;
+					$arguments['autoplay'] = !$params['play_hover'];
+					$arguments['muted'] = 1;
+				}
+				$arguments['title'] = 0;
+				$arguments['byline'] = 0;
+				$arguments['portrait'] = 0;
+				$arguments['dnt'] = 1;
 				$media_oembed = wp_oembed_get($url, $arguments);
 			}
+			$object_class = 'vimeo-video';
 			$media_oembed = uncode_replace_disallowed_videos( 'vimeo', $id, $media_oembed, $single_width, $single_height, $single_fixed, $is_metro );
 			break;
 
@@ -989,7 +1009,7 @@ function uncode_get_oembed($id, $url, $mime, $with_poster = false, $excerpt = nu
 			} else if (strpos($mime, 'video/') !== false) {
 				if ((isset($poster) && $poster !== '' && $with_poster) || $lighbox_code) {
 					$media_oembed = $url;
-				}	else {
+				} else {
 					$videos = array();
 					$exloded_url = explode(".", strtolower($url));
 					$ext = end($exloded_url);
@@ -1021,8 +1041,8 @@ function uncode_get_oembed($id, $url, $mime, $with_poster = false, $excerpt = nu
 					$poster_url = '';
 					$loop = get_post_meta($id, "_uncode_video_loop", true);
 					$autoplay = get_post_meta($id, "_uncode_video_autoplay", true);
-					$add_loop = $loop ? ' loop="yes"' : '';
-					$add_autoplay = $autoplay ? ' autoplay="yes"' : '';
+					$add_loop = $loop || isset($params['no-control']) ? ' loop="yes"' : '';
+					$add_autoplay = $autoplay || isset($params['no-control']) ? ' autoplay="yes"' : '';
 					if (isset($poster) && $poster !=='') {
 						$poster_attributes = uncode_get_media_info($poster);
 						if (isset($poster_attributes->metadata)) {
@@ -1042,7 +1062,15 @@ function uncode_get_oembed($id, $url, $mime, $with_poster = false, $excerpt = nu
 					if ($poster_url !== '') {
 						$poster_url = ' poster="' . $poster_url . '"';
 					}
-					$media_oembed = do_shortcode('[video' . $video_src . $poster_url . $add_loop . $add_autoplay . ']');
+
+					$media_oembed = do_shortcode('[video' . $video_src . $poster_url . $add_loop . $add_autoplay . ' ]');
+					if ( isset($params['no-control']) ) {
+						$media_oembed = str_replace( 'controls="controls"', 'muted="muted"', $media_oembed );
+						//$object_class .= $params['play_hover'] === true || (isset($poster) && $poster !== '' && $params['media_poster']) ? ' play-on-hover' : '';
+					}
+
+					$poster = '';
+
 				}
 			} else {
 				$media_oembed = $media_type === 'email' || ! $url ? '' : wp_oembed_get($url);
@@ -1063,7 +1091,7 @@ function uncode_get_oembed($id, $url, $mime, $with_poster = false, $excerpt = nu
 		}
 	}
 
-	return array(
+	$return = array(
 		'code' => $media_oembed,
 		'width' => $oembed_size['width'],
 		'height' => $oembed_size['height'],
@@ -1073,6 +1101,12 @@ function uncode_get_oembed($id, $url, $mime, $with_poster = false, $excerpt = nu
 		'poster' => $poster,
 		'poster_id' => $poster_id,
 	);
+
+	if ( isset( $embed_id ) ) {
+		$return['id'] = 'oembed_' . $embed_id;
+	}
+
+	return $return;
 }
 
 /**
@@ -1651,8 +1685,22 @@ if ( ! function_exists( 'uncode_get_secondary_featured_thumbnail_id' ) ) :
  * @since Uncode 2.3.0
  */
 function uncode_get_secondary_featured_thumbnail_id( $post_id ) {
-	$secondary_featured_image_id = get_post_meta( $post_id, '_uncode_secondary_thumbnail_id', true );
-	$secondary_featured_image_id = $secondary_featured_image_id > 0 ? absint( $secondary_featured_image_id ) : false;
+	global $uncode_query_options;
+
+	$secondary_featured_image_id = false;
+
+	if ( is_array( $uncode_query_options ) && isset( $uncode_query_options['single_variations'] ) && $uncode_query_options['single_variations'] && class_exists( 'WooCommerce' )  ) {
+		$variation_gallery_ids = uncode_wc_get_variation_gallery_ids( $post_id );
+
+		if ( is_array( $variation_gallery_ids ) && isset( $variation_gallery_ids[0] ) ) {
+			$secondary_featured_image_id = $variation_gallery_ids[0];
+		}
+	}
+
+	if ( ! $secondary_featured_image_id ) {
+		$secondary_featured_image_id = get_post_meta( $post_id, '_uncode_secondary_thumbnail_id', true );
+		$secondary_featured_image_id = $secondary_featured_image_id > 0 ? absint( $secondary_featured_image_id ) : false;
+	}
 
 	return apply_filters( 'uncode_get_secondary_featured_thumbnail_id', $secondary_featured_image_id, $post_id );
 }
@@ -1815,7 +1863,7 @@ if ( ! function_exists( 'uncode_get_the_content' ) ) :
  */
 function uncode_get_the_content($content = false, $check = false, $post_id = false) {
 	global $uncode_vc_index;
-	
+
 	if ( $post_id === false ) {
 		global $post;
 	} else {
@@ -2183,6 +2231,108 @@ function uncode_setup_limit_width()
 }
 endif;//uncode_setup_limit_width
 add_action('wp', 'uncode_setup_limit_width');
+
+if ( ! function_exists( 'uncode_no_ctrl_videos' ) ) :
+function uncode_no_ctrl_videos( $item_thumb_id, $consent_id, $single_width, $single_height_oembed, $single_fixed, $is_metro, $is_text_carousel, $oembed_params, $style_preset, $title_classes, $background_mime ) {
+
+	$poster_video = get_post_meta($item_thumb_id, "_uncode_poster_video", true);
+	if ( $poster_video ) {
+		$poster_attributes = uncode_get_media_info($poster_video);
+		if ( isset($poster_attributes->post_mime_type) ) {
+			if (strpos($poster_attributes->post_mime_type, 'oembed/youtube') !== false || strpos($poster_attributes->post_mime_type, 'oembed/vimeo') !== false || strpos($poster_attributes->post_mime_type, 'video/') !== false) {
+				$item_thumb_id = $poster_video;
+			}
+		}
+	}
+	$oembed_attributes = uncode_get_media_info($item_thumb_id);
+	$media_output = '';
+	if ( isset($oembed_attributes->post_mime_type) && ( strpos($oembed_attributes->post_mime_type, '/youtube') !== false || strpos($oembed_attributes->post_mime_type, '/vimeo') !== false || strpos($oembed_attributes->post_mime_type, 'video/') !== false ) ) {
+
+		$_media_oembed = uncode_get_oembed($item_thumb_id, $oembed_attributes->guid, $oembed_attributes->post_mime_type, false, $oembed_attributes->post_excerpt, $oembed_attributes->post_content, false, $single_width, $single_height_oembed, $single_fixed, $is_metro, $is_text_carousel, $oembed_params);
+
+		$_object_class = $_media_oembed['class'];
+
+		$_dummy_oembed = '';
+		if ($_media_oembed['dummy'] !== 0 && $style_preset !== 'metro' && uncode_privacy_allow_content( $consent_id ) !== false) {
+			$_dummy_oembed .= ' style="padding-top: ' . $_media_oembed['dummy'] . '%"';
+		}
+
+		$back_url_id = get_post_meta($oembed_attributes->id, "_uncode_poster_image", true);
+		if ( strpos($oembed_attributes->post_mime_type, 'video/') !== false ) {
+			$_media_code = $_media_oembed['code'];
+			$_media_code = preg_replace( '#<a.*?>.*?</a>#i', '', $_media_code );
+			$_media_code = preg_replace( '#<video(.*?) poster=(.*?)>(.*?)</video>#i', '<video$1 data-poster=$2>$3</video>', $_media_code );
+
+			if ( isset( $oembed_params['mobile_videos'] ) && $oembed_params['mobile_videos'] === 'autoplay' ) {
+				$_media_code = preg_replace( '#<video(.*?)>(.*?)</video>#i', '<video$1 playsinline>$2</video>', $_media_code );
+			} elseif  ( isset( $oembed_params['mobile_videos'] ) && $oembed_params['mobile_videos'] !== 'autoplay' ) {
+				$_media_code = preg_replace( '#<video(.*?)>(.*?)</video>#i', '<video$1><noscript>$2</noscript></video>', $_media_code );
+			}
+
+			$_object_class = $_media_oembed['class'];
+
+			$_dummy_oembed = '';
+			if ($_media_oembed['dummy'] !== 0 && $style_preset !== 'metro' && uncode_privacy_allow_content( $consent_id ) !== false) {
+				$_dummy_oembed .= ' style="padding-top: ' . $_media_oembed['dummy'] . '%"';
+			}
+			$_title_classes = $title_classes;
+			if ( $is_metro ) {
+				$_title_classes[] = 'is-no-control';
+				$_title_classes[] = ( ( isset($oembed_params['play_hover']) && $oembed_params['play_hover'] ) || ( isset( $oembed_params['media_poster'] ) && $oembed_params['media_poster'] === true && $back_url_id ) ) ? 'play-on-hover' : '';
+			}
+			$media_output .= '<div class="fluid-object '. trim(implode(' ', $_title_classes)) . ' '.$_object_class.'"'.$_dummy_oembed.'>'.$_media_code.'</div>';
+
+		} elseif ( strpos($oembed_attributes->post_mime_type, '/youtube') !== false || strpos($oembed_attributes->post_mime_type, '/vimeo') !== false ) {
+			$back_metavalues = unserialize($oembed_attributes->metadata);
+			$drop_data_bg_video = '';
+			$video_orig_w = $back_metavalues['width'];
+			$video_orig_h = $back_metavalues['height'];
+			$video_ratio = ($video_orig_h === 0) ? 1.777 : $video_orig_w / $video_orig_h;
+			$parse_video_url = parse_url(html_entity_decode($oembed_attributes->guid));
+			$video_url = strtok($oembed_attributes->guid, '?');
+			if (isset($parse_video_url['query'])) {
+				parse_str($parse_video_url['query'], $query_params);
+				if (isset($query_params) && count($query_params) > 0) {
+					foreach ($query_params as $key => $value) {
+						$drop_data_bg_video .= ' data-' . $key . '="' . $value . '"';
+					}
+					if (strpos($oembed_attributes->post_mime_type, '/youtube') !== false && isset($query_params['v'])) {
+						$video_url = 'https://youtu.be/' . $query_params['v'];
+					}
+				}
+			}
+
+			$drop_data_bg_video .= ' data-ignore data-width="' . esc_attr( $video_orig_w ) . '" data-height="' . esc_attr( $video_orig_h ) . '" data-ratio="' . esc_attr( $video_ratio ) . '" data-provider="'.( strpos($oembed_attributes->post_mime_type, '/vimeo') !== false ? 'vimeo' : 'youtube' ).'" data-video="' . $video_url . '" data-id="' . rand(10000, 99999) . '"';
+
+			//Check for consent and replace with poster image in case
+			if (
+				( uncode_privacy_allow_content( 'youtube' ) === false && strpos($oembed_attributes->post_mime_type, '/youtube') !== false )
+				||
+				( uncode_privacy_allow_content( 'vimeo' ) === false && strpos($oembed_attributes->post_mime_type, '/vimeo') !== false )
+			) {
+				$back_mime_css = '';
+				if ( $back_url_id ) {
+					$back_url = 'background-image: url(' . wp_get_attachment_url($back_url_id) . ');';
+				}
+			} else {
+				$back_mime_css = ' video uncode-video-container';
+			}
+
+			$_title_classes = $title_classes;
+			if ( $is_metro ) {
+				$_title_classes[] = 'is-no-control';
+				$_title_classes[] = ( ( isset($oembed_params['play_hover']) && $oembed_params['play_hover'] ) || ( isset( $oembed_params['media_poster'] ) && $oembed_params['media_poster'] === true && $back_url_id ) ) ? 'play-on-hover' : '';
+			}
+			$_title_classes[] = $back_mime_css;
+
+			$media_output .= '<div class="fluid-object '. trim(implode(' ', $_title_classes)) . ' '.$_object_class.'" data-w="' . esc_attr( $single_width ) . '"' . $_dummy_oembed . $drop_data_bg_video . '></div>';
+		}
+
+	}
+
+	return $media_output;
+}
+endif;
 
 function uncode_fo8l_op() {
 	$is_valid      = true;

@@ -1,6 +1,10 @@
 (function() {
 	"use strict";
-	var uncode_gmaps_init = function() {
+
+	var UNCODE_GMAPS = window.UNCODE_GMAPS || {};
+	window.UNCODE_GMAPS = UNCODE_GMAPS;
+
+	UNCODE_GMAPS.uncode_gmaps_init = function() {
 		var gmaps_single = function($el) {
 			//set your google maps parameters
 			var map_id = jQuery($el).attr('id'),
@@ -297,12 +301,12 @@
 			gmaps_single(this);
 	    });
 	};
-	google.maps.event.addDomListener(window, 'load', uncode_gmaps_init);
+	google.maps.event.addDomListener(window, 'load', UNCODE_GMAPS.uncode_gmaps_init);
 	var setVcFrontend, setSortStop;
 	if ( typeof window.parent.vc !== 'undefined' ) {
 		window.parent.vc.events.on('shortcodeView:ready shortcodeView:update', function(model) {
 			setVcFrontend = requestTimeout(function(){
-				uncode_gmaps_init();
+				UNCODE_GMAPS.uncode_gmaps_init();
 			}, 500);
 		});
 	}

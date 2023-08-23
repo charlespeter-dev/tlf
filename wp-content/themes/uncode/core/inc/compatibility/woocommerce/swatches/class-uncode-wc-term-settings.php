@@ -393,7 +393,7 @@ class Uncode_WooCommerce_Term_Settings {
 
 			$options[$attribute_id]['swatch_thumbnail_size'] = $size;
 
-			update_option( 'uncode_wc_attribute_options', $options );
+			update_option( 'uncode_wc_attribute_options', $options, false );
 		}
 	}
 }

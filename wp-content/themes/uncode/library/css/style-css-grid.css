@@ -74,6 +74,14 @@
 .cssgrid-container.cssgrid-equal-height .tmb > .t-inside {
   height: 100%;
 }
+.cssgrid-container.cssgrid-align-middle .tmb {
+  display: flex;
+  align-items: center;
+}
+.cssgrid-container.cssgrid-align-bottom .tmb {
+  display: flex;
+  align-items: flex-end;
+}
 .cssgrid-footer {
   opacity: 1 !important;
 }

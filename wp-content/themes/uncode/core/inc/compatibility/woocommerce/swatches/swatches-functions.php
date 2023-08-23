@@ -92,11 +92,11 @@ function uncode_wc_get_attribute_swatch_value( $attribute_name, $attribute_value
 	$swatch = array();
 
 	if ( $swatch_type === 'thumbnail' ) {
-		$selected_variation = uncode_wc_get_selected_variation_for_attr( $attribute_name, $attribute_value, $available_variations );
+		$selected_variation = uncode_wc_get_selected_variation_for_attr( $attribute_name, $attribute_value, $available_variations, true );
 		$thumbnail_id       = false;
 		$hidden             = false;
 
-		if ( empty( $selected_variation ) && false !== $available_variations ) {
+		if ( empty( $selected_variation ) ) {
 			$hidden = true;
 		}
 
@@ -111,10 +111,10 @@ function uncode_wc_get_attribute_swatch_value( $attribute_name, $attribute_value
 		);
 
 	} else {
-		$selected_variation = uncode_wc_get_selected_variation_for_attr( $attribute_name, $attribute_value, $available_variations );
+		$selected_variation = uncode_wc_get_selected_variation_for_attr( $attribute_name, $attribute_value, $available_variations, true );
 		$hidden             = false;
 
-		if ( empty( $selected_variation ) && false !== $available_variations ) {
+		if ( empty( $selected_variation ) ) {
 			$hidden = true;
 		}
 

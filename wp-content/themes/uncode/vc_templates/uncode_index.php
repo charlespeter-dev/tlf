@@ -2,7 +2,7 @@
 
 global $uncode_post_types, $uncode_vc_index, $changer_back_color_column, $changer_back_color_column_inner;
 $uncode_vc_index = true;
-$title = $index_type = $isotope_mode = $index_back_color = $items = $filtering = $filter_style = $filter_back_color = $filtering_full_width = $filters_widgets = $filtering_menu = $filtering_toggle_align = $filter_toggle_hide_text = $filter_toggle_show_text = $filtering_position = $filtering_uppercase = $filter_all_opposite = $filter_all_text = $filter_mobile = $filter_mobile_align = $filter_mobile_wrapper = $filter_mobile_wrapper_text = $filter_mobile_dropdown = $filter_mobile_dropdown_text = $filter_scroll = $footer_style = $footer_back_color = $footer_full_width = $pagination = $infinite = $infinite_hover_fx = $infinite_button = $infinite_button_text = $infinite_button_shape = $infinite_button_outline = $infinite_button_color = $style_preset = $images_size = $thumb_size = $table_images_size = $single_width = $single_height = $single_height_viewport = $single_height_viewport_minus = $single_back_color = $single_shape = $radius = $single_text = $single_image_position = $single_vertical_text = $single_image_size = $single_lateral_responsive = $drop_image_position = $drop_image_time = $drop_image_default = $drop_title_default = $back_repeat = $back_attachment = $back_position = $back_size = $drop_image_hover = $drop_image_separator = $drop_image_extra = $drop_image_extra_type = $drop_image_extra_size = $drop_image_extra_weight = $drop_image_extra_position = $drop_image_custom_separator = $drop_ratio = $drop_radius = $drop_anchor = $drop_image_arrange = $off_grid = $off_grid_element = $off_grid_val = $off_grid_all = $single_elements_click =$single_text_visible = $single_text_anim = $single_text_anim_type = $single_overlay_visible = $single_overlay_anim = $single_image_coloration = $single_image_color_anim = $single_image_anim = $single_image_magnetic = $single_secondary =$single_reduced = $single_reduced_mobile = $single_padding = $single_padding_vertical = $single_text_reduced = $single_h_align = $single_h_align_mobile = $single_table_last_align = $single_v_position = $single_h_position = $single_style = $single_overlay_color = $single_overlay_coloration = $single_overlay_blend = $single_overlay_opacity = $single_shadow = $shadow_weight = $shadow_darker = $drop_shadow = $drop_shadow_weight = $drop_shadow_darker = $single_border = $single_icon = $single_title_transform = $single_title_weight = $single_title_family = $single_title_dimension = $single_title_semantic = $single_title_height = $single_title_space = $single_text_lead = $single_css_animation = $single_animation_delay = $single_animation_speed = $single_animation_first = $carousel_height = $carousel_v_align = $carousel_type = $carousel_interval = $carousel_navspeed = $carousel_loop = $carousel_nav = $carousel_nav_mobile = $carousel_nav_skin = $carousel_dots = $carousel_dots_space = $carousel_dots_mobile = $carousel_dot_position = $carousel_dot_width = $column_width_use_pixel = $carousel_width_percent = $carousel_width_pixel = $carousel_dots_inside = $carousel_dot_padding = $carousel_autoh = $carousel_lg = $carousel_md = $carousel_sm = $gutter_size = $drop_h_space = $inner_padding = $stage_padding = $carousel_overflow = $carousel_half_opacity = $carousel_scaled = $carousel_pointer_events = $table_v_align = $table_border = $table_click_row = $table_hover = $post_items = $portfolio_items = $page_items = $product_items = $post_table_items = $portfolio_table_items = $page_table_items = $product_table_items = $screen_lg = $screen_md = $screen_sm = $filter = $el_id = $lbox_skin = $lbox_transparency = $lbox_dir = $lbox_title = $lbox_caption = $lbox_social = $lbox_deep = $lbox_no_tmb = $lbox_no_arrows = $lbox_gallery_arrows = $lbox_gallery_arrows_bg = $lbox_zoom_origin = $lbox_counter = $lbox_actual_size = $lbox_full = $lbox_download = $lbox_transition = $no_double_tap = $table_display_tablet = $table_display_mobile = $table_mobile_gutter_size = $titles_display_mobile = $titles_gap_reduced_mobile = $titles_hide_meta_mobile = $titles_hide_separator_mobile = $el_class = $custom_cursor = $skew = $orderby = $order = $custom_order = $order_ids = $css_class = $filter = $filter_background = $filter_sticky = $offset = $search_query = $using_plugin = $post_matrix = $matrix_amount = $matrix_items = $single_fluid_height = $carousel_height_viewport = $carousel_height_viewport_minus = $auto_query = $auto_query_type = $pagination_disable_history = $show_extra_filters = $show_woo_sorting = $show_woo_result_count = $woo_sorting_default_text = $hide_woo_sorting_icon = $woo_sorting_skin = $show_widgetized_content_block = $widgetized_content_block_id = $widgetized_content_block_toggle_text = $hide_widgetized_content_block_icon = $filter_hide_cats = $filter_typography = $woo_sorting_shadow = $parent_id = $filters_wrapper_trigger = $internal_width = $drop_hide_media = $drop_width = $titles_display = $wrong_layout = $wrong_layout_check = $single_meta_custom_typo = $single_meta_size = $single_meta_weight = $single_meta_transform = $table_general_typo = $table_meta_custom_typo = $table_meta_size = $table_meta_weight = $table_meta_transform = $sticky_dir = $sticky_wrap = $sticky_th_size = $sticky_th_size = $sticky_th_vh_lg = $sticky_th_vh_md = $sticky_th_vh_sm = $sticky_th_vh_minus = $sticky_th_grid_lg = $sticky_th_grid_md = $sticky_th_grid_sm = $sticky_scroll_v_align = $sticky_thumb_size = $no_sticky_scroll_tablet = $no_sticky_scroll_mobile = $sticky_scroll_mobile_safe_height = $active_filters = $clear_all = $show_woo_sorting_ajax = $show_woo_result_count_ajax = $woo_sorting_default_text_ajax = $woo_sorting_skin_ajax = $woo_sorting_shadow_ajax = $ajax_filters_content_block_id = $ajax_filters_layout = $ajax_filters_position = $ajax_filters_position_mobile = $gutter_size_ajax_filters = $column_size_ajax_filters = $min_w_ajax_filters = $max_w_ajax_filters = '';
+$title = $index_type = $isotope_mode = $index_back_color = $items = $filtering = $filter_style = $filter_back_color = $filtering_full_width = $filters_widgets = $filtering_menu = $filtering_toggle_align = $filter_toggle_hide_text = $filter_toggle_show_text = $filtering_position = $filtering_uppercase = $filter_all_opposite = $filter_all_text = $filter_mobile = $filter_mobile_align = $filter_mobile_wrapper = $filter_mobile_wrapper_text = $filter_mobile_dropdown = $filter_mobile_dropdown_text = $filter_scroll = $footer_style = $footer_back_color = $footer_full_width = $pagination = $infinite = $infinite_hover_fx = $infinite_button = $infinite_button_text = $infinite_button_shape = $infinite_button_outline = $infinite_button_color = $style_preset = $images_size = $thumb_size = $table_images_size = $single_width = $single_height = $single_height_viewport = $single_height_viewport_minus = $single_back_color = $single_shape = $radius = $single_text = $single_image_position = $single_vertical_text = $single_image_size = $single_lateral_responsive = $drop_image_position = $drop_image_time = $drop_image_default = $drop_title_default = $back_repeat = $back_attachment = $back_position = $back_size = $drop_image_hover = $drop_image_separator = $drop_image_extra = $drop_image_extra_type = $drop_image_extra_size = $drop_image_extra_weight = $drop_image_extra_position = $drop_image_custom_separator = $drop_ratio = $drop_radius = $drop_anchor = $drop_image_arrange = $off_grid = $off_grid_element = $off_grid_val = $off_grid_all = $single_elements_click =$single_text_visible = $single_text_anim = $single_text_anim_type = $single_overlay_visible = $single_overlay_anim = $single_image_coloration = $single_image_color_anim = $single_image_anim = $single_image_magnetic = $single_secondary =$single_reduced = $single_reduced_mobile = $single_padding = $single_padding_vertical = $single_text_reduced = $single_h_align = $single_h_align_mobile = $single_table_last_align = $single_v_position = $single_h_position = $single_style = $single_overlay_color = $single_overlay_coloration = $single_overlay_blend = $single_overlay_opacity = $single_shadow = $shadow_weight = $shadow_darker = $drop_shadow = $drop_shadow_weight = $drop_shadow_darker = $single_border = $single_icon = $single_title_transform = $single_title_weight = $single_title_family = $single_title_dimension = $single_title_semantic = $single_title_height = $single_title_space = $single_text_lead = $single_css_animation = $single_animation_delay = $single_animation_speed = $single_animation_first = $carousel_height = $carousel_v_align = $carousel_type = $carousel_interval = $carousel_navspeed = $carousel_loop = $carousel_nav = $carousel_nav_mobile = $carousel_nav_skin = $carousel_dots = $carousel_dots_space = $carousel_dots_mobile = $carousel_dot_position = $carousel_dot_width = $column_width_use_pixel = $carousel_width_percent = $carousel_width_pixel = $carousel_dots_inside = $carousel_dot_padding = $carousel_autoh = $carousel_lg = $carousel_md = $carousel_sm = $gutter_size = $drop_h_space = $inner_padding = $stage_padding = $carousel_overflow = $carousel_half_opacity = $carousel_scaled = $carousel_pointer_events = $table_v_align = $table_border = $table_click_row = $table_hover = $post_items = $portfolio_items = $page_items = $product_items = $post_table_items = $portfolio_table_items = $page_table_items = $product_table_items = $screen_lg = $screen_md = $screen_sm = $filter = $el_id = $lbox_skin = $lbox_transparency = $lbox_dir = $lbox_title = $lbox_caption = $lbox_social = $lbox_deep = $lbox_no_tmb = $lbox_no_arrows = $lbox_gallery_arrows = $lbox_gallery_arrows_bg = $lbox_zoom_origin = $lbox_counter = $lbox_actual_size = $lbox_full = $lbox_download = $lbox_transition = $no_double_tap = $table_display_tablet = $table_display_mobile = $table_mobile_gutter_size = $titles_display_mobile = $titles_gap_reduced_mobile = $titles_hide_meta_mobile = $titles_hide_separator_mobile = $el_class = $custom_cursor = $skew = $orderby = $order = $custom_order = $order_ids = $css_class = $filter = $filter_background = $filter_sticky = $offset = $search_query = $using_plugin = $post_matrix = $matrix_amount = $matrix_items = $single_fluid_height = $carousel_height_viewport = $carousel_height_viewport_minus = $auto_query = $auto_query_type = $pagination_disable_history = $show_extra_filters = $show_woo_sorting = $show_woo_result_count = $woo_sorting_default_text = $hide_woo_sorting_icon = $woo_sorting_skin = $show_widgetized_content_block = $widgetized_content_block_id = $widgetized_content_block_toggle_text = $hide_widgetized_content_block_icon = $filter_hide_cats = $filter_typography = $woo_sorting_shadow = $parent_id = $filters_wrapper_trigger = $internal_width = $drop_hide_media = $drop_width = $titles_display = $wrong_layout = $wrong_layout_check = $single_meta_custom_typo = $single_meta_size = $single_meta_weight = $single_meta_transform = $table_general_typo = $table_meta_custom_typo = $table_meta_size = $table_meta_weight = $table_meta_transform = $sticky_dir = $sticky_wrap = $sticky_th_size = $sticky_th_size = $sticky_th_vh_lg = $sticky_th_vh_md = $sticky_th_vh_sm = $sticky_th_vh_minus = $sticky_th_grid_lg = $sticky_th_grid_md = $sticky_th_grid_sm = $sticky_scroll_v_align = $sticky_thumb_size = $no_sticky_scroll_tablet = $no_sticky_scroll_mobile = $sticky_scroll_mobile_safe_height = $active_filters = $clear_all = $show_woo_sorting_ajax = $show_woo_result_count_ajax = $woo_sorting_default_text_ajax = $woo_sorting_skin_ajax = $woo_sorting_shadow_ajax = $ajax_filters_content_block_id = $ajax_filters_layout = $ajax_filters_position = $ajax_filters_position_mobile = $gutter_size_ajax_filters = $column_size_ajax_filters = $min_w_ajax_filters = $max_w_ajax_filters = $advanced_videos = $play_hover = $play_pause = $mobile_videos = $lb_video_advanced = $lb_autoplay = $lb_muted = '';
 $post_types = array();
 $wc_filtered = array();
 
@@ -335,7 +335,17 @@ $attributes_first = array(
 	'gutter_size_ajax_filters' => 3,
 	'column_size_ajax_filters' => 3,
 	'min_w_ajax_filters' => '',
-	'max_w_ajax_filters' => ''
+	'max_w_ajax_filters' => '',
+	'advanced_videos' => '',
+	'play_hover' => '',
+	'play_pause' => '',
+	'mobile_videos' => '',
+	'lb_video_advanced' => '',
+	'lb_autoplay' => '',
+	'lb_muted' => '',
+	'woo_single_variations' => '',
+	'woo_single_variations_hide_parent' => '',
+	'css_grid_v_align' => '',
 );
 
 $attributes_second = array();
@@ -561,15 +571,27 @@ if ($infinite !== 'yes') {
 
 $loop .= '|paged:' . $paged;
 
-$query_options = array();
+global $uncode_query_options;
+
+$uncode_query_options = array();
 
 if ( $auto_query_type === 'navigation' ) {
-	$query_options['navigation_type'] = $navigation_type;
-	$query_options['index_id']        = $el_id;
+	$uncode_query_options['navigation_type'] = $navigation_type;
+	$uncode_query_options['index_id']        = $el_id;
+}
+
+if ( $woo_single_variations === 'yes' ) {
+	$uncode_query_options['single_variations'] = true;
+	$uncode_query_options['single_variations_hide_parent'] = $woo_single_variations_hide_parent === 'yes' ? true : false;
+
+	if ( ! apply_filters( 'uncode_woocommerce_enable_single_variations_hide_parent', false ) ) {
+		$uncode_query_options['single_variations_hide_parent'] = true;
+	}
+
+	$post_types[] = 'product_variation';
 }
 
 $loop = apply_filters( 'uncode_index_loop_query', $loop );
-
 
 $search_query = false;
 
@@ -581,7 +603,7 @@ if ( is_search() && ( $using_plugin === 'yes' || $auto_query === 'yes' ) ) {
 		$loop  = '';
 
 		if ( isset( $_GET['s'] ) ) {
-			$query_options['s'] = sanitize_text_field( $_GET['s'] );
+			$uncode_query_options['s'] = sanitize_text_field( $_GET['s'] );
 
 			$search_loop = array();
 
@@ -614,7 +636,7 @@ if ( is_search() && ( $using_plugin === 'yes' || $auto_query === 'yes' ) ) {
 	}
 }
 
-$query_options = apply_filters( 'uncode_index_query_options', $query_options );
+$uncode_query_options = apply_filters( 'uncode_index_query_options', $uncode_query_options );
 
 $is_whithout_pagination = false;
 
@@ -649,38 +671,111 @@ if ( $pagination !== 'yes' && $infinite !== 'yes' ) {
 global $has_ajax_filters;
 
 if ( ( isset( $has_ajax_filters ) && $has_ajax_filters ) || ( $filtering === 'ajax' && $ajax_filters_content_block_id > 0 ) ) {
-	global $uncode_ajax_filter_query, $uncode_ajax_filter_query_unfiltered;
+	global $uncode_ajax_filter_query, $uncode_ajax_filter_query_post_type, $uncode_ajax_filter_query_unfiltered;
 
-	$query_options['has_filters'] = true;
+	$uncode_query_options['has_filters'] = true;
 
-	$ajax_filter_loop          = $loop;
-	$ajax_filter_query_options = $query_options;
+	$ajax_filter_loop                        = $loop;
+	$ajax_filter_query_options               = $uncode_query_options;
+	$ajax_filter_query_options['fields_ids'] = true;
+	$ajax_filter_loop_parse                  = uncode_parse_loop_data( $loop );
 
 	if ( ! $is_whithout_pagination ) {
-		$ajax_filter_loop_parse                = uncode_parse_loop_data( $loop );
 		$ajax_filter_loop_parse['size']        = 'All';
 		$ajax_filter_loop                      = uncode_unparse_loop_data( $ajax_filter_loop_parse );
 		$ajax_filter_query_options['per_page'] = 0;
 	}
 
-	$this->getLoop( $ajax_filter_loop, $offset, $auto_query, $auto_query_type, $ajax_filter_query_options );
-	$uncode_ajax_filter_query = $this->query;
-
 	$ajax_filter_query_options['no_filters'] = true;
 
-	$this->getLoop( $ajax_filter_loop, $offset, $auto_query, $auto_query_type, $ajax_filter_query_options );
-	$uncode_ajax_filter_query_unfiltered = $this->query;
+	if ( false && ! isset( $uncode_query_options['filters_query'] ) && isset( $uncode_query_options['has_unkown_terms'] ) && $uncode_query_options['has_unkown_terms'] ) {
+		$uncode_ajax_filter_query = $uncode_ajax_filter_query_unfiltered = array();
+	} else {
+		if ( uncode_ajax_filters_cache_enabled() ) {
+			$current_url = uncode_get_current_url();
+
+			$cache_keys_data = array(
+				'current_url'               => $current_url,
+				'ajax_filter_loop'          => $ajax_filter_loop,
+				'offset'                    => $offset,
+				'auto_query'                => $auto_query,
+				'auto_query_type'           => $auto_query_type,
+				'ajax_filter_query_options' => $ajax_filter_query_options,
+			);
+
+			$cache_key = md5( json_encode( $cache_keys_data ) );
+
+			$ajax_filters_queries = get_transient( 'uncode_ajax_filters_queries' );
+			$ajax_filters_queries = is_array( $ajax_filters_queries ) ? $ajax_filters_queries : array();
+
+			if ( isset( $ajax_filters_queries[ $cache_key ] ) && is_array( $ajax_filters_queries[ $cache_key ] ) ) {
+				// Valid cache found
+				$uncode_ajax_filter_query_unfiltered = $ajax_filters_queries[ $cache_key ];
+			} else {
+				$this->getLoop( $ajax_filter_loop, $offset, $auto_query, $auto_query_type, $ajax_filter_query_options );
+				$uncode_ajax_filter_query_unfiltered = $this->query->have_posts() ? $this->query->posts : array();
+
+				$ajax_filters_queries[ $cache_key ] = $uncode_ajax_filter_query_unfiltered;
+
+				set_transient( 'uncode_ajax_filters_queries', $ajax_filters_queries, uncode_ajax_filters_get_transient_lifespan() );
+			}
+		} else {
+			$this->getLoop( $ajax_filter_loop, $offset, $auto_query, $auto_query_type, $ajax_filter_query_options );
+			$uncode_ajax_filter_query_unfiltered = $this->query->have_posts() ? $this->query->posts : array();
+		}
+
+		unset( $ajax_filter_query_options['no_filters'] );
+
+		if ( uncode_is_filtering() ) {
+			if ( uncode_ajax_filters_cache_enabled() ) {
+				$cache_keys_data = array(
+					'current_url'               => $current_url,
+					'ajax_filter_loop'          => $ajax_filter_loop,
+					'offset'                    => $offset,
+					'auto_query'                => $auto_query,
+					'auto_query_type'           => $auto_query_type,
+					'ajax_filter_query_options' => $ajax_filter_query_options,
+				);
+
+				$cache_key = md5( json_encode( $cache_keys_data ) );
+
+				if ( isset( $ajax_filters_queries[ $cache_key ] ) && is_array( $ajax_filters_queries[ $cache_key ] ) ) {
+					// Valid cache found
+					$uncode_ajax_filter_query = $ajax_filters_queries[ $cache_key ];
+				} else {
+					$this->getLoop( $ajax_filter_loop, $offset, $auto_query, $auto_query_type, $ajax_filter_query_options );
+					$uncode_ajax_filter_query = $this->query->have_posts() ? $this->query->posts : array();
+
+					$ajax_filters_queries[ $cache_key ] = $uncode_ajax_filter_query;
+
+					set_transient( 'uncode_ajax_filters_queries', $ajax_filters_queries, uncode_ajax_filters_get_transient_lifespan() );
+				}
+			} else {
+				$this->getLoop( $ajax_filter_loop, $offset, $auto_query, $auto_query_type, $ajax_filter_query_options );
+				$uncode_ajax_filter_query = $this->query->have_posts() ? $this->query->posts : array();
+			}
+		} else {
+			$uncode_ajax_filter_query = $uncode_ajax_filter_query_unfiltered;
+		}
+	}
+
+	$loop_cpt = isset( $ajax_filter_loop_parse['post_type'] ) && $ajax_filter_loop_parse['post_type'] ? explode( ',', $ajax_filter_loop_parse['post_type'] ) : false;
+
+	$uncode_ajax_filter_query_post_type = isset( $this->query->query_vars ) && isset( $this->query->query_vars['post_type'] ) ? $this->query->query_vars['post_type'] : $loop_cpt;
 }
 
-$this->getLoop( $loop, $offset, $auto_query, $auto_query_type, $query_options );
+$this->getLoop( $loop, $offset, $auto_query, $auto_query_type, $uncode_query_options );
 
-global $uncode_index_query;
+global $uncode_index_query, $uncode_index_query_post_type;
 
 if ( $search_query ) {
 	$uncode_index_query = $search_query;
 } else {
 	$uncode_index_query = $this->query;
 }
+
+$uncode_index_query_post_type = isset( $uncode_index_query->query->query_vars ) && isset( $uncode_index_query->query->query_vars['post_type'] ) ? $uncode_index_query->query->query_vars['post_type'] : false;
+
 
 $args = $this->loop_args;
 
@@ -812,13 +907,6 @@ if ( $auto_query === 'yes' && $auto_query_type === 'navigation' ) {
 
 // Sometimes we need to pre-run this module to populate our variables
 if ( $run_dry === 'yes' ) {
-	global $uncode_index_posts, $uncode_index_query_unfiltered;
-	$uncode_index_posts = $posts;
-	$query_options['no_filters'] = true;
-
-	$this->getLoop( $loop, $offset, $auto_query, $auto_query_type, $query_options );
-	$uncode_index_query_unfiltered = $this->query;
-
 	return;
 }
 
@@ -948,6 +1036,9 @@ if ($index_type == 'isotope') {
 		if ( $single_animation_sequential !== 'no' ) {
 			$main_container_classes[] = 'cssgrid-animate-sequential';
 		}
+	}
+	if ( $css_grid_v_align !== '' ) {
+		$container_classes[] = 'cssgrid-align-' . $css_grid_v_align;
 	}
 	if ( function_exists( 'uncode_get_dynamic_css_grids_css_from_shortcode' ) ) {
 		$shortcode_data = array(
@@ -1613,6 +1704,7 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 		<?php
 		/*** data module preparation ***/
 		$div_data = array();
+		$div_pattern_data = array();
 		switch ($index_type) {
 			case 'isotope':
 				$div_data['data-type'] = $style_preset;
@@ -1759,6 +1851,16 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 				break;
 		}
 
+		if ( $lb_video_advanced === 'yes' ) {
+			if ( $lb_autoplay !== '' ) {
+				$div_pattern_data['data-lb-autoplay'] = $lb_autoplay;
+			}
+			if ( $lb_muted !== '' ) {
+				$div_pattern_data['data-lb-muted'] = $lb_muted;
+			}
+		}
+
+		$div_data = array_merge($div_data, $div_pattern_data);
 		$div_data_attributes = array_map(function ($v, $k) { return $k . '="' . $v . '"'; }, $div_data, array_keys($div_data));
 		$max_w_ajax_grid_style = $min_w_ajax_filters !== '' ? ' style="max-width: calc(100% - ' . floatval($min_w_ajax_filters) . 'px)"' : '';
 
@@ -1835,7 +1937,7 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 						$item_prop = (isset($items[$post->id . '_i'])) ? $items[$post->id . '_i'] : array();
 					}
 
-					if ($post->type === 'product') {
+					if ($post->type === 'product' || $post->type === 'product_variation') {
 						$block_classes[] = 'tmb-woocommerce';
 						$block_data['product'] = true;
 						if ( $swatch_attr ) {
@@ -1856,6 +1958,9 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 
 					if ( $index_type !== 'titles' ) {
 						$post_type_layout = $index_type === 'table' ? $post->type . '_table' : $post->type;
+						if ($post->type === 'product_variation') {
+							$post_type_layout = 'product';
+						}
 						if ( $index_type === 'table' ) {
 							$typeLayout = $is_tax_query ? $post_blocks['uncode_taxonomy_table'] : $post_blocks['uncode_' . str_replace('-', '_', $post_type_layout)];
 						} else {
@@ -2319,7 +2424,7 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 					}
 
 					if (isset($typeLayout['media']) && ( $item_thumb_id === '' || $item_thumb_id == 0 ) && $single_text !== 'overlay') {
-						if ($post->type === 'product' && isset( $typeLayout['media'][0] ) && $typeLayout['media'][0] === 'featured') {
+						if (($post->type === 'product' || $post->type === 'product_variation') && isset( $typeLayout['media'][0] ) && $typeLayout['media'][0] === 'featured') {
 							$typeLayout['media'][0] = 'placeholder';
 				  		} else {
 							unset($typeLayout['media']);
@@ -2477,7 +2582,7 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 
 					$block_data['taxonomy_type'] = $post->taxonomy_type;
 					foreach ( $block_data['taxonomy_type'] as $key_tax => $value_tax ) {
-						if ( $value_tax === 'product_type' || $value_tax === 'product_visibility' || $value_tax === 'product_tag' ) {
+						if ( $value_tax === 'product_type' || $value_tax === 'product_visibility' || $value_tax === 'product_tag' || $value_tax === 'translation_priority' ) {
 							unset( $block_data['taxonomy_type'][$key_tax] );
 						}
 					}
@@ -2560,10 +2665,17 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 						$block_data['link'] = '#';
 					}
 
+					$block_data['poster'] = false;
 					if (isset($typeLayout['media'][2]) && $typeLayout['media'][2] === 'poster') {
 						$block_data['poster'] = true;
-					} else {
-						$block_data['poster'] = false;
+					}
+
+					$block_data['no-control'] = false;
+					if ( $advanced_videos === 'yes' ) {
+						$block_data['no-control'] = true;
+						$block_data['play_hover'] = $play_hover;
+						$block_data['play_pause'] = $play_pause;
+						$block_data['mobile_videos'] = $mobile_videos;
 					}
 
 					if (isset($typeLayout['icon'][0]) && $typeLayout['icon'][0] !== '') {
@@ -2920,7 +3032,9 @@ if ( $index_type === 'custom_grid' && $custom_grid_content_block_id ) {
 		$custom_grid_wrapper_class[] = 'style-'.$index_back_color.'-bg';
 	}
 
-	echo '<div class="custom-grid-container uncont ' . esc_attr( trim( implode( ' ', $custom_grid_wrapper_class ) ) ) . '" ' . 'id="' . esc_attr( $el_id ) . '"' . '>';
+	$pattern_data_attributes = array_map(function ($v, $k) { return $k . '="' . $v . '"'; }, $div_pattern_data, array_keys($div_pattern_data));
+
+	echo '<div class="custom-grid-container uncont ' . esc_attr( trim( implode( ' ', $custom_grid_wrapper_class ) ) ) . '" ' . 'id="' . esc_attr( $el_id ) . '" ' , implode(' ', $pattern_data_attributes) . '>';
 	echo uncode_remove_p_tag( uncode_get_custom_grid_output( $custom_matrix_objects, $custom_grid_content_block_id ) );
 	echo '</div>';
 

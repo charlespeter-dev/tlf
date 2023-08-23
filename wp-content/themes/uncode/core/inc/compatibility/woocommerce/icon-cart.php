@@ -41,7 +41,7 @@ function uncode_get_cart_items() {
 							'<a href="%s" class="remove" aria-label="%s" data-product_id="%s" data-item_key="%s" data-product_sku="%s"><i class="fa fa-cross"></i></a>',
 							esc_url( uncode_wc_get_cart_remove_url( $cart_item_key ) ),
 							/* translators: %s is the product name */
-							esc_attr( sprintf( __( 'Remove %s from cart', 'woocommerce' ), $product_name ) ),
+							esc_attr( sprintf( __( 'Remove %s from cart', 'woocommerce' ), wp_strip_all_tags( $product_name ) ) ),
 							esc_attr( $product_id ),
 							esc_attr( $cart_item_key ),
 							esc_attr( $_product->get_sku() )
@@ -125,9 +125,7 @@ function uncode_add_cart_in_menu($woo_icon, $woo_cart_class) {
 	$vertical = (strpos($menutype, 'vmenu') !== false || $menutype === 'menu-overlay' || $menutype === 'menu-overlay-center') ? true : false;
 
 	ob_start();
-	?>
-
-	<li class="<?php echo esc_attr( $woo_cart_class ); ?> uncode-cart menu-item-link menu-item menu-item-has-children dropdown">
+	?><li class="<?php echo esc_attr( $woo_cart_class ); ?> uncode-cart menu-item-link menu-item menu-item-has-children dropdown">
 		<a href="<?php echo esc_url( wc_get_cart_url() ); ?>" data-toggle="dropdown" class="dropdown-toggle" data-type="title" title="cart">
 			<span class="cart-icon-container">
 				<?php if ( $horizontal_menu ) : ?>
@@ -139,7 +137,14 @@ function uncode_add_cart_in_menu($woo_icon, $woo_cart_class) {
 				<?php if ( $tot_articles !== 0 ) : ?>
 					<span class="badge"><?php echo esc_html( $tot_articles ); ?></span>
 				<?php else : ?>
-					<span class="badge" style="display: none;"></span>
+					<?php 
+						$qty_fx = apply_filters( 'uncode_woocommerce_popup_cart_quantity', ot_get_option( '_uncode_woocommerce_popup_cart_quantity'  ) === 'on' );
+						if ( $qty_fx !== true ) { ?>
+							<span class="badge" style="display: none;"></span>
+						<?php } else { ?>
+							<span class="badge"></span>
+						<?php }
+					?>					
 				<?php endif; ?>
 
 				<i class="fa fa-angle-down fa-dropdown <?php echo esc_attr( !$vertical ? ' desktop-hidden' : '' ); ?>"></i>
@@ -155,9 +160,7 @@ function uncode_add_cart_in_menu($woo_icon, $woo_cart_class) {
 				<?php endif; ?>
 			</ul>
 		<?php endif; ?>
-	</li>
-
-	<?php
+	</li><?php
 	$items = ob_get_clean();
 
     return $items;

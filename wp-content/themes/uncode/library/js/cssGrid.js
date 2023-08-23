@@ -132,7 +132,7 @@
 				evt.preventDefault();
 
                 var container = $(this).closest('.cssgrid-system'),
-                	calc_scroll = container.closest('.row-parent').offset().top;
+				calc_scroll = SiteParameters.index_pagination_scroll_to != false ? eval(SiteParameters.index_pagination_scroll_to) : container.closest('.row-parent').offset().top;
 
                 calc_scroll -= UNCODE.get_scroll_offset();
 
@@ -262,7 +262,7 @@
 			if (!$filter.hasClass('active')) {
 				/** Scroll top with filtering */
 				if (filterContainer.hasClass('filter-scroll')) {
-                    var calc_scroll = container.closest('.row-parent').offset().top;
+                    var calc_scroll = SiteParameters.index_pagination_scroll_to != false ? eval(SiteParameters.index_pagination_scroll_to) : container.closest('.row-parent').offset().top;
                     calc_scroll -= UNCODE.get_scroll_offset();
 
 					var bodyTop = document.documentElement['scrollTop'] || document.body['scrollTop'],

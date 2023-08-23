@@ -5,7 +5,7 @@
 
 UNCODE.disableHoverScroll = function() {
 
-	if (!UNCODE.isMobile && !UNCODE.isFullPage) {
+	if (!UNCODE.isMobile && !UNCODE.isFullPage && !SiteParameters.is_frontend_editor) {
 		var body = document.body,
 		timer;
 

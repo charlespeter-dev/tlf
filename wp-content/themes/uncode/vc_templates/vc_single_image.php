@@ -1,6 +1,6 @@
 <?php
 
-$title = $media = $col_width = $mobile_width = $medium_width = $media_width_use_pixel = $media_width_percent = $media_width_pixel = $media_ratio = $media_lightbox = $media_poster = $media_link = $advanced = $media_items = $media_text = $media_style = $media_back_color = $media_overlay_color = $media_overlay_coloration = $media_overlay_color_blend = $media_overlay_opacity = $media_text_visible = $media_text_anim = $media_text_anim_type = $media_overlay_visible = $media_overlay_anim = $media_image_coloration = $media_image_color_anim = $media_image_anim = $media_image_magnetic = $media_h_align = $media_v_position = $media_reduced = $media_h_position = $media_padding = $media_text_reduced = $media_title_custom = $media_caption_custom = $media_title_transform = $media_title_dimension = $media_title_family = $media_title_weight = $media_title_height = $media_title_space = $media_subtitle_custom = $media_icon = $media_elements_click = $lbox_skin = $lbox_transparency = $lbox_dir = $lbox_title = $lbox_caption = $lbox_social = $lbox_deep = $lbox_deep_id = $lbox_no_tmb = $lbox_no_arrows = $lbox_gallery_arrows = $lbox_gallery_arrows_bg = $lbox_zoom_origin = $lbox_connected = $lbox_actual_size = $lbox_full = $lbox_download = $lbox_counter = $lbox_transition = $link = $alignment = $el_id = $el_class = $css_animation = $animation_delay = $animation_speed = $skew = $rotating = $shape = $radius = $caption = $custom_title_semantic = $custom_title_size = $custom_title_height = $custom_title_space = $custom_title_font = $custom_title_weight = $custom_title_transform = $custom_title_italic = $border = $shadow = $shadow_weight = $shadow_darker = $output = $single_width = $single_height = $single_fixed = $style_preset = $css = $div_data = $lightbox_classes = $dummy_oembed = $carousel_textual = $media_code = $text_lead = $dynamic = $dynamic_source = $custom_cursor = '';
+$title = $media = $col_width = $mobile_width = $medium_width = $media_width_use_pixel = $media_width_percent = $media_width_pixel = $media_ratio = $media_lightbox = $media_poster = $media_link = $advanced = $media_items = $media_text = $media_style = $media_back_color = $media_overlay_color = $media_overlay_coloration = $media_overlay_color_blend = $media_overlay_opacity = $media_text_visible = $media_text_anim = $media_text_anim_type = $media_overlay_visible = $media_overlay_anim = $media_image_coloration = $media_image_color_anim = $media_image_anim = $media_image_magnetic = $media_h_align = $media_v_position = $media_reduced = $media_h_position = $media_padding = $media_text_reduced = $media_title_custom = $media_caption_custom = $media_title_transform = $media_title_dimension = $media_title_family = $media_title_weight = $media_title_height = $media_title_space = $media_subtitle_custom = $media_icon = $media_elements_click = $lbox_skin = $lbox_transparency = $lbox_dir = $lbox_title = $lbox_caption = $lbox_social = $lbox_deep = $lbox_deep_id = $lbox_no_tmb = $lbox_no_arrows = $lbox_gallery_arrows = $lbox_gallery_arrows_bg = $lbox_zoom_origin = $lbox_connected = $lbox_actual_size = $lbox_full = $lbox_download = $lbox_counter = $lbox_transition = $link = $alignment = $el_id = $el_class = $css_animation = $animation_delay = $animation_speed = $skew = $rotating = $shape = $radius = $caption = $custom_title_semantic = $custom_title_size = $custom_title_height = $custom_title_space = $custom_title_font = $custom_title_weight = $custom_title_transform = $custom_title_italic = $border = $shadow = $shadow_weight = $shadow_darker = $output = $single_width = $single_height = $single_fixed = $style_preset = $css = $div_data = $lightbox_classes = $dummy_oembed = $carousel_textual = $media_code = $text_lead = $dynamic = $dynamic_source = $custom_cursor = $advanced_videos = $play_hover = $play_pause = $mobile_videos = $lb_video_advanced = $lb_autoplay = $lb_muted = '';
 
 extract(shortcode_atts(array(
 	'uncode_shortcode_id' => '',
@@ -105,6 +105,13 @@ extract(shortcode_atts(array(
 	'dynamic' => '',
 	'dynamic_source' => '',
 	'custom_cursor' => '',
+	'advanced_videos' => '',
+	'play_hover' => '',
+	'play_pause' => '',
+	'mobile_videos' => '',
+	'lb_video_advanced' => '',
+	'lb_autoplay' => '',
+	'lb_muted' => '',
 ) , $atts));
 
 if ( $el_id !== '' ) {
@@ -515,6 +522,16 @@ if  ($text_lead === 'yes' ) {
 	$block_data['text_lead'] = 'small';
 }
 
+$block_data['poster'] = false;
+
+$block_data['no-control'] = false;
+if ( $advanced_videos === 'yes' ) {			
+	$block_data['no-control'] = true;
+	$block_data['play_hover'] = $play_hover;
+	$block_data['play_pause'] = $play_pause;
+	$block_data['mobile_videos'] = $mobile_videos;
+}
+
 if ($advanced === 'yes') {
 
 	$layout = uncode_flatArray(vc_sorted_list_parse_value($media_items));
@@ -547,7 +564,7 @@ if ($advanced === 'yes') {
 			$media_html = '';
 		}
 	} else {
-		if (isset($div_data['data-delay']) && $div_data['data-delay'] !== '') {
+		if ($animation_delay !== '') {
 			$block_data['delay'] = $animation_delay;
 		}
 		$media_html = uncode_create_single_block($block_data, 'single-' . $lbox_id, 'masonry', $layout, $lightbox_classes, $carousel_textual);
@@ -585,9 +602,10 @@ if ($advanced === 'yes') {
 			}
 		}
 
-		if (isset($div_data['data-delay']) && $div_data['data-delay'] !== '') {
+		if ($animation_delay !== '') {
 			$block_data['delay'] = $animation_delay;
 		}
+
 		$media_html = uncode_create_single_block($block_data, 'single-' . $lbox_id, 'masonry', $layout, $lightbox_classes, $carousel_textual);
 
 		if ( function_exists( 'uncode_vc_remove_markup_from_single_media' ) ) {
@@ -600,6 +618,15 @@ if ($advanced === 'yes') {
 		if (isset($media_attributes->post_mime_type) && $media_attributes->post_mime_type === 'oembed/iframe') {
 			$media_string .= '<div id="inline-' . esc_attr( $media ) . '" class="ilightbox-html" style="display: none;">' . $media_attributes->post_content . '</div>';
 		}
+		if ( $lb_video_advanced === 'yes' ) {
+			if ( $lb_autoplay !== '' ) {
+				$media_string = preg_replace("/ class=\"(.*?)\"/", ' class="$1" data-lb-autoplay="' . $lb_autoplay . '"', $media_string);
+			}
+			if ( $lb_muted !== '' ) {
+				$media_string = preg_replace("/ class=\"(.*?)\"/", ' class="$1" data-lb-muted="' . $lb_muted . '"', $media_string);
+			}
+		}
+
 	} else {
 		if (!empty($a_href)) {
 			$a_target = ($a_target !== '') ? ' target="' . esc_attr( $a_target ) . '"' : '';
