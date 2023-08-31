@@ -658,7 +658,7 @@ function uncode_equeue() {
 		$output_css .= "\n@media (min-width: 960px) { .main-header, .vmenu-container { width: " . ($vmenu_width) . " !important; } }";
 		if ($menutype === 'vmenu') {
 			if ($vmenu_position === 'left') {
-				$output_css .= "\n@media (min-width: 960px) { .pin-trigger { left: calc(" . $vmenu_width . " + " . $body_border . "px !important; top: " . ($body_border) . "px !important; } }";
+				$output_css .= "\n@media (min-width: 960px) { .pin-trigger { left: calc(" . $vmenu_width . " + " . $body_border . "px) !important; top: " . ($body_border) . "px !important; } }";
 			} else {
 				$output_css .= "\n@media (min-width: 960px) { .pin-trigger { left: " . ($body_border) . "px !important; top: " . ($body_border) . "px !important; } }";
 			}
@@ -673,8 +673,8 @@ function uncode_equeue() {
 				if ( $offcanvas_overlay !== 'on' ) {
 					$output_css .= "\n@media (min-width: 960px) { .off-opened .row-offcanvas, .off-opened:not(.scrolling-trigger) .main-container { transform: translateX(" . $vmenu_width . "); -webkit-transform: translateX(" . $vmenu_width . "); -ms-transform: translateX(" . $vmenu_width . "); } }";
 					$output_css .= "\n@media (min-width: 960px) { .off-opened.scrolling-trigger .main-container { margin-left: " . $vmenu_width . "; } }";
+					$output_css .= "\n@media (min-width: 960px) { .chrome .main-header, .firefox .main-header, .ie .main-header, .edge .main-header { clip: rect(0px, auto, auto, 0px); } }";
 				}
-				$output_css .= "\n@media (min-width: 960px) { .chrome .main-header, .firefox .main-header, .ie .main-header, .edge .main-header { clip: rect(0px, auto, auto, 0px); } }";
 			}
 			else
 			{
@@ -682,8 +682,8 @@ function uncode_equeue() {
 				if ( $offcanvas_overlay !== 'on' ) {
 					$output_css .= "\n@media (min-width: 960px) { .off-opened .row-offcanvas, .off-opened:not(.scrolling-trigger) .main-container { transform: translateX(-" . $vmenu_width . "); -webkit-transform: translateX(-" . $vmenu_width . "); -ms-transform: translateX(-" . $vmenu_width . "); } }";
 					$output_css .= "\n@media (min-width: 960px) { .off-opened.scrolling-trigger .main-container { margin-left: -" . $vmenu_width . "; } }";
+					$output_css .= "\n@media (min-width: 960px) { .chrome .main-header, .firefox .main-header, .ie .main-header, .edge .main-header { clip: rect(0px, 0px, 99999999999px, -" . $vmenu_width . "); } }";
 				}
-				$output_css .= "\n@media (min-width: 960px) { .chrome .main-header, .firefox .main-header, .ie .main-header, .edge .main-header { clip: rect(0px, 0px, 99999999999px, -" . $vmenu_width . "); } }";
 			}
 		} /*else {
 			if ($vmenu_position == 'right' && $boxed !== 'on' ) {
@@ -901,7 +901,7 @@ function uncode_body_classes($classes){
 			$menu_mobile_animation = '';
 		}
 	}
-	if ( $menu_mobile_overlay !== 'on' && $menu_mobile_overlay !== 'off-canvas' ) {
+	if ( $menu_stick_mobile !== 'on' || ( $menu_mobile_overlay !== 'on' && $menu_mobile_overlay !== 'off-canvas' ) ) {
 		$classes[] = 'menu-mobile-default';
 	}
 

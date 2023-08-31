@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Uncode\n"
 "Report-Msgid-Bugs-To: info@undsgn.com\n"
-"POT-Creation-Date: 2023-08-08 08:40+0200\n"
-"PO-Revision-Date: 2023-08-08 08:40+0200\n"
+"POT-Creation-Date: 2023-08-23 09:51+0200\n"
+"PO-Revision-Date: 2023-08-23 09:51+0200\n"
 "Last-Translator: Undsgn <info@undsgn.com>\n"
 "Language-Team: Undsgn <info@undsgn.com>\n"
 "Language: en_US\n"
@@ -95,17 +95,17 @@ msgid "Shipping address"
 msgstr ""
 
 #: woocommerce/myaccount/form-edit-account.php:31
-#: core/inc/compatibility/woocommerce/filters.php:590
+#: core/inc/compatibility/woocommerce/filters.php:588
 msgid "First name"
 msgstr ""
 
 #: woocommerce/myaccount/form-edit-account.php:35
-#: core/inc/compatibility/woocommerce/filters.php:594
+#: core/inc/compatibility/woocommerce/filters.php:592
 msgid "Last name"
 msgstr ""
 
 #: woocommerce/myaccount/form-edit-account.php:41
-#: core/inc/compatibility/woocommerce/filters.php:598
+#: core/inc/compatibility/woocommerce/filters.php:596
 msgid "Display name"
 msgstr ""
 
@@ -118,7 +118,7 @@ msgstr ""
 #: woocommerce/myaccount/form-edit-account.php:47
 #: woocommerce/myaccount/form-login.php:90
 #: woocommerce/myaccount/uncode-my-account-form-register.php:43
-#: core/inc/compatibility/woocommerce/filters.php:578
+#: core/inc/compatibility/woocommerce/filters.php:576
 msgid "Email address"
 msgstr ""
 
@@ -127,17 +127,17 @@ msgid "Password change"
 msgstr ""
 
 #: woocommerce/myaccount/form-edit-account.php:55
-#: core/inc/compatibility/woocommerce/filters.php:602
+#: core/inc/compatibility/woocommerce/filters.php:600
 msgid "Current password (leave blank to leave unchanged)"
 msgstr ""
 
 #: woocommerce/myaccount/form-edit-account.php:59
-#: core/inc/compatibility/woocommerce/filters.php:606
+#: core/inc/compatibility/woocommerce/filters.php:604
 msgid "New password (leave blank to leave unchanged)"
 msgstr ""
 
 #: woocommerce/myaccount/form-edit-account.php:63
-#: core/inc/compatibility/woocommerce/filters.php:610
+#: core/inc/compatibility/woocommerce/filters.php:608
 msgid "Confirm new password"
 msgstr ""
 
@@ -153,7 +153,7 @@ msgstr ""
 
 #: woocommerce/myaccount/form-lost-password.php:32
 #: woocommerce/global/form-login.php:42
-#: core/inc/compatibility/woocommerce/filters.php:570
+#: core/inc/compatibility/woocommerce/filters.php:568
 msgid "Username or email"
 msgstr ""
 
@@ -177,7 +177,7 @@ msgstr ""
 #: woocommerce/myaccount/uncode-my-account-form-login.php:39
 #: woocommerce/myaccount/uncode-my-account-form-register.php:50
 #: woocommerce/global/form-login.php:46
-#: core/inc/compatibility/woocommerce/filters.php:574
+#: core/inc/compatibility/woocommerce/filters.php:572
 msgid "Password"
 msgstr ""
 
@@ -207,7 +207,7 @@ msgstr ""
 
 #: woocommerce/myaccount/form-login.php:83
 #: woocommerce/myaccount/uncode-my-account-form-register.php:36
-#: core/inc/compatibility/woocommerce/filters.php:566
+#: core/inc/compatibility/woocommerce/filters.php:564
 msgid "Username"
 msgstr ""
 
@@ -221,12 +221,12 @@ msgid "Enter a new password below."
 msgstr ""
 
 #: woocommerce/myaccount/form-reset-password.php:32
-#: core/inc/compatibility/woocommerce/filters.php:582
+#: core/inc/compatibility/woocommerce/filters.php:580
 msgid "New password"
 msgstr ""
 
 #: woocommerce/myaccount/form-reset-password.php:36
-#: core/inc/compatibility/woocommerce/filters.php:586
+#: core/inc/compatibility/woocommerce/filters.php:584
 msgid "Re-enter new password"
 msgstr ""
 
@@ -362,7 +362,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: woocommerce/single-product-reviews.php:52
-#: core/inc/compatibility/woocommerce/filters.php:743
+#: core/inc/compatibility/woocommerce/filters.php:741
 msgid "Reviews"
 msgstr ""
 
@@ -741,31 +741,31 @@ msgstr ""
 msgid "home page"
 msgstr ""
 
-#: core/inc/compatibility/woocommerce/filters.php:715
+#: core/inc/compatibility/woocommerce/filters.php:713
 msgid "Placeholders"
 msgstr ""
 
-#: core/inc/compatibility/woocommerce/filters.php:716
+#: core/inc/compatibility/woocommerce/filters.php:714
 msgid "All these entries are placeholders."
 msgstr ""
 
-#: core/inc/compatibility/woocommerce/filters.php:719
+#: core/inc/compatibility/woocommerce/filters.php:717
 msgid "Weight"
 msgstr ""
 
-#: core/inc/compatibility/woocommerce/filters.php:720
+#: core/inc/compatibility/woocommerce/filters.php:718
 msgid "25.00"
 msgstr ""
 
-#: core/inc/compatibility/woocommerce/filters.php:723
+#: core/inc/compatibility/woocommerce/filters.php:721
 msgid "Size"
 msgstr ""
 
-#: core/inc/compatibility/woocommerce/filters.php:724
+#: core/inc/compatibility/woocommerce/filters.php:722
 msgid "79 x 55 x 176"
 msgstr ""
 
-#: core/inc/compatibility/woocommerce/filters.php:727
+#: core/inc/compatibility/woocommerce/filters.php:725
 #: core/inc/compatibility/woocommerce/swatches/class-uncode-wc-term-settings.php:99
 #: core/inc/compatibility/woocommerce/swatches/class-uncode-wc-term-settings.php:125
 #: core/inc/compatibility/woocommerce/swatches/class-uncode-wc-term-settings.php:232
@@ -773,7 +773,7 @@ msgstr ""
 msgid "Color"
 msgstr ""
 
-#: core/inc/compatibility/woocommerce/filters.php:728
+#: core/inc/compatibility/woocommerce/filters.php:726
 msgid "Brown, Black"
 msgstr ""
 
@@ -990,19 +990,19 @@ msgstr ""
 msgid "Add to cart"
 msgstr ""
 
-#: core/inc/compatibility/woocommerce/core-functions.php:97
+#: core/inc/compatibility/woocommerce/core-functions.php:98
 msgid "Gallery Images"
 msgstr ""
 
-#: core/inc/compatibility/woocommerce/core-functions.php:98
+#: core/inc/compatibility/woocommerce/core-functions.php:99
 msgid "Add images"
 msgstr ""
 
-#: core/inc/compatibility/woocommerce/core-functions.php:99
+#: core/inc/compatibility/woocommerce/core-functions.php:100
 msgid "Add Variation Images"
 msgstr ""
 
-#: core/inc/compatibility/woocommerce/core-functions.php:231
+#: core/inc/compatibility/woocommerce/core-functions.php:233
 msgid "Proceed to checkout"
 msgstr ""
 
@@ -2593,6 +2593,39 @@ msgstr ""
 msgid "Ivalid data"
 msgstr ""
 
+#: core/inc/helpers/breadcrumbs/breadcrumbs-functions.php:24
+msgctxt "breadcrumb"
+msgid "Home"
+msgstr ""
+
+#: core/inc/helpers/breadcrumbs/breadcrumbs-functions.php:34
+msgid "Home"
+msgstr ""
+
+#: core/inc/helpers/breadcrumbs/breadcrumbs-functions.php:37
+msgid "Archive by Category"
+msgstr ""
+
+#: core/inc/helpers/breadcrumbs/breadcrumbs-functions.php:40
+msgid "Search Results for"
+msgstr ""
+
+#: core/inc/helpers/breadcrumbs/breadcrumbs-functions.php:43
+msgid "Posts Tagged"
+msgstr ""
+
+#: core/inc/helpers/breadcrumbs/breadcrumbs-functions.php:46
+msgid "Articles Posted by"
+msgstr ""
+
+#: core/inc/helpers/breadcrumbs/breadcrumbs-functions.php:49
+msgid "Error 404"
+msgstr ""
+
+#: core/inc/helpers/breadcrumbs/breadcrumbs-functions.php:262
+msgid "Page"
+msgstr ""
+
 #: core/inc/helpers/taxonomies/taxonomies-functions.php:38
 msgid "Post"
 msgstr ""
@@ -3523,37 +3556,4 @@ msgstr ""
 
 #: partials/elements.php:3768 partials/elements.php:3816
 msgid "By"
-msgstr ""
-
-#: partials/elements.php:3893
-msgctxt "breadcrumb"
-msgid "Home"
-msgstr ""
-
-#: partials/elements.php:3903
-msgid "Home"
-msgstr ""
-
-#: partials/elements.php:3906
-msgid "Archive by Category"
-msgstr ""
-
-#: partials/elements.php:3909
-msgid "Search Results for"
-msgstr ""
-
-#: partials/elements.php:3912
-msgid "Posts Tagged"
-msgstr ""
-
-#: partials/elements.php:3915
-msgid "Articles Posted by"
-msgstr ""
-
-#: partials/elements.php:3918
-msgid "Error 404"
-msgstr ""
-
-#: partials/elements.php:4117
-msgid "Page"
 msgstr ""

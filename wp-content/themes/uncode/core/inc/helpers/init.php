@@ -110,3 +110,8 @@ require_once get_template_directory() . '/core/inc/helpers/widgets/widgets-funct
  * Ajax Filters functions
  */
 require_once get_template_directory() . '/core/inc/helpers/ajax-filters/load.php';
+
+/**
+ * Breadcrumbs functions
+ */
+require_once get_template_directory() . '/core/inc/helpers/breadcrumbs/breadcrumbs-functions.php';

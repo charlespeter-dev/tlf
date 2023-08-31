@@ -10,7 +10,7 @@
                 $player_clone = $div_player.clone(),
                 player_id = $div_player.attr('data-id'),
                 $lottie_players = $('lottie-player', $lottie_wrap).remove();
-            if ( $div_player.attr('data-init') !== true ) {
+            if ( $div_player.attr('data-init') !== true && $player_clone.length ) {
                 if ( $('#'+player_id).length ) {
                     player_id += '_' + Math.floor(Math.random() * 10000000000000000);
                 }

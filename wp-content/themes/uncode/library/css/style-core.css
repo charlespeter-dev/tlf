@@ -11308,6 +11308,7 @@ body:not(.single-product) .header-wrapper .owl-stage-outer {
   transition: all 0.3s cubic-bezier(0.57, 0.21, 0.69, 1);
 }
 .tmb .t-entry-visual .t-secondary-background-cover + .t-background-cover {
+  position: absolute;
   transform: scale(1, 1) !important;
   transition: all 0.2s cubic-bezier(0.57, 0.21, 0.69, 1) !important;
 }

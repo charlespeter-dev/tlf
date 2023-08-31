@@ -244,3 +244,25 @@ function uncode_filter_uncode_index_args( $args, $query_options ) {
 	return $args;
 }
 add_filter( 'uncode_get_uncode_index_args_for_filters', 'uncode_filter_uncode_index_args', 10, 2 );
+
+/**
+ * Fix WooCommerce chosen query type
+ */
+function uncode_filter_woocommerce_layered_nav_default_query_type( $query_type, $taxonomy, $data ) {
+	$query_type = 'IN';
+	$filter_tax = uncode_get_filter_pa_key( $taxonomy );
+
+	if ( isset( $_GET ) && is_array( $_GET ) ) {
+		if ( isset( $_GET[ $filter_tax ] ) ) {
+			if ( isset( $_GET[ UNCODE_FILTER_PREFIX_RELATION . $filter_tax ] ) ) {
+				$operator = $_GET[ UNCODE_FILTER_PREFIX_RELATION . $filter_tax ];
+
+				if ( $operator === 'and' ) {
+					$query_type = 'AND';
+				}
+			}
+		}
+	}
+
+	return $query_type;
+}

@@ -9,7 +9,7 @@
 			$owlSelector = $('> [class*="owl-carousel"]', $owlContainer),
 			values = {},
 			tempTimeStamp,
-			currentIndex,
+			newWidth = UNCODE.wwidth,
 			$owlInsideEqual = [];
 		$owlSelector.each(function() {
 			var itemID = $(this).attr('id'),
@@ -335,7 +335,10 @@
 				if ( thiis.hasClass('owl-height-equal') )
 					setItemsHeight(thiis);
 
-				setItemsRelHeight($elSelector);
+				if ( UNCODE.wwidth > UNCODE.mediaQuery || ( UNCODE.wwidth <= UNCODE.mediaQuery && newWidth !== UNCODE.wwidth ) ) {
+					newWidth = UNCODE.wwidth;
+					setItemsRelHeight($elSelector);
+				}
 
 				setIndexActive(event);
 
@@ -357,7 +360,10 @@
 			function manageFluidCarouseHeight() {
 				clearRequestTimeout(setFluidResize);
 				setFluidResize = requestTimeout(function(){
-					setItemsRelHeight($elSelector);
+					if ( UNCODE.wwidth > UNCODE.mediaQuery || ( UNCODE.wwidth <= UNCODE.mediaQuery && newWidth !== UNCODE.wwidth ) ) {
+						newWidth = UNCODE.wwidth;
+						setItemsRelHeight($elSelector);
+					}
 				}, 100);
 			}
 			window.addEventListener('resize', manageFluidCarouseHeight);

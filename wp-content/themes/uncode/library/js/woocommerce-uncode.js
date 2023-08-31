@@ -363,7 +363,7 @@
 				step = parseFloat( $input.attr('step') ),
 				min = parseFloat( $input.attr('min') ),
 				max = parseFloat( $input.attr('max') ),
-				value = parseFloat( $input.val() );
+				value = parseFloat($input.val());
 
 			if ( isNaN(step) ) {
 				step = 1;
@@ -378,7 +378,19 @@
 				$input.val( value );
 			}
 
-			$minus.on('click', function(){
+			$minus.on('click', function () {
+				if (UncodeWCParameters.activate_input_check_on_click) {
+					step = parseFloat( $input.attr('step') );
+					min = parseFloat( $input.attr('min') );
+					max = parseFloat( $input.attr('max') );
+					if ( isNaN(step) ) {
+						step = 1;
+					}
+					if ( isNaN(min) ) {
+						min = 1;
+					}
+				}
+
 				value = parseFloat( $input.val() ) - step;
 				if ( value < min ) {
 					value = min;
@@ -386,7 +398,20 @@
 				$input.val( value ).trigger( 'change' );
 			});
 
-			$plus.on('click', function(){
+			$plus.on('click', function () {
+				if (UncodeWCParameters.activate_input_check_on_click) {
+					console.log('click');
+					step = parseFloat( $input.attr('step') );
+					min = parseFloat( $input.attr('min') );
+					max = parseFloat( $input.attr('max') );
+					if ( isNaN(step) ) {
+						step = 1;
+					}
+					if ( isNaN(min) ) {
+						min = 1;
+					}
+				}
+
 				value = parseFloat( $input.val() ) + step;
 				if ( !isNaN(max) && value > max ) {
 					value = max;
@@ -440,7 +465,7 @@
 					responsiveRefreshRate: 200,
 					responsive: {
 						0: {
-							dots: $('.woocommerce-product-gallery__wrapper-nav.lateral-nav', $parent).length
+							dots: $('.woocommerce-product-gallery__wrapper-nav.lateral-nav', $parent).length || dots === true
 						},
 						960: {
 							dots: dots

@@ -104,7 +104,7 @@
 				sidebar_hover = false;
 			});
 
-			$body.off('click').on('click', function( e, from ){
+			$body.off('click.ajax-filter-sidebar').on('click.ajax-filter-sidebar', function( e, from ){
 				if ( $(e.target).closest('.ajax-filter-sidebar').length ) {
 					return;
 				}

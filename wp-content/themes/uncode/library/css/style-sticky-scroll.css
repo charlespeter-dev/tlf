@@ -193,7 +193,6 @@ body[data-border="36"] .pin-trigger {
   .row-scroll-no-md.hor-scroll-vh .tmb .t-entry-visual .fluid-object,
   .row-scroll-no-md.hor-scroll-vh .tmb .t-entry-visual .dummy.secondary-dummy-image,
   .row-scroll-no-md.hor-scroll-vh .tmb .t-entry-visual .t-secondary-background-cover {
-    height: auto !important;
     width: 100% !important;
   }
 }
@@ -203,7 +202,6 @@ body[data-border="36"] .pin-trigger {
   .row-scroll-no-sm.hor-scroll-vh .tmb .t-entry-visual .fluid-object,
   .row-scroll-no-sm.hor-scroll-vh .tmb .t-entry-visual .dummy.secondary-dummy-image,
   .row-scroll-no-sm.hor-scroll-vh .tmb .t-entry-visual .t-secondary-background-cover {
-    height: auto !important;
     width: 100% !important;
   }
 }

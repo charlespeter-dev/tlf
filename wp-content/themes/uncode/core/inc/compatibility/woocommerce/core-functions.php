@@ -55,6 +55,7 @@ function uncode_wc_localize_scripts() {
 		'pa_filter_prefix'                => UNCODE_FILTER_PREFIX_PA,
 		'yith_ajax_wishlist'              => ! is_product() && class_exists( 'YITH_WCWL' ) && 'yes' === get_option( 'yith_wcwl_ajax_enable', 'no' ) ? true : false,
 		'swatches_use_custom_find'        => apply_filters( 'uncode_woocommerce_swatches_use_custom_find', false ),
+		'activate_input_check_on_click'   => apply_filters( 'uncode_woocommerce_activate_input_check_on_click', false ),
 	) );
 
 	wp_localize_script( 'woocommerce-uncode', 'UncodeWCParameters', $uncode_wc_parameters );
@@ -151,8 +152,9 @@ function uncode_wc_body_classes( $classes ) {
 
 	if ( is_checkout() ) {
 		if ( WC()->cart->needs_payment() ) {
+			ob_start();
 			$available_gateways = WC()->payment_gateways()->get_available_payment_gateways();
-			WC()->payment_gateways()->set_current_gateway( $available_gateways );
+			ob_end_clean();
 		} else {
 			$available_gateways = array();
 		}

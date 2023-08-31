@@ -375,8 +375,7 @@ if ( ! function_exists( 'uncode_woocommerce_single_product_slider_enabled' ) ) :
 				preg_match_all( '/\[uncode_single_product_gallery (.*?)\]/', $content_cb, $gallery_cb );
 				if ( !empty($gallery_cb[0]) ) {
 					preg_match_all('/(layout=\"stack\"|carousel=\"yes\")/',$gallery_cb[0][0],$layout_cb);
-					preg_match_all('/lateral=\"yes\"/',$gallery_cb[0][0],$lateral_cb);
-					if ( !empty($layout_cb[0]) && empty($lateral_cb[0]) ) {
+					if ( !empty($layout_cb[0]) ) {
 						$return = false;
 					} else {
 						$return = true;
@@ -394,8 +393,7 @@ if ( ! function_exists( 'uncode_woocommerce_single_product_slider_enabled' ) ) :
 				preg_match_all( '/\[uncode_single_product_gallery (.*?)\]/', $content_cb, $gallery_cb );
 				if ( !empty($gallery_cb[0]) ) {
 					preg_match_all('/(layout=\"stack\"|carousel=\"yes\")/',$gallery_cb[0][0],$layout_cb);
-					preg_match_all('/lateral=\"yes\"/',$gallery_cb[0][0],$lateral_cb);
-					if ( !empty($layout_cb[0]) && empty($lateral_cb[0]) ) {
+					if ( !empty($layout_cb[0]) ) {
 						$return = false;
 					} else {
 						$return = true;

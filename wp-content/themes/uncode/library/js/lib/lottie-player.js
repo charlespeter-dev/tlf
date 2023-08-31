@@ -28,7 +28,11 @@
    * Copyright 2017 Google LLC
    * SPDX-License-Identifier: BSD-3-Clause
    */
-var n$1=t=>e=>"function"==typeof e?((t,e)=>(window.customElements.define(t,e),e))(t,e):((t,e)=>{var{kind:r,elements:i}=e;return{kind:r,elements:i,finisher(e){window.customElements.define(t,e)}}})(t,e)
+// START UNCODE EDIT
+//var n$1=t=>e=>"function"==typeof e?((t,e)=>(window.customElements.define(t,e),e))(t,e):((t,e)=>{var{kind:r,elements:i}=e;return{kind:r,elements:i,finisher(e){window.customElements.define(t,e)}}})(t,e)
+var n$1=t=>e=>"function"==typeof e?((t,e)=>(window.customElements.get(t) === undefined && window.customElements.define(t,e),e))(t,e):((t,e)=>{var{kind:r,elements:i}=e;return{kind:r,elements:i,finisher(e){ window.customElements.get(t) === undefined && window.customElements.define(t,e)}}})(t,e)
+// END UNCODE EDIT
+
 /**
    * @license
    * Copyright 2017 Google LLC

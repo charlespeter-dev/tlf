@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function uncode_woocommerce_get_login_page_id() {
 	$login_page_id = get_option( 'uncode_woocommerce_my_account_login_page_id' );
+	$login_page_id = apply_filters( 'wpml_object_id', $login_page_id, 'page' );
 
 	return $login_page_id;
 }

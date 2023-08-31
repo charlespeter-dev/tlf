@@ -52,7 +52,7 @@
 									var html = '<h4 class="uncode-variation-gallery-title">' + UncodeAdminProductParams.i18n_variation_gallery_title + '</h4>' + images[variation_id] + '<a href="#" class="uncode-variation-gallery-add button button-primary button-large">' + UncodeAdminProductParams.i18n_variation_gallery_media_add + '</a>';
 
 									if (!(container.find('ul.uncode-variation-gallery-list').length > 0)) {
-										container.find('.form-row.options').before(html);
+										container.find('.form-row.options').eq(0).before(html);
 									}
 								}
 							});

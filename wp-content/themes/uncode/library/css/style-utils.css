@@ -589,13 +589,15 @@ body.rtl .comment-form-cookies-consent label {
   padding-right: 18px;
 }
 .search-container-inner i.fa {
+  cursor: pointer;
   position: absolute;
-  right: 1.35em;
-  top: 50%;
+  right: 0.35em;
+  top: calc(50% - 1em);
   margin-top: -9px;
+  padding: 1em;
 }
 .rtl .search-container-inner i.fa {
-  left: 1.35em;
+  left: 0.35em;
   right: auto;
 }
 .form-fluid {
@@ -1195,8 +1197,11 @@ body.open-overlay-menu .overlay.overlay-menu {
   max-width: none;
 }
 .overlay.overlay-search .search-container .search-container-inner i {
-  margin-top: -0.5em;
-  right: 1.5em;
+  cursor: pointer;
+  margin-top: -1.5em;
+  padding: 1em;
+  right: 0.5em;
+  top: 50%;
 }
 .overlay.overlay-search .search-container form {
   display: inline-block;
