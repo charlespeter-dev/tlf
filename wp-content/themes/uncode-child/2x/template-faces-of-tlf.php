@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Template Name: 2x - Customers
+ * Template Name: 2x - Faces of TLF
  */
 
 if (is_admin())
@@ -13,21 +13,13 @@ $fields = get_fields($post->ID);
 
 extract($fields);
 
-/**
- * customers
- */
+$cards_ids = [];
 
-$customers_query = new WP_Query([
-    'post_type' => 'portfolio',
-    'posts_per_page' => -1,
-    'orderby' => 'rand',
-    'fields' => 'ids',
-    'post_status' => 'publish'
-]);
-
-$customers_ids = $customers_query->posts;
-
-$cards_ids = $customers_ids;
+if (isset($faces) && $faces) {
+    foreach ($faces as $face) {
+        $cards_ids[] = $face['face'];
+    }
+}
 
 get_header() ?>
 
@@ -57,7 +49,7 @@ get_header() ?>
 
 <div class="bootstrap-container">
 
-    <section class="hero-carousels single">
+    <section class="hero-carousels hero default">
         <div class="row-container">
             <div class="single-h-padding limit-width position-relative">
 
@@ -65,27 +57,27 @@ get_header() ?>
                     alt="">
 
                 <div class="_2x-hero-content">
-                    <div class="mb-3">
-                        <h2 class="mb-0">
-                            <?= $main_heading ?>
-                        </h2>
-                    </div>
-                    <div class="mb-4">
-                        <div class="sub-heading">
-                            <?= $sub_heading ?>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <h2 class="mb-0">
+                                    <?= $main_heading ?>
+                                </h2>
+                            </div>
+                            <div class="mb-4">
+                                <div class="sub-heading">
+                                    <?= $sub_heading ?>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div>
-                        <a class="btn btn-primary" href="<?= $cta['url'] ?>"><?= $cta['title'] ?></a>
-                    </div>
                 </div>
-
             </div>
         </div>
     </section>
 
     <?php if (isset($cards_ids)): ?>
-        <section class="cards-overview my-5">
+        <section class="cards-overview faces-of-tlf my-5">
             <div class="row-container">
                 <div class="single-h-padding limit-width">
 
@@ -95,15 +87,16 @@ get_header() ?>
                             <div class="col">
                                 <a href="<?= get_the_permalink($card_id) ?>">
                                     <div class="card h-100">
-                                        <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($card_id), '_2x-card-customers') ?>"
+                                        <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($card_id), '_2x-card-faces-of-tlf-left-top') ?>"
                                             class="img-fluid" alt="">
 
                                         <div class="card-body">
                                             <h5 class="card-title">
-                                                <?= strtolower(get_the_title($card_id)) ?>
+                                                <?= __('Faces of TLF') ?>
                                             </h5>
-                                            <p class="card-text">Some quick example text to build on the card title and make up
-                                                the bulk of the card's content.</p>
+                                            <p class="card-text">
+                                                <?= strtolower(get_the_title($card_id)) ?>
+                                            </p>
                                         </div>
                                     </div>
                                 </a>

@@ -47,6 +47,7 @@ add_action('after_setup_theme', function () {
     add_image_size('_2x-carousel-news', 350, 350, true);
     add_image_size('_2x-carousel-resources-callout', 540, 340, true);
     add_image_size('_2x-card-customers', 439, 295, true);
+    add_image_size('_2x-card-faces-of-tlf-left-top', 440, 339, ['left', 'top']);
 });
 
 /**

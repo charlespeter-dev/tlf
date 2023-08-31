@@ -10996,20 +10996,20 @@ a > .bootstrap-container code {
   display: unset;
   max-width: unset;
 }
-.bootstrap-container .customers a {
+.bootstrap-container .cards-overview a {
   text-decoration: none;
 }
-.bootstrap-container .customers .card img {
+.bootstrap-container .cards-overview .card img {
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
 }
-.bootstrap-container .customers .card .card-body {
+.bootstrap-container .cards-overview .card .card-body {
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   background: rgb(3, 72, 162);
   background: linear-gradient(180deg, rgb(3, 72, 162) 0%, rgb(0, 26, 59) 100%);
 }
-.bootstrap-container .customers .card .card-body .card-title {
+.bootstrap-container .cards-overview .card .card-body .card-title {
   font-family: "Open Sans", sans-serif;
   font-size: 1.25rem;
   line-height: calc(1.3rem + 0.6vw);
@@ -11018,11 +11018,17 @@ a > .bootstrap-container code {
   text-shadow: 0px 3px 10px rgba(0, 0, 0, 0.7);
   text-transform: capitalize;
 }
-.bootstrap-container .customers .card .card-body .card-text {
+.bootstrap-container .cards-overview .card .card-body .card-text {
   font-size: 1rem;
   line-height: calc(1.275rem + 0.3vw);
   color: #fff;
   text-shadow: 0px 3px 10px rgba(0, 0, 0, 0.7);
+}
+.bootstrap-container .cards-overview.faces-of-tlf .card .card-body .card-title {
+  font-size: 1.125rem;
+  line-height: calc(1.3rem + 0.6vw);
+  color: #78D4FA;
+  text-transform: none;
 }
 .bootstrap-container .quote {
   position: relative;

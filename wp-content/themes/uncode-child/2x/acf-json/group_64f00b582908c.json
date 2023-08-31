@@ -1,6 +1,6 @@
 {
     "key": "group_64f00b582908c",
-    "title": "2x - Faces if TLF",
+    "title": "2x - Faces of TLF",
     "fields": [
         {
             "key": "field_64f00b583c8f0",
@@ -16,7 +16,7 @@
                 "class": "",
                 "id": ""
             },
-            "return_format": "url",
+            "return_format": "id",
             "library": "all",
             "min_width": "",
             "min_height": "",
@@ -68,9 +68,9 @@
             "new_lines": ""
         },
         {
-            "key": "field_64f00b584b72f",
+            "key": "field_64f0174a113a9",
             "label": "Faces",
-            "name": "",
+            "name": "faces",
             "aria-label": "",
             "type": "repeater",
             "instructions": "",
@@ -90,7 +90,7 @@
             "rows_per_page": 20,
             "sub_fields": [
                 {
-                    "key": "field_64f00b585e743",
+                    "key": "field_64f0175c113aa",
                     "label": "Face",
                     "name": "face",
                     "aria-label": "",
@@ -119,7 +119,7 @@
                     "bidirectional": 0,
                     "ui": 1,
                     "bidirectional_target": [],
-                    "parent_repeater": "field_64f00b584b72f"
+                    "parent_repeater": "field_64f0174a113a9"
                 }
             ]
         }
@@ -129,7 +129,7 @@
             {
                 "param": "page_template",
                 "operator": "==",
-                "value": "2x\/template-customes.php"
+                "value": "2x\/template-faces-of-tlf.php"
             }
         ]
     ],
@@ -142,5 +142,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1693453442
+    "modified": 1693465009
 }

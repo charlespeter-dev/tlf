@@ -51,9 +51,9 @@
         max-width: unset;
     }
 
-    //-------- customers
+    //-------- cards-overview
 
-    .customers {
+    .cards-overview {
 
         a {
             text-decoration: none;
@@ -92,6 +92,19 @@
                 }
             }
 
+        }
+
+        &.faces-of-tlf {
+            .card {
+                .card-body {
+                    .card-title {
+                        font-size: rfs-fluid-value(1.125rem);
+                        line-height: rfs-fluid-value(1.75rem);
+                        color: #78D4FA;
+                        text-transform: none;
+                    }
+                }
+            }
         }
     }
 
