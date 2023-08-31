@@ -66,30 +66,6 @@ $footer_callout_banner = get_field('footer_callout_banner', $post->ID);
 
 get_header() ?>
 
-<!-- begin: custom 2x css + override uncode specific styles -->
-<style>
-    @media (max-width: 959px) {
-        .row div[class*=col-lg-] {
-            padding: unset;
-        }
-    }
-
-    @media (min-width: 960px) {
-
-        .chrome .col-lg-2,
-        .chrome .col-lg-3,
-        .chrome .col-lg-4,
-        .chrome .col-lg-5,
-        .chrome .col-lg-6,
-        .chrome .col-lg-7,
-        .chrome .col-lg-8,
-        .chrome .col-lg-9 {
-            height: unset;
-        }
-    }
-</style>
-<!-- end: override uncode specific styles -->
-
 <?php if ($hero_carousels) : ?>
     <section class="bootstrap-container">
         <div class="hero-carousels">

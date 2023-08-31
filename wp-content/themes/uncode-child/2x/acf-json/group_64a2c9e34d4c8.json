@@ -1,6 +1,6 @@
 {
     "key": "group_64a2c9e34d4c8",
-    "title": "2x Homepage",
+    "title": "2x - Homepage",
     "fields": [
         {
             "key": "field_64a2c9e587846",
@@ -699,7 +699,8 @@
                     "return_format": "object",
                     "min": "",
                     "max": "",
-                    "elements": ""
+                    "elements": "",
+                    "bidirectional_target": []
                 }
             ]
         },
@@ -773,6 +774,7 @@
                     "multiple": 0,
                     "allow_null": 0,
                     "ui": 1,
+                    "bidirectional_target": [],
                     "parent_repeater": "field_64c1dafbc5df1"
                 }
             ]
@@ -1066,5 +1068,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1690426213
+    "modified": 1693465241
 }

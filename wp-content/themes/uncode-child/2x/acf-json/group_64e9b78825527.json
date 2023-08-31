@@ -142,7 +142,7 @@
             {
                 "param": "page_template",
                 "operator": "==",
-                "value": "2x\/template-customes.php"
+                "value": "2x\/template-customers.php"
             }
         ]
     ],
@@ -155,5 +155,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1693464920
+    "modified": 1693469994
 }

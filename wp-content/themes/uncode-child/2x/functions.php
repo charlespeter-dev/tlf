@@ -17,7 +17,7 @@ add_action('wp_enqueue_scripts', function () {
      * enqueue jailed boostrap css
      */
 
-    wp_enqueue_style('_2x-css-bootstrap', sprintf('%s/2x/assets/css/bootstrap-container.css', get_stylesheet_directory_uri()), ['uncode-icons', 'rs-plugin-settings'], time());
+    wp_enqueue_style('_2x-css-bootstrap', sprintf('%s/2x/assets/css/bootstrap-container.css', get_stylesheet_directory_uri()), ['uncode-style'], time());
 
     /**
      * enqueue bootstrap js

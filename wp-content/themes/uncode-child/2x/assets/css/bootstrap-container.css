@@ -11094,6 +11094,7 @@ a > .bootstrap-container code {
   margin-inline-end: 1rem;
 }
 .bootstrap-container .hero-carousels ._2x-hero-content .btn.btn-primary {
+  white-space: unset;
   background-color: #E30613 !important;
   border-color: #E30613 !important;
   border-radius: 5px !important;
@@ -11572,6 +11573,24 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
 
 .menu-horizontal .menu-btn-table .btn:hover {
   border-color: #002257;
+}
+
+@media (max-width: 959px) {
+  .row div[class*=col-lg-] {
+    padding: unset;
+  }
+}
+@media (min-width: 960px) {
+  .chrome .col-lg-2,
+  .chrome .col-lg-3,
+  .chrome .col-lg-4,
+  .chrome .col-lg-5,
+  .chrome .col-lg-6,
+  .chrome .col-lg-7,
+  .chrome .col-lg-8,
+  .chrome .col-lg-9 {
+    height: unset;
+  }
 }
 
 /*# sourceMappingURL=bootstrap-container.css.map */

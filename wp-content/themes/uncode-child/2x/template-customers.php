@@ -25,35 +25,13 @@ $customers_query = new WP_Query([
     'post_status' => 'publish'
 ]);
 
+wp_reset_query();
+
 $customers_ids = $customers_query->posts;
 
 $cards_ids = $customers_ids;
 
 get_header() ?>
-
-<!-- begin: custom 2x css + override uncode specific styles -->
-<style>
-    @media (max-width: 959px) {
-        .row div[class*=col-lg-] {
-            padding: unset;
-        }
-    }
-
-    @media (min-width: 960px) {
-
-        .chrome .col-lg-2,
-        .chrome .col-lg-3,
-        .chrome .col-lg-4,
-        .chrome .col-lg-5,
-        .chrome .col-lg-6,
-        .chrome .col-lg-7,
-        .chrome .col-lg-8,
-        .chrome .col-lg-9 {
-            height: unset;
-        }
-    }
-</style>
-<!-- end: override uncode specific styles -->
 
 <div class="bootstrap-container">
 
@@ -76,7 +54,9 @@ get_header() ?>
                         </div>
                     </div>
                     <div>
-                        <a class="btn btn-primary" href="<?= $cta['url'] ?>"><?= $cta['title'] ?></a>
+                        <a class="btn btn-primary" href="<?= $cta['url'] ?>">
+                            <?= $cta['title'] ?>
+                        </a>
                     </div>
                 </div>
 
