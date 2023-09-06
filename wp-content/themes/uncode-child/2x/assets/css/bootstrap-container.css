@@ -11030,6 +11030,79 @@ a > .bootstrap-container code {
   color: #78D4FA;
   text-transform: none;
 }
+.bootstrap-container .cards-overview.news::before {
+  content: unset;
+}
+.bootstrap-container .cards-overview.news .card-news {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  height: 100%;
+}
+@media screen and (min-width: 992px) {
+  .bootstrap-container .cards-overview.news .card-news {
+    flex-direction: row;
+  }
+}
+.bootstrap-container .cards-overview.news .card-news img {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+@media screen and (min-width: 992px) {
+  .bootstrap-container .cards-overview.news .card-news img {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: unset;
+  }
+}
+.bootstrap-container .cards-overview.news .card-news-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem;
+}
+.bootstrap-container .cards-overview.news .card-news-body.wpk-box-brand:before {
+  border-top-right-radius: unset;
+}
+@media screen and (min-width: 992px) {
+  .bootstrap-container .cards-overview.news .card-news-body.wpk-box-brand:before, .bootstrap-container .cards-overview.news .card-news-body.wpk-box-brand:after {
+    content: "";
+    left: -10px;
+    width: 10px;
+    right: unset;
+  }
+  .bootstrap-container .cards-overview.news .card-news-body.wpk-box-brand:before {
+    top: 0px;
+    background: #003567;
+    height: 65%;
+    border-top-right-radius: unset;
+    border-bottom-left-radius: 8px;
+  }
+  .bootstrap-container .cards-overview.news .card-news-body.wpk-box-brand:after {
+    bottom: 0px;
+    background: #ee001d;
+    height: 20%;
+    border-top-left-radius: 8px;
+    border-bottom-right-radius: unset;
+  }
+}
+.bootstrap-container .cards-overview.news .card-news-body-date {
+  font-size: 16px;
+  line-height: 26px;
+}
+.bootstrap-container .cards-overview.news .card-news-body-title {
+  font-size: 18px;
+  line-height: 25px;
+  font-weight: 700;
+  color: #003375;
+}
+.bootstrap-container .cards-overview.news .card-news-body-cta {
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 700;
+  color: #E30613;
+}
 .bootstrap-container .quote {
   position: relative;
   quotes: "“" "”" "‘" "’";
@@ -11100,6 +11173,33 @@ a > .bootstrap-container code {
   border-radius: 5px !important;
   text-shadow: 0px 3px 10px rgba(0, 0, 0, 0.7);
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.7);
+}
+.bootstrap-container .hero-carousels.news {
+  padding-block-start: 0 !important;
+  padding-block-end: 0 !important;
+}
+.bootstrap-container .hero-carousels.news::before {
+  content: unset;
+}
+.bootstrap-container .hero-carousels.news h2, .bootstrap-container .hero-carousels.news .h2 {
+  color: #fff;
+  text-align: left;
+}
+.bootstrap-container .hero-carousels.news .full-width {
+  height: 365px;
+}
+.bootstrap-container .hero-carousels.industry {
+  padding-block-start: 0 !important;
+  padding-block-end: 0 !important;
+}
+.bootstrap-container .hero-carousels.industry .full-width {
+  height: 365px;
+}
+.bootstrap-container .hero-carousels.industry ._2x-hero-content {
+  text-align: center;
+}
+.bootstrap-container .hero-carousels.industry ._2x-hero-content p {
+  padding-bottom: 0;
 }
 .bootstrap-container .customer-logo {
   position: relative;
@@ -11495,6 +11595,9 @@ a > .bootstrap-container code {
     font-size: 2.8125rem;
   }
 }
+.bootstrap-container .footer-callout-banner .footer-callout-banner-content .cta .btn {
+  white-space: unset;
+}
 .bootstrap-container .footer-callout-banner .footer-callout-banner-content .cta .btn.btn-primary {
   background-color: #fff !important;
   border-color: #fff !important;
@@ -11591,6 +11694,20 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
   .chrome .col-lg-9 {
     height: unset;
   }
+}
+.main-container .row-container .single-h-padding {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media screen and (min-width: 922px) {
+  .main-container .row-container .single-h-padding {
+    padding-left: 36px;
+    padding-right: 36px;
+  }
+}
+
+.style-color-lxmt-bg {
+  background-color: #ffffff;
 }
 
 /*# sourceMappingURL=bootstrap-container.css.map */

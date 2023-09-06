@@ -9,6 +9,8 @@ if (is_admin())
 
 global $post;
 
+$options = get_fields('options');
+
 $fields = get_fields($post->ID);
 
 extract($fields);
@@ -19,6 +21,13 @@ if (isset($faces) && $faces) {
     foreach ($faces as $face) {
         $cards_ids[] = $face['face'];
     }
+}
+
+function _2x_format_title($post_id)
+{
+    $post = get_post($post_id);
+    $title = explode('-', $post->post_title)[1];
+    return ucwords($title);
 }
 
 get_header() ?>
@@ -71,7 +80,7 @@ get_header() ?>
                                                 <?= __('Faces of TLF') ?>
                                             </h5>
                                             <p class="card-text">
-                                                <?= strtolower(get_the_title($card_id)) ?>
+                                                <?= _2x_format_title($card_id) ?>
                                             </p>
                                         </div>
                                     </div>
@@ -81,6 +90,28 @@ get_header() ?>
 
                     </div>
 
+                </div>
+            </div>
+        </section>
+    <?php endif ?>
+
+    <?php if (isset($options['footer_callout_banner']) && $options['footer_callout_banner']): ?>
+        <section class="footer-callout-banner">
+            <div class="row-container">
+                <div class="single-h-padding limit-width position-relative">
+                    <img src="<?= wp_get_attachment_image_url($options['footer_callout_banner']['background_image'], '_2x_footer-callout-banner') ?>"
+                        class="full-width" alt="">
+
+                    <div class="footer-callout-banner-content">
+                        <div class="main-heading mb-4">
+                            <?= $options['footer_callout_banner']['main_heading'] ?>
+                        </div>
+                        <div class="cta">
+                            <a class="btn btn-primary" href="<?= $options['footer_callout_banner']['cta']['url'] ?>">
+                                <?= $options['footer_callout_banner']['cta']['title'] ?>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

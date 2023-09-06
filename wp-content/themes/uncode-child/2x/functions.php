@@ -14,6 +14,13 @@ show_admin_bar(false);
 add_action('wp_enqueue_scripts', function () {
 
     /**
+     * default child style
+     */
+
+    wp_enqueue_style('_2x-css-child', sprintf('%s/style.css', get_stylesheet_directory_uri()), ['uncode-style'], time());
+
+
+    /**
      * enqueue jailed boostrap css
      */
 
@@ -31,8 +38,14 @@ add_action('wp_enqueue_scripts', function () {
  */
 
 add_filter('acf/settings/save_json', function ($path) {
-    $path = get_stylesheet_directory() . '/2x/acf-json';
+    $path = get_stylesheet_directory() . '/acf-json';
     return $path;
+});
+
+
+add_filter('acf/settings/load_json', function ($paths) {
+    $paths[] = get_stylesheet_directory() . '/acf-json';
+    return $paths;
 });
 
 /**
@@ -48,6 +61,7 @@ add_action('after_setup_theme', function () {
     add_image_size('_2x-carousel-resources-callout', 540, 340, true);
     add_image_size('_2x-card-customers', 439, 295, true);
     add_image_size('_2x-card-faces-of-tlf-left-top', 440, 339, ['left', 'top']);
+    add_image_size('_2x-card-news', 200, 200, true);
 });
 
 /**

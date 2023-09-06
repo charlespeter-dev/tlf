@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Template Name: 2x - Customers
+ * Template Name: 2x - News
  */
 
 if (is_admin())
@@ -16,28 +16,29 @@ $fields = get_fields($post->ID);
 extract($fields);
 
 /**
- * customers
+ * post - news
  */
 
-$customers_query = new WP_Query([
-    'post_type' => 'portfolio',
+$news_query = new WP_Query([
+    'category_name' => 'news',
     'posts_per_page' => -1,
-    'orderby' => 'rand',
+    'orderby' => 'date',
+    'order' => 'DESC',
     'fields' => 'ids',
     'post_status' => 'publish'
 ]);
 
 wp_reset_query();
 
-$customers_ids = $customers_query->posts;
+$news_ids = $news_query->posts;
 
-$cards_ids = $customers_ids;
+$cards_ids = $news_ids;
 
 get_header() ?>
 
 <div class="bootstrap-container">
 
-    <section class="hero-carousels single customers">
+    <section class="hero-carousels single news">
         <div class="row-container">
             <div class="single-h-padding limit-width position-relative">
 
@@ -83,30 +84,36 @@ get_header() ?>
     </section>
 
     <?php if (isset($cards_ids)): ?>
-        <section class="cards-overview my-5">
+        <section class="cards-overview news">
             <div class="row-container">
                 <div class="single-h-padding limit-width">
 
-                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-5">
+                    <div class="row row-cols-1 row-cols-md-2 g-5">
 
                         <?php foreach ($cards_ids as $card_id): ?>
-                            <div class="col">
-                                <a href="<?= get_the_permalink($card_id) ?>">
-                                    <div class="card h-100">
-                                        <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($card_id), '_2x-card-customers') ?>"
-                                            class="img-fluid" alt="">
 
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                <?= strtolower(get_the_title($card_id)) ?>
-                                            </h5>
-                                            <p class="card-text">
-                                                <?= get_field('overview_text', $card_id) ?>
-                                            </p>
+                            <div class="col">
+
+                                <div class="card-news">
+                                    <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($card_id), '_2x-card-news') ?>"
+                                        class="img-fluid" alt="">
+                                    <div class="card-news-body position-relative wpk-box-brand">
+                                        <div>
+                                            <div class="card-news-body-date">
+                                                <?= get_the_date('F d, Y', $card_id) ?>
+                                            </div>
+                                            <div class="card-news-body-title">
+                                                <?= get_the_title($card_id) ?>
+                                            </div>
+                                        </div>
+                                        <div class="card-news-body-cta">
+                                            <a href="<?= get_the_permalink($card_id) ?>">Read More</a>
                                         </div>
                                     </div>
-                                </a>
+
+                                </div>
                             </div>
+
                         <?php endforeach ?>
 
                     </div>

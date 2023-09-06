@@ -106,6 +106,97 @@
                 }
             }
         }
+
+        // -- begin: cards for news
+
+        &.news {
+
+            &::before {
+                content: unset;
+            }
+
+            .card-news {
+                display: flex;
+                flex-direction: column;
+                border: 1px solid #ccc;
+                border-radius: 15px;
+                height: 100%;
+
+                @media screen and (min-width: 992px) {
+                    flex-direction: row;
+                }
+
+                img {
+                    border-top-left-radius: 15px;
+                    border-top-right-radius: 15px;
+
+                    @media screen and (min-width: 992px) {
+                        border-top-left-radius: 15px;
+                        border-bottom-left-radius: 15px;
+                        border-top-right-radius: unset;
+                    }
+                }
+
+                &-body {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    padding: 1.5rem;
+
+                    &.wpk-box-brand:before {
+                        border-top-right-radius: unset;
+                    }
+
+                    @media screen and (min-width:992px) {
+
+                        &.wpk-box-brand:before,
+                        &.wpk-box-brand:after {
+                            content: '';
+                            left: -10px;
+                            width: 10px;
+                            right: unset;
+                        }
+
+                        &.wpk-box-brand:before {
+                            top: 0px;
+                            background: #003567;
+                            height: 65%;
+                            border-top-right-radius: unset;
+                            border-bottom-left-radius: 8px;
+                        }
+
+                        &.wpk-box-brand:after {
+                            bottom: 0px;
+                            background: #ee001d;
+                            height: 20%;
+                            border-top-left-radius: 8px;
+                            border-bottom-right-radius: unset;
+                        }
+                    }
+
+                    &-date {
+                        font-size: 16px;
+                        line-height: 26px;
+                    }
+
+                    &-title {
+                        font-size: 18px;
+                        line-height: 25px;
+                        font-weight: 700;
+                        color: #003375;
+                    }
+
+                    &-cta {
+                        font-size: 18px;
+                        line-height: 28px;
+                        font-weight: 700;
+                        color: #E30613;
+                    }
+                }
+            }
+        }
+
+        // --- end: cards for news
     }
 
     //-------- customers
@@ -183,6 +274,51 @@
                 box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.7);
             }
         }
+
+        // --- begin: carousel for news
+
+        &.news {
+
+            padding-block-start: 0 !important;
+            padding-block-end: 0 !important;
+
+            &::before {
+                content: unset;
+            }
+
+            h2 {
+                color: #fff;
+                text-align: left;
+            }
+
+            .full-width {
+                height: 365px;
+            }
+        }
+
+        // --- end: carousel for news
+
+
+        // --- begin: carousel for industry
+
+        &.industry {
+            padding-block-start: 0 !important;
+            padding-block-end: 0 !important;
+
+            .full-width {
+                height: 365px;
+            }
+
+            ._2x-hero-content {
+                text-align: center;
+
+                p {
+                    padding-bottom: 0;
+                }
+            }
+        }
+
+        // --- end: carousel for industry
     }
 
     .customer-logo {
@@ -617,6 +753,10 @@
                 line-height: normal;
             }
 
+            .cta .btn {
+                white-space: unset;
+            }
+
             .cta .btn.btn-primary {
                 background-color: #fff !important;
                 border-color: #fff !important;
@@ -732,6 +872,20 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
     .chrome .col-lg-9 {
         height: unset;
     }
+}
+
+.main-container .row-container .single-h-padding {
+    padding-left: 15px;
+    padding-right: 15px;
+
+    @media screen and (min-width: 922px) {
+        padding-left: 36px;
+        padding-right: 36px;
+    }
+}
+
+.style-color-lxmt-bg {
+    background-color: #ffffff;
 }
 
 //----- end: override uncode specific styles

@@ -9,6 +9,8 @@ if (is_admin())
 
 global $post;
 
+$options = get_fields('options');
+
 /**
  * hero carousels
  */
@@ -369,17 +371,16 @@ get_header() ?>
 <?php endif ?>
 
 
-<?php if ($footer_callout_banner) : ?>
+<?php if (isset($options['footer_callout_banner']) && $options['footer_callout_banner']) : ?>
     <section class="bootstrap-container">
         <div class="footer-callout-banner">
             <div class="row-container">
                 <div class="single-h-padding limit-width position-relative">
-                    <img src="<?= wp_get_attachment_image_url($footer_callout_banner['background_image'], '_2x_footer-callout-banner') ?>" class="full-width" alt="">
+                    <img src="<?= wp_get_attachment_image_url($options['footer_callout_banner']['background_image'], '_2x_footer-callout-banner') ?>" class="full-width" alt="">
 
                     <div class="footer-callout-banner-content">
-                        <div class="page-name mb-3"><?= $footer_callout_banner['page_name'] ?></div>
-                        <div class="main-heading mb-4"><?= $footer_callout_banner['main_heading'] ?></div>
-                        <div class="cta"><a class="btn btn-primary" href="<?= $footer_callout_banner['cta_url'] ?>"><?= $footer_callout_banner['cta_text'] ?></a></div>
+                        <div class="main-heading mb-4"><?= $options['footer_callout_banner']['main_heading'] ?></div>
+                        <div class="cta"><a class="btn btn-primary" href="<?= $options['footer_callout_banner']['cta']['url'] ?>"><?= $options['footer_callout_banner']['cta']['title'] ?></a></div>
                     </div>
                 </div>
             </div>
