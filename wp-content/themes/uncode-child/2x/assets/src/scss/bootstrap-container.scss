@@ -914,6 +914,7 @@
 
             .quote-cta {
                 text-align: center;
+
                 a {
                     font-weight: 700;
                     color: #E30613;
@@ -922,9 +923,32 @@
                 }
             }
         }
+
+        // --- begin: services / consultancy
+
+        &.consultancy {
+
+            .callout-with-cards {
+
+                &::before {
+                    content: unset;
+                }
+
+                &-sub-heading {
+                    text-align: center;
+                }
+
+                &-icon {
+                    width: 120px;
+                }
+            }
+        }
+
+        // --- end: services / consultancy
     }
 
     // -- end: services overview
+
 }
 
 body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {

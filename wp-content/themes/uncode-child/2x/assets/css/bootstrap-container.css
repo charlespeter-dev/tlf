@@ -11753,6 +11753,15 @@ a > .bootstrap-container code {
   text-decoration: none;
   text-transform: uppercase;
 }
+.bootstrap-container.services.consultancy .callout-with-cards::before {
+  content: unset;
+}
+.bootstrap-container.services.consultancy .callout-with-cards-sub-heading {
+  text-align: center;
+}
+.bootstrap-container.services.consultancy .callout-with-cards-icon {
+  width: 120px;
+}
 
 body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
   background-color: #EDEFF0;
