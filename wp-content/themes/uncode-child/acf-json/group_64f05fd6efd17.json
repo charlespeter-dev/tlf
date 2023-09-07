@@ -1,6 +1,6 @@
 {
     "key": "group_64f05fd6efd17",
-    "title": "2x - News",
+    "title": "v2 \/ News",
     "fields": [
         {
             "key": "field_64f05fd7109dd",
@@ -86,5 +86,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1693474815
+    "modified": 1694056703
 }

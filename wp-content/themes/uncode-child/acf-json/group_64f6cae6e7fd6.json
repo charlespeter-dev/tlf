@@ -1,6 +1,6 @@
 {
     "key": "group_64f6cae6e7fd6",
-    "title": "2x - Industry",
+    "title": "v2 \/ Industry",
     "fields": [
         {
             "key": "field_64f6cae704f09",
@@ -102,5 +102,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1693895433
+    "modified": 1694056689
 }

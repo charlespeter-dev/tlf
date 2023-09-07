@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Template Name: 2x - Customers
+ * Template Name: v2 / Customers
+ * Template Post Type: page, v2
  */
 
 if (is_admin())

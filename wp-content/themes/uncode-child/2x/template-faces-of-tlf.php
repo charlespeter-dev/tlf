@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Template Name: 2x - Faces of TLF
+ * Template Name: v2 / Faces of TLF
+ * Template Post Type: page, v2
  */
 
 if (is_admin())

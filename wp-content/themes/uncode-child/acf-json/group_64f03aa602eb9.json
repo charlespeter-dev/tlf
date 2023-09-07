@@ -1,6 +1,6 @@
 {
     "key": "group_64f03aa602eb9",
-    "title": "2x - Resources",
+    "title": "v2 \/ Resources",
     "fields": [
         {
             "key": "field_64f03aa617e7a",
@@ -156,5 +156,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1693467236
+    "modified": 1694056741
 }

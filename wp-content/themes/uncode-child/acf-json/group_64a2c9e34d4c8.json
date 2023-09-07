@@ -1,6 +1,6 @@
 {
     "key": "group_64a2c9e34d4c8",
-    "title": "2x - Homepage",
+    "title": "v2 \/ Homepage",
     "fields": [
         {
             "key": "field_64a2c9e587846",
@@ -1055,7 +1055,7 @@
             {
                 "param": "page_template",
                 "operator": "==",
-                "value": "2x\/homepage.php"
+                "value": "2x\/template-homepage.php"
             }
         ]
     ],
@@ -1068,5 +1068,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1693465241
+    "modified": 1694059125
 }

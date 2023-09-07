@@ -1,6 +1,6 @@
 {
     "key": "group_64f85ed10e2e4",
-    "title": "2x - Customers Extra Fields",
+    "title": "v2 \/ Customers Extra Fields",
     "fields": [
         {
             "key": "field_64f85ed172c8b",
@@ -41,5 +41,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1693998873
+    "modified": 1694056628
 }

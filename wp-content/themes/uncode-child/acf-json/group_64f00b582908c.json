@@ -1,6 +1,6 @@
 {
     "key": "group_64f00b582908c",
-    "title": "2x - Faces of TLF",
+    "title": "v2 \/ Faces of TLF",
     "fields": [
         {
             "key": "field_64f00b583c8f0",
@@ -142,5 +142,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1693465009
+    "modified": 1694056659
 }

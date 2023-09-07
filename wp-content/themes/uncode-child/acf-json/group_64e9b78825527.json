@@ -1,6 +1,6 @@
 {
     "key": "group_64e9b78825527",
-    "title": "2x - Customers",
+    "title": "v2 \/ Customers",
     "fields": [
         {
             "key": "field_64e9b78860f66",
@@ -155,5 +155,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1693910995
+    "modified": 1694059511
 }
