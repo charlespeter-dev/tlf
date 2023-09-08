@@ -1138,6 +1138,38 @@
 
     // -- end: services overview
 
+    // --- begin: careers overview
+
+    &.careers {
+
+        .top-content {
+            video {
+                border: 1px solid #707070;
+                border-radius: 15px;
+                background-color: #58879B;
+            }
+        }
+
+        .callout-with-cards {
+
+            &-sub-heading {
+                text-align: center;
+            }
+
+            &-icon {
+
+                width: 150px;
+
+                @include media-breakpoint-up(lg) {
+                    width: 150px;
+                }
+            }
+
+        }
+    }
+
+    // --- end: careers overview
+
 }
 
 body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
