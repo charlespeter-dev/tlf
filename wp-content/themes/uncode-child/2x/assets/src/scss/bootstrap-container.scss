@@ -1,4 +1,5 @@
 .bootstrap-container {
+
     @import "../../../node_modules/bootstrap/scss/bootstrap.scss";
 
 
@@ -22,6 +23,27 @@
             white-space: pre;
         }
     }
+
+    // -- begin: default 
+
+    .btn.btn-primary {
+        white-space: unset;
+        background-color: #E30613 !important;
+        border-color: #E30613 !important;
+        border-radius: 5px !important;
+    }
+
+    .sub-heading {
+        @include rfs(1.25rem, font-size);
+        @include rfs(1.875rem, line-height);
+
+        p {
+            @include rfs(1.25rem, font-size);
+            @include rfs(1.875rem, line-height);
+        }
+    }
+
+    // -- end: default 
 
     .carousel-indicators [data-bs-target] {
         border-radius: 50%;
@@ -259,10 +281,14 @@
 
             .sub-heading {
                 @include font-size(1.25rem); // 20px
-                line-height: 28px !important;
                 line-height: normal;
                 text-shadow: 0px 3px 10px rgba(0, 0, 0, 0.7);
                 margin-inline-end: 1rem;
+
+                p {
+                    @include font-size(1.25rem); // 20px
+                    line-height: normal;
+                }
             }
 
             .btn.btn-primary {
@@ -559,6 +585,11 @@
         .sub-heading {
             @include font-size(1.25rem); // 20px
             line-height: normal;
+
+            p {
+                @include font-size(1.25rem); // 20px
+                line-height: normal;
+            }
         }
 
         .cta {
@@ -686,6 +717,11 @@
         .sub-heading {
             @include font-size(1.25rem); // 20px
             line-height: normal;
+
+            p {
+                @include font-size(1.25rem); // 20px
+                line-height: normal;
+            }
         }
 
         .main-content {
@@ -816,6 +852,59 @@
         }
     }
 
+    // -- begin: default : faces-of-tlf
+
+    .faces-of-tlf {
+        &-main-heading {
+            @include rfs(2.1875rem, font-size);
+            @include rfs(2.8125rem, line-height);
+            color: #003375;
+        }
+
+        &-sub-heading {
+            @include rfs(1.25rem, font-size);
+            @include rfs(1.875rem, line-height);
+            color: #000000;
+
+            p {
+                @include rfs(1.25rem, font-size);
+                @include rfs(1.875rem, line-height);
+            }
+        }
+
+        .card {
+            --bs-body-bg: #fff;
+            --bs-border-radius: 10px;
+            box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+
+            img {
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+            }
+
+            .card-body {
+
+                &.wpk-box-brand:before {
+                    border-top-right-radius: 0;
+                }
+
+                .sub-title {
+                    @include font-size(0.9375rem); // 15px
+                    color: #E30613;
+                }
+
+                .name {
+                    @include font-size(1.125rem); // 18px;
+                    color: #000;
+                    font-weight: 600;
+                    line-height: 26px;
+                }
+            }
+        }
+    }
+
+    // -- end: default : faces-of-tlf
+
     // -- begin: services overview
 
     &.services {
@@ -935,7 +1024,15 @@
                 }
 
                 &-sub-heading {
+                    @include rfs(1.25rem, font-size);
+                    @include rfs(1.875rem, line-height);
+                    color: #000000;
                     text-align: center;
+
+                    p {
+                        @include rfs(1.25rem, font-size);
+                        @include rfs(1.875rem, line-height);
+                    }
                 }
 
                 &-icon {
@@ -966,7 +1063,15 @@
                 }
 
                 &-sub-heading {
+                    @include rfs(1.25rem, font-size);
+                    @include rfs(1.875rem, line-height);
+                    color: #000000;
                     text-align: center;
+
+                    p {
+                        @include rfs(1.25rem, font-size);
+                        @include rfs(1.875rem, line-height);
+                    }
                 }
 
                 .contents {
@@ -1011,7 +1116,15 @@
                 }
 
                 &-sub-heading {
+                    @include rfs(1.25rem, font-size);
+                    @include rfs(1.875rem, line-height);
+                    color: #000000;
                     text-align: center;
+
+                    p {
+                        @include rfs(1.25rem, font-size);
+                        @include rfs(1.875rem, line-height);
+                    }
 
                     h3 {
                         @include rfs(1.5625rem, font-size);
@@ -1075,7 +1188,15 @@
                     }
 
                     .sub-heading {
+                        @include rfs(1.25rem, font-size);
+                        @include rfs(1.875rem, line-height);
+                        color: #000000;
                         text-align: center;
+
+                        p {
+                            @include rfs(1.25rem, font-size);
+                            @include rfs(1.875rem, line-height);
+                        }
                     }
 
                     .card {
@@ -1153,7 +1274,15 @@
         .callout-with-cards {
 
             &-sub-heading {
+                @include rfs(1.25rem, font-size);
+                @include rfs(1.875rem, line-height);
+                color: #000000;
                 text-align: center;
+
+                p {
+                    @include rfs(1.25rem, font-size);
+                    @include rfs(1.875rem, line-height);
+                }
             }
 
             &-icon {

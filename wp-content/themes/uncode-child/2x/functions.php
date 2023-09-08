@@ -96,3 +96,14 @@ if (function_exists('acf_add_options_page')) {
         )
     );
 }
+/**
+ * faces of TLF 
+ * format title
+ */
+
+function _2x_format_title($post_id)
+{
+    $post = get_post($post_id);
+    $title = explode('-', $post->post_title)[1];
+    return ucwords($title);
+}

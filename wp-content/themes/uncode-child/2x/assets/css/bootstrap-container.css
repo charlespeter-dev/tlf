@@ -10973,6 +10973,30 @@ a > .bootstrap-container code {
     white-space: pre;
   }
 }
+.bootstrap-container .btn.btn-primary {
+  white-space: unset;
+  background-color: #E30613 !important;
+  border-color: #E30613 !important;
+  border-radius: 5px !important;
+}
+.bootstrap-container .sub-heading {
+  font-size: 1.25rem;
+  line-height: calc(1.3125rem + 0.75vw);
+}
+@media (min-width: 1200px) {
+  .bootstrap-container .sub-heading {
+    line-height: 1.875rem;
+  }
+}
+.bootstrap-container .sub-heading p {
+  font-size: 1.25rem;
+  line-height: calc(1.3125rem + 0.75vw);
+}
+@media (min-width: 1200px) {
+  .bootstrap-container .sub-heading p {
+    line-height: 1.875rem;
+  }
+}
 .bootstrap-container .carousel-indicators [data-bs-target] {
   border-radius: 50%;
   width: 15px;
@@ -11161,10 +11185,13 @@ a > .bootstrap-container code {
 }
 .bootstrap-container .hero-carousels ._2x-hero-content .sub-heading {
   font-size: 1.25rem;
-  line-height: 28px !important;
   line-height: normal;
   text-shadow: 0px 3px 10px rgba(0, 0, 0, 0.7);
   margin-inline-end: 1rem;
+}
+.bootstrap-container .hero-carousels ._2x-hero-content .sub-heading p {
+  font-size: 1.25rem;
+  line-height: normal;
 }
 .bootstrap-container .hero-carousels ._2x-hero-content .btn.btn-primary {
   white-space: unset;
@@ -11417,6 +11444,10 @@ a > .bootstrap-container code {
   font-size: 1.25rem;
   line-height: normal;
 }
+.bootstrap-container .featured-post .sub-heading p {
+  font-size: 1.25rem;
+  line-height: normal;
+}
 .bootstrap-container .featured-post .cta a {
   color: #E30613 !important;
   text-decoration: none !important;
@@ -11526,6 +11557,10 @@ a > .bootstrap-container code {
   }
 }
 .bootstrap-container .resources-callout .sub-heading {
+  font-size: 1.25rem;
+  line-height: normal;
+}
+.bootstrap-container .resources-callout .sub-heading p {
   font-size: 1.25rem;
   line-height: normal;
 }
@@ -11643,6 +11678,62 @@ a > .bootstrap-container code {
   text-decoration: underline;
   margin-inline-start: 0.5rem;
 }
+.bootstrap-container .faces-of-tlf-main-heading {
+  font-size: calc(1.34375rem + 1.125vw);
+  line-height: calc(1.40625rem + 1.875vw);
+  color: #003375;
+}
+@media (min-width: 1200px) {
+  .bootstrap-container .faces-of-tlf-main-heading {
+    font-size: 2.1875rem;
+  }
+}
+@media (min-width: 1200px) {
+  .bootstrap-container .faces-of-tlf-main-heading {
+    line-height: 2.8125rem;
+  }
+}
+.bootstrap-container .faces-of-tlf-sub-heading {
+  font-size: 1.25rem;
+  line-height: calc(1.3125rem + 0.75vw);
+  color: #000000;
+}
+@media (min-width: 1200px) {
+  .bootstrap-container .faces-of-tlf-sub-heading {
+    line-height: 1.875rem;
+  }
+}
+.bootstrap-container .faces-of-tlf-sub-heading p {
+  font-size: 1.25rem;
+  line-height: calc(1.3125rem + 0.75vw);
+}
+@media (min-width: 1200px) {
+  .bootstrap-container .faces-of-tlf-sub-heading p {
+    line-height: 1.875rem;
+  }
+}
+.bootstrap-container .faces-of-tlf .card {
+  --bs-body-bg: #fff;
+  --bs-border-radius: 10px;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+}
+.bootstrap-container .faces-of-tlf .card img {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.bootstrap-container .faces-of-tlf .card .card-body.wpk-box-brand:before {
+  border-top-right-radius: 0;
+}
+.bootstrap-container .faces-of-tlf .card .card-body .sub-title {
+  font-size: 0.9375rem;
+  color: #E30613;
+}
+.bootstrap-container .faces-of-tlf .card .card-body .name {
+  font-size: 1.125rem;
+  color: #000;
+  font-weight: 600;
+  line-height: 26px;
+}
 .bootstrap-container.services .content-top {
   text-align: center;
 }
@@ -11757,7 +11848,24 @@ a > .bootstrap-container code {
   content: unset;
 }
 .bootstrap-container.services.consultancy .callout-with-cards-sub-heading {
+  font-size: 1.25rem;
+  line-height: calc(1.3125rem + 0.75vw);
+  color: #000000;
   text-align: center;
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.services.consultancy .callout-with-cards-sub-heading {
+    line-height: 1.875rem;
+  }
+}
+.bootstrap-container.services.consultancy .callout-with-cards-sub-heading p {
+  font-size: 1.25rem;
+  line-height: calc(1.3125rem + 0.75vw);
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.services.consultancy .callout-with-cards-sub-heading p {
+    line-height: 1.875rem;
+  }
 }
 .bootstrap-container.services.consultancy .callout-with-cards-icon {
   width: 120px;
@@ -11778,7 +11886,24 @@ a > .bootstrap-container code {
   }
 }
 .bootstrap-container.services.optimization .callout-with-cards-sub-heading {
+  font-size: 1.25rem;
+  line-height: calc(1.3125rem + 0.75vw);
+  color: #000000;
   text-align: center;
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.services.optimization .callout-with-cards-sub-heading {
+    line-height: 1.875rem;
+  }
+}
+.bootstrap-container.services.optimization .callout-with-cards-sub-heading p {
+  font-size: 1.25rem;
+  line-height: calc(1.3125rem + 0.75vw);
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.services.optimization .callout-with-cards-sub-heading p {
+    line-height: 1.875rem;
+  }
 }
 .bootstrap-container.services.optimization .callout-with-cards .contents {
   display: flex;
@@ -11811,7 +11936,24 @@ a > .bootstrap-container code {
   content: unset;
 }
 .bootstrap-container.services.continuous-services .callout-with-cards-sub-heading {
+  font-size: 1.25rem;
+  line-height: calc(1.3125rem + 0.75vw);
+  color: #000000;
   text-align: center;
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.services.continuous-services .callout-with-cards-sub-heading {
+    line-height: 1.875rem;
+  }
+}
+.bootstrap-container.services.continuous-services .callout-with-cards-sub-heading p {
+  font-size: 1.25rem;
+  line-height: calc(1.3125rem + 0.75vw);
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.services.continuous-services .callout-with-cards-sub-heading p {
+    line-height: 1.875rem;
+  }
 }
 .bootstrap-container.services.continuous-services .callout-with-cards-sub-heading h3, .bootstrap-container.services.continuous-services .callout-with-cards-sub-heading .h3 {
   font-size: calc(1.28125rem + 0.375vw);
@@ -11872,7 +12014,24 @@ a > .bootstrap-container code {
   z-index: -1;
 }
 .bootstrap-container.services.continuous-services .cards-overview.packages .sub-heading {
+  font-size: 1.25rem;
+  line-height: calc(1.3125rem + 0.75vw);
+  color: #000000;
   text-align: center;
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.services.continuous-services .cards-overview.packages .sub-heading {
+    line-height: 1.875rem;
+  }
+}
+.bootstrap-container.services.continuous-services .cards-overview.packages .sub-heading p {
+  font-size: 1.25rem;
+  line-height: calc(1.3125rem + 0.75vw);
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.services.continuous-services .cards-overview.packages .sub-heading p {
+    line-height: 1.875rem;
+  }
 }
 .bootstrap-container.services.continuous-services .cards-overview.packages .card {
   border: unset;
@@ -11933,7 +12092,24 @@ a > .bootstrap-container code {
   background-color: #58879B;
 }
 .bootstrap-container.careers .callout-with-cards-sub-heading {
+  font-size: 1.25rem;
+  line-height: calc(1.3125rem + 0.75vw);
+  color: #000000;
   text-align: center;
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.careers .callout-with-cards-sub-heading {
+    line-height: 1.875rem;
+  }
+}
+.bootstrap-container.careers .callout-with-cards-sub-heading p {
+  font-size: 1.25rem;
+  line-height: calc(1.3125rem + 0.75vw);
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.careers .callout-with-cards-sub-heading p {
+    line-height: 1.875rem;
+  }
 }
 .bootstrap-container.careers .callout-with-cards-icon {
   width: 150px;

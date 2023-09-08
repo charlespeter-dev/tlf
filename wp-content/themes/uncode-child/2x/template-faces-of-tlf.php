@@ -24,13 +24,6 @@ if (isset($faces) && $faces) {
     }
 }
 
-function _2x_format_title($post_id)
-{
-    $post = get_post($post_id);
-    $title = explode('-', $post->post_title)[1];
-    return ucwords($title);
-}
-
 get_header() ?>
 
 <div class="bootstrap-container">

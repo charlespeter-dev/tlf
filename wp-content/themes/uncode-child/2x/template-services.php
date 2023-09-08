@@ -69,7 +69,9 @@ get_header() ?>
         <section class="content-top py-5">
             <div class="row-container">
                 <div class="single-h-padding limit-width">
-                    <?= $content_top ?>
+                    <div class="sub-heading">
+                        <?= $content_top ?>
+                    </div>
                 </div>
             </div>
         </section>

@@ -106,6 +106,7 @@ get_header() ?>
                             <?php endif ?>
                         </div>
                     </div>
+
                     <div class="row row-cols-1 row row-cols-md-3">
                         <?php foreach ($stacked_cards['cards'] as $k => $item): ?>
                             <div class="col">
@@ -126,6 +127,66 @@ get_header() ?>
                             </div>
                         <?php endforeach ?>
                     </div>
+                </div>
+            </div>
+        </section>
+
+    <?php endif ?>
+
+    <?php if ($faces_of_tlf): ?>
+
+        <section class="faces-of-tlf py-5">
+            <div class="row-container">
+                <div class="single-h-padding limit-width">
+
+                    <div class="row">
+                        <div class="col">
+                            <?php if (isset($faces_of_tlf['main_heading']) && $faces_of_tlf['main_heading']): ?>
+                                <h2 class="faces-of-tlf-main-heading d-block text-center mb-4">
+                                    <?= $faces_of_tlf['main_heading'] ?>
+                                </h2>
+                            <?php endif ?>
+
+                            <?php if (isset($faces_of_tlf['sub_heading']) && $faces_of_tlf['sub_heading']): ?>
+                                <p class="faces-of-tlf-sub-heading d-block text-center mb-5">
+                                    <?= $faces_of_tlf['sub_heading'] ?>
+                                </p>
+                            <?php endif ?>
+                        </div>
+                    </div>
+
+                    <div class="row row-cols-1 row-cols-md-3 gy-4">
+
+                        <?php foreach ($faces_of_tlf['faces'] as $k => $item): ?>
+
+                            <div class="col">
+                                <div class="card h-100">
+                                    <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($item['face']), '_2x-carousel-news') ?>"
+                                        class="img-top" alt="">
+                                    <div class="card-body position-relative wpk-box-brand">
+                                        <p class="sub-title">
+                                            <?= __('Faces of TLF') ?>
+                                        </p>
+                                        <p class="name">
+                                            <?= _2x_format_title($item['face']) ?>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <?php endforeach ?>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="mt-5 mb-4 text-center">
+                                <a class="btn btn-primary" href="<?= get_the_permalink(get_page_by_path('faces-of-tlf', 'OBJECT', 'v2')->ID) ?>">
+                                    <?= __('Show More') ?>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
