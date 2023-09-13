@@ -55,12 +55,14 @@ add_filter('acf/settings/load_json', function ($paths) {
 add_action('after_setup_theme', function () {
     add_theme_support('post-thumbnails');
     add_image_size('_2x-carousel-hero', 1920, 550, true);
+    add_image_size('_2x_small-banner-hero', 1920, 375, true);
     add_image_size('_2x-carousel-testimonials', 1920, 520, true);
     add_image_size('_2x_footer-callout-banner', 1920, 350, true);
     add_image_size('_2x-carousel-news', 350, 350, true);
     add_image_size('_2x-carousel-resources-callout', 540, 340, true);
     add_image_size('_2x-card-customers', 439, 295, true);
     add_image_size('_2x-card-faces-of-tlf-left-top', 440, 339, ['left', 'top']);
+    add_image_size('_2x_face-image-single', 540, 465, true);
     add_image_size('_2x-card-news', 200, 200, true);
 });
 
