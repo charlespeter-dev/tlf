@@ -81,6 +81,17 @@ get_header() ?>
         </section>
     <?php endif ?>
 
+    <section class="jobs-section">
+        <div class="row-container">
+            <div class="single-h-padding limit-width">
+                <div class="heading text-center">
+                    <h3><?= $job_section_heading ?></h3>
+                    <p><?= $job_section_subheading ?></p>
+                </div>
+                <?php include 'jobs-filter.php'; ?>
+            </div>
+        </div>
+    </section>
 </div>
 
 <?= get_footer() ?>
