@@ -108,11 +108,11 @@
             "append": ""
         },
         {
-            "key": "field_65028c6222e7a",
-            "label": "Job Section Heading",
-            "name": "job_section_heading",
+            "key": "field_65031c7eb9177",
+            "label": "Jobs Section",
+            "name": "jobs_section",
             "aria-label": "",
-            "type": "text",
+            "type": "group",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -121,31 +121,49 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Are We The Perfect Match For You?",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_65028c7e22e7b",
-            "label": "Job Section Subheading",
-            "name": "job_section_subheading",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "Check out our current vacancies.",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
+            "layout": "row",
+            "sub_fields": [
+                {
+                    "key": "field_65028c6222e7a",
+                    "label": "Job Section Heading",
+                    "name": "job_section_heading",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Are We The Perfect Match For You?",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_65028c7e22e7b",
+                    "label": "Job Section Subheading",
+                    "name": "job_section_subheading",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Check out our current vacancies.",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                }
+            ]
         }
     ],
     "location": [
@@ -166,5 +184,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1694665871
+    "modified": 1694702764
 }

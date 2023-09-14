@@ -193,26 +193,18 @@ get_header() ?>
 
     <?php endif ?>
 
-    <?php if (isset($options['footer_callout_banner']) && $options['footer_callout_banner']): ?>
-        <section class="footer-callout-banner">
-            <div class="row-container">
-                <div class="single-h-padding limit-width position-relative">
-                    <img src="<?= wp_get_attachment_image_url($options['footer_callout_banner']['background_image'], '_2x_footer-callout-banner') ?>"
-                        class="full-width" alt="">
-
-                    <div class="footer-callout-banner-content">
-                        <div class="main-heading mb-4">
-                            <?= $options['footer_callout_banner']['main_heading'] ?>
-                        </div>
-                        <div class="cta">
-                            <a class="btn btn-primary" href="<?= $options['footer_callout_banner']['cta']['url'] ?>">
-                                <?= $options['footer_callout_banner']['cta']['title'] ?>
-                            </a>
-                        </div>
-                    </div>
+    <?php if ($jobs_section): ?>
+    <section class="jobs-section">
+        <div class="row-container">
+            <div class="single-h-padding limit-width">
+                <div class="heading text-center">
+                    <h3><?= $jobs_section['job_section_heading'] ?></h3>
+                    <p><?= $jobs_section['job_section_subheading'] ?></p>
                 </div>
+                <?php include 'jobs-filter.php'; ?>
             </div>
-        </section>
+        </div>
+    </section>
     <?php endif ?>
 
 </div>

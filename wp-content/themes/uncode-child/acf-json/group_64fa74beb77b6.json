@@ -460,6 +460,64 @@
                     ]
                 }
             ]
+        },
+        {
+            "key": "field_65031a6e03dc0",
+            "label": "Jobs Section",
+            "name": "jobs_section",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "row",
+            "sub_fields": [
+                {
+                    "key": "field_65031a6e03dc5",
+                    "label": "Job Section Heading",
+                    "name": "job_section_heading",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Are We The Perfect Match For You?",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_65031a6e03dc6",
+                    "label": "Job Section Subheading",
+                    "name": "job_section_subheading",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Check out our current vacancies.",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                }
+            ]
         }
     ],
     "location": [
@@ -480,5 +538,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1694142347
+    "modified": 1694703309
 }

@@ -59,6 +59,18 @@ get_header() ?>
         </div>
     </section>
 
+    <section class="jobs-section">
+        <div class="row-container">
+            <div class="single-h-padding limit-width">
+                <div class="heading text-center">
+                    <h3><?= $job_section_heading ?></h3>
+                    <p><?= $job_section_subheading ?></p>
+                </div>
+                <?php include 'jobs-filter.php'; ?>
+            </div>
+        </div>
+    </section>
+
     <?php if (isset($options['footer_callout_banner']) && $options['footer_callout_banner']): ?>
         <section class="footer-callout-banner">
             <div class="row-container">
@@ -80,18 +92,6 @@ get_header() ?>
             </div>
         </section>
     <?php endif ?>
-
-    <section class="jobs-section">
-        <div class="row-container">
-            <div class="single-h-padding limit-width">
-                <div class="heading text-center">
-                    <h3><?= $job_section_heading ?></h3>
-                    <p><?= $job_section_subheading ?></p>
-                </div>
-                <?php include 'jobs-filter.php'; ?>
-            </div>
-        </div>
-    </section>
 </div>
 
 <?= get_footer() ?>

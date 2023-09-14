@@ -12152,7 +12152,7 @@ a > .bootstrap-container code {
 }
 .bootstrap-container .face-overview {
   margin-top: 100px;
-  margin-bottom: 135px;
+  margin-bottom: 100px;
 }
 .bootstrap-container .face-overview figure {
   width: 540px;
@@ -12169,6 +12169,92 @@ a > .bootstrap-container code {
 }
 .bootstrap-container .face-overview .face-content h3, .bootstrap-container .face-overview .face-content .h3 {
   color: #003375;
+}
+.bootstrap-container .jobs-section {
+  padding-top: 100px;
+  padding-bottom: 90px;
+  background-color: #F6F7F8;
+}
+.bootstrap-container .jobs-section .heading h3, .bootstrap-container .jobs-section .heading .h3 {
+  color: #003375;
+}
+.bootstrap-container .jobs-section .job-listings .filters ul {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  border-bottom: 2px solid #D9D9D9;
+  margin: 30px 0 50px 0;
+  padding: 0;
+}
+.bootstrap-container .jobs-section .job-listings .filters ul li {
+  display: inline-block;
+  text-align: center;
+  padding: 0 20px 20px;
+  margin-right: 25px;
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+  position: relative;
+  transition: 0.3s;
+  text-transform: capitalize;
+}
+.bootstrap-container .jobs-section .job-listings .filters ul li:hover {
+  color: #E30613;
+}
+.bootstrap-container .jobs-section .job-listings .filters ul li:after {
+  content: "";
+  background-color: transparent;
+  width: 100%;
+  height: 4px;
+  display: block;
+  opacity: 0;
+  position: absolute;
+  bottom: -2.5px;
+  left: 0;
+  transition: 0.3s;
+}
+.bootstrap-container .jobs-section .job-listings .filters ul li.is-checked {
+  color: #E30613;
+}
+.bootstrap-container .jobs-section .job-listings .filters ul li.is-checked:after {
+  content: "";
+  background-color: #E30613;
+  width: 100%;
+  height: 4px;
+  display: block;
+  opacity: 1;
+}
+.bootstrap-container .jobs-section .job-listings .filters ul li:last-child {
+  margin-right: 0;
+}
+.bootstrap-container .jobs-section .job-listings .jobs-wrapper .job-card {
+  width: 23.2%;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid rgba(80, 98, 109, 0.2);
+  border-radius: 10px;
+  padding: 20px;
+  float: left;
+  min-height: 206px;
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-bottom: 1rem;
+}
+.bootstrap-container .jobs-section .job-listings .jobs-wrapper .job-card .job-title {
+  color: #E30613;
+  font-weight: bold;
+}
+.bootstrap-container .jobs-section .job-listings .jobs-wrapper .job-card .job-location .job-country {
+  font-weight: 600;
+}
+.bootstrap-container .jobs-section .job-listings .jobs-wrapper .job-card .job-location p {
+  margin-bottom: 0;
+  color: #003375;
+}
+.bootstrap-container .jobs-section .job-listings .jobs-wrapper .job-card .job-type p {
+  margin-bottom: 0;
+  color: #003375;
+  font-weight: 600;
 }
 
 body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
