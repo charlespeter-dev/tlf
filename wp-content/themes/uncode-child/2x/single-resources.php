@@ -16,9 +16,54 @@ $fields = get_fields($post->ID);
 
 extract($fields);
 
+/**
+ * get category
+ */
+
+$categories = get_the_terms($post->ID, 'resource_category');
+foreach ($categories as $cats) {
+    if ($cats->slug != 'visible' || $cats->slug != 'hidden') {
+        $resource_categories[$post->ID] = $cats->name;
+    }
+}
+
 get_header() ?>
 
 <div class="bootstrap-container resources single-brochure">
+
+    <section class="hero-carousels">
+        <div class="row-container">
+            <div class="single-h-padding limit-width position-relative">
+
+                <img src="<?= wp_get_attachment_image_url($background_image, '_2x_small-banner-hero') ?>"
+                    class="full-width" alt="">
+
+                <div class="_2x-hero-content">
+
+                    <div class="row">
+                        <div class="col-lg-9">
+
+                            <?php if (isset($resource_categories) && $resource_categories): ?>
+                                <div class="mb-3">
+                                    <div class="sub-heading">
+                                        <?= implode(' / ', $resource_categories) ?>
+                                    </div>
+                                </div>
+                            <?php endif ?>
+
+                            <div class="mb-3">
+                                <h2 class="mb-0">
+                                    <?= get_the_title($post->ID) ?>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
 
     <?php if ($pdf): ?>
         <section class="py-5">
@@ -29,7 +74,7 @@ get_header() ?>
                         <?= $top_content ?>
                     </div>
 
-                    <div class="text-center my-4">
+                    <div class="text-center my-5">
                         <a href="<?= $pdf['url'] ?>" target="_blank" class="btn btn-primary">
                             <?= $pdf['title'] ?>
                         </a>

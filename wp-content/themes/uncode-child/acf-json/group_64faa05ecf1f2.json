@@ -3,6 +3,31 @@
     "title": "v2 \/ Resources \/ Single Brochure",
     "fields": [
         {
+            "key": "field_6502c4dceec8f",
+            "label": "Background Image",
+            "name": "background_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "preview_size": "medium"
+        },
+        {
             "key": "field_6502ae2c074b9",
             "label": "Top Content",
             "name": "top_content",
@@ -120,5 +145,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1694675275
+    "modified": 1694680299
 }

@@ -1,13 +1,18 @@
 .bootstrap-container {
 
     &.resources.single-brochure {
+
+        .full-width {
+            height: 375px;
+        }
+
         iframe {
             width: 100%;
             height: 100vh;
         }
 
         li {
-            list-style-image: url('https://tlf.test/wp-content/uploads/2023/09/Icon-Tick.svg');
+            list-style-image: url('https://thelogicfactory.com/wp-content/uploads/2023/09/Icon-Tick.svg');
 
             span {
                 vertical-align: 0.1em;
