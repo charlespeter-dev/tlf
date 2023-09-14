@@ -10,6 +10,67 @@
 .bootstrap-container.resources .red {
   color: #E30613;
 }
+.bootstrap-container.resources .card {
+  --bs-body-bg: #fff;
+  --bs-border-radius: 10px;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+}
+.bootstrap-container.resources .card img {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.bootstrap-container.resources .card .category {
+  font-size: 0.9375rem;
+  color: #E30613;
+}
+.bootstrap-container.resources .card .post-title {
+  font-size: 1.125rem;
+  color: #000000;
+  font-weight: bold;
+  font-weight: 600;
+  line-height: 26px;
+}
+.bootstrap-container.resources .card .card-body {
+  min-height: 100px;
+}
+.bootstrap-container.resources .card .card-body.wpk-box-brand:before {
+  border-top-right-radius: 0;
+}
+.bootstrap-container.resources .card .card-footer.wpk-box-brand:before {
+  border-top-right-radius: 0;
+}
+.bootstrap-container.resources .show-more-top {
+  display: none;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.resources .show-more-top {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}
+.bootstrap-container.resources .show-more-top a {
+  font-weight: bold;
+}
+.bootstrap-container.resources .show-more-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.resources .show-more-bottom {
+    display: none;
+  }
+}
+.bootstrap-container.resources .show-more-bottom a {
+  font-weight: bold;
+}
+.bootstrap-container.resources a {
+  text-decoration: none;
+}
+.bootstrap-container.resources hr {
+  border: 1px solid;
+}
 .bootstrap-container.resources h2 {
   font-size: calc(1.34375rem + 1.125vw);
   line-height: calc(1.40625rem + 1.875vw);

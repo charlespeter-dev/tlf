@@ -27,6 +27,12 @@ foreach ($categories as $cats) {
     }
 }
 
+/**
+ * related resources
+ */
+
+$related_resources = _2x_related_resources($post->ID);
+
 get_header() ?>
 
 <div class="bootstrap-container resources single-brochure">
@@ -88,6 +94,68 @@ get_header() ?>
                         </div>
                         <div class="col-lg-6">
                             <?= $bottom_content['right_content'] ?>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    <?php endif ?>
+
+    <?php if (!empty($related_resources)): ?>
+        <section class="related-resources pb-5">
+            <div class="row-container">
+                <div class="single-h-padding limit-width position-relative">
+
+                    <hr class="my-5">
+
+                    <div class="row mb-5">
+                        <div class="col-lg-6">
+                            <h2 class="blue">
+                                Other Topics
+                            </h2>
+                        </div>
+                        <div class="col-lg-6 show-more-top">
+                            <div>
+                                <a href="/v2/resources/" class="red">
+                                    SHOW MORE <i class="fa fa-arrow-right2 t-icon-size-lg"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row row-cols-1 row-cols-md-3 gy-4">
+                        <?php foreach ($related_resources as $post_id => $item): ?>
+                            <div class="col">
+
+                                <a href="<?= $item['url'] ?>">
+                                    <div class="card h-100">
+                                        <img class="img-fluid"
+                                            src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($post_id), '_2x-carousel-resources-callout') ?>"
+                                            alt="">
+                                        <div class="card-body position-relative wpk-box-brand">
+                                            <p class="category mb-3">
+                                                <?= implode(' / ', $item['category']) ?>
+                                            </p>
+                                            <p class="post-title">
+                                                <?= $item['title'] ?>
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                </a>
+
+                            </div>
+                        <?php endforeach ?>
+                    </div>
+
+                    <div class="row mt-5">
+                        <div class="col show-more-bottom">
+                            <div>
+                                <a href="/v2/resources/" class="red">
+                                    SHOW MORE <i class="fa fa-arrow-right2 t-icon-size-lg"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
 
