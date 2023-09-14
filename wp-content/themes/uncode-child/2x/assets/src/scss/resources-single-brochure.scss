@@ -48,5 +48,15 @@
 
 
         }
+
+        &.single-webinar {
+
+            video {
+                width: 100%;
+                height: auto;
+                border-radius: 15px;
+                border-color: #003375;
+            }
+        }
     }
 }
