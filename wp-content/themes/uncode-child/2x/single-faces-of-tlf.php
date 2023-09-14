@@ -45,7 +45,9 @@ get_header() ?>
         <div class="row-container">
             <div class="single-h-padding limit-width">
                 <figure>
-                    <img src="<?= wp_get_attachment_image_url($face_image['id'], '_2x_face-image-single') ?>" class="face-img" alt="<?= $face_image['title'] ?>">
+                    <?php $image_data = wp_get_attachment_image_src( get_post_thumbnail_id(), '_2x_face-image-single' ); ?>
+                    <?php $image_url = $image_data[0]; ?>
+                    <img src="<?php echo $image_url = $image_url; ?>" class="face-img" alt="<?= $face_image['title'] ?>">
                 </figure>
                 <div class="face-content">
                     <?= $face_content ?>

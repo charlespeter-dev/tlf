@@ -12159,6 +12159,8 @@ a > .bootstrap-container code {
   height: auto;
   margin: 0 4rem 1rem 0;
   float: left;
+  border-radius: 13px;
+  overflow: hidden;
 }
 .bootstrap-container .face-overview figure img {
   width: 100%;
