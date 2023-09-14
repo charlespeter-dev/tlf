@@ -12242,7 +12242,9 @@ a > .bootstrap-container code {
 }
 .bootstrap-container .jobs-section .job-listings .jobs-wrapper .job-card .job-title {
   color: #E30613;
-  font-weight: bold;
+  font-weight: 700;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #58879B;
 }
 .bootstrap-container .jobs-section .job-listings .jobs-wrapper .job-card .job-location .job-country {
   font-weight: 600;

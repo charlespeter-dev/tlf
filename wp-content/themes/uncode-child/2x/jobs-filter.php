@@ -66,7 +66,7 @@ $categories = get_categories( array(
                                     <p class="job-country"><?= get_field('job_country', $job_id) ?></p>
                                     <p class="job-city"><?= get_field('job_city', $job_id) ?></p>
                                 </div>
-                                <div class="job-type">
+                                <div class="job-type mt-2">
                                     <p><?= get_field('job_type', $job_id) ?></p>
                                 </div>
                             </div>
