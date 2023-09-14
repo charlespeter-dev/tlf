@@ -132,7 +132,7 @@
             {
                 "param": "post_template",
                 "operator": "==",
-                "value": "2x\/single-resources.php"
+                "value": "2x\/single-resources-brochure.php"
             }
         ]
     ],
@@ -145,5 +145,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1694680299
+    "modified": 1694686708
 }

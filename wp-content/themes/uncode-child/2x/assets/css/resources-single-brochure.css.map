@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["../src/scss/resources-single-brochure.scss"],"names":[],"mappings":"AAIQ;EACI;;AAGJ;EACI;EACA;;AAGJ;EACI;;AAEA;EACI;EACA","file":"resources-single-brochure.css"}
+{"version":3,"sourceRoot":"","sources":["../src/scss/resources-single-brochure.scss","../../node_modules/bootstrap/scss/vendor/_rfs.scss"],"names":[],"mappings":"AAWQ;EACI;;AAGJ;EACI;;AAGJ;EACI;;AAGJ;EACI;;AAGJ;ECwQA;EAAA;;AA5JJ;ED5GI;IC+QA;;;AAnKJ;ED5GI;IC+QA;;;AD1QA;EACI;;AAEA;EACI;EACA;;AAMJ;EACI;EACA","file":"resources-single-brochure.css"}

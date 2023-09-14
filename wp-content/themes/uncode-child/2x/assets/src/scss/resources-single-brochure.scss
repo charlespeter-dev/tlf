@@ -1,14 +1,33 @@
+@import "../../../node_modules/bootstrap/scss/functions";
+@import "../../../node_modules/bootstrap/scss/variables";
+@import "../../../node_modules/bootstrap/scss/variables-dark";
+@import "../../../node_modules/bootstrap/scss/maps";
+@import "../../../node_modules/bootstrap/scss/mixins";
+@import "../../../node_modules/bootstrap/scss/utilities";
+
 .bootstrap-container {
 
-    &.resources.single-brochure {
+    &.resources {
+
+        .sub-heading {
+            text-transform: uppercase;
+        }
 
         .full-width {
             height: 375px;
         }
 
-        iframe {
-            width: 100%;
-            height: 100vh;
+        .blue {
+            color: #003375;
+        }
+
+        .red {
+            color: #E30613;
+        }
+
+        h2 {
+            @include rfs(2.1875rem, font-size);
+            @include rfs(2.8125rem, line-height);
         }
 
         li {
@@ -18,6 +37,16 @@
                 vertical-align: 0.1em;
                 transform: translate(-0.1em, 0.2em);
             }
+        }
+
+        &.single-brochure {
+
+            iframe {
+                width: 100%;
+                height: 100vh;
+            }
+
+
         }
     }
 }
