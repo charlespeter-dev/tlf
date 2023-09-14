@@ -1,0 +1,13 @@
+.bootstrap-container.resources.single-brochure iframe {
+  width: 100%;
+  height: 100vh;
+}
+.bootstrap-container.resources.single-brochure li {
+  list-style-image: url("https://tlf.test/wp-content/uploads/2023/09/Icon-Tick.svg");
+}
+.bootstrap-container.resources.single-brochure li span {
+  vertical-align: 0.1em;
+  transform: translate(-0.1em, 0.2em);
+}
+
+/*# sourceMappingURL=resources-single-brochure.css.map */

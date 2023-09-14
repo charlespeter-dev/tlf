@@ -1,0 +1,18 @@
+.bootstrap-container {
+
+    &.resources.single-brochure {
+        iframe {
+            width: 100%;
+            height: 100vh;
+        }
+
+        li {
+            list-style-image: url('https://tlf.test/wp-content/uploads/2023/09/Icon-Tick.svg');
+
+            span {
+                vertical-align: 0.1em;
+                transform: translate(-0.1em, 0.2em);
+            }
+        }
+    }
+}
