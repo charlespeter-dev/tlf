@@ -1,0 +1,139 @@
+@import "../../../node_modules/bootstrap/scss/functions";
+@import "../../../node_modules/bootstrap/scss/variables";
+@import "../../../node_modules/bootstrap/scss/variables-dark";
+@import "../../../node_modules/bootstrap/scss/maps";
+@import "../../../node_modules/bootstrap/scss/mixins";
+@import "../../../node_modules/bootstrap/scss/utilities";
+
+.bootstrap-container {
+
+    &.resources {
+
+        .sub-heading {
+            text-transform: uppercase;
+        }
+
+        .full-width {
+            height: 375px;
+        }
+
+        .blue {
+            color: #003375;
+        }
+
+        .red {
+            color: #E30613;
+        }
+
+        .card {
+            --bs-body-bg: #fff;
+            --bs-border-radius: 10px;
+            box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+
+            img {
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+            }
+
+            .category {
+                @include font-size(0.9375rem); // 15px
+                color: #E30613;
+            }
+
+            .post-title {
+                @include font-size(1.125rem); // 18px;
+                color: #000000;
+                font-weight: bold;
+                font-weight: 600;
+                line-height: 26px;
+            }
+
+            .card-body {
+                min-height: 100px;
+
+                &.wpk-box-brand:before {
+                    border-top-right-radius: 0;
+                }
+            }
+
+            .card-footer {
+                &.wpk-box-brand:before {
+                    border-top-right-radius: 0;
+                }
+            }
+        }
+
+        .show-more {
+
+            &-top {
+                display: none;
+
+                @include media-breakpoint-up(lg) {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-end;
+                }
+
+                a {
+                    font-weight: bold;
+                }
+            }
+
+            &-bottom {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                @include media-breakpoint-up(lg) {
+                    display: none;
+                }
+
+                a {
+                    font-weight: bold;
+                }
+            }
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        hr {
+            border: 1px solid;
+        }
+
+        h2 {
+            @include rfs(2.1875rem, font-size);
+            @include rfs(2.8125rem, line-height);
+        }
+
+        li {
+            list-style-image: url('https://thelogicfactory.com/wp-content/uploads/2023/09/Icon-Tick.svg');
+
+            span {
+                vertical-align: 0.1em;
+                transform: translate(-0.1em, 0.2em);
+            }
+        }
+
+        &.single-brochure {
+
+            iframe {
+                width: 100%;
+                height: 100vh;
+            }
+
+
+        }
+
+        &.single-webinar {
+
+            video {
+                width: 100%;
+                height: auto;
+                border-radius: 15px;
+                border-color: #003375;
+            }
+        }
+    }
+}

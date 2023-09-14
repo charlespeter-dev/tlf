@@ -93,7 +93,7 @@ get_header() ?>
 
                                         <div class="card-body">
                                             <h5 class="card-title">
-                                                <?= strtolower(get_the_title($card_id)) ?>
+                                                <?= get_the_title($card_id) ?>
                                             </h5>
                                             <p class="card-text">
                                                 <?= get_field('overview_text', $card_id) ?>

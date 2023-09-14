@@ -1,13 +1,38 @@
 {
     "key": "group_64faa05ecf1f2",
-    "title": "v2 \/ Resources \/ Subpage v1",
+    "title": "v2 \/ Resources \/ Single Brochure",
     "fields": [
         {
-            "key": "field_64faa05f7999c",
-            "label": "PDF URL",
-            "name": "pdf_url",
+            "key": "field_6502c4dceec8f",
+            "label": "Background Image",
+            "name": "background_image",
             "aria-label": "",
-            "type": "url",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_6502ae2c074b9",
+            "label": "Top Content",
+            "name": "top_content",
+            "aria-label": "",
+            "type": "wysiwyg",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -17,7 +42,89 @@
                 "id": ""
             },
             "default_value": "",
-            "placeholder": ""
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_64faa05f7999c",
+            "label": "PDF",
+            "name": "pdf",
+            "aria-label": "",
+            "type": "link",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array"
+        },
+        {
+            "key": "field_6502ae41074ba",
+            "label": "Bottom Content",
+            "name": "bottom_content",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "row",
+            "sub_fields": [
+                {
+                    "key": "field_6502ae9f1dbee",
+                    "label": "Left Thumbnail Image",
+                    "name": "left_thumbnail_image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "url",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "",
+                    "preview_size": "medium"
+                },
+                {
+                    "key": "field_6502aeaf1dbef",
+                    "label": "Right Content",
+                    "name": "right_content",
+                    "aria-label": "",
+                    "type": "wysiwyg",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "tabs": "all",
+                    "toolbar": "full",
+                    "media_upload": 1,
+                    "delay": 0
+                }
+            ]
         }
     ],
     "location": [
@@ -25,7 +132,7 @@
             {
                 "param": "post_template",
                 "operator": "==",
-                "value": "2x\/single-resources.php"
+                "value": "2x\/single-resources-brochure.php"
             }
         ]
     ],
@@ -38,5 +145,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1694146853
+    "modified": 1694686708
 }

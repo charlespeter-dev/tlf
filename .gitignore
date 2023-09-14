@@ -26,3 +26,4 @@ package-lock.json
 *.zip
 *.rar
 .htaccess
+upgrade-temp-backup

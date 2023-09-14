@@ -120,3 +120,52 @@ function add_isotope() {
 }
  
 add_action( 'wp_enqueue_scripts', 'add_isotope' );
+
+/**
+ ** related resources
+ * - get 3 random resources
+ */
+
+function _2x_related_resources($exclude_post_id = 0)
+{
+    $resources_query = new WP_Query([
+        'post_type' => 'resources',
+        'posts_per_page' => 3,
+        'orderby' => 'rand',
+        'fields' => 'ids',
+        'post_status' => 'publish',
+        'post__not_in' => [$exclude_post_id]
+    ]);
+
+    wp_reset_query();
+
+    $return = [];
+
+    if (!empty($resources_query->posts)) {
+        foreach ($resources_query->posts as $post_id) {
+
+            /**
+             * get categories
+             */
+
+            $categories = get_the_terms($post_id, 'resource_category');
+            foreach ($categories as $cats) {
+                $return[$post_id]['category'][] = $cats->name;
+            }
+
+            /**
+             * title
+             */
+
+            $return[$post_id]['title'] = get_the_title($post_id);
+
+            /**
+             * permalink
+             */
+
+            $return[$post_id]['url'] = get_the_permalink($post_id);
+        }
+    }
+
+    return $return;
+}
