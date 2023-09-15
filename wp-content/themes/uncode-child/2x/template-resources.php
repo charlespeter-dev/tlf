@@ -26,7 +26,16 @@ $resources_query = new WP_Query([
     'orderby' => 'date',
     'order' => 'DESC',
     'fields' => 'ids',
-    'post_status' => 'publish'
+    'post_status' => 'publish',
+    'tax_query' => [
+        'relation' => 'AND',
+        [
+            'taxonomy' => 'resource_category',
+            'field' => 'slug',
+            'terms' => array('article'),
+            'operator' => 'NOT IN'
+        ]
+    ]
 ]);
 
 wp_reset_query();
