@@ -1372,24 +1372,35 @@
         }
        .job-listings{
             .filters{
-                ul{
+                border-bottom: 2px solid #D9D9D9;
+                margin: 30px 0 50px 0;
+                #filters{
                     display: flex;
                     justify-content: center;
                     list-style: none;
-                    border-bottom: 2px solid #D9D9D9;
-                    margin: 30px 0 50px 0;
                     padding: 0;
-                    li{
+                    overflow-x: auto;
+                    overflow-y: hidden;
+                    white-space: nowrap;
+                    -ms-overflow-style: none; /* IE and EDGE */;
+                    scrollbar-width: none; /* Firefox */
+                    position: relative;
+                    bottom: -2.5px;
+                    &::-webkit-scrollbar{
+                        display:none;
+                    }
+                    button{
                         display: inline-block;
                         text-align: center;
                         padding: 0 20px 20px;
                         margin-right: 25px;
                         font-weight: bold;
                         font-size: 18px;
-                        cursor: pointer;
                         position: relative;
                         transition: 0.3s;
+                        bottom: 0;
                         text-transform: capitalize;
+                        background-color: transparent;
                         &:hover{
                             color: #E30613;
                         
@@ -1402,10 +1413,9 @@
                             display: block;
                             opacity: 0;
                             position: absolute;
-                            bottom: -2.5px;
+                            bottom: 0;
                             left: 0;
                             transition: 0.3s;
-
                         }
                         &.is-checked{
                             color: #E30613;
@@ -1444,6 +1454,21 @@
                         border-bottom: 1px solid #58879B;
                     }
                     .job-location{
+                        margin-left: 20px;
+                        position: relative;
+                        &:before{
+                            content: '';
+                            background-image: url('https://thelogicfactory.com/wp-content/uploads/2023/09/Icon-material-location-on.svg');
+                            display: block;
+                            background-position: top left;
+                            background-repeat: no-repeat;
+                            background-size: contain;
+                            width: 16px;
+                            height: 16px;
+                            position: absolute;
+                            left: -20px;
+                            top: 6px;
+                        }
                         .job-country{
                             font-weight: 600;
                         }
@@ -1453,11 +1478,61 @@
                         }
                     }
                     .job-type{
+                        margin-left: 20px;
+                        position: relative;
+                        &:before{
+                            content: '';
+                            background-image: url('https://thelogicfactory.com/wp-content/uploads/2023/09/Icon-ionic-ios-checkmark-circle-outline.svg');
+                            display: block;
+                            background-position: top left;
+                            background-repeat: no-repeat;
+                            background-size: contain;
+                            width: 14px;
+                            height: 14px;
+                            position: absolute;
+                            left: -20px;
+                            top: 7px;
+                        }
                         p{
                             margin-bottom: 0;
                             color: #003375;
                             font-weight: 600;
                         }
+                    }
+                }
+                #load-more{
+                    color:#E30613;
+                    font-size: 18px;
+                    font-weight: 600;
+                    background-color: transparent;
+                    text-transform: uppercase;
+                }
+            }
+
+            @media(max-width: 991px){
+                .filters{
+                    #filters{
+                        justify-content: flex-start;
+                    }
+                }
+                .jobs-wrapper{
+                    .job-card{
+                        width: 30%;
+                    }
+                }
+            }
+            @media(max-width: 767px){
+                .jobs-wrapper{
+                    .job-card{
+                        width: 45%;
+                    }
+                }
+            }
+            @media(max-width: 567px){
+                .jobs-wrapper{
+                    .job-card{
+                        width: 100%;
+                        margin: 0 0 10px 0;
                     }
                 }
             }

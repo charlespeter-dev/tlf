@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Template Name: v2 / Jobs Section with filter
- * Template Post Type: post
- */
-
  global $post;
 
  $options = get_fields('options');
@@ -46,13 +41,14 @@ $categories = get_categories( array(
     <section class="job-listings">
         <div class="row-container">
             <div class="filters">
-                <ul class="job-filter">
-                    <li class="is-checked" data-filter="*">All</li>
+                <div id="filters" class="button-group job-filter">  
+                    <button class="filter-btn is-checked" data-filter="*">All</button>
                     <?php foreach ($categories as $category): ?>
-                        <li data-filter="<?php echo '.' . $category->slug; ?>"> <?php echo $category->name; ?> </li>
+                        <button class="filter-btn" data-filter="<?php echo '.' . $category->slug; ?>"><?php echo $category->name; ?></button>
                     <?php endforeach ?>
-                </ul>
+                </div>
             </div>
+            
             <div class="jobs-wrapper">
                 <div class="rows grid">
                     <?php foreach ($jobs_ids as $job_id): ?>
@@ -62,13 +58,18 @@ $categories = get_categories( array(
                                 <p class="job-title">
                                     <?= get_the_title($job_id) ?>
                                 </p>
+                                <?php if (get_field('job_country',$job_id)): ?>
                                 <div class="job-location">
                                     <p class="job-country"><?= get_field('job_country', $job_id) ?></p>
                                     <p class="job-city"><?= get_field('job_city', $job_id) ?></p>
                                 </div>
+                                <?php endif ?>
+
+                                <?php if (get_field('job_type',$job_id)): ?>
                                 <div class="job-type mt-2">
                                     <p><?= get_field('job_type', $job_id) ?></p>
                                 </div>
+                                <?php endif ?>
                             </div>
                         </div>
                     </a>

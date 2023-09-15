@@ -12178,30 +12178,43 @@ a > .bootstrap-container code {
 .bootstrap-container .jobs-section .heading h3, .bootstrap-container .jobs-section .heading .h3 {
   color: #003375;
 }
-.bootstrap-container .jobs-section .job-listings .filters ul {
+.bootstrap-container .jobs-section .job-listings .filters {
+  border-bottom: 2px solid #D9D9D9;
+  margin: 30px 0 50px 0;
+}
+.bootstrap-container .jobs-section .job-listings .filters #filters {
   display: flex;
   justify-content: center;
   list-style: none;
-  border-bottom: 2px solid #D9D9D9;
-  margin: 30px 0 50px 0;
   padding: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -ms-overflow-style: none; /* IE and EDGE */
+  scrollbar-width: none; /* Firefox */
+  position: relative;
+  bottom: -2.5px;
 }
-.bootstrap-container .jobs-section .job-listings .filters ul li {
+.bootstrap-container .jobs-section .job-listings .filters #filters::-webkit-scrollbar {
+  display: none;
+}
+.bootstrap-container .jobs-section .job-listings .filters #filters button {
   display: inline-block;
   text-align: center;
   padding: 0 20px 20px;
   margin-right: 25px;
   font-weight: bold;
   font-size: 18px;
-  cursor: pointer;
   position: relative;
   transition: 0.3s;
+  bottom: 0;
   text-transform: capitalize;
+  background-color: transparent;
 }
-.bootstrap-container .jobs-section .job-listings .filters ul li:hover {
+.bootstrap-container .jobs-section .job-listings .filters #filters button:hover {
   color: #E30613;
 }
-.bootstrap-container .jobs-section .job-listings .filters ul li:after {
+.bootstrap-container .jobs-section .job-listings .filters #filters button:after {
   content: "";
   background-color: transparent;
   width: 100%;
@@ -12209,14 +12222,14 @@ a > .bootstrap-container code {
   display: block;
   opacity: 0;
   position: absolute;
-  bottom: -2.5px;
+  bottom: 0;
   left: 0;
   transition: 0.3s;
 }
-.bootstrap-container .jobs-section .job-listings .filters ul li.is-checked {
+.bootstrap-container .jobs-section .job-listings .filters #filters button.is-checked {
   color: #E30613;
 }
-.bootstrap-container .jobs-section .job-listings .filters ul li.is-checked:after {
+.bootstrap-container .jobs-section .job-listings .filters #filters button.is-checked:after {
   content: "";
   background-color: #E30613;
   width: 100%;
@@ -12224,7 +12237,7 @@ a > .bootstrap-container code {
   display: block;
   opacity: 1;
 }
-.bootstrap-container .jobs-section .job-listings .filters ul li:last-child {
+.bootstrap-container .jobs-section .job-listings .filters #filters button:last-child {
   margin-right: 0;
 }
 .bootstrap-container .jobs-section .job-listings .jobs-wrapper .job-card {
@@ -12246,6 +12259,23 @@ a > .bootstrap-container code {
   padding-bottom: 1rem;
   border-bottom: 1px solid #58879B;
 }
+.bootstrap-container .jobs-section .job-listings .jobs-wrapper .job-card .job-location {
+  margin-left: 20px;
+  position: relative;
+}
+.bootstrap-container .jobs-section .job-listings .jobs-wrapper .job-card .job-location:before {
+  content: "";
+  background-image: url("https://thelogicfactory.com/wp-content/uploads/2023/09/Icon-material-location-on.svg");
+  display: block;
+  background-position: top left;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  left: -20px;
+  top: 6px;
+}
 .bootstrap-container .jobs-section .job-listings .jobs-wrapper .job-card .job-location .job-country {
   font-weight: 600;
 }
@@ -12253,10 +12283,53 @@ a > .bootstrap-container code {
   margin-bottom: 0;
   color: #003375;
 }
+.bootstrap-container .jobs-section .job-listings .jobs-wrapper .job-card .job-type {
+  margin-left: 20px;
+  position: relative;
+}
+.bootstrap-container .jobs-section .job-listings .jobs-wrapper .job-card .job-type:before {
+  content: "";
+  background-image: url("https://thelogicfactory.com/wp-content/uploads/2023/09/Icon-ionic-ios-checkmark-circle-outline.svg");
+  display: block;
+  background-position: top left;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  left: -20px;
+  top: 7px;
+}
 .bootstrap-container .jobs-section .job-listings .jobs-wrapper .job-card .job-type p {
   margin-bottom: 0;
   color: #003375;
   font-weight: 600;
+}
+.bootstrap-container .jobs-section .job-listings .jobs-wrapper #load-more {
+  color: #E30613;
+  font-size: 18px;
+  font-weight: 600;
+  background-color: transparent;
+  text-transform: uppercase;
+}
+@media (max-width: 991px) {
+  .bootstrap-container .jobs-section .job-listings .filters #filters {
+    justify-content: flex-start;
+  }
+  .bootstrap-container .jobs-section .job-listings .jobs-wrapper .job-card {
+    width: 30%;
+  }
+}
+@media (max-width: 767px) {
+  .bootstrap-container .jobs-section .job-listings .jobs-wrapper .job-card {
+    width: 45%;
+  }
+}
+@media (max-width: 567px) {
+  .bootstrap-container .jobs-section .job-listings .jobs-wrapper .job-card {
+    width: 100%;
+    margin: 0 0 10px 0;
+  }
 }
 
 body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
