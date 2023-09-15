@@ -12453,7 +12453,7 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
 }
 .bootstrap-container.resources li {
   list-style-image: url("https://thelogicfactory.com/wp-content/uploads/2023/09/Icon-Tick.svg");
-  margin-bottom: 0.1em;
+  margin-bottom: 0.2em;
 }
 .bootstrap-container.resources li span {
   vertical-align: 0.1em;
