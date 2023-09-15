@@ -133,6 +133,20 @@ get_header() ?>
 
     <?php endif ?>
 
+    <?php if ($jobs_section): ?>
+    <section class="jobs-section">
+        <div class="row-container">
+            <div class="single-h-padding limit-width">
+                <div class="heading text-center">
+                    <h3><?= $jobs_section['job_section_heading'] ?></h3>
+                    <p><?= $jobs_section['job_section_subheading'] ?></p>
+                </div>
+                <?php include 'jobs-filter.php'; ?>
+            </div>
+        </div>
+    </section>
+    <?php endif ?>
+
     <?php if ($faces_of_tlf): ?>
 
         <section class="faces-of-tlf py-5">
@@ -191,20 +205,6 @@ get_header() ?>
             </div>
         </section>
 
-    <?php endif ?>
-
-    <?php if ($jobs_section): ?>
-    <section class="jobs-section">
-        <div class="row-container">
-            <div class="single-h-padding limit-width">
-                <div class="heading text-center">
-                    <h3><?= $jobs_section['job_section_heading'] ?></h3>
-                    <p><?= $jobs_section['job_section_subheading'] ?></p>
-                </div>
-                <?php include 'jobs-filter.php'; ?>
-            </div>
-        </div>
-    </section>
     <?php endif ?>
 
 </div>
