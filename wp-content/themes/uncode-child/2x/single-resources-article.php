@@ -40,32 +40,6 @@ get_header() ?>
             <div class="single-h-padding limit-width position-relative">
                 <div>
                     <?= $main_content ?>
-
-                    <div class="resources-quote p-3 p-lg-5 my-5">
-
-                        <div class="row">
-                            <div class="col-lg-8">
-                                <div class="mb-4">
-                                    <span class="red"><span class="font-big">6 out of 10</span> global organizations except geopolitical instability</span> to have a detrimental impact on their supply chain in the next 3 years
-                                </div>
-                                <div>
-                                    <img class="d-flex d-lg-none mb-4 align-self-center"
-                                        src="https://thelogicfactory.com/wp-content/uploads/2023/09/icon-supply_chain_2022_article_2-03.jpg"
-                                        alt="">
-                                </div>
-                                <div class="font-source">Source: KPMG – The Supply Chain Trends Shaking Up 2023</div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="d-flex justify-content-end">
-                                    <img class="d-none d-lg-flex"
-                                        src="https://thelogicfactory.com/wp-content/uploads/2023/09/icon-supply_chain_2022_article_2-03.jpg"
-                                        alt="">
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
                 </div>
             </div>
         </div>
