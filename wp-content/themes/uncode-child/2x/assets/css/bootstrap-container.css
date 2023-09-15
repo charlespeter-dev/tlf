@@ -12495,6 +12495,31 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
   font-weight: bold;
   text-transform: uppercase;
 }
+.bootstrap-container.resources.single-article .resources-quote {
+  display: flex;
+  align-items: center;
+  background-color: #f2f2f2;
+  color: #50626D;
+  font-size: 38px;
+  font-weight: regular;
+  line-height: 45px;
+  border-radius: 15px;
+}
+.bootstrap-container.resources.single-article .resources-quote .red {
+  font-size: 38px;
+  font-weight: bold;
+  line-height: 45px;
+  color: #E30613;
+}
+.bootstrap-container.resources.single-article .resources-quote .font-big {
+  font-size: 58px;
+  font-weight: bold;
+  line-height: 65px;
+}
+.bootstrap-container.resources.single-article .resources-quote .font-source {
+  font-size: 18px;
+  line-height: 25px;
+}
 .bootstrap-container.resources.single-article .about-author-description {
   font-size: 1.25rem;
   line-height: calc(1.3125rem + 0.75vw);

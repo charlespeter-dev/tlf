@@ -182,6 +182,38 @@
         }
 
         &.single-article {
+
+            .resources-quote {
+
+                display: flex;
+                align-items: center;
+
+                background-color: #f2f2f2;
+                color: #50626D;
+                font-size: 38px;
+                font-weight: regular;
+                line-height: 45px;
+                border-radius: 15px;
+
+                .red {
+                    font-size: 38px;
+                    font-weight: bold;
+                    line-height: 45px;
+                    color: #E30613;
+                }
+
+                .font-big {
+                    font-size: 58px;
+                    font-weight: bold;
+                    line-height: 65px;
+                }
+
+                .font-source {
+                    font-size: 18px;
+                    line-height: 25px;
+                }
+            }
+
             .about-author {
                 &-description {
                     @include rfs(1.25rem, font-size);
