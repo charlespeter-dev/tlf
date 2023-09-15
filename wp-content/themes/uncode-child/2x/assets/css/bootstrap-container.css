@@ -12296,6 +12296,8 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
 @media (max-width: 959px) {
   .row div[class*=col-lg-] {
     padding: unset;
+    padding-right: calc(var(--bs-gutter-x) * 0.5);
+    padding-left: calc(var(--bs-gutter-x) * 0.5);
   }
 }
 @media (min-width: 960px) {
@@ -12435,8 +12437,23 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
     line-height: 2.8125rem;
   }
 }
+.bootstrap-container.resources h3, .bootstrap-container.resources .h3 {
+  font-size: calc(1.28125rem + 0.375vw);
+  line-height: calc(1.34375rem + 1.125vw);
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.resources h3, .bootstrap-container.resources .h3 {
+    font-size: 1.5625rem;
+  }
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.resources h3, .bootstrap-container.resources .h3 {
+    line-height: 2.1875rem;
+  }
+}
 .bootstrap-container.resources li {
   list-style-image: url("https://thelogicfactory.com/wp-content/uploads/2023/09/Icon-Tick.svg");
+  margin-bottom: 0.1em;
 }
 .bootstrap-container.resources li span {
   vertical-align: 0.1em;
@@ -12477,6 +12494,15 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
   text-decoration: none;
   font-weight: bold;
   text-transform: uppercase;
+}
+.bootstrap-container.resources.single-article .about-author-description {
+  font-size: 1.25rem;
+  line-height: calc(1.3125rem + 0.75vw);
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.resources.single-article .about-author-description {
+    line-height: 1.875rem;
+  }
 }
 
 /*# sourceMappingURL=bootstrap-container.css.map */

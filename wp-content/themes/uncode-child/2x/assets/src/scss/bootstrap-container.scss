@@ -1522,6 +1522,8 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
 @media (max-width: 959px) {
     .row div[class*=col-lg-] {
         padding: unset;
+        padding-right: calc(var(--bs-gutter-x) * 0.5);
+        padding-left: calc(var(--bs-gutter-x) * 0.5);
     }
 }
 
