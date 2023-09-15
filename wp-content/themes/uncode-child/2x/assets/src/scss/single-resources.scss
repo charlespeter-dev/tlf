@@ -191,26 +191,34 @@
                 background-color: #f2f2f2;
                 color: #50626D;
                 font-size: 38px;
-                font-weight: regular;
                 line-height: 45px;
                 border-radius: 15px;
 
-                .red {
-                    font-size: 38px;
+                li {
+                    list-style-image: none;
+                    list-style-type: disc;
+
+                    @include rfs(1.75rem, font-size);
                     font-weight: bold;
-                    line-height: 45px;
+                    line-height: normal;
+                }
+
+                .red {
+                    @include rfs(2.375rem, font-size);
+                    @include rfs(2.8125rem, line-height);
+                    font-weight: bold;
                     color: #E30613;
                 }
 
                 .font-big {
-                    font-size: 58px;
+                    @include rfs(3.625rem, font-size);
+                    @include rfs(4.0625rem, line-height);
                     font-weight: bold;
-                    line-height: 65px;
                 }
 
                 .font-source {
-                    font-size: 18px;
-                    line-height: 25px;
+                    @include rfs(1.125rem, font-size);
+                    @include rfs(1.5625rem, line-height);
                 }
             }
 

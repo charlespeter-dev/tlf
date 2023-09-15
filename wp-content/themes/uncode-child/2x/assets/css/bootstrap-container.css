@@ -12501,24 +12501,60 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
   background-color: #f2f2f2;
   color: #50626D;
   font-size: 38px;
-  font-weight: regular;
   line-height: 45px;
   border-radius: 15px;
 }
-.bootstrap-container.resources.single-article .resources-quote .red {
-  font-size: 38px;
+.bootstrap-container.resources.single-article .resources-quote li {
+  list-style-image: none;
+  list-style-type: disc;
+  font-size: calc(1.3rem + 0.6vw);
   font-weight: bold;
-  line-height: 45px;
+  line-height: normal;
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.resources.single-article .resources-quote li {
+    font-size: 1.75rem;
+  }
+}
+.bootstrap-container.resources.single-article .resources-quote .red {
+  font-size: calc(1.3625rem + 1.35vw);
+  line-height: calc(1.40625rem + 1.875vw);
+  font-weight: bold;
   color: #E30613;
 }
+@media (min-width: 1200px) {
+  .bootstrap-container.resources.single-article .resources-quote .red {
+    font-size: 2.375rem;
+  }
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.resources.single-article .resources-quote .red {
+    line-height: 2.8125rem;
+  }
+}
 .bootstrap-container.resources.single-article .resources-quote .font-big {
-  font-size: 58px;
+  font-size: calc(1.4875rem + 2.85vw);
+  line-height: calc(1.53125rem + 3.375vw);
   font-weight: bold;
-  line-height: 65px;
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.resources.single-article .resources-quote .font-big {
+    font-size: 3.625rem;
+  }
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.resources.single-article .resources-quote .font-big {
+    line-height: 4.0625rem;
+  }
 }
 .bootstrap-container.resources.single-article .resources-quote .font-source {
-  font-size: 18px;
-  line-height: 25px;
+  font-size: 1.125rem;
+  line-height: calc(1.28125rem + 0.375vw);
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.resources.single-article .resources-quote .font-source {
+    line-height: 1.5625rem;
+  }
 }
 .bootstrap-container.resources.single-article .about-author-description {
   font-size: 1.25rem;
