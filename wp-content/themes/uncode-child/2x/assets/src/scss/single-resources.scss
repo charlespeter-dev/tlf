@@ -25,6 +25,10 @@
             color: #E30613;
         }
 
+        .grey-bg {
+            background-color: #EDEFF0;
+        }
+
         .card {
             --bs-body-bg: #fff;
             --bs-border-radius: 10px;
@@ -136,6 +140,22 @@
                 height: auto;
                 border-radius: 15px;
                 border-color: #003375;
+            }
+
+            .related-webinars {
+                .grey-bg {
+                    border-radius: 10px;
+                }
+
+                img {
+                    border-radius: 10px;
+                }
+
+                a {
+                    color: #E30613;
+                    text-decoration: none;
+                    font-weight: bold;
+                }
             }
         }
     }

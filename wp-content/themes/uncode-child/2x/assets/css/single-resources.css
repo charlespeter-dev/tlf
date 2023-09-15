@@ -10,6 +10,9 @@
 .bootstrap-container.resources .red {
   color: #E30613;
 }
+.bootstrap-container.resources .grey-bg {
+  background-color: #EDEFF0;
+}
 .bootstrap-container.resources .card {
   --bs-body-bg: #fff;
   --bs-border-radius: 10px;
@@ -104,6 +107,17 @@
   height: auto;
   border-radius: 15px;
   border-color: #003375;
+}
+.bootstrap-container.resources.single-webinar .related-webinars .grey-bg {
+  border-radius: 10px;
+}
+.bootstrap-container.resources.single-webinar .related-webinars img {
+  border-radius: 10px;
+}
+.bootstrap-container.resources.single-webinar .related-webinars a {
+  color: #E30613;
+  text-decoration: none;
+  font-weight: bold;
 }
 
 /*# sourceMappingURL=single-resources.css.map */

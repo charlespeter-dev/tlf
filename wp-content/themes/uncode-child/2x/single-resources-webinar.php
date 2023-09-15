@@ -83,6 +83,39 @@ get_header() ?>
         </div>
     </section>
 
+    <?php if (isset($related_webinars) && $related_webinars): ?>
+
+        <section class="related-webinars mb-5">
+            <div class="row-container">
+                <div class="single-h-padding limit-width position-relative">
+
+                    <div class="row row-cols-1 row-cols-md-2 g5">
+                        <?php foreach ($related_webinars as $post): ?>
+                            <div class="col">
+                                <div class="d-flex align-items-center grey-bg p-4">
+                                    <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($post['webinar_post']), '_2x-card-news') ?>"
+                                        alt="">
+                                    <div class="p-4">
+                                        <div class="mb-4">
+                                            <?= $post['excerpt'] ?>
+                                        </div>
+                                        <div>
+                                            <a href="<?= get_the_permalink($post['webinar_post']) ?>">
+                                                <?= $post['cta_label'] ?> <i class="fa fa-arrow-right2 t-icon-size-lg"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach ?>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    <?php endif ?>
+
     <?php if (!empty($related_resources)): ?>
         <section class="related-resources pb-5">
             <div class="row-container">
