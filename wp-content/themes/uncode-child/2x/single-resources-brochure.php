@@ -112,13 +112,14 @@ get_header() ?>
                     <div class="row mb-5">
                         <div class="col-lg-6">
                             <h2 class="blue">
-                                Other Topics
+                                <?= $options['related_resources']['main_heading'] ?>
                             </h2>
                         </div>
                         <div class="col-lg-6 show-more-top">
                             <div>
-                                <a href="/v2/resources/" class="red">
-                                    SHOW MORE <i class="fa fa-arrow-right2 t-icon-size-lg"></i>
+                                <a href="<?= $options['related_resources']['cta']['url'] ?>" class="red">
+                                    <?= $options['related_resources']['cta']['title'] ?> <i
+                                        class="fa fa-arrow-right2 t-icon-size-lg"></i>
                                 </a>
                             </div>
                         </div>
@@ -152,8 +153,9 @@ get_header() ?>
                     <div class="row mt-5">
                         <div class="col show-more-bottom">
                             <div>
-                                <a href="/v2/resources/" class="red">
-                                    SHOW MORE <i class="fa fa-arrow-right2 t-icon-size-lg"></i>
+                                <a href="<?= $options['related_resources']['cta']['url'] ?>" class="red">
+                                    <?= $options['related_resources']['cta']['title'] ?> <i
+                                        class="fa fa-arrow-right2 t-icon-size-lg"></i>
                                 </a>
                             </div>
                         </div>

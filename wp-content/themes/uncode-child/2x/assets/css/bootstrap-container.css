@@ -11059,7 +11059,6 @@ a > .bootstrap-container code {
   font-weight: 700;
   color: #fff;
   text-shadow: 0px 3px 10px rgba(0, 0, 0, 0.7);
-  text-transform: capitalize;
 }
 .bootstrap-container .cards-overview .card .card-body .card-text {
   font-size: 1rem;
@@ -12387,6 +12386,7 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
 }
 .bootstrap-container.resources .show-more-top {
   display: none;
+  text-transform: uppercase;
 }
 @media (min-width: 992px) {
   .bootstrap-container.resources .show-more-top {
@@ -12400,6 +12400,7 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
 }
 .bootstrap-container.resources .show-more-bottom {
   display: flex;
+  text-transform: uppercase;
   align-items: center;
   justify-content: center;
 }
@@ -12441,6 +12442,7 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
 .bootstrap-container.resources.single-brochure iframe {
   width: 100%;
   height: 100vh;
+  border: 1px solid #003375;
 }
 .bootstrap-container.resources.single-webinar video {
   width: 100%;

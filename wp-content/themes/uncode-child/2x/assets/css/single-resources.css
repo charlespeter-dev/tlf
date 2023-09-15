@@ -41,6 +41,7 @@
 }
 .bootstrap-container.resources .show-more-top {
   display: none;
+  text-transform: uppercase;
 }
 @media (min-width: 992px) {
   .bootstrap-container.resources .show-more-top {
@@ -54,6 +55,7 @@
 }
 .bootstrap-container.resources .show-more-bottom {
   display: flex;
+  text-transform: uppercase;
   align-items: center;
   justify-content: center;
 }
@@ -95,6 +97,7 @@
 .bootstrap-container.resources.single-brochure iframe {
   width: 100%;
   height: 100vh;
+  border: 1px solid #003375;
 }
 .bootstrap-container.resources.single-webinar video {
   width: 100%;

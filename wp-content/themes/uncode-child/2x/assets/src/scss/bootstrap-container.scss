@@ -122,7 +122,6 @@
                     font-weight: 700;
                     color: #fff;
                     text-shadow: 0px 3px 10px rgba(0, 0, 0, 0.7);
-                    text-transform: capitalize;
                 }
 
                 .card-text {
@@ -1336,7 +1335,8 @@
     .face-overview {
         margin-top: 100px;
         margin-bottom: 100px;
-        figure{
+
+        figure {
             width: 540px;
             height: auto;
             margin: 0 4rem 1rem 0;
@@ -1361,25 +1361,28 @@
     // --- end: tlf faces single overview
 
     // --- begin: job sections
-    .jobs-section{
+    .jobs-section {
         padding-top: 100px;
         padding-bottom: 90px;
         background-color: #F6F7F8;
-        .heading{
-            h3{
+
+        .heading {
+            h3 {
                 color: #003375;
             }
         }
-       .job-listings{
-            .filters{
-                ul{
+
+        .job-listings {
+            .filters {
+                ul {
                     display: flex;
                     justify-content: center;
                     list-style: none;
                     border-bottom: 2px solid #D9D9D9;
                     margin: 30px 0 50px 0;
                     padding: 0;
-                    li{
+
+                    li {
                         display: inline-block;
                         text-align: center;
                         padding: 0 20px 20px;
@@ -1390,11 +1393,13 @@
                         position: relative;
                         transition: 0.3s;
                         text-transform: capitalize;
-                        &:hover{
+
+                        &:hover {
                             color: #E30613;
-                        
+
                         }
-                        &:after{
+
+                        &:after {
                             content: "";
                             background-color: transparent;
                             width: 100%;
@@ -1407,9 +1412,11 @@
                             transition: 0.3s;
 
                         }
-                        &.is-checked{
+
+                        &.is-checked {
                             color: #E30613;
-                            &:after{
+
+                            &:after {
                                 content: "";
                                 background-color: #E30613;
                                 width: 100%;
@@ -1418,14 +1425,16 @@
                                 opacity: 1;
                             }
                         }
-                        &:last-child{
+
+                        &:last-child {
                             margin-right: 0;
                         }
                     }
                 }
             }
-            .jobs-wrapper{
-                .job-card{
+
+            .jobs-wrapper {
+                .job-card {
                     width: 23.2%;
                     text-decoration: none;
                     background-color: #fff;
@@ -1437,23 +1446,27 @@
                     margin-right: 10px;
                     margin-left: 10px;
                     margin-bottom: 1rem;
-                    .job-title{
+
+                    .job-title {
                         color: #E30613;
                         font-weight: 700;
                         padding-bottom: 1rem;
                         border-bottom: 1px solid #58879B;
                     }
-                    .job-location{
-                        .job-country{
+
+                    .job-location {
+                        .job-country {
                             font-weight: 600;
                         }
-                        p{
+
+                        p {
                             margin-bottom: 0;
                             color: #003375;
                         }
                     }
-                    .job-type{
-                        p{
+
+                    .job-type {
+                        p {
                             margin-bottom: 0;
                             color: #003375;
                             font-weight: 600;
@@ -1461,8 +1474,9 @@
                     }
                 }
             }
-       }
+        }
     }
+
     // --- end: job sections
 
 }
@@ -1564,4 +1578,3 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
 // -- external scss
 
 @import 'single-resources.scss';
-
