@@ -25,6 +25,10 @@
             color: #E30613;
         }
 
+        .grey-bg {
+            background-color: #EDEFF0;
+        }
+
         .card {
             --bs-body-bg: #fff;
             --bs-border-radius: 10px;
@@ -67,6 +71,7 @@
 
             &-top {
                 display: none;
+                text-transform: uppercase;
 
                 @include media-breakpoint-up(lg) {
                     display: flex;
@@ -81,6 +86,7 @@
 
             &-bottom {
                 display: flex;
+                text-transform: uppercase;
                 align-items: center;
                 justify-content: center;
 
@@ -107,11 +113,17 @@
             @include rfs(2.8125rem, line-height);
         }
 
+        h3 {
+            @include rfs(1.5625rem, font-size);
+            @include rfs(2.1875rem, line-height);
+        }
+
         li {
             list-style-image: url('https://thelogicfactory.com/wp-content/uploads/2023/09/Icon-Tick.svg');
+            margin-bottom: .1em;
 
             span {
-                vertical-align: 0.1em;
+                vertical-align: 0.3em;
                 transform: translate(-0.1em, 0.2em);
             }
         }
@@ -121,6 +133,7 @@
             iframe {
                 width: 100%;
                 height: 100vh;
+                border: 1px solid #003375;
             }
 
 
@@ -133,6 +146,87 @@
                 height: auto;
                 border-radius: 15px;
                 border-color: #003375;
+            }
+
+            .related-webinars {
+
+                &-post {
+
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 3rem;
+                    padding: 1.5rem;
+
+                    @include media-breakpoint-up(lg) {
+                        flex-direction: row;
+                        align-items: center;
+                    }
+
+                    &.grey-bg {
+                        border-radius: 10px;
+                    }
+
+                    img {
+                        border-radius: 10px;
+                    }
+
+                    a {
+                        color: #E30613;
+                        text-decoration: none;
+                        font-weight: bold;
+                        text-transform: uppercase;
+                    }
+                }
+            }
+        }
+
+        &.single-article {
+
+            .resources-quote {
+
+                display: flex;
+                align-items: center;
+
+                background-color: #f2f2f2;
+                color: #50626D;
+                font-size: 38px;
+                line-height: 45px;
+                border-radius: 15px;
+
+                li {
+                    list-style-image: none;
+                    list-style-type: disc;
+
+                    @include rfs(1.75rem, font-size);
+                    font-weight: bold;
+                    line-height: normal;
+                }
+
+                .red {
+                    @include rfs(2.375rem, font-size);
+                    @include rfs(2.8125rem, line-height);
+                    font-weight: bold;
+                    color: #E30613;
+                }
+
+                .font-big {
+                    @include rfs(3.625rem, font-size);
+                    @include rfs(4.0625rem, line-height);
+                    font-weight: bold;
+                }
+
+                .font-source {
+                    @include rfs(1.125rem, font-size);
+                    @include rfs(1.5625rem, line-height);
+                }
+            }
+
+            .about-author {
+                &-description {
+                    @include rfs(1.25rem, font-size);
+                    @include rfs(1.875rem, line-height);
+                }
             }
         }
     }

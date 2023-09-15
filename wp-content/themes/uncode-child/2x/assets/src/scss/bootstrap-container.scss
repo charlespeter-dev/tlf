@@ -122,7 +122,6 @@
                     font-weight: 700;
                     color: #fff;
                     text-shadow: 0px 3px 10px rgba(0, 0, 0, 0.7);
-                    text-transform: capitalize;
                 }
 
                 .card-text {
@@ -1336,7 +1335,8 @@
     .face-overview {
         margin-top: 100px;
         margin-bottom: 100px;
-        figure{
+
+        figure {
             width: 540px;
             height: auto;
             margin: 0 4rem 1rem 0;
@@ -1361,12 +1361,13 @@
     // --- end: tlf faces single overview
 
     // --- begin: job sections
-    .jobs-section{
+    .jobs-section {
         padding-top: 100px;
         padding-bottom: 90px;
         background-color: #F6F7F8;
-        .heading{
-            h3{
+
+        .heading {
+            h3 {
                 color: #003375;
             }
         }
@@ -1403,9 +1404,10 @@
                         background-color: transparent;
                         &:hover{
                             color: #E30613;
-                        
+
                         }
-                        &:after{
+
+                        &:after {
                             content: "";
                             background-color: transparent;
                             width: 100%;
@@ -1417,9 +1419,11 @@
                             left: 0;
                             transition: 0.3s;
                         }
-                        &.is-checked{
+
+                        &.is-checked {
                             color: #E30613;
-                            &:after{
+
+                            &:after {
                                 content: "";
                                 background-color: #E30613;
                                 width: 100%;
@@ -1428,14 +1432,16 @@
                                 opacity: 1;
                             }
                         }
-                        &:last-child{
+
+                        &:last-child {
                             margin-right: 0;
                         }
                     }
                 }
             }
-            .jobs-wrapper{
-                .job-card{
+
+            .jobs-wrapper {
+                .job-card {
                     width: 23.2%;
                     text-decoration: none;
                     background-color: #fff;
@@ -1447,7 +1453,8 @@
                     margin-right: 10px;
                     margin-left: 10px;
                     margin-bottom: 1rem;
-                    .job-title{
+
+                    .job-title {
                         color: #E30613;
                         font-weight: 700;
                         padding-bottom: 1rem;
@@ -1472,7 +1479,8 @@
                         .job-country{
                             font-weight: 600;
                         }
-                        p{
+
+                        p {
                             margin-bottom: 0;
                             color: #003375;
                         }
@@ -1538,6 +1546,7 @@
             }
        }
     }
+
     // --- end: job sections
 
 }
@@ -1583,6 +1592,8 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
 @media (max-width: 959px) {
     .row div[class*=col-lg-] {
         padding: unset;
+        padding-right: calc(var(--bs-gutter-x) * 0.5);
+        padding-left: calc(var(--bs-gutter-x) * 0.5);
     }
 }
 
@@ -1639,4 +1650,3 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
 // -- external scss
 
 @import 'single-resources.scss';
-

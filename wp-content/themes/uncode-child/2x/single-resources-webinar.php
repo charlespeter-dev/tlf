@@ -83,6 +83,39 @@ get_header() ?>
         </div>
     </section>
 
+    <?php if (isset($related_webinars) && $related_webinars): ?>
+
+        <section class="related-webinars mb-5">
+            <div class="row-container">
+                <div class="single-h-padding limit-width position-relative">
+
+                    <div class="row">
+                        <?php foreach ($related_webinars as $post): ?>
+                            <div class="col-lg-6">
+                                <div class="related-webinars-post grey-bg mb-4">
+                                    <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($post['webinar_post']), '_2x-card-news') ?>"
+                                        alt="">
+                                    <div>
+                                        <div class="mb-4">
+                                            <?= $post['excerpt'] ?>
+                                        </div>
+                                        <div>
+                                            <a href="<?= get_the_permalink($post['webinar_post']) ?>">
+                                                <?= $post['cta_label'] ?> <i class="fa fa-arrow-right2 t-icon-size-lg"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach ?>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    <?php endif ?>
+
     <?php if (!empty($related_resources)): ?>
         <section class="related-resources pb-5">
             <div class="row-container">
@@ -93,13 +126,14 @@ get_header() ?>
                     <div class="row mb-5">
                         <div class="col-lg-6">
                             <h2 class="blue">
-                                Other Topics
+                                <?= $options['related_resources']['main_heading'] ?>
                             </h2>
                         </div>
                         <div class="col-lg-6 show-more-top">
                             <div>
-                                <a href="/v2/resources/" class="red">
-                                    SHOW MORE <i class="fa fa-arrow-right2 t-icon-size-lg"></i>
+                                <a href="<?= $options['related_resources']['cta']['url'] ?>" class="red">
+                                    <?= $options['related_resources']['cta']['title'] ?> <i
+                                        class="fa fa-arrow-right2 t-icon-size-lg"></i>
                                 </a>
                             </div>
                         </div>
@@ -133,8 +167,9 @@ get_header() ?>
                     <div class="row mt-5">
                         <div class="col show-more-bottom">
                             <div>
-                                <a href="/v2/resources/" class="red">
-                                    SHOW MORE <i class="fa fa-arrow-right2 t-icon-size-lg"></i>
+                                <a href="<?= $options['related_resources']['cta']['url'] ?>" class="red">
+                                    <?= $options['related_resources']['cta']['title'] ?> <i
+                                        class="fa fa-arrow-right2 t-icon-size-lg"></i>
                                 </a>
                             </div>
                         </div>

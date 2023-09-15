@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Template Name: v2 / Resources / Single Brochure
- * Template Post Type: resources
+ * Template Name: v2 / Resources / Single Article
+ * Template Post Type: page, post
  */
 
 if (is_admin())
@@ -17,17 +17,6 @@ $fields = get_fields($post->ID);
 extract($fields);
 
 /**
- * get category
- */
-
-$categories = get_the_terms($post->ID, 'resource_category');
-foreach ($categories as $cats) {
-    if ($cats->slug != 'visible' || $cats->slug != 'hidden') {
-        $resource_categories[$post->ID] = $cats->name;
-    }
-}
-
-/**
  * related resources
  */
 
@@ -35,68 +24,70 @@ $related_resources = _2x_related_resources($post->ID);
 
 get_header() ?>
 
-<div class="bootstrap-container resources single-brochure">
+<div class="bootstrap-container resources single-article">
 
     <section class="hero-carousels">
         <div class="row-container">
             <div class="single-h-padding limit-width position-relative">
-
                 <img src="<?= wp_get_attachment_image_url($background_image, '_2x_small-banner-hero') ?>"
                     class="full-width" alt="">
+            </div>
+        </div>
+    </section>
 
-                <div class="_2x-hero-content">
+    <section class="main-content my-5">
+        <div class="row-container">
+            <div class="single-h-padding limit-width position-relative">
+                <div>
+                    <?= $main_content ?>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <?php if (isset($about_author) && $about_author): ?>
+        <section class="about-author my-5">
+            <div class="row-container">
+                <div class="single-h-padding limit-width position-relative">
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <h3 class="red">
+                                <?= $about_author['main_heading'] ?>
+                            </h3>
+                        </div>
+                    </div>
 
                     <div class="row">
+                        <div class="col-lg-3">
+                            <img class="img-fluid mb-4"
+                                src="<?= wp_get_attachment_image_url($about_author['profile_picture'], '_2x-carousel-news') ?>"
+                                alt="">
+                        </div>
                         <div class="col-lg-9">
-
-                            <?php if (isset($resource_categories) && $resource_categories): ?>
-                                <div class="mb-3">
-                                    <div class="sub-heading">
-                                        <?= implode(' / ', $resource_categories) ?>
-                                    </div>
-                                </div>
-                            <?php endif ?>
-
-                            <div class="mb-3">
-                                <h2 class="mb-0">
-                                    <?= get_the_title($post->ID) ?>
-                                </h2>
+                            <div class="about-author-name">
+                                <h3 class="blue">
+                                    <?= $about_author['author_name'] ?>
+                                </h3>
+                            </div>
+                            <div class="about-author-description">
+                                <?= $about_author['author_description'] ?>
                             </div>
                         </div>
                     </div>
 
                 </div>
-
             </div>
-        </div>
-    </section>
+        </section>
+    <?php endif ?>
 
-    <?php if ($pdf): ?>
-        <section class="py-5">
+    <?php if (isset($article_sources) && $article_sources): ?>
+        <section class="about-author my-5">
             <div class="row-container">
-                <div class="single-h-padding limit-width">
-
-                    <div class="top-content">
-                        <?= $top_content ?>
+                <div class="single-h-padding limit-width position-relative">
+                    <div>
+                        <?= $article_sources ?>
                     </div>
-
-                    <div class="text-center my-5">
-                        <a href="<?= $pdf['url'] ?>" target="_blank" class="btn btn-primary">
-                            <?= $pdf['title'] ?>
-                        </a>
-                    </div>
-
-                    <iframe src="<?= $pdf['url'] ?>" frameborder="0"></iframe>
-
-                    <div class="row mt-5 align-items-center">
-                        <div class="col-lg-6">
-                            <img src="<?= $bottom_content['left_thumbnail_image'] ?>" class="img-fluid" alt="">
-                        </div>
-                        <div class="col-lg-6">
-                            <?= $bottom_content['right_content'] ?>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </section>

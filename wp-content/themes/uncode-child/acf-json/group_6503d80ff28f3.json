@@ -1,9 +1,9 @@
 {
-    "key": "group_6502df1ce65eb",
-    "title": "v2 \/ Resources \/ Single Webinar",
+    "key": "group_6503d80ff28f3",
+    "title": "v2 \/ Resources \/ Single Article",
     "fields": [
         {
-            "key": "field_6502df1d0434b",
+            "key": "field_6503d8101db8b",
             "label": "Background Image",
             "name": "background_image",
             "aria-label": "",
@@ -28,8 +28,8 @@
             "preview_size": "medium"
         },
         {
-            "key": "field_6502df1d056e3",
-            "label": "Main content",
+            "key": "field_6503d81021607",
+            "label": "Main Content",
             "name": "main_content",
             "aria-label": "",
             "type": "wysiwyg",
@@ -48,11 +48,11 @@
             "delay": 0
         },
         {
-            "key": "field_6503ba95c1fa1",
-            "label": "Related Webinars",
-            "name": "related_webinars",
+            "key": "field_6503d8f3120fa",
+            "label": "About Author",
+            "name": "about_author",
             "aria-label": "",
-            "type": "repeater",
+            "type": "group",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -62,19 +62,13 @@
                 "id": ""
             },
             "layout": "row",
-            "pagination": 0,
-            "min": 0,
-            "max": 0,
-            "collapsed": "",
-            "button_label": "Add Row",
-            "rows_per_page": 20,
             "sub_fields": [
                 {
-                    "key": "field_6503bab9c1fa2",
-                    "label": "Webinar Post",
-                    "name": "webinar_post",
+                    "key": "field_6503e063b2c79",
+                    "label": "Main Heading",
+                    "name": "main_heading",
                     "aria-label": "",
-                    "type": "post_object",
+                    "type": "text",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
@@ -83,27 +77,61 @@
                         "class": "",
                         "id": ""
                     },
-                    "post_type": [
-                        "resources"
-                    ],
-                    "post_status": [
-                        "publish"
-                    ],
-                    "taxonomy": [
-                        "resource_category:webinar"
-                    ],
-                    "return_format": "id",
-                    "multiple": 0,
-                    "allow_null": 0,
-                    "bidirectional": 0,
-                    "ui": 1,
-                    "bidirectional_target": [],
-                    "parent_repeater": "field_6503ba95c1fa1"
+                    "default_value": "About the Author",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
                 },
                 {
-                    "key": "field_6503c094361df",
-                    "label": "Excerpt",
-                    "name": "excerpt",
+                    "key": "field_6503d909120fb",
+                    "label": "Profile Picture",
+                    "name": "profile_picture",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "id",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "",
+                    "preview_size": "medium"
+                },
+                {
+                    "key": "field_6503d91e120fc",
+                    "label": "Author Name",
+                    "name": "author_name",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_6503d92a120fd",
+                    "label": "Author Description",
+                    "name": "author_description",
                     "aria-label": "",
                     "type": "textarea",
                     "instructions": "",
@@ -118,31 +146,29 @@
                     "maxlength": "",
                     "rows": "",
                     "placeholder": "",
-                    "new_lines": "",
-                    "parent_repeater": "field_6503ba95c1fa1"
-                },
-                {
-                    "key": "field_6503c47296953",
-                    "label": "CTA Label",
-                    "name": "cta_label",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "Watch Now",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_6503ba95c1fa1"
+                    "new_lines": ""
                 }
             ]
+        },
+        {
+            "key": "field_6503d93a120fe",
+            "label": "Article Sources",
+            "name": "article_sources",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "rows": "",
+            "placeholder": "",
+            "new_lines": ""
         }
     ],
     "location": [
@@ -150,7 +176,7 @@
             {
                 "param": "post_template",
                 "operator": "==",
-                "value": "2x\/single-resources-webinar.php"
+                "value": "2x\/single-resources-article.php"
             }
         ]
     ],
@@ -163,5 +189,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1694745746
+    "modified": 1694752895
 }

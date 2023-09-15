@@ -23,7 +23,8 @@ extract($fields);
 $resources_query = new WP_Query([
     'post_type' => 'resources',
     'posts_per_page' => -1,
-    'orderby' => 'rand',
+    'orderby' => 'date',
+    'order' => 'DESC',
     'fields' => 'ids',
     'post_status' => 'publish'
 ]);
