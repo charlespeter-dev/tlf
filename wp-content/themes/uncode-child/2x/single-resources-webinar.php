@@ -89,13 +89,13 @@ get_header() ?>
             <div class="row-container">
                 <div class="single-h-padding limit-width position-relative">
 
-                    <div class="row row-cols-1 row-cols-md-2 g5">
+                    <div class="row">
                         <?php foreach ($related_webinars as $post): ?>
-                            <div class="col">
-                                <div class="d-flex align-items-center grey-bg p-4">
+                            <div class="col-lg-6">
+                                <div class="related-webinars-post grey-bg mb-4">
                                     <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($post['webinar_post']), '_2x-card-news') ?>"
                                         alt="">
-                                    <div class="p-4">
+                                    <div>
                                         <div class="mb-4">
                                             <?= $post['excerpt'] ?>
                                         </div>
