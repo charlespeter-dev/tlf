@@ -2,7 +2,7 @@
 
 /**
  * Template Name: v2 / Resources / Single Article
- * Template Post Type: page, post
+ * Template Post Type: page, post, resources
  */
 
 if (is_admin())
