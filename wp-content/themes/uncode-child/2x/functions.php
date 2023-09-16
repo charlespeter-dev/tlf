@@ -63,7 +63,10 @@ add_action('after_setup_theme', function () {
     add_image_size('_2x-card-customers', 439, 295, true);
     add_image_size('_2x-card-faces-of-tlf-left-top', 440, 339, ['left', 'top']);
     add_image_size('_2x_face-image-single', 540, 465, true);
+    add_image_size('_2x_small-banner', 1920, 365, true);
     add_image_size('_2x-card-news', 200, 200, true);
+    add_image_size('_2x-partner-logo', 480, 100);
+
 });
 
 /**

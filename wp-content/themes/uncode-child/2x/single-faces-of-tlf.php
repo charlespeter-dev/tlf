@@ -30,9 +30,9 @@ get_header() ?>
                     <div class="row">
                         <div class="col-lg-12 text-center">
                             <div class="mb-0">
-                                <h1 class="mb-0">
+                                <h2 class="mb-0">
                                     <?= $main_heading ?>
-                                </h1>
+                                </h2>
                             </div>
                         </div>
                     </div>
