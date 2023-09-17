@@ -13,10 +13,9 @@ global $post;
 $options = get_fields('options');
 
 $fields = get_fields($post->ID);
+extract($fields);
 
 $partners = get_field('partners_list');
-
-extract($fields);
 
 get_header() ?>
 
@@ -26,10 +25,10 @@ get_header() ?>
         <div class="row-container">
             <div class="single-h-padding limit-width position-relative">
 
-                <?php $image_data = wp_get_attachment_image_src( get_post_thumbnail_id(), '_2x_small-banner' ); ?>
+                <?php $image_data = wp_get_attachment_image_src( get_post_thumbnail_id(), '_2x_xs-banner' ); ?>
                 <?php $image_url = $image_data[0]; ?>
 
-                <img src="<?php echo $image_url = $image_url; ?>" class="small-height" alt="">
+                <img src="<?php echo $image_url = $image_url; ?>" class="xs-height" alt="">
                 <div class="_2x-hero-content">
                     <div class="row">
                         <div class="col-lg-12">

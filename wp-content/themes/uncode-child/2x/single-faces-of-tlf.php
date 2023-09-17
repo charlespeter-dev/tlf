@@ -24,7 +24,7 @@ get_header() ?>
         <div class="row-container">
             <div class="single-h-padding limit-width position-relative">
 
-                <img src="<?= wp_get_attachment_image_url($background_image['id'], '_2x_small-banner-hero') ?>" class="medium-height" alt="<?= $background_image['title'] ?>">
+                <img src="<?= wp_get_attachment_image_url($background_image['id'], '_2x_small-banner') ?>" class="small-height" alt="<?= $background_image['title'] ?>">
 
                 <div class="_2x-hero-content">
                     <div class="row">

@@ -11033,13 +11033,26 @@ a > .bootstrap-container code {
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
-  min-height: 375px;
+  min-height: 575px;
   max-height: 100%;
   object-fit: cover;
   display: unset;
   max-width: unset;
 }
 .bootstrap-container .small-height {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  min-height: 375px;
+  max-height: 100%;
+  object-fit: cover;
+  display: unset;
+  max-width: unset;
+}
+.bootstrap-container .xs-height {
   width: 100vw;
   position: relative;
   left: 50%;
