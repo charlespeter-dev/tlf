@@ -45,7 +45,7 @@ get_header() ?>
         </div>
     </section>
 
-    <?php if (isset($about_author) && $about_author): ?>
+    <?php if (isset($about_author['authors']) && $about_author['authors']): ?>
         <section class="about-author my-5">
             <div class="row-container">
                 <div class="single-h-padding limit-width position-relative">
@@ -58,23 +58,27 @@ get_header() ?>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-lg-3">
-                            <img class="img-fluid mb-4"
-                                src="<?= wp_get_attachment_image_url($about_author['profile_picture'], '_2x-carousel-news') ?>"
-                                alt="">
-                        </div>
-                        <div class="col-lg-9">
-                            <div class="about-author-name">
-                                <h3 class="blue">
-                                    <?= $about_author['author_name'] ?>
-                                </h3>
+                    <?php foreach ($about_author['authors'] as $k => $author): ?>
+
+                        <div class="row <?= ($k) ? 'mt-5' : '' ?>">
+                            <div class="col-lg-3">
+                                <img class="img-fluid mb-4"
+                                    src="<?= wp_get_attachment_image_url($author['profile_picture'], '_2x-carousel-news') ?>"
+                                    alt="">
                             </div>
-                            <div class="about-author-description">
-                                <?= $about_author['author_description'] ?>
+                            <div class="col-lg-9">
+                                <div class="about-author-name">
+                                    <h3 class="blue">
+                                        <?= $author['author_name'] ?>
+                                    </h3>
+                                </div>
+                                <div class="about-author-description">
+                                    <?= $author['author_description'] ?>
+                                </div>
                             </div>
                         </div>
-                    </div>
+
+                    <?php endforeach ?>
 
                 </div>
             </div>
