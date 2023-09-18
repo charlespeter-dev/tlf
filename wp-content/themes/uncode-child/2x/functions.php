@@ -66,7 +66,8 @@ add_action('after_setup_theme', function () {
     add_image_size('_2x_small-banner', 1920, 375, true);
     add_image_size('_2x_xs-banner', 1920, 365, true);
     add_image_size('_2x-card-news', 200, 200, true);
-    add_image_size('_2x-partner-logo', 480, 100);
+    add_image_size('_2x-partner-logo', 480, 100, true);
+    add_image_size('_2x-office-image', 320, 244, true);
 
 });
 
