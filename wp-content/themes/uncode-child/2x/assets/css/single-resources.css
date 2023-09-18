@@ -104,11 +104,11 @@
     line-height: 2.1875rem;
   }
 }
-.bootstrap-container.resources ul > li {
+.bootstrap-container.resources li.tick {
   list-style-image: url("https://thelogicfactory.com/wp-content/uploads/2023/09/Icon-Tick.svg");
   margin-bottom: 0.1em;
 }
-.bootstrap-container.resources ul > li span {
+.bootstrap-container.resources li.tick span {
   vertical-align: 0.3em;
   transform: translate(-0.1em, 0.2em);
 }
