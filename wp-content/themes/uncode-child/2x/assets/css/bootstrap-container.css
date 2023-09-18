@@ -11063,7 +11063,7 @@ a > .bootstrap-container code {
   object-fit: cover;
   display: unset;
   max-width: unset;
-  object-position: center;
+  object-position: top;
 }
 .bootstrap-container .cards-overview a {
   text-decoration: none;
