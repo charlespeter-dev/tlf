@@ -1,0 +1,35 @@
+@import "../../../node_modules/bootstrap/scss/functions";
+@import "../../../node_modules/bootstrap/scss/variables";
+@import "../../../node_modules/bootstrap/scss/variables-dark";
+@import "../../../node_modules/bootstrap/scss/maps";
+@import "../../../node_modules/bootstrap/scss/mixins";
+@import "../../../node_modules/bootstrap/scss/utilities";
+
+.bootstrap-container {
+
+    &.about-us {
+
+        .blue {
+            color: #003375;
+        }
+
+        h2 {
+            @include rfs(2.8125rem, font-size);
+            @include rfs(3.4375rem, line-height);
+        }
+
+        .main-content {
+            text-align: center;
+
+            p {
+                @include rfs(1.25rem, font-size);
+                @include rfs(1.875rem, line-height);
+            }
+        }
+
+        .board-name {
+            border-bottom: 1px solid #ccc;
+        }
+
+    }
+}

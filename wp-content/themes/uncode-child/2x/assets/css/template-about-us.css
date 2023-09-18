@@ -1,0 +1,34 @@
+.bootstrap-container.about-us .blue {
+  color: #003375;
+}
+.bootstrap-container.about-us h2 {
+  font-size: calc(1.40625rem + 1.875vw);
+  line-height: calc(1.46875rem + 2.625vw);
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.about-us h2 {
+    font-size: 2.8125rem;
+  }
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.about-us h2 {
+    line-height: 3.4375rem;
+  }
+}
+.bootstrap-container.about-us .main-content {
+  text-align: center;
+}
+.bootstrap-container.about-us .main-content p {
+  font-size: 1.25rem;
+  line-height: calc(1.3125rem + 0.75vw);
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.about-us .main-content p {
+    line-height: 1.875rem;
+  }
+}
+.bootstrap-container.about-us .board-name {
+  border-bottom: 1px solid #ccc;
+}
+
+/*# sourceMappingURL=template-about-us.css.map */
