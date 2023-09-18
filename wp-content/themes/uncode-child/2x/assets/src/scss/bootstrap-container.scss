@@ -1497,6 +1497,12 @@
                             line-height: 1.2;
                             margin-bottom: 0.5rem;
                         }
+                        .office-email,.office-phone{
+                            a{
+                                color: #003375;
+                                text-decoration: none;
+                            }
+                        }
                         .office-loc,.office-email,.office-phone{
                             margin-bottom: 0;
                             line-height: 1.4;

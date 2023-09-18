@@ -90,10 +90,14 @@ get_header() ?>
                                                 <?= $office_loc ?>
                                             </p>
                                             <p class="office-email">
-                                                <?= $office_email ?>
+                                                <a href="mailto:<?= $office_email ?>" class="office-email">
+                                                    <?= $office_email ?>
+                                                </a>
                                             </p>
                                             <p class="office-phone">
-                                                <?= $office_phone ?>
+                                                <a href="tel:<?= $office_phone ?>" class="office-phone">
+                                                    <?= $office_phone ?>
+                                                </a>
                                             </p>
                                         </div>
                                     </div>
