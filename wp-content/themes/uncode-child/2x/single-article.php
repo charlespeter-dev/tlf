@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Template Name: v2 / Resources / Single Article
- * Template Post Type: resources
+ * Template Name: v2 / Post / Single Article
+ * Template Post Type: post
  */
 
 if (is_admin())
@@ -22,9 +22,15 @@ extract($fields);
 
 $related_resources = _2x_related_resources($post->ID);
 
+/**
+ * css specifics
+ */
+
+wp_enqueue_style('_2x-css-single-article', sprintf('%s/2x/assets/css/single-article.css', get_stylesheet_directory_uri()), ['_2x-css-bootstrap'], time());
+
 get_header() ?>
 
-<div class="bootstrap-container resources single-article">
+<div class="bootstrap-container post single-article">
 
     <section class="hero-carousels">
         <div class="row-container">
@@ -45,59 +51,7 @@ get_header() ?>
         </div>
     </section>
 
-    <?php if (isset($about_author['authors']) && $about_author['authors']): ?>
-        <section class="about-author my-5">
-            <div class="row-container">
-                <div class="single-h-padding limit-width position-relative">
-
-                    <div class="row mb-3">
-                        <div class="col">
-                            <h3 class="red">
-                                <?= $about_author['main_heading'] ?>
-                            </h3>
-                        </div>
-                    </div>
-
-                    <?php foreach ($about_author['authors'] as $k => $author): ?>
-
-                        <div class="row <?= ($k) ? 'mt-5' : '' ?>">
-                            <div class="col-lg-3">
-                                <img class="img-fluid mb-4"
-                                    src="<?= wp_get_attachment_image_url($author['profile_picture'], '_2x-carousel-news') ?>"
-                                    alt="">
-                            </div>
-                            <div class="col-lg-9">
-                                <div class="about-author-name">
-                                    <h3 class="blue">
-                                        <?= $author['author_name'] ?>
-                                    </h3>
-                                </div>
-                                <div class="about-author-description">
-                                    <?= $author['author_description'] ?>
-                                </div>
-                            </div>
-                        </div>
-
-                    <?php endforeach ?>
-
-                </div>
-            </div>
-        </section>
-    <?php endif ?>
-
-    <?php if (isset($article_sources) && $article_sources): ?>
-        <section class="about-author my-5">
-            <div class="row-container">
-                <div class="single-h-padding limit-width position-relative">
-                    <div>
-                        <?= $article_sources ?>
-                    </div>
-                </div>
-            </div>
-        </section>
-    <?php endif ?>
-
-    <?php if (!empty($related_resources)): ?>
+    <?php if (isset($related_resources) && $related_resources): ?>
         <section class="related-resources pb-5">
             <div class="row-container">
                 <div class="single-h-padding limit-width position-relative">
