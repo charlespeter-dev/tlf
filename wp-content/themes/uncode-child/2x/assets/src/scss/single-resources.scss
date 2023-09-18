@@ -118,7 +118,7 @@
             @include rfs(2.1875rem, line-height);
         }
 
-        li {
+        ul>li {
             list-style-image: url('https://thelogicfactory.com/wp-content/uploads/2023/09/Icon-Tick.svg');
             margin-bottom: .1em;
 
