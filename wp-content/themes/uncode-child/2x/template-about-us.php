@@ -157,7 +157,7 @@ get_header() ?>
                     <?php foreach ($boards as $board): ?>
                         <div class="row">
                             <div class="col">
-                                <h2 class="board-name blue text-center py-5 my-5">
+                                <h2 class="board-name blue text-center pb-5 mb-5">
                                     <?= $board['board_name'] ?>
                                 </h2>
                             </div>
