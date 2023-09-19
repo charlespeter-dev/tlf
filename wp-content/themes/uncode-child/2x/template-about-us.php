@@ -139,8 +139,6 @@ get_header() ?>
                         <div class="time-line"></div>
                     </div>
 
-
-
                 </div>
             </div>
         </section>
@@ -173,8 +171,6 @@ get_header() ?>
                         prevEl: ".swiper-button-prev",
                     },
                 });
-
-                console.log(swiperHistory)
             });
         </script>
     <?php endif ?>
