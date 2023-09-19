@@ -131,6 +131,9 @@
   border: 1px solid #fff;
   background-color: #003375;
 }
+.bootstrap-container.about-us .boards .manager-title {
+  color: #E30613;
+}
 .bootstrap-container.about-us .partner-logo {
   position: relative;
 }

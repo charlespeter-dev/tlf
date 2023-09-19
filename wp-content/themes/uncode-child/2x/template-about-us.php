@@ -208,7 +208,7 @@ get_header() ?>
                                             <?= $manager['manager_name'] ?>
                                         </h3>
                                     </div>
-                                    <div class="manager-title">
+                                    <div class="manager-title mb-4">
                                         <?= $manager['manager_title'] ?>
                                     </div>
                                     <div class="manager-description">
