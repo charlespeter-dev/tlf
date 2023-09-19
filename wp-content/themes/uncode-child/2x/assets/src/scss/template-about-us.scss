@@ -31,5 +31,15 @@
             border-bottom: 1px solid #ccc;
         }
 
+        .cta-container {
+            text-align: center;
+            a {
+                color: #E30613;
+                font-weight: 700;
+                text-transform: uppercase;
+                text-decoration: none;
+            }
+        }
+
     }
 }
