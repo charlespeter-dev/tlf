@@ -29,9 +29,9 @@ wp_enqueue_script('_2x-js-swiper-bundle', sprintf('https://cdn.jsdelivr.net/npm/
  * debug
  */
 
-$main_content = '';
-$boards = [];
-$partner_logo = [];
+// $main_content = '';
+// $boards = [];
+// $partner_logo = [];
 
 get_header() ?>
 
