@@ -49,7 +49,7 @@ get_header() ?>
         </div>
     </section>
 
-    <?php if (isset($main_contents) && $main_contents): ?>
+    <?php if (isset($main_content) && $main_content): ?>
         <section class="main-content my-5">
             <div class="row-container">
                 <div class="single-h-padding limit-width position-relative">
@@ -61,7 +61,7 @@ get_header() ?>
         </section>
     <?php endif ?>
 
-    <?php if (isset($boardss) && $boardss): ?>
+    <?php if (isset($boards) && $boards): ?>
         <section class="boards my-5">
             <div class="row-container">
                 <div class="single-h-padding limit-width position-relative">
@@ -108,7 +108,6 @@ get_header() ?>
     <?php endif ?>
 
     <?php if (isset($partner_logo['logo_detail']) && $partner_logo['logo_detail']): ?>
-
         <section class="partner-logo my-5">
             <div class="row-container">
                 <div class="single-h-padding limit-width position-relative">
@@ -166,7 +165,6 @@ get_header() ?>
                 });
             });
         </script>
-
     <?php endif ?>
 
     <?php if (isset($options['footer_callout_banner']) && $options['footer_callout_banner']): ?>
