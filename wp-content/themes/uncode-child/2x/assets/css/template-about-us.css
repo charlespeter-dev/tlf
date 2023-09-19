@@ -115,8 +115,16 @@
 }
 .bootstrap-container.about-us .our-history .swiper-slide-active .year {
   color: #E30613;
+  transform: scale(1.5);
+  transition-duration: 0.2s;
+  transition-delay: 0.3s;
+  transition-timing-function: ease-in-out;
 }
 .bootstrap-container.about-us .our-history .swiper-slide-active .circle {
+  transform: scale(1.5);
+  transition-duration: 0.2s;
+  transition-delay: 0.3s;
+  transition-timing-function: ease-in-out;
   border: 3px solid #E30613;
 }
 .bootstrap-container.about-us .our-history .swiper-slide-active .circle .circle-inner {

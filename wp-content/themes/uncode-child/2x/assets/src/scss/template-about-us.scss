@@ -134,9 +134,17 @@
             .swiper-slide-active {
                 .year {
                     color: #E30613;
+                    transform: scale(1.5);
+                    transition-duration: .2s;
+                    transition-delay: .3s;
+                    transition-timing-function: ease-in-out;
                 }
 
                 .circle {
+                    transform: scale(1.5);
+                    transition-duration: .2s;
+                    transition-delay: .3s;
+                    transition-timing-function: ease-in-out;
                     border: 3px solid #E30613;
 
                     .circle-inner {
