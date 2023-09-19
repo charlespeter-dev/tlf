@@ -9,6 +9,8 @@
 
     &.about-us {
 
+        background-color: #fff;
+
         .blue {
             color: #003375;
         }
@@ -98,6 +100,8 @@
 
         .our-history {
 
+            position: relative;
+
             &::before {
                 content: '';
                 position: absolute;
@@ -107,7 +111,6 @@
                 width: 100vw;
                 height: 100%;
                 background-color: #EDEFF0;
-                z-index: -1;
             }
 
             .year {
@@ -149,7 +152,6 @@
                 width: 100vw;
                 height: 100%;
                 background-color: #EDEFF0;
-                z-index: -1;
             }
         }
     }
