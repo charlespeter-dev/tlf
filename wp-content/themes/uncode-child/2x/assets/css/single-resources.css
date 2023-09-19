@@ -212,14 +212,5 @@
     line-height: 1.5625rem;
   }
 }
-.bootstrap-container.resources.single-article .about-author-description {
-  font-size: 1.25rem;
-  line-height: calc(1.3125rem + 0.75vw);
-}
-@media (min-width: 1200px) {
-  .bootstrap-container.resources.single-article .about-author-description {
-    line-height: 1.875rem;
-  }
-}
 
 /*# sourceMappingURL=single-resources.css.map */

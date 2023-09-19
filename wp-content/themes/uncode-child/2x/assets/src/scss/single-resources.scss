@@ -228,13 +228,6 @@
                     @include rfs(1.5625rem, line-height);
                 }
             }
-
-            .about-author {
-                &-description {
-                    @include rfs(1.25rem, font-size);
-                    @include rfs(1.875rem, line-height);
-                }
-            }
         }
     }
 }
