@@ -144,5 +144,8 @@
   height: 100%;
   background-color: #EDEFF0;
 }
+.bootstrap-container.about-us .partner-logo .swiper-slide {
+  text-align: center;
+}
 
 /*# sourceMappingURL=template-about-us.css.map */
