@@ -74,13 +74,13 @@ get_header() ?>
             <div class="row-container">
                 <div class="single-h-padding limit-width position-relative">
 
-                <div class="row">
-                    <div class="col">
-                        <h2 class="blue text-center mb-5">
-                            <?= $our_history['main_heading'] ?>
-                        </h2>
+                    <div class="row">
+                        <div class="col">
+                            <h2 class="blue text-center mb-5">
+                                <?= $our_history['main_heading'] ?>
+                            </h2>
+                        </div>
                     </div>
-                </div>
 
                     <div class="swiper _2x-swiper-history">
                         <div class="swiper-wrapper">
@@ -104,17 +104,21 @@ get_header() ?>
                         </div>
                         <div class="swiper-pagination"></div>
                         <div class="swiper-button-prev">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#003375"
-                                class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
+                            <svg id="Group_48604" data-name="Group 48604" xmlns="http://www.w3.org/2000/svg" width="32"
+                                height="32" viewBox="0 0 28 28">
+                                <circle id="Ellipse_500" data-name="Ellipse 500" cx="14" cy="14" r="14" fill="#003375" />
+                                <path id="Icon_ionic-ios-arrow-down" data-name="Icon ionic-ios-arrow-down"
+                                    d="M5.4,1.861,9.483,5.947a.768.768,0,0,0,1.09,0,.778.778,0,0,0,0-1.093L5.947.225A.77.77,0,0,0,4.883.2L.225,4.85a.772.772,0,0,0,1.09,1.093Z"
+                                    transform="translate(10.026 19.293) rotate(-90)" fill="#fff" />
                             </svg>
                         </div>
                         <div class="swiper-button-next">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#003375"
-                                class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+                            <svg id="Group_48605" data-name="Group 48605" xmlns="http://www.w3.org/2000/svg" width="32"
+                                height="32" viewBox="0 0 28 28">
+                                <circle id="Ellipse_500" data-name="Ellipse 500" cx="14" cy="14" r="14" fill="#003375" />
+                                <path id="Icon_ionic-ios-arrow-down" data-name="Icon ionic-ios-arrow-down"
+                                    d="M5.4,4.312,9.483.227a.768.768,0,0,1,1.09,0,.778.778,0,0,1,0,1.093L5.947,5.948a.77.77,0,0,1-1.064.022L.225,1.323A.772.772,0,1,1,1.315.23Z"
+                                    transform="translate(11.801 19.293) rotate(-90)" fill="#fff" />
                             </svg>
                         </div>
                         <div class="time-line"></div>

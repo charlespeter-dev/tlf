@@ -123,8 +123,7 @@
                 padding-inline: 1rem;
             }
 
-            .swiper-wrapper
-            {
+            .swiper-wrapper {
                 height: 250px;
             }
 
@@ -135,6 +134,15 @@
             .swiper-slide-active {
                 .year {
                     color: #E30613;
+                }
+
+                .circle {
+                    border: 3px solid #E30613;
+
+                    .circle-inner {
+                        border: 1px solid #fff;
+                        background-color: #003375;
+                    }
                 }
             }
         }

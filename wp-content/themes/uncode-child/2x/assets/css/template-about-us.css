@@ -116,6 +116,13 @@
 .bootstrap-container.about-us .our-history .swiper-slide-active .year {
   color: #E30613;
 }
+.bootstrap-container.about-us .our-history .swiper-slide-active .circle {
+  border: 3px solid #E30613;
+}
+.bootstrap-container.about-us .our-history .swiper-slide-active .circle .circle-inner {
+  border: 1px solid #fff;
+  background-color: #003375;
+}
 .bootstrap-container.about-us .partner-logo {
   position: relative;
 }
