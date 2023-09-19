@@ -108,7 +108,7 @@ get_header() ?>
     <?php endif ?>
 
     <?php if (isset($partner_logo['logo_detail']) && $partner_logo['logo_detail']): ?>
-        <section class="partner-logo my-5">
+        <section class="partner-logo mt-5 pb-5">
             <div class="row-container">
                 <div class="single-h-padding limit-width position-relative">
 

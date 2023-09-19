@@ -39,5 +39,19 @@
   text-transform: uppercase;
   text-decoration: none;
 }
+.bootstrap-container.about-us .partner-logo {
+  position: relative;
+}
+.bootstrap-container.about-us .partner-logo::before {
+  content: "";
+  position: absolute;
+  display: block;
+  top: 0;
+  left: calc((100vw - 100%) / -2);
+  width: 100vw;
+  height: 100%;
+  background-color: #EDEFF0;
+  z-index: -1;
+}
 
 /*# sourceMappingURL=template-about-us.css.map */

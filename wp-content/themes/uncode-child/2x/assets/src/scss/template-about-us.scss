@@ -33,6 +33,7 @@
 
         .cta-container {
             text-align: center;
+
             a {
                 color: #E30613;
                 font-weight: 700;
@@ -41,5 +42,21 @@
             }
         }
 
+        .partner-logo {
+
+            position: relative;
+
+            &::before {
+                content: '';
+                position: absolute;
+                display: block;
+                top: 0;
+                left: calc((100vw - 100%) / -2);
+                width: 100vw;
+                height: 100%;
+                background-color: #EDEFF0;
+                z-index: -1;
+            }
+        }
     }
 }
