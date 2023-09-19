@@ -35,6 +35,21 @@ wp_enqueue_script('_2x-js-swiper-bundle', sprintf('https://cdn.jsdelivr.net/npm/
 
 get_header() ?>
 
+<script>
+    const mql = window.matchMedia("(min-width: 992px)");
+    const attach = (e) => {
+        if (e.matches) {
+            document.body.classList.remove('is-mobile');
+            document.body.classList.add('is-desktop');
+        } else {
+            document.body.classList.remove('is-desktop');
+            document.body.classList.add('is-mobile');
+        }
+    }
+
+    mql.addEventListener('change', attach);
+</script>
+
 <div class="bootstrap-container about-us">
 
     <section class="hero-carousels">
@@ -132,15 +147,25 @@ get_header() ?>
 
         <script>
             window.addEventListener('DOMContentLoaded', function () {
+
+                attach(mql);
+
+                const isDesktop = document.querySelector('body.is-desktop');
+
+                var slidesPerView = 1;
+                if (isDesktop) {
+                    slidesPerView = 5;
+                }
+
                 const swiperHistory = new Swiper("._2x-swiper-history", {
                     loop: true,
-                    slidesPerView: 5,
+                    slidesPerView: slidesPerView,
                     spaceBetween: 30,
                     centeredSlides: true,
                     grid: {
                         rows: 1
                     },
-                    pagination: {                       //pagination(dots)
+                    pagination: {
                         el: '.swiper-pagination',
                     },
                     navigation: {
@@ -148,6 +173,8 @@ get_header() ?>
                         prevEl: ".swiper-button-prev",
                     },
                 });
+
+                console.log(swiperHistory)
             });
         </script>
     <?php endif ?>
@@ -242,6 +269,14 @@ get_header() ?>
 
         <script>
             window.addEventListener('DOMContentLoaded', function () {
+
+                const isDesktop = document.querySelector('body.is-desktop');
+
+                var slidesPerView = 1;
+                if (isDesktop) {
+                    slidesPerView = 5;
+                }
+
                 const swiperPartnerLogo = new Swiper("._2x-swiper", {
                     autoplay: {
                         delay: 5000,
@@ -249,7 +284,7 @@ get_header() ?>
                         disableOnInteraction: false
                     },
                     loop: true,
-                    slidesPerView: 5,
+                    slidesPerView: slidesPerView,
                     spaceBetween: 30,
                     grid: {
                         rows: 1
