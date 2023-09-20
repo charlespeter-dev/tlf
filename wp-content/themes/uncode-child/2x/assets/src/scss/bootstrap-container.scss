@@ -1512,25 +1512,7 @@
                 }
             }
         }
-        .form-wrapper{
-            padding-right: 0;
-            padding-left: 2rem;
-            .form-area{
-                background-color: #F6F7F8;
-                border-radius: 15px;
-                padding: 50px 40px;
-                .form-title{
-                    color: #003375;
-                }
-            }
-        }
-        @media(max-width:991px){
-            .form-wrapper{
-                padding-right: unset;
-                padding-left: unset;
-            }
-        }
-
+        
         @media(max-width:575px){
             .offices-list{
                 .col{
@@ -1736,13 +1718,69 @@
             }
        }
     }
-
     // --- end: job sections
 
+    // --- begin: careers single page
+    .job-details{
+        padding-top: 80px;
+        padding-bottom: 100px;
+        ul{
+            li{
+                position: relative;
+                &:before{
+                    content:'';
+                    background-image: url('https://thelogicfactory.com/wp-content/uploads/2023/09/Icon-Tick.svg');
+                    display: block;
+                    background-position: top left;
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    position: absolute;
+                    top: 7px;
+                    left: -2rem;
+                    width: 16px;
+                    height: 16px;
+                }
+                ul{
+                    list-style: disc;
+                    margin: 0;
+                    li{
+                        &:before{
+                            display: none;
+                        }
+                        &::marker{
+                            color: #E30613;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    // --- end: careers single page
+
+    // --- begin: form wrapper
+    .form-wrapper{
+        padding-right: 0;
+        padding-left: 2rem;
+        .form-area{
+            background-color: #F6F7F8;
+            border-radius: 15px;
+            padding: 50px 40px;
+            .form-title{
+                color: #003375;
+            }
+        }
+    }
+    @media(max-width:991px){
+        .form-wrapper{
+            padding-right: unset;
+            padding-left: unset;
+        }
+    }
+    // --- end: form wrapper
 }
 
 
-// --- begin: form styling
+// --- begin: generic form styling
 .wpcf7-list-item-label{
     color: #50626D;
     a{
@@ -1779,7 +1817,7 @@ input[type=checkbox]:checked:before{
     margin: 1px;
 }
 
-input.wpcf7-form-control.wpcf7-submit.submitContact {
+input.wpcf7-form-control.wpcf7-submit {
     float: unset;
 }
 
@@ -1796,7 +1834,7 @@ input[type="submit"]:not(.btn-custom-typo):not(.btn-inherit){
         color: #E30613 !important;
     }
 }
-// --- end: form styling
+// --- end: generic form styling
 
 body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
     background-color: #EDEFF0;

@@ -12308,24 +12308,6 @@ a > .bootstrap-container code {
   margin-bottom: 0;
   line-height: 1.4;
 }
-.bootstrap-container .offices-wrapper .form-wrapper {
-  padding-right: 0;
-  padding-left: 2rem;
-}
-.bootstrap-container .offices-wrapper .form-wrapper .form-area {
-  background-color: #F6F7F8;
-  border-radius: 15px;
-  padding: 50px 40px;
-}
-.bootstrap-container .offices-wrapper .form-wrapper .form-area .form-title {
-  color: #003375;
-}
-@media (max-width: 991px) {
-  .bootstrap-container .offices-wrapper .form-wrapper {
-    padding-right: unset;
-    padding-left: unset;
-  }
-}
 @media (max-width: 575px) {
   .bootstrap-container .offices-wrapper .offices-list .col .office-card .office-img {
     height: unset;
@@ -12496,6 +12478,54 @@ a > .bootstrap-container code {
     margin: 0 0 10px 0;
   }
 }
+.bootstrap-container .job-details {
+  padding-top: 80px;
+  padding-bottom: 100px;
+}
+.bootstrap-container .job-details ul li {
+  position: relative;
+}
+.bootstrap-container .job-details ul li:before {
+  content: "";
+  background-image: url("https://thelogicfactory.com/wp-content/uploads/2023/09/Icon-Tick.svg");
+  display: block;
+  background-position: top left;
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: absolute;
+  top: 7px;
+  left: -2rem;
+  width: 16px;
+  height: 16px;
+}
+.bootstrap-container .job-details ul li ul {
+  list-style: disc;
+  margin: 0;
+}
+.bootstrap-container .job-details ul li ul li:before {
+  display: none;
+}
+.bootstrap-container .job-details ul li ul li::marker {
+  color: #E30613;
+}
+.bootstrap-container .form-wrapper {
+  padding-right: 0;
+  padding-left: 2rem;
+}
+.bootstrap-container .form-wrapper .form-area {
+  background-color: #F6F7F8;
+  border-radius: 15px;
+  padding: 50px 40px;
+}
+.bootstrap-container .form-wrapper .form-area .form-title {
+  color: #003375;
+}
+@media (max-width: 991px) {
+  .bootstrap-container .form-wrapper {
+    padding-right: unset;
+    padding-left: unset;
+  }
+}
 
 .wpcf7-list-item-label {
   color: #50626D;
@@ -12533,7 +12563,7 @@ input[type=checkbox]:checked:before {
   margin: 1px;
 }
 
-input.wpcf7-form-control.wpcf7-submit.submitContact {
+input.wpcf7-form-control.wpcf7-submit {
   float: unset;
 }
 
