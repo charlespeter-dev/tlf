@@ -73,7 +73,9 @@ get_header() ?>
                                     </h3>
                                 </div>
                                 <div class="about-author-description">
-                                    <?= $author['author_description'] ?>
+                                    <p>
+                                        <?= $author['author_description'] ?>
+                                    </p>
                                 </div>
                             </div>
                         </div>
