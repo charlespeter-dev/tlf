@@ -134,7 +134,7 @@ get_header() ?>
     <?php endif ?>
 
     <?php if ($jobs_section): ?>
-    <section class="jobs-section">
+    <section id="jobs-section" class="jobs-section">
         <div class="row-container">
             <div class="single-h-padding limit-width">
                 <div class="heading text-center">
