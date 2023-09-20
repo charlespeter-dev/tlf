@@ -104,13 +104,16 @@
     line-height: 2.1875rem;
   }
 }
-.bootstrap-container.resources ul > li {
+.bootstrap-container.resources li.tick {
   list-style-image: url("https://thelogicfactory.com/wp-content/uploads/2023/09/Icon-Tick.svg");
   margin-bottom: 0.1em;
 }
-.bootstrap-container.resources ul > li span {
+.bootstrap-container.resources li.tick span {
   vertical-align: 0.3em;
   transform: translate(-0.1em, 0.2em);
+}
+.bootstrap-container.resources ul > li {
+  list-style-type: disc;
 }
 .bootstrap-container.resources.single-brochure iframe {
   width: 100%;
@@ -207,15 +210,6 @@
 @media (min-width: 1200px) {
   .bootstrap-container.resources.single-article .resources-quote .font-source {
     line-height: 1.5625rem;
-  }
-}
-.bootstrap-container.resources.single-article .about-author-description {
-  font-size: 1.25rem;
-  line-height: calc(1.3125rem + 0.75vw);
-}
-@media (min-width: 1200px) {
-  .bootstrap-container.resources.single-article .about-author-description {
-    line-height: 1.875rem;
   }
 }
 
