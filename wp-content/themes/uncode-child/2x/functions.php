@@ -163,3 +163,14 @@ function _2x_related_resources($exclude_post_id = 0)
 
     return $return;
 }
+
+/**
+ * Jobs section filter - initialise isotope
+ */
+function add_isotope() {
+    wp_register_script( 'isotope', get_template_directory_uri().'/library/js/isotopeLayout.min.js', array('jquery'),  true );
+    wp_register_script( 'isotope-init', get_stylesheet_directory_uri().'/2x/assets/js/filters.js', array('jquery', 'isotope'),  true );
+    wp_enqueue_script('isotope-init');
+}
+
+add_action( 'wp_enqueue_scripts', 'add_isotope' );
