@@ -11274,9 +11274,6 @@ a > .bootstrap-container code {
   padding-block-start: 0 !important;
   padding-block-end: 0 !important;
 }
-.bootstrap-container .hero-carousels.industry .full-width {
-  height: 365px;
-}
 .bootstrap-container .hero-carousels.industry ._2x-hero-content {
   text-align: center;
 }
