@@ -1385,138 +1385,164 @@
     // --- end: tlf faces single overview
 
     // --- begin: our partners overview
-    .partners-wrapper{
+    .partners-wrapper {
         padding-top: 80px;
         padding-bottom: 80px;
-        .partner-card{
+
+        .partner-card {
             padding: 40px;
             border-radius: 15px;
-            box-shadow: 0px 3px 12px rgba(0, 0, 0,0.16);
+            box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.16);
             position: relative;
-            &:before,&:after{
+
+            &:before,
+            &:after {
                 content: '';
                 position: absolute;
                 right: 0px;
                 width: 12px;
                 z-index: 10;
             }
-            &:before{
+
+            &:before {
                 bottom: 30%;
                 background: #003567;
                 height: 40%;
                 border-bottom-left-radius: 8px;
             }
-            &:after{
+
+            &:after {
                 bottom: 0px;
                 background: #ee001d;
                 height: 20%;
                 border-top-left-radius: 8px;
                 border-bottom-right-radius: 8px;
             }
-            .partner-img{
+
+            .partner-img {
                 width: auto;
                 height: 80px;
                 margin-bottom: 2rem;
-                img{
+
+                img {
                     width: 100%;
                     height: 100%;
                     object-fit: contain;
                 }
             }
-            .partner-details{
-                .partner-name{
+
+            .partner-details {
+                .partner-name {
                     color: #003375;
                     font-size: 2.2rem;
                     font-weight: 700;
                     line-height: 1.2;
                 }
-                .partner-desc{
+
+                .partner-desc {
                     font-weight: 400;
                     color: #000;
                     margin: 0;
                 }
             }
-            
+
         }
     }
+
     // --- end: our partners overview
 
     // --- begin: our partners overview
-    .offices-wrapper{
+    .offices-wrapper {
         padding-top: 80px;
         padding-bottom: 80px;
-        .offices-list{
-            .col{
+
+        .offices-list {
+            .col {
                 padding-left: 0;
-                .office-card{
+
+                .office-card {
                     border-radius: 15px;
                     overflow: hidden;
-                    box-shadow: 0px 3px 12px rgba(0, 0, 0,0.16);
+                    box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.16);
                     position: relative;
-                    &:before,&:after{
+
+                    &:before,
+                    &:after {
                         content: '';
                         position: absolute;
                         right: 0px;
                         width: 12px;
                         z-index: 10;
                     }
-                    &:before{
+
+                    &:before {
                         bottom: 20%;
                         background: #003567;
                         height: 35%;
                         border-bottom-left-radius: 8px;
                         z-index: -1;
                     }
-                    &:after{
+
+                    &:after {
                         bottom: 0px;
                         background: #ee001d;
                         height: 12%;
                         border-top-left-radius: 8px;
                         border-bottom-right-radius: 8px;
                     }
-                    .office-img{
+
+                    .office-img {
                         width: auto;
                         height: 200px;
                         margin-bottom: 0;
-                        img{
+
+                        img {
                             width: 100%;
                             height: 100%;
                             object-fit: cover;
                         }
                     }
-                    .office-details{
+
+                    .office-details {
                         padding: 40px 20px 0 20px;
                         min-height: 225px;
-                        .office-name{
+
+                        .office-name {
                             font-size: 1.2rem;
                             font-weight: 700;
                             line-height: 1.2;
                             margin-bottom: 0.5rem;
                         }
-                        .office-email,.office-phone{
-                            a{
+
+                        .office-email,
+                        .office-phone {
+                            a {
                                 color: #003375;
                                 text-decoration: none;
                             }
                         }
-                        .office-loc,.office-email,.office-phone{
+
+                        .office-loc,
+                        .office-email,
+                        .office-phone {
                             margin-bottom: 0;
                             line-height: 1.4;
                         }
                     }
-                    
+
                 }
             }
         }
-        
-        @media(max-width:575px){
-            .offices-list{
-                .col{
-                    .office-card{
-                        .office-img{
+
+        @media(max-width:575px) {
+            .offices-list {
+                .col {
+                    .office-card {
+                        .office-img {
                             height: unset;
                         }
-                        .office-details{
+
+                        .office-details {
                             min-height: unset;
                             padding: 40px 20px;
                         }
@@ -1524,8 +1550,9 @@
                 }
             }
         }
-        
+
     }
+
     // --- end: our partners overview
 
     // --- begin: job sections
@@ -1539,11 +1566,13 @@
                 color: #003375;
             }
         }
-       .job-listings{
-            .filters{
+
+        .job-listings {
+            .filters {
                 border-bottom: 2px solid #D9D9D9;
                 margin: 30px 0 50px 0;
-                #filters{
+
+                #filters {
                     display: flex;
                     justify-content: center;
                     list-style: none;
@@ -1551,14 +1580,19 @@
                     overflow-x: auto;
                     overflow-y: hidden;
                     white-space: nowrap;
-                    -ms-overflow-style: none; /* IE and EDGE */;
-                    scrollbar-width: none; /* Firefox */
+                    -ms-overflow-style: none;
+                    /* IE and EDGE */
+                    ;
+                    scrollbar-width: none;
+                    /* Firefox */
                     position: relative;
                     bottom: -2.5px;
-                    &::-webkit-scrollbar{
-                        display:none;
+
+                    &::-webkit-scrollbar {
+                        display: none;
                     }
-                    button{
+
+                    button {
                         display: inline-block;
                         text-align: center;
                         padding: 0 20px 20px;
@@ -1570,7 +1604,8 @@
                         bottom: 0;
                         text-transform: capitalize;
                         background-color: transparent;
-                        &:hover{
+
+                        &:hover {
                             color: #E30613;
 
                         }
@@ -1628,10 +1663,12 @@
                         padding-bottom: 1rem;
                         border-bottom: 1px solid #58879B;
                     }
-                    .job-location{
+
+                    .job-location {
                         margin-left: 20px;
                         position: relative;
-                        &:before{
+
+                        &:before {
                             content: '';
                             background-image: url('https://thelogicfactory.com/wp-content/uploads/2023/09/Icon-material-location-on.svg');
                             display: block;
@@ -1644,7 +1681,8 @@
                             left: -20px;
                             top: 6px;
                         }
-                        .job-country{
+
+                        .job-country {
                             font-weight: 600;
                         }
 
@@ -1653,10 +1691,12 @@
                             color: #003375;
                         }
                     }
-                    .job-type{
+
+                    .job-type {
                         margin-left: 20px;
                         position: relative;
-                        &:before{
+
+                        &:before {
                             content: '';
                             background-image: url('https://thelogicfactory.com/wp-content/uploads/2023/09/Icon-ionic-ios-checkmark-circle-outline.svg');
                             display: block;
@@ -1669,15 +1709,17 @@
                             left: -20px;
                             top: 7px;
                         }
-                        p{
+
+                        p {
                             margin-bottom: 0;
                             color: #003375;
                             font-weight: 600;
                         }
                     }
                 }
-                #load-more{
-                    color:#E30613;
+
+                #load-more {
+                    color: #E30613;
                     font-size: 18px;
                     font-weight: 600;
                     background-color: transparent;
@@ -1685,46 +1727,52 @@
                 }
             }
 
-            @media(max-width: 991px){
-                .filters{
-                    #filters{
+            @media(max-width: 991px) {
+                .filters {
+                    #filters {
                         justify-content: flex-start;
                     }
                 }
-                .jobs-wrapper{
-                    .job-card{
+
+                .jobs-wrapper {
+                    .job-card {
                         width: 30%;
                     }
                 }
             }
-            @media(max-width: 767px){
-                .jobs-wrapper{
-                    .job-card{
+
+            @media(max-width: 767px) {
+                .jobs-wrapper {
+                    .job-card {
                         width: 45%;
                     }
                 }
             }
-            @media(max-width: 567px){
-                .jobs-wrapper{
-                    .job-card{
+
+            @media(max-width: 567px) {
+                .jobs-wrapper {
+                    .job-card {
                         width: 100%;
                         margin: 0 0 10px 0;
                     }
                 }
             }
-       }
+        }
     }
+
     // --- end: job sections
 
     // --- begin: careers single page
-    .job-details{
+    .job-details {
         padding-top: 80px;
         padding-bottom: 100px;
-        ul{
-            li{
+
+        ul {
+            li {
                 position: relative;
-                &:before{
-                    content:'';
+
+                &:before {
+                    content: '';
                     background-image: url('https://thelogicfactory.com/wp-content/uploads/2023/09/Icon-Tick.svg');
                     display: block;
                     background-position: top left;
@@ -1736,14 +1784,17 @@
                     width: 16px;
                     height: 16px;
                 }
-                ul{
+
+                ul {
                     list-style: disc;
                     margin: 0;
-                    li{
-                        &:before{
+
+                    li {
+                        &:before {
                             display: none;
                         }
-                        &::marker{
+
+                        &::marker {
                             color: #E30613;
                         }
                     }
@@ -1751,35 +1802,41 @@
             }
         }
     }
+
     // --- end: careers single page
 
     // --- begin: form wrapper
-    .form-wrapper{
+    .form-wrapper {
         padding-right: 0;
         padding-left: 2rem;
-        .form-area{
+
+        .form-area {
             background-color: #F6F7F8;
             border-radius: 15px;
             padding: 50px 40px;
-            .form-title{
+
+            .form-title {
                 color: #003375;
             }
         }
     }
-    @media(max-width:991px){
-        .form-wrapper{
+
+    @media(max-width:991px) {
+        .form-wrapper {
             padding-right: unset;
             padding-left: unset;
         }
     }
+
     // --- end: form wrapper
 }
 
 
 // --- begin: generic form styling
-.wpcf7-list-item-label{
+.wpcf7-list-item-label {
     color: #50626D;
-    a{
+
+    a {
         color: #E30613;
     }
 }
@@ -1791,22 +1848,35 @@ div.wpcf7 form .wpcf7-response-output {
     width: 100%;
 }
 
-.wpcf7 span.wpcf7-not-valid-tip{
+.wpcf7 span.wpcf7-not-valid-tip {
     font-weight: 700;
 }
 
-.input-underline input[type="text"], .input-underline input[type="email"], .input-underline input[type="number"], .input-underline input[type="url"], .input-underline input[type="tel"], .input-underline input[type="search"], .input-underline input[type="password"], .input-underline input[type="date"], .input-underline textarea, .input-underline select, .input-underline .select2-selection--single{
+.input-underline input[type="text"],
+.input-underline input[type="email"],
+.input-underline input[type="number"],
+.input-underline input[type="url"],
+.input-underline input[type="tel"],
+.input-underline input[type="search"],
+.input-underline input[type="password"],
+.input-underline input[type="date"],
+.input-underline textarea,
+.input-underline select,
+.input-underline .select2-selection--single {
     border: 1px solid #58879B !important;
     border-radius: 10px !important;
     background-color: #fff !important;
 }
 
-.webkit input[type=checkbox], .webkit input[type=radio], .android input[type=checkbox], .android input[type=radio]{
+.webkit input[type=checkbox],
+.webkit input[type=radio],
+.android input[type=checkbox],
+.android input[type=radio] {
     border: 1px solid #E3E0E0;
     border-radius: 6px;
 }
 
-input[type=checkbox]:checked:before{
+input[type=checkbox]:checked:before {
     content: "" !important;
     background: #003375;
     border-radius: 4px;
@@ -1817,19 +1887,21 @@ input.wpcf7-form-control.wpcf7-submit {
     float: unset !important;
 }
 
-input[type="submit"]:not(.btn-custom-typo):not(.btn-inherit){
+input[type="submit"]:not(.btn-custom-typo):not(.btn-inherit) {
     white-space: unset;
     background-color: #E30613 !important;
     border-color: #E30613 !important;
     border-radius: 10px !important;
     border: 2px solid;
-    padding:10px 30px !important;
+    padding: 10px 30px !important;
     margin: 1rem 0 0 0;
+
     &:hover {
         background-color: transparent !important;
         color: #E30613 !important;
     }
 }
+
 // --- end: generic form styling
 
 body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
@@ -1923,6 +1995,13 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
 
 .style-color-lxmt-bg {
     background-color: #ffffff;
+}
+
+.main-wrapper,
+.main-container,
+.page-wrapper,
+.sections-container {
+    background-color: #fff;
 }
 
 //----- end: override uncode specific styles

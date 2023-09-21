@@ -12302,11 +12302,14 @@ a > .bootstrap-container code {
   line-height: 1.2;
   margin-bottom: 0.5rem;
 }
-.bootstrap-container .offices-wrapper .offices-list .col .office-card .office-details .office-email a, .bootstrap-container .offices-wrapper .offices-list .col .office-card .office-details .office-phone a {
+.bootstrap-container .offices-wrapper .offices-list .col .office-card .office-details .office-email a,
+.bootstrap-container .offices-wrapper .offices-list .col .office-card .office-details .office-phone a {
   color: #003375;
   text-decoration: none;
 }
-.bootstrap-container .offices-wrapper .offices-list .col .office-card .office-details .office-loc, .bootstrap-container .offices-wrapper .offices-list .col .office-card .office-details .office-email, .bootstrap-container .offices-wrapper .offices-list .col .office-card .office-details .office-phone {
+.bootstrap-container .offices-wrapper .offices-list .col .office-card .office-details .office-loc,
+.bootstrap-container .offices-wrapper .offices-list .col .office-card .office-details .office-email,
+.bootstrap-container .offices-wrapper .offices-list .col .office-card .office-details .office-phone {
   margin-bottom: 0;
   line-height: 1.4;
 }
@@ -12339,8 +12342,10 @@ a > .bootstrap-container code {
   overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;
-  -ms-overflow-style: none; /* IE and EDGE */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and EDGE */
+  scrollbar-width: none;
+  /* Firefox */
   position: relative;
   bottom: -2.5px;
 }
@@ -12547,13 +12552,26 @@ div.wpcf7 form .wpcf7-response-output {
   font-weight: 700;
 }
 
-.input-underline input[type=text], .input-underline input[type=email], .input-underline input[type=number], .input-underline input[type=url], .input-underline input[type=tel], .input-underline input[type=search], .input-underline input[type=password], .input-underline input[type=date], .input-underline textarea, .input-underline select, .input-underline .select2-selection--single {
+.input-underline input[type=text],
+.input-underline input[type=email],
+.input-underline input[type=number],
+.input-underline input[type=url],
+.input-underline input[type=tel],
+.input-underline input[type=search],
+.input-underline input[type=password],
+.input-underline input[type=date],
+.input-underline textarea,
+.input-underline select,
+.input-underline .select2-selection--single {
   border: 1px solid #58879B !important;
   border-radius: 10px !important;
   background-color: #fff !important;
 }
 
-.webkit input[type=checkbox], .webkit input[type=radio], .android input[type=checkbox], .android input[type=radio] {
+.webkit input[type=checkbox],
+.webkit input[type=radio],
+.android input[type=checkbox],
+.android input[type=radio] {
   border: 1px solid #E3E0E0;
   border-radius: 6px;
 }
@@ -12566,7 +12584,7 @@ input[type=checkbox]:checked:before {
 }
 
 input.wpcf7-form-control.wpcf7-submit {
-  float: unset;
+  float: unset !important;
 }
 
 input[type=submit]:not(.btn-custom-typo):not(.btn-inherit) {
@@ -12668,6 +12686,13 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
 
 .style-color-lxmt-bg {
   background-color: #ffffff;
+}
+
+.main-wrapper,
+.main-container,
+.page-wrapper,
+.sections-container {
+  background-color: #fff;
 }
 
 .bootstrap-container.resources .sub-heading {
