@@ -1814,7 +1814,7 @@ input[type=checkbox]:checked:before{
 }
 
 input.wpcf7-form-control.wpcf7-submit {
-    float: unset;
+    float: unset !important;
 }
 
 input[type="submit"]:not(.btn-custom-typo):not(.btn-inherit){
