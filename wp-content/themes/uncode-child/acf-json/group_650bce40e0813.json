@@ -445,6 +445,27 @@
                             "parent_repeater": "field_650bd518755c5"
                         },
                         {
+                            "key": "field_650c58dcd62cb",
+                            "label": "Headline",
+                            "name": "headline",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_650bd518755c5"
+                        },
+                        {
                             "key": "field_650bd54a755c7",
                             "label": "Excerpt",
                             "name": "excerpt",
@@ -532,5 +553,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1695277393
+    "modified": 1695308011
 }
