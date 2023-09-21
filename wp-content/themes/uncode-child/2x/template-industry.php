@@ -43,7 +43,7 @@ get_header() ?>
         <div class="row-container">
             <div class="single-h-padding limit-width position-relative">
 
-                <img src="<?= wp_get_attachment_image_url($background_image, '_2x-carousel-news') ?>" class="full-width"
+                <img src="<?= wp_get_attachment_image_url($background_image, '_2x-carousel-hero') ?>" class="full-width"
                     alt="">
 
                 <div class="_2x-hero-content">
