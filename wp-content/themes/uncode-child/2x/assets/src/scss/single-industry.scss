@@ -145,6 +145,7 @@
                         color: #003375;
                         background-color: #FFF;
                         border-radius: 7px;
+                        border: 1px solid #C9C9C9;
 
                         .dash {
                             display: none;
@@ -180,6 +181,9 @@
                 background-color: #fff;
                 border-bottom-left-radius: 7px;
                 border-bottom-right-radius: 7px;
+                border-right: 1px solid #C9C9C9;
+                border-bottom: 1px solid #C9C9C9;
+                border-left: 1px solid #C9C9C9;
             }
         }
     }
