@@ -69,6 +69,19 @@
             }
         }
 
+        .callout {
+
+            .sub-heading {
+                text-align: center;
+            }
+
+            .icon {
+                @include media-breakpoint-up(lg) {
+                    text-align: right;
+                }
+            }
+        }
+
         .featured-resource {
 
             .sub-heading {

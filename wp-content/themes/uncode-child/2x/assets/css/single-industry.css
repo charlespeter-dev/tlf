@@ -61,6 +61,14 @@
 .bootstrap-container.industry.single .tabbed .sub-heading {
   text-align: center;
 }
+.bootstrap-container.industry.single .callout .sub-heading {
+  text-align: center;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.industry.single .callout .icon {
+    text-align: right;
+  }
+}
 .bootstrap-container.industry.single .featured-resource .sub-heading {
   text-align: center;
 }
