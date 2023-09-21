@@ -1,0 +1,56 @@
+.bootstrap-container.industry.single {
+  background-color: #fff;
+}
+.bootstrap-container.industry.single .blue {
+  color: #003375;
+}
+.bootstrap-container.industry.single h2 {
+  font-size: calc(1.40625rem + 1.875vw);
+  line-height: calc(1.46875rem + 2.625vw);
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.industry.single h2 {
+    font-size: 2.8125rem;
+  }
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.industry.single h2 {
+    line-height: 3.4375rem;
+  }
+}
+.bootstrap-container.industry.single .featured-testimonials {
+  text-align: center;
+  position: relative;
+}
+.bootstrap-container.industry.single .featured-testimonials .quote::before {
+  top: -50px;
+  color: #58879B;
+}
+.bootstrap-container.industry.single .featured-testimonials .quote-quote p {
+  font-size: 1.25rem;
+  line-height: calc(1.3125rem + 0.75vw);
+  font-weight: 700;
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.industry.single .featured-testimonials .quote-quote p {
+    line-height: 1.875rem;
+  }
+}
+.bootstrap-container.industry.single .featured-testimonials .swiper-pagination-bullet {
+  width: 20px;
+  height: 20px;
+}
+.bootstrap-container.industry.single .featured-testimonials a {
+  text-decoration: none;
+  color: #E30613;
+  font-weight: 600;
+}
+
+.main-wrapper,
+.main-container,
+.page-wrapper,
+.sections-container {
+  background-color: #fff;
+}
+
+/*# sourceMappingURL=single-industry.css.map */

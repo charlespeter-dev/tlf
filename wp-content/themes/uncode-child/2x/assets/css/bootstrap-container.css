@@ -11178,7 +11178,7 @@ a > .bootstrap-container code {
 }
 .bootstrap-container .quote {
   position: relative;
-  quotes: "“" "”" "‘" "’";
+  quotes: "“" "”";
 }
 .bootstrap-container .quote::before {
   content: open-quote;
