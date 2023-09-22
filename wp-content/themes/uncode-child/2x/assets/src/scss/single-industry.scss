@@ -303,6 +303,10 @@
             &.wpk-box-brand:before {
                 border-top-right-radius: 0;
             }
+
+            .category {
+                text-transform: uppercase;
+            }
         }
 
         .card-footer {
@@ -341,7 +345,6 @@
         font-weight: bold;
         color: #E30613;
         text-decoration: none;
-        text-transform: uppercase;
     }
 }
 

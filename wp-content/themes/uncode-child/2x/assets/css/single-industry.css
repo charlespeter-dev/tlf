@@ -243,6 +243,9 @@
 .related-resources .card .card-body.wpk-box-brand:before {
   border-top-right-radius: 0;
 }
+.related-resources .card .card-body .category {
+  text-transform: uppercase;
+}
 .related-resources .card .card-footer.wpk-box-brand:before {
   border-top-right-radius: 0;
 }
@@ -272,7 +275,6 @@
   font-weight: bold;
   color: #E30613;
   text-decoration: none;
-  text-transform: uppercase;
 }
 
 .list-group .list-group-item {
