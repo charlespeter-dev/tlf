@@ -269,10 +269,8 @@
   }
 }
 .related-resources a {
-  font-weight: bold;
   color: #E30613;
   text-decoration: none;
-  text-transform: uppercase;
 }
 
 .list-group .list-group-item {
