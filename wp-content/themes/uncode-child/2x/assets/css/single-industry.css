@@ -36,6 +36,9 @@
     line-height: 1.875rem;
   }
 }
+.bootstrap-container.industry.single .featured-testimonials .quote-logo img {
+  width: 200px;
+}
 .bootstrap-container.industry.single .featured-testimonials .swiper-pagination-bullet {
   width: 20px;
   height: 20px;
