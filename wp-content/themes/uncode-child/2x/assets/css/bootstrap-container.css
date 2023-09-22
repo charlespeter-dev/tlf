@@ -11865,29 +11865,19 @@ a > .bootstrap-container code {
 }
 .bootstrap-container.services .quote-container .quote {
   text-align: center;
-  font-weight: 700;
 }
 .bootstrap-container.services .quote-container .quote::before {
   color: #58879B;
   opacity: 0.2;
 }
 .bootstrap-container.services .quote-container .quote-text {
-  font-size: calc(1.28125rem + 0.375vw);
+  font-size: 1.25rem;
   line-height: calc(1.34375rem + 1.125vw);
-}
-@media (min-width: 1200px) {
-  .bootstrap-container.services .quote-container .quote-text {
-    font-size: 1.5625rem;
-  }
+  font-weight: 600;
 }
 @media (min-width: 1200px) {
   .bootstrap-container.services .quote-container .quote-text {
     line-height: 2.1875rem;
-  }
-}
-@media (min-width: 992px) {
-  .bootstrap-container.services .quote-container .quote-text {
-    padding-inline: 6rem;
   }
 }
 .bootstrap-container.services .quote-container .quote-by {

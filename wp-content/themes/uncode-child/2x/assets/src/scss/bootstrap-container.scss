@@ -1036,7 +1036,6 @@
 
             .quote {
                 text-align: center;
-                font-weight: 700;
 
                 &::before {
                     color: #58879B;
@@ -1044,12 +1043,9 @@
                 }
 
                 &-text {
-                    @include font-size(1.5625rem); // 25px
+                    @include rfs(1.25rem, font-size);
                     @include rfs(2.1875rem, line-height);
-
-                    @include media-breakpoint-up(lg) {
-                        padding-inline: 6rem;
-                    }
+                    font-weight: 600;
                 }
 
                 &-by {
