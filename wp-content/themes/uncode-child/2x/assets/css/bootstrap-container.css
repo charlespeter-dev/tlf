@@ -11379,14 +11379,13 @@ a > .bootstrap-container code {
   display: block;
   width: 100vw;
   height: 100%;
-  background-color: #f5f5f5;
+  background-color: #EDEFF0;
   position: absolute;
   top: 0;
   left: 50%;
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
-  z-index: -1;
 }
 .bootstrap-container .callout-with-cards h2, .bootstrap-container .callout-with-cards .h2 {
   font-size: calc(1.40625rem + 1.875vw);
@@ -11527,14 +11526,13 @@ a > .bootstrap-container code {
   display: block;
   width: 100vw;
   height: 100%;
-  background-color: #f5f5f5;
+  background-color: #EDEFF0;
   position: absolute;
   top: 0;
   left: 50%;
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
-  z-index: -1;
 }
 .bootstrap-container .news h2, .bootstrap-container .news .h2 {
   font-size: calc(1.34375rem + 1.125vw);
