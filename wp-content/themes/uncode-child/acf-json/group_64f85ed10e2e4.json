@@ -1,6 +1,6 @@
 {
     "key": "group_64f85ed10e2e4",
-    "title": "v2 \/ Customers Extra Fields",
+    "title": "v2 \/ Customers \/ Single",
     "fields": [
         {
             "key": "field_64f85ed172c8b",
@@ -44,6 +44,32 @@
             "button_label": "Add Row",
             "rows_per_page": 20,
             "sub_fields": [
+                {
+                    "key": "field_650d7a4300565",
+                    "label": "Logo",
+                    "name": "logo",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "url",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "",
+                    "preview_size": "medium",
+                    "parent_repeater": "field_650bd2db6b19d"
+                },
                 {
                     "key": "field_650bd2f46b19e",
                     "label": "Quote",
@@ -145,5 +171,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1695273831
+    "modified": 1695382099
 }
