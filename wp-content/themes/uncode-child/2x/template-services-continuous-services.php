@@ -74,13 +74,13 @@ get_header() ?>
                     <div class="row">
                         <div class="col">
                             <?php if (isset($callout_cards['main_heading']) && $callout_cards['main_heading']): ?>
-                                <h2 class="callout-with-cards-main-heading d-block text-center mb-5">
+                                <h2 class="callout-with-cards-main-heading d-block text-center mb-4">
                                     <?= $callout_cards['main_heading'] ?>
                                 </h2>
                             <?php endif ?>
 
                             <?php if (isset($callout_cards['sub_heading']) && $callout_cards['sub_heading']): ?>
-                                <div class="callout-with-cards-sub-heading pb-3">
+                                <div class="callout-with-cards-sub-heading mb-3">
                                     <?= $callout_cards['sub_heading'] ?>
                                 </div>
                             <?php endif ?>
