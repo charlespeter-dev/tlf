@@ -160,7 +160,7 @@ get_header() ?>
                         </div>
                     <?php endif ?>
 
-                    <div class="row row-cols-1 row-cols-md-3 g-5">
+                    <div class="row row-cols-1 row-cols-md-4 g-5">
 
                         <?php foreach ($packages['cards'] as $card): ?>
                             <div class="col">
