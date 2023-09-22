@@ -12662,6 +12662,7 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
 .menu-wrapper.menu-sticky .menu-container {
   position: fixed;
   top: 0;
+  box-shadow: 0 4px 10px -10px rgba(0, 0, 0, 0.6);
 }
 
 .bootstrap-container.resources .sub-heading {

@@ -1983,6 +1983,7 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
         .menu-container {
             position: fixed;
             top: 0;
+            box-shadow: 0 4px 10px -10px rgba(0, 0, 0, 0.6);
         }
     }
 }
