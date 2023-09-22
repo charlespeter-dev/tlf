@@ -11281,23 +11281,14 @@ a > .bootstrap-container code {
   padding-bottom: 0;
 }
 .bootstrap-container .customer-logo {
-  position: relative;
+  display: none;
   /* display 4 */
   /* display 6 */
 }
-.bootstrap-container .customer-logo::before {
-  content: "";
-  display: block;
-  width: 100vw;
-  height: 100%;
-  background-color: #fff;
-  position: absolute;
-  top: 0;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  z-index: -1;
+@media (min-width: 992px) {
+  .bootstrap-container .customer-logo {
+    display: block;
+  }
 }
 .bootstrap-container .customer-logo h2, .bootstrap-container .customer-logo .h2 {
   font-size: calc(1.40625rem + 1.875vw);
