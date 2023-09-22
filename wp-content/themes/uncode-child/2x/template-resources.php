@@ -78,7 +78,7 @@ get_header() ?>
                                         <div class="_2x-hero-content">
                                             <div class="row">
                                                 <div class="col-lg-6">
-                                                    <img src="<?= wp_get_attachment_image_url($item['resource_carousel_thumbnail'], '_2x-carousel-resources-callout') ?>"
+                                                    <img src="<?= wp_get_attachment_image_url($item['resource_carousel_thumbnail'], 'full') ?>"
                                                         class="img-fluid" alt="">
                                                 </div>
                                                 <div class="col-lg-6">
