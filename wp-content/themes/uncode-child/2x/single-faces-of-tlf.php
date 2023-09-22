@@ -41,7 +41,7 @@ get_header() ?>
         </div>
     </section>
  
-    <section class="face-overview">
+    <section class="face-overview my-lg-5 my-4">
         <div class="row-container">
             <div class="single-h-padding limit-width">
                 <figure>
@@ -59,7 +59,7 @@ get_header() ?>
         </div>
     </section>
 
-    <section id="jobs-section" class="jobs-section">
+    <section id="jobs-section" class="jobs-section py-lg-5 py-4">
         <div class="row-container">
             <div class="single-h-padding limit-width">
                 <div class="heading text-center">

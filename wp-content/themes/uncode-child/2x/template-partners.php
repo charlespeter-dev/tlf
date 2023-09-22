@@ -45,7 +45,7 @@ get_header() ?>
     </section>
 
     <?php if (isset($partners_list)): ?>
-        <section class="partners-wrapper">
+        <section class="partners-wrapper mt-0 mb-lg-5 mb-4">
             <div class="row-container">
                 <div class="single-h-padding limit-width">
                     <div class="row row-cols-1 row-cols-lg-2 m-0 gy-5">

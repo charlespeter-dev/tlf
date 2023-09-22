@@ -66,7 +66,7 @@ get_header() ?>
     
 
     <?php if (isset($offices_list)): ?>
-        <section class="offices-wrapper">
+        <section class="offices-wrapper py-lg-5 py-4">
             <div class="row-container">
                 <div class="single-h-padding limit-width">
                     <div class="col-12 main-content">

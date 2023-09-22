@@ -12177,10 +12177,6 @@ a > .bootstrap-container code {
     width: 150px;
   }
 }
-.bootstrap-container .face-overview {
-  margin-top: 100px;
-  margin-bottom: 100px;
-}
 .bootstrap-container .face-overview figure {
   width: 540px;
   height: auto;
@@ -12196,10 +12192,6 @@ a > .bootstrap-container code {
 }
 .bootstrap-container .face-overview .face-content h3, .bootstrap-container .face-overview .face-content .h3 {
   color: #003375;
-}
-.bootstrap-container .partners-wrapper {
-  padding-top: 80px;
-  padding-bottom: 80px;
 }
 .bootstrap-container .partners-wrapper .partner-card {
   padding: 40px;
@@ -12247,10 +12239,6 @@ a > .bootstrap-container code {
   font-weight: 400;
   color: #000;
   margin: 0;
-}
-.bootstrap-container .offices-wrapper {
-  padding-top: 80px;
-  padding-bottom: 80px;
 }
 .bootstrap-container .offices-wrapper .offices-list .col {
   padding-left: 0;
@@ -12323,8 +12311,6 @@ a > .bootstrap-container code {
   }
 }
 .bootstrap-container .jobs-section {
-  padding-top: 100px;
-  padding-bottom: 90px;
   background-color: #F6F7F8;
 }
 .bootstrap-container .jobs-section .heading h3, .bootstrap-container .jobs-section .heading .h3 {
@@ -12484,10 +12470,6 @@ a > .bootstrap-container code {
     width: 100%;
     margin: 0 0 10px 0;
   }
-}
-.bootstrap-container .job-details {
-  padding-top: 80px;
-  padding-bottom: 100px;
 }
 .bootstrap-container .job-details ul li {
   position: relative;
