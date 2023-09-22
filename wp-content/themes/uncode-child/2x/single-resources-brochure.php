@@ -132,7 +132,7 @@ get_header() ?>
                                 <a href="<?= $item['url'] ?>">
                                     <div class="card h-100">
                                         <img class="img-fluid"
-                                            src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($post_id), '_2x-carousel-resources-callout') ?>"
+                                            src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($post_id), '_2x-card-faces-of-tlf-left-top') ?>"
                                             alt="">
                                         <div class="card-body position-relative wpk-box-brand">
                                             <p class="category mb-3">
