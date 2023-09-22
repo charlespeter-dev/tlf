@@ -12656,6 +12656,17 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
   background-color: #fff;
 }
 
+/* force sticky menu */
+@media screen and (min-width: 992px) {
+  .menu-wrapper {
+    height: 112px;
+  }
+}
+.menu-wrapper.menu-sticky .menu-container {
+  position: fixed;
+  top: 0;
+}
+
 .bootstrap-container.resources .sub-heading {
   text-transform: uppercase;
 }

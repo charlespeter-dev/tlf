@@ -1973,6 +1973,23 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
     background-color: #fff;
 }
 
+/* force sticky menu */
+
+.menu-wrapper {
+
+    @media screen and (min-width: 992px) {
+        height: 112px;
+    }
+
+    &.menu-sticky {
+
+        .menu-container {
+            position: fixed;
+            top: 0;
+        }
+    }
+}
+
 //----- end: override uncode specific styles
 
 
