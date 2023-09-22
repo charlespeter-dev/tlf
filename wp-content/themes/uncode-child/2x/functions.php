@@ -68,7 +68,7 @@ add_action('after_setup_theme', function () {
     add_image_size('_2x-card-news', 200, 200, true);
     add_image_size('_2x-partner-logo', 674, 130);
     add_image_size('_2x-office-image', 350, 250, true);
-
+    add_image_size('_2x-industry-single-tabbed', 560, 426, true);
 });
 
 /**
@@ -167,10 +167,11 @@ function _2x_related_resources($exclude_post_id = 0)
 /**
  * Jobs section filter - initialise isotope
  */
-function add_isotope() {
-    wp_register_script( 'isotope', get_template_directory_uri().'/library/js/isotopeLayout.min.js', array('jquery'),  true );
-    wp_register_script( 'isotope-init', get_stylesheet_directory_uri().'/2x/assets/js/filters.js', array('jquery', 'isotope'),  true );
+function add_isotope()
+{
+    wp_register_script('isotope', get_template_directory_uri() . '/library/js/isotopeLayout.min.js', array('jquery'), true);
+    wp_register_script('isotope-init', get_stylesheet_directory_uri() . '/2x/assets/js/filters.js', array('jquery', 'isotope'), true);
     wp_enqueue_script('isotope-init');
 }
 
-add_action( 'wp_enqueue_scripts', 'add_isotope' );
+add_action('wp_enqueue_scripts', 'add_isotope');
