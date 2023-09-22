@@ -116,7 +116,7 @@ get_header() ?>
                     <?php if (isset($service_level['main_heading']) && $service_level['main_heading']): ?>
                         <div class="row">
                             <div class="col">
-                                <h2 class="main-heading py-5">
+                                <h2 class="main-heading mb-5">
                                     <?= $service_level['main_heading'] ?>
                                 </h2>
                             </div>
