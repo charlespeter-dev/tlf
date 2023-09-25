@@ -16,6 +16,13 @@ $fields = get_fields($post->ID);
 
 extract($fields);
 
+/**
+ * specific css/js
+ */
+
+ wp_enqueue_script('isotope', get_template_directory_uri() . '/library/js/isotopeLayout.min.js', array('jquery'), true);
+ wp_enqueue_script('isotope-init', get_stylesheet_directory_uri() . '/2x/assets/js/filters.js', array('jquery', 'isotope'), true); 
+
 get_header() ?>
 
 <div class="bootstrap-container">

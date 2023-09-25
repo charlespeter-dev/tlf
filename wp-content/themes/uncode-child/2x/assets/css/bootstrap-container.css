@@ -11127,6 +11127,8 @@ a > .bootstrap-container code {
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
     border-top-right-radius: unset;
+    width: 200px;
+    object-fit: cover;
   }
 }
 .bootstrap-container .cards-overview.news .card-news-body {
