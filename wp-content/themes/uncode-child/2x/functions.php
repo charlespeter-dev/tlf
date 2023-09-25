@@ -171,3 +171,15 @@ function _2x_related_resources($exclude_post_id = 0)
 
     return $return;
 }
+
+/**
+ * preload font 'gotham_boldregular'
+ * https://thelogicfactory.com/wp-content/themes/uncode-child/style.css
+ */
+
+add_action('wp_head', function () {
+    ?>
+    <link rel="preload" href="https://thelogicfactory.com/wp-content/themes/uncode-child/gotham-bold-webfont.woff2"
+        as="font" type="font/woff2" crossorigin>
+    <?php
+});
