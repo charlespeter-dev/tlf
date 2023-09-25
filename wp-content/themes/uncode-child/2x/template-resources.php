@@ -55,70 +55,74 @@ foreach ($resources_ids as $resource_id) {
 
 $cards_ids = $resources_ids;
 
+/**
+ * specific css
+ */
+
+wp_enqueue_style('_2x-css-template-resources', sprintf('%s/2x/assets/css/template-resources.css', get_stylesheet_directory_uri()), ['_2x-css-bootstrap'], time());
 
 get_header() ?>
 
 <div class="bootstrap-container">
 
     <?php if ($hero_carousel): ?>
-        <section class="bootstrap-container">
-            <div class="hero-carousels resources">
-                <div id="_2x-carousel-hero" class="carousel carousel-fade" data-bs-pause="false" data-bs-interval="10000"
-                    data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        <?php foreach ($hero_carousel as $k => $item): ?>
-                            <div class="carousel-item <?= ($k == 0) ? 'active' : '' ?>">
+        <section class="hero-carousels resources">
+            <div id="_2x-carousel-hero" class="carousel carousel-fade" data-bs-pause="false" data-bs-interval="10000"
+                data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <?php foreach ($hero_carousel as $k => $item): ?>
+                        <div class="carousel-item <?= ($k == 0) ? 'active' : '' ?>"
+                            style="background-image: url('<?= wp_get_attachment_image_url($item['background_image'], '_2x-carousel-hero') ?>');">
 
-                                <div class="row-container">
+                            <div class="row-container">
 
-                                    <div class="single-h-padding limit-width position-relative">
+                                <div class="single-h-padding limit-width position-relative">
 
-                                        <img src="<?= wp_get_attachment_image_url($item['background_image'], '_2x-carousel-hero') ?>"
-                                            class="full-width" alt="">
+                                    <img src="<?= wp_get_attachment_image_url($item['background_image'], '_2x-carousel-hero') ?>"
+                                        class="full-width" alt="">
 
-                                        <div class="_2x-hero-content">
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <img src="<?= wp_get_attachment_image_url($item['resource_carousel_thumbnail'], 'full') ?>"
-                                                        class="img-fluid" alt="">
+                                    <div class="_2x-hero-content">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <img src="<?= wp_get_attachment_image_url($item['resource_carousel_thumbnail'], 'full') ?>"
+                                                    class="img-fluid" alt="">
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <h2 class="mb-0">
+                                                        <?= $item['main_heading'] ?>
+                                                    </h2>
                                                 </div>
-                                                <div class="col-lg-6">
-                                                    <div class="mb-3">
-                                                        <h2 class="mb-0">
-                                                            <?= $item['main_heading'] ?>
-                                                        </h2>
+                                                <div class="mb-4">
+                                                    <div class="sub-heading">
+                                                        <?= $item['sub_heading'] ?>
                                                     </div>
-                                                    <div class="mb-4">
-                                                        <div class="sub-heading">
-                                                            <?= $item['sub_heading'] ?>
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <a class="btn btn-primary" href="<?= $item['cta']['url'] ?>">
-                                                            <?= $item['cta']['title'] ?>
-                                                        </a>
-                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <a class="btn btn-primary" href="<?= $item['cta']['url'] ?>">
+                                                        <?= $item['cta']['title'] ?>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
+
                                 </div>
                             </div>
-                        <?php endforeach ?>
-                    </div>
-
-                    <?php if (count($hero_carousel) > 1): ?>
-                        <div class="carousel-indicators">
-                            <?php foreach ($hero_carousel as $k => $item): ?>
-                                <button type="button" data-bs-target="#_2x-carousel-hero" data-bs-slide-to="<?= $k ?>"
-                                    class="<?= ($k == 0) ? 'active' : '' ?>"></button>
-                            <?php endforeach ?>
-
                         </div>
-                    <?php endif ?>
-
+                    <?php endforeach ?>
                 </div>
+
+                <?php if (count($hero_carousel) > 1): ?>
+                    <div class="carousel-indicators">
+                        <?php foreach ($hero_carousel as $k => $item): ?>
+                            <button type="button" data-bs-target="#_2x-carousel-hero" data-bs-slide-to="<?= $k ?>"
+                                class="<?= ($k == 0) ? 'active' : '' ?>"></button>
+                        <?php endforeach ?>
+
+                    </div>
+                <?php endif ?>
+
             </div>
         </section>
     <?php endif ?>

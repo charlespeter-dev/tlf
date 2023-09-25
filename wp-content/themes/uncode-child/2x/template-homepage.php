@@ -66,32 +66,46 @@ $resources_callout = get_field('resources_callout', $post->ID);
 
 $footer_callout_banner = get_field('footer_callout_banner', $post->ID);
 
+/**
+ * specific css
+ */
+
+wp_enqueue_style('_2x-css-template-homepage', sprintf('%s/2x/assets/css/template-homepage.css', get_stylesheet_directory_uri()), ['_2x-css-bootstrap'], time());
 
 get_header() ?>
 
-<?php if ($hero_carousels) : ?>
+<?php if ($hero_carousels): ?>
     <section class="bootstrap-container">
         <div class="hero-carousels">
-            <div id="_2x-carousel-hero" class="carousel carousel-fade" data-bs-pause="false" data-bs-interval="10000" data-bs-ride="carousel">
+            <div id="_2x-carousel-hero" class="carousel carousel-fade" data-bs-pause="false" data-bs-interval="10000"
+                data-bs-ride="carousel">
                 <div class="carousel-inner">
-                    <?php foreach ($hero_carousels as $k => $item) : ?>
-                        <div class="carousel-item <?= ($k == 0) ? 'active' : '' ?>">
+                    <?php foreach ($hero_carousels as $k => $item): ?>
+                        <div class="carousel-item <?= ($k == 0) ? 'active' : '' ?>"
+                            style="background-image: url('<?= wp_get_attachment_image_url($item['background_image'], '_2x-carousel-hero') ?>');">
 
                             <div class="row-container">
 
                                 <div class="single-h-padding limit-width position-relative">
 
-                                    <img src="<?= wp_get_attachment_image_url($item['background_image'], '_2x-carousel-hero') ?>" class="full-width" alt="">
+                                    <img src="<?= wp_get_attachment_image_url($item['background_image'], '_2x-carousel-hero') ?>"
+                                        class="full-width" alt="">
 
                                     <div class="_2x-hero-content">
                                         <div class="mb-3">
-                                            <h2 class="mb-0"><?= $item['main_heading'] ?></h2>
+                                            <h2 class="mb-0">
+                                                <?= $item['main_heading'] ?>
+                                            </h2>
                                         </div>
                                         <div class="mb-4">
-                                            <div class="sub-heading"><?= $item['sub_heading'] ?></div>
+                                            <div class="sub-heading">
+                                                <?= $item['sub_heading'] ?>
+                                            </div>
                                         </div>
                                         <div>
-                                            <a class="btn btn-primary" href="<?= $item['cta_url'] ?>"><?= $item['cta_text'] ?></a>
+                                            <a class="btn btn-primary" href="<?= $item['cta_url'] ?>">
+                                                <?= $item['cta_text'] ?>
+                                            </a>
                                         </div>
                                     </div>
 
@@ -101,10 +115,11 @@ get_header() ?>
                     <?php endforeach ?>
                 </div>
 
-                <?php if (count($hero_carousels) > 1) : ?>
+                <?php if (count($hero_carousels) > 1): ?>
                     <div class="carousel-indicators">
-                        <?php foreach ($hero_carousels as $k => $item) : ?>
-                            <button type="button" data-bs-target="#_2x-carousel-hero" data-bs-slide-to="<?= $k ?>" class="<?= ($k == 0) ? 'active' : '' ?>"></button>
+                        <?php foreach ($hero_carousels as $k => $item): ?>
+                            <button type="button" data-bs-target="#_2x-carousel-hero" data-bs-slide-to="<?= $k ?>"
+                                class="<?= ($k == 0) ? 'active' : '' ?>"></button>
                         <?php endforeach ?>
 
                     </div>
@@ -115,24 +130,27 @@ get_header() ?>
     </section>
 <?php endif ?>
 
-<?php if ($customer_logo || $callout_with_cards) : ?>
+<?php if ($customer_logo || $callout_with_cards): ?>
     <div class="row-container">
         <div class="single-h-padding limit-width">
 
 
-            <?php if ($customer_logo) : ?>
+            <?php if ($customer_logo): ?>
 
                 <section class="bootstrap-container">
                     <div class="customer-logo py-5">
 
                         <div class="py-4 text-center">
-                            <h2 class="mb-0"><?= $customer_logo['logo_heading'] ?></h2>
+                            <h2 class="mb-0">
+                                <?= $customer_logo['logo_heading'] ?>
+                            </h2>
                         </div>
 
-                        <div class="_2x-carousel slide container" data-bs-pause="false" data-bs-interval="3000" data-bs-ride="carousel">
+                        <div class="_2x-carousel slide container" data-bs-pause="false" data-bs-interval="3000"
+                            data-bs-ride="carousel">
                             <div class="carousel-inner w-100 p-0 m-0">
 
-                                <?php foreach ($customer_logo['logo_detail'] as $k => $item) : ?>
+                                <?php foreach ($customer_logo['logo_detail'] as $k => $item): ?>
 
                                     <div class="carousel-item <?= $k == 0 ? 'active' : '' ?>">
                                         <div class="col col-md-3 col-lg-2 p-0 m-0">
@@ -153,7 +171,7 @@ get_header() ?>
 
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                 <script>
-                    $('._2x-carousel .carousel-item').each(function() {
+                    $('._2x-carousel .carousel-item').each(function () {
                         var minPerSlide = 6;
                         var next = $(this).next();
                         if (!next.length) {
@@ -174,29 +192,39 @@ get_header() ?>
 
             <?php endif ?>
 
-            <?php if ($callout_with_cards) : ?>
+            <?php if ($callout_with_cards): ?>
 
                 <section class="bootstrap-container">
                     <div class="callout-with-cards py-5">
                         <div class="row">
                             <div class="col">
-                                <h2 class="d-block text-center mb-4"><?= $callout_with_cards['main_heading'] ?></h2>
-                                <p class="d-block text-center mb-5"><?= $callout_with_cards['sub_heading'] ?></p>
+                                <h2 class="d-block text-center mb-4">
+                                    <?= $callout_with_cards['main_heading'] ?>
+                                </h2>
+                                <p class="d-block text-center mb-5">
+                                    <?= $callout_with_cards['sub_heading'] ?>
+                                </p>
                             </div>
                         </div>
                         <div class="row gy-4">
-                            <?php foreach ($callout_with_cards['cards'] as $k => $item) : ?>
+                            <?php foreach ($callout_with_cards['cards'] as $k => $item): ?>
                                 <div class="col">
                                     <div class="card h-100 wpk-box-brand">
 
                                         <div class="card-body">
                                             <img src="<?= $item['icon'] ?>" alt="">
                                             <hr>
-                                            <p class="headline mb-3"><strong><?= $item['headline'] ?></strong></p>
-                                            <p class="excerpt"><?= $item['excerpt'] ?></p>
+                                            <p class="headline mb-3"><strong>
+                                                    <?= $item['headline'] ?>
+                                                </strong></p>
+                                            <p class="excerpt">
+                                                <?= $item['excerpt'] ?>
+                                            </p>
                                         </div>
                                         <div class="card-footer mb-4">
-                                            <a href="<?= $item['cta_url'] ?>"><?= $item['cta_text'] ?> <i class="fa fa-arrow-right2 t-icon-size-lg"></i></a>
+                                            <a href="<?= $item['cta_url'] ?>">
+                                                <?= $item['cta_text'] ?> <i class="fa fa-arrow-right2 t-icon-size-lg"></i>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -211,13 +239,13 @@ get_header() ?>
     </div>
 <?php endif ?>
 
-<?php if ($testimonials) : ?>
+<?php if ($testimonials): ?>
     <section class="bootstrap-container">
         <div class="testimonials">
             <div id="_2x-carousel-testimonials" class="carousel slide">
                 <div class="carousel-inner">
 
-                    <?php foreach ($testimonials as $k => $item) : ?>
+                    <?php foreach ($testimonials as $k => $item): ?>
 
                         <div class="carousel-item <?= ($k == 0) ? 'active' : '' ?>">
 
@@ -225,13 +253,20 @@ get_header() ?>
 
                                 <div class="single-h-padding limit-width position-relative">
 
-                                    <img src="<?= wp_get_attachment_image_url($item['background_image'], '_2x-carousel-testimonials') ?>" class="full-width" alt="">
+                                    <img src="<?= wp_get_attachment_image_url($item['background_image'], '_2x-carousel-testimonials') ?>"
+                                        class="full-width" alt="">
 
                                     <div class="_2x-carousel-testimonials-content">
                                         <div class="icon-brand-logo mb-3"><img src="<?= $item['company_icon'] ?>" alt=""></div>
-                                        <div class="company-name mb-4"><?= $item['company_name'] ?></div>
-                                        <div class="mb-4"><?= $item['quote'] ?></div>
-                                        <div class="source"><?= $item['source'] ?></div>
+                                        <div class="company-name mb-4">
+                                            <?= $item['company_name'] ?>
+                                        </div>
+                                        <div class="mb-4">
+                                            <?= $item['quote'] ?>
+                                        </div>
+                                        <div class="source">
+                                            <?= $item['source'] ?>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -241,10 +276,11 @@ get_header() ?>
 
                     <?php endforeach ?>
 
-                    <?php if (count($testimonials) > 1) : ?>
+                    <?php if (count($testimonials) > 1): ?>
                         <div class="carousel-indicators">
-                            <?php foreach ($testimonials as $k => $item) : ?>
-                                <button type="button" data-bs-target="#_2x-carousel-testimonials" data-bs-slide-to="<?= $k ?>" class="<?= ($k == 0) ? 'active' : '' ?>"></button>
+                            <?php foreach ($testimonials as $k => $item): ?>
+                                <button type="button" data-bs-target="#_2x-carousel-testimonials" data-bs-slide-to="<?= $k ?>"
+                                    class="<?= ($k == 0) ? 'active' : '' ?>"></button>
                             <?php endforeach ?>
                         </div>
                     <?php endif ?>
@@ -259,12 +295,12 @@ get_header() ?>
 <?php endif ?>
 
 
-<?php if ($featured_post || $news_items || $resources_callout) : ?>
+<?php if ($featured_post || $news_items || $resources_callout): ?>
 
     <div class="row-container">
         <div class="single-h-padding limit-width">
 
-            <?php if ($featured_post) : ?>
+            <?php if ($featured_post): ?>
                 <section class="bootstrap-container">
                     <div class="featured-post py-5">
                         <div class="row">
@@ -272,11 +308,19 @@ get_header() ?>
                                 <img src="<?= $featured_post['left_image'] ?>" class="img-fluid" alt="">
                             </div>
                             <div class="col-lg-7">
-                                <p class="post-type"><?= $featured_post['post_type'] ?></p>
-                                <h2 class="main-heading mb-4"><?= $featured_post['main_heading'] ?></h2>
-                                <p class="sub-heading"><?= $featured_post['sub_heading'] ?></p>
+                                <p class="post-type">
+                                    <?= $featured_post['post_type'] ?>
+                                </p>
+                                <h2 class="main-heading mb-4">
+                                    <?= $featured_post['main_heading'] ?>
+                                </h2>
+                                <p class="sub-heading">
+                                    <?= $featured_post['sub_heading'] ?>
+                                </p>
                                 <div class="cta mt-4">
-                                    <a href="<?= get_the_permalink($featured_post['cta_url'][0]->ID) ?>"><?= $featured_post['cta_text'] ?> <i class="fa fa-arrow-right2 t-icon-size-lg"></i></a>
+                                    <a href="<?= get_the_permalink($featured_post['cta_url'][0]->ID) ?>">
+                                        <?= $featured_post['cta_text'] ?> <i class="fa fa-arrow-right2 t-icon-size-lg"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -284,26 +328,33 @@ get_header() ?>
                 </section>
             <?php endif ?>
 
-            <?php if ($news_items) : ?>
+            <?php if ($news_items): ?>
                 <section class="bootstrap-container">
                     <div class="news">
                         <div class="row mb-3">
                             <div class="col">
-                                <h2><?= $news_main_heading ?></h2>
+                                <h2>
+                                    <?= $news_main_heading ?>
+                                </h2>
                             </div>
                         </div>
 
                         <div class="row gy-4">
 
-                            <?php foreach ($news_items as $k => $item) : ?>
+                            <?php foreach ($news_items as $k => $item): ?>
 
                                 <div class="col">
                                     <a href="<?= get_the_permalink($item['the_post']->ID) ?>">
                                         <div class="card h-100">
-                                            <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($item['the_post']->ID), '_2x-carousel-news') ?>" class="img-top" alt="">
+                                            <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($item['the_post']->ID), '_2x-carousel-news') ?>"
+                                                class="img-top" alt="">
                                             <div class="card-body position-relative wpk-box-brand">
-                                                <p class="date"><?= get_the_date('F j, Y', $item['the_post']->ID) ?></p>
-                                                <p class="post-title"><?= $item['the_post']->post_title ?></p>
+                                                <p class="date">
+                                                    <?= get_the_date('F j, Y', $item['the_post']->ID) ?>
+                                                </p>
+                                                <p class="post-title">
+                                                    <?= $item['the_post']->post_title ?>
+                                                </p>
                                             </div>
                                         </div>
                                     </a>
@@ -316,19 +367,23 @@ get_header() ?>
             <?php endif ?>
 
 
-            <?php if ($resources_callout) : ?>
+            <?php if ($resources_callout): ?>
                 <section class="bootstrap-container">
                     <div class="resources-callout py-5">
                         <div id="_2x-carousel-resources-callout" class="carousel slide">
                             <div class="carousel-inner">
 
-                                <?php foreach ($resources_callout as $k => $item) : ?>
+                                <?php foreach ($resources_callout as $k => $item): ?>
                                     <div class="carousel-item <?= ($k == 0) ? 'active' : '' ?>">
                                         <div class="row mb-3">
                                             <div class="col">
                                                 <div class="text-center">
-                                                    <h2 class="main-heading"><?= $item['main_heading'] ?></h2>
-                                                    <p class="sub-heading"><?= $item['sub_heading'] ?></p>
+                                                    <h2 class="main-heading">
+                                                        <?= $item['main_heading'] ?>
+                                                    </h2>
+                                                    <p class="sub-heading">
+                                                        <?= $item['sub_heading'] ?>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -340,12 +395,16 @@ get_header() ?>
                                                 </div>
 
                                                 <div class="cta mt-4">
-                                                    <a href="<?= $item['cta_url'] ?>"> <?= $item['cta_text'] ?> <i class="fa fa-arrow-right2 t-icon-size-lg"></i></a>
+                                                    <a href="<?= $item['cta_url'] ?>">
+                                                        <?= $item['cta_text'] ?> <i class="fa fa-arrow-right2 t-icon-size-lg"></i>
+                                                    </a>
                                                 </div>
 
                                             </div>
                                             <div class="col-lg-6 order-0 order-lg-1">
-                                                <img class="mb-4" src="<?= wp_get_attachment_image_url($item['right_image'], '_2x-carousel-resources-callout') ?>" alt="">
+                                                <img class="mb-4"
+                                                    src="<?= wp_get_attachment_image_url($item['right_image'], '_2x-carousel-resources-callout') ?>"
+                                                    alt="">
                                             </div>
                                         </div>
                                     </div>
@@ -353,10 +412,11 @@ get_header() ?>
 
                             </div>
 
-                            <?php if (count($resources_callout) > 1) : ?>
+                            <?php if (count($resources_callout) > 1): ?>
                                 <div class="carousel-indicators">
-                                    <?php foreach ($resources_callout as $k => $item) : ?>
-                                        <button type="button" data-bs-target="#_2x-carousel-resources-callout" data-bs-slide-to="<?= $k ?>" class="<?= ($k == 0) ? 'active' : '' ?>"></button>
+                                    <?php foreach ($resources_callout as $k => $item): ?>
+                                        <button type="button" data-bs-target="#_2x-carousel-resources-callout"
+                                            data-bs-slide-to="<?= $k ?>" class="<?= ($k == 0) ? 'active' : '' ?>"></button>
                                     <?php endforeach ?>
                                 </div>
                             <?php endif ?>
@@ -372,16 +432,22 @@ get_header() ?>
 <?php endif ?>
 
 
-<?php if (isset($options['footer_callout_banner']) && $options['footer_callout_banner']) : ?>
+<?php if (isset($options['footer_callout_banner']) && $options['footer_callout_banner']): ?>
     <section class="bootstrap-container">
         <div class="footer-callout-banner">
             <div class="row-container">
                 <div class="single-h-padding limit-width position-relative">
-                    <img src="<?= wp_get_attachment_image_url($options['footer_callout_banner']['background_image'], '_2x_footer-callout-banner') ?>" class="full-width" alt="">
+                    <img src="<?= wp_get_attachment_image_url($options['footer_callout_banner']['background_image'], '_2x_footer-callout-banner') ?>"
+                        class="full-width" alt="">
 
                     <div class="footer-callout-banner-content">
-                        <div class="main-heading mb-4"><?= $options['footer_callout_banner']['main_heading'] ?></div>
-                        <div class="cta"><a class="btn btn-primary" href="<?= $options['footer_callout_banner']['cta']['url'] ?>"><?= $options['footer_callout_banner']['cta']['title'] ?></a></div>
+                        <div class="main-heading mb-4">
+                            <?= $options['footer_callout_banner']['main_heading'] ?>
+                        </div>
+                        <div class="cta"><a class="btn btn-primary"
+                                href="<?= $options['footer_callout_banner']['cta']['url'] ?>">
+                                <?= $options['footer_callout_banner']['cta']['title'] ?>
+                            </a></div>
                     </div>
                 </div>
             </div>
