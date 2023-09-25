@@ -35,7 +35,21 @@ $industries_ids = $industries_query->posts;
 
 $cards_ids = $industries_ids;
 
+/**
+ * specific css
+ */
+
+wp_enqueue_style('_2x-css-template-industry', sprintf('%s/2x/assets/css/template-industry.css', get_stylesheet_directory_uri()), ['_2x-css-bootstrap'], time());
+
 get_header() ?>
+
+<style>
+    .bootstrap-container {
+        .hero-carousels {
+            background-image: url('<?= wp_get_attachment_image_url($background_image, '_2x-carousel-hero') ?>');
+        }
+    }
+</style>
 
 <div class="bootstrap-container">
 

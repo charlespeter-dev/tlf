@@ -1,0 +1,30 @@
+@media (max-width: 767.98px) {
+  .bootstrap-container .hero-carousels {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 57% 0;
+    position: relative;
+    height: 100%;
+  }
+  .bootstrap-container .hero-carousels .full-width {
+    display: none;
+  }
+  .bootstrap-container .hero-carousels .single-h-padding.limit-width {
+    display: flex;
+    height: 100%;
+  }
+  .bootstrap-container .hero-carousels ._2x-hero-content {
+    position: relative;
+    padding-block: 3rem;
+    margin-left: unset;
+    margin-right: unset;
+    padding-left: unset;
+  }
+}
+@media (min-width: 768px) {
+  .bootstrap-container .hero-carousels {
+    background-image: none;
+  }
+}
+
+/*# sourceMappingURL=template-faces-of-tlf.css.map */

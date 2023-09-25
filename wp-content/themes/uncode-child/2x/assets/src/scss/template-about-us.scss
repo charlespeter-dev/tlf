@@ -182,3 +182,41 @@
         }
     }
 }
+
+.bootstrap-container {
+
+    @include media-breakpoint-down(md) {
+
+        .hero-carousels {
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: 60% 0;
+            position: relative;
+            height: 100%;
+
+            .full-width,
+            .small-height {
+                display: none;
+            }
+
+            .single-h-padding.limit-width {
+                display: flex;
+                height: 100%;
+            }
+
+            ._2x-hero-content {
+                position: relative;
+                padding-block: 3rem;
+                margin-left: unset;
+                margin-right: unset;
+                padding-left: unset;
+            }
+        }
+    }
+
+    @include media-breakpoint-up(md) {
+        .hero-carousels {
+            background-image: none;
+        }
+    }
+}

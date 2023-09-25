@@ -16,7 +16,21 @@ $fields = get_fields($post->ID);
 
 extract($fields);
 
+/**
+ * specific css
+ */
+
+wp_enqueue_style('_2x-css-template-services', sprintf('%s/2x/assets/css/template-services.css', get_stylesheet_directory_uri()), ['_2x-css-bootstrap'], time());
+
 get_header() ?>
+
+<style>
+    .bootstrap-container {
+        .hero-carousels {
+            background-image: url('<?= wp_get_attachment_image_url($hero_carousel['background_image'], '_2x-carousel-hero') ?>');
+        }
+    }
+</style>
 
 <div class="bootstrap-container services">
 

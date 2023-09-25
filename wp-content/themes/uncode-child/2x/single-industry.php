@@ -108,6 +108,14 @@ get_header() ?>
     });
 </script>
 
+<style>
+    .bootstrap-container {
+        .hero-carousels {
+            background-image: url('<?= wp_get_attachment_image_url($banner['background_image'], '_2x-carousel-hero') ?>');
+        }
+    }
+</style>
+
 <div class="bootstrap-container industry single">
 
     <section class="hero-carousels">
@@ -186,7 +194,7 @@ get_header() ?>
 
                                             <?php if (isset($ft['logo']) && $ft['logo']): ?>
                                                 <div class="quote-logo mb-2">
-                                                   <img src=" <?= $ft['logo'] ?>" alt="">
+                                                    <img src=" <?= $ft['logo'] ?>" alt="">
                                                 </div>
                                             <?php endif ?>
 

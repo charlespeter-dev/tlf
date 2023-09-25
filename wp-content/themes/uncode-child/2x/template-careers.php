@@ -22,8 +22,17 @@ extract($fields);
 
 wp_enqueue_script('isotope', get_template_directory_uri() . '/library/js/isotopeLayout.min.js', array('jquery'), true);
 wp_enqueue_script('isotope-init', get_stylesheet_directory_uri() . '/2x/assets/js/filters.js', array('jquery', 'isotope'), true);
+wp_enqueue_style('_2x-css-template-careers', sprintf('%s/2x/assets/css/template-careers.css', get_stylesheet_directory_uri()), ['_2x-css-bootstrap'], time());
 
 get_header() ?>
+
+<style>
+    .bootstrap-container {
+        .hero-carousels {
+            background-image: url('<?= wp_get_attachment_image_url($hero_carousel['background_image'], '_2x-carousel-hero') ?>');
+        }
+    }
+</style>
 
 <div class="bootstrap-container careers">
 
@@ -141,17 +150,21 @@ get_header() ?>
     <?php endif ?>
 
     <?php if ($jobs_section): ?>
-    <section id="jobs-section" class="jobs-section py-lg-5 py-4">
-        <div class="row-container">
-            <div class="single-h-padding limit-width">
-                <div class="heading text-center">
-                    <h3><?= $jobs_section['job_section_heading'] ?></h3>
-                    <p><?= $jobs_section['job_section_subheading'] ?></p>
+        <section id="jobs-section" class="jobs-section py-lg-5 py-4">
+            <div class="row-container">
+                <div class="single-h-padding limit-width">
+                    <div class="heading text-center">
+                        <h3>
+                            <?= $jobs_section['job_section_heading'] ?>
+                        </h3>
+                        <p>
+                            <?= $jobs_section['job_section_subheading'] ?>
+                        </p>
+                    </div>
+                    <?php include 'jobs-filter.php'; ?>
                 </div>
-                <?php include 'jobs-filter.php'; ?>
             </div>
-        </div>
-    </section>
+        </section>
     <?php endif ?>
 
     <?php if ($faces_of_tlf): ?>

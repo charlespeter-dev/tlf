@@ -50,6 +50,14 @@ get_header() ?>
     mql.addEventListener('change', attach);
 </script>
 
+<style>
+    .bootstrap-container {
+        .hero-carousels {
+            background-image: url('<?= wp_get_attachment_image_url($background_image, '_2x_small-banner') ?>');
+        }
+    }
+</style>
+
 <div class="bootstrap-container about-us">
 
     <section class="hero-carousels">

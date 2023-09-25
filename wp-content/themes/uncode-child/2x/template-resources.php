@@ -55,6 +55,7 @@ foreach ($resources_ids as $resource_id) {
 
 $cards_ids = $resources_ids;
 
+
 get_header() ?>
 
 <div class="bootstrap-container">

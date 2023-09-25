@@ -13,11 +13,26 @@ global $post;
 $options = get_fields('options');
 
 $fields = get_fields($post->ID);
+
 extract($fields);
 
 $offices = get_field('offices_list');
 
+/**
+ * specific css
+ */
+
+wp_enqueue_style('_2x-css-template-contact', sprintf('%s/2x/assets/css/template-contact.css', get_stylesheet_directory_uri()), ['_2x-css-bootstrap'], time());
+
 get_header() ?>
+
+<style>
+    .bootstrap-container {
+        .hero-carousels {
+            background-image: url('<?= wp_get_attachment_image_src(get_post_thumbnail_id(), '_2x_medium-banner')[0] ?>');
+        }
+    }
+</style>
 
 <div class="bootstrap-container">
 
@@ -25,10 +40,10 @@ get_header() ?>
         <div class="row-container">
             <div class="single-h-padding limit-width position-relative">
 
-                <?php $image_data = wp_get_attachment_image_src( get_post_thumbnail_id(), '_2x_medium-banner' ); ?>
+                <?php $image_data = wp_get_attachment_image_src(get_post_thumbnail_id(), '_2x_medium-banner'); ?>
                 <?php $image_url = $image_data[0]; ?>
 
-                <img src="<?php echo $image_url = $image_url; ?>" class="medium-height" alt="">
+                <img src="<?= $image_url; ?>" class="medium-height" alt="">
 
                 <div class="_2x-hero-content">
                     <div class="row">
@@ -63,7 +78,7 @@ get_header() ?>
         </div>
     </section>
 
-    
+
 
     <?php if (isset($offices_list)): ?>
         <section class="offices-wrapper py-lg-5 py-4">
@@ -74,12 +89,17 @@ get_header() ?>
                     </div>
                     <div class="row m-0 gy-5">
                         <div class="row col-12 col-lg-7 row-cols-1 row-cols-sm-2 m-0 p-0 g-5 offices-list">
-                            <?php foreach ($offices as $office): 
-                                $office_img = $office['office_image'];  $office_name = $office['office_name'];  $office_loc = $office['office_address']; $office_phone = $office['office_phone']; $office_email = $office['office_email'];?>
+                            <?php foreach ($offices as $office):
+                                $office_img = $office['office_image'];
+                                $office_name = $office['office_name'];
+                                $office_loc = $office['office_address'];
+                                $office_phone = $office['office_phone'];
+                                $office_email = $office['office_email']; ?>
                                 <div class="col">
                                     <div class="office-card">
                                         <figure class="office-img">
-                                            <img src="<?= wp_get_attachment_image_url($office_img['id'], '_2x-office-image'); ?>" class="img-fluid" alt="<?= $office_img['title'] ?>">
+                                            <img src="<?= wp_get_attachment_image_url($office_img['id'], '_2x-office-image'); ?>"
+                                                class="img-fluid" alt="<?= $office_img['title'] ?>">
                                         </figure>
 
                                         <div class="office-details">

@@ -1,0 +1,45 @@
+@import "../../../node_modules/bootstrap/scss/functions";
+@import "../../../node_modules/bootstrap/scss/variables";
+@import "../../../node_modules/bootstrap/scss/variables-dark";
+@import "../../../node_modules/bootstrap/scss/maps";
+@import "../../../node_modules/bootstrap/scss/mixins";
+@import "../../../node_modules/bootstrap/scss/utilities";
+
+.bootstrap-container {
+
+    @include media-breakpoint-down(md) {
+
+        .hero-carousels {
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: 70% 0;
+            position: relative;
+            height: 100%;
+
+            .full-width,
+            .medium-height,
+            .xs-height {
+                display: none;
+            }
+
+            .single-h-padding.limit-width {
+                display: flex;
+                height: 100%;
+            }
+
+            ._2x-hero-content {
+                position: relative;
+                padding-block: 3rem;
+                margin-left: unset;
+                margin-right: unset;
+                padding-left: unset;
+            }
+        }
+    }
+
+    @include media-breakpoint-up(md) {
+        .hero-carousels {
+            background-image: none;
+        }
+    }
+}

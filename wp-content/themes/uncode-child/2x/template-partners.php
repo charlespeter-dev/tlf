@@ -13,11 +13,26 @@ global $post;
 $options = get_fields('options');
 
 $fields = get_fields($post->ID);
+
 extract($fields);
 
 $partners = get_field('partners_list');
 
+/**
+ * specific css
+ */
+
+wp_enqueue_style('_2x-css-template-partners', sprintf('%s/2x/assets/css/template-partners.css', get_stylesheet_directory_uri()), ['_2x-css-bootstrap'], time());
+
 get_header() ?>
+
+<style>
+    .bootstrap-container {
+        .hero-carousels {
+            background-image: url('<?= wp_get_attachment_image_url(get_post_thumbnail_id($background_image), '_2x_xs-banner') ?>');
+        }
+    }
+</style>
 
 <div class="bootstrap-container">
 
@@ -25,10 +40,8 @@ get_header() ?>
         <div class="row-container">
             <div class="single-h-padding limit-width position-relative">
 
-                <?php $image_data = wp_get_attachment_image_src( get_post_thumbnail_id(), '_2x_xs-banner' ); ?>
-                <?php $image_url = $image_data[0]; ?>
-
-                <img src="<?php echo $image_url = $image_url; ?>" class="xs-height" alt="">
+                <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($background_image), '_2x_xs-banner') ?>"
+                    class="xs-height" alt="">
                 <div class="_2x-hero-content">
                     <div class="row">
                         <div class="col-lg-12">
@@ -49,12 +62,15 @@ get_header() ?>
             <div class="row-container">
                 <div class="single-h-padding limit-width">
                     <div class="row row-cols-1 row-cols-lg-2 m-0 gy-5">
-                        <?php foreach ($partners as $partner): 
-                            $partner_img = $partner['partner_image'];  $partner_name = $partner['partner_name'];  $partner_desc = $partner['partner_description'];?>
+                        <?php foreach ($partners as $partner):
+                            $partner_img = $partner['partner_image'];
+                            $partner_name = $partner['partner_name'];
+                            $partner_desc = $partner['partner_description']; ?>
                             <div class="col">
                                 <div class="partner-card h-100">
                                     <figure class="partner-img">
-                                        <img src="<?= wp_get_attachment_image_url($partner_img['id'], '_2x-partner-logo'); ?>" class="img-fluid" alt="<?= $partner_img['title'] ?>">
+                                        <img src="<?= wp_get_attachment_image_url($partner_img['id'], '_2x-partner-logo'); ?>"
+                                            class="img-fluid" alt="<?= $partner_img['title'] ?>">
                                     </figure>
 
                                     <div class="partner-details">
