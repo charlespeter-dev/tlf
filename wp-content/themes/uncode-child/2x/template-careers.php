@@ -195,16 +195,18 @@ get_header() ?>
 
                             <div class="col">
                                 <div class="card h-100">
-                                    <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($item['face']), '_2x-carousel-news') ?>"
-                                        class="img-top" alt="">
-                                    <div class="card-body position-relative wpk-box-brand">
-                                        <p class="sub-title">
-                                            <?= __('Faces of TLF') ?>
-                                        </p>
-                                        <p class="name">
-                                            <?= _2x_format_title($item['face']) ?>
-                                        </p>
-                                    </div>
+                                    <a href="<?= get_the_permalink($item['face']) ?>">
+                                        <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($item['face']), '_2x-carousel-news') ?>"
+                                            class="img-top" alt="">
+                                        <div class="card-body position-relative wpk-box-brand">
+                                            <p class="sub-title">
+                                                <?= __('Faces of TLF') ?>
+                                            </p>
+                                            <p class="name">
+                                                <?= _2x_format_title($item['face']) ?>
+                                            </p>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
 

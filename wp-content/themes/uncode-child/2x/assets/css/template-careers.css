@@ -26,5 +26,8 @@
     background-image: none;
   }
 }
+.bootstrap-container .faces-of-tlf a {
+  text-decoration: none;
+}
 
 /*# sourceMappingURL=template-careers.css.map */
