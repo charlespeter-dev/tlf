@@ -217,7 +217,7 @@ get_header() ?>
                         <div class="col">
                             <div class="mt-5 mb-4 text-center">
                                 <a class="btn btn-primary"
-                                    href="<?= get_the_permalink(get_page_by_path('faces-of-tlf', 'OBJECT', 'v2')->ID) ?>">
+                                    href="<?= get_the_permalink(get_page_by_path('/about-us/faces-of-tlf/', 'OBJECT', 'v2')->ID) ?>">
                                     <?= __('Show More') ?>
                                 </a>
                             </div>
