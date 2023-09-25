@@ -25,16 +25,20 @@
 .bootstrap-container.industry.single .featured-testimonials .quote::before {
   top: -50px;
   color: #58879B;
+  opacity: 0.2;
 }
 .bootstrap-container.industry.single .featured-testimonials .quote-quote p {
   font-size: 1.25rem;
-  line-height: calc(1.3125rem + 0.75vw);
-  font-weight: 700;
+  line-height: calc(1.34375rem + 1.125vw);
+  font-weight: 600;
 }
 @media (min-width: 1200px) {
   .bootstrap-container.industry.single .featured-testimonials .quote-quote p {
-    line-height: 1.875rem;
+    line-height: 2.1875rem;
   }
+}
+.bootstrap-container.industry.single .featured-testimonials .quote-logo img {
+  width: 200px;
 }
 .bootstrap-container.industry.single .featured-testimonials .swiper-pagination-bullet {
   width: 20px;

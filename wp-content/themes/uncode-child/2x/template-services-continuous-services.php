@@ -74,13 +74,13 @@ get_header() ?>
                     <div class="row">
                         <div class="col">
                             <?php if (isset($callout_cards['main_heading']) && $callout_cards['main_heading']): ?>
-                                <h2 class="callout-with-cards-main-heading d-block text-center mb-5">
+                                <h2 class="callout-with-cards-main-heading d-block text-center mb-4">
                                     <?= $callout_cards['main_heading'] ?>
                                 </h2>
                             <?php endif ?>
 
                             <?php if (isset($callout_cards['sub_heading']) && $callout_cards['sub_heading']): ?>
-                                <div class="callout-with-cards-sub-heading pb-3">
+                                <div class="callout-with-cards-sub-heading mb-3">
                                     <?= $callout_cards['sub_heading'] ?>
                                 </div>
                             <?php endif ?>
@@ -116,7 +116,7 @@ get_header() ?>
                     <?php if (isset($service_level['main_heading']) && $service_level['main_heading']): ?>
                         <div class="row">
                             <div class="col">
-                                <h2 class="main-heading py-5">
+                                <h2 class="main-heading mb-5">
                                     <?= $service_level['main_heading'] ?>
                                 </h2>
                             </div>
@@ -160,7 +160,7 @@ get_header() ?>
                         </div>
                     <?php endif ?>
 
-                    <div class="row row-cols-1 row-cols-md-3 g-5">
+                    <div class="row row-cols-1 row-cols-md-4 g-5">
 
                         <?php foreach ($packages['cards'] as $card): ?>
                             <div class="col">

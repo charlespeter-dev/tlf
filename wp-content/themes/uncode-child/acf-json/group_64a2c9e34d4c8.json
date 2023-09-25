@@ -761,18 +761,17 @@
                         "id": ""
                     },
                     "post_type": [
-                        "post"
+                        "post",
+                        "resources"
                     ],
                     "post_status": [
                         "publish"
                     ],
-                    "taxonomy": [
-                        "category:blog",
-                        "category:news"
-                    ],
+                    "taxonomy": "",
                     "return_format": "object",
                     "multiple": 0,
                     "allow_null": 0,
+                    "bidirectional": 0,
                     "ui": 1,
                     "bidirectional_target": [],
                     "parent_repeater": "field_64c1dafbc5df1"
@@ -1068,5 +1067,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1694059125
+    "modified": 1695381372
 }

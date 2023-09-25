@@ -184,6 +184,12 @@ get_header() ?>
                                                 </div>
                                             <?php endif ?>
 
+                                            <?php if (isset($ft['logo']) && $ft['logo']): ?>
+                                                <div class="quote-logo mb-2">
+                                                   <img src=" <?= $ft['logo'] ?>" alt="">
+                                                </div>
+                                            <?php endif ?>
+
                                             <?php if (isset($ft['quote_by']) && $ft['quote_by']): ?>
                                                 <div class="quote-by">
                                                     —

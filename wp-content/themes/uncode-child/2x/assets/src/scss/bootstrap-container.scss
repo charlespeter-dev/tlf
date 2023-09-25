@@ -400,21 +400,10 @@
 
     .customer-logo {
 
-        position: relative;
+        display: none;
 
-        &::before {
-            content: '';
+        @include media-breakpoint-up(lg) {
             display: block;
-            width: 100vw;
-            height: 100%;
-            background-color: #fff;
-            position: absolute;
-            top: 0;
-            left: 50%;
-            right: 50%;
-            margin-left: -50vw;
-            margin-right: -50vw;
-            z-index: -1;
         }
 
         h2 {
@@ -513,14 +502,13 @@
             display: block;
             width: 100vw;
             height: 100%;
-            background-color: #f5f5f5;
+            background-color: #EDEFF0;
             position: absolute;
             top: 0;
             left: 50%;
             right: 50%;
             margin-left: -50vw;
             margin-right: -50vw;
-            z-index: -1;
         }
 
         h2 {
@@ -679,14 +667,13 @@
             display: block;
             width: 100vw;
             height: 100%;
-            background-color: #f5f5f5;
+            background-color: #EDEFF0;
             position: absolute;
             top: 0;
             left: 50%;
             right: 50%;
             margin-left: -50vw;
             margin-right: -50vw;
-            z-index: -1;
         }
 
         h2 {
@@ -1021,14 +1008,13 @@
                 display: block;
                 width: 100vw;
                 height: 100%;
-                background-color: #f5f5f5;
+                background-color: #EDEFF0;
                 position: absolute;
                 top: 0;
                 left: 50%;
                 right: 50%;
                 margin-left: -50vw;
                 margin-right: -50vw;
-                z-index: -1;
             }
 
             h2 {
@@ -1038,7 +1024,6 @@
 
             .quote {
                 text-align: center;
-                font-weight: 700;
 
                 &::before {
                     color: #58879B;
@@ -1046,12 +1031,9 @@
                 }
 
                 &-text {
-                    @include font-size(1.5625rem); // 25px
+                    @include rfs(1.25rem, font-size);
                     @include rfs(2.1875rem, line-height);
-
-                    @include media-breakpoint-up(lg) {
-                        padding-inline: 6rem;
-                    }
+                    font-weight: 600;
                 }
 
                 &-by {
@@ -1212,14 +1194,13 @@
                         display: block;
                         width: 100vw;
                         height: 100%;
-                        background-color: #f5f5f5;
+                        background-color: #EDEFF0;
                         position: absolute;
                         top: 0;
                         left: 50%;
                         right: 50%;
                         margin-left: -50vw;
                         margin-right: -50vw;
-                        z-index: -1;
                     }
                 }
             }
@@ -1276,14 +1257,13 @@
                     display: block;
                     width: 100vw;
                     height: 100%;
-                    background-color: #f5f5f5;
+                    background-color: #EDEFF0;
                     position: absolute;
                     top: 0;
                     left: 50%;
                     right: 50%;
                     margin-left: -50vw;
                     margin-right: -50vw;
-                    z-index: -1;
                 }
 
                 .main-heading {
@@ -1551,6 +1531,7 @@
     // --- begin: job sections
     .jobs-section {
         background-color: #F6F7F8;
+
         .heading {
             h3 {
                 color: #003375;
@@ -1989,6 +1970,24 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
 .page-wrapper,
 .sections-container {
     background-color: #fff;
+}
+
+/* force sticky menu */
+
+.menu-wrapper {
+
+    @media screen and (min-width: 992px) {
+        height: 112px;
+    }
+
+    &.menu-sticky {
+
+        .menu-container {
+            position: fixed;
+            top: 0;
+            box-shadow: 0 4px 10px -10px rgba(0, 0, 0, 0.6);
+        }
+    }
 }
 
 //----- end: override uncode specific styles

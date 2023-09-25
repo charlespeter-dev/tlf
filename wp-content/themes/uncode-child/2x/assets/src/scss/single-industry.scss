@@ -28,13 +28,20 @@
             .quote::before {
                 top: -50px;
                 color: #58879B;
+                opacity: .2;
             }
 
             .quote-quote {
                 p {
                     @include rfs(1.25rem, font-size);
-                    @include rfs(1.875rem, line-height);
-                    font-weight: 700;
+                    @include rfs(2.1875rem, line-height);
+                    font-weight: 600;
+                }
+            }
+
+            .quote-logo {
+                img {
+                    width: 200px;
                 }
             }
 
