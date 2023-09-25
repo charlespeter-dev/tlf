@@ -64,7 +64,7 @@ get_header() ?>
         <div class="row-container">
             <div class="single-h-padding limit-width position-relative">
                 <img src="<?= wp_get_attachment_image_url($background_image, '_2x_small-banner') ?>"
-                    class="small-height" alt="">
+                    class="small-height" alt="" loading="lazy">
                 <div class="_2x-hero-content">
                     <div class="row">
                         <div class="col-lg-12">
@@ -204,7 +204,7 @@ get_header() ?>
                                 <div class="col-lg-3">
                                     <img class="img-fluid mb-4"
                                         src="<?= wp_get_attachment_image_url($manager['profile_picture'], '_2x-carousel-news') ?>"
-                                        alt="">
+                                        alt="" loading="lazy">
                                 </div>
                                 <div class="col-lg-9">
                                     <div class="manager-name">
@@ -245,7 +245,7 @@ get_header() ?>
                         <div class="swiper-wrapper">
                             <?php foreach ($partner_logo['logo_detail'] as $k => $item): ?>
                                 <div class="swiper-slide">
-                                    <img class="img-fluid p-0 m-0" src="<?= $item['logo_image'] ?>" alt="">
+                                    <img class="img-fluid p-0 m-0" src="<?= $item['logo_image'] ?>" alt="" loading="lazy">
                                 </div>
                             <?php endforeach ?>
                         </div>
@@ -303,7 +303,7 @@ get_header() ?>
             <div class="row-container">
                 <div class="single-h-padding limit-width position-relative">
                     <img src="<?= wp_get_attachment_image_url($options['footer_callout_banner']['background_image'], '_2x_footer-callout-banner') ?>"
-                        class="full-width" alt="">
+                        class="full-width" alt="" loading="lazy">
 
                     <div class="footer-callout-banner-content">
                         <div class="main-heading mb-4">

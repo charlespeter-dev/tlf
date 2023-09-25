@@ -41,7 +41,7 @@ get_header() ?>
             <div class="single-h-padding limit-width position-relative">
 
                 <img src="<?= wp_get_attachment_image_url($hero_carousel['background_image'], '_2x-carousel-hero') ?>"
-                    class="full-width" alt="">
+                    class="full-width" alt="" loading="lazy">
 
                 <div class="_2x-hero-content">
 
@@ -127,7 +127,7 @@ get_header() ?>
                         <?php foreach ($stacked_cards['cards'] as $k => $item): ?>
                             <div class="col">
                                 <div class="d-flex flex-column">
-                                    <img class="callout-with-cards-icon" src="<?= $item['icon'] ?>" alt="">
+                                    <img class="callout-with-cards-icon" src="<?= $item['icon'] ?>" alt="" loading="lazy">
                                     <div>
                                         <p class="callout-with-cards-headline mb-3">
                                             <strong>
@@ -197,7 +197,7 @@ get_header() ?>
                                 <div class="card h-100">
                                     <a href="<?= get_the_permalink($item['face']) ?>">
                                         <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($item['face']), '_2x-carousel-news') ?>"
-                                            class="img-top" alt="">
+                                            class="img-top" alt="" loading="lazy">
                                         <div class="card-body position-relative wpk-box-brand">
                                             <p class="sub-title">
                                                 <?= __('Faces of TLF') ?>

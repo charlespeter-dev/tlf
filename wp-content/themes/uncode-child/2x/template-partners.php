@@ -41,7 +41,7 @@ get_header() ?>
             <div class="single-h-padding limit-width position-relative">
 
                 <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($background_image), '_2x_xs-banner') ?>"
-                    class="xs-height" alt="">
+                    class="xs-height" alt="" loading="lazy">
                 <div class="_2x-hero-content">
                     <div class="row">
                         <div class="col-lg-12">
@@ -70,7 +70,7 @@ get_header() ?>
                                 <div class="partner-card h-100">
                                     <figure class="partner-img">
                                         <img src="<?= wp_get_attachment_image_url($partner_img['id'], '_2x-partner-logo'); ?>"
-                                            class="img-fluid" alt="<?= $partner_img['title'] ?>">
+                                            class="img-fluid" alt="<?= $partner_img['title'] ?>" loading="lazy">
                                     </figure>
 
                                     <div class="partner-details">
@@ -95,7 +95,7 @@ get_header() ?>
             <div class="row-container">
                 <div class="single-h-padding limit-width position-relative">
                     <img src="<?= wp_get_attachment_image_url($options['footer_callout_banner']['background_image'], '_2x_footer-callout-banner') ?>"
-                        class="full-width" alt="">
+                        class="full-width" alt="" loading="lazy">
 
                     <div class="footer-callout-banner-content">
                         <div class="main-heading mb-4">

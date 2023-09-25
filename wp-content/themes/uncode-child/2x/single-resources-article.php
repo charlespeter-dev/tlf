@@ -30,7 +30,7 @@ get_header() ?>
         <div class="row-container">
             <div class="single-h-padding limit-width position-relative">
                 <img src="<?= wp_get_attachment_image_url($background_image, '_2x_small-banner-hero') ?>"
-                    class="full-width" alt="">
+                    class="full-width" alt="" loading="lazy">
             </div>
         </div>
     </section>
@@ -64,7 +64,7 @@ get_header() ?>
                             <div class="col-lg-3">
                                 <img class="img-fluid mb-4"
                                     src="<?= wp_get_attachment_image_url($author['profile_picture'], '_2x-carousel-news') ?>"
-                                    alt="">
+                                    alt="" loading="lazy">
                             </div>
                             <div class="col-lg-9">
                                 <div class="about-author-name">
@@ -130,7 +130,7 @@ get_header() ?>
                                     <div class="card h-100">
                                         <img class="img-fluid"
                                             src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($post_id), '_2x-card-faces-of-tlf-left-top') ?>"
-                                            alt="">
+                                            alt="" loading="lazy">
                                         <div class="card-body position-relative wpk-box-brand">
                                             <p class="category mb-3">
                                                 <?= implode(' / ', $item['category']) ?>
@@ -168,7 +168,7 @@ get_header() ?>
             <div class="row-container">
                 <div class="single-h-padding limit-width position-relative">
                     <img src="<?= wp_get_attachment_image_url($options['footer_callout_banner']['background_image'], '_2x_footer-callout-banner') ?>"
-                        class="full-width" alt="">
+                        class="full-width" alt="" loading="lazy">
 
                     <div class="footer-callout-banner-content">
                         <div class="main-heading mb-4">

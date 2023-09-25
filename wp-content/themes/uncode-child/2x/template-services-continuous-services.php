@@ -39,7 +39,7 @@ get_header() ?>
             <div class="single-h-padding limit-width position-relative">
 
                 <img src="<?= wp_get_attachment_image_url($hero_carousel['background_image'], '_2x-carousel-hero') ?>"
-                    class="full-width" alt="">
+                    class="full-width" alt="" loading="lazy">
 
                 <div class="_2x-hero-content">
 
@@ -104,7 +104,7 @@ get_header() ?>
                         <?php foreach ($callout_cards['cards'] as $k => $item): ?>
                             <div class="col">
                                 <div class="d-flex flex-column align-items-center">
-                                    <img class="callout-with-cards-icon" src="<?= $item['icon'] ?>" alt="">
+                                    <img class="callout-with-cards-icon" src="<?= $item['icon'] ?>" alt="" loading="lazy">
                                     <div>
                                         <p class="callout-with-cards-headline mb-3">
                                             <strong>
@@ -143,7 +143,7 @@ get_header() ?>
                             <div class="col">
                                 <div class="card h-100">
                                     <img src="<?= wp_get_attachment_image_url($card['card_image'], '_2x-card-customers') ?>"
-                                        class="img-fluid" alt="">
+                                        class="img-fluid" alt="" loading="lazy">
 
                                     <div class="card-body">
                                         <?= $card['card_body'] ?>
@@ -179,7 +179,7 @@ get_header() ?>
                         <?php foreach ($packages['cards'] as $card): ?>
                             <div class="col">
                                 <div class="card h-100">
-                                    <img src="<?= $card['package_image'] ?>" class="img-fluid" alt="">
+                                    <img src="<?= $card['package_image'] ?>" class="img-fluid" alt="" loading="lazy">
                                 </div>
                             </div>
                         <?php endforeach ?>
@@ -210,7 +210,7 @@ get_header() ?>
                         <?php foreach ($stacked_cards['cards'] as $k => $item): ?>
                             <div class="col">
                                 <div class="d-flex flex-column align-items-center">
-                                    <img class="callout-with-cards-icon" src="<?= $item['icon'] ?>" alt="">
+                                    <img class="callout-with-cards-icon" src="<?= $item['icon'] ?>" alt="" loading="lazy">
                                     <div>
                                         <p class="callout-with-cards-headline mb-3">
                                             <strong>
@@ -267,7 +267,7 @@ get_header() ?>
             <div class="row-container">
                 <div class="single-h-padding limit-width position-relative">
                     <img src="<?= wp_get_attachment_image_url($options['footer_callout_banner']['background_image'], '_2x_footer-callout-banner') ?>"
-                        class="full-width" alt="">
+                        class="full-width" alt="" loading="lazy">
 
                     <div class="footer-callout-banner-content">
                         <div class="main-heading mb-4">

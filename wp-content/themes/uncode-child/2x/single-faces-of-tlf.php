@@ -20,8 +20,8 @@ extract($fields);
  * specific css/js
  */
 
- wp_enqueue_script('isotope', get_template_directory_uri() . '/library/js/isotopeLayout.min.js', array('jquery'), true);
- wp_enqueue_script('isotope-init', get_stylesheet_directory_uri() . '/2x/assets/js/filters.js', array('jquery', 'isotope'), true); 
+wp_enqueue_script('isotope', get_template_directory_uri() . '/library/js/isotopeLayout.min.js', array('jquery'), true);
+wp_enqueue_script('isotope-init', get_stylesheet_directory_uri() . '/2x/assets/js/filters.js', array('jquery', 'isotope'), true);
 
 get_header() ?>
 
@@ -31,7 +31,8 @@ get_header() ?>
         <div class="row-container">
             <div class="single-h-padding limit-width position-relative">
 
-                <img src="<?= wp_get_attachment_image_url($background_image['id'], '_2x_small-banner') ?>" class="small-height" alt="<?= $background_image['title'] ?>">
+                <img src="<?= wp_get_attachment_image_url($background_image['id'], '_2x_small-banner') ?>"
+                    class="small-height" alt="<?= $background_image['title'] ?>" loading="lazy">
 
                 <div class="_2x-hero-content">
                     <div class="row">
@@ -47,20 +48,22 @@ get_header() ?>
             </div>
         </div>
     </section>
- 
+
     <section class="face-overview my-lg-5 my-4">
         <div class="row-container">
             <div class="single-h-padding limit-width">
                 <figure>
-                    <?php $image_data = wp_get_attachment_image_src( get_post_thumbnail_id(), '_2x_face-image-single' ); ?>
+                    <?php $image_data = wp_get_attachment_image_src(get_post_thumbnail_id(), '_2x_face-image-single'); ?>
                     <?php $image_url = $image_data[0]; ?>
-                    <img src="<?php echo $image_url = $image_url; ?>" class="face-img" alt="<?= $face_image['title'] ?>">
+                    <img src="<?= $image_url; ?>" class="face-img" alt="<?= $face_image['title'] ?>" loading="lazy">
                 </figure>
                 <div class="face-content">
                     <?= $face_content ?>
                 </div>
                 <div class="cta-button mt-5">
-                    <a class="btn btn-primary" href="<?= $back_button_link ?>"><?= $back_button_text ?></a>
+                    <a class="btn btn-primary" href="<?= $back_button_link ?>">
+                        <?= $back_button_text ?>
+                    </a>
                 </div>
             </div>
         </div>
@@ -70,8 +73,12 @@ get_header() ?>
         <div class="row-container">
             <div class="single-h-padding limit-width">
                 <div class="heading text-center">
-                    <h3><?= $job_section_heading ?></h3>
-                    <p><?= $job_section_subheading ?></p>
+                    <h3>
+                        <?= $job_section_heading ?>
+                    </h3>
+                    <p>
+                        <?= $job_section_subheading ?>
+                    </p>
                 </div>
                 <?php include 'jobs-filter.php'; ?>
             </div>

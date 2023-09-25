@@ -39,7 +39,7 @@ get_header() ?>
             <div class="single-h-padding limit-width position-relative">
 
                 <img src="<?= wp_get_attachment_image_url($hero_carousel['background_image'], '_2x-carousel-hero') ?>"
-                    class="full-width" alt="">
+                    class="full-width" alt="" loading="lazy">
 
                 <div class="_2x-hero-content">
 
@@ -110,7 +110,7 @@ get_header() ?>
                                 <div class="card h-100 wpk-box-brand">
 
                                     <div class="card-body">
-                                        <img src="<?= $item['icon'] ?>" alt="">
+                                        <img src="<?= $item['icon'] ?>" alt="" loading="lazy">
                                         <hr>
                                         <p class="headline mb-3"><strong>
                                                 <?= $item['headline'] ?>
@@ -155,7 +155,7 @@ get_header() ?>
                                 <div class="row contents mb-4">
 
                                     <div class="col-lg-2 icon">
-                                        <img class="img-fluid" src="<?= $item['icon'] ?>" alt="">
+                                        <img class="img-fluid" src="<?= $item['icon'] ?>" alt="" loading="lazy">
                                     </div>
 
                                     <div class="col-lg-10">
@@ -218,7 +218,7 @@ get_header() ?>
             <div class="row-container">
                 <div class="single-h-padding limit-width position-relative">
                     <img src="<?= wp_get_attachment_image_url($options['footer_callout_banner']['background_image'], '_2x_footer-callout-banner') ?>"
-                        class="full-width" alt="">
+                        class="full-width" alt="" loading="lazy">
 
                     <div class="footer-callout-banner-content">
                         <div class="main-heading mb-4">

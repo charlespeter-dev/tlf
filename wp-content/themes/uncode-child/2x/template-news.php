@@ -58,7 +58,7 @@ get_header() ?>
             <div class="single-h-padding limit-width position-relative">
 
                 <img src="<?= wp_get_attachment_image_url($background_image, '_2x-carousel-hero') ?>" class="full-width"
-                    alt="">
+                    alt="" loading="lazy">
 
                 <div class="_2x-hero-content">
 
@@ -111,7 +111,7 @@ get_header() ?>
 
                                 <div class="card-news">
                                     <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($card_id), '_2x-card-news') ?>"
-                                        class="img-fluid" alt="">
+                                        class="img-fluid" alt="" loading="lazy">
                                     <div class="card-news-body position-relative wpk-box-brand">
                                         <div>
                                             <div class="card-news-body-date">
@@ -143,7 +143,7 @@ get_header() ?>
             <div class="row-container">
                 <div class="single-h-padding limit-width position-relative">
                     <img src="<?= wp_get_attachment_image_url($options['footer_callout_banner']['background_image'], '_2x_footer-callout-banner') ?>"
-                        class="full-width" alt="">
+                        class="full-width" alt="" loading="lazy">
 
                     <div class="footer-callout-banner-content">
                         <div class="main-heading mb-4">

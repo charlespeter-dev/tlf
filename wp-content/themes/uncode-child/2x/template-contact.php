@@ -43,7 +43,7 @@ get_header() ?>
                 <?php $image_data = wp_get_attachment_image_src(get_post_thumbnail_id(), '_2x_medium-banner'); ?>
                 <?php $image_url = $image_data[0]; ?>
 
-                <img src="<?= $image_url; ?>" class="medium-height" alt="">
+                <img src="<?= $image_url; ?>" class="medium-height" alt="" loading="lazy">
 
                 <div class="_2x-hero-content">
                     <div class="row">
@@ -99,7 +99,7 @@ get_header() ?>
                                     <div class="office-card">
                                         <figure class="office-img">
                                             <img src="<?= wp_get_attachment_image_url($office_img['id'], '_2x-office-image'); ?>"
-                                                class="img-fluid" alt="<?= $office_img['title'] ?>">
+                                                class="img-fluid" alt="<?= $office_img['title'] ?>" loading="lazy">
                                         </figure>
 
                                         <div class="office-details">

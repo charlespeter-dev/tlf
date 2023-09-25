@@ -34,7 +34,7 @@ get_header() ?>
                 <?php $image_data = wp_get_attachment_image_src(get_post_thumbnail_id(), '_2x_xs-banner'); ?>
                 <?php $image_url = $image_data[0]; ?>
 
-                <img src="<?php echo $image_url = $image_url; ?>" class="xs-height" alt="">
+                <img src="<?= $image_url; ?>" class="xs-height" alt="" loading="lazy">
                 <div class="_2x-hero-content">
                     <div class="row">
                         <div class="col-lg-12">
