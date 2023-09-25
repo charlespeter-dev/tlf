@@ -72,6 +72,14 @@ add_action('after_setup_theme', function () {
 });
 
 /**
+ * disable image compression
+ */
+
+add_filter('jpeg_quality', function () {
+    return 100;
+});
+
+/**
  * register new theme options using ACF
  */
 
