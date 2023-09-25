@@ -89,7 +89,7 @@ get_header() ?>
                                 <div class="single-h-padding limit-width position-relative">
 
                                     <img src="<?= wp_get_attachment_image_url($item['background_image'], '_2x-carousel-hero') ?>"
-                                        class="full-width" alt="">
+                                        class="full-width" alt="" loading="lazy">
 
                                     <div class="_2x-hero-content">
                                         <div class="mb-3">
@@ -155,7 +155,7 @@ get_header() ?>
                                     <div class="carousel-item <?= $k == 0 ? 'active' : '' ?>">
                                         <div class="col col-md-3 col-lg-2 p-0 m-0">
                                             <div class="card card-body p-0 m-0">
-                                                <img class="img-fluid p-0 m-0" src="<?= $item['logo_image'] ?>" alt="">
+                                                <img class="img-fluid p-0 m-0" src="<?= $item['logo_image'] ?>" alt="" loading="lazy">
                                             </div>
                                         </div>
                                     </div>
@@ -212,7 +212,7 @@ get_header() ?>
                                     <div class="card h-100 wpk-box-brand">
 
                                         <div class="card-body">
-                                            <img src="<?= $item['icon'] ?>" alt="">
+                                            <img src="<?= $item['icon'] ?>" alt="" loading="lazy">
                                             <hr>
                                             <p class="headline mb-3"><strong>
                                                     <?= $item['headline'] ?>
@@ -254,10 +254,10 @@ get_header() ?>
                                 <div class="single-h-padding limit-width position-relative">
 
                                     <img src="<?= wp_get_attachment_image_url($item['background_image'], '_2x-carousel-testimonials') ?>"
-                                        class="full-width" alt="">
+                                        class="full-width" alt="" loading="lazy">
 
                                     <div class="_2x-carousel-testimonials-content">
-                                        <div class="icon-brand-logo mb-3"><img src="<?= $item['company_icon'] ?>" alt=""></div>
+                                        <div class="icon-brand-logo mb-3"><img src="<?= $item['company_icon'] ?>" alt="" loading="lazy"></div>
                                         <div class="company-name mb-4">
                                             <?= $item['company_name'] ?>
                                         </div>
@@ -305,7 +305,7 @@ get_header() ?>
                     <div class="featured-post py-5">
                         <div class="row">
                             <div class="col-lg-5">
-                                <img src="<?= $featured_post['left_image'] ?>" class="img-fluid" alt="">
+                                <img src="<?= $featured_post['left_image'] ?>" class="img-fluid" alt="" loading="lazy">
                             </div>
                             <div class="col-lg-7">
                                 <p class="post-type">
@@ -347,7 +347,7 @@ get_header() ?>
                                     <a href="<?= get_the_permalink($item['the_post']->ID) ?>">
                                         <div class="card h-100">
                                             <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($item['the_post']->ID), '_2x-carousel-news') ?>"
-                                                class="img-top" alt="">
+                                                class="img-top" alt="" loading="lazy">
                                             <div class="card-body position-relative wpk-box-brand">
                                                 <p class="date">
                                                     <?= get_the_date('F j, Y', $item['the_post']->ID) ?>
@@ -404,7 +404,7 @@ get_header() ?>
                                             <div class="col-lg-6 order-0 order-lg-1">
                                                 <img class="mb-4"
                                                     src="<?= wp_get_attachment_image_url($item['right_image'], '_2x-carousel-resources-callout') ?>"
-                                                    alt="">
+                                                    alt="" loading="lazy">
                                             </div>
                                         </div>
                                     </div>
@@ -438,7 +438,7 @@ get_header() ?>
             <div class="row-container">
                 <div class="single-h-padding limit-width position-relative">
                     <img src="<?= wp_get_attachment_image_url($options['footer_callout_banner']['background_image'], '_2x_footer-callout-banner') ?>"
-                        class="full-width" alt="">
+                        class="full-width" alt="" loading="lazy">
 
                     <div class="footer-callout-banner-content">
                         <div class="main-heading mb-4">
