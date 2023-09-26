@@ -73,10 +73,10 @@ get_header() ?>
         <div class="row-container">
             <div class="single-h-padding limit-width">
                 <div class="heading text-center">
-                    <h3>
+                    <h3 class="job-heading">
                         <?= $job_section_heading ?>
                     </h3>
-                    <p>
+                    <p class="job-subheading">
                         <?= $job_section_subheading ?>
                     </p>
                 </div>

@@ -1532,9 +1532,20 @@
     .jobs-section {
         background-color: #F6F7F8;
 
-        .heading {
-            h3 {
-                color: #003375;
+        .job-heading {
+            @include rfs(2.1875rem, font-size);
+            @include rfs(2.8125rem, line-height);
+            color: #003375;
+        }
+
+        .job-subheading {
+            @include rfs(1.25rem, font-size);
+            @include rfs(1.875rem, line-height);
+            color: #000000;
+
+            p {
+                @include rfs(1.25rem, font-size);
+                @include rfs(1.875rem, line-height);
             }
         }
 

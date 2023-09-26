@@ -12291,8 +12291,39 @@ a > .bootstrap-container code {
 .bootstrap-container .jobs-section {
   background-color: #F6F7F8;
 }
-.bootstrap-container .jobs-section .heading h3, .bootstrap-container .jobs-section .heading .h3 {
+.bootstrap-container .jobs-section .job-heading {
+  font-size: calc(1.34375rem + 1.125vw);
+  line-height: calc(1.40625rem + 1.875vw);
   color: #003375;
+}
+@media (min-width: 1200px) {
+  .bootstrap-container .jobs-section .job-heading {
+    font-size: 2.1875rem;
+  }
+}
+@media (min-width: 1200px) {
+  .bootstrap-container .jobs-section .job-heading {
+    line-height: 2.8125rem;
+  }
+}
+.bootstrap-container .jobs-section .job-subheading {
+  font-size: 1.25rem;
+  line-height: calc(1.3125rem + 0.75vw);
+  color: #000000;
+}
+@media (min-width: 1200px) {
+  .bootstrap-container .jobs-section .job-subheading {
+    line-height: 1.875rem;
+  }
+}
+.bootstrap-container .jobs-section .job-subheading p {
+  font-size: 1.25rem;
+  line-height: calc(1.3125rem + 0.75vw);
+}
+@media (min-width: 1200px) {
+  .bootstrap-container .jobs-section .job-subheading p {
+    line-height: 1.875rem;
+  }
 }
 .bootstrap-container .jobs-section .job-listings .filters {
   border-bottom: 2px solid #D9D9D9;
