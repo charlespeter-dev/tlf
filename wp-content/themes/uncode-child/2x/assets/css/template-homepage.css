@@ -20,6 +20,11 @@
     margin-right: unset;
     padding-left: unset;
   }
+  .bootstrap-container .testimonials ._2x-carousel-testimonials-content {
+    margin-left: unset;
+    margin-right: unset;
+    padding-left: unset;
+  }
 }
 @media (min-width: 768px) {
   .bootstrap-container .hero-carousels .carousel-item {

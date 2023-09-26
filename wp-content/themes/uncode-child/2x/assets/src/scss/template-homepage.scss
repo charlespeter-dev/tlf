@@ -37,6 +37,14 @@
                 padding-left: unset;
             }
         }
+
+        .testimonials {
+            ._2x-carousel-testimonials-content {
+                margin-left: unset;
+                margin-right: unset;
+                padding-left: unset;
+            }
+        }
     }
 
     @include media-breakpoint-up(md) {
