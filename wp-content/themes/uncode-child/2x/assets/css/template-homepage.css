@@ -25,6 +25,9 @@
     margin-right: unset;
     padding-left: unset;
   }
+  .bootstrap-container .featured-post {
+    text-align: center;
+  }
 }
 @media (min-width: 768px) {
   .bootstrap-container .hero-carousels .carousel-item {

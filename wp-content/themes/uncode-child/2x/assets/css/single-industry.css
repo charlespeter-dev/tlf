@@ -73,6 +73,11 @@
     text-align: right;
   }
 }
+@media (max-width: 767.98px) {
+  .bootstrap-container.industry.single .featured-resource {
+    text-align: center;
+  }
+}
 .bootstrap-container.industry.single .featured-resource .sub-heading {
   text-align: center;
 }
