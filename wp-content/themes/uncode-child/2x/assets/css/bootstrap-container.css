@@ -12561,6 +12561,10 @@ input[type=submit]:not(.btn-custom-typo):not(.btn-inherit):hover {
   color: #E30613 !important;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
   background-color: #EDEFF0;
 }
