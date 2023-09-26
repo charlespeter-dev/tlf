@@ -91,6 +91,10 @@
 
         .featured-resource {
 
+            @include media-breakpoint-down(md) {
+                text-align: center;
+            }
+
             .sub-heading {
                 text-align: center;
             }
