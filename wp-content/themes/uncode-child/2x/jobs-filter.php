@@ -63,11 +63,8 @@ $categories = $filtered_categories;
             <div class="jobs-wrapper">
                 <div class="rows grid">
                     <?php foreach ($jobs_ids as $job_id): ?>
-                        <a class="job-card grid-item <?php foreach (get_the_category($job_id) as $subcat) {
-                            echo $subcat->slug;
-                        } ?>" href="<?= get_the_permalink($job_id) ?>" data-category="<?php foreach (get_the_category($job_id) as $subcat) {
-                               echo $subcat->slug;
-                           } ?>">
+                        <?php $terms = get_the_terms( $job_id, 'career-category' ); ?>
+                        <a class="job-card grid-item <?php foreach($terms as $term) {echo $term->slug;} ?>" href="<?= get_the_permalink($job_id) ?>" data-category="<?php foreach($terms as $term) {echo $term->slug;} ?>">
                             <div class="job-item h-100">
                                 <div class="job-body">
                                     <p class="job-title">
