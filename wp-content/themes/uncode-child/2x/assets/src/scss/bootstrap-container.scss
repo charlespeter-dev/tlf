@@ -1883,6 +1883,10 @@ input[type="submit"]:not(.btn-custom-typo):not(.btn-inherit) {
 
 // --- end: generic form styling
 
+html {
+    scroll-behavior: smooth;
+}
+
 body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
     background-color: #EDEFF0;
 }

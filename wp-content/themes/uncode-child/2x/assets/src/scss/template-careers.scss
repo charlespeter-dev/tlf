@@ -41,6 +41,31 @@
         }
     }
 
+    .top-content {
+        position: relative;
+
+        &::before {
+            content: '';
+            display: block;
+            width: 100vw;
+            height: 100%;
+            background-color: #EDEFF0;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+        }
+    }
+
+    .callout-with-cards {
+
+        &::before {
+            background-color: #FFFFFF;
+        }
+    }
+
     .faces-of-tlf {
         a {
             text-decoration: none;

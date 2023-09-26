@@ -67,12 +67,19 @@ get_header() ?>
                     class="small-height" alt="" loading="lazy">
                 <div class="_2x-hero-content">
                     <div class="row">
-                        <div class="col-lg-12">
-                            <div class="mb-0">
+                        <div class="col-lg-6">
+                            <div class="mb-3">
                                 <h2 class="mb-0">
-                                    <?= get_the_title($post->ID) ?>
+                                    <?= $main_heading ?>
                                 </h2>
                             </div>
+                            <?php if (isset($sub_heading) && $sub_heading): ?>
+                                <div class="mb-4">
+                                    <div class="sub-heading">
+                                        <?= $sub_heading ?>
+                                    </div>
+                                </div>
+                            <?php endif ?>
                         </div>
                     </div>
                 </div>

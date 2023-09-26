@@ -26,6 +26,25 @@
     background-image: none;
   }
 }
+.bootstrap-container .top-content {
+  position: relative;
+}
+.bootstrap-container .top-content::before {
+  content: "";
+  display: block;
+  width: 100vw;
+  height: 100%;
+  background-color: #EDEFF0;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+.bootstrap-container .callout-with-cards::before {
+  background-color: #FFFFFF;
+}
 .bootstrap-container .faces-of-tlf a {
   text-decoration: none;
 }
