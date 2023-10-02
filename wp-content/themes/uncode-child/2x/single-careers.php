@@ -68,16 +68,19 @@ get_header() ?>
                             <p class="form-desc">
                                 <?= $form_description ?>
                             </p>
-                            <div class="form-embed">
-                                <?= $application_form_embed ?>
-                            </div>
+
+                            <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+                                <div class="form-embed">
+                                    <?php echo do_shortcode(get_field('application_form_embed'));?>
+                                </div>
+                            <?php endwhile; endif; ?>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
+  
     <section id="jobs-section" class="jobs-section py-lg-5 py-4">
         <div class="row-container">
             <div class="single-h-padding limit-width">
@@ -96,5 +99,3 @@ get_header() ?>
 </div>
 
 <?= get_footer() ?>
-
-// job section id

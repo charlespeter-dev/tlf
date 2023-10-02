@@ -187,7 +187,7 @@
             "label": "Application Form Embed",
             "name": "application_form_embed",
             "aria-label": "",
-            "type": "wysiwyg",
+            "type": "text",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -196,11 +196,11 @@
                 "class": "",
                 "id": ""
             },
-            "tabs": "all",
-            "toolbar": "full",
-            "media_upload": 1,
-            "default_value": "",
-            "delay": 0
+            "default_value": "[contact-form-7 id=\"72cf6e0\" title=\"Contact Career - Vacatures\"]",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         }
     ],
     "location": [
@@ -221,5 +221,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1695178929
+    "modified": 1695986893
 }
