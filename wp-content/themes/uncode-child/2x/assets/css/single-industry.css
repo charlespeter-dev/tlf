@@ -68,10 +68,26 @@
 .bootstrap-container.industry.single .callout .sub-heading {
   text-align: center;
 }
+.bootstrap-container.industry.single .callout .icon {
+  text-align: center;
+}
 @media (min-width: 992px) {
   .bootstrap-container.industry.single .callout .icon {
     text-align: right;
   }
+}
+.bootstrap-container.industry.single .callout .headline,
+.bootstrap-container.industry.single .callout .excerpt {
+  text-align: center;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.industry.single .callout .headline,
+  .bootstrap-container.industry.single .callout .excerpt {
+    text-align: left;
+  }
+}
+.bootstrap-container.industry.single .callout .headline {
+  margin-bottom: 0;
 }
 @media (max-width: 767.98px) {
   .bootstrap-container.industry.single .featured-resource {

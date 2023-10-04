@@ -131,7 +131,7 @@
                         "class": "",
                         "id": ""
                     },
-                    "default_value": "What Our Customer Say About Us",
+                    "default_value": "What Our Customers Say About Us",
                     "maxlength": "",
                     "placeholder": "",
                     "prepend": "",
@@ -553,5 +553,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1695308011
+    "modified": 1696423294
 }
