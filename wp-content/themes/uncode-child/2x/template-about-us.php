@@ -63,16 +63,23 @@ get_header() ?>
     <section class="hero-carousels">
         <div class="row-container">
             <div class="single-h-padding limit-width position-relative">
-                <img src="<?= wp_get_attachment_image_url($background_image, '_2x_small-banner') ?>"
-                    class="small-height" alt="" loading="lazy">
+
+                <img src="<?= wp_get_attachment_image_url($background_image, '_2x-carousel-hero') ?>" class="full-width"
+                    alt="" loading="lazy">
+
                 <div class="_2x-hero-content">
+
                     <div class="row">
                         <div class="col-lg-6">
-                            <div class="mb-3">
-                                <h2 class="mb-0">
-                                    <?= $main_heading ?>
-                                </h2>
-                            </div>
+
+                            <?php if (isset($main_heading) && $main_heading): ?>
+                                <div class="mb-3">
+                                    <h2 class="mb-0">
+                                        <?= $main_heading ?>
+                                    </h2>
+                                </div>
+                            <?php endif ?>
+
                             <?php if (isset($sub_heading) && $sub_heading): ?>
                                 <div class="mb-4">
                                     <div class="sub-heading">
@@ -80,8 +87,18 @@ get_header() ?>
                                     </div>
                                 </div>
                             <?php endif ?>
+
+                            <?php if (isset($cta) && $cta): ?>
+                                <div>
+                                    <a class="btn btn-primary" href="<?= $cta['url'] ?>">
+                                        <?= $cta['title'] ?>
+                                    </a>
+                                </div>
+                            <?php endif ?>
+
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

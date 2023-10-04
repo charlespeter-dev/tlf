@@ -68,6 +68,22 @@
             "new_lines": ""
         },
         {
+            "key": "field_651d4cc77efff",
+            "label": "CTA",
+            "name": "cta",
+            "aria-label": "",
+            "type": "link",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array"
+        },
+        {
             "key": "field_6506d0997da63",
             "label": "Main Content",
             "name": "main_content",
@@ -473,5 +489,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1695740135
+    "modified": 1696419034
 }
