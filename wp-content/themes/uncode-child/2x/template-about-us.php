@@ -290,7 +290,7 @@ get_header() ?>
 
                 const swiperPartnerLogo = new Swiper("._2x-swiper", {
                     autoplay: {
-                        delay: 5000,
+                        delay: 3000,
                         pauseOnMouseEnter: false,
                         disableOnInteraction: false
                     },
