@@ -83,7 +83,7 @@ if (!function_exists('uncode_get_current_post_type') || uncode_get_current_post_
 		$footer_block_content = '';
 
 		if (!$has_vc_row) {
-			$content_style        = uncode_gutenberg_content_block_skin_classes();
+			$content_style = uncode_gutenberg_content_block_skin_classes();
 			$footer_block_content .= '<div class="footer-content-block row-container ' . esc_attr($content_style) . '">';
 
 			// Add inner row
@@ -195,7 +195,7 @@ if (!function_exists('uncode_get_current_post_type') || uncode_get_current_post_
 	</div><!-- page wrapper -->
 	<?php
 	$footer_content = apply_filters('uncode_filter_for_translation', $footer_content);
-	if ($is_redirect !== true && $footer_content !== '') : ?>
+	if ($is_redirect !== true && $footer_content !== ''): ?>
 		<footer id="colophon" class="<?php echo esc_attr($class_footer); ?>">
 			<?php
 			echo uncode_switch_stock_string($footer_content);
@@ -252,22 +252,26 @@ if (!function_exists('uncode_get_current_post_type') || uncode_get_current_post_
 
 	?>
 
-	<?php if (apply_filters('uncode_search_active', ot_get_option('_uncode_menu_search')) === 'on') : ?>
-		<div class="overlay overlay-<?php echo esc_attr($search_animation); ?> overlay-full style-dark style-dark-bg overlay-search" data-area="search" data-container="box-container">
+	<?php if (apply_filters('uncode_search_active', ot_get_option('_uncode_menu_search')) === 'on'): ?>
+		<div class="overlay overlay-<?php echo esc_attr($search_animation); ?> overlay-full style-dark style-dark-bg overlay-search"
+			data-area="search" data-container="box-container">
 			<div class="mmb-container">
-				<div class="menu-close-search mobile-menu-button menu-button-offcanvas mobile-menu-button-dark lines-button overlay-close close" data-area="search" data-container="box-container"><span class="lines"></span></div>
+				<div class="menu-close-search mobile-menu-button menu-button-offcanvas mobile-menu-button-dark lines-button overlay-close close"
+					data-area="search" data-container="box-container"><span class="lines"></span></div>
 			</div>
-			<div class="search-container"><?php
-											global $overlay_search;
-											$overlay_search = 'yes';
+			<div class="search-container">
+				<?php
+				global $overlay_search;
+				$overlay_search = 'yes';
 
-											if (ot_get_option('_uncode_menu_search_type') === 'products') {
-												add_filter('uncode_product_search_type', '__return_true');
-											}
+				if (ot_get_option('_uncode_menu_search_type') === 'products') {
+					add_filter('uncode_product_search_type', '__return_true');
+				}
 
-											get_search_form(true);
-											$overlay_search = '';
-											?></div>
+				get_search_form(true);
+				$overlay_search = '';
+				?>
+			</div>
 		</div>
 	<?php endif; ?>
 
@@ -282,7 +286,7 @@ if (!function_exists('uncode_get_current_post_type') || uncode_get_current_post_
 
 $footer = get_field('footer', 'option');
 
-if ($footer) : ?>
+if ($footer): ?>
 	<footer>
 		<section class="bootstrap-container">
 
@@ -301,18 +305,54 @@ if ($footer) : ?>
 
 						<div class="row">
 
-							<?php foreach ($footer as $pagename => $items) : ?>
+							<?php foreach ($footer as $pagename => $items):
 
-								<?php if (!in_array($pagename, ['logo_image', 'follow_us', 'copyright'])) : ?>
+								/**
+								 * permalink for $pagename
+								 */
 
-									<div class="col <?= (in_array($pagename, ['services', 'industries'])) ? 'col-lg-3 pt-0' : '' ?>">
+								$permalinks = [];
 
-										<p class="page-name mb-4"><strong><?= $pagename ?></strong></p>
+								if ($pagename == 'services') {
+									$page = get_page_by_slug('services', 'v2');
+									$permalinks[$pagename] = get_the_permalink($page->ID);
+								}
+
+								if ($pagename == 'industries') {
+									$page = get_page_by_slug('industry', 'v2');
+									$permalinks[$pagename] = get_the_permalink($page->ID);
+								}
+
+								if ($pagename == 'resources') {
+									$page = get_page_by_slug('resources', 'v2');
+									$permalinks[$pagename] = get_the_permalink($page->ID);
+								}
+
+								?>
+
+								<?php if (!in_array($pagename, ['logo_image', 'follow_us', 'copyright'])): ?>
+
+									<div
+										class="col <?= (in_array($pagename, ['services', 'industries'])) ? 'col-lg-3 pt-0' : '' ?>">
+
+										<p class="page-name mb-4">
+											<strong>
+												<?php if (isset($permalinks[$pagename]) && $permalinks[$pagename]): ?>
+													<a href="<?= $permalinks[$pagename] ?>">
+														<?= $pagename ?>
+													</a>
+												<?php else: ?>
+													<?= $pagename ?>
+												<?php endif ?>
+											</strong>
+										</p>
 
 										<ul class="mb-5">
-											<?php foreach ($items as $item) : ?>
+											<?php foreach ($items as $item): ?>
 												<li>
-													<a href="<?= $item['cta_url'] ?>"><?= $item['cta_text'] ?></a>
+													<a href="<?= $item['cta_url'] ?>">
+														<?= $item['cta_text'] ?>
+													</a>
 												</li>
 											<?php endforeach ?>
 										</ul>
@@ -321,14 +361,16 @@ if ($footer) : ?>
 
 								<?php endif ?>
 
-								<?php if ($pagename == 'follow_us') : ?>
+								<?php if ($pagename == 'follow_us'): ?>
 
 									<div class="col">
 
-										<p class="page-name mb-4"><strong><?= str_replace('_', ' ', $pagename) ?></strong></p>
+										<p class="page-name mb-4"><strong>
+												<?= str_replace('_', ' ', $pagename) ?>
+											</strong></p>
 
 										<ul class="follow-us mb-5">
-											<?php foreach ($items as $item) : ?>
+											<?php foreach ($items as $item): ?>
 												<li>
 													<a href="<?= $item['icon_url'] ?>">
 														<img src="<?= $item['icon_image'] ?>" alt="">
