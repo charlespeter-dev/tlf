@@ -103,15 +103,19 @@ get_header() ?>
                     <div class="row gy-4">
                         <?php foreach ($callout_cards['cards'] as $k => $item): ?>
                             <div class="col">
-                                <div class="d-flex flex-column">
-                                    <img class="callout-with-cards-icon" src="<?= $item['icon'] ?>" alt="" loading="lazy">
+                                <div class="contents">
+
+                                    <div class="icon">
+                                        <img src="<?= $item['icon'] ?>" alt="" loading="lazy">
+                                    </div>
+
                                     <div>
-                                        <p class="callout-with-cards-headline mb-3">
+                                        <p class="headline mb-0 mb-lg-3">
                                             <strong>
                                                 <?= $item['headline'] ?>
                                             </strong>
                                         </p>
-                                        <p class="callout-with-cards-excerpt">
+                                        <p class="excerpt">
                                             <?= $item['excerpt'] ?>
                                         </p>
                                     </div>

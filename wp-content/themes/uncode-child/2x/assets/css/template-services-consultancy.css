@@ -26,5 +26,52 @@
     background-image: none;
   }
 }
+.bootstrap-container .callout-with-cards::before {
+  content: unset;
+}
+.bootstrap-container .callout-with-cards-sub-heading {
+  font-size: 1.25rem;
+  line-height: calc(1.3125rem + 0.75vw);
+  color: #000000;
+  text-align: center;
+}
+@media (min-width: 1200px) {
+  .bootstrap-container .callout-with-cards-sub-heading {
+    line-height: 1.875rem;
+  }
+}
+.bootstrap-container .callout-with-cards-sub-heading p {
+  font-size: 1.25rem;
+  line-height: calc(1.3125rem + 0.75vw);
+}
+@media (min-width: 1200px) {
+  .bootstrap-container .callout-with-cards-sub-heading p {
+    line-height: 1.875rem;
+  }
+}
+.bootstrap-container .callout-with-cards .contents {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+@media (min-width: 992px) {
+  .bootstrap-container .callout-with-cards .contents {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+.bootstrap-container .callout-with-cards .contents .icon {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+@media (min-width: 992px) {
+  .bootstrap-container .callout-with-cards .contents .icon {
+    text-align: left;
+  }
+}
+.bootstrap-container .callout-with-cards .contents .icon img {
+  width: 120px;
+}
 
 /*# sourceMappingURL=template-services-consultancy.css.map */
