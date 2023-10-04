@@ -319,5 +319,8 @@
     background-image: none;
   }
 }
+.bootstrap-container .hero-carousels + .tabbed {
+  margin-top: 0 !important;
+}
 
 /*# sourceMappingURL=single-industry.css.map */

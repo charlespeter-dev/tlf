@@ -407,4 +407,8 @@
             background-image: none;
         }
     }
+
+    .hero-carousels+.tabbed {
+        margin-top: 0 !important;
+    }
 }
