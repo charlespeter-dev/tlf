@@ -92,7 +92,9 @@ get_header() ?>
                                 class="img-fluid" controls></video>
                         </div>
                         <div class="col-lg-6">
-                            <?= $top_content['content'] ?>
+                            <div class="mt-4 mt-lg-0">
+                                <?= $top_content['content'] ?>
+                            </div>
                         </div>
                     </div>
 
