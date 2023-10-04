@@ -83,10 +83,7 @@ get_header() ?>
 
                                     <div class="_2x-hero-content">
                                         <div class="row">
-                                            <div class="col-lg-6">
-                                                <img src="<?= wp_get_attachment_image_url($item['resource_carousel_thumbnail'], 'full') ?>"
-                                                    class="img-fluid" alt="" loading="lazy">
-                                            </div>
+                                            
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <h2 class="mb-0">
@@ -104,6 +101,12 @@ get_header() ?>
                                                     </a>
                                                 </div>
                                             </div>
+
+                                            <div class="col-lg-6">
+                                                <img src="<?= wp_get_attachment_image_url($item['resource_carousel_thumbnail'], 'full') ?>"
+                                                    class="img-fluid" alt="" loading="lazy">
+                                            </div>
+
                                         </div>
                                     </div>
 
