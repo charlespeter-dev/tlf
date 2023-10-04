@@ -196,10 +196,10 @@ get_header() ?>
             <div class="row-container">
                 <div class="single-h-padding limit-width position-relative">
 
-                    <?php foreach ($boards as $board): ?>
+                    <?php foreach ($boards as $i => $board): ?>
                         <div class="row">
                             <div class="col">
-                                <h2 class="board-name blue text-center pb-5 mb-5">
+                                <h2 class="board-name blue text-center pb-5 mb-5 <?= ($i == 1) ? 'pt-5 mt-5' : '' ?>">
                                     <?= $board['board_name'] ?>
                                 </h2>
                             </div>
