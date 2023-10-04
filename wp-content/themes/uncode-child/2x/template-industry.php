@@ -62,29 +62,35 @@ get_header() ?>
 
                 <div class="_2x-hero-content">
 
-                    <?php if (isset($main_heading) && $main_heading): ?>
-                        <div class="mb-3">
-                            <h2 class="mb-0">
-                                <?= $main_heading ?>
-                            </h2>
-                        </div>
-                    <?php endif ?>
+                    <div class="row">
+                        <div class="col-lg-6">
 
-                    <?php if (isset($sub_heading) && $sub_heading): ?>
-                        <div>
-                            <div class="sub-heading">
-                                <?= $sub_heading ?>
-                            </div>
-                        </div>
-                    <?php endif ?>
+                            <?php if (isset($main_heading) && $main_heading): ?>
+                                <div class="mb-3">
+                                    <h2 class="mb-0">
+                                        <?= $main_heading ?>
+                                    </h2>
+                                </div>
+                            <?php endif ?>
 
-                    <?php if (isset($cta) && $cta): ?>
-                        <div>
-                            <a class="btn btn-primary" href="<?= $cta['url'] ?>">
-                                <?= $cta['title'] ?>
-                            </a>
+                            <?php if (isset($sub_heading) && $sub_heading): ?>
+                                <div class="mb-4">
+                                    <div class="sub-heading">
+                                        <?= $sub_heading ?>
+                                    </div>
+                                </div>
+                            <?php endif ?>
+
+                            <?php if (isset($cta) && $cta): ?>
+                                <div>
+                                    <a class="btn btn-primary" href="<?= $cta['url'] ?>">
+                                        <?= $cta['title'] ?>
+                                    </a>
+                                </div>
+                            <?php endif ?>
+
                         </div>
-                    <?php endif ?>
+                    </div>
 
                 </div>
 
