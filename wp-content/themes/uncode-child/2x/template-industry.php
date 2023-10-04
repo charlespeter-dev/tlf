@@ -23,8 +23,8 @@ extract($fields);
 $industries_query = new WP_Query([
     'post_type' => 'industry',
     'posts_per_page' => -1,
-    'orderby' => 'date',
-    'order' => 'DESC',
+    'orderby' => 'title',
+    'order' => 'ASC',
     'fields' => 'ids',
     'post_status' => 'publish'
 ]);
