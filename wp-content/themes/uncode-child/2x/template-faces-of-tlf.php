@@ -70,24 +70,23 @@ get_header() ?>
     </section>
 
     <?php if (isset($cards_ids)): ?>
-        <section class="cards-overview faces-of-tlf my-5">
+        <section class="faces-of-tlf my-5">
             <div class="row-container">
                 <div class="single-h-padding limit-width">
 
-                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-5">
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 gy-4">
 
                         <?php foreach ($cards_ids as $card_id): ?>
                             <div class="col">
                                 <a href="<?= get_the_permalink($card_id) ?>">
                                     <div class="card h-100">
-                                        <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($card_id), '_2x-card-faces-of-tlf-left-top') ?>"
-                                            class="img-fluid" alt="" loading="lazy">
-
-                                        <div class="card-body">
-                                            <h5 class="card-title">
+                                        <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($card_id), '_2x-carousel-news') ?>"
+                                            class="img-top" alt="" loading="lazy">
+                                        <div class="card-body position-relative wpk-box-brand">
+                                            <p class="sub-title">
                                                 <?= __('Faces of TLF') ?>
-                                            </h5>
-                                            <p class="card-text">
+                                            </p>
+                                            <p class="name">
                                                 <?= _2x_format_title($card_id) ?>
                                             </p>
                                         </div>

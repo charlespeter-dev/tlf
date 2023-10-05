@@ -196,8 +196,8 @@ get_header() ?>
                         <?php foreach ($faces_of_tlf['faces'] as $k => $item): ?>
 
                             <div class="col">
-                                <div class="card h-100">
-                                    <a href="<?= get_the_permalink($item['face']) ?>">
+                                <a href="<?= get_the_permalink($item['face']) ?>">
+                                    <div class="card h-100">
                                         <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($item['face']), '_2x-carousel-news') ?>"
                                             class="img-top" alt="" loading="lazy">
                                         <div class="card-body position-relative wpk-box-brand">
@@ -208,8 +208,8 @@ get_header() ?>
                                                 <?= _2x_format_title($item['face']) ?>
                                             </p>
                                         </div>
-                                    </a>
-                                </div>
+                                    </div>
+                                </a>
                             </div>
 
                         <?php endforeach ?>
