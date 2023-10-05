@@ -108,7 +108,7 @@ get_header() ?>
                             <div class="col">
                                 <a href="<?= get_the_permalink($card_id) ?>">
                                     <div class="card h-100">
-                                        <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($card_id), '_2x-card-customers') ?>"
+                                        <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($card_id), '_2x-card-faces-of-tlf-left-top') ?>"
                                             class="img-fluid" alt="" loading="lazy">
 
                                         <div class="card-body">

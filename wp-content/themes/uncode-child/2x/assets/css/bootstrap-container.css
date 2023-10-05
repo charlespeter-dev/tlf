@@ -11074,12 +11074,12 @@ a > .bootstrap-container code {
   text-decoration: none;
 }
 .bootstrap-container .cards-overview .card img {
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 .bootstrap-container .cards-overview .card .card-body {
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
   background: rgb(3, 72, 162);
   background: linear-gradient(180deg, rgb(3, 72, 162) 0%, rgb(0, 26, 59) 100%);
 }
@@ -11110,7 +11110,7 @@ a > .bootstrap-container code {
   display: flex;
   flex-direction: column;
   border: 1px solid #ccc;
-  border-radius: 15px;
+  border-radius: 10px;
   height: 100%;
 }
 @media screen and (min-width: 992px) {
@@ -11119,13 +11119,13 @@ a > .bootstrap-container code {
   }
 }
 .bootstrap-container .cards-overview.news .card-news img {
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 @media screen and (min-width: 992px) {
   .bootstrap-container .cards-overview.news .card-news img {
-    border-top-left-radius: 15px;
-    border-bottom-left-radius: 15px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
     border-top-right-radius: unset;
     width: 200px;
     object-fit: cover;
