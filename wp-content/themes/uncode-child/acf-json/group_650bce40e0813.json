@@ -531,6 +531,26 @@
                     "bidirectional": 0,
                     "ui": 1,
                     "bidirectional_target": []
+                },
+                {
+                    "key": "field_65262313e850e",
+                    "label": "Hide",
+                    "name": "hide",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "Hide this Featured Resource",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "Hide this Featured Resource",
+                    "default_value": 1,
+                    "ui": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": ""
                 }
             ]
         }
@@ -553,5 +573,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1696423294
+    "modified": 1696998885
 }

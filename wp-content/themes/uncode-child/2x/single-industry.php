@@ -42,7 +42,7 @@ if (isset($featured_testimonials['testimonials']) && $featured_testimonials['tes
 
 $fresource = [];
 
-if (isset($featured_resource['resource']) && $featured_resource['resource']) {
+if (isset($featured_resource['resource']) && $featured_resource['resource'] && !$featured_resource['hide']) {
     $post_id = $featured_resource['resource'];
     $fresource = get_fields($post_id);
 
