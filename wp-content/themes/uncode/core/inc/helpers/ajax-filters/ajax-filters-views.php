@@ -10,124 +10,126 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Output term filter in list/checkbox mode
  */
-function uncode_ajax_term_filter_list_html( $key_to_query, $filter_terms, $query_args, $args = array(), $is_checkbox = false ) {
-	$multiple    = isset( $args['multiple'] ) ? $args['multiple'] : false;
-	$show_count  = isset( $args['show_count'] ) ? $args['show_count'] : false;
-	$hierarchy   = isset( $args['hierarchy'] ) ? $args['hierarchy'] : false;
-	$display     = isset( $args['display'] ) ? $args['display'] : false;
-	$columns_num = isset( $args['columns_num'] ) ? $args['columns_num'] : false;
-	$is_logo     = isset( $args['is_logo'] ) && $args['is_logo'] ? true : false;
+if ( ! function_exists( "uncode_ajax_term_filter_list_html" ) ) {
+	function uncode_ajax_term_filter_list_html( $key_to_query, $filter_terms, $query_args, $args = array(), $is_checkbox = false ) {
+		$multiple    = isset( $args['multiple'] ) ? $args['multiple'] : false;
+		$show_count  = isset( $args['show_count'] ) ? $args['show_count'] : false;
+		$hierarchy   = isset( $args['hierarchy'] ) ? $args['hierarchy'] : false;
+		$display     = isset( $args['display'] ) ? $args['display'] : false;
+		$columns_num = isset( $args['columns_num'] ) ? $args['columns_num'] : false;
+		$is_logo     = isset( $args['is_logo'] ) && $args['is_logo'] ? true : false;
 
-	$filter_list_class = $is_logo ? 'term-filters-list--logo' : '';
+		$filter_list_class = $is_logo ? 'term-filters-list--logo' : '';
 
-	?>
-	<?php if ( $hierarchy === 'yes' && ! $display && ! in_array( $key_to_query, uncode_get_special_filter_keys() ) ) : ?>
-		<?php
-		$args['filter_terms'] = $filter_terms;
-		$sort_by = $args['sort_by'] === 'desc' ? 'DESC' : 'ASC';
-
-		$wp_list_args = array(
-			'title_li'   => '',
-			'style'      => 'list',
-			'echo'       => false,
-			'taxonomy'   => $key_to_query,
-			'depth'      => 100,
-			'show_count' => $show_count,
-			'include'    => array_keys( $filter_terms ),
-			'order'      => $sort_by,
-			'walker'     => new Uncode_Walker_Filters( $query_args, $args, $is_checkbox )
-		);
-
-		if ( $args['order_by'] === 'count' ) {
-			$wp_list_args['order_by'] = 'count';
-		} else if ( $args['order_by'] === 'custom' ) {
-			$wp_list_args['orderby'] = 'meta_value_num';
-			$wp_list_args['meta_key'] = 'order';
-		}
-
-		$terms_list = wp_list_categories( $wp_list_args );
 		?>
-		<ul class="term-filters-list <?php echo esc_attr( $filter_list_class ); ?>">
-			<?php echo uncode_switch_stock_string( $terms_list ); ?>
-		</ul>
-	<?php else : ?>
-		<?php
-		$filter_list_class = $display === 'inline' ? 'term-filters-list--inline' : ( $display === 'columns' ? 'term-filters-list--columns term-filters-list--columns-' . $columns_num : '' );
-
-		if ( $is_logo ) {
-			$filter_list_class .= ' term-filters-list--logo';
-		}
-		?>
-		<ul class="term-filters-list <?php echo esc_attr( $filter_list_class ); ?>">
+		<?php if ( $hierarchy === 'yes' && ! $display && ! in_array( $key_to_query, uncode_get_special_filter_keys() ) ) : ?>
 			<?php
-			if ( ! $multiple ) {
-				$has_checked = false;
+			$args['filter_terms'] = $filter_terms;
+			$sort_by = $args['sort_by'] === 'desc' ? 'DESC' : 'ASC';
+
+			$wp_list_args = array(
+				'title_li'   => '',
+				'style'      => 'list',
+				'echo'       => false,
+				'taxonomy'   => $key_to_query,
+				'depth'      => 100,
+				'show_count' => $show_count,
+				'include'    => array_keys( $filter_terms ),
+				'order'      => $sort_by,
+				'walker'     => new Uncode_Walker_Filters( $query_args, $args, $is_checkbox )
+			);
+
+			if ( $args['order_by'] === 'count' ) {
+				$wp_list_args['order_by'] = 'count';
+			} else if ( $args['order_by'] === 'custom' ) {
+				$wp_list_args['orderby'] = 'meta_value_num';
+				$wp_list_args['meta_key'] = 'order';
+			}
+
+			$terms_list = wp_list_categories( $wp_list_args );
+			?>
+			<ul class="term-filters-list <?php echo esc_attr( $filter_list_class ); ?>">
+				<?php echo uncode_switch_stock_string( $terms_list ); ?>
+			</ul>
+		<?php else : ?>
+			<?php
+			$filter_list_class = $display === 'inline' ? 'term-filters-list--inline' : ( $display === 'columns' ? 'term-filters-list--columns term-filters-list--columns-' . $columns_num : '' );
+
+			if ( $is_logo ) {
+				$filter_list_class .= ' term-filters-list--logo';
 			}
 			?>
-
-			<?php foreach ( $filter_terms as $filter_term_key => $filter_term_value ) : ?>
+			<ul class="term-filters-list <?php echo esc_attr( $filter_list_class ); ?>">
 				<?php
-				if ( in_array( $key_to_query, uncode_get_special_filter_keys() ) || $key_to_query === 'custom_price' ) {
-					$term             = $filter_term_key;
-					$term_id          = $term;
-					$term_name        = $filter_term_value['name'];
-					$term_slug        = $term;
-					$term_description = '';
-					$is_taxonomy      = false;
-				} else {
-					$term             = $filter_term_value['term'];
-					$term_id          = $term->term_id;
-					$term_name        = $term->name;
-					$term_slug        = $term->slug;
-					$term_description = $term->description;
-					$is_taxonomy      = true;
-				}
-
-				$filter_id           = 'filter_' . rand() . '_' . $term_id;
-				$current_filter_atts = uncode_get_filter_link_attributes( $term, $key_to_query, $query_args, $args, $filter_terms );
-
-				list( $filter_url, $filter_atts ) = $current_filter_atts;
-				$checked = $filter_atts['checked'];
-
 				if ( ! $multiple ) {
-					if ( $has_checked ) {
-						$checked = false;
-					}
-
-					if ( $checked ) {
-						$has_checked = true;
-					}
-				}
-
-				if ( $key_to_query === 'rating' ) {
-					$display_value = wc_get_rating_html( $term );
-				} else if ( $key_to_query === 'custom_price' ) {
-					$display_value = $term_name;
-				} else {
-					$display_value = esc_html( $term_name );
-				}
-
-				$term_param = $is_taxonomy ? $term : false;
-
-				if ( apply_filters( 'uncode_show_term_description', false, $term_param ) && $term_description ) {
-					$display_value .= '<span class="term-filter-description">' . $term_description . '</span>';
+					$has_checked = false;
 				}
 				?>
-				<li class="term-filter">
-					<?php if ( $is_checkbox ) : ?>
-						<label for="<?php echo esc_attr( $filter_id ); ?>"><input type="checkbox" name="<?php echo esc_attr( $filter_id ); ?>" id="<?php echo esc_attr( $filter_id ); ?>" value="<?php echo esc_attr( $term_slug ); ?>" <?php checked( $checked, true ); ?>><a href="<?php echo esc_url( $filter_url ); ?>" class="term-filter-link" title="<?php echo esc_attr( strip_tags( $term_description ) ); ?>"><?php echo uncode_switch_stock_string( $display_value ); ?></a></label>
-					<?php else : ?>
-						<a href="<?php echo esc_url( $filter_url ); ?>" class="term-filter-link <?php echo esc_attr( $checked ? 'term-filter-link--active' : '' );  ?>" title="<?php echo esc_attr( strip_tags( $term_description ) ); ?>"><?php echo uncode_switch_stock_string( $display_value ); ?></a>
-					<?php endif; ?>
 
-					<?php if ( $show_count ) : ?>
-						<span class="term-filter-count">(<?php echo number_format_i18n( $filter_term_value['count'] ); ?>)</span>
-					<?php endif; ?>
-				</li>
-			<?php endforeach; ?>
-		</ul>
-	<?php endif; ?>
-	<?php
+				<?php foreach ( $filter_terms as $filter_term_key => $filter_term_value ) : ?>
+					<?php
+					if ( in_array( $key_to_query, uncode_get_special_filter_keys() ) || $key_to_query === 'custom_price' ) {
+						$term             = $filter_term_key;
+						$term_id          = $term;
+						$term_name        = $filter_term_value['name'];
+						$term_slug        = $term;
+						$term_description = '';
+						$is_taxonomy      = false;
+					} else {
+						$term             = $filter_term_value['term'];
+						$term_id          = $term->term_id;
+						$term_name        = $term->name;
+						$term_slug        = $term->slug;
+						$term_description = $term->description;
+						$is_taxonomy      = true;
+					}
+
+					$filter_id           = 'filter_' . rand() . '_' . $term_id;
+					$current_filter_atts = uncode_get_filter_link_attributes( $term, $key_to_query, $query_args, $args, $filter_terms );
+
+					list( $filter_url, $filter_atts ) = $current_filter_atts;
+					$checked = $filter_atts['checked'];
+
+					if ( ! $multiple ) {
+						if ( $has_checked ) {
+							$checked = false;
+						}
+
+						if ( $checked ) {
+							$has_checked = true;
+						}
+					}
+
+					if ( $key_to_query === 'rating' ) {
+						$display_value = wc_get_rating_html( $term );
+					} else if ( $key_to_query === 'custom_price' ) {
+						$display_value = $term_name;
+					} else {
+						$display_value = esc_html( $term_name );
+					}
+
+					$term_param = $is_taxonomy ? $term : false;
+
+					if ( apply_filters( 'uncode_show_term_description', false, $term_param ) && $term_description ) {
+						$display_value .= '<span class="term-filter-description">' . $term_description . '</span>';
+					}
+					?>
+					<li class="term-filter">
+						<?php if ( $is_checkbox ) : ?>
+							<label for="<?php echo esc_attr( $filter_id ); ?>"><input type="checkbox" name="<?php echo esc_attr( $filter_id ); ?>" id="<?php echo esc_attr( $filter_id ); ?>" value="<?php echo esc_attr( $term_slug ); ?>" <?php checked( $checked, true ); ?>><a href="<?php echo esc_url( $filter_url ); ?>" class="term-filter-link" title="<?php echo esc_attr( strip_tags( $term_description ) ); ?>"><?php echo uncode_switch_stock_string( $display_value ); ?></a></label>
+						<?php else : ?>
+							<a href="<?php echo esc_url( $filter_url ); ?>" class="term-filter-link <?php echo esc_attr( $checked ? 'term-filter-link--active' : '' );  ?>" title="<?php echo esc_attr( strip_tags( $term_description ) ); ?>"><?php echo uncode_switch_stock_string( $display_value ); ?></a>
+						<?php endif; ?>
+
+						<?php if ( $show_count ) : ?>
+							<span class="term-filter-count">(<?php echo number_format_i18n( $filter_term_value['count'] ); ?>)</span>
+						<?php endif; ?>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+		<?php endif; ?>
+		<?php
+	}
 }
 
 /**

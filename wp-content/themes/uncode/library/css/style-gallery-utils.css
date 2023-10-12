@@ -89,6 +89,7 @@
 .grid-filters ul.menu-smart li {
   display: inline-flex !important;
   position: relative;
+  vertical-align: baseline !important;
 }
 @media (min-width: 960px) {
   .grid-filters ul.menu-smart li {

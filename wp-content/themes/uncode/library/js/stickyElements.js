@@ -23,7 +23,7 @@
 			sideOffset += UNCODE.bodyBorder;
 
 			if (UNCODE.adminBarHeight > 0) sideOffset += UNCODE.adminBarHeight;
-			if ($('.menu-sticky .menu-container:not(.menu-hide)').length && !$('.menu-wrapper .menu-desktop-transparent').length) {
+			if ($('.menu-sticky .menu-container:not(.menu-hide)').length) {
 				if ($('.menu-shrink').length) {
 					sideOffset += parseFloat( $('.navbar-brand').data('minheight') ) + shrink;
 				} else {
@@ -37,6 +37,12 @@
 
 		initStickyElement = function() {
 			$.each($('.sticky-element'), function(index, element) {
+				if ($(element).closest('.tab-pane').length) {
+					var $paneParent = $(element).closest('.tab-pane');
+					if ( !$paneParent.hasClass('active') ) {
+						return true;
+					}
+				}
 				$(element).stick_in_parent({
 					sticky_class: 'is_stucked',
 					offset_top: calculateOffset(element),
@@ -58,10 +64,9 @@
 				}
 
 				$(window).on('resize lateral_resize', function(event) {
+					$(".sticky-element").trigger("sticky_kit:detach");
 					if ($(window).width() > UNCODE.mediaQuery) {
 						initStickyElement();
-					} else {
-						$(".sticky-element").trigger("sticky_kit:detach");
 					}
 				});
 			}
@@ -84,6 +89,14 @@
 				});
 			});
 		}
+
+		$('.nav-tabs a').on('shown.bs.tab', function(e){
+			var $tabs = $(e.target).closest('.tab-container'),
+				$panel = $('.tab-pane.active', $tabs);
+
+			$(".sticky-element").trigger("sticky_kit:detach");
+			initStickyElement();
+	});
 	}
 };
 

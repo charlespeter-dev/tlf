@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Uncode\n"
 "Report-Msgid-Bugs-To: info@undsgn.com\n"
-"POT-Creation-Date: 2023-08-23 09:51+0200\n"
-"PO-Revision-Date: 2023-08-23 09:51+0200\n"
+"POT-Creation-Date: 2023-10-03 16:19+0200\n"
+"PO-Revision-Date: 2023-10-03 16:19+0200\n"
 "Last-Translator: Undsgn <info@undsgn.com>\n"
 "Language-Team: Undsgn <info@undsgn.com>\n"
 "Language: en_US\n"
@@ -457,6 +457,10 @@ msgid ""
 "alternate arrangements."
 msgstr ""
 
+#: woocommerce/checkout/order-received.php:35
+msgid "Thank you. Your order has been received."
+msgstr ""
+
 #: woocommerce/checkout/uncode-form-pay-table.php:27
 msgid "Qty"
 msgstr ""
@@ -477,10 +481,6 @@ msgstr ""
 
 #: woocommerce/checkout/thankyou.php:43
 msgid "My account"
-msgstr ""
-
-#: woocommerce/checkout/thankyou.php:49 woocommerce/checkout/thankyou.php:95
-msgid "Thank you. Your order has been received."
 msgstr ""
 
 #: woocommerce/checkout/thankyou.php:54
@@ -678,7 +678,7 @@ msgstr ""
 msgid "Clear"
 msgstr ""
 
-#: woocommerce/single-product/add-to-cart/simple.php:70 core/inc/main.php:1262
+#: woocommerce/single-product/add-to-cart/simple.php:70 core/inc/main.php:1274
 #: core/inc/admin.php:94
 msgid "Read more"
 msgstr ""
@@ -778,8 +778,8 @@ msgid "Brown, Black"
 msgstr ""
 
 #: core/inc/compatibility/woocommerce/variations/variations-admin-settings.php:15
-#: core/inc/helpers/images/srcset-images-functions.php:335
-#: core/inc/helpers/images/srcset-images-functions.php:417
+#: core/inc/helpers/images/srcset-images-functions.php:347
+#: core/inc/helpers/images/srcset-images-functions.php:429
 msgid "Invalid nonce."
 msgstr ""
 
@@ -815,32 +815,32 @@ msgid "Invalid nonce or empty data."
 msgstr ""
 
 #: core/inc/compatibility/woocommerce/sorting.php:18
-#: core/inc/helpers/ajax-filters/ajax-filters.php:856
+#: core/inc/helpers/ajax-filters/ajax-filters.php:858
 msgid "Default sorting"
 msgstr ""
 
 #: core/inc/compatibility/woocommerce/sorting.php:19
-#: core/inc/helpers/ajax-filters/ajax-filters.php:859
+#: core/inc/helpers/ajax-filters/ajax-filters.php:861
 msgid "Sort by popularity"
 msgstr ""
 
 #: core/inc/compatibility/woocommerce/sorting.php:20
-#: core/inc/helpers/ajax-filters/ajax-filters.php:862
+#: core/inc/helpers/ajax-filters/ajax-filters.php:864
 msgid "Sort by average rating"
 msgstr ""
 
 #: core/inc/compatibility/woocommerce/sorting.php:21
-#: core/inc/helpers/ajax-filters/ajax-filters.php:865
+#: core/inc/helpers/ajax-filters/ajax-filters.php:867
 msgid "Sort by latest"
 msgstr ""
 
 #: core/inc/compatibility/woocommerce/sorting.php:22
-#: core/inc/helpers/ajax-filters/ajax-filters.php:868
+#: core/inc/helpers/ajax-filters/ajax-filters.php:870
 msgid "Sort by price: low to high"
 msgstr ""
 
 #: core/inc/compatibility/woocommerce/sorting.php:23
-#: core/inc/helpers/ajax-filters/ajax-filters.php:871
+#: core/inc/helpers/ajax-filters/ajax-filters.php:873
 msgid "Sort by price: high to low"
 msgstr ""
 
@@ -859,6 +859,10 @@ msgstr ""
 
 #: core/inc/compatibility/woocommerce/checkout/functions.php:36
 msgid "Payment method"
+msgstr ""
+
+#: core/inc/compatibility/woocommerce/checkout/functions.php:179
+msgid "Please log in to your account to view this order."
 msgstr ""
 
 #: core/inc/compatibility/woocommerce/checkout/checkout.php:158
@@ -1058,32 +1062,32 @@ msgstr ""
 msgid "Sidebar"
 msgstr ""
 
-#: core/inc/main.php:449 vc_templates/uncode_countdown.php:63
+#: core/inc/main.php:462 vc_templates/uncode_countdown.php:63
 msgid "days"
 msgstr ""
 
-#: core/inc/main.php:450 vc_templates/uncode_countdown.php:63
+#: core/inc/main.php:463 vc_templates/uncode_countdown.php:63
 msgid "hours"
 msgstr ""
 
-#: core/inc/main.php:451 vc_templates/uncode_countdown.php:63
+#: core/inc/main.php:464 vc_templates/uncode_countdown.php:63
 msgid "minutes"
 msgstr ""
 
-#: core/inc/main.php:452 vc_templates/uncode_countdown.php:63
+#: core/inc/main.php:465 vc_templates/uncode_countdown.php:63
 msgid "seconds"
 msgstr ""
 
-#: core/inc/main.php:456 vc_templates/uncode_index.php:2871
+#: core/inc/main.php:469 vc_templates/uncode_index.php:2886
 #: vc_templates/vc_gallery.php:1543
 msgid "Loading…"
 msgstr ""
 
-#: core/inc/main.php:457
+#: core/inc/main.php:470
 msgid "slide"
 msgstr ""
 
-#: core/inc/main.php:458
+#: core/inc/main.php:471
 msgid "footer"
 msgstr ""
 
@@ -1481,23 +1485,23 @@ msgstr ""
 msgid "Minute"
 msgstr ""
 
-#: core/inc/helpers.php:506
+#: core/inc/helpers.php:510
 msgid "Error when retrieving the image editor."
 msgstr ""
 
-#: core/inc/helpers.php:521
+#: core/inc/helpers.php:525
 msgid "Error when resizing the image"
 msgstr ""
 
-#: core/inc/helpers.php:571
+#: core/inc/helpers.php:575
 msgid "Error when saving the image"
 msgstr ""
 
-#: core/inc/helpers.php:604
+#: core/inc/helpers.php:608
 msgid "Path not correct"
 msgstr ""
 
-#: core/inc/helpers.php:1407 vc_templates/uncode_consent_notice.php:48
+#: core/inc/helpers.php:1411 vc_templates/uncode_consent_notice.php:48
 msgid ""
 "This content is blocked. Please review your [uncode_privacy_box]Privacy "
 "Settings[/uncode_privacy_box]."
@@ -2488,12 +2492,12 @@ msgstr ""
 msgid "No available data"
 msgstr ""
 
-#: core/inc/helpers/images/srcset-images-functions.php:399
-#: core/inc/helpers/images/srcset-images-functions.php:480
+#: core/inc/helpers/images/srcset-images-functions.php:411
+#: core/inc/helpers/images/srcset-images-functions.php:492
 msgid "Empty data."
 msgstr ""
 
-#: core/inc/helpers/images/srcset-images-functions.php:429
+#: core/inc/helpers/images/srcset-images-functions.php:441
 msgid "Invalid mobile breakpoint size."
 msgstr ""
 
@@ -2506,55 +2510,55 @@ msgstr ""
 msgid "Please add at least one 'Placeholder' to your design."
 msgstr ""
 
-#: core/inc/helpers/ajax-filters/ajax-filters.php:911
-#: core/inc/helpers/ajax-filters/ajax-filters-views.php:579
+#: core/inc/helpers/ajax-filters/ajax-filters.php:913
+#: core/inc/helpers/ajax-filters/ajax-filters-views.php:581
 #, php-format
 msgctxt "ajax_price_filter"
 msgid "Under %s"
 msgstr ""
 
-#: core/inc/helpers/ajax-filters/ajax-filters.php:921
-#: core/inc/helpers/ajax-filters/ajax-filters-views.php:573
+#: core/inc/helpers/ajax-filters/ajax-filters.php:923
+#: core/inc/helpers/ajax-filters/ajax-filters-views.php:575
 #, php-format
 msgctxt "ajax_price_filter"
 msgid "Over %s"
 msgstr ""
 
-#: core/inc/helpers/ajax-filters/ajax-filters.php:1288
+#: core/inc/helpers/ajax-filters/ajax-filters.php:1290
 msgid "On sale"
 msgstr ""
 
-#: core/inc/helpers/ajax-filters/ajax-filters.php:1292
+#: core/inc/helpers/ajax-filters/ajax-filters.php:1294
 msgid "In stock"
 msgstr ""
 
-#: core/inc/helpers/ajax-filters/ajax-filters.php:1296
+#: core/inc/helpers/ajax-filters/ajax-filters.php:1298
 #, php-format
 msgid "%s star"
 msgid_plural "%s stars"
 msgstr[0] ""
 msgstr[1] ""
 
-#: core/inc/helpers/ajax-filters/ajax-filters-views.php:460
+#: core/inc/helpers/ajax-filters/ajax-filters-views.php:462
 #: partials/menus.php:837 searchform.php:9
 msgid "Search products…"
 msgstr ""
 
-#: core/inc/helpers/ajax-filters/ajax-filters-views.php:460
+#: core/inc/helpers/ajax-filters/ajax-filters-views.php:462
 #: partials/menus.php:837 searchform.php:9
 msgid "Search…"
 msgstr ""
 
-#: core/inc/helpers/ajax-filters/ajax-filters-views.php:492
+#: core/inc/helpers/ajax-filters/ajax-filters-views.php:494
 #: vc_templates/uncode_index.php:1690
 msgid "Clear all"
 msgstr ""
 
-#: core/inc/helpers/ajax-filters/ajax-filters-views.php:553
+#: core/inc/helpers/ajax-filters/ajax-filters-views.php:555
 msgid "Active filter 1"
 msgstr ""
 
-#: core/inc/helpers/ajax-filters/ajax-filters-views.php:554
+#: core/inc/helpers/ajax-filters/ajax-filters-views.php:556
 msgid "Active filter 2"
 msgstr ""
 
@@ -3253,7 +3257,7 @@ msgstr ""
 msgid "Please activate Uncode Core plugin"
 msgstr ""
 
-#: footer.php:126 vc_templates/uncode_copyright.php:48 partials/menus.php:1523
+#: footer.php:126 vc_templates/uncode_copyright.php:48 partials/menus.php:1524
 msgid "All rights reserved"
 msgstr ""
 
@@ -3298,11 +3302,11 @@ msgstr ""
 msgid "Apply"
 msgstr ""
 
-#: vc_templates/uncode_index.php:2819
+#: vc_templates/uncode_index.php:2834
 msgid "The Post Table layout must start with a 'Column' element."
 msgstr ""
 
-#: vc_templates/uncode_index.php:2871 vc_templates/vc_gallery.php:1543
+#: vc_templates/uncode_index.php:2886 vc_templates/vc_gallery.php:1543
 msgid "Load more"
 msgstr ""
 

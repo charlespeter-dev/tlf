@@ -257,7 +257,20 @@ add_filter('oembed_result','uncode_oembed_result', 10, 3);
  * Setup Uncode globals.
  */
 function uncode_setup_globals() {
-	global $adaptive_images, $adaptive_images_async, $adaptive_images_async_blur, $dynamic_srcset_active, $dynamic_srcset_sizes, $dynamic_srcset_bg_mobile_size, $register_adaptive_meta, $ai_sizes, $ai_bpoints, $resize_image_quality, $activate_webp;
+	global $adaptive_images, $adaptive_images_async, $adaptive_images_async_blur, $dynamic_srcset_active, $dynamic_srcset_sizes, $dynamic_srcset_bg_mobile_size, $register_adaptive_meta, $ai_sizes, $ai_bpoints, $resize_image_quality, $activate_webp, $enable_adaptive_dynamic_img, $enable_adaptive_dynamic_bg;
+
+	$enable_adaptive_dynamic_img = true;
+	$enable_adaptive_dynamic_bg  = true;
+
+	if ( defined( 'WP_ROCKET_VERSION' ) ) {
+		if ( get_rocket_option( 'lazyload' ) ) {
+			$enable_adaptive_dynamic_img = false;
+		}
+
+		if ( get_rocket_option( 'lazyload_css_bg_img' ) ) {
+			$enable_adaptive_dynamic_bg = false;
+		}
+	}
 
 	// Register meta
 	$register_adaptive_meta = ot_get_option('_uncode_adaptive_register_meta') === 'on' ? true : false;
@@ -467,7 +480,6 @@ function uncode_equeue() {
 		'listen_for_screen_update'   => apply_filters( 'uncode_listen_for_screen_update', true ),
 		'wireframes_plugin_active'   => class_exists( 'Uncode_Wireframes' ) ? true : false,
 		'sticky_elements'			 => apply_filters( 'uncode_sticky_elements', ot_get_option('_uncode_sticky_elements') ),
-		'lazyload_type'              => apply_filters( 'uncode_lazyload_type', false ),
 		'resize_quality'             => $resize_image_quality,
 		'register_metadata'          => $register_adaptive_meta,
 		'bg_changer_time'			 => floatval( apply_filters( 'uncode_bg_changer_time', 1000 ) ),

@@ -149,7 +149,9 @@ function uncode_filters_populate_tax_terms( $tax_source, $tax_to_query, $query_a
 
 		$posts_query = null;
 
-		if ( is_tax( $tax_to_query ) || ( ( ! $multiple || uncode_get_filters_query_relation( $tax_to_query, $query_args, $tax_source ) === 'or' ) && uncode_is_only_current_filter( $tax_to_query, $query_args, $tax_source ) ) ) {
+		$fixed = apply_filters( 'uncode_make_multiple_ajax_filter_fixed', false );
+
+		if ( is_tax( $tax_to_query ) || ( $fixed && $multiple ) || ( ( ! $multiple || uncode_get_filters_query_relation( $tax_to_query, $query_args, $tax_source ) === 'or' ) && uncode_is_only_current_filter( $tax_to_query, $query_args, $tax_source ) ) ) {
 			if ( ! is_null( $uncode_ajax_filter_query_unfiltered ) ) {
 				$posts_query = $uncode_ajax_filter_query_unfiltered;
 			}
@@ -1769,7 +1771,7 @@ function uncode_get_filter_link_attributes( $term, $key_to_query, $query_args = 
 				$link = get_term_link( $key_value, $key_to_query );
 
 				if ( ! is_wp_error( $link ) ) {
-					if ( is_tax( $key_to_query ) ) {
+					if ( is_tax( $key_to_query ) || $key_to_query === 'category' || $key_to_query === 'tag' ) {
 						$queried_object = get_queried_object();
 
 						if ( ! is_wp_error( $queried_object ) && $queried_object ) {

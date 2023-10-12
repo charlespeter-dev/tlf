@@ -1951,7 +1951,6 @@ button[type="submit"] {
     font-size: <?php echo sanitize_text_field($menu_mobile_centered_font_size); ?> !important;
   }
   .font-size-mobile-centered-submenu,
-  .menu-smart > li > a > div > div > div.btn,
   body.menu-mobile-centered .main-menu-container .menu-horizontal .menu-horizontal-inner ul.menu-smart:not(.menu-primary-inner) li.menu-item:not(.uncode-cart) > a,
   body.menu-mobile-centered .vmenu-container .vmenu-row-wrapper .vmenu-wrap-cell ul.menu-smart:not(.menu-primary-inner) li.menu-item:not(.uncode-cart) > a,
   body.menu-mobile-centered .overlay-menu .navbar-main .menu-sidebar-inner ul.menu-smart:not(.menu-primary-inner) li.menu-item:not(.uncode-cart) > a,

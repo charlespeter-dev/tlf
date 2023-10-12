@@ -13,7 +13,7 @@ if ( $el_id !== '' ) {
 	$el_id = '';
 }
 
-global $adaptive_images, $adaptive_images_async, $dynamic_srcset_active, $dynamic_srcset_sizes, $activate_webp;
+global $adaptive_images, $adaptive_images_async, $dynamic_srcset_active, $dynamic_srcset_sizes, $activate_webp, $enable_adaptive_dynamic_img;
 
 $el_class = $this->getExtraClass($el_class);
 $css_class = apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'uncode-twentytwenty ' . $el_class, $this->settings['base'], $atts);
@@ -36,7 +36,7 @@ if ($adaptive_images === 'on' && $adaptive_images_async === 'on') {
 	if ( $adaptive_async_class ) {
 		$img_data_before = uncode_get_adaptive_async_data( $media_before, $media_attributes_before, $media_before_metavalue['width'], $media_before_metavalue['height'], 12, 'null', '' );
 	}
-} else if ( $adaptive_images === 'off' && $dynamic_srcset_active ) {
+} else if ( $adaptive_images === 'off' && $dynamic_srcset_active && $enable_adaptive_dynamic_img ) {
 	$adaptive_async_class = uncode_get_srcset_async_class();
 	$img_class_before     = ' class="img-responsive ' . $adaptive_async_class . '"';
 	$adaptive_async_data  = uncode_get_srcset_async_data( array( 'full_image' => true, 'activate_webp' => $activate_webp ), $dynamic_srcset_sizes, $media_before, $media_attributes_before, $resized_image_before, $media_before_metavalue['width'], $media_before_metavalue['height'], 12, 'null', '' );
@@ -58,7 +58,7 @@ if ($adaptive_images === 'on' && $adaptive_images_async === 'on') {
 	if ( $adaptive_async_class ) {
 		$img_data_after = uncode_get_adaptive_async_data( $media_after, $media_attributes_after, $media_after_metavalue['width'], $media_after_metavalue['height'], 12, 'null', '' );
 	}
-} else if ( $adaptive_images === 'off' && $dynamic_srcset_active ) {
+} else if ( $adaptive_images === 'off' && $dynamic_srcset_active && $enable_adaptive_dynamic_img ) {
 	$img_class_after     = ' class="img-responsive ' . $adaptive_async_class . '"';
 	$adaptive_async_data = uncode_get_srcset_async_data( array( 'full_image' => true, 'activate_webp' => $activate_webp ), $dynamic_srcset_sizes, $media_after, $media_attributes_after, $resized_image_after, $media_after_metavalue['width'], $media_after_metavalue['height'], 12, 'null', '' );
 	$img_data_after      = $adaptive_async_data['string'];

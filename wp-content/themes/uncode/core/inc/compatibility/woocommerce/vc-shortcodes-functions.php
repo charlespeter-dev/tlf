@@ -92,7 +92,8 @@ function uncode_woocommerce_inject_classes( $html, $args ) {
 				// titles
 				if ( isset( $args[ 'title' ] ) && is_array( $args[ 'title' ] ) ) {
 					$h3_classes = implode( ' ', $args[ 'title' ] );
-					$html = str_replace( '<h3', '<h3 class="' . esc_attr( $h3_classes ) . '"', $html );
+					$html = str_replace( 'class="woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received"', 'data-inject="true" class="woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received ' . esc_attr( $h3_classes ) . '"', $html );
+					$html = str_replace( '<h3>', '<h3 class="' . esc_attr( $h3_classes ) . '">', $html );
 					$html = str_replace( '<h2', '<h2 class="' . esc_attr( $h3_classes ) . '"', $html );
 				}
 

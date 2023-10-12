@@ -26,6 +26,7 @@
   .drop-mobile-block.uncode-post-titles .titles-display-inline .tmb .drop-image-separator-empty {
     overflow: hidden;
     width: 0;
+    height: 0 !important;
   }
 }
 .uncode-post-titles .tmb {

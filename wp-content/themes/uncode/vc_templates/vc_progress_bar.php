@@ -126,14 +126,14 @@ foreach ( $graph_lines_data as $line ) {
 	$output .= '<div class="'.esc_attr(trim(implode(' ', $container_class))).'" '.implode(' ', $div_data_attributes).'>' . $line['label'] . '<small class="vc_label">' . $unit . '</small></div>';
 	$output .= '<div class="vc_single_bar'.$back_color.'" ' . $back_style . '>';
 	if ( $line['value'] !== false ) {
-		$percentage_value = $line['value'];
-	} elseif ( $max_value > 100.00 ) {
-		$percentage_value = (float)$line['value'] > 0 && $max_value > 100.00 ? round( (float)$line['value'] / $max_value * 100, 4 ) : 0;
-	} else {
-		$percentage_value = $line['value'];
+		if ( $max_value > 100.00 ) {
+			$percentage_value = (float)$line['value'] > 0 && $max_value > 100.00 ? round( (float)$line['value'] / $max_value * 100, 4 ) : 0;
+		} else {
+			$percentage_value = $line['value'];
+		}
+		$output .= '<span class="vc_bar' . $bar_color . $bar_options . '" data-percentage-value="' . esc_attr( $percentage_value ) . '" data-value="' . esc_attr($line['value']) . '" ' . $bar_style . '></span>';
+		$output .= '</div>';
 	}
-	$output .= '<span class="vc_bar' . $bar_color . $bar_options . '" data-percentage-value="' . esc_attr( $percentage_value ) . '" data-value="' . esc_attr($line['value']) . '" ' . $bar_style . '></span>';
-	$output .= '</div>';
 }
 
 $output .= '</div>';

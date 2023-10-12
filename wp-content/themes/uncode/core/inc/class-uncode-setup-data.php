@@ -186,6 +186,15 @@ class Uncode_Setup_Post_Data {
 				$post_data['header_cb_id'] = absint( $header_cb_id );
 			}
 
+			// Content
+			$content_cb_type = ot_get_option('_uncode_404_body');
+			if ( $content_cb_type === 'body_uncodeblock' ) {
+				$content_cb = ot_get_option('_uncode_404_body_block');
+				if ( $content_cb && $content_cb !== '' && $content_cb !== 'none' ) {
+					$post_data['content_cb_id'] = absint( $content_cb );
+				}
+			}
+
 			// Footer
 			$footer_block_id = $this->get_footer_content_block( '404' );
 			if ( $footer_block_id ) {

@@ -134,7 +134,11 @@ add_filter('max_srcset_image_width', 'uncode_disable_wp_responsive_images');
  * Get adaptive async class
  */
 function uncode_get_adaptive_async_class( $options = array() ) {
-	global $adaptive_images, $adaptive_images_async, $adaptive_images_async_blur;
+	global $adaptive_images, $adaptive_images_async, $adaptive_images_async_blur, $enable_adaptive_dynamic_img, $enable_adaptive_dynamic_bg;
+
+	if ( ! $enable_adaptive_dynamic_img || ! $enable_adaptive_dynamic_bg ) {
+		return '';
+	}
 
 	// The class that activates the async
 	$adaptive_async_class = ' adaptive-async';

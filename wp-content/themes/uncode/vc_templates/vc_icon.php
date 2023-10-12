@@ -1,6 +1,6 @@
 <?php
 
-global $adaptive_images, $dynamic_srcset_active;
+global $adaptive_images, $dynamic_srcset_active, $enable_adaptive_dynamic_img;
 
 $title = $heading_semantic = $text_font = $text_size = $text_weight = $text_height = $text_space = $text_lead = $icon = $icon_image = $icon_automatic = $position = $space_reduced = $icon_color = $background_style = $size = $outline = $display = $shadow = $add_margin = $text_reduced = $el_id = $el_class = $link = $link_text = $media_lightbox = $css_animation = $animation_delay = $animation_speed = $background_color = $a_title = $a_target = $a_rel = $lightbox_data = $lightbox_data_title = $title_aligned_icon = $linked_title = $media_size = $lbox_skin = $lbox_transparency = $lbox_dir = $lbox_title = $lbox_caption = $lbox_social = $lbox_deep = $lbox_deep_id = $lbox_no_tmb = $lbox_no_arrows = $lbox_gallery_arrows = $lbox_gallery_arrows_bg = $lbox_zoom_origin = $lbox_connected = $lbox_actual_size = $lbox_full = $lbox_download = $lbox_counter = $lbox_transition = $lb_video_advanced = $lb_autoplay = $lb_muted = '';
 
@@ -684,7 +684,7 @@ if ($icon_image === '') {
 		}
 	} elseif ($media_code['type'] === 'image') {
 		$container_class[] = 'icon-media-image';
-		if ( $adaptive_images === 'off' && $dynamic_srcset_active && isset( $media_code['async'] ) ) {
+		if ( $adaptive_images === 'off' && $dynamic_srcset_active && $enable_adaptive_dynamic_img && isset( $media_code['async'] ) ) {
 			$class = isset( $media_code['async']['class'] ) ? $media_code['async']['class'] : '';
 			$async_data = isset( $media_code['async']['data'] ) ? $media_code['async']['data'] : '';
 		} else {

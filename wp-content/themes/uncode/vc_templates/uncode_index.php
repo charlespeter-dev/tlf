@@ -624,7 +624,7 @@ if ( is_search() && ( $using_plugin === 'yes' || $auto_query === 'yes' ) ) {
 			if ( isset( $_GET['ucat'] ) ) {
 				$search_loop['category'] = absint( $_GET['ucat'] );
 			}
-			
+
 			if ( isset( $_loop_args['size'] ) ) {
 				$search_loop['size'] = $_loop_args['size'];
 			}
@@ -1934,7 +1934,21 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 						$matrix_amount = intval($matrix_amount) == 0 ? 1 : intval($matrix_amount);
 						$item_prop = (isset($matrix_items[($i_matrix % $matrix_amount) . '_i'])) ? $matrix_items[($i_matrix % $matrix_amount) . '_i'] : array();
 					} else {
-						$item_prop = (isset($items[$post->id . '_i'])) ? $items[$post->id . '_i'] : array();
+						if (isset($items[$post->id . '_i'])) {
+							$item_prop = $items[$post->id . '_i'];
+						} else {
+							$item_prop = array();
+							$element_type = 'post_' . get_post_type($post->id);
+							$wpml_translations = apply_filters( 'wpml_get_element_translations', array(), apply_filters( 'wpml_element_trid', false, $post->id, $element_type), $element_type);
+							if (!empty($wpml_translations)) {
+								foreach($wpml_translations as $elem) {
+									if (empty($elem->source_language_code) && isset($items[$elem->element_id . '_i'])) {
+										$item_prop = $items[$elem->element_id . '_i'];
+										break;
+									}
+								}
+							}
+						}
 					}
 
 					if ($post->type === 'product' || $post->type === 'product_variation') {
@@ -2544,6 +2558,7 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 					if (!$is_tax_query && isset($item_prop['single_link']) && $item_prop['single_link'] != '') {
 						$post->link = $item_prop['single_link'];
 						$link = vc_build_link( $item_prop['single_link'] );
+						$link['url'] = apply_filters( 'wpml_permalink', $link['url'] );
 						$post->link = $link['url'];
 						$a_title = $link['title'];
 						$a_target = $link['target'];

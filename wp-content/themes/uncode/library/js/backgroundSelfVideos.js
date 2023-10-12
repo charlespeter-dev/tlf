@@ -100,8 +100,8 @@
 					$(video_el).closest('.background-wrapper').find('.block-bg-blend-mode.not-ie').css('opacity', '1');
 				} else {
 					requestTimeout(function(){
-						backgroundSelfVideosInit( $ctx );
-					}, 100);
+                         backgroundSelfVideosInit( $ctx );
+					}, 1000);
 				}
 			});
 		}

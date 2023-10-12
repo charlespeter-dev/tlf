@@ -55,11 +55,6 @@ require_once get_template_directory() . '/core/inc/compatibility/wishlist/class-
 require_once get_template_directory() . '/core/inc/compatibility/wishlist/wishlist-helpers.php';
 
 /**
- * WP Rocket.
- */
-require_once get_template_directory() . '/core/inc/compatibility/wp-rocket/class-uncode-wp-rocket.php';
-
-/**
  * WooCommerce PayPal Payments.
  */
 require_once get_template_directory() . '/core/inc/compatibility/woocommerce-paypal-payments/class-uncode-woocommerce-paypal-payments.php';

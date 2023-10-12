@@ -2416,7 +2416,6 @@ button[type="submit"] {
     font-size: 5.5vw !important;
   }
   .font-size-mobile-centered-submenu,
-  .menu-smart > li > a > div > div > div.btn,
   body.menu-mobile-centered .main-menu-container .menu-horizontal .menu-horizontal-inner ul.menu-smart:not(.menu-primary-inner) li.menu-item:not(.uncode-cart) > a,
   body.menu-mobile-centered .vmenu-container .vmenu-row-wrapper .vmenu-wrap-cell ul.menu-smart:not(.menu-primary-inner) li.menu-item:not(.uncode-cart) > a,
   body.menu-mobile-centered .overlay-menu .navbar-main .menu-sidebar-inner ul.menu-smart:not(.menu-primary-inner) li.menu-item:not(.uncode-cart) > a,

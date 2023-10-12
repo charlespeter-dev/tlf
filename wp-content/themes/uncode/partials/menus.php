@@ -312,7 +312,7 @@ if (!class_exists('unmenu')) {
 			$menu_bloginfo_show = '';
 			$menu_secondary_show = '';
 			$menu_socials_top_bar = '';
-			if ( $secondary_enhanced === 'on' ) {
+			if ( $secondary_enhanced === 'on' && strpos($type, 'hmenu') !== false ) {
 				$menu_bloginfo_show = ot_get_option( '_uncode_menu_bloginfo_show' );
 				$menu_secondary_show = ot_get_option( '_uncode_menu_secondary_show' );
 				$menu_socials_top_bar = ot_get_option( '_uncode_menu_socials_top_bar' );
@@ -977,20 +977,21 @@ if (!class_exists('unmenu')) {
 																					$menu_socials_html = $social_html_inner_top;
 																				}
 
-																				foreach ($unique_cols as $key => $value_col) {
-																					$secondary_menu_html .= '<div class="topbar-col topbar-col-' . esc_attr( $value_col ) . '">';
-																						if ( $value_col === $menu_bloginfo_show ) {
-																							$secondary_menu_html .= $menu_bloginfo_html;
-																						}
-																						if ( $value_col === $menu_secondary_show ) {
-																							$secondary_menu_html .= $menu_secondary_html;
-																						}
-																						if ( $value_col === $menu_socials_top_bar ) {
-																							$secondary_menu_html .= $menu_socials_html;
-																						}
-																					$secondary_menu_html .= '</div>';
+																				if ( isset($unique_cols) ) {
+																					foreach ($unique_cols as $key => $value_col) {
+																						$secondary_menu_html .= '<div class="topbar-col topbar-col-' . esc_attr( $value_col ) . '">';
+																							if ( $value_col === $menu_bloginfo_show ) {
+																								$secondary_menu_html .= $menu_bloginfo_html;
+																							}
+																							if ( $value_col === $menu_secondary_show ) {
+																								$secondary_menu_html .= $menu_secondary_html;
+																							}
+																							if ( $value_col === $menu_socials_top_bar ) {
+																								$secondary_menu_html .= $menu_socials_html;
+																							}
+																						$secondary_menu_html .= '</div>';
+																					}
 																				}
-
 																			} else {
 																				$secondary_menu_html .= '<div class="col-lg-0 middle">
 																					<div class="menu-bloginfo">

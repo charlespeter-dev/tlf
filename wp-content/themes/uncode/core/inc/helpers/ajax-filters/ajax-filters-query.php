@@ -239,6 +239,10 @@ function uncode_filter_uncode_index_args( $args, $query_options ) {
 				}
 			}
 		}
+
+		if ( apply_filters( 'uncode_filter_fix_archive_tax_and_query', true ) && is_tax() && ! is_product_category() && ! is_product_tag() ) {
+			$args['tax_query']['relation'] = 'AND';
+		}
 	}
 
 	return $args;

@@ -162,7 +162,7 @@ if ( $filter_type === 'taxonomy' ) {
 	$tax_to_query = $tax_source === 'tax' ? $taxonomy : $product_att;
 	$filter_terms = uncode_filters_populate_tax_terms( $tax_source, $tax_to_query, $query_args, $multiple, $hierarchy, $order_by, $sort_by );
 	$key_to_query = $tax_to_query;
-	$disable_ajax = is_tax( $tax_to_query ) ? true : $disable_ajax;
+	$disable_ajax = is_tax( $tax_to_query ) || ( $key_to_query === 'category' && is_category() ) || ( $key_to_query === 'tag' && is_tag() ) ? true : $disable_ajax;
 
 	if ( $disable_ajax ) {
 		$el_class .= ' widget-ajax-filters--no-ajax';

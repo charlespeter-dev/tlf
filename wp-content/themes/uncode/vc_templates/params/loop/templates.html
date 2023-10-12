@@ -31,6 +31,16 @@
             </div>
 	    </div>
     <# } #>
+	<# if(vc.loop_field_not_hidden('meta_key', loop)) { #>
+		<div class="vc_row vc_row--meta_key vc_row--meta_key-field">
+			<div class="vc_col-sm-12">
+				<label class="wpb_element_label"><span><?php esc_html_e('Meta Key', 'uncode') ?><span class="toggle-description"></span><small class="description clear"><?php esc_html_e('Meta key to filter by.', 'uncode-core'); ?></small></span></label>
+				<div class="edit_form_line">
+					{{{ vc.loop_partial('text-input', 'meta_key', loop) }}}
+				</div>
+			</div>
+		</div>
+	<# } #>
     <# if(vc.loop_field_not_hidden('order', loop)) { #>
 	    <div class="vc_row">
             <div class="vc_col-sm-12">

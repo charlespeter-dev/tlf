@@ -850,16 +850,18 @@ function whichAnimationEvent() {
 
 		},
 		centerSplitMenu = function() {
-			if (wwidth > mediaQuery && mainNavMenu) {
-				if (mainNavMenu.style.left == '') {
-					mainNavMenu.style.left = '0px';
-					var logoPos = logo.parentNode.getBoundingClientRect();
-					mainNavMenu.style.left = (wwidth / 2) - (logoPos.left + (logoPos.width / 2) ) + 'px';
+			if ( typeof mainNavMenu !== 'undefined' && mainNavMenu !== null  ) {
+				if (wwidth > mediaQuery && mainNavMenu) {
+					if (mainNavMenu.style.left == '') {
+						mainNavMenu.style.left = '0px';
+						var logoPos = logo.parentNode.getBoundingClientRect();
+						mainNavMenu.style.left = (wwidth / 2) - (logoPos.left + (logoPos.width / 2) ) + 'px';
+						mainNavWrapper.style.opacity = '1';
+					}
 					mainNavWrapper.style.opacity = '1';
+				} else {
+					mainNavMenu.style.left = '';
 				}
-				mainNavWrapper.style.opacity = '1';
-			} else {
-				mainNavMenu.style.left = '';
 			}
 		},
 		initHeader = function() {
@@ -3523,27 +3525,9 @@ function whichAnimationEvent() {
 										//Workaround for lazy-load flickering on Firefox
 										if ( typeof parentNode.prepend == 'undefined') {
 											if (_this.source !== null) {
-												if (SiteParameters.lazyload_type === 'rocket' && window.lazyLoadOptions) {
-													(_this.el).lazySrc = _this.src;
-
-													if (classie.hasClass((_this.el), 'lazyloaded') || classie.hasClass((_this.el), 'lazyloading')) {
-														(_this.el).src = _this.src;
-														(_this.el).removeAttribute('data-lazy-src');
-													}
-												} else {
-													(_this.el).src = _this.src;
-												}
+												(_this.el).src = _this.src;
 											} else {
-												if (SiteParameters.lazyload_type === 'rocket' && window.lazyLoadOptions) {
-													(_this.el).dataset.bg = _this.src;
-
-													if (classie.hasClass((_this.el), 'lazyloaded') || classie.hasClass((_this.el), 'lazyloading')) {
-														(_this.el).style.backgroundImage = 'url("'+_this.src+'")';
-														(_this.el).removeAttribute('data-bg');
-													}
-												} else {
-													(_this.el).style.backgroundImage = 'url("'+_this.src+'")';
-												}
+												(_this.el).style.backgroundImage = 'url("'+_this.src+'")';
 											}
 
 											classie.addClass(_this.el, 'async-done');
@@ -3552,32 +3536,14 @@ function whichAnimationEvent() {
 											if (_this.source !== null) {
 												placeH = document.createElement("IMG");
 												placeH.setAttribute('class', 'placeH');
-												if (SiteParameters.lazyload_type === 'rocket' && window.lazyLoadOptions) {
-													placeH.dataset.lazySrc = _this.src;
-
-													if (classie.hasClass(placeH, 'lazyloaded') || classie.hasClass(placeH, 'lazyloading')) {
-														placeH.src = _this.src;
-														placeH.removeAttribute('data-lazy-src');
-													}
-												} else {
-													placeH.src = _this.src;
-												}
+												placeH.src = _this.src;
 												placeH.style.position = 'absolute';
 												placeH.style.opacity = '0';
 											} else {
 												placeH = document.createElement("DIV");
 												placeH.setAttribute('style', _this.el.getAttribute('style'));
 												placeH.setAttribute('class', 'placeH ' + _this.el.getAttribute('class'));
-												if (SiteParameters.lazyload_type === 'rocket' && window.lazyLoadOptions) {
-													placeH.dataset.bg = _this.src;
-
-													if (classie.hasClass(placeH, 'lazyloaded') || classie.hasClass(placeH, 'lazyloading')) {
-														placeH.style.backgroundImage = 'url("'+_this.src+'")';
-														placeH.removeAttribute('data-bg');
-													}
-												} else {
-													placeH.style.backgroundImage = 'url("'+_this.src+'")';
-												}
+												placeH.style.backgroundImage = 'url("'+_this.src+'")';
 												placeH.style.backgroundSize = 'cover';
 												placeH.style.backgroundPosition = 'center';
 												placeH.style.position = 'absolute';
@@ -3592,27 +3558,9 @@ function whichAnimationEvent() {
 
 											requestTimeout(function(){
 												if (_this.source !== null) {
-													if (SiteParameters.lazyload_type === 'rocket' && window.lazyLoadOptions) {
-														(_this.el).dataset.lazySrc = _this.src;
-
-														if (classie.hasClass(_this.el, 'lazyloaded') || classie.hasClass(_this.el, 'lazyloading')) {
-															(_this.el).src = _this.src;
-															(_this.el).removeAttribute('data-lazy-src');
-														}
-													} else {
-														(_this.el).src = _this.src;
-													}
+													(_this.el).src = _this.src;
 												} else {
-													if (SiteParameters.lazyload_type === 'rocket' && window.lazyLoadOptions) {
-														(_this.el).dataset.bg = _this.src;
-
-														if (classie.hasClass(_this.el, 'lazyloaded') || classie.hasClass(_this.el, 'lazyloading')) {
-															(_this.el).style.backgroundImage = 'url("'+_this.src+'")';
-															(_this.el).removeAttribute('data-bg');
-														}
-													} else {
-														(_this.el).style.backgroundImage = 'url("'+_this.src+'")';
-													}
+													(_this.el).style.backgroundImage = 'url("'+_this.src+'")';
 												}
 												if ( !classie.hasClass( _this.el, 'box-wrapper') ) {
 													parentNode.removeChild(placeH);

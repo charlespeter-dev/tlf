@@ -69,6 +69,12 @@ add_action( 'uncode_woocommerce_thankyou_before_table', 'uncode_woocommerce_show
 
 if ( $enhanced_thankyou_page ) {
 	add_filter( 'uncode_woocommerce_print_thankyou_table', '__return_false' );
+}
+
+$order_received_ouput = uncode_woocommerce_checkout_get_order_received_ouput( $order, $enhanced_thankyou_page );
+
+if ( $enhanced_thankyou_page ) {
+	add_filter( 'uncode_woocommerce_print_thankyou_table', '__return_false' );
 
 	/********************************
 	 * Details column
@@ -78,6 +84,11 @@ if ( $enhanced_thankyou_page ) {
 	// col classes
 	$details_output_col_classes   = array();
 	$details_output_uncol_classes = array();
+
+	if ( $order_received_ouput['order'] === false ) {
+		$checkout_main_area_size = 12;
+		$checkout_layout = '';
+	}
 
 	// size
 	if ( $checkout_layout === 'horizontal' ) {
@@ -142,98 +153,100 @@ if ( $enhanced_thankyou_page ) {
 
 	$details_output .= ']';
 
-	$details_output_html = wc_get_template_html( 'checkout/thankyou.php', array( 'order' => $order ) );
+	$details_output_html = $order_received_ouput['content'];
 
 	$details_output .= $details_output_html;
 
 	$details_output .= '[/vc_column_inner]';
 
-	/********************************
-	 * Table column
-	 ********************************/
-	$table_output = '[vc_column_inner';
+	if ( $order_received_ouput['order'] ) {
+		/********************************
+		 * Table column
+		 ********************************/
+		$table_output = '[vc_column_inner';
 
-	// col classes
-	$table_col_classes   = array();
-	$table_uncol_classes = array();
+		// col classes
+		$table_col_classes   = array();
+		$table_uncol_classes = array();
 
-	// size
-	if ( $checkout_layout === 'horizontal' ) {
-		$table_output .= ' width="' . uncode_woocommerce_get_grid_col_size( $checkout_sidebar_size ) . '"';
-	}
-
-	// custom padding
-	if ( $order_payment_override_padding ) {
-		$table_output .= ' override_padding="yes"';
-		$table_output .= ' column_padding="' . absint( $order_payment_column_padding ) . '"';
-	}
-
-	// skin
-	if ( $order_payment_style ) {
-		$table_output .= ' style="' . esc_attr( $order_payment_style ) . '"';
-	}
-
-	// background color
-	if ( $order_payment_back_color ) {
-		$table_output .= ' back_color="' . esc_attr( $order_payment_back_color ) . '"';
-	}
-
-	// sticky
-	if ( $order_payment_sticky && ! $equal_height ) {
-		$table_output .= ' sticky="yes"';
-	}
-
-	// shadow
-	if ( $order_payment_shadow ) {
-		$table_output .= ' shadow="' . esc_attr( $order_payment_shadow ) . '"';
-
-		if ( $order_payment_shadow_darker ) {
-			$table_output .= ' shadow_darker="yes"';
-		}
-	}
-
-	// radius
-	if ( $order_payment_radius ) {
-		$table_output .= ' radius="' . esc_attr( $order_payment_radius ) . '"';
-	}
-
-	// off grid
-	if ( $checkout_layout === 'horizontal' && $order_payment_activate_off_grid ) {
-		$order_payment_off_grid_classes = uncode_woocommerce_get_off_grid_classes( $order_payment_shift_x, $order_payment_shift_y, $order_payment_shift_y_down );
-
-		$table_uncol_classes = array_merge( $table_uncol_classes, $order_payment_off_grid_classes );
-
-		$table_output .= ' el_uncol_class="' . esc_attr( trim( implode( ' ', $order_payment_off_grid_classes ) ) ) . '"';
-
-		if ( $order_payment_shift_y_down ) {
-			$table_col_classes[] = 'shift-col-wa';//workaround to remove vertical-align on mobile devices when shift bottom is enabled
+		// size
+		if ( $checkout_layout === 'horizontal' ) {
+			$table_output .= ' width="' . uncode_woocommerce_get_grid_col_size( $checkout_sidebar_size ) . '"';
 		}
 
-		if ( $order_payment_z_index ) {
-			$table_col_classes[] = 'z_index_' . str_replace( '-', 'neg_', $order_payment_z_index );
+		// custom padding
+		if ( $order_payment_override_padding ) {
+			$table_output .= ' override_padding="yes"';
+			$table_output .= ' column_padding="' . absint( $order_payment_column_padding ) . '"';
 		}
+
+		// skin
+		if ( $order_payment_style ) {
+			$table_output .= ' style="' . esc_attr( $order_payment_style ) . '"';
+		}
+
+		// background color
+		if ( $order_payment_back_color ) {
+			$table_output .= ' back_color="' . esc_attr( $order_payment_back_color ) . '"';
+		}
+
+		// sticky
+		if ( $order_payment_sticky && ! $equal_height ) {
+			$table_output .= ' sticky="yes"';
+		}
+
+		// shadow
+		if ( $order_payment_shadow ) {
+			$table_output .= ' shadow="' . esc_attr( $order_payment_shadow ) . '"';
+
+			if ( $order_payment_shadow_darker ) {
+				$table_output .= ' shadow_darker="yes"';
+			}
+		}
+
+		// radius
+		if ( $order_payment_radius ) {
+			$table_output .= ' radius="' . esc_attr( $order_payment_radius ) . '"';
+		}
+
+		// off grid
+		if ( $checkout_layout === 'horizontal' && $order_payment_activate_off_grid ) {
+			$order_payment_off_grid_classes = uncode_woocommerce_get_off_grid_classes( $order_payment_shift_x, $order_payment_shift_y, $order_payment_shift_y_down );
+
+			$table_uncol_classes = array_merge( $table_uncol_classes, $order_payment_off_grid_classes );
+
+			$table_output .= ' el_uncol_class="' . esc_attr( trim( implode( ' ', $order_payment_off_grid_classes ) ) ) . '"';
+
+			if ( $order_payment_shift_y_down ) {
+				$table_col_classes[] = 'shift-col-wa';//workaround to remove vertical-align on mobile devices when shift bottom is enabled
+			}
+
+			if ( $order_payment_z_index ) {
+				$table_col_classes[] = 'z_index_' . str_replace( '-', 'neg_', $order_payment_z_index );
+			}
+		}
+
+		// col classes
+		if ( count( $table_uncol_classes ) > 0 && ! empty( $table_uncol_classes ) ) {
+			$table_output .= ' el_uncol_class="' . esc_attr( trim( implode( ' ', $table_uncol_classes ) ) ) . '"';
+		}
+
+		if ( count( $table_col_classes ) > 0 && ! empty( $table_col_classes ) ) {
+			$table_output .= ' el_class="' . esc_attr( trim( implode( ' ', $table_col_classes ) ) ) . '"';
+		}
+
+		$table_output .= ']';
+
+		ob_start();
+		if ( $order_received_ouput['order'] ) {
+			do_action( 'woocommerce_thankyou', $order->get_id() );
+		}
+		$table_output_html = ob_get_clean();
+
+		$table_output .= $table_output_html;
+
+		$table_output .= '[/vc_column_inner]';
 	}
-
-	// col classes
-	if ( count( $table_uncol_classes ) > 0 && ! empty( $table_uncol_classes ) ) {
-		$table_output .= ' el_uncol_class="' . esc_attr( trim( implode( ' ', $table_uncol_classes ) ) ) . '"';
-	}
-
-	if ( count( $table_col_classes ) > 0 && ! empty( $table_col_classes ) ) {
-		$table_output .= ' el_class="' . esc_attr( trim( implode( ' ', $table_col_classes ) ) ) . '"';
-	}
-
-	$table_output .= ']';
-
-	ob_start();
-	if ( $order ) {
-		do_action( 'woocommerce_thankyou', $order->get_id() );
-	}
-	$table_output_html = ob_get_clean();
-
-	$table_output .= $table_output_html;
-
-	$table_output .= '[/vc_column_inner]';
 
 	// Build grid
 	if ( $checkout_layout === 'horizontal' ) {
@@ -263,15 +276,18 @@ if ( $enhanced_thankyou_page ) {
 		$output .= $details_output;
 		$output .= '[/vc_row_inner]';
 
-		// Table
-		$output .= '[vc_row_inner el_class="uncode-wc-module__row"]';
-		$output .= $table_output;
-		$output .= '[/vc_row_inner]';
+		if ( $order_received_ouput['order'] ) {
 
+			// Table
+			$output .= '[vc_row_inner el_class="uncode-wc-module__row"]';
+			$output .= $table_output;
+			$output .= '[/vc_row_inner]';
+
+		}
 	}
 
 } else {
-	$row_content = wc_get_template_html( 'checkout/thankyou.php', array( 'order' => $order ) );
+	$row_content = $order_received_ouput['content'];
 
 	$output .= uncode_woocommerce_print_single_row( array(), false, $row_content, 'uncode-wc-module__row--first' );
 

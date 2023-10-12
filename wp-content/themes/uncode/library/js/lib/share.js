@@ -206,7 +206,7 @@ Share = (function(_super) {
         },
         whatsapp: {
           enabled: true,
-          description: null,
+          title: null,
           url: null
         },
         email: {
@@ -374,6 +374,12 @@ Share = (function(_super) {
     });
   }
 
+  Share.prototype.network_whatsapp = function() {
+    return this.popup('https://api.whatsapp.com/send', {
+      text: this.config.networks.whatsapp.title + '%20' + this.config.networks.whatsapp.url,
+    });
+  }
+
   Share.prototype.network_email = function() {
     return this.popup('mailto:', {
       subject: this.config.networks.email.title,
@@ -422,7 +428,7 @@ Share = (function(_super) {
 
   Share.prototype.inject_html = function(instance) {
     //return instance.innerHTML = "<label class='social-export'><span>" + this.config.ui.button_text + "</span></label><div class='social load " + this.config.ui.flyout + "'><ul><li class='social-facebook' data-network='facebook' tabindex='0'></li><li class='social-twitter' data-network='twitter' tabindex='0'></li><li class='social-gplus' data-network='google_plus' tabindex='0'></li><li class='social-pinterest' data-network='pinterest' tabindex='0'></li><li class='social-linkedin' data-network='linkedin' tabindex='0'></li><li class='social-xing' data-network='xing' tabindex='0'></li><li class='social-paper-plane' data-network='email' tabindex='0'></li></ul></div>";
-    return instance.innerHTML = "<label class='social-export'><span>" + this.config.ui.button_text + "</span></label><div class='social load " + this.config.ui.flyout + "'><ul><li class='social-facebook' data-network='facebook' tabindex='0'></li><li class='social-twitter' data-network='twitter' tabindex='0'></li><li class='social-pinterest' data-network='pinterest' tabindex='0'></li><li class='social-linkedin' data-network='linkedin' tabindex='0'></li><li class='social-xing' data-network='xing' tabindex='0'></li><li class='social-paper-plane' data-network='email' tabindex='0'></li></ul></div>";
+    return instance.innerHTML = "<label class='social-export'><span>" + this.config.ui.button_text + "</span></label><div class='social load " + this.config.ui.flyout + "'><ul><li class='social-facebook' data-network='facebook' tabindex='0'></li><li class='social-twitter' data-network='twitter' tabindex='0'></li><li class='social-pinterest' data-network='pinterest' tabindex='0'></li><li class='social-linkedin' data-network='linkedin' tabindex='0'></li><li class='social-whatsapp' data-network='whatsapp' tabindex='0'></li><li class='social-xing' data-network='xing' tabindex='0'></li><li class='social-paper-plane' data-network='email' tabindex='0'></li></ul></div>";
   };
 
   Share.prototype.inject_facebook_sdk = function() {

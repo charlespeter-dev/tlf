@@ -81,8 +81,8 @@ div[class*=sharer-].share-button .social.top {
   margin-top: -180px;
 }
 div[class*=sharer-].share-button .social.load {
-  -webkit-transition: none!important;
-  transition: none!important;
+  -webkit-transition: none !important;
+  transition: none !important;
 }
 div[class*=sharer-].share-button .social.active {
   transition: color 200ms ease-in-out, background-color 200ms ease-in-out, border-color 200ms ease-in-out;
@@ -153,6 +153,10 @@ div[class*=sharer-].share-button .social ul li:before {
 .share-button:not(.only-icon) .social ul li[class*=linkedin]:focus {
   background-color: #2c8cc0;
 }
+.share-button:not(.only-icon) .social ul li[class*=whatsapp]:hover,
+.share-button:not(.only-icon) .social ul li[class*=whatsapp]:focus {
+  background-color: #25d366;
+}
 .share-button:not(.only-icon) .social ul li[class*=xing]:hover,
 .share-button:not(.only-icon) .social ul li[class*=xing]:focus {
   background-color: #126567;
@@ -181,6 +185,10 @@ div[class*=sharer-].share-button .social ul li:before {
 .share-button.only-icon .social ul li[class*=linkedin]:focus:before {
   color: #2c8cc0;
 }
+.share-button.only-icon .social ul li[class*=whatsapp]:hover:before,
+.share-button.only-icon .social ul li[class*=whatsapp]:focus:before {
+  color: #25d366;
+}
 .share-button.only-icon .social ul li[class*=xing]:hover:before,
 .share-button.only-icon .social ul li[class*=xing]:focus:before {
   color: #126567;
@@ -208,7 +216,8 @@ div[class*=sharer-].share-button .social ul li:before {
   content: "\f09a" !important;
 }
 .social-twitter:before {
-  content: "\f099" !important;
+  content: "\e942" !important;
+  font-weight: bold;
 }
 .social-gplus:before {
   content: "\f0d5" !important;
@@ -218,6 +227,9 @@ div[class*=sharer-].share-button .social ul li:before {
 }
 .social-linkedin:before {
   content: "\f0e1" !important;
+}
+.social-whatsapp:before {
+  content: "\f232" !important;
 }
 .social-xing:before {
   content: "\f168" !important;

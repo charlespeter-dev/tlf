@@ -11,6 +11,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Get srcset image class.
  */
 function uncode_get_srcset_async_class( $options = array() ) {
+	global $enable_adaptive_dynamic_img;
+
+	if ( ! $enable_adaptive_dynamic_img ) {
+		return '';
+	}
+
 	$class   = ' ';
 	$classes = array( 'srcset-async', 'srcset-auto' );
 
@@ -33,6 +39,12 @@ function uncode_get_srcset_async_class( $options = array() ) {
  * Get srcset background class.
  */
 function uncode_get_srcset_bg_async_class( $async_data = array() ) {
+	global $enable_adaptive_dynamic_bg;
+
+	if ( ! $enable_adaptive_dynamic_bg ) {
+		return '';
+	}
+
 	$class   = ' ';
 	$classes = array( 'srcset-bg' );
 

@@ -7,7 +7,7 @@ if (!function_exists('uncode_get_back_html')) {
 	function uncode_get_back_html($background = array() , $overlay_color = '', $overlay_color_alpha = '', $overlay_pattern = '', $type = '')
 	{
 
-		global $front_background_colors, $adaptive_images, $adaptive_images_async, $dynamic_srcset_active, $dynamic_srcset_bg_mobile_size, $activate_webp;
+		global $front_background_colors, $adaptive_images, $adaptive_images_async, $dynamic_srcset_active, $dynamic_srcset_bg_mobile_size, $activate_webp, $enable_adaptive_dynamic_bg;
 
 		$back_color = $back_url = $back_repeat = $back_position = $back_attachment = $back_size = $background_mime = $background_url = $header_background_video = $header_background_selfvideo = $back_mime_css = $back_html = $content_html = $carousel_html = $overlay_html = $adaptive_async_data = $adaptive_async_class = '';
 		$poster_id = $is_carousel = $content_only_text = $back_attributes = $do_bg_replace = false;
@@ -59,14 +59,14 @@ if (!function_exists('uncode_get_back_html')) {
 							if ( $adaptive_async_class ) {
 								$adaptive_async_data = uncode_get_adaptive_async_data( $background['background-image'], $back_attributes, $image_orig_w, $image_orig_h, 12, 'null', '' );
 							}
-						} else if ( $adaptive_images === 'off' && $dynamic_srcset_active ) {
+						} else if ( $adaptive_images === 'off' && $dynamic_srcset_active && $enable_adaptive_dynamic_bg ) {
 							$adaptive_async_data_all = uncode_get_srcset_bg_async_data( $dynamic_srcset_bg_mobile_size, $back_attributes, $resized_back, $image_orig_w, $image_orig_h, array( 'activate_webp' => $activate_webp ) );
 							$adaptive_async_data     = $adaptive_async_data_all['string'];
 							$do_bg_replace           = $adaptive_async_data_all['do_replace'];
 							$adaptive_async_class    = uncode_get_srcset_bg_async_class( $adaptive_async_data_all );
 						}
 					}
-					if ( $adaptive_images === 'off' && $dynamic_srcset_active && $do_bg_replace ) {
+					if ( $adaptive_images === 'off' && $dynamic_srcset_active && $enable_adaptive_dynamic_bg && $do_bg_replace ) {
 						$back_url = '';
 					} else {
 						$back_url = ($background_url != '') ? 'background-image: url(' . str_replace(' ', '%20', $background_url) . ');' : '';
@@ -86,7 +86,7 @@ if (!function_exists('uncode_get_back_html')) {
 						if (strpos($background_mime, 'image/') !== false) {
 							$background_url = $poster_url;
 							$background_url = $background_url && $poster_attributes->id ? apply_filters( 'wp_get_attachment_url', $background_url, $poster_attributes->id)  : $background_url;
-							if ( $adaptive_images === 'off' && $dynamic_srcset_active && $do_bg_replace ) {
+							if ( $adaptive_images === 'off' && $dynamic_srcset_active && $enable_adaptive_dynamic_bg && $do_bg_replace ) {
 								$back_url = '';
 							} else {
 								$back_url = ($background_url != '') ? 'background-image: url(' . $background_url . ');' : '';
@@ -94,7 +94,7 @@ if (!function_exists('uncode_get_back_html')) {
 						} else {
 							$back_oembed = wp_oembed_get($poster_attributes->guid);
 							preg_match_all('/src="([^"]*)"/i', $back_oembed, $img_src);
-							if ( $adaptive_images === 'off' && $dynamic_srcset_active && $do_bg_replace ) {
+							if ( $adaptive_images === 'off' && $dynamic_srcset_active && $enable_adaptive_dynamic_bg && $do_bg_replace ) {
 								$back_url = '';
 							} else {
 								$back_url = (isset($img_src[1][0])) ? 'background-image: url(' . str_replace('"', '', $img_src[1][0]) . ');' : '';
@@ -108,7 +108,7 @@ if (!function_exists('uncode_get_back_html')) {
 								if ( $adaptive_async_class ) {
 									$adaptive_async_data = uncode_get_adaptive_async_data( $poster_id, $poster_attributes, $image_orig_w, $image_orig_h, 12, 'null', '' );
 								}
-							} else if ( $adaptive_images === 'off' && $dynamic_srcset_active ) {
+							} else if ( $adaptive_images === 'off' && $dynamic_srcset_active && $enable_adaptive_dynamic_bg ) {
 								$adaptive_async_data_all = uncode_get_srcset_bg_async_data( $dynamic_srcset_bg_mobile_size, $poster_attributes, $resized_image, $image_orig_w, $image_orig_h, array( 'activate_webp' => $activate_webp ) );
 								$adaptive_async_data     = $adaptive_async_data_all['string'];
 								$do_bg_replace           = $adaptive_async_data_all['do_replace'];
@@ -356,7 +356,7 @@ if (!function_exists('uncode_get_back_html')) {
 								if (strpos($background_mime, 'image/') !== false) {
 									$background_url = $poster_url;
 									$background_url = $background_url && $poster_attributes->id ? apply_filters( 'wp_get_attachment_url', $background_url, $poster_attributes->id)  : $background_url;
-									if ( $adaptive_images === 'off' && $dynamic_srcset_active && $do_bg_replace ) {
+									if ( $adaptive_images === 'off' && $dynamic_srcset_active && $enable_adaptive_dynamic_bg && $do_bg_replace ) {
 										$back_url = '';
 									} else {
 										$back_url = ($background_url != '') ? 'background-image: url(' . $background_url . ');' : '';
@@ -364,7 +364,7 @@ if (!function_exists('uncode_get_back_html')) {
 								} else {
 									$back_oembed = wp_oembed_get($poster_attributes->guid);
 									preg_match_all('/src="([^"]*)"/i', $back_oembed, $img_src);
-									if ( $adaptive_images === 'off' && $dynamic_srcset_active && $do_bg_replace ) {
+									if ( $adaptive_images === 'off' && $dynamic_srcset_active && $enable_adaptive_dynamic_bg && $do_bg_replace ) {
 										$back_url = '';
 									} else {
 										$back_url = (isset($img_src[1][0])) ? 'background-image: url(' . str_replace('"', '', $img_src[1][0]) . ');' : '';
@@ -377,7 +377,7 @@ if (!function_exists('uncode_get_back_html')) {
 										if ( $adaptive_async_class ) {
 											$adaptive_async_data = uncode_get_adaptive_async_data( $poster_id, $poster_attributes, $image_orig_w, $image_orig_h, 12, 'null', '' );
 										}
-									} else if ( $adaptive_images === 'off' && $dynamic_srcset_active ) {
+									} else if ( $adaptive_images === 'off' && $dynamic_srcset_active && $enable_adaptive_dynamic_bg ) {
 										$adaptive_async_data_all = uncode_get_srcset_bg_async_data( $dynamic_srcset_bg_mobile_size, $poster_attributes, $resized_image, $image_orig_w, $image_orig_h, array( 'activate_webp' => $activate_webp ) );
 										$adaptive_async_data     = $adaptive_async_data_all['string'];
 										$do_bg_replace           = $adaptive_async_data_all['do_replace'];
@@ -447,7 +447,7 @@ if (!function_exists('uncode_get_back_html')) {
 											</div>';
 			}
 		} else {
-			if ( $overlay_html !== '' || $header_background_video !== '' || $back_image !== '' || $header_background_selfvideo !== '' || $carousel_html !== '' || ( $adaptive_images === 'off' && $dynamic_srcset_active && $do_bg_replace ) ) {
+			if ( $overlay_html !== '' || $header_background_video !== '' || $back_image !== '' || $header_background_selfvideo !== '' || $carousel_html !== '' || ( $adaptive_images === 'off' && $dynamic_srcset_active && $enable_adaptive_dynamic_bg && $do_bg_replace ) ) {
 				$back_html = 	'<div class="header-bg-wrapper' . ($carousel_html !=='' ? ' header-carousel-wrapper' : '') . '">
 											<div class="header-bg' . $back_mime_css . $adaptive_async_class . '"' . $header_background_video . $back_image . $adaptive_async_data . '>' . $header_background_selfvideo . $carousel_html . '</div>
 											'.$overlay_html.'
@@ -540,7 +540,7 @@ if (!function_exists('uncode_get_row_template')) {
 if (!function_exists('uncode_create_single_block')) {
 	function uncode_create_single_block($block_data, $el_id, $style_preset, $layout, $lightbox_classes, $carousel_textual, $with_html = true, $is_default_product_content = false)
 	{
-		global $adaptive_images, $adaptive_images_async, $dynamic_srcset_active, $dynamic_srcset_sizes, $post, $activate_webp;
+		global $adaptive_images, $adaptive_images_async, $dynamic_srcset_active, $dynamic_srcset_sizes, $post, $activate_webp, $enable_adaptive_dynamic_img, $enable_adaptive_dynamic_bg;
 
 		$image_orig_w = $image_orig_h = $crop = $item_media = $media_code = $media_mime = $create_link = $title_link = $text_content = $media_attributes = $big_image = $lightbox_data = $single_height = $single_fixed = $single_title = $nested = $media_poster = $dummy_oembed = $images_size = $single_family = $object_class = $single_back_color = $single_animation = $is_product = $single_icon = $icon_size = $single_text = $single_image_size = $single_style = $single_elements_click = $single_secondary = $overlay_color = $overlay_opacity = $overlay_blend = $adaptive_async_class = $adaptive_async_data = $sep_extra = $but_media_poster = $data_lb = '';
 		$tmb_data_parent = $tmb_data = array();
@@ -658,7 +658,7 @@ if (!function_exists('uncode_create_single_block')) {
 		}
 		if (uncode_animations_enabled() && isset($block_data['animation'])) {
 			$single_animation = $block_data['animation'];
-			if ( ot_get_option( '_uncode_dynamic_srcset_lazy_animations' ) == 'on' && $adaptive_images === 'off' && $dynamic_srcset_active && $single_animation !== '' ) {
+			if ( ot_get_option( '_uncode_dynamic_srcset_lazy_animations' ) == 'on' && $adaptive_images === 'off' && $dynamic_srcset_active && $enable_adaptive_dynamic_img && $single_animation !== '' ) {
 				$single_animation .= ' srcset-lazy-animations';
 			}
 		}
@@ -1971,7 +1971,7 @@ if (!function_exists('uncode_create_single_block')) {
 								if ( isset( $block_data['table_heading'] ) ) {
 									$inner_entry .= ' ' . trim(implode(' ', $meta_class));
 								}
-								$inner_entry.= '">' . $get_cf_value . '</div>';
+								$inner_entry.= '">' . apply_filters( 'uncode_get_layout_cf_val', $get_cf_value, $key, $value, $block_data, $layout ) . '</div>';
 							}
 						}
 
@@ -2068,7 +2068,7 @@ if (!function_exists('uncode_create_single_block')) {
 		}
 
 		$block_data['layout'] = $layout;
-		
+
 		if ( empty( $item_thumb_id ) && $is_product && $product->get_type() === 'variation' ) {
 			if ( apply_filters( 'uncode_woocommerce_use_get_image_id_original_hook', false ) ) {
 				$parent_product = wc_get_product( $product->get_parent_id() );
@@ -2327,7 +2327,7 @@ if (!function_exists('uncode_create_single_block')) {
 								$adaptive_async_data = uncode_get_adaptive_async_data( $item_thumb_id, $media_attributes, $image_orig_w, $image_orig_h, $single_width, $single_height, $crop, $single_fixed );
 								$adaptive_async_data = apply_filters( 'uncode_adaptive_get_async_data', $adaptive_async_data, 'ai_async', $block_data, array(), $item_thumb_id, $media_attributes, $resized_image, $image_orig_w, $image_orig_h, $single_width, $single_height, $crop, $single_fixed );
 							}
-						} else if ( $adaptive_images === 'off' && $dynamic_srcset_active ) {
+						} else if ( $adaptive_images === 'off' && $dynamic_srcset_active && $enable_adaptive_dynamic_img ) {
 							if ( $activate_webp ) {
 								$block_data['activate_webp'] = true;
 							}
@@ -2485,7 +2485,7 @@ if (!function_exists('uncode_create_single_block')) {
 												if ( $adaptive_async_class ) {
 													$adaptive_async_data = uncode_get_adaptive_async_data( $item_thumb_id, $poster_attributes, $image_orig_w, $image_orig_h, $single_width, $single_height, $crop );
 												}
-											} else if ( $adaptive_images === 'off' && $dynamic_srcset_active ) {
+											} else if ( $adaptive_images === 'off' && $dynamic_srcset_active && $enable_adaptive_dynamic_img ) {
 
 												if ( $media_poster ) {
 													$poster_th_id = get_post_meta($item_thumb_id, "_uncode_poster_image", true);
@@ -2887,7 +2887,7 @@ if (!function_exists('uncode_create_single_block')) {
 
 							// When dynamic SRCSET is active, we use images
 							// instead of backgrounds for the secondary image
-							if ( $adaptive_images === 'off' && $dynamic_srcset_active ) {
+							if ( $adaptive_images === 'off' && $dynamic_srcset_active && $enable_adaptive_dynamic_img ) {
 								$secondary_featured_image_html = '';
 
 								if ( isset( $secondary_featured_image['id'] ) && $secondary_featured_image['id'] > 0 ) {
@@ -3205,7 +3205,7 @@ if (!function_exists('uncode_create_single_block')) {
 				$background_mime = $media_attributes ? $media_attributes->post_mime_type : '';
 				/* Metro */
 				if ($style_preset === 'metro' || ( $is_titles && ( isset($block_data['drop_image_position']) || ( !isset($block_data['drop_image_position']) && $media_type !== 'image' ) ) ) ) {
-					if ( $adaptive_images === 'off' && $dynamic_srcset_active ) {
+					if ( $adaptive_images === 'off' && $dynamic_srcset_active && $enable_adaptive_dynamic_img ) {
 						if ( $is_product ) {
 							$media_post_id = $product->get_id();
 						} elseif ( isset($block_data_id) ) {
@@ -3218,7 +3218,7 @@ if (!function_exists('uncode_create_single_block')) {
 					$secondary_bg_cover = $secondary_async_data = $secondary_picture_cover = '';
 
 					if ( isset( $secondary_featured_image ) && $secondary_featured_image !== false && ! $is_titles ) {
-						if ( $adaptive_images === 'off' && $dynamic_srcset_active ) {
+						if ( $adaptive_images === 'off' && $dynamic_srcset_active && $enable_adaptive_dynamic_img ) {
 							if ( isset( $secondary_featured_image['id'] ) && $secondary_featured_image['id'] > 0 ) {
 								$secondary_adaptive_async_class = uncode_get_srcset_async_class( $block_data );
 								$secondary_adaptive_async_class .= ' t-secondary-background-cover';
@@ -3240,7 +3240,7 @@ if (!function_exists('uncode_create_single_block')) {
 						}
 					}
 
-					if ( $adaptive_images === 'off' && $dynamic_srcset_active ) {
+					if ( $adaptive_images === 'off' && $dynamic_srcset_active && $enable_adaptive_dynamic_bg ) {
 						$picture_cover_class = 't-background-cover'.($adaptive_async_class !== '' ? $adaptive_async_class : '');
 						$media_alt     = isset( $media_alt ) ? $media_alt : '';
 						$adaptive_async_data_all = isset( $adaptive_async_data_all ) ? $adaptive_async_data_all : array();

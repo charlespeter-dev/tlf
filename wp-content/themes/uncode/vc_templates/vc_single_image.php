@@ -205,6 +205,7 @@ if ($media_width_use_pixel === 'yes' && $media_width_pixel !== '') {
 	$actual_width = $media_width_pixel. 'px';
 	$single_fixed = 'width';
 } else {
+	$media_width_percent = absint( $media_width_percent ? $media_width_percent : 0 );
 	$single_width = ($col_width * $media_width_percent) / 100;
 	$actual_width = $media_width_percent . '%';
 }
@@ -525,7 +526,7 @@ if  ($text_lead === 'yes' ) {
 $block_data['poster'] = false;
 
 $block_data['no-control'] = false;
-if ( $advanced_videos === 'yes' ) {			
+if ( $advanced_videos === 'yes' ) {
 	$block_data['no-control'] = true;
 	$block_data['play_hover'] = $play_hover;
 	$block_data['play_pause'] = $play_pause;

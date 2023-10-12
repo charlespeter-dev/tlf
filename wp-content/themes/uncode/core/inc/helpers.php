@@ -194,7 +194,11 @@ function uncode_resize_image( $media_id, $url, $path, $originalWidth, $originalH
 	// Cast to int
 	$media_id = intval( $media_id );
 
-	global $adaptive_images, $adaptive_images_async, $ai_bpoints, $dynamic_srcset_active, $register_adaptive_meta, $resize_image_quality;
+	global $adaptive_images, $adaptive_images_async, $ai_bpoints, $dynamic_srcset_active, $register_adaptive_meta, $resize_image_quality, $enable_adaptive_dynamic_img, $enable_adaptive_dynamic_bg;
+
+	if ( $adaptive_images === 'on' && ( ! $enable_adaptive_dynamic_img || ! $enable_adaptive_dynamic_bg ) ) {
+		$adaptive_images = 'off';
+	}
 
 	if ( $dynamic_srcset_active && ! $crop && ! $async ) {
 		$url = apply_filters( 'uncode_url_for_resize', $url );
@@ -754,8 +758,8 @@ function uncode_get_oembed($id, $url, $mime, $with_poster = false, $excerpt = nu
 
 	if ($with_poster) {
 		$poster = get_post_meta($id, "_uncode_poster_image", true);
-		$poster_id = $poster;	
-		
+		$poster_id = $poster;
+
 		if ( defined( 'ICL_SITEPRESS_VERSION' ) && !$poster ) {
 			global $sitepress;
 			$default_lang = $sitepress->get_default_language();
@@ -1402,7 +1406,7 @@ if ( ! function_exists( 'uncode_replace_disallowed_videos' ) ) :
 function uncode_replace_disallowed_videos( $consent_id, $media_id, $media_oembed, $single_width = '', $single_height = null, $single_fixed = null, $is_metro = false ) {
 	if ( uncode_privacy_allow_content( $consent_id ) === false ) {
 
-		global $adaptive_images, $adaptive_images_async, $adaptive_images_async_blur, $dynamic_srcset_active, $dynamic_srcset_sizes, $post, $activate_webp;
+		global $adaptive_images, $adaptive_images_async, $adaptive_images_async_blur, $dynamic_srcset_active, $dynamic_srcset_sizes, $post, $activate_webp, $enable_adaptive_dynamic_img;
 
 		$def = get_option( 'uncode_privacy_fallback', esc_html__('This content is blocked. Please review your [uncode_privacy_box]Privacy Settings[/uncode_privacy_box].', 'uncode') );
 		$img_url_id = get_post_meta($media_id, "_uncode_poster_image", true);
@@ -1426,7 +1430,7 @@ function uncode_replace_disallowed_videos( $consent_id, $media_id, $media_oembed
 				if ( $adaptive_async_class ) {
 					$adaptive_async_data = uncode_get_adaptive_async_data( $img_url_id, $img_attributes, $image_orig_w, $image_orig_h, $single_width, $single_height, $crop, $single_fixed );
 				}
-			} else if ( $adaptive_images === 'off' && $dynamic_srcset_active ) {
+			} else if ( $adaptive_images === 'off' && $dynamic_srcset_active && $enable_adaptive_dynamic_img ) {
 				$adaptive_async_class    = uncode_get_srcset_async_class();
 				$adaptive_async_class    .= ' wp-image-' . $img_url_id;
 				$adaptive_async_data_all = uncode_get_srcset_async_data( array( 'full_image' => true, 'activate_webp' => $activate_webp ), $dynamic_srcset_sizes, $img_url_id, $img_attributes, $resized_image, $image_orig_w, $image_orig_h, $single_width, $single_height, $crop, $single_fixed );
@@ -1644,6 +1648,10 @@ function uncode_custom_dynamic_heading_in_content( $type = 'title' ){
 		$title = uncode_archive_title();
 		$get_subtitle = isset(get_queried_object()->description) ? get_queried_object()->description : '';
 
+		if ( $post_type === 'product_variation_index' ) {
+			$post_type = 'product_index';
+		}
+
 		if ( ot_get_option('_uncode_' . $post_type . '_custom_title_activate') === 'on' && !is_category() && !is_tax() ) {
 			$title = ot_get_option('_uncode_' . $post_type . '_custom_title_text');
 			$get_subtitle = ot_get_option('_uncode_' . $post_type . '_custom_subtitle_text');
@@ -1761,7 +1769,7 @@ if ( ! function_exists( 'uncode_adaptive_secondary_featured_thumbnail' ) ) :
  * @since Uncode 2.3.0
  */
 function uncode_adaptive_secondary_featured_image( $post_id, $image_orig_w, $image_orig_h, $single_width, $single_height, $crop, $single_fixed, $is_tax_block, $block_data ) {
-	global $adaptive_images, $adaptive_images_async, $adaptive_images_async_blur, $dynamic_srcset_active, $dynamic_srcset_sizes, $activate_webp;
+	global $adaptive_images, $adaptive_images_async, $adaptive_images_async_blur, $dynamic_srcset_active, $dynamic_srcset_sizes, $activate_webp, $enable_adaptive_dynamic_img;
 
 	if ( isset( $block_data['secondary'] ) && $block_data['secondary'] === true ) {
 		$thumb_id = $is_tax_block ? uncode_get_term_featured_thumbnail_id( $post_id, false ) : get_post_thumbnail_id( $post_id );
@@ -1777,7 +1785,7 @@ function uncode_adaptive_secondary_featured_image( $post_id, $image_orig_w, $ima
 	// real featured image (not the sizes of the secondary featured image)
 	// We can use those values to calculate the ratio of the featured image,
 	// keeping the same ratio also in the secondary (for regulars).
-	if ( $adaptive_images === 'off' && $dynamic_srcset_active && ! $crop ) {
+	if ( $adaptive_images === 'off' && $dynamic_srcset_active && $enable_adaptive_dynamic_img && ! $crop ) {
 		if ( $image_orig_h > 0 ) {
 			$ratio             = $image_orig_h > 0 ? floatval( $image_orig_w ) / floatval( $image_orig_h ) : 1;
 			$old_single_height = floatval( $single_height );
@@ -1813,7 +1821,7 @@ function uncode_adaptive_secondary_featured_image( $post_id, $image_orig_w, $ima
 
 	if ( $adaptive_images === 'on' && $adaptive_images_async === 'on' ) {
 		$resized_image['data_async'] = uncode_get_adaptive_async_data( $thumb_id, $media_attributes, $image_orig_w, $image_orig_h, $single_width, $single_height, $crop, $single_fixed );
-	} else if ( $adaptive_images === 'off' && $dynamic_srcset_active ) {
+	} else if ( $adaptive_images === 'off' && $dynamic_srcset_active && $enable_adaptive_dynamic_img ) {
 		if ( $activate_webp ) {
 			$block_data['activate_webp'] = true;
 		}
