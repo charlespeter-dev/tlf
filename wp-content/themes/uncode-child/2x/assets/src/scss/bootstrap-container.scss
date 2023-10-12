@@ -273,19 +273,19 @@
 
     .quote {
         position: relative;
-        quotes: "“" "”";
+        // quotes: "“" "”";
     }
 
-    .quote::before {
-        content: open-quote;
-        font-size: 15rem;
-        position: absolute;
-        top: -50px;
-        left: 0;
-        font-family: sans-serif;
-        color: white;
-        opacity: .5;
-    }
+    // .quote::before {
+    //     content: open-quote;
+    //     font-size: 15rem;
+    //     position: absolute;
+    //     top: -50px;
+    //     left: 0;
+    //     font-family: sans-serif;
+    //     color: white;
+    //     opacity: .5;
+    // }
 
     .hero-carousels {
 

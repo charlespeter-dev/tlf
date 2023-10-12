@@ -22,11 +22,6 @@
   text-align: center;
   position: relative;
 }
-.bootstrap-container.industry.single .featured-testimonials .quote::before {
-  top: -50px;
-  color: #58879B;
-  opacity: 0.2;
-}
 .bootstrap-container.industry.single .featured-testimonials .quote-quote p {
   font-size: 1.25rem;
   line-height: calc(1.34375rem + 1.125vw);

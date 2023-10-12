@@ -11180,17 +11180,6 @@ a > .bootstrap-container code {
 }
 .bootstrap-container .quote {
   position: relative;
-  quotes: "“" "”";
-}
-.bootstrap-container .quote::before {
-  content: open-quote;
-  font-size: 15rem;
-  position: absolute;
-  top: -50px;
-  left: 0;
-  font-family: sans-serif;
-  color: white;
-  opacity: 0.5;
 }
 .bootstrap-container .hero-carousels {
   margin-top: 114px;
