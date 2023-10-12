@@ -28,3 +28,4 @@ package-lock.json
 *.sql
 .htaccess
 upgrade-temp-backup
+_pma
