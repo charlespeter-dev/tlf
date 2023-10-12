@@ -58,9 +58,9 @@ get_header() ?>
                             <?php endif ?>
 
                             <div class="mb-3">
-                                <h2 class="mb-0">
+                                <h1 class="mb-0">
                                     <?= get_the_title($post->ID) ?>
-                                </h2>
+                                </h1>
                             </div>
                         </div>
                     </div>

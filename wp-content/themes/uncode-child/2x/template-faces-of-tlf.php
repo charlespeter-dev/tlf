@@ -53,9 +53,9 @@ get_header() ?>
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="mb-3">
-                                <h2 class="mb-0">
+                                <h1 class="mb-0">
                                     <?= $main_heading ?>
-                                </h2>
+                                </h1>
                             </div>
                             <div class="mb-4">
                                 <div class="sub-heading">

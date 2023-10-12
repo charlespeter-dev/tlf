@@ -66,9 +66,9 @@ get_header() ?>
 
                             <?php if (isset($main_heading) && $main_heading): ?>
                                 <div class="mb-3">
-                                    <h2 class="mb-0">
+                                    <h1 class="mb-0">
                                         <?= $main_heading ?>
-                                    </h2>
+                                    </h1>
                                 </div>
                             <?php endif ?>
 

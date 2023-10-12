@@ -39,9 +39,9 @@ get_header() ?>
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="mb-0">
-                                <h2 class="mb-0">
+                                <h1 class="mb-0">
                                     <?= get_the_title($post->ID) ?>
-                                </h2>
+                                </h1>
                             </div>
                         </div>
                     </div>

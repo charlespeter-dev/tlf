@@ -48,9 +48,9 @@ get_header() ?>
 
                             <?php if (isset($hero_carousel['main_heading']) && $hero_carousel['main_heading']): ?>
                                 <div class="mb-3">
-                                    <h2 class="mb-0">
+                                    <h1 class="mb-0">
                                         <?= $hero_carousel['main_heading'] ?>
-                                    </h2>
+                                    </h1>
                                 </div>
                             <?php endif ?>
 

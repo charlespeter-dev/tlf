@@ -131,9 +131,9 @@ get_header() ?>
                         <div class="col-lg-7">
                             <?php if (isset($banner['main_heading']) && $banner['main_heading']): ?>
                                 <div class="mb-3">
-                                    <h2 class="mb-0">
+                                    <h1 class="mb-0">
                                         <?= $banner['main_heading'] ?>
-                                    </h2>
+                                    </h1>
                                 </div>
                             <?php endif ?>
 
