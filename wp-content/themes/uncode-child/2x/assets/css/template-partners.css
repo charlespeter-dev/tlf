@@ -27,5 +27,8 @@
     background-image: none;
   }
 }
+.bootstrap-container .partners-wrapper a {
+  text-decoration: none;
+}
 
 /*# sourceMappingURL=template-partners.css.map */

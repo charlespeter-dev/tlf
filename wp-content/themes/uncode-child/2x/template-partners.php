@@ -65,23 +65,26 @@ get_header() ?>
                         <?php foreach ($partners as $partner):
                             $partner_img = $partner['partner_image'];
                             $partner_name = $partner['partner_name'];
-                            $partner_desc = $partner['partner_description']; ?>
+                            $partner_desc = $partner['partner_description'];
+                            $partner_link = (isset($partner['partner_link']['url']) && $partner['partner_link']['url']) ? $partner['partner_link']['url'] : '#';
+                            ?>
                             <div class="col">
-                                <div class="partner-card h-100">
-                                    <figure class="partner-img">
-                                        <img src="<?= wp_get_attachment_image_url($partner_img['id'], '_2x-partner-logo'); ?>"
-                                            class="img-fluid" alt="<?= $partner_img['title'] ?>" loading="lazy">
-                                    </figure>
-
-                                    <div class="partner-details">
-                                        <p class="partner-name">
-                                            <?= $partner_name ?>
-                                        </p>
-                                        <p class="partner-desc">
-                                            <?= $partner_desc ?>
-                                        </p>
+                                <a href="<?= $partner_link ?>" target="_blank">
+                                    <div class="partner-card h-100">
+                                        <figure class="partner-img">
+                                            <img src="<?= wp_get_attachment_image_url($partner_img['id'], '_2x-partner-logo'); ?>"
+                                                class="img-fluid" alt="<?= $partner_img['title'] ?>" loading="lazy">
+                                        </figure>
+                                        <div class="partner-details">
+                                            <p class="partner-name">
+                                                <?= $partner_name ?>
+                                            </p>
+                                            <p class="partner-desc">
+                                                <?= $partner_desc ?>
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                         <?php endforeach ?>
                     </div>
