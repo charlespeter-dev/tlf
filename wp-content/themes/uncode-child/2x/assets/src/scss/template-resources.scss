@@ -46,4 +46,35 @@
             }
         }
     }
+
+    .search {
+        a {
+            text-decoration: none;
+        }
+    }
+
+    .searchandfilter {
+
+        >ul {
+            padding-left: unset;
+
+            li>ul {
+                display: block;
+                padding-left: unset;
+
+                @include media-breakpoint-up(md) {
+                    display: flex;
+
+                    >li:not(:first-child) {
+                        padding-inline: 1rem;
+                    }
+                }
+            }
+        }
+
+        .sf-input-text {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+    }
 }

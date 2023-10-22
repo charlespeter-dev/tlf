@@ -26,5 +26,27 @@
     background-image: none;
   }
 }
+.bootstrap-container .search a {
+  text-decoration: none;
+}
+.bootstrap-container .searchandfilter > ul {
+  padding-left: unset;
+}
+.bootstrap-container .searchandfilter > ul li > ul {
+  display: block;
+  padding-left: unset;
+}
+@media (min-width: 768px) {
+  .bootstrap-container .searchandfilter > ul li > ul {
+    display: flex;
+  }
+  .bootstrap-container .searchandfilter > ul li > ul > li:not(:first-child) {
+    padding-inline: 1rem;
+  }
+}
+.bootstrap-container .searchandfilter .sf-input-text {
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+}
 
 /*# sourceMappingURL=template-resources.css.map */

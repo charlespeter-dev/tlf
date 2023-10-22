@@ -17,25 +17,21 @@ $fields = get_fields($post->ID);
 extract($fields);
 
 /**
+ * search filter ID
+ */
+
+$search_filter_id = 0;
+if (isset($hero_carousel[0]['search_filter_id']) && $hero_carousel[0]['search_filter_id']) {
+    $search_filter_id = $hero_carousel[0]['search_filter_id'];
+}
+
+/**
  * resources
  */
 
 $resources_query = new WP_Query([
-    'post_type' => 'resources',
-    'posts_per_page' => -1,
-    'orderby' => 'date',
-    'order' => 'DESC',
+    'search_filter_id' => $search_filter_id,
     'fields' => 'ids',
-    'post_status' => 'publish'
-    // 'tax_query' => [
-    //     'relation' => 'AND',
-    //     [
-    //         'taxonomy' => 'resource_category',
-    //         'field' => 'slug',
-    //         'terms' => array('article'),
-    //         'operator' => 'NOT IN'
-    //     ]
-    // ]
 ]);
 
 wp_reset_query();
@@ -83,7 +79,7 @@ get_header() ?>
 
                                     <div class="_2x-hero-content">
                                         <div class="row">
-                                            
+
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <h1 class="mb-0">
@@ -129,6 +125,43 @@ get_header() ?>
             </div>
         </section>
     <?php endif ?>
+
+    <section class="search">
+
+        <div class="row-container">
+            <div class="single-h-padding limit-width">
+
+                <div class="row mt-5 mb-3">
+                    <div class="col">
+
+                        <a data-bs-toggle="collapse" href="#filter-by">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                                class="bi bi-filter" viewBox="0 0 16 16">
+                                <path
+                                    d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
+                            </svg>
+                            <span>Search &amp; Filter</span>
+                        </a>
+                    </div>
+                </div>
+
+
+                <div class="collapse <?= (isset($_GET['_sft_resource_category']) || isset($_GET['_sf_s'])) ? 'show' : '' ?>"
+                    id="filter-by">
+                    <div class="row">
+                        <div class="col">
+                            <?= do_shortcode('[searchandfilter id="' . $search_filter_id . '"]') ?>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+    </section>
 
     <?php if (isset($cards_ids)): ?>
         <section class="cards-overview faces-of-tlf my-5">
