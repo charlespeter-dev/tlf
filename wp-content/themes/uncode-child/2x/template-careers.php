@@ -66,7 +66,7 @@ get_header() ?>
 
                             <?php if (isset($hero_carousel['cta']) && $hero_carousel['cta']): ?>
                                 <div>
-                                    <a class="btn btn-primary" href="<?= $hero_carousel['cta']['url'] ?>">
+                                    <a class="btn btn-primary" href="<?= $hero_carousel['cta']['url'] ?>" target="_blank">
                                         <?= $hero_carousel['cta']['title'] ?>
                                     </a>
                                 </div>

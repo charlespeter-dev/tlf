@@ -90,7 +90,7 @@ get_header() ?>
 
                             <?php if (isset($cta) && $cta): ?>
                                 <div>
-                                    <a class="btn btn-primary" href="<?= $cta['url'] ?>">
+                                    <a class="btn btn-primary" href="<?= $cta['url'] ?>" target="_blank">
                                         <?= $cta['title'] ?>
                                     </a>
                                 </div>

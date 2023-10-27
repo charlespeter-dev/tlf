@@ -66,7 +66,7 @@ get_header() ?>
 
                             <?php if (isset($cta_button_text)): ?>
                                 <div>
-                                    <a class="btn btn-primary" href="<?= $cta_button_link ?>">
+                                    <a class="btn btn-primary" href="<?= $cta_button_link ?>" target="_blank">
                                         <?= $cta_button_text ?>
                                     </a>
                                 </div>

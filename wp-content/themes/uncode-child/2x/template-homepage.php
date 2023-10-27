@@ -103,7 +103,7 @@ get_header() ?>
                                             </div>
                                         </div>
                                         <div>
-                                            <a class="btn btn-primary" href="<?= $item['cta_url'] ?>">
+                                            <a class="btn btn-primary" href="<?= $item['cta_url'] ?>" target="_blank">
                                                 <?= $item['cta_text'] ?>
                                             </a>
                                         </div>
