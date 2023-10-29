@@ -30,6 +30,16 @@ if (isset($featured_testimonials['testimonials']) && $featured_testimonials['tes
 
         $testimonials = get_field('testimonials', $post_id);
 
+        if ($testimonials && !isset($testimonials[0])) {
+            /**
+             * from global Testimonials
+             */
+
+            $tmp = $testimonials;
+            $testimonials = [];
+            $testimonials[0] = $tmp;
+        }
+
         if ($testimonials) {
             $ft_collections = array_merge($ft_collections, $testimonials);
         }

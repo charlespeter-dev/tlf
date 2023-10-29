@@ -174,7 +174,8 @@
                                 "id": ""
                             },
                             "post_type": [
-                                "portfolio"
+                                "portfolio",
+                                "testimonial"
                             ],
                             "post_status": "",
                             "taxonomy": "",
@@ -573,5 +574,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1696998885
+    "modified": 1698554208
 }
