@@ -93,9 +93,17 @@ get_header() ?>
 
                                     <div class="_2x-hero-content">
                                         <div class="mb-3">
-                                            <h1 class="mb-0">
-                                                <?= $item['main_heading'] ?>
-                                            </h1>
+                                            
+                                            <?php if ($k == 0): ?>
+                                                <h1 class="mb-0">
+                                                    <?= $item['main_heading'] ?>
+                                                </h1>
+                                            <?php else: ?>
+                                                <h2 class="mb-0">
+                                                    <?= $item['main_heading'] ?>
+                                                </h2>
+                                            <?php endif ?>
+
                                         </div>
                                         <div class="mb-4">
                                             <div class="sub-heading">
@@ -155,7 +163,8 @@ get_header() ?>
                                     <div class="carousel-item <?= $k == 0 ? 'active' : '' ?>">
                                         <div class="col col-md-3 col-lg-2 p-0 m-0">
                                             <div class="card card-body p-0 m-0">
-                                                <img class="img-fluid p-0 m-0" src="<?= $item['logo_image'] ?>" alt="" loading="lazy">
+                                                <img class="img-fluid p-0 m-0" src="<?= $item['logo_image'] ?>" alt=""
+                                                    loading="lazy">
                                             </div>
                                         </div>
                                     </div>
@@ -257,7 +266,8 @@ get_header() ?>
                                         class="full-width" alt="" loading="lazy">
 
                                     <div class="_2x-carousel-testimonials-content">
-                                        <div class="icon-brand-logo mb-3"><img src="<?= $item['company_icon'] ?>" alt="" loading="lazy"></div>
+                                        <div class="icon-brand-logo mb-3"><img src="<?= $item['company_icon'] ?>" alt=""
+                                                loading="lazy"></div>
                                         <div class="company-name mb-4">
                                             <?= $item['company_name'] ?>
                                         </div>

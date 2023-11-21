@@ -80,11 +80,19 @@ get_header() ?>
                                     <div class="_2x-hero-content">
                                         <div class="row">
 
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-7">
                                                 <div class="mb-3">
-                                                    <h1 class="mb-0">
-                                                        <?= $item['main_heading'] ?>
-                                                    </h1>
+                                                   
+                                                    <?php if ($k == 0): ?>
+                                                        <h1 class="mb-0">
+                                                            <?= $item['main_heading'] ?>
+                                                        </h1>
+                                                    <?php else: ?>
+                                                        <h2 class="mb-0">
+                                                            <?= $item['main_heading'] ?>
+                                                        </h2>
+                                                    <?php endif ?>
+
                                                 </div>
                                                 <div class="mb-4">
                                                     <div class="sub-heading">
@@ -92,13 +100,14 @@ get_header() ?>
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <a class="btn btn-primary" href="<?= $item['cta']['url'] ?>" target="_blank">
+                                                    <a class="btn btn-primary" href="<?= $item['cta']['url'] ?>"
+                                                        target="_blank">
                                                         <?= $item['cta']['title'] ?>
                                                     </a>
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-5">
                                                 <img src="<?= wp_get_attachment_image_url($item['resource_carousel_thumbnail'], 'full') ?>"
                                                     class="img-fluid" alt="" loading="lazy">
                                             </div>
