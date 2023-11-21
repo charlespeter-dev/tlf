@@ -315,8 +315,10 @@
 				var nested_a = $('a[data-lbox]:not(.lb-disabled):not([data-lbox-init]):not([data-album])').filter(function( index ) {
 						return !$(this).closest('.nested-carousel').length;
 					}),
-					$galleries = $('.isotope-container:not([data-lbox-init]), .owl-carousel:not([data-lbox-init]), .custom-grid-container:not([data-lbox-init]), .index-scroll-wrapper:not([data-lbox-init]), .justified-gallery:not([data-lbox-init]), .uncode-single-media-wrapper:not([data-lbox-init]), .woocommerce-product-gallery:not([data-lbox-init]), .icon-box:not([data-lbox-init]), .grid-container:not([data-lbox-init])', thiis).has(nested_a);
-
+					$_galleries = $('.isotope-container:not([data-lbox-init]), .owl-carousel:not([data-lbox-init]), .custom-grid-container:not([data-lbox-init]), .index-scroll-wrapper:not([data-lbox-init]), .justified-gallery:not([data-lbox-init]), .uncode-single-media-wrapper:not([data-lbox-init]), .woocommerce-product-gallery:not([data-lbox-init]), .icon-box:not([data-lbox-init]), .grid-container:not([data-lbox-init])', thiis).has(nested_a),
+					$galleries = $_galleries.filter(function( index ) {
+						return !$(this).closest('.owl-carousel').length || $(this).is('.owl-carousel');
+					});
 
 				if (typeof UNCODE.lightgallery !== 'undefined' && SiteParameters.lbox_enhanced) {
 					UNCODE.lightgallery( $galleries );

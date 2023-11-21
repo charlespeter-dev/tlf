@@ -171,9 +171,9 @@ function uncode_widgets_init()
 }
 add_action('widgets_init', 'uncode_widgets_init');
 
-function uncode_unclean_url( $good_protocol_url, $original_url, $_context){
-	if (false !== strpos($original_url, 'ai-uncode')){
-		global $ai_bpoints, $adaptive_images_async;
+function uncode_unclean_url( $tag, $handle, $src ){
+	if (false !== strpos($src, 'ai-uncode')){
+		global $ai_bpoints, $adaptive_images_async, $wp_version;
 
 		if (! $ai_bpoints) {
 			$ai_sizes = uncode_get_default_breakpoint_sizes();
@@ -181,7 +181,7 @@ function uncode_unclean_url( $good_protocol_url, $original_url, $_context){
 			$ai_sizes = implode(',', $ai_bpoints);
 		}
 
-		$url_parts    = parse_url($good_protocol_url);
+		$url_parts    = parse_url($src);
 		$url_home     = parse_url(home_url());
 		$url_home     = (isset($url_home['path'])) ? '/' . trim($url_home['path'], '/') . '/' : '/';
 		$explode_path = explode('/', trim($url_parts['path'], '/'));
@@ -222,13 +222,19 @@ function uncode_unclean_url( $good_protocol_url, $original_url, $_context){
 			}
 		}
 
-		return apply_filters( 'uncode_ai_script_path', $url_parts['path'], $url_parts ) . "' " . $data_mobile_advanced . "id='uncodeAI'".$ai_async." data-home='".$url_home."' data-path='".$path_domain."' data-breakpoints-images='" . $ai_sizes;
+		if ( version_compare( $wp_version, '6.4', '>=' ) ) {
+			$tag = str_replace( $src, apply_filters( 'uncode_ai_script_path', $url_parts['path'], $url_parts ) . '" ' . $data_mobile_advanced . 'id="uncodeAI"'.$ai_async.' data-home="'.$url_home.'" data-path="'.$path_domain.'" data-breakpoints-images="' . $ai_sizes, $tag );
+		} else {
+			$tag = str_replace( $src, apply_filters( 'uncode_ai_script_path', $url_parts['path'], $url_parts ) . "' " . $data_mobile_advanced . "id='uncodeAI'".$ai_async." data-home='".$url_home."' data-path='".$path_domain."' data-breakpoints-images='" . $ai_sizes, $tag );
+		}
+
+		
 	}
 
-	return $good_protocol_url;
+	return $tag;
 }
 
-add_filter('clean_url','uncode_unclean_url',10,3);
+add_filter('script_loader_tag','uncode_unclean_url',10,3);
 
 function uncode_oembed_result($html, $url, $args) {
 	if(strpos($url, 'youtu.be') !== false || strpos($url, 'youtube.com') !== false){
@@ -1185,6 +1191,10 @@ function uncode_body_classes($classes){
 
 	if ( !(apply_filters( 'uncode_woocommerce_popup_cart_quantity', ot_get_option( '_uncode_woocommerce_popup_cart_quantity'  ) === 'on' )) ) {
 		$classes[] = 'no-qty-fx';
+	}
+
+	if ( apply_filters( 'uncode_lightgallery_enable_close_button_mobile', false ) ) {
+		$classes[] = 'lightgallery-show-close';
 	}
 
 	return $classes;

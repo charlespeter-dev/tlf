@@ -258,7 +258,19 @@ if ( $is_header != 'yes' ) {
 $content = apply_filters('uncode_vc_custom_heading_content', $content, $auto_text, $is_header);
 
 if ( strpos( $content, '[uncode_hl_text') !== false ) {
-	$classes[] = 'font-obs';
+	if ( ! isset($data_font) ) {
+		$classes[] = 'font-obs';
+		if ( isset($heading_font[$text_font]) ) {
+			$data_font = wptexturize($heading_font[$text_font]);
+		} elseif ( isset($heading_font[$headings_font]) ) {
+			$data_font = wptexturize($heading_font[$headings_font]);
+		}
+		if ( isset($data_font) ) {
+			$data_font = preg_replace( '/,\s+/', ',', $data_font );
+			$data_font = preg_replace( '/\&\#(.*?);/', '', $data_font );
+			$data_size['data-font'] = $data_font;
+		}
+	}
 }
 
 preg_match_all("/(?:<h[0-6]>).*?(?:<\/h[0-6]>)/", $content, $tag_matches);

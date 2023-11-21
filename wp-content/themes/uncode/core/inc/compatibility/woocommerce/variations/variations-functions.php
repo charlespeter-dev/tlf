@@ -11,7 +11,7 @@ function uncode_wc_variations_add_scripts() {
 	$resources_version = $scripts_prod_conf[ 'resources_version' ];
 	$suffix            = $scripts_prod_conf[ 'suffix' ];
 
-	wp_register_script( 'uncode-woocommerce-variations', get_template_directory_uri() . '/library/js/woocommerce-variations' . $suffix . '.js', array( 'jquery' ) , $resources_version, true );
+	wp_register_script( 'uncode-woocommerce-variations', get_template_directory_uri() . '/library/js/woocommerce-variations' . $suffix . '.js', array( 'jquery', 'wc-add-to-cart-variation' ) , $resources_version, true );
 }
 add_action( 'wp_enqueue_scripts', 'uncode_wc_variations_add_scripts' );
 
@@ -571,6 +571,24 @@ function uncode_single_variations_enabled() {
  */
 function uncode_wc_process_variations() {
 	if ( wp_verify_nonce( $_POST[ 'uncode_process_variations_nonce' ], 'uncode-process-variations-nonce' ) ) {
+		if ( apply_filters( 'uncode_single_variations_enable_menu_order', false ) ) {
+			$args = array(
+				// 'type'   => 'simple',
+				'limit'  => -1,
+				'return' => 'ids',
+			);
+			$simple_product_ids = wc_get_products( $args );
+
+			foreach ( $simple_product_ids as $simple_product_id ) {
+				$simple_product = wc_get_product( $simple_product_id );
+
+				// Menu order
+				$simple_product_menu_order = $simple_product->get_menu_order();
+
+				update_post_meta( $simple_product_id, '_uncode_single_variation_menu_order', $simple_product_menu_order );
+			}
+		}
+
 		$excluded_attributes = uncode_single_variations_get_excluded_attributes();
 
 		$attributes_to_remove = array();
@@ -606,6 +624,10 @@ function uncode_wc_process_variations() {
 			uncode_wc_delete_single_variations_terms( $variation_id, $attributes_to_remove, $taxonomies );
 
 			if ( $parent_id ) {
+				if ( $parent_product->get_catalog_visibility() === 'hidden' ) {
+					continue;
+				}
+
 				foreach ( $taxonomies as $taxonomy ) {
 					$terms = (array) wp_get_post_terms( $parent_id, $taxonomy, array( 'fields' => 'ids' ) );
 					wp_set_post_terms( $variation_id, $terms, $taxonomy );
@@ -669,7 +691,15 @@ function uncode_wc_process_variations() {
 					update_post_meta( $variation_id, '_wc_average_rating', $parent_average_rating );
 				}
 
+				// Menu order
+				if ( apply_filters( 'uncode_single_variations_enable_menu_order', false ) ) {
+					$parent_menu_order = $parent_product->get_menu_order();
+					update_post_meta( $variation_id, '_uncode_single_variation_menu_order', $parent_menu_order );
+				}
+
 				update_post_meta( $variation_id, '_uncode_show_single_variation', $parent_product->get_status() === 'publish' ? 'yes' : 'no' );
+
+				do_action( 'uncode_after_process_single_variation', $variation_id, $parent_id );
 			}
 		}
 
@@ -681,6 +711,21 @@ function uncode_wc_process_variations() {
 
 		$terms_hidden_parent_count = uncode_get_terms_count_after_process_variations( $taxonomies, $attribute_taxonomies, true );
 		update_option( 'uncode_terms_hidden_parent_count', $terms_hidden_parent_count, false );
+
+		// Save IDs of variable products
+		delete_option( 'uncode_variable_product_parent_ids' );
+
+		if ( is_array( $excluded_attributes ) && count( $excluded_attributes ) > 0 ) {
+			$args = array(
+				'type'   => 'variable',
+				'limit'  => -1,
+				'return' => 'ids',
+			);
+
+			$variable_product_parent_ids = wc_get_products( $args );
+
+			update_option( 'uncode_variable_product_parent_ids', $variable_product_parent_ids, false );
+		}
 
 		wp_send_json_success(
 			array(
@@ -702,8 +747,23 @@ add_action( 'wp_ajax_uncode_process_variations', 'uncode_wc_process_variations' 
  * Fix pagination on archives if we are using single variations
  */
 function uncode_single_variations_fix_main_query( $query ) {
-  if ( uncode_single_variations_enabled() && ! is_admin() && $query->is_main_query() ) {
-	if ( class_exists( 'WooCommerce' ) && ( is_shop() || is_product_category() || is_product_tag() ) ) {
+  if ( class_exists( 'WooCommerce' ) && uncode_single_variations_enabled() && ! is_admin() && $query->is_main_query() ) {
+	$shop_archive = false;
+
+	if ( ( is_shop() || is_product_category() || is_product_tag() || is_tax() ) ) {
+		$shop_archive = true;
+	}
+
+	if ( is_tax() ) {
+		$queried_object     = get_queried_object();
+		$queried_object_tax = isset( $queried_object->taxonomy ) ? $queried_object->taxonomy : false;
+
+		if ( $queried_object_tax && taxonomy_is_product_attribute( $queried_object_tax ) ) {
+			$shop_archive = true;
+		}
+	}
+
+	if ( $shop_archive ) {
 		$uncodeblock_id = ot_get_option('_uncode_product_index_content_block');
 		$uncodeblock_id = apply_filters( 'wpml_object_id', $uncodeblock_id, 'post' );
 		$content        = get_post_field('post_content', $uncodeblock_id);
@@ -761,7 +821,11 @@ function uncode_single_variations_hide_attributes_from_query( $main_query_args, 
 			return $main_query_args;
 		}
 
-		$product_visibility_term_ids = wc_get_product_visibility_term_ids();
+		$woocommerce_hide_out_of_stock_items = get_option( 'woocommerce_hide_out_of_stock_items' );
+
+		if ( 'yes' === $woocommerce_hide_out_of_stock_items ) {
+			$product_visibility_term_ids = wc_get_product_visibility_term_ids();
+		}
 
 		$tax_query = array();
 
@@ -790,8 +854,9 @@ function uncode_single_variations_hide_attributes_from_query( $main_query_args, 
 		if ( ! empty( $products->posts ) ) {
 			$first_variation_products = array();
 
-			foreach ( $products->posts as $_product ) {
-				$_product = wc_get_product( $_product->ID );
+			foreach ( $products->posts as $__product ) {
+				$_product = wc_get_product( $__product->ID );
+
 				if ( ! $_product ) {
 					continue;
 				}
@@ -807,14 +872,16 @@ function uncode_single_variations_hide_attributes_from_query( $main_query_args, 
 					'tax_query'      => array(),
 				);
 
-				$args['tax_query'][] = array(
-					array(
-						'taxonomy' => 'product_visibility',
-						'field'    => 'term_taxonomy_id',
-						'terms'    => $product_visibility_term_ids['outofstock'],
-						'operator' => 'NOT IN',
-					),
-				);
+				if ( 'yes' === $woocommerce_hide_out_of_stock_items ) {
+					$args['tax_query'][] = array(
+						array(
+							'taxonomy' => 'product_visibility',
+							'field'    => 'term_taxonomy_id',
+							'terms'    => $product_visibility_term_ids['outofstock'],
+							'operator' => 'NOT IN',
+						),
+					);
+				}
 
 				$variation_ids = get_children( $args, ARRAY_A );
 
@@ -823,15 +890,15 @@ function uncode_single_variations_hide_attributes_from_query( $main_query_args, 
 				}
 				$variation_ids = array_keys( $variation_ids );
 
-				$all_child_products    = array_merge( $all_child_products, $variation_ids );
-				$one_attribute_product = false;
+				$all_child_products = array_merge( $all_child_products, $variation_ids );
 
 				foreach ( $variation_ids as $variation_id ) {
 					$variation_product = wc_get_product( $variation_id );
 					if ( ! $variation_product ) {
 						continue;
 					}
-					if ( ! $variation_product->is_in_stock() ) {
+
+					if ( 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) && ! $variation_product->is_in_stock() ) {
 						continue;
 					}
 
@@ -846,7 +913,7 @@ function uncode_single_variations_hide_attributes_from_query( $main_query_args, 
 					foreach ( $variation_attributes as $key => $val ) {
 						if ( in_array( $key, $attributes_to_hide ) ) {
 							if ( 1 == count( $variation_attributes ) ) {
-								$single_attribute_and_hide_attribute_product = true;
+								// $single_attribute_and_hide_attribute_product = true;
 							}
 							continue;
 						}
@@ -875,20 +942,22 @@ function uncode_single_variations_hide_attributes_from_query( $main_query_args, 
 			),
 		);
 
-		$query_args['tax_query'][] = array(
-			array(
-				'taxonomy' => 'product_visibility',
-				'field'    => 'term_taxonomy_id',
-				'terms'    => $product_visibility_term_ids['outofstock'],
-				'operator' => 'IN',
-			),
-		);
+		if ( 'yes' === $woocommerce_hide_out_of_stock_items ) {
+			$query_args['tax_query'][] = array(
+				array(
+					'taxonomy' => 'product_visibility',
+					'field'    => 'term_taxonomy_id',
+					'terms'    => $product_visibility_term_ids['outofstock'],
+					'operator' => 'IN',
+				),
+			);
 
-		$out_of_stock_variations   = new WP_Query( $query_args );
+			$out_of_stock_variations   = new WP_Query( $query_args );
 
-		if ( ! empty( $out_of_stock_variations->posts ) ) {
-			$out_of_stock_variations_ids = wp_list_pluck( $out_of_stock_variations->posts, 'ID' );
-			$all_child_products          = array_merge( $all_child_products, $out_of_stock_variations_ids );
+			if ( ! empty( $out_of_stock_variations->posts ) ) {
+				$out_of_stock_variations_ids = wp_list_pluck( $out_of_stock_variations->posts, 'ID' );
+				$all_child_products          = array_merge( $all_child_products, $out_of_stock_variations_ids );
+			}
 		}
 
 		if ( ! empty( $all_child_products ) ) {
@@ -980,6 +1049,8 @@ function uncode_single_variations_change_button( $product ) {
 			}
 		}
 	}
+
+	$redirect_to_product = apply_filters( 'uncode_single_variations_redirect_to_product', $redirect_to_product, $product );
 
 	return $redirect_to_product;
 }

@@ -237,6 +237,12 @@ function uncode_filter_uncode_index_args( $args, $query_options ) {
 
 					$args['tax_query'][] = $tax_query;
 				}
+
+				$is_product_tax = $key === 'product_cat' || $key === 'product_tag' || substr( $key, 0, strlen( 'pa_' ) ) == 'pa_';
+
+				if ( ! $is_product_tax ) {
+					$args['tax_query']['relation'] = 'IN';
+				}
 			}
 		}
 

@@ -746,11 +746,6 @@ function uncode_taxonomy_add_meta_field( $taxonomy ) {
 	</script>
 <?php
 }
-add_action( 'category_add_form_fields', 'uncode_taxonomy_add_meta_field', 10, 2 );
-add_action( 'post_tag_add_form_fields', 'uncode_taxonomy_add_meta_field', 10, 2 );
-add_action( 'product_cat_add_form_fields', 'uncode_taxonomy_add_meta_field', 10, 2 );
-add_action( 'product_tag_add_form_fields', 'uncode_taxonomy_add_meta_field', 10, 2 );
-add_action( 'portfolio_category_add_form_fields', 'uncode_taxonomy_add_meta_field', 10, 2 );
 
 // Edit term page
 function uncode_taxonomy_edit_meta_field($term, $taxonomy) {
@@ -851,11 +846,6 @@ function uncode_taxonomy_edit_meta_field($term, $taxonomy) {
 	</script>
 <?php
 }
-add_action( 'category_edit_form_fields', 'uncode_taxonomy_edit_meta_field', 10, 2 );
-add_action( 'post_tag_edit_form_fields', 'uncode_taxonomy_edit_meta_field', 10, 2 );
-add_action( 'product_cat_edit_form_fields', 'uncode_taxonomy_edit_meta_field', 10, 2 );
-add_action( 'product_tag_edit_form_fields', 'uncode_taxonomy_edit_meta_field', 10, 2 );
-add_action( 'portfolio_category_edit_form_fields', 'uncode_taxonomy_edit_meta_field', 10, 2 );
 
 /**
 * Add legacy form fields to product attributes.
@@ -886,16 +876,17 @@ function uncode_save_taxonomy_custom_meta( $term_id ) {
 		update_option( "_uncode_taxonomy_$t_id", $term_meta, false );
 	}
 }
-add_action( 'edited_category', 'uncode_save_taxonomy_custom_meta', 10, 2 );
-add_action( 'create_category', 'uncode_save_taxonomy_custom_meta', 10, 2 );
-add_action( 'edited_post_tag', 'uncode_save_taxonomy_custom_meta', 10, 2 );
-add_action( 'create_post_tag', 'uncode_save_taxonomy_custom_meta', 10, 2 );
-add_action( 'edited_product_cat', 'uncode_save_taxonomy_custom_meta', 10, 2 );
-add_action( 'create_product_cat', 'uncode_save_taxonomy_custom_meta', 10, 2 );
-add_action( 'edited_product_tag', 'uncode_save_taxonomy_custom_meta', 10, 2 );
-add_action( 'create_product_tag', 'uncode_save_taxonomy_custom_meta', 10, 2 );
-add_action( 'edited_portfolio_category', 'uncode_save_taxonomy_custom_meta', 10, 2 );
-add_action( 'create_portfolio_category', 'uncode_save_taxonomy_custom_meta', 10, 2 );
+
+function uncode_edit_tax_meta() {
+	$tax_list = uncode_get_legacy_taxonomies();
+	foreach ($tax_list as $tax) {
+		add_action( $tax . '_add_form_fields', 'uncode_taxonomy_add_meta_field', 10, 2 );
+		add_action( $tax . '_edit_form_fields', 'uncode_taxonomy_edit_meta_field', 10, 2 );
+		add_action( 'edited_' . $tax, 'uncode_save_taxonomy_custom_meta', 10, 2 );
+		add_action( 'create_' . $tax, 'uncode_save_taxonomy_custom_meta', 10, 2 );
+	}
+}
+add_action('admin_init', 'uncode_edit_tax_meta');
 
 
 ///////////////

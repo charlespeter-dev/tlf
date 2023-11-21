@@ -55,9 +55,6 @@
 body > .woocommerce-notices-wrapper {
   display: none !important;
 }
-.uncode-woocommerce-form-submission .box-wrapper * {
-  cursor: progress !important;
-}
 @font-face {
   font-family: 'star';
   src: url('../fonts/woocommerce/star.eot');
@@ -5108,6 +5105,43 @@ body.rtl .order-table-with-thumbs .woocommerce-checkout-review-order-table .prod
 }
 .woocommerce-order-received .woocommerce-form-login .form-row {
   margin-top: 0;
+}
+.uncode-woocommerce-form-submission .checkout-button {
+  position: relative;
+}
+.uncode-woocommerce-form-submission .checkout-button:after {
+  opacity: 1;
+  display: block;
+  transition: opacity 0.2s ease;
+  transition-delay: 0.4s;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 32px;
+  height: 32px;
+  margin-top: -16px;
+  margin-left: -16px;
+  content: "";
+  z-index: 1000;
+}
+.uncode-woocommerce-form-submission .style-light .checkout-button,
+.uncode-woocommerce-form-submission .style-dark .style-light .checkout-button {
+  color: transparent !important;
+}
+.uncode-woocommerce-form-submission .style-light .checkout-button:after,
+.uncode-woocommerce-form-submission .style-dark .style-light .checkout-button:after {
+  background-image: url(../img/oval-anim-dark.svg);
+}
+.uncode-woocommerce-form-submission .style-dark .checkout-button,
+.uncode-woocommerce-form-submission .style-light .style-dark .checkout-button {
+  color: transparent !important;
+}
+.uncode-woocommerce-form-submission .style-dark .checkout-button:after,
+.uncode-woocommerce-form-submission .style-light .style-dark .checkout-button:after {
+  background-image: url(../img/oval-anim-light.svg);
 }
 .woocommerce-MyAccount-navigation ul {
   list-style-type: none !important;

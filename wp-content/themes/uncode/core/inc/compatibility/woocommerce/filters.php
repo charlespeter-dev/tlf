@@ -651,7 +651,12 @@ function uncode_woocommerce_print_thumbs_on_order_review_table( $name, $cart_ite
  * Print the product thumb on order details table
  */
 function uncode_woocommerce_print_thumbs_on_order_details_table( $name, $item, $is_visible ) {
-	$product   = $item->get_product();
+	$product = $item->get_product();
+
+	if ( ! $product ) {
+		return $name;
+	}
+
 	$thumbnail = $product->get_image();
 	$html      = $thumbnail . $name;
 

@@ -73,7 +73,9 @@ function uncode_wc_dependent_scripts() {
 		wp_dequeue_script( 'prettyPhoto-init' );
 	}
 
-    wp_deregister_style( 'select2');
+	if ( apply_filters( 'uncode_deregister_select2_style', true ) ) {
+		wp_deregister_style( 'select2');
+	}
     wp_dequeue_script( 'wc-chosen');
 }
 add_action( 'wp_enqueue_scripts', 'uncode_wc_dependent_scripts', 99 );

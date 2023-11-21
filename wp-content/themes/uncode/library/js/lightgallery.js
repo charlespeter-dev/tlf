@@ -236,7 +236,10 @@
 			thumbHeight: '50px',
 			counter: $triggerGal.find($selector).length > 1 ? counter : false,
 			loadYouTubePoster: false,
-			enableDrag: $triggerGal.find($selector).length > 1
+			enableDrag: $triggerGal.find($selector).length > 1,
+			mobileSettings: {
+				showCloseIcon: $('body').hasClass('lightgallery-show-close') ? true : false,
+			},
 		});
 
 		$('.owl-item.cloned', $gallery).find(nested_a).on('click', function(e){

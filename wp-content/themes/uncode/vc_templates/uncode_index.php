@@ -1459,7 +1459,7 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 									<?php foreach ( $categories_array as $cat ):
 										if ($cat->taxonomy !== 'product_type'): ?>
 											<?php if (($infinite === 'yes' || $pagination !== 'yes' || $uncode_index_query->max_num_pages == 1) && !isset($_GET['ucat'])) : ?>
-												<li class="filter-cat-<?php echo esc_attr($cat->term_id); ?> filter-cat"><span><a href="#" data-filter="grid-cat-<?php echo esc_attr($cat->term_id); ?>" class="<?php if (isset($_GET['ucat']) && $_GET['ucat'] == $cat->term_id) echo 'active'; ?> isotope-nav-link grid-nav-link"><?php echo esc_attr( $cat->name ) ?></a></span></li>
+												<?php if ( apply_filters( 'uncode_standard_filters_show_term', true, $cat->term_id ) ) : ?><li class="filter-cat-<?php echo esc_attr($cat->term_id); ?> filter-cat"><span><a href="#" data-filter="grid-cat-<?php echo esc_attr($cat->term_id); ?>" class="<?php if (isset($_GET['ucat']) && $_GET['ucat'] == $cat->term_id) echo 'active'; ?> isotope-nav-link grid-nav-link"><?php echo esc_attr( $cat->name ) ?></a></span></li><?php endif; ?>
 											<?php else : ?>
 
 												<?php
@@ -2568,6 +2568,29 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 							'url' => $post->link,
 							'target' => '_self'
 				  		);
+					}
+
+					if ( class_exists( 'WooCommerce' ) && isset( $block_data['product'] ) && $block_data['product'] === true ) {
+						global $product;
+						$or_product = $product;
+
+						$product = wc_get_product( $block_data['id'] );
+
+						if ( $product ) {
+							$is_product = true;
+						}
+
+						if ( $is_product ) {
+							$redirect_to_product = uncode_single_variations_change_button( $product );
+
+							if ( $redirect_to_product ) {
+								$block_data['link']['url'] = get_permalink( $product->get_parent_id() );
+							}
+						}
+
+						if ( $is_product ) {
+							$product = $or_product;
+						}
 					}
 
 					$block_data['title_classes'] = $title_classes;

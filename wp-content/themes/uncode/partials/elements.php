@@ -1597,7 +1597,7 @@ if (!function_exists('uncode_create_single_block')) {
 							$add_to_cart_args = array();
 
 							if ( $redirect_to_product ) {
-								$add_to_cart_url = get_permalink( $product->get_parent_id() );
+								$add_to_cart_url = isset ( $block_data['link']['url'] ) ? $block_data['link']['url'] : get_permalink( $product->get_parent_id() );
 
 								$add_to_cart_args['uncode_add_to_cart_url'] = $add_to_cart_url;
 							}
@@ -1606,6 +1606,10 @@ if (!function_exists('uncode_create_single_block')) {
 							$add_to_cart_button_html = ob_get_clean();
 
 							if ( $add_to_cart_button_html ) {
+								if ( $redirect_to_product ) {
+									$add_to_cart_button_html = str_replace( 'ajax_add_to_cart', '', $add_to_cart_button_html );
+								}
+
 								if ( isset( $block_data['table_heading'] ) ) {
 									$add_to_cart_button_html = str_replace( ' btn-default', ' t-table-add-to-cart', $add_to_cart_button_html );
 									$add_to_cart_button_html = str_replace( ' btn', ' t-table-add-to-cart', $add_to_cart_button_html );
@@ -3247,7 +3251,11 @@ if (!function_exists('uncode_create_single_block')) {
 						$picture_cover = uncode_get_picture_html( $media_post_id, $item_thumb_id, $item_media, $media_alt, $image_orig_w, $image_orig_h, $picture_cover_class, $adaptive_async_data_all );
 						$bg_cover      = $secondary_picture_cover . $picture_cover;
 					} else {
-						$bg_cover = $secondary_bg_cover . '<div class="t-background-cover'.($adaptive_async_class !== '' ? $adaptive_async_class : '').'" style="background-image:url(\''.$item_media.'\')"'.($adaptive_async_data !== '' ? $adaptive_async_data : '').'></div>';
+						if ( $item_media != '' ) {
+							$bg_cover = $secondary_bg_cover . '<div class="t-background-cover'.($adaptive_async_class !== '' ? $adaptive_async_class : '').'" style="background-image:url(\''.$item_media.'\')"'.($adaptive_async_data !== '' ? $adaptive_async_data : '').'></div>';
+						} else {
+							$bg_cover = $secondary_bg_cover;
+						}
 					}
 
 					if ($single_elements_click === 'yes' && $media_type === 'image' && ! $is_titles ) {
@@ -3413,7 +3421,9 @@ if (!function_exists('uncode_create_single_block')) {
 										$oembed_params['play_hover'] = true;
 									}
 									if ( isset( $block_data['play_hover'] ) && $block_data['play_hover'] !== '' ) {
-										$oembed_params['play_pause'] = $block_data['play_pause'] !== '';
+										if ( isset( $block_data['play_pause'] ) && $block_data['play_pause'] !== '' ) {
+											$oembed_params['play_pause'] = $block_data['play_pause'] !== '';
+										}
 									}
 									$oembed_params['mobile_videos'] = isset( $block_data['mobile_videos'] ) ? $block_data['mobile_videos'] : '';
 									$is_text_carousel = $carousel_textual === 'yes' ? true : false;

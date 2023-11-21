@@ -18,12 +18,13 @@
 		var calculateOffset = function(el) {
 			var getRowPadding = (!$(el).hasClass('with-bg')) ? $(el).closest('.row-parent').css("padding-top") : 0,
 				sideOffset = (getRowPadding != undefined && getRowPadding != 0) ? parseInt(getRowPadding.replace("px", "")) : 0,
-				shrink = typeof $('.navbar-brand').data('padding-shrink') !== 'undefined' ?  $('.navbar-brand').data('padding-shrink')*2 : 0;
+				shrink = typeof $('.navbar-brand').data('padding-shrink') !== 'undefined' ?  $('.navbar-brand').data('padding-shrink')*2 : 0,
+				elTop = window.pageYOffset + el.getBoundingClientRect().top;
 
 			sideOffset += UNCODE.bodyBorder;
 
 			if (UNCODE.adminBarHeight > 0) sideOffset += UNCODE.adminBarHeight;
-			if ($('.menu-sticky .menu-container:not(.menu-hide)').length) {
+			if ($('.menu-sticky .menu-container:not(.menu-hide)').length && elTop > sideOffset) {
 				if ($('.menu-shrink').length) {
 					sideOffset += parseFloat( $('.navbar-brand').data('minheight') ) + shrink;
 				} else {

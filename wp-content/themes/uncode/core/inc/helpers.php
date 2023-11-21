@@ -1703,6 +1703,12 @@ function uncode_get_secondary_featured_thumbnail_id( $post_id ) {
 		if ( is_array( $variation_gallery_ids ) && isset( $variation_gallery_ids[0] ) ) {
 			$secondary_featured_image_id = $variation_gallery_ids[0];
 		}
+
+		if ( ! $secondary_featured_image_id && apply_filters( 'uncode_get_secondary_featured_thumbnail_id_from_parent', false, $post_id ) ) {
+			$variation      = wc_get_product( $post_id );
+			$parent_id      = $variation->get_parent_id();
+			$secondary_featured_image_id = get_post_meta( $parent_id, '_uncode_secondary_thumbnail_id', true );
+		}
 	}
 
 	if ( ! $secondary_featured_image_id ) {

@@ -587,10 +587,10 @@
 .drop-anchor-bottom-right .t-entry-drop:not(.drop-parent) iframe {
   transform: translate(-100%, -100%);
 }
-.t-entry-drop .wp-video {
+.t-entry-drop:not(.drop-parent-row) .wp-video {
   width: auto;
 }
-.t-entry-drop .wp-video > video {
+.t-entry-drop:not(.drop-parent-row) .wp-video > video {
   width: 100% !important;
   height: auto !important;
 }

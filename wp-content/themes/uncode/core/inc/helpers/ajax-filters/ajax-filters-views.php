@@ -140,6 +140,7 @@ function uncode_ajax_term_filter_select_html( $key_to_query, $filter_terms, $que
 	$display      = isset( $args['display'] ) ? $args['display']      : false;
 	$filter_id    = 'filter_' . rand() . '_' . $key_to_query;
 	$first_option = isset( $args['first_option'] ) && $args['first_option'] !== '' ? $args['first_option'] : false;
+	$filter_terms = apply_filters( 'uncode_ajax_term_filter_select_html_terms', $filter_terms, $args, $key_to_query, $query_args );
 	?>
 	<select class="term-filters-list select--term-filters" name="<?php echo esc_attr( $filter_id ); ?>" id="<?php echo esc_attr( $filter_id ); ?>">
 		<?php

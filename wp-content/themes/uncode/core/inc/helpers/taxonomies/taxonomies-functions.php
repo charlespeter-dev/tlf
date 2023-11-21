@@ -20,6 +20,8 @@ function uncode_get_legacy_taxonomies() {
 		'portfolio_category',
 	);
 
+	$cpt_taxonomies = apply_filters( 'uncode_additional_custom_taxes', array() );
+	$legacy_taxonomies       = array_merge( $legacy_taxonomies, $cpt_taxonomies );
 	$attributes_with_archive = uncode_get_all_product_attributes_with_archive();
 	$legacy_taxonomies       = array_merge( $legacy_taxonomies, $attributes_with_archive );
 

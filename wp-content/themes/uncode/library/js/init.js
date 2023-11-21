@@ -726,17 +726,19 @@ function whichAnimationEvent() {
 			var vRightMenu = function(){
 				$initBox = document.getElementById("initBox");
 				$mainHeader = document.querySelector('.main-header');
-				mainHeader = $mainHeader.innerHTML;
-				$mainWrapper = document.querySelector('.main-wrapper');
-				if ( classie.hasClass(document.body, 'vmenu') && ( ( classie.hasClass(document.body, 'vmenu-position-right') && ! classie.hasClass(document.body, 'rtl') ) || ( classie.hasClass(document.body, 'vmenu-position-left') && classie.hasClass(document.body, 'rtl') ) ) ) {
-					if ( wwidth <= mediaQuery ) {
-						$initBox.parentNode.insertBefore($mainHeader, $initBox.nextSibling);
-					} else {
-						$mainWrapper.parentNode.insertBefore($mainHeader, $mainWrapper.nextSibling);
+				if ( $mainHeader != null ) {
+					mainHeader = $mainHeader.innerHTML;
+					$mainWrapper = document.querySelector('.main-wrapper');
+					if ( classie.hasClass(document.body, 'vmenu') && ( ( classie.hasClass(document.body, 'vmenu-position-right') && ! classie.hasClass(document.body, 'rtl') ) || ( classie.hasClass(document.body, 'vmenu-position-left') && classie.hasClass(document.body, 'rtl') ) ) ) {
+						if ( wwidth <= mediaQuery ) {
+							$initBox.parentNode.insertBefore($mainHeader, $initBox.nextSibling);
+						} else {
+							$mainWrapper.parentNode.insertBefore($mainHeader, $mainWrapper.nextSibling);
+						}
+						$mainHeader.removeChild;
 					}
-					$mainHeader.removeChild;
+					window.dispatchEvent(new Event('lateral_resize'));
 				}
-				window.dispatchEvent(new Event('lateral_resize'));
 			};
 			vRightMenu();
 			window.addEventListener("resize", function() {

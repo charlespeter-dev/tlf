@@ -12,12 +12,21 @@
  *
  * @see https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce/Templates
- * @version 7.8.0
+ * @version 8.2.0
  */
 
 defined( 'ABSPATH' ) || exit;
 
 $totals = $order->get_order_item_totals(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited
+?>
+
+<?php
+/**
+ * Triggered from within the checkout/form-pay.php template, immediately before the payment section.
+ *
+ * @since 8.2.0
+ */
+do_action( 'woocommerce_pay_order_before_payment' );
 ?>
 
 <div id="payment">
