@@ -1,0 +1,59 @@
+@import "mixin";
+
+.bootstrap-container {
+
+    .footer_default {
+        position: relative;
+
+        .full-width {
+            height: 350px;
+        }
+
+        .footer-callout-banner-content {
+            position: absolute;
+            z-index: 2;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+            margin-left: -36px;
+            margin-right: -36px;
+            padding-left: 36px;
+            padding-right: 36px;
+
+            .page-name {
+                @include font-size(1.5625rem); // 25px
+                color: #fff;
+                font-weight: 600;
+                text-transform: uppercase;
+            }
+
+            .main-heading {
+                @include font-size(2.8125rem); // 45px
+                color: #fff;
+                font-weight: 700;
+                line-height: normal;
+            }
+
+            .cta .btn {
+                white-space: unset;
+            }
+
+            .cta .btn.btn-primary {
+                background-color: #fff !important;
+                border-color: #fff !important;
+                border: 2px solid;
+                color: #E30613 !important;
+                border-radius: 10px !important;
+                padding: 13px 45px !important;
+
+                &:hover {
+                    background-color: transparent !important;
+                    color: #fff !important;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,27 @@
+.bootstrap-container .cards_3_columns_with_icons {
+  position: relative;
+}
+.bootstrap-container .cards_3_columns_with_icons::before {
+  content: "";
+  display: block;
+  width: 100vw;
+  height: 100%;
+  background-color: #EDEFF0;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+.bootstrap-container .cards_3_columns_with_icons img {
+  width: 120px;
+}
+.bootstrap-container .cards_3_columns_with_icons h3 {
+  margin-bottom: 1rem;
+}
+.bootstrap-container .cards_3_columns_with_icons strong {
+  color: #003375;
+}
+
+/*# sourceMappingURL=cards_3_columns_with_icons.css.map */

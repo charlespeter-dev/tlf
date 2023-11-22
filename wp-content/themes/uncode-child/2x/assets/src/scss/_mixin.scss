@@ -1,0 +1,27 @@
+@import "../../../node_modules/bootstrap/scss/functions";
+@import "../../../node_modules/bootstrap/scss/variables";
+@import "../../../node_modules/bootstrap/scss/mixins";
+
+/*
+make fluid properties
+
+@link https://www.sassmeister.com/gist/7f22e44ace49b5124eec
+Example:
+@include fluid-type(padding-bottom padding-top, 2em, 4em);
+@include fluid-type(font-size, 14px, 18px);
+Optimized for resolution 360px <---> 1920px
+*/
+
+@mixin fluid($properties, $min-value, $max-value) {
+    @each $property in $properties {
+        #{$property}: calc(#{$min-value} + #{strip-unit($max-value - $min-value)} * (100vw - 360px) / (1920 - 360));
+    }
+}
+
+@function strip-unit($number) {
+    @if type-of($number)=="number" and not unitless($number) {
+        @return calc($number / ($number * 0 + 1px));
+    }
+
+    @return $number;
+}

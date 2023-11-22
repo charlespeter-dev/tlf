@@ -1,0 +1,16 @@
+/*
+make fluid properties
+
+@link https://www.sassmeister.com/gist/7f22e44ace49b5124eec
+Example:
+@include fluid-type(padding-bottom padding-top, 2em, 4em);
+@include fluid-type(font-size, 14px, 18px);
+Optimized for resolution 360px <---> 1920px
+*/
+.bootstrap-container.global-flexible-content h2 {
+  color: #003375;
+  font-size: calc(40px + 5 * (100vw - 360px) / 1560);
+  line-height: calc(50px + 5 * (100vw - 360px) / 1560);
+}
+
+/*# sourceMappingURL=global-flexible-contents.css.map */

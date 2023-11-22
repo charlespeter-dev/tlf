@@ -1,0 +1,31 @@
+.bootstrap-container {
+    .cards_3_columns_with_icons {
+        position: relative;
+
+        &::before {
+            content: "";
+            display: block;
+            width: 100vw;
+            height: 100%;
+            background-color: #EDEFF0;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+        }
+
+        img {
+            width: 120px;
+        }
+
+        h3 {
+            margin-bottom: 1rem;
+        }
+
+        strong {
+            color: #003375;
+        }
+    }
+}

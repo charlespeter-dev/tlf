@@ -1,0 +1,12 @@
+@import "mixin";
+
+.bootstrap-container {
+    &.global-flexible-content {
+
+        h2 {
+            color: #003375;
+            @include fluid(font-size, 40px, 45px);
+            @include fluid(line-height, 50px, 55px);
+        }
+    }
+}
