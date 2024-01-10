@@ -11181,9 +11181,6 @@ a > .bootstrap-container code {
 .bootstrap-container .quote {
   position: relative;
 }
-.bootstrap-container .hero-carousels {
-  margin-top: 114px;
-}
 @media (min-width: 992px) {
   .bootstrap-container .hero-carousels {
     margin-top: unset;

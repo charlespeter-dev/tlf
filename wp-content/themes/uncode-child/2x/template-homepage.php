@@ -82,7 +82,7 @@ get_header() ?>
                 <div class="carousel-inner">
                     <?php foreach ($hero_carousels as $k => $item): ?>
                         <div class="carousel-item <?= ($k == 0) ? 'active' : '' ?>"
-                            style="background-image: url('<?= wp_get_attachment_image_url($item['background_image'], '_2x-carousel-hero') ?>');">
+                            style="background-image: url('<?= wp_get_attachment_image_url($item['background_image_mobile'], 'full') ?>');">
 
                             <div class="row-container">
 
@@ -95,11 +95,11 @@ get_header() ?>
                                         <div class="mb-3">
                                             
                                             <?php if ($k == 0): ?>
-                                                <h1 class="mb-0">
+                                                <h1 class="m-0">
                                                     <?= $item['main_heading'] ?>
                                                 </h1>
                                             <?php else: ?>
-                                                <h2 class="mb-0">
+                                                <h2 class="m-0">
                                                     <?= $item['main_heading'] ?>
                                                 </h2>
                                             <?php endif ?>
