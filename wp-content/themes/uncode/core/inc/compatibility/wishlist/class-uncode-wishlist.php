@@ -338,15 +338,17 @@ class Uncode_Wishlist {
 	 * Save default options when installing the plugin
 	 */
 	public function after_install() {
-		update_option( 'yith_wcwl_add_to_wishlist_style', 'link' );
-		update_option( 'yith_wcwl_wishlist_manage_layout', 'traditional' );
-		update_option( 'yith_wcwl_wishlist_layout', 'traditional' );
-		update_option( 'yith_wcwl_move_to_another_wishlist_type', 'popup' );
-		update_option( 'yith_wcwl_custom_css', false );
-		update_option( 'yith_wcwl_enable_share', 'no' );
-		update_option( 'yith_wcwl_add_to_cart_style', 'link' );
-		update_option( 'yith_wcwl_ask_an_estimate_style', 'button_default' );
-		update_option( 'yith_wcwl_tooltip_enable', 'no' );
+		if ( apply_filters( 'uncode_use_custom_yith_wishlist', true ) ) {
+			update_option( 'yith_wcwl_add_to_wishlist_style', 'link' );
+			update_option( 'yith_wcwl_wishlist_manage_layout', 'traditional' );
+			update_option( 'yith_wcwl_wishlist_layout', 'traditional' );
+			update_option( 'yith_wcwl_move_to_another_wishlist_type', 'popup' );
+			update_option( 'yith_wcwl_custom_css', false );
+			update_option( 'yith_wcwl_enable_share', 'no' );
+			update_option( 'yith_wcwl_add_to_cart_style', 'link' );
+			update_option( 'yith_wcwl_ask_an_estimate_style', 'button_default' );
+			update_option( 'yith_wcwl_tooltip_enable', 'no' );
+		}
 	}
 
 	/**

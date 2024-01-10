@@ -1,7 +1,7 @@
 <?php
 $google_api_key = ot_get_option('_uncode_gmaps_api');
 if ($google_api_key !== '') {
-	$google_api_key = '?key=' . $google_api_key;
+	$google_api_key = '?key=' . $google_api_key . '&callback=Function.prototype';
 }
 wp_enqueue_script('google-maps-api', '//maps.googleapis.com/maps/api/js' . $google_api_key, array(), false, true);
 wp_enqueue_script('uncode-google-maps', get_template_directory_uri() . '/library/js/uncode.gmaps.min.js', array('google-maps-api') , UNCODE_VERSION, true);

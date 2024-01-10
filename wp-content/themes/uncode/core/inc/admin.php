@@ -25,7 +25,7 @@ function uncode_admin_menu(){
 add_action( 'admin_menu', 'uncode_admin_menu' );
 
 function uncode_admin_inline_styles() {
-	echo '<style>#adminmenu .toplevel_page_uncode-system-status div.wp-menu-image.svg {background-size: 16px auto;}</style>';
+	echo '<style>#adminmenu .toplevel_page_uncode-system-status div.wp-menu-image.svg {background-size: 16px auto;} .wpb-notice {display: none !important;}</style>';
 }
 add_action( 'admin_head', 'uncode_admin_inline_styles' );
 
@@ -889,7 +889,7 @@ function uncode_edit_tax_meta() {
 add_action('admin_init', 'uncode_edit_tax_meta');
 
 
-///////////////
+/////////////// 
 // Menu edit //
 ///////////////
 

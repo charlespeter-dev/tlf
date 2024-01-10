@@ -258,10 +258,11 @@ if ( is_search() && $filter_group === 'search' ) {
 		<?php endif; ?>
 
 		<?php if ( $title ) : ?>
+			<?php $title_tag = apply_filters( 'uncode_widget_title_tag', 'h3' ); ?>
 			<?php if ( $use_widget_style === 'yes' ) : ?>
-				<h3 class="widget-title<?php echo uncode_switch_stock_string( $widget_open ); ?>"><?php echo esc_html( $title ); ?></h3>
+				<<?php echo esc_attr( $title_tag); ?> class="widget-title<?php echo uncode_switch_stock_string( $widget_open ); ?>"><?php echo esc_html( $title ); ?></<?php echo esc_attr( $title_tag); ?>>
 			<?php else : ?>
-				<h2 class="widgettitle"><?php echo esc_html( $title ); ?></h2>
+				<<?php echo esc_attr( $title_tag); ?> class="widgettitle"><?php echo esc_html( $title ); ?></<?php echo esc_attr( $title_tag); ?>>
 			<?php endif; ?>
 			<?php if ( $widget_is_collapse !== '' ) : ?>
 				<div class="widget-collapse-content">
@@ -272,7 +273,7 @@ if ( is_search() && $filter_group === 'search' ) {
 		$filter_args = array(
 			'current_url'    => $current_url,
 			'multiple'       => $multiple,
-			'relation'       => $relation,
+			'relation'       => apply_filters( 'uncode_filter_multiple_relation_disable_and_query_type', true ) ? '' : $relation,
 			'show_count'     => $show_count,
 			'is_product_att' => $tax_source === 'product_att' ? true : false,
 			'hierarchy'      => $hierarchy,

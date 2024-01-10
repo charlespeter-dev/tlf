@@ -262,13 +262,15 @@ function uncode_filter_woocommerce_layered_nav_default_query_type( $query_type, 
 	$query_type = 'IN';
 	$filter_tax = uncode_get_filter_pa_key( $taxonomy );
 
-	if ( isset( $_GET ) && is_array( $_GET ) ) {
-		if ( isset( $_GET[ $filter_tax ] ) ) {
-			if ( isset( $_GET[ UNCODE_FILTER_PREFIX_RELATION . $filter_tax ] ) ) {
-				$operator = $_GET[ UNCODE_FILTER_PREFIX_RELATION . $filter_tax ];
+	if ( ! apply_filters( 'uncode_filter_multiple_relation_disable_and_query_type', true ) ) {
+		if ( isset( $_GET ) && is_array( $_GET ) ) {
+			if ( isset( $_GET[ $filter_tax ] ) ) {
+				if ( isset( $_GET[ UNCODE_FILTER_PREFIX_RELATION . $filter_tax ] ) ) {
+					$operator = $_GET[ UNCODE_FILTER_PREFIX_RELATION . $filter_tax ];
 
-				if ( $operator === 'and' ) {
-					$query_type = 'AND';
+					if ( $operator === 'and' ) {
+						$query_type = 'AND';
+					}
 				}
 			}
 		}
@@ -276,3 +278,15 @@ function uncode_filter_woocommerce_layered_nav_default_query_type( $query_type, 
 
 	return $query_type;
 }
+
+/**
+ * Fix WooCommerce chosen query type in archives
+ */
+function uncode_filter_woocommerce_layered_nav_default_query_type_filter( $query_type ) {
+	if ( apply_filters( 'uncode_filter_multiple_relation_disable_and_query_type', true ) && isset( $_GET[UNCODE_FILTER_PREFIX] ) ) {
+		$query_type = 'or';
+	}
+
+	return $query_type;
+}
+add_filter( 'woocommerce_layered_nav_default_query_type', 'uncode_filter_woocommerce_layered_nav_default_query_type_filter' );

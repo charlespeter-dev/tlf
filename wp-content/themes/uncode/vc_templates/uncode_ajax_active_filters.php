@@ -98,10 +98,11 @@ $active_filters_output = ob_get_clean();
 		<?php endif; ?>
 
 		<?php if ( $title ) : ?>
+			<?php $title_tag = apply_filters( 'uncode_widget_title_tag', 'h3' ); ?>
 			<?php if ( $use_widget_style === 'yes' ) : ?>
-				<h3 class="widget-title<?php echo uncode_switch_stock_string( $widget_open ); ?>"><?php echo esc_html( $title ); ?></h3>
+				<<?php echo esc_attr( $title_tag); ?> class="widget-title<?php echo uncode_switch_stock_string( $widget_open ); ?>"><?php echo esc_html( $title ); ?></<?php echo esc_attr( $title_tag); ?>>
 			<?php else : ?>
-				<h2 class="widgettitle"><?php echo esc_html( $title ); ?></h2>
+				<<?php echo esc_attr( $title_tag); ?> class="widgettitle"><?php echo esc_html( $title ); ?></<?php echo esc_attr( $title_tag); ?>>
 			<?php endif; ?>
 			<?php if ( $widget_is_collapse !== '' ) : ?>
 				<div class="widget-collapse-content">

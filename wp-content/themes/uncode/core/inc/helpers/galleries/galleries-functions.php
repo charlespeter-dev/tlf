@@ -188,12 +188,12 @@ function uncode_hide_gallery_attachments_grid_view( $query ) {
 	// Return early (ie. do not filter galleries) if the uploader
 	// was opened by an allowed post type
 	if ( $post_id ) {
-		$accepted_pts = array(
+		$accepted_pts = apply_filters( 'uncode_gallery_attachments_accepted_pts', array(
 			'page',
 			'post',
 			'uncodeblock',
 			'portfolio',
-		);
+		) );
 
 		$post_object = get_post( $post_id );
 

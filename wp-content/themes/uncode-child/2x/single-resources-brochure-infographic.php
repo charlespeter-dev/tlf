@@ -107,9 +107,11 @@ get_header() ?>
 
                     <iframe src="<?= $pdf['url'] ?>" frameborder="0"></iframe>
 
-                    <div class="bottom-content mt-5">
-                        <?= $bottom_content ?>
-                    </div>
+                    <?php if (isset($bottom_content) && $bottom_content): ?>
+                        <div class="bottom-content mt-5">
+                            <?= $bottom_content ?>
+                        </div>
+                    <?php endif ?>
 
                 </div>
             </div>

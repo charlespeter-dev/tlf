@@ -12381,6 +12381,10 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
   border-color: #002257;
 }
 
+.nav > ul > li > a[href="#"] {
+  cursor: default;
+}
+
 @media (max-width: 959px) {
   .row div[class*=col-lg-] {
     padding: unset;

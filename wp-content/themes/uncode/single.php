@@ -356,7 +356,7 @@ while (have_posts()):
 		$bg_color = 'style-transparent-bg';
 	}
 	$check_cb = uncode_get_the_content(false, true);
-	if (has_shortcode($the_content, 'vc_row')) {
+	if (has_shortcode($the_content, 'vc_row') || ( function_exists('vc_is_page_editable') && vc_is_page_editable() ) ) {
 		$with_builder = true;
 	}
 

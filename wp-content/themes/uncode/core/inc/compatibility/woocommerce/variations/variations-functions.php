@@ -571,23 +571,7 @@ function uncode_single_variations_enabled() {
  */
 function uncode_wc_process_variations() {
 	if ( wp_verify_nonce( $_POST[ 'uncode_process_variations_nonce' ], 'uncode-process-variations-nonce' ) ) {
-		if ( apply_filters( 'uncode_single_variations_enable_menu_order', false ) ) {
-			$args = array(
-				// 'type'   => 'simple',
-				'limit'  => -1,
-				'return' => 'ids',
-			);
-			$simple_product_ids = wc_get_products( $args );
-
-			foreach ( $simple_product_ids as $simple_product_id ) {
-				$simple_product = wc_get_product( $simple_product_id );
-
-				// Menu order
-				$simple_product_menu_order = $simple_product->get_menu_order();
-
-				update_post_meta( $simple_product_id, '_uncode_single_variation_menu_order', $simple_product_menu_order );
-			}
-		}
+		do_action( 'uncode_before_process_variations' );
 
 		$excluded_attributes = uncode_single_variations_get_excluded_attributes();
 
@@ -691,12 +675,6 @@ function uncode_wc_process_variations() {
 					update_post_meta( $variation_id, '_wc_average_rating', $parent_average_rating );
 				}
 
-				// Menu order
-				if ( apply_filters( 'uncode_single_variations_enable_menu_order', false ) ) {
-					$parent_menu_order = $parent_product->get_menu_order();
-					update_post_meta( $variation_id, '_uncode_single_variation_menu_order', $parent_menu_order );
-				}
-
 				update_post_meta( $variation_id, '_uncode_show_single_variation', $parent_product->get_status() === 'publish' ? 'yes' : 'no' );
 
 				do_action( 'uncode_after_process_single_variation', $variation_id, $parent_id );
@@ -747,32 +725,32 @@ add_action( 'wp_ajax_uncode_process_variations', 'uncode_wc_process_variations' 
  * Fix pagination on archives if we are using single variations
  */
 function uncode_single_variations_fix_main_query( $query ) {
-  if ( class_exists( 'WooCommerce' ) && uncode_single_variations_enabled() && ! is_admin() && $query->is_main_query() ) {
-	$shop_archive = false;
+  	if ( class_exists( 'WooCommerce' ) && uncode_single_variations_enabled() && ! is_admin() ) {
+		$shop_archive = false;
 
-	if ( ( is_shop() || is_product_category() || is_product_tag() || is_tax() ) ) {
-		$shop_archive = true;
-	}
-
-	if ( is_tax() ) {
-		$queried_object     = get_queried_object();
-		$queried_object_tax = isset( $queried_object->taxonomy ) ? $queried_object->taxonomy : false;
-
-		if ( $queried_object_tax && taxonomy_is_product_attribute( $queried_object_tax ) ) {
+		if ( ( is_shop() || is_product_category() || is_product_tag() || is_tax() ) ) {
 			$shop_archive = true;
 		}
-	}
 
-	if ( $shop_archive ) {
-		$uncodeblock_id = ot_get_option('_uncode_product_index_content_block');
-		$uncodeblock_id = apply_filters( 'wpml_object_id', $uncodeblock_id, 'post' );
-		$content        = get_post_field('post_content', $uncodeblock_id);
+		if ( is_tax() ) {
+			$queried_object     = get_queried_object();
+			$queried_object_tax = isset( $queried_object->taxonomy ) ? $queried_object->taxonomy : false;
 
-		if ( strpos( $content, 'woo_single_variations="yes"' ) !== false ) {
-			$query->set( 'post_type', array( 'product', 'product_variation' ) );
+			if ( $queried_object_tax && taxonomy_is_product_attribute( $queried_object_tax ) ) {
+				$shop_archive = true;
+			}
 		}
-	}
-  }
+
+		if ( $shop_archive ) {
+			$uncodeblock_id = ot_get_option('_uncode_product_index_content_block');
+			$uncodeblock_id = apply_filters( 'wpml_object_id', $uncodeblock_id, 'post' );
+			$content        = get_post_field('post_content', $uncodeblock_id);
+
+			if ( strpos( $content, 'woo_single_variations="yes"' ) !== false ) {
+				$query->set( 'post_type', array( 'product', 'product_variation' ) );
+			}
+		}
+  	}
 }
 add_action( 'pre_get_posts', 'uncode_single_variations_fix_main_query' );
 

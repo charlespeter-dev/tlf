@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Uncode\n"
 "Report-Msgid-Bugs-To: info@undsgn.com\n"
-"POT-Creation-Date: 2023-11-14 12:09+0100\n"
-"PO-Revision-Date: 2023-11-14 12:09+0100\n"
+"POT-Creation-Date: 2023-11-22 13:43+0100\n"
+"PO-Revision-Date: 2023-11-22 13:43+0100\n"
 "Last-Translator: Undsgn <info@undsgn.com>\n"
 "Language-Team: Undsgn <info@undsgn.com>\n"
 "Language: en_US\n"
@@ -805,11 +805,11 @@ msgstr ""
 msgid "Variation title (variations as single products)"
 msgstr ""
 
-#: core/inc/compatibility/woocommerce/variations/variations-functions.php:732
+#: core/inc/compatibility/woocommerce/variations/variations-functions.php:710
 msgid "Variations processed."
 msgstr ""
 
-#: core/inc/compatibility/woocommerce/variations/variations-functions.php:740
+#: core/inc/compatibility/woocommerce/variations/variations-functions.php:718
 #: core/inc/api/class-theme-registration.php:86
 msgid "Invalid nonce or empty data."
 msgstr ""
@@ -1020,7 +1020,7 @@ msgid ""
 "the default template"
 msgstr ""
 
-#: core/inc/compatibility/wishlist/class-uncode-wishlist.php:368
+#: core/inc/compatibility/wishlist/class-uncode-wishlist.php:370
 msgid "Wishlist"
 msgstr ""
 

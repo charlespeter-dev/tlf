@@ -345,7 +345,7 @@ if ( ! function_exists( 'uncode_get_uncode_core_plugin_conf' ) ) :
 			'remote_url'         => 'https://api.undsgn.com/downloads/uncode/plugins/uncode-core/api.json',
 			'zip_url'            => 'https://api.undsgn.com/downloads/uncode/plugins/uncode-core/uncode-core.zip',
 			'required'           => true,
-			'version'            => '2.8.7',
+			'version'            => '2.8.9',
 			'force_activation'   => true,
 			'force_deactivation' => true,
 		);

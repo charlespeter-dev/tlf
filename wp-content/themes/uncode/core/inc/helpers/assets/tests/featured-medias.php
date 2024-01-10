@@ -30,6 +30,7 @@ function uncode_page_require_asset_featured_medias( $content_array ) {
 
 				if ($media_display === 'carousel') {
 					$uncode_check_asset['ilightbox'] = true; // This activates also the lightbox
+					$uncode_check_asset['carousel'] = true; // This activates also the carousel
 				}
 
 				$media_ids     = get_post_meta( $uncode_post_data['ID'], '_uncode_featured_media', true );

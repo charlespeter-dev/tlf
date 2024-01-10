@@ -256,10 +256,10 @@
 				});
 			}
 			//add the resize event to the map
-			google.maps.event.addDomListener(window, 'resize', function() {
+			window.addEventListener('resize', function () {
 				resizeMap();
 			});
-			window.addEventListener('boxResized', function(e) {
+			window.addEventListener('boxResized', function (e) {
 				resizeMap();
 			});
 			// resize function
@@ -279,10 +279,10 @@
 					controlDiv.appendChild(controlUIzoomIn);
 					controlDiv.appendChild(controlUIzoomOut);
 					// Setup the click event listeners and zoom-in or out according to the clicked element
-					google.maps.event.addDomListener(controlUIzoomIn, 'click', function() {
+					controlUIzoomIn.addEventListener('click', function () {
 						map.setZoom(map.getZoom() + 1);
 					});
-					google.maps.event.addDomListener(controlUIzoomOut, 'click', function() {
+					controlUIzoomOut.addEventListener('click', function () {
 						map.setZoom(map.getZoom() - 1);
 					});
 				}
@@ -301,7 +301,7 @@
 			gmaps_single(this);
 	    });
 	};
-	google.maps.event.addDomListener(window, 'load', UNCODE_GMAPS.uncode_gmaps_init);
+	window.addEventListener('load', UNCODE_GMAPS.uncode_gmaps_init);
 	var setVcFrontend, setSortStop;
 	if ( typeof window.parent.vc !== 'undefined' ) {
 		window.parent.vc.events.on('shortcodeView:ready shortcodeView:update', function(model) {

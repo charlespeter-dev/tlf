@@ -5814,6 +5814,7 @@ html.win .uncode-sidecart-wrapper .widget_shopping_cart .product_list_widget {
 .uncode-sidecart-wrapper .woocommerce-mini-cart-body {
   height: 100%;
   overflow-y: auto;
+  overflow-x: hidden !important;
   padding: 72px 27px 144px 27px;
   position: absolute;
   width: calc(100% + 200px - 27px);

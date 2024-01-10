@@ -311,7 +311,7 @@ function uncode_get_page_assets() {
 	);
 
 	// Owl Carousel
-	if ( ( is_array( $uncode_check_asset ) && isset( $uncode_check_asset['carousel'] ) ) ||uncode_page_require_asset_owl_carousel( $content_array ) ) {
+	if ( ( is_array( $uncode_check_asset ) && isset( $uncode_check_asset['carousel'] ) ) || uncode_page_require_asset_owl_carousel( $content_array ) ) {
 		$assets['owl-carousel'] = array(
 			'handle'    => 'owl-carousel',
 			'path'      => get_template_directory_uri() . '/library/js/lib/owl.carousel2' . $suffix . '.js',

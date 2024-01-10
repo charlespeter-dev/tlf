@@ -451,7 +451,7 @@ function uncode_filters_populate_author_terms( $query_args, $sort_by ) {
 					} else {
 						// Rebuild each time, no cache
 						$author_id    = get_post_field( 'post_author', $post_id );
-						$display_name = get_the_author_meta( 'display_name' );
+						$display_name = get_the_author_meta( 'display_name', $author_id );
 					}
 
 					if ( $author_id && $display_name ) {

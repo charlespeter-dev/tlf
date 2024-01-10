@@ -224,3 +224,14 @@ function get_page_by_slug($page_slug, $post_type = 'page', $output = OBJECT)
 
     return null;
 }
+
+/**
+ * disable archive for uncode 'portfolio'
+ */
+
+add_filter('register_post_type_args', function ($args, $post_type) {
+    if ('portfolio' === $post_type) {
+        $args['has_archive'] = false;
+    }
+    return $args;
+}, 10, 2);

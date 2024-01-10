@@ -1682,6 +1682,10 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
     border-color: #002257;
 }
 
+.nav>ul>li>a[href="#"] {
+    cursor: default;
+}
+
 //----- begin: custom 2x css + override uncode specific styles
 
 @media (max-width: 959px) {

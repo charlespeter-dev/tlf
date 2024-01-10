@@ -1819,11 +1819,11 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 					$div_data['data-stagepadding'] = $stage_padding;
 				}
 
-				$carousel_lg = absint( $carousel_lg );
+				$carousel_lg = floatval( $carousel_lg );
 				$carousel_lg = $carousel_lg > 0 ? $carousel_lg : 3;
-				$carousel_md = absint( $carousel_md );
+				$carousel_md = floatval( $carousel_md );
 				$carousel_md = $carousel_md > 0 ? $carousel_md : 3;
-				$carousel_sm = absint( $carousel_sm );
+				$carousel_sm = floatval( $carousel_sm );
 				$carousel_sm = $carousel_sm > 0 ? $carousel_sm : 1;
 				$div_data['data-lg'] = $carousel_lg;
 				$div_data['data-md'] = $carousel_md;
