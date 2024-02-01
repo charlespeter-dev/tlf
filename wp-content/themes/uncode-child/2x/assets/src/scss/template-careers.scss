@@ -59,6 +59,28 @@
         }
     }
 
+    .stacked-cards {
+
+        &-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            @include media-breakpoint-up(lg) {
+                align-items: flex-start;
+            }
+
+            .callout-with-cards-headline,
+            .callout-with-cards-excerpt {
+                text-align: center;
+
+                @include media-breakpoint-up(lg) {
+                    text-align: left;
+                }
+            }
+        }
+    }
+
     .callout-with-cards {
 
         &::before {

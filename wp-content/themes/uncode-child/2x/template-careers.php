@@ -128,19 +128,17 @@ get_header() ?>
                     <div class="row row-cols-1 row row-cols-md-3">
                         <?php foreach ($stacked_cards['cards'] as $k => $item): ?>
                             <div class="col">
-                                <div class="d-flex flex-column">
+                                <div class="stacked-cards-card">
                                     <img class="callout-with-cards-icon" src="<?= $item['icon'] ?>" alt="" loading="lazy">
-                                    <div>
-                                        <p class="callout-with-cards-headline mb-3">
-                                            <strong>
-                                                <?= $item['headline'] ?>
-                                            </strong>
-                                        </p>
+                                    <p class="callout-with-cards-headline mb-3">
+                                        <strong>
+                                            <?= $item['headline'] ?>
+                                        </strong>
+                                    </p>
 
-                                        <p class="callout-with-cards-excerpt">
-                                            <?= $item['excerpt'] ?>
-                                        </p>
-                                    </div>
+                                    <p class="callout-with-cards-excerpt">
+                                        <?= $item['excerpt'] ?>
+                                    </p>
                                 </div>
                             </div>
                         <?php endforeach ?>
@@ -219,7 +217,7 @@ get_header() ?>
                         <div class="col">
                             <div class="mt-5 mb-4 text-center">
                                 <a class="btn btn-primary"
-                                    href="<?= get_the_permalink(get_page_by_path('/about-us/faces-of-tlf/', 'OBJECT', 'v2')->ID) ?>">
+                                    href="<?= get_the_permalink(get_page_by_path('/about-us/faces-of-tlf/')->ID) ?>">
                                     <?= __('Show More') ?>
                                 </a>
                             </div>

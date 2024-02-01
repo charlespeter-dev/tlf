@@ -93,7 +93,7 @@ get_header() ?>
 
                                     <div class="_2x-hero-content">
                                         <div class="mb-3">
-                                            
+
                                             <?php if ($k == 0): ?>
                                                 <h1 class="m-0">
                                                     <?= $item['main_heading'] ?>
@@ -310,7 +310,7 @@ get_header() ?>
     <div class="row-container">
         <div class="single-h-padding limit-width">
 
-            <?php if ($featured_post): ?>
+            <?php if (isset($featured_post['left_image']) && $featured_post['left_image']): ?>
                 <section class="bootstrap-container">
                     <div class="featured-post py-5">
                         <div class="row">
