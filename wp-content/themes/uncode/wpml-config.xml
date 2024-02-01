@@ -16,6 +16,8 @@
 		<custom-field action="ignore">_uncode_is_oembed_gallery</custom-field>
 		<custom-field action="copy-once">_thumbnail_id</custom-field>
 		<custom-field action="copy-once">_uncode_featured_media</custom-field>
+		<custom-field action="copy-once">_uncode_wc_variation_gallery_ids</custom-field>
+		<custom-field action="copy-once">has_variation_gallery</custom-field>
 	</custom-fields>
 	<admin-texts>
 		<key name="uncode">

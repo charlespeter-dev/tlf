@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Uncode\n"
 "Report-Msgid-Bugs-To: info@undsgn.com\n"
-"POT-Creation-Date: 2023-11-22 13:43+0100\n"
-"PO-Revision-Date: 2023-11-22 13:43+0100\n"
+"POT-Creation-Date: 2024-01-09 08:36+0100\n"
+"PO-Revision-Date: 2024-01-09 08:36+0100\n"
 "Last-Translator: Undsgn <info@undsgn.com>\n"
 "Language-Team: Undsgn <info@undsgn.com>\n"
 "Language: en_US\n"
@@ -57,11 +57,11 @@ msgstr ""
 msgid "Track"
 msgstr ""
 
-#: woocommerce/order/order-details.php:38
+#: woocommerce/order/order-details.php:37
 msgid "Order details"
 msgstr ""
 
-#: woocommerce/order/order-details.php:42 woocommerce/wishlist-view.php:170
+#: woocommerce/order/order-details.php:41 woocommerce/wishlist-view.php:170
 #: woocommerce/single-product-reviews.php:50
 #: woocommerce/checkout/uncode-form-pay-table.php:26
 #: woocommerce/cart/uncode-cart-table-compact.php:21
@@ -72,11 +72,11 @@ msgstr ""
 msgid "Product"
 msgstr ""
 
-#: woocommerce/order/order-details.php:43
+#: woocommerce/order/order-details.php:42
 msgid "Total"
 msgstr ""
 
-#: woocommerce/order/order-details.php:77
+#: woocommerce/order/order-details.php:76
 msgid "Note:"
 msgstr ""
 
@@ -163,7 +163,7 @@ msgstr ""
 
 #: woocommerce/myaccount/form-login.php:36
 #: woocommerce/myaccount/uncode-my-account-form-login.php:28
-#: woocommerce/global/form-login.php:59
+#: woocommerce/global/form-login.php:59 partials/menus.php:640
 msgid "Login"
 msgstr ""
 
@@ -302,7 +302,7 @@ msgstr ""
 msgid "Price"
 msgstr ""
 
-#: woocommerce/wishlist-view.php:226 partials/elements.php:3202
+#: woocommerce/wishlist-view.php:226 partials/elements.php:3223
 msgid "Out of stock"
 msgstr ""
 
@@ -339,18 +339,18 @@ msgid "No products added to the wishlist"
 msgstr ""
 
 #: woocommerce/single-product.php:227 woocommerce/single-product.php:325
-#: woocommerce/content-single-product.php:79 single-portfolio.php:443
-#: single-portfolio.php:752 footer.php:190 single.php:530 single.php:756
-#: page.php:434 partials/headers.php:472
+#: woocommerce/content-single-product.php:79 single-portfolio.php:444
+#: single-portfolio.php:753 footer.php:191 single.php:534 single.php:760
+#: page.php:438 partials/headers.php:472
 msgid "Edit Content Block"
 msgstr ""
 
-#: woocommerce/single-product.php:227 single-portfolio.php:443 single.php:530
-#: page.php:434
+#: woocommerce/single-product.php:227 single-portfolio.php:444 single.php:534
+#: page.php:438
 msgid "Post After Content Block"
 msgstr ""
 
-#: woocommerce/single-product.php:325 single-portfolio.php:752 single.php:756
+#: woocommerce/single-product.php:325 single-portfolio.php:753 single.php:760
 msgid "Navigation Content Block"
 msgstr ""
 
@@ -545,7 +545,7 @@ msgstr ""
 #: core/inc/compatibility/woocommerce/icon-cart.php:132
 #: core/inc/compatibility/woocommerce/icon-cart.php:134
 #: vc_templates/uncode_woocommerce_widget_cart.php:102
-#: vc_templates/uncode_woocommerce_steps.php:115
+#: vc_templates/uncode_woocommerce_steps.php:117
 msgid "Cart"
 msgstr ""
 
@@ -612,7 +612,7 @@ msgstr ""
 
 #: woocommerce/cart/mini-cart.php:112
 #: core/inc/compatibility/woocommerce/icon-cart.php:66
-#: vc_templates/uncode_woocommerce_steps.php:127
+#: vc_templates/uncode_woocommerce_steps.php:129
 msgid "Checkout"
 msgstr ""
 
@@ -661,8 +661,8 @@ msgstr ""
 msgid "Tags"
 msgstr ""
 
-#: woocommerce/single-product/product-image.php:204
-#: woocommerce/single-product/product-image.php:360
+#: woocommerce/single-product/product-image.php:205
+#: woocommerce/single-product/product-image.php:365
 msgid "Awaiting product image"
 msgstr ""
 
@@ -678,7 +678,7 @@ msgstr ""
 msgid "Clear"
 msgstr ""
 
-#: woocommerce/single-product/add-to-cart/simple.php:70 core/inc/main.php:1284
+#: woocommerce/single-product/add-to-cart/simple.php:70 core/inc/main.php:1285
 #: core/inc/admin.php:94
 msgid "Read more"
 msgstr ""
@@ -687,7 +687,7 @@ msgstr ""
 msgid "Related products"
 msgstr ""
 
-#: woocommerce/single-product/share.php:35 single-portfolio.php:512
+#: woocommerce/single-product/share.php:35 single-portfolio.php:513
 msgid "Share"
 msgstr ""
 
@@ -805,11 +805,11 @@ msgstr ""
 msgid "Variation title (variations as single products)"
 msgstr ""
 
-#: core/inc/compatibility/woocommerce/variations/variations-functions.php:710
+#: core/inc/compatibility/woocommerce/variations/variations-functions.php:730
 msgid "Variations processed."
 msgstr ""
 
-#: core/inc/compatibility/woocommerce/variations/variations-functions.php:718
+#: core/inc/compatibility/woocommerce/variations/variations-functions.php:738
 #: core/inc/api/class-theme-registration.php:86
 msgid "Invalid nonce or empty data."
 msgstr ""
@@ -861,7 +861,7 @@ msgstr ""
 msgid "Payment method"
 msgstr ""
 
-#: core/inc/compatibility/woocommerce/checkout/functions.php:179
+#: core/inc/compatibility/woocommerce/checkout/functions.php:188
 msgid "Please log in to your account to view this order."
 msgstr ""
 
@@ -1021,6 +1021,7 @@ msgid ""
 msgstr ""
 
 #: core/inc/compatibility/wishlist/class-uncode-wishlist.php:370
+#: partials/menus.php:684
 msgid "Wishlist"
 msgstr ""
 
@@ -1078,7 +1079,7 @@ msgstr ""
 msgid "seconds"
 msgstr ""
 
-#: core/inc/main.php:475 vc_templates/uncode_index.php:2909
+#: core/inc/main.php:475 vc_templates/uncode_index.php:2913
 #: vc_templates/vc_gallery.php:1543
 msgid "Loading…"
 msgstr ""
@@ -1485,23 +1486,23 @@ msgstr ""
 msgid "Minute"
 msgstr ""
 
-#: core/inc/helpers.php:510
+#: core/inc/helpers.php:524
 msgid "Error when retrieving the image editor."
 msgstr ""
 
-#: core/inc/helpers.php:525
+#: core/inc/helpers.php:539
 msgid "Error when resizing the image"
 msgstr ""
 
-#: core/inc/helpers.php:575
+#: core/inc/helpers.php:589
 msgid "Error when saving the image"
 msgstr ""
 
-#: core/inc/helpers.php:608
+#: core/inc/helpers.php:622
 msgid "Path not correct"
 msgstr ""
 
-#: core/inc/helpers.php:1411 vc_templates/uncode_consent_notice.php:48
+#: core/inc/helpers.php:1425 vc_templates/uncode_consent_notice.php:48
 msgid ""
 "This content is blocked. Please review your [uncode_privacy_box]Privacy "
 "Settings[/uncode_privacy_box]."
@@ -2540,12 +2541,12 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: core/inc/helpers/ajax-filters/ajax-filters-views.php:463
-#: partials/menus.php:837 searchform.php:9
+#: partials/menus.php:838 searchform.php:9
 msgid "Search products…"
 msgstr ""
 
 #: core/inc/helpers/ajax-filters/ajax-filters-views.php:463
-#: partials/menus.php:837 searchform.php:9
+#: partials/menus.php:838 searchform.php:9
 msgid "Search…"
 msgstr ""
 
@@ -2576,11 +2577,11 @@ msgstr ""
 msgid "Delete all transients"
 msgstr ""
 
-#: core/inc/helpers/account/account-functions.php:33
+#: core/inc/helpers/account/account-functions.php:35
 msgid "My Account"
 msgstr ""
 
-#: core/inc/helpers/account/account-functions.php:33
+#: core/inc/helpers/account/account-functions.php:35
 msgid "Login / Register"
 msgstr ""
 
@@ -3257,15 +3258,15 @@ msgstr ""
 msgid "Please activate Uncode Core plugin"
 msgstr ""
 
-#: footer.php:126 vc_templates/uncode_copyright.php:48 partials/menus.php:1524
+#: footer.php:126 vc_templates/uncode_copyright.php:48 partials/menus.php:1525
 msgid "All rights reserved"
 msgstr ""
 
-#: footer.php:190
+#: footer.php:191
 msgid "Footer Content Block"
 msgstr ""
 
-#: single.php:397 page.php:406 partials/elements.php:1449
+#: single.php:401 page.php:410 partials/elements.php:1458
 msgid "Pages:"
 msgstr ""
 
@@ -3302,15 +3303,16 @@ msgstr ""
 msgid "Apply"
 msgstr ""
 
-#: vc_templates/uncode_index.php:2857
+#: vc_templates/uncode_index.php:2861
 msgid "The Post Table layout must start with a 'Column' element."
 msgstr ""
 
-#: vc_templates/uncode_index.php:2909 vc_templates/vc_gallery.php:1543
+#: vc_templates/uncode_index.php:2913 vc_templates/vc_gallery.php:1543
 msgid "Load more"
 msgstr ""
 
-#: vc_templates/vc_wp_search.php:109 partials/menus.php:829
+#: vc_templates/vc_wp_search.php:109 partials/menus.php:733
+#: partials/menus.php:825 partials/menus.php:830
 msgid "Search"
 msgstr ""
 
@@ -3389,8 +3391,8 @@ msgstr ""
 msgid "You need to enable product reviews to use this module."
 msgstr ""
 
-#: vc_templates/uncode_single_product_gallery.php:241
-#: partials/elements.php:3200
+#: vc_templates/uncode_single_product_gallery.php:243
+#: partials/elements.php:3221
 msgid "Sale!"
 msgstr ""
 
@@ -3487,7 +3489,7 @@ msgstr ""
 msgid "Calendar"
 msgstr ""
 
-#: vc_templates/uncode_woocommerce_steps.php:134
+#: vc_templates/uncode_woocommerce_steps.php:136
 msgid "Order Complete"
 msgstr ""
 
@@ -3527,37 +3529,41 @@ msgstr ""
 msgid "logo"
 msgstr ""
 
-#: partials/elements.php:1114
+#: partials/menus.php:597
+msgid "Shopping cart"
+msgstr ""
+
+#: partials/elements.php:1123
 msgid "Sticky"
 msgstr ""
 
-#: partials/elements.php:1551
+#: partials/elements.php:1560
 msgid "Read More"
 msgstr ""
 
-#: partials/elements.php:1669 partials/elements.php:1674
-#: partials/elements.php:1678 partials/elements.php:1680
+#: partials/elements.php:1678 partials/elements.php:1683
+#: partials/elements.php:1687 partials/elements.php:1689
 msgid "by"
 msgstr ""
 
-#: partials/elements.php:1712 partials/elements.php:3842
+#: partials/elements.php:1721 partials/elements.php:3864
 msgctxt "comments"
 msgid "Comment"
 msgid_plural "Comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: partials/elements.php:3773 partials/elements.php:3797
-#: partials/elements.php:3873
+#: partials/elements.php:3795 partials/elements.php:3819
+#: partials/elements.php:3895
 #, php-format
 msgid "View all posts in %s"
 msgstr ""
 
-#: partials/elements.php:3775 partials/elements.php:3799
-#: partials/elements.php:3879
+#: partials/elements.php:3797 partials/elements.php:3821
+#: partials/elements.php:3901
 msgid "In"
 msgstr ""
 
-#: partials/elements.php:3778 partials/elements.php:3826
+#: partials/elements.php:3800 partials/elements.php:3848
 msgid "By"
 msgstr ""

@@ -216,8 +216,8 @@ $attributes_first = array(
 	'table_hover' => '',
 	'inner_padding' => '',
 	'post_items' => 'media|featured|onpost|original,title,category|nobg,date,text|excerpt,link|default,author,sep-one|full,extra',
-	'page_items' => 'media|featured,title,type,category,text',
-	'product_items' => 'media|featured,title,type,category,text,price',
+	'page_items' => 'media|featured|onpost|original,title,text|excerpt,link|default',
+	'product_items' => 'media|featured|onpost|original,title,text|excerpt,link|default',
 	'uncode_taxonomy_items' => 'media|featured|onpost|original,title,count|nobg|relative|hide-label',
 	'uncode_taxonomy_table_items' => 'col-one|1,media|featured|onpost|original,col-two|6,title,col-three|3,text|120,col-four|2,count|nobg|relative|hide-label,link|default|default_size',
 	'post_table_items' => 'col-one|1,media|featured|onpost|poster,col-two|5,title,col-three|2,date,col-four|2,category|inline,col-five|2,link|default|default_size',
@@ -1410,7 +1410,7 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 							<?php if ( ! $filter_hide_cats ) : ?>
 								<?php if ($filter_mobile_dropdown === 'yes') { ?>
 									<div class="menu-smart--filter-cats_mobile-toggle desktop-hidden mobile-toggle">
-										<a href="#" class="menu-smart--filter-cats_mobile-toggle-trigger mobile-toggle-trigger no-isotope-filter no-grid-filter menu-smart-toggle"><?php echo esc_html( $filter_all_text === '' ? esc_html( $filter_mobile_dropdown_text ) : $filter_all_text ); ?></a>
+										<a href="#" class="menu-smart--filter-cats_mobile-toggle-trigger mobile-toggle-trigger no-isotope-filter no-grid-filter menu-smart-toggle"><?php echo esc_html( $filter_mobile_dropdown_text !== '' ? esc_html( $filter_mobile_dropdown_text ) : $filter_all_text ); ?></a>
 									</div>
 								<?php } ?>
 								<ul class="menu-smart sm<?php echo esc_attr( ($filtering_uppercase === 'yes') ? ' text-uppercase' : ' no-text-uppercase' ); ?> menu-smart--filter-cats <?php echo esc_attr( $filter_mobile_dropdown === 'yes' ? 'menu-smart--filter-cats-mobile-dropdown ul-mobile-dropdown' : '' ); ?>">
@@ -1972,9 +1972,11 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 
 					if ( $index_type !== 'titles' ) {
 						$post_type_layout = $index_type === 'table' ? $post->type . '_table' : $post->type;
+
 						if ($post->type === 'product_variation') {
-							$post_type_layout = 'product';
+							$post_type_layout = $index_type === 'table' ? 'product_table' : 'product';
 						}
+
 						if ( $index_type === 'table' ) {
 							$typeLayout = $is_tax_query ? $post_blocks['uncode_taxonomy_table'] : $post_blocks['uncode_' . str_replace('-', '_', $post_type_layout)];
 						} else {
@@ -2492,6 +2494,8 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 						if ( $table_general_typo === 'yes' ) {
 							$block_data['table_heading'] = true;
 						}
+					} elseif ( $index_type === 'titles' ) {
+						$single_padding = 0;
 					}
 
 					$block_data['id'] = $post->id;
@@ -2581,7 +2585,7 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 						}
 
 						if ( $is_product ) {
-							$redirect_to_product = uncode_single_variations_change_button( $product );
+							$redirect_to_product = uncode_single_variations_redirect_to_product( $product );
 
 							if ( $redirect_to_product ) {
 								$block_data['link']['url'] = get_permalink( $product->get_parent_id() );

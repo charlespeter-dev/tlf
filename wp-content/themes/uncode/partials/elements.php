@@ -234,8 +234,8 @@ if (!function_exists('uncode_get_back_html')) {
 							$id = basename($json_data['url']);
 							$html = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $json_data['html']);
 							$html = str_replace("&mdash; ", '', $html);
-							if (function_exists('mb_convert_encoding')) {
-								$html = mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
+							if (function_exists('mb_encode_numericentity')) {
+								$html = mb_encode_numericentity( $html, [0x80, 0x10FFFF, 0, ~0], 'UTF-8' );
 							}
 							$dom = new domDocument;
 							$dom->loadHTML($html);
@@ -910,7 +910,16 @@ if (!function_exists('uncode_create_single_block')) {
 						}
 
 						if ( $is_product && isset($layout['price']) && isset( $block_data['price_inline'] ) && $block_data['price_inline'] === 'yes' ) {
-							$price_case = '<span class="price '.trim(implode(' ', $title_classes)).'">'.$product->get_price_html().'</span>';
+							$redirect_to_product = uncode_single_variations_redirect_to_product( $product );
+
+							if ( $redirect_to_product ) {
+								$parent_product = wc_get_product( $product->get_parent_id() );
+								$price_html = $parent_product->get_price_html();
+							} else {
+								$price_html = $product->get_price_html();
+							}
+
+							$price_case = '<span class="price '.trim(implode(' ', $title_classes)).'">'.$price_html.'</span>';
 						} else {
 							$price_case = '';
 						}
@@ -1591,7 +1600,7 @@ if (!function_exists('uncode_create_single_block')) {
 								$btn_shape .= ' ' . uncode_btn_style();
 							}
 
-							$redirect_to_product = uncode_single_variations_change_button( $product );
+							$redirect_to_product = uncode_single_variations_redirect_to_product( $product );
 
 							ob_start();
 							$add_to_cart_args = array();
@@ -1727,10 +1736,19 @@ if (!function_exists('uncode_create_single_block')) {
 
 					case 'price':
 						if ( $is_product && ( !isset( $block_data['price_inline'] ) || $block_data['price_inline'] !== 'yes' ) ) {
-							if ( $is_titles && isset( $block_data['drop_image_extra'] ) ) {
-								$drop_image_extra = preg_replace( "/<ins .*?>(.*?)<\/ins>/", "<ins>$1</ins>", $product->get_price_html() );
+							$redirect_to_product = uncode_single_variations_redirect_to_product( $product );
+
+							if ( $redirect_to_product ) {
+								$parent_product = wc_get_product( $product->get_parent_id() );
+								$price_html = $parent_product->get_price_html();
 							} else {
-								$inner_entry .= '<span class="price '.trim(implode(' ', $title_classes)).'">'.$product->get_price_html().'</span>';
+								$price_html = $product->get_price_html();
+							}
+
+							if ( $is_titles && isset( $block_data['drop_image_extra'] ) ) {
+								$drop_image_extra = preg_replace( "/<ins .*?>(.*?)<\/ins>/", "<ins>$1</ins>", $price_html );
+							} else {
+								$inner_entry .= '<span class="price '.trim(implode(' ', $title_classes)).'">'.$price_html.'</span>';
 							}
 						}
 					break;
@@ -2072,6 +2090,10 @@ if (!function_exists('uncode_create_single_block')) {
 		}
 
 		$block_data['layout'] = $layout;
+
+		if ( $is_product && $product->get_type() === 'variable' ) {
+			$block_classes[] = 'tmb-woocommerce-variable-product';
+		}
 
 		if ( empty( $item_thumb_id ) && $is_product && $product->get_type() === 'variation' ) {
 			if ( apply_filters( 'uncode_woocommerce_use_get_image_id_original_hook', false ) ) {
@@ -3194,12 +3216,11 @@ if (!function_exists('uncode_create_single_block')) {
 					global $woocommerce;
 					if ( $is_product ) {
 						if (isset($block_data['id'])) {
-							$post_obj = get_post($product);
 							if ( is_object($product) ) {
 								if ( $product->is_on_sale() ) {
-									$media_output .= apply_filters( 'woocommerce_sale_flash', '<div class="woocommerce"><span class="onsale">' . esc_html__( 'Sale!', 'woocommerce' ) . '</span></div>', $post_obj, $product );
+									$media_output .= apply_filters( 'woocommerce_sale_flash', '<div class="woocommerce"><span class="onsale">' . esc_html__( 'Sale!', 'woocommerce' ) . '</span></div>', $post, $product );
 								} elseif ( ! $product->is_in_stock() ) {
-									$media_output .= apply_filters( 'uncode_woocommerce_out_of_stock', '<div class="font-ui"><div class="woocommerce"><span class="soldout">' . esc_html__( 'Out of stock', 'woocommerce' ) . '</span></div></div>', $post_obj, $product );
+									$media_output .= apply_filters( 'uncode_woocommerce_out_of_stock', '<div class="font-ui"><div class="woocommerce"><span class="soldout">' . esc_html__( 'Out of stock', 'woocommerce' ) . '</span></div></div>', $post, $product );
 								}
 							}
 						}
@@ -3209,6 +3230,7 @@ if (!function_exists('uncode_create_single_block')) {
 				$background_mime = $media_attributes ? $media_attributes->post_mime_type : '';
 				/* Metro */
 				if ($style_preset === 'metro' || ( $is_titles && ( isset($block_data['drop_image_position']) || ( !isset($block_data['drop_image_position']) && $media_type !== 'image' ) ) ) ) {
+					$media_post_id = null;
 					if ( $adaptive_images === 'off' && $dynamic_srcset_active && $enable_adaptive_dynamic_img ) {
 						if ( $is_product ) {
 							$media_post_id = $product->get_id();
@@ -3655,7 +3677,7 @@ if (!function_exists('uncode_create_single_block')) {
 			$has_add_to_cart_overlay = false;
 
 			if ( !$is_titles && $is_product && ( !isset($block_data['show_atc']) || $block_data['show_atc'] == 'yes') ) {
-				$redirect_to_product = uncode_single_variations_change_button( $product );
+				$redirect_to_product = uncode_single_variations_redirect_to_product( $product );
 
 				ob_start();
 				$add_to_cart_args = array();

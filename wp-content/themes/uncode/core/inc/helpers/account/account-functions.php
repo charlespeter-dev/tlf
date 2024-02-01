@@ -17,6 +17,8 @@ function uncode_get_login_url() {
 		$account_url = admin_url();
 	}
 
+	$account_url = apply_filters( 'uncode_get_login_url', $account_url );
+
 	return $account_url;
 }
 

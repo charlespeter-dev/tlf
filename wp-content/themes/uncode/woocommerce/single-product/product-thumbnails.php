@@ -160,7 +160,9 @@ if ( $attachment_ids ) {
 				$attributes = $thumb_carousel_atts;
 			}
 
-			$data_lbox = isset( $vc_lightbox ) && $vc_lightbox === 'yes' ? '' : ' data-lbox="ilightbox_gallery-' . $gallery_id . '" data-lb-index="' . ($at_key + 1);
+			$data_lbox = isset( $vc_lightbox ) && $vc_lightbox === 'yes' ? '' : ' data-lbox="ilightbox_gallery-' . $gallery_id . '" data-lb-index="' . ($at_key + 1) . '"';
+			$data_lbox .= isset( $vc_lbox_skin ) && $vc_lbox_skin !== '' ? ' data-skin="' . $vc_lbox_skin . '"' : '';
+	
 			$image_class .= $data_lbox == '' ? ' lb-disabled' : '';
 
 			$th_animation = $th_delay = $th_speed = '';
@@ -179,7 +181,7 @@ if ( $attachment_ids ) {
 			if ( $_uncode_thumb_layout == 'grid' ) {
 				$html = '<div class="woocommerce-product-gallery__image-wrap">';
 			}
-			$html .= '<div class="woocommerce-product-gallery__image' . $_uncode_product_thumb_margin . $th_animation . '"' . $th_delay . $th_speed . '"><span class="zoom-overlay"></span><a href="' . esc_url( $image_link ) . '" class="' . esc_attr( $image_class ) . '" data-options="thumbnail: \''.$small_image_resized['url'].'\'"' . $data_lbox . '" data-caption="' . get_post_field( 'post_excerpt', $attachment_id ) . '">';
+			$html .= '<div class="woocommerce-product-gallery__image' . $_uncode_product_thumb_margin . $th_animation . '"' . $th_delay . $th_speed . '"><span class="zoom-overlay"></span><a href="' . esc_url( $image_link ) . '" class="' . esc_attr( $image_class ) . '" data-options="thumbnail: \''.$small_image_resized['url'].'\'"' . $data_lbox . ' data-caption="' . get_post_field( 'post_excerpt', $attachment_id ) . '">';
 			$html .= wp_get_attachment_image( $attachment_id, 'full', false, $attributes );
 	 		$html .= '</a></div>';
 			if ( $_uncode_thumb_layout == 'grid' ) {

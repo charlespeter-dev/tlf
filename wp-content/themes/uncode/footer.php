@@ -145,7 +145,8 @@ if ( ! function_exists( 'uncode_get_current_post_type' ) || uncode_get_current_p
 				}
 				$social_rel = apply_filters( 'uncode_social_link_rel', '' );
 				$social_rel_html = $social_rel !== '' ? ' rel="' . esc_attr( $social_rel ) . '"' : '';
-				$footer_icons .= '<div class="social-icon icon-box icon-box-top icon-inline"><a href="'.esc_url($social['_uncode_link']).'" target="_blank"' . $social_rel_html . '><i class="'.esc_attr($social['_uncode_social']).'"></i></a></div>';
+				$social_aria = isset($social['_uncode_aria']) && $social['_uncode_aria'] !== '' ? ' aria-label="' . wp_kses_post( $social['_uncode_aria'] ) . '"' : '';
+				$footer_icons .= '<div class="social-icon icon-box icon-box-top icon-inline"><a href="'.esc_url($social['_uncode_link']).'" target="_blank"' . $social_rel_html . $social_aria . '><i class="'.esc_attr($social['_uncode_social']).'"></i></a></div>';
 			}
 		}
 	}

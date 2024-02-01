@@ -109,7 +109,10 @@ if ( $auto_text === 'excerpt' && $post_type != 'uncodeblock' ) {
 	}
 	$content = wpautop( $the_excerpt );
 } elseif ( $auto_text === 'content' && $post_type != 'uncodeblock' && $is_cb ) {
-	$content = apply_filters( 'the_content', get_the_content() );
+	$_content = get_the_content();
+	if ( $_content ) {
+		$content = apply_filters( 'the_content', $_content );
+	}
 } else {
 	$content = uncode_the_content($content);
 }

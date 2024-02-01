@@ -47,7 +47,8 @@ if (isset($socials) && !empty($socials) && count($socials) > 0) {
 			$div_data_attributes = array_map(function ($v, $k) { return $k . '="' . $v . '"'; }, $div_data, array_keys($div_data));
 			$social_rel = apply_filters( 'uncode_social_link_rel', '' );
 			$social_rel_html = $social_rel !== '' ? ' rel="' . esc_attr( $social_rel ) . '"' : '';
-			$output .= '<div class="' . esc_attr(trim(implode( ' ', $icon_classes ))) . '" '.implode(' ', $div_data_attributes).'><a href="'.esc_url($social['_uncode_link']).'" target="_blank"' . $social_rel_html . '><i class="'.esc_attr($social['_uncode_social']).'"></i></a></div>';
+			$social_aria = isset($social['_uncode_aria']) && $social['_uncode_aria'] !== '' ? ' aria-label="' . wp_kses_post( $social['_uncode_aria'] ) . '"' : '';
+			$output .= '<div class="' . esc_attr(trim(implode( ' ', $icon_classes ))) . '" '.implode(' ', $div_data_attributes).'><a href="'.esc_url($social['_uncode_link']).'" target="_blank"' . $social_rel_html . $social_aria . '><i class="'.esc_attr($social['_uncode_social']).'"></i></a></div>';
 			$i++;
 		}
 	}

@@ -619,6 +619,14 @@
 					// Append container
 					container.replaceWith(container_to_append);
 
+					// Hide first thumbnail until the new srcset is loaded
+					if (SiteParameters.dynamic_srcset_active === '1') {
+						container_to_append.find('.tmb-woocommerce-variable-product').addClass('srcset-lazy-animations');
+					}
+
+					// Remove loading attribute to images
+					container_to_append.find('img').attr('loading', '');
+
 					// Append pagination
 					if (pagination.length > 0) {
 						if (pagination_to_append.length > 0) {

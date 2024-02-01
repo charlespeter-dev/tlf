@@ -131,41 +131,42 @@
 			$('.cssgrid-system').on('click', '.pagination a', function(evt) {
 				evt.preventDefault();
 
-                var container = $(this).closest('.cssgrid-system'),
-				calc_scroll = SiteParameters.index_pagination_scroll_to != false ? eval(SiteParameters.index_pagination_scroll_to) : container.closest('.row-parent').offset().top;
+				if (SiteParameters.index_pagination_disable_scroll !== '1') {
+					var container = $(this).closest('.cssgrid-system'),
+					calc_scroll = SiteParameters.index_pagination_scroll_to != false ? eval(SiteParameters.index_pagination_scroll_to) : container.closest('.row-parent').offset().top;
 
-                calc_scroll -= UNCODE.get_scroll_offset();
+					calc_scroll -= UNCODE.get_scroll_offset();
 
-				var menu_container = $('.menu-sticky');
-				var menu = menu_container.find('.menu-container');
+					var menu_container = $('.menu-sticky');
+					var menu = menu_container.find('.menu-container');
 
-				if (menu_container.length > 0 && menu.length > 0) {
-					calc_scroll = calc_scroll - menu.outerHeight();
-				}
+					if (menu_container.length > 0 && menu.length > 0) {
+						calc_scroll = calc_scroll - menu.outerHeight();
+					}
 
-				var bodyTop = document.documentElement['scrollTop'] || document.body['scrollTop'],
-					delta = bodyTop - calc_scroll,
-					scrollSpeed = (SiteParameters.constant_scroll == 'on') ? Math.abs(delta) / parseFloat(SiteParameters.scroll_speed) : SiteParameters.scroll_speed;
-				if (scrollSpeed < 1000 && SiteParameters.constant_scroll == 'on') scrollSpeed = 1000;
+					var bodyTop = document.documentElement['scrollTop'] || document.body['scrollTop'],
+						delta = bodyTop - calc_scroll,
+						scrollSpeed = (SiteParameters.constant_scroll == 'on') ? Math.abs(delta) / parseFloat(SiteParameters.scroll_speed) : SiteParameters.scroll_speed;
+					if (scrollSpeed < 1000 && SiteParameters.constant_scroll == 'on') scrollSpeed = 1000;
 
-				if ( !UNCODE.isFullPage ) {
-					if (scrollSpeed == 0) {
-						$('html, body').scrollTop(calc_scroll);
-					} else {
-						$('html, body').animate({
-							scrollTop: calc_scroll
-						},{
-							easing: 'easeInOutQuad',
-							duration: scrollSpeed,
-							complete: function(){
-								UNCODE.scrolling = false;
-							}
-						});
+					if ( !UNCODE.isFullPage ) {
+						if (scrollSpeed == 0) {
+							$('html, body').scrollTop(calc_scroll);
+						} else {
+							$('html, body').animate({
+								scrollTop: calc_scroll
+							},{
+								easing: 'easeInOutQuad',
+								duration: scrollSpeed,
+								complete: function(){
+									UNCODE.scrolling = false;
+								}
+							});
+						}
 					}
 				}
 
 				loadCssGrid($(this), true);
-				evt.preventDefault();
 			});
 		}
 

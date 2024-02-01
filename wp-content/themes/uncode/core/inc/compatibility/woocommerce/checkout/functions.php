@@ -169,10 +169,19 @@ function uncode_woocommerce_checkout_get_order_received_ouput( $order ) {
 		);
 	}
 
-	$order_customer_id = $order->get_customer_id();
+	/**
+	 * Indicates if known (non-guest) shoppers need to be logged in before we let
+	 * them access the order received page.
+	 *
+	 * @param bool $verify_known_shoppers If verification is required.
+	 *
+	 * @since 8.4.0
+	 */
+	$verify_known_shoppers = apply_filters( 'woocommerce_order_received_verify_known_shoppers', true );
+	$order_customer_id     = $order->get_customer_id();
 
 	// For non-guest orders, require the user to be logged in before showing this page.
-	if ( $order_customer_id && get_current_user_id() !== $order_customer_id ) {
+	if ( $verify_known_shoppers && $order_customer_id && get_current_user_id() !== $order_customer_id ) {
 		ob_start();
 
 		wc_get_template( 'checkout/order-received.php', array( 'order' => false ) );

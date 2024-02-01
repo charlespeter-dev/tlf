@@ -151,7 +151,8 @@ if ( $element_type === 'social' ) {
 				$icon_class      = $socials_size !== '' ? 'social-icon--lead' : '';
 				$social_rel      = apply_filters( 'uncode_social_link_rel', '' );
 				$social_rel_html = $social_rel !== '' ? ' rel="' . esc_attr( $social_rel ) . '"' : '';
-				$social_output   .= '<div class="social-icon '. $icon_class . '"><a href="'.esc_url($social['_uncode_link']).'" target="_blank"' . $social_rel_html . '><i class="'.esc_attr($social['_uncode_social']).'"></i></a></div>';
+				$social_aria = isset($social['_uncode_aria']) && $social['_uncode_aria'] !== '' ? ' aria-label="' . wp_kses_post( $social['_uncode_aria'] ) . '"' : '';
+				$social_output   .= '<div class="social-icon '. $icon_class . '"><a href="'.esc_url($social['_uncode_link']).'" target="_blank"' . $social_rel_html . $social_aria . '><i class="'.esc_attr($social['_uncode_social']).'"></i></a></div>';
 			}
 		}
 	}

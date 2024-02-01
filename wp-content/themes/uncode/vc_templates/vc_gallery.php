@@ -816,11 +816,11 @@ switch ($type) {
 				$div_data['data-stagepadding'] = $stage_padding;
 			}
 
-			$carousel_lg = absint( $carousel_lg );
+			$carousel_lg = floatval( $carousel_lg );
 			$carousel_lg = $carousel_lg > 0 ? $carousel_lg : 3;
-			$carousel_md = absint( $carousel_md );
+			$carousel_md = floatval( $carousel_md );
 			$carousel_md = $carousel_md > 0 ? $carousel_md : 3;
-			$carousel_sm = absint( $carousel_sm );
+			$carousel_sm = floatval( $carousel_sm );
 			$carousel_sm = $carousel_sm > 0 ? $carousel_sm : 1;
 			$div_data['data-lg'] = $carousel_lg;
 			$div_data['data-md'] = $carousel_md;
@@ -882,7 +882,7 @@ if ( $lb_video_advanced === 'yes' ) {
 					<div class="menu-horizontal<?php if ($filtering_full_width !== 'yes') { echo ' limit-width'; } ?> menu-<?php echo esc_attr($filter_style); ?> text-<?php echo esc_attr($filtering_position); ?> text-mobile-<?php echo esc_attr($filter_mobile_align); ?>">
 						<?php if ($filter_mobile_dropdown === 'yes') { ?>
 							<div class="menu-smart--filter-cats_mobile-toggle desktop-hidden mobile-toggle">
-								<a href="#" class="menu-smart--filter-cats_mobile-toggle-trigger mobile-toggle-trigger no-isotope-filter no-grid-filter menu-smart-toggle"><?php echo esc_html( $filter_all_text === '' ? esc_html( $filter_mobile_dropdown_text ) : $filter_all_text ); ?></a>
+								<a href="#" class="menu-smart--filter-cats_mobile-toggle-trigger mobile-toggle-trigger no-isotope-filter no-grid-filter menu-smart-toggle"><?php echo esc_html( $filter_mobile_dropdown_text !== '' ? esc_html( $filter_mobile_dropdown_text ) : $filter_all_text ); ?></a>
 							</div>
 						<?php } ?>
 						<ul class="menu-smart sm<?php echo esc_attr( ($filtering_uppercase === 'yes') ? ' text-uppercase' : ' no-text-uppercase' ); ?> menu-smart--filter-cats <?php echo esc_attr( $filter_mobile_dropdown === 'yes' ? 'menu-smart--filter-cats-mobile-dropdown ul-mobile-dropdown' : '' ); ?>">

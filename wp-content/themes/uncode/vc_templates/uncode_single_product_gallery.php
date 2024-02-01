@@ -4,11 +4,12 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 	return;
 }
 
-$layout = $gutter_thumb_grid = $lightbox = $zoom = $zoom_mobile = $columns = $carousel = $mobile_grid = $el_id = $el_class = $gutter_thumb = $gutter_thumb_2 = $images_size = $data_gutter = $gutter_size = $inner_padding = $nav = $dots_inside = $product_badges = $css_animation = $animation_delay = $animation_speed = $div_data = '';
+$layout = $gutter_thumb_grid = $lightbox = $lbox_skin = $zoom = $zoom_mobile = $columns = $carousel = $mobile_grid = $el_id = $el_class = $gutter_thumb = $gutter_thumb_2 = $images_size = $data_gutter = $gutter_size = $inner_padding = $nav = $dots_inside = $product_badges = $css_animation = $animation_delay = $animation_speed = $div_data = '';
 extract(shortcode_atts(array(
 	'layout' => '',
 	'gutter_thumb_grid' => 3,
 	'lightbox' => '',
+	'lbox_skin' => '',
 	'zoom' => '',//filtered with preg_match_all() in uncode/core/inc/compatibility/woocommerce/filters.php
 	'zoom_mobile' => '',
 	'columns' => '',
@@ -217,6 +218,7 @@ $output .= '<div class="uncode-wrapper '.esc_attr( trim( implode( ' ', $classes 
 			'vc_columns' => isset($columns) ? $columns : false,
 			'vc_nav' => isset($nav) ? $nav : false,
 			'vc_lightbox' => isset($lightbox) ? $lightbox : false,
+			'vc_lbox_skin' => isset($lbox_skin) ? $lbox_skin : false,
 			'vc_ratio' => $uncode_vc_product_gallery_thumb_ratio,
 			'vc_padding' => isset($vc_padding) ? $vc_padding : false,
 			'vc_animation' => isset($vc_animation) ? $vc_animation : false,

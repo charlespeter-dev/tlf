@@ -228,7 +228,7 @@ function uncode_unclean_url( $tag, $handle, $src ){
 			$tag = str_replace( $src, apply_filters( 'uncode_ai_script_path', $url_parts['path'], $url_parts ) . "' " . $data_mobile_advanced . "id='uncodeAI'".$ai_async." data-home='".$url_home."' data-path='".$path_domain."' data-breakpoints-images='" . $ai_sizes, $tag );
 		}
 
-		
+
 	}
 
 	return $tag;
@@ -499,6 +499,7 @@ function uncode_equeue() {
 		'vimeoPlayerParams'			 => apply_filters( 'uncode_vimeo_params', '?autoplay=0' ),
 		'ajax_filter_key_search'	 => UNCODE_FILTER_KEY_SEARCH,
 		'ajax_filter_key_unfilter'	 => UNCODE_FILTER_PREFIX,
+		'index_pagination_disable_scroll' => apply_filters( "index_pagination_disable_scroll", false ),
 		'index_pagination_scroll_to' => apply_filters( "uncode_index_pagination_scroll_to", false ),
 		'uncode_wc_popup_cart_qty'   => apply_filters( 'uncode_woocommerce_popup_cart_quantity', ot_get_option( '_uncode_woocommerce_popup_cart_quantity'  ) === 'on' ),
 	);

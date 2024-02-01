@@ -174,6 +174,7 @@ $wrapper_classes = apply_filters( 'woocommerce_single_product_image_gallery_clas
 			$gallery_id = uncode_big_rand();
 
 			$data_lbox = isset( $vc_lightbox ) && $vc_lightbox === 'yes' ? '' : ' data-lbox="ilightbox_gallery-' . $gallery_id . '" data-lb-index="0"';
+			$data_lbox .= isset( $vc_lbox_skin ) && $vc_lbox_skin !== '' ? ' data-skin="' . $vc_lbox_skin . '"' : '';
 			$lb_disabled = $data_lbox == '' ? ' lb-disabled' : '';
 
 			$th_animation = $th_delay = $th_speed = '';
@@ -243,7 +244,10 @@ $product_gallery_data      = function_exists( 'wc_esc_json' ) ? wc_esc_json( $pr
 			}
 		}
 	?>
-	<div class="woocommerce-product-gallery__wrapper<?php echo uncode_switch_stock_string( $woo_carousel_atts ); ?>">
+	<?php
+		$data_skin = isset( $vc_lbox_skin ) && $vc_lbox_skin !== '' ? $vc_lbox_skin : 'black';
+	?>
+	<div class="woocommerce-product-gallery__wrapper<?php echo uncode_switch_stock_string( $woo_carousel_atts ); ?>" data-skin="<?php echo apply_filters( 'uncode_single_product_thumbs_lbox_skin', $data_skin ); ?>">
 
 	<?php echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', $html, $post_thumbnail_id ); ?>
 
@@ -259,6 +263,7 @@ $product_gallery_data      = function_exists( 'wc_esc_json' ) ? wc_esc_json( $pr
 			'vc_animation' => $vc_animation,
 			'vc_delay' => $vc_delay,
 			'vc_speed' => $vc_speed,
+			'vc_lbox_skin' => $vc_lbox_skin,
 		);
 		if ( ( $vc_thumb_layout == 'stack' || $vc_thumb_layout === 'stack-lateral' ) && isset( $vc_margin ) ) {
 			$images_arr['vc_margin'] = $vc_margin;

@@ -13,7 +13,7 @@
  * @see 	https://docs.woothemes.com/document/template-structure/
  * @author  WooThemes
  * @package WooCommerce/Templates
- * @version 7.8.0
+ * @version 8.5.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -27,9 +27,8 @@ $order_items           = $order->get_items( apply_filters( 'woocommerce_purchase
 $show_purchase_note    = $order->has_status( apply_filters( 'woocommerce_purchase_note_order_statuses', array( 'completed', 'processing' ) ) );
 $show_customer_details = is_user_logged_in() && $order->get_user_id() === get_current_user_id();
 $downloads             = $order->get_downloadable_items();
-$show_downloads        = $order->has_downloadable_item() && $order->is_download_permitted();
 
-if ( $show_downloads ) {
+if ( $show_downloads ) { // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 	wc_get_template( 'order/order-downloads.php', array( 'downloads' => $downloads, 'show_title' => true ) );
 }
 ?>

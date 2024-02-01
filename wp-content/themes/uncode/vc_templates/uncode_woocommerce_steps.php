@@ -96,6 +96,8 @@ if ( is_cart() ) {
 	$active = 'checkout';
 }
 
+$active = apply_filters( 'uncode_get_woocommerce_active_step', $active );
+
 // Icon markup
 $icon_html = '';
 if ( $icon ) {

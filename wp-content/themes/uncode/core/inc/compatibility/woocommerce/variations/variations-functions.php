@@ -607,102 +607,122 @@ function uncode_wc_process_variations() {
 			// First delete all terms
 			uncode_wc_delete_single_variations_terms( $variation_id, $attributes_to_remove, $taxonomies );
 
+			// Delete post meta
+			if ( ! apply_filters( 'uncode_process_variations_update_meta', true ) ) {
+				delete_post_meta( $variation_id, '_wc_average_rating' );
+				delete_post_meta( $variation_id, '_uncode_show_single_variation' );
+			}
+
 			if ( $parent_id ) {
 				if ( $parent_product->get_catalog_visibility() === 'hidden' ) {
 					continue;
 				}
 
-				foreach ( $taxonomies as $taxonomy ) {
-					$terms = (array) wp_get_post_terms( $parent_id, $taxonomy, array( 'fields' => 'ids' ) );
-					wp_set_post_terms( $variation_id, $terms, $taxonomy );
+				if ( apply_filters( 'uncode_process_variations_update_meta', true ) ) {
+					foreach ( $taxonomies as $taxonomy ) {
+						$terms = (array) wp_get_post_terms( $parent_id, $taxonomy, array( 'fields' => 'ids' ) );
+						wp_set_post_terms( $variation_id, $terms, $taxonomy );
+					}
 				}
 
 				// Variation attributes
 				$variation  = new WC_Product_Variation( $variation_id );
 				$attributes = $variation->get_variation_attributes();
 
-				if ( ! empty( $attributes ) ) {
-					foreach ( $attributes as $key => $term ) {
-						$attr_tax = str_replace( 'attribute_', '', $key );
-						wp_set_post_terms( $variation_id, $term, $attr_tax );
-					}
-				}
-
-				// Parent attributes
-				$parent_attributes = $parent_product->get_attributes();
-
-				if ( ! empty( $parent_attributes ) ) {
-					foreach ( $parent_attributes as $parent_attribute ) {
-						if ( $parent_attribute->get_variation() ) {
-							$skip = true;
-
-							$parent_attribute_key = 'attribute_' . $parent_attribute->get_taxonomy();
-
-							// Save terms if variations are not fully combined (eg. "any size")
-							if ( isset( $attributes[$parent_attribute_key] ) && ! $attributes[$parent_attribute_key] ) {
-								$skip = false;
-							}
-
-							// Save terms if attribute is hidden
-							if ( in_array( $parent_attribute->get_taxonomy(), $excluded_attributes ) ) {
-								$skip = false;
-							}
-
-							if ( $skip ) {
-								continue;
-							}
-						}
-
-						$attr_tax = $parent_attribute->get_taxonomy();
-						$terms    = (array) $parent_attribute->get_terms();
-
-						if ( ! empty( $terms ) ) {
-							$tmp = array();
-
-							foreach ( $terms as $term ) {
-								$tmp[] = $term->term_id;
-							}
-
-							wp_set_post_terms( $variation_id, $tmp, $attr_tax );
+				if ( apply_filters( 'uncode_process_variations_update_meta', true ) ) {
+					if ( ! empty( $attributes ) ) {
+						foreach ( $attributes as $key => $term ) {
+							$attr_tax = str_replace( 'attribute_', '', $key );
+							wp_set_post_terms( $variation_id, $term, $attr_tax );
 						}
 					}
 				}
 
-				// Average ratings
-				$parent_average_rating = get_post_meta( $parent_id, '_wc_average_rating', true );
+				if ( apply_filters( 'uncode_process_variations_update_meta', true ) ) {
+					// Parent attributes
+					$parent_attributes = $parent_product->get_attributes();
 
-				if ( $parent_average_rating ) {
-					update_post_meta( $variation_id, '_wc_average_rating', $parent_average_rating );
+					if ( ! empty( $parent_attributes ) ) {
+						foreach ( $parent_attributes as $parent_attribute ) {
+							if ( $parent_attribute->get_variation() ) {
+								$skip = true;
+
+								$parent_attribute_key = 'attribute_' . $parent_attribute->get_taxonomy();
+
+								// Save terms if variations are not fully combined (eg. "any size")
+								if ( isset( $attributes[$parent_attribute_key] ) && ! $attributes[$parent_attribute_key] ) {
+									$skip = false;
+								}
+
+								// Save terms if attribute is hidden
+								if ( in_array( $parent_attribute->get_taxonomy(), $excluded_attributes ) ) {
+									$skip = false;
+								}
+
+								if ( $skip ) {
+									continue;
+								}
+							}
+
+							$attr_tax = $parent_attribute->get_taxonomy();
+							$terms    = (array) $parent_attribute->get_terms();
+
+							if ( ! empty( $terms ) ) {
+								$tmp = array();
+
+								foreach ( $terms as $term ) {
+									$tmp[] = $term->term_id;
+								}
+
+								wp_set_post_terms( $variation_id, $tmp, $attr_tax );
+							}
+						}
+					}
 				}
 
-				update_post_meta( $variation_id, '_uncode_show_single_variation', $parent_product->get_status() === 'publish' ? 'yes' : 'no' );
+				if ( apply_filters( 'uncode_process_variations_update_meta', true ) ) {
+					// Average ratings
+					$parent_average_rating = get_post_meta( $parent_id, '_wc_average_rating', true );
+
+					if ( $parent_average_rating ) {
+						update_post_meta( $variation_id, '_wc_average_rating', $parent_average_rating );
+					}
+
+					update_post_meta( $variation_id, '_uncode_show_single_variation', $parent_product->get_status() === 'publish' ? 'yes' : 'no' );
+				}
 
 				do_action( 'uncode_after_process_single_variation', $variation_id, $parent_id );
 			}
 		}
 
-		// Update terms count
-		if ( apply_filters( 'uncode_woocommerce_enable_single_variations_hide_parent', false ) ) {
-			$terms_all_count = uncode_get_terms_count_after_process_variations( $taxonomies, $attribute_taxonomies );
-			update_option( 'uncode_terms_all_count', $terms_all_count, false );
-		}
+		if ( apply_filters( 'uncode_process_variations_update_meta', true ) ) {
+			// Update terms count
+			if ( apply_filters( 'uncode_woocommerce_enable_single_variations_hide_parent', false ) ) {
+				$terms_all_count = uncode_get_terms_count_after_process_variations( $taxonomies, $attribute_taxonomies );
+				update_option( 'uncode_terms_all_count', $terms_all_count, false );
+			}
 
-		$terms_hidden_parent_count = uncode_get_terms_count_after_process_variations( $taxonomies, $attribute_taxonomies, true );
-		update_option( 'uncode_terms_hidden_parent_count', $terms_hidden_parent_count, false );
+			$terms_hidden_parent_count = uncode_get_terms_count_after_process_variations( $taxonomies, $attribute_taxonomies, true );
+			update_option( 'uncode_terms_hidden_parent_count', $terms_hidden_parent_count, false );
 
-		// Save IDs of variable products
-		delete_option( 'uncode_variable_product_parent_ids' );
+			// Save IDs of variable products
+			delete_option( 'uncode_variable_product_parent_ids' );
 
-		if ( is_array( $excluded_attributes ) && count( $excluded_attributes ) > 0 ) {
-			$args = array(
-				'type'   => 'variable',
-				'limit'  => -1,
-				'return' => 'ids',
-			);
+			if ( is_array( $excluded_attributes ) && count( $excluded_attributes ) > 0 ) {
+				$args = array(
+					'type'   => 'variable',
+					'limit'  => -1,
+					'return' => 'ids',
+				);
 
-			$variable_product_parent_ids = wc_get_products( $args );
+				$variable_product_parent_ids = wc_get_products( $args );
 
-			update_option( 'uncode_variable_product_parent_ids', $variable_product_parent_ids, false );
+				update_option( 'uncode_variable_product_parent_ids', $variable_product_parent_ids, false );
+			}
+		} else {
+			delete_option( 'uncode_terms_all_count' );
+			delete_option( 'uncode_terms_hidden_parent_count' );
+			delete_option( 'uncode_variable_product_parent_ids' );
 		}
 
 		wp_send_json_success(
@@ -725,29 +745,31 @@ add_action( 'wp_ajax_uncode_process_variations', 'uncode_wc_process_variations' 
  * Fix pagination on archives if we are using single variations
  */
 function uncode_single_variations_fix_main_query( $query ) {
-  	if ( class_exists( 'WooCommerce' ) && uncode_single_variations_enabled() && ! is_admin() ) {
-		$shop_archive = false;
+	if ( isset( $query->query_vars ) && isset( $query->query_vars['wc_query'] ) ) {
+		if ( class_exists( 'WooCommerce' ) && uncode_single_variations_enabled() && ! is_admin() ) {
+			$shop_archive = false;
 
-		if ( ( is_shop() || is_product_category() || is_product_tag() || is_tax() ) ) {
-			$shop_archive = true;
-		}
-
-		if ( is_tax() ) {
-			$queried_object     = get_queried_object();
-			$queried_object_tax = isset( $queried_object->taxonomy ) ? $queried_object->taxonomy : false;
-
-			if ( $queried_object_tax && taxonomy_is_product_attribute( $queried_object_tax ) ) {
+			if ( ( is_shop() || is_product_category() || is_product_tag() || is_tax() ) ) {
 				$shop_archive = true;
 			}
-		}
 
-		if ( $shop_archive ) {
-			$uncodeblock_id = ot_get_option('_uncode_product_index_content_block');
-			$uncodeblock_id = apply_filters( 'wpml_object_id', $uncodeblock_id, 'post' );
-			$content        = get_post_field('post_content', $uncodeblock_id);
+			if ( is_tax() ) {
+				$queried_object     = get_queried_object();
+				$queried_object_tax = isset( $queried_object->taxonomy ) ? $queried_object->taxonomy : false;
 
-			if ( strpos( $content, 'woo_single_variations="yes"' ) !== false ) {
-				$query->set( 'post_type', array( 'product', 'product_variation' ) );
+				if ( $queried_object_tax && taxonomy_is_product_attribute( $queried_object_tax ) ) {
+					$shop_archive = true;
+				}
+			}
+
+			if ( $shop_archive ) {
+				$uncodeblock_id = ot_get_option('_uncode_product_index_content_block');
+				$uncodeblock_id = apply_filters( 'wpml_object_id', $uncodeblock_id, 'post' );
+				$content        = get_post_field('post_content', $uncodeblock_id);
+
+				if ( strpos( $content, 'woo_single_variations="yes"' ) !== false ) {
+					$query->set( 'post_type', array( 'product', 'product_variation' ) );
+				}
 			}
 		}
   	}
@@ -1001,7 +1023,7 @@ add_filter( 'uncode_single_block_title', 'uncode_single_variations_change_title'
 /**
  * Show the "Select options" button instead of the "Add to cart" one
  */
-function uncode_single_variations_change_button( $product ) {
+function uncode_single_variations_redirect_to_product( $product ) {
 	$redirect_to_product = false;
 
 	if ( ! uncode_single_variations_enabled() ) {

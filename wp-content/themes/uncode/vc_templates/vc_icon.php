@@ -189,7 +189,7 @@ $link = ( $link == '||' ) ? '' : $link;
 $link = vc_build_link( $link );
 $a_href = $link['url'];
 if ($link['title'] !== '') {
-	$a_title = ' title="' . esc_attr( $link['title'] ) . '"';
+	$a_title = ' title="' . esc_attr( $link['title'] ) . '" aria-label="' . esc_attr( $link['title'] ) . '"';
 }
 if ($link['target'] !== '') {
 	$a_target = ' target="' . esc_attr( trim($link['target']) ) . '"';

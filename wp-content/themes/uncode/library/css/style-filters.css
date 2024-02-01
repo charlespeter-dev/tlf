@@ -977,3 +977,6 @@ body:not(.ajax-hide-filters) #ajax_sidebar_overlay {
 .ajax-grid-system #ajax_sidebar_overlay {
   display: none !important;
 }
+.srcset-lazy-animations.tmb-woocommerce-variable-product img {
+  opacity: 0 !important;
+}

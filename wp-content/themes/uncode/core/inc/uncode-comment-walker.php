@@ -44,14 +44,14 @@ if ( ! class_exists( 'uncode_walker_comment' ) ) :
 				$add_below = 'comment';
 			} ?>
 
-			<article <?php comment_class(empty( $args['has_children'] ) ? '' :'parent') ?> id="comment-<?php comment_ID() ?>" itemscope itemtype="http://schema.org/Comment">
-				<div class="comment-content post-content" itemprop="text">
+			<article <?php comment_class(empty( $args['has_children'] ) ? '' :'parent') ?> id="comment-<?php comment_ID() ?>">
+				<div class="comment-content post-content">
 					<figure class="gravatar"><?php echo get_avatar( $comment, 256, '', '', array( 'loading' => 'lazy' ) ); ?></figure>
 					<div class="comment-meta post-meta" role="complementary">
 						<div class="comment-author headings-style">
 							<?php
 							if ( get_comment_author_url() != '' ) {
-								echo '<a class="comment-author-link" href="' . get_comment_author_url() . '" itemprop="author" rel="nofollow">';
+								echo '<a class="comment-author-link" href="' . get_comment_author_url() . '" rel="nofollow">';
 							} else {
 								echo '<span  class="comment-author-link">';
 							}
@@ -65,7 +65,7 @@ if ( ! class_exists( 'uncode_walker_comment' ) ) :
 							}
 							?>
 						</div>
-						<time class="comment-meta-item" datetime="<?php comment_date('Y-m-d') ?>T<?php comment_time('H:iP') ?>" itemprop="datePublished"><span><?php comment_date() ?><?php if ( apply_filters( 'uncode_display_comment_time', false ) ) { ?>, <a href="#comment-<?php comment_ID() ?>" itemprop="url"><?php comment_time() ?></a><?php } ?></span></time>
+						<time class="comment-meta-item" datetime="<?php comment_date('Y-m-d') ?>T<?php comment_time('H:iP') ?>"><span><?php comment_date() ?><?php if ( apply_filters( 'uncode_display_comment_time', false ) ) { ?>, <a href="#comment-<?php comment_ID() ?>"><?php comment_time() ?></a><?php } ?></span></time>
 						<?php edit_comment_link('<p class="comment-meta-item">' . esc_html__('Edit this comment','uncode') . '</p>','',''); ?>
 						<?php if ($comment->comment_approved == '0') : ?>
 						<p class="comment-meta-item"><?php esc_html_e('Your comment is awaiting moderation', 'uncode'); ?>.</p>

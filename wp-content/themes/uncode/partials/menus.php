@@ -54,7 +54,7 @@ if (!class_exists('unmenu')) {
 			$menu_sticky_mobile = ot_get_option( '_uncode_menu_sticky_mobile' );
 			$menu_mobile_overlay = ot_get_option('_uncode_menu_mobile_centered');
 			$menu_mobile_off_cavas = $menu_sticky_mobile === 'on' && $menu_mobile_overlay === 'off-canvas' ? ' menu-parent-off-canvas' : '';
-		
+
 			if ($stylemain === '') {
 				$stylemain = $general_style;
 			}
@@ -74,7 +74,7 @@ if (!class_exists('unmenu')) {
 				$data_padding_shrink = ' data-padding-shrink ="' . esc_attr( $custom_menu_padding_desktop_shrinked ) . '"';
 			}
 
-			$logoDiv = '<a href="' . esc_url( home_url( '/' ) ) . '" class="navbar-brand"' . $data_padding_shrink . ' data-minheight="'.(($LOGO->logo_min == "") ? "20" : esc_attr($LOGO->logo_min)).'">';
+			$logoDiv = '<a href="' . esc_url( home_url( '/' ) ) . '" class="navbar-brand"' . $data_padding_shrink . ' data-minheight="'.(($LOGO->logo_min == "") ? "20" : esc_attr($LOGO->logo_min)).'" aria-label="' . apply_filters( 'uncode_logo_aria_label', esc_html(get_bloginfo( 'name','display' )) ) . '">';
 			$logoDivInner = '';
 			$logoMobileInner = '';
 
@@ -116,8 +116,8 @@ if (!class_exists('unmenu')) {
 						}
 						if ($logo_info->post_mime_type === 'oembed/svg') {
 							$media_code = $logo_info->post_content;
-							$media_width = isset($media_metavalues['width']) ? absint( isset($media_metavalues['width'])) : 1;
-							$media_height = isset($media_metavalues['height']) ? absint( isset($media_metavalues['height'])) : 1;
+							$media_width = isset($media_metavalues['width']) ? absint( $media_metavalues['width'] ) : 1;
+							$media_height = isset($media_metavalues['height']) ? absint( $media_metavalues['height'] ) : 1;
 							$logo_ratio = $media_width / $media_height;
 							$media_code = preg_replace('#\s(id)="([^"]+)"#', ' $1="$2-' .rand() .'"', $media_code);
 							$media_code = preg_replace('#\s(xmlns)="([^"]+)"#', '', $media_code);
@@ -303,7 +303,7 @@ if (!class_exists('unmenu')) {
 				$customizer_logo_id   = get_theme_mod( 'custom_logo' );
 				$customizer_logo_data = wp_get_attachment_image_src( $customizer_logo_id , 'full' );
 
-				$logoDiv = '<a href="'.esc_url( home_url( get_current_blog_id(), '/' ) ).'" class="navbar-brand" data-minheight="20"><div class="logo-customizer"><img src="' . esc_url( $customizer_logo_data[0] ) . '" alt="' . esc_attr( get_bloginfo( 'name' ) ) . '" width="' . esc_attr( $customizer_logo_data[1] ) . '" height="' . esc_attr( $customizer_logo_data[2] ) . '" /></div></a>';
+				$logoDiv = '<a href="'.esc_url( home_url( get_current_blog_id(), '/' ) ).'" class="navbar-brand" data-minheight="20" aria-label="' . apply_filters( 'uncode_logo_aria_label', esc_html(get_bloginfo( 'name','display' )) ) . '"><div class="logo-customizer"><img src="' . esc_url( $customizer_logo_data[0] ) . '" alt="' . esc_attr( get_bloginfo( 'name' ) ) . '" width="' . esc_attr( $customizer_logo_data[1] ) . '" height="' . esc_attr( $customizer_logo_data[2] ) . '" /></div></a>';
 			}
 
 			$socials = ot_get_option( '_uncode_social_list');
@@ -594,7 +594,7 @@ if (!class_exists('unmenu')) {
 						} else {
 							$icon_badge = (( $tot_articles !== 0 ) ? '<span class="badge">'.$tot_articles.'</span>' : '<span class="badge"></span>');
 						}
-						$woo_icon_mobile = '<a class="'.$woo_cart_class_mobile.'mobile-shopping-cart mobile-additional-icon"' . $trigger_side_cart . ' href="'.$checkout_url.'"><span class="cart-icon-container additional-icon-container"><i class="'.$woo_icon.'"></i>'.$icon_badge.'</span></a>';
+						$woo_icon_mobile = '<a class="'.$woo_cart_class_mobile.'mobile-shopping-cart mobile-additional-icon"' . $trigger_side_cart . ' href="'.$checkout_url.'" aria-label="' . apply_filters( 'uncode_woo_cart_aria_label', esc_html__('Shopping cart','uncode') ) . '"><span class="cart-icon-container additional-icon-container"><i class="'.$woo_icon.'"></i>'.$icon_badge.'</span></a>';
 						$woo_icon_mobile = apply_filters( 'uncode_woo_cart_icon_mobile', $woo_icon_mobile );
 					}
 					if ($woo_cart_class === 'hidden') {
@@ -637,7 +637,7 @@ if (!class_exists('unmenu')) {
 						$login_account_class_mobile = '';
 					}
 					$account_url = uncode_get_login_url();
-					$login_account_icon_mobile = '<a class="'.$login_account_class_mobile.'mobile-account-icon mobile-additional-icon" href="'.esc_url($account_url).'"><span class="account-icon-container additional-icon-container"><i class="'.$login_account_icon.'"></i></span></a>';
+					$login_account_icon_mobile = '<a class="'.$login_account_class_mobile.'mobile-account-icon mobile-additional-icon" href="'.esc_url($account_url).'" aria-label="' . apply_filters( 'uncode_login_aria_label', esc_html__('Login','uncode') ) . '"><span class="account-icon-container additional-icon-container"><i class="'.$login_account_icon.'"></i></span></a>';
 					$login_account_icon_mobile = apply_filters( 'uncode_login_account_icon_mobile', $login_account_icon_mobile );
 				}
 				if ($login_account_class === 'hidden') {
@@ -681,7 +681,7 @@ if (!class_exists('unmenu')) {
                         $wishlist_url  = get_permalink( get_option( 'yith_wcwl_wishlist_page_id' ) );
                         $tot_wishlist_articles = absint( yith_wcwl_count_all_products() );
 						$wishlist_icon_badge = (( $tot_wishlist_articles !== 0 ) ? '<span class="badge">'.$tot_wishlist_articles.'</span>' : '<span class="badge" style="display: none;"></span>');
-						$woo_wishlist_icon_mobile = '<a class="'.$woo_wishlist_class_mobile.'mobile-wishlist-icon mobile-additional-icon" href="'.esc_url($wishlist_url).'"><span class="wishlist-icon-container additional-icon-container"><i class="'.$woo_wishlist_icon.'"></i>' . $wishlist_icon_badge . '</span></a>';
+						$woo_wishlist_icon_mobile = '<a class="'.$woo_wishlist_class_mobile.'mobile-wishlist-icon mobile-additional-icon" href="'.esc_url($wishlist_url).'" aria-label="' . apply_filters( 'uncode_woo_wishlist_aria_label', esc_html__('Wishlist','uncode') ) . '"><span class="wishlist-icon-container additional-icon-container"><i class="'.$woo_wishlist_icon.'"></i>' . $wishlist_icon_badge . '</span></a>';
 						$woo_wishlist_icon_mobile = apply_filters( 'uncode_woo_wishlist_icon_mobile', $woo_wishlist_icon_mobile );
 					}
 					if ($woo_wishlist_class === 'hidden') {
@@ -717,7 +717,7 @@ if (!class_exists('unmenu')) {
 				}
 
 				if ($search_mobile === 'on' || $search_desktop === 'on') {
-					
+
 					if ($search_mobile === 'on' && $search_desktop !== 'on') {
 						$search_class_mobile = 'desktop-hidden ';
 					} elseif ($search_mobile !== 'on' && $search_desktop === 'on') {
@@ -730,7 +730,7 @@ if (!class_exists('unmenu')) {
 						$search_class_mobile = 'desktop-hidden ';
 					}
 
-					$search_icon_mobile  = '<a class="' . $search_class_mobile . ' mobile-search-icon trigger-overlay mobile-additional-icon" data-area="search" data-container="box-container" href="#"><span class="search-icon-container additional-icon-container"><i class="fa fa-search3"></i></span></a>';
+					$search_icon_mobile  = '<a class="' . $search_class_mobile . ' mobile-search-icon trigger-overlay mobile-additional-icon" data-area="search" data-container="box-container" href="#" aria-label="' . apply_filters( 'uncode_search_aria_label', esc_html__('Search','uncode') ) . '"><span class="search-icon-container additional-icon-container"><i class="fa fa-search3"></i></span></a>';
 					$search_icon_mobile  = apply_filters( 'uncode_search_icon_mobile', $search_icon_mobile );
 
 					if ( $menutype !== 'menu-overlay-center' ) {
@@ -751,7 +751,8 @@ if (!class_exists('unmenu')) {
 					$social_rel = apply_filters( 'uncode_social_link_rel', '' );
 					$social_rel_html = $social_rel !== '' ? ' rel="' . esc_attr( $social_rel ) . '"' : '';
 					$social_responsive = $menu_sticky_mobile !== 'on' ? 'tablet-hidden mobile-hidden ' : '';
-					$social_html_inner .= '<li class="menu-item-link social-icon ' . $social_responsive . $social['_uncode_social_unique_id'].'"><a href="'.$social['_uncode_link'].'" class="social-menu-link" target="_blank"' . $social_rel_html . '><i class="'.$social['_uncode_social'].'"></i></a></li>';
+					$social_aria = isset($social['_uncode_aria']) && $social['_uncode_aria'] !== '' ? ' aria-label="' . wp_kses_post( $social['_uncode_aria'] ) . '"' : '';
+					$social_html_inner .= '<li class="menu-item-link social-icon ' . $social_responsive . $social['_uncode_social_unique_id'].'"><a href="'.$social['_uncode_link'].'" class="social-menu-link" target="_blank"' . $social_rel_html . $social_aria . '><i class="'.$social['_uncode_social'].'"></i></a></li>';
 
 					$social_to_append = ' navbar-social';
 
@@ -821,7 +822,7 @@ if (!class_exists('unmenu')) {
 					if ( !( $type == 'offcanvas_head' && $param === 'menu-overlay-center' && $search_desktop !== 'on' ) ) {
 
 						$search_inner .= '<li class="menu-item-link search-icon style-'.$stylemain.' dropdown ' . $search_icon_class . '">';
-						$search_inner .= 	'<a href="#"'.(!$vertical ? ' class="trigger-overlay search-icon" data-area="search" data-container="box-container"' : '').'>
+						$search_inner .= 	'<a href="#"'.(!$vertical ? ' class="trigger-overlay search-icon" data-area="search" data-container="box-container"' : '').' aria-label="' . apply_filters( 'uncode_search_aria_label', esc_html__('Search','uncode') ) . '">
 													<i class="fa fa-search3"></i>';
 						if (!$vertical) {
 							$search_inner .= 		'<span class="desktop-hidden">';
@@ -1071,7 +1072,7 @@ if (!class_exists('unmenu')) {
 																		<div id="main-logo" class="navbar-header style-'.$stylemain.'">
 																			'.$logoDiv.'
 																		</div>
-																		<div class="mmb-container"><div class="mobile-additional-icons">'.$search_icon_mobile.$login_account_icon_mobile.$woo_wishlist_icon_mobile.$woo_icon_mobile.'</div><div class="mobile-menu-button '.$buttonstyle_primary.' lines-button"><span class="lines"><span></span></span></div></div>
+																		<div class="mmb-container"><div class="mobile-additional-icons">'.$search_icon_mobile.$login_account_icon_mobile.$woo_wishlist_icon_mobile.$woo_icon_mobile.'</div>' . apply_filters( 'uncode_mobile_extra_menu_elements', false) . '<div class="mobile-menu-button '.$buttonstyle_primary.' lines-button"><span class="lines"><span></span></span></div></div>
 																	</div>
 																	<div class="col-lg-12 main-menu-container middle">
 																		<div class="menu-horizontal' . $sub_extra_classes . '">
@@ -1142,7 +1143,7 @@ if (!class_exists('unmenu')) {
 																		</div>
 																	</div>
 																</div>
-																<div class="mmb-container"><div class="mobile-additional-icons">'.$search_icon_mobile.$login_account_icon_mobile.$woo_wishlist_icon_mobile.$woo_icon_mobile.'</div><div class="mobile-menu-button '.$buttonstyle_primary.' lines-button"><span class="lines"><span></span></span></div></div>
+																<div class="mmb-container"><div class="mobile-additional-icons">'.$search_icon_mobile.$login_account_icon_mobile.$woo_wishlist_icon_mobile.$woo_icon_mobile.'</div>' . apply_filters( 'uncode_mobile_extra_menu_elements', false) . '<div class="mobile-menu-button '.$buttonstyle_primary.' lines-button"><span class="lines"><span></span></span></div></div>
 															</div>
 														</div>
 													</div>
@@ -1222,7 +1223,7 @@ if (!class_exists('unmenu')) {
 																		<div class="navbar-header style-'.$stylemain.'">
 																			'.$logoDiv.'
 																		</div>
-																		<div class="mmb-container"><div class="mobile-additional-icons">'.$search_icon_mobile.$login_account_icon_mobile.$woo_wishlist_icon_mobile.$woo_icon_mobile.'</div><div class="mobile-menu-button '.$buttonstyle_primary.' lines-button"><span class="lines"><span></span></span></div></div>
+																		<div class="mmb-container"><div class="mobile-additional-icons">'.$search_icon_mobile.$login_account_icon_mobile.$woo_wishlist_icon_mobile.$woo_icon_mobile.'</div>' . apply_filters( 'uncode_mobile_extra_menu_elements', false) . '<div class="mobile-menu-button '.$buttonstyle_primary.' lines-button"><span class="lines"><span></span></span></div></div>
 																	</div>
 																	<div class="col-lg-12 main-menu-container middle">
 																		<div class="menu-horizontal' . $sub_extra_classes . '">
@@ -1334,7 +1335,7 @@ if (!class_exists('unmenu')) {
 																			'.$logoDiv.'
 																		</div>
 																	</div>
-																	<div class="mmb-container"><div class="mobile-additional-icons">'.$search_icon_mobile.$login_account_icon_mobile.$woo_wishlist_icon_mobile.$woo_icon_mobile.'</div><div class="'.(($param == 'menu-overlay' || $param == 'menu-overlay-center') ? 'mobile-menu-button menu-button-overlay no-toggle' : 'mobile-menu-button menu-button-offcanvas').' '.$buttonstyle_primary.' lines-button trigger-overlay" '.(($param == 'menu-overlay' || $param == 'menu-overlay-center') ? 'data-area="menu" data-container="main-container"' : '').'>' . $burger_label_span . '<span class="lines"><span></span></span></div></div>';
+																	<div class="mmb-container"><div class="mobile-additional-icons">'.$search_icon_mobile.$login_account_icon_mobile.$woo_wishlist_icon_mobile.$woo_icon_mobile.'</div>' . apply_filters( 'uncode_mobile_extra_menu_elements', false) . '<div class="'.(($param == 'menu-overlay' || $param == 'menu-overlay-center') ? 'mobile-menu-button menu-button-overlay no-toggle' : 'mobile-menu-button menu-button-offcanvas').' '.$buttonstyle_primary.' lines-button trigger-overlay" '.(($param == 'menu-overlay' || $param == 'menu-overlay-center') ? 'data-area="menu" data-container="main-container"' : '').'>' . $burger_label_span . '<span class="lines"><span></span></span></div></div>';
 
 
 																if ( $cta_menu ) {
@@ -1412,7 +1413,7 @@ if (!class_exists('unmenu')) {
 																			<div class="navbar-main">
 																				<div class="menu-sidebar-inner' . $limit_width . '">
 																					'.$primary_menu_out;
-						
+
 						$this->html .= apply_filters( 'uncode_menu_before_socials', false );
 
 						if ($search !== '') {
@@ -1466,7 +1467,7 @@ if (!class_exists('unmenu')) {
 																		<div id="main-logo" class="navbar-header style-'.$stylemain.'">
 																			'.$logoDiv.'
 																		</div>
-																		<div class="mmb-container"><div class="mobile-additional-icons">'.$search_icon_mobile.$login_account_icon_mobile.$woo_wishlist_icon_mobile.$woo_icon_mobile.'</div><div class="mobile-menu-button '.$buttonstyle_primary.' lines-button"><span class="lines"><span></span></span></div></div>
+																		<div class="mmb-container"><div class="mobile-additional-icons">'.$search_icon_mobile.$login_account_icon_mobile.$woo_wishlist_icon_mobile.$woo_icon_mobile.'</div>' . apply_filters( 'uncode_mobile_extra_menu_elements', false) . '<div class="mobile-menu-button '.$buttonstyle_primary.' lines-button"><span class="lines"><span></span></span></div></div>
 																	</div>
 																	<div class="col-lg-5 main-menu-container middle">
 																		<div class="menu-horizontal' . $sub_extra_classes . '">
@@ -1542,7 +1543,7 @@ if (!class_exists('unmenu')) {
 																		<div class="style-'.$stylemain.'">
 																			'.$logoDiv.'
 																		</div>
-																		<div class="mmb-container"><div class="mobile-additional-icons">'.$search_icon_mobile.$login_account_icon_mobile.$woo_wishlist_icon_mobile.$woo_icon_mobile.'</div><div class="mobile-menu-button '.$buttonstyle_primary.' lines-button"><span class="lines"><span></span></span></div></div>
+																		<div class="mmb-container"><div class="mobile-additional-icons">'.$search_icon_mobile.$login_account_icon_mobile.$woo_wishlist_icon_mobile.$woo_icon_mobile.'</div>' . apply_filters( 'uncode_mobile_extra_menu_elements', false) . '<div class="mobile-menu-button '.$buttonstyle_primary.' lines-button"><span class="lines"><span></span></span></div></div>
 																	</div>
 																</div>';
 					}

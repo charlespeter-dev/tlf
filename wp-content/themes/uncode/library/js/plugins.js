@@ -18945,9 +18945,16 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 						currentGalleryItem.src);
 					if (currentGalleryItem.download) {
 						//Uncode edit ##START##
-						var download_url = currentGalleryItem.downloadUrl || currentGalleryItem.src,
+						var currentVideo, download_url, download_name;
+						if ( currentGalleryItem.video ) {
+							currentVideo = JSON.parse( currentGalleryItem.video );
+							download_name = currentVideo.source[0].src;
+							$download.attr('href', download_name).removeAttr('download');
+						} else {
+							download_url = currentGalleryItem.downloadUrl || currentGalleryItem.src;
 							download_name = download_url.substring(download_url.lastIndexOf('/')+1);
-						$download.attr('download', download_name);
+							$download.attr('download', download_name).removeAttr('href');
+						}
 						// $download.attr('download', currentGalleryItem.download);
 						//Uncode edit ##END##
 					}

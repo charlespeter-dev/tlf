@@ -3,7 +3,7 @@
  * Show error messages
  *
  * @package 	WooCommerce/Templates
- * @version     3.9.0
+ * @version     8.5.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

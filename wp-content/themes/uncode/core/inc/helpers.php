@@ -275,7 +275,11 @@ function uncode_resize_image( $media_id, $url, $path, $originalWidth, $originalH
 					if ($crop) {
 						$closest_size = uncode_getClosest(($ai_width / (12 / max($single_width, $single_height))) , $ai_bpoints);
 					} else {
-						$closest_size = uncode_getClosest(($ai_width / (12 / $single_width)) , $ai_bpoints);
+						if ( $single_width ) {
+							$closest_size = uncode_getClosest(($ai_width / (12 / $single_width)) , $ai_bpoints);
+						} else {
+							$closest_size = uncode_getClosest(($ai_width / 12) , $ai_bpoints);
+						}
 					}
 				} else {
 					if ($crop) {
@@ -323,12 +327,22 @@ function uncode_resize_image( $media_id, $url, $path, $originalWidth, $originalH
 				$dest_h = ($closest_size / $single_width) * $single_height;
 			} else {
 				$dest_h = $closest_size;
-				$dest_w = $dest_h * ($single_width / $single_height);
+
+				if ( ! $single_height ) {
+					$dest_w = 0;
+				} else {
+					$dest_w = $dest_h * ($single_width / $single_height);
+				}
 			}
 
 			if ($dest_h > $originalHeight) {
 				$dest_h = $originalHeight;
-				$dest_w = $dest_h * ($single_width / $single_height);
+
+				if ( ! $single_height ) {
+					$dest_w = 0;
+				} else {
+					$dest_w = $dest_h * ($single_width / $single_height);
+				}
 			}
 
 			if ($dest_w > $originalWidth) {
@@ -920,8 +934,8 @@ function uncode_get_oembed($id, $url, $mime, $with_poster = false, $excerpt = nu
 				$id = basename($json_data['url']);
 				$html = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $json_data['html']);
 				$html = str_replace("&mdash; ", '', $html);
-				if (function_exists('mb_convert_encoding')) {
-					$html = mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
+				if (function_exists('mb_encode_numericentity')) {
+					$html = mb_encode_numericentity( $html, [0x80, 0x10FFFF, 0, ~0], 'UTF-8' );
 				}
 				$dom = new domDocument;
 				$dom->loadHTML($html);
@@ -953,9 +967,9 @@ function uncode_get_oembed($id, $url, $mime, $with_poster = false, $excerpt = nu
 				}
 
 				if ( $is_text_carousel ) {
-					$media_oembed .=		'<span class="twitter-footer"><i class="fa fa-twitter"></i><small>' . $twitter_footer . '</small></span>';
+					$media_oembed .=		'<span class="twitter-footer"><i class="fa fa-square-x-twitter"></i><small>' . $twitter_footer . '</small></span>';
 				} else {
-					$media_oembed .=		'<p class="twitter-footer"><i class="fa fa-twitter"></i><small>' . $twitter_footer . '</small></p>';
+					$media_oembed .=		'<p class="twitter-footer"><i class="fa fa-square-x-twitter"></i><small>' . $twitter_footer . '</small></p>';
 				}
 
 				$media_oembed .= 		'</blockquote>
@@ -1624,7 +1638,7 @@ function uncode_custom_dynamic_heading_in_content( $type = 'title' ){
 	global $post, $wp_query;
 
 	$title = get_the_title();
-	$get_subtitle = get_the_excerpt();
+	$get_subtitle = $post->post_excerpt ? get_the_excerpt() : '';
 
 	if ( is_archive() ) {
 		if ($post && isset($post->post_type)) {

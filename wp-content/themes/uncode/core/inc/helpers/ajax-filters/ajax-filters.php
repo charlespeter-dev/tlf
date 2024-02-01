@@ -2180,6 +2180,10 @@ function uncode_filters_get_date_label( $date ) {
 	} else {
 		$date_to_search = $date;
 		$valid_date     = uncode_filters_validate_date( $date_to_search, 'Y' );
+
+		if ( $valid_date ) {
+			$date_to_search = $date_to_search . '-01-01';
+		}
 	}
 
 	if ( $valid_date && $date_to_search ) {

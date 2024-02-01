@@ -91,13 +91,18 @@
 		
 			const videos = $ctx.querySelectorAll(".background-video-shortcode:not(.started)");
 			Array.from(videos).forEach(function(video_el) {
-				video_el.play();
+				video_el.addEventListener('loadedmetadata', function(e) {
+					$('body').removeClass('video-not-supported');
+					video_el.play();
+				});
 				if ( video_el.currentTime > 0 && video_el.readyState > 2 ) {
 					video_el.muted = true;
 					video_el.loop = true;
 					$(video_el).closest('.uncode-video-container:not(.t-entry-drop)').css('opacity', '1');
 					$(video_el).addClass('started').closest('#page-header').addClass('video-started');
 					$(video_el).closest('.background-wrapper').find('.block-bg-blend-mode.not-ie').css('opacity', '1');
+					$('body').removeClass('video-not-supported');
+					video_el.play();
 				} else {
 					requestTimeout(function(){
                          backgroundSelfVideosInit( $ctx );

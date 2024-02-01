@@ -611,120 +611,122 @@
 			}
 		});
 
-		if ($.fn.zoom && $('body').hasClass('wc-zoom-enabled') ) {
-			var $zoomTrgt = $('.woocommerce-product-gallery__image', $slider);
+		$(window).load(function(){
+			if ($.fn.zoom && $('body').hasClass('wc-zoom-enabled') ) {
+				var $zoomTrgt = $('.woocommerce-product-gallery__image', $slider);
 
-			if ( $('.thumbnails', $slider).length )
-				$zoomTrgt = $zoomTrgt.first();
+				if ( $('.thumbnails', $slider).length )
+					$zoomTrgt = $zoomTrgt.first();
 
-			$zoomTrgt.trigger( 'zoom.destroy' );
-			$zoomTrgt.zoom();
+				$zoomTrgt.trigger( 'zoom.destroy' );
+				$zoomTrgt.zoom();
 
-			var checkForZoom = function(){
+				var checkForZoom = function(){
 
-				if ( $parent.hasClass( 'no-zoom-mobile' ) && UNCODE.wwidth < 960 ) {
-					$zoomTrgt.trigger( 'zoom.destroy' ).addClass('mouse-moving');
-					$('.zoom-overlay', $zoomTrgt).remove();
-					return false;
-				}
-				$('.woocommerce-product-gallery__image').each(function(){
-					var $wrap = $(this),
-						$zoomImg = $('.zoomImg', $wrap);
-
-					if (UNCODE.isMobile || !$zoomImg.length) {
-						$wrap.addClass('mouse-moving');
+					if ( $parent.hasClass( 'no-zoom-mobile' ) && UNCODE.wwidth < 960 ) {
+						$zoomTrgt.trigger( 'zoom.destroy' ).addClass('mouse-moving');
+						$('.zoom-overlay', $zoomTrgt).remove();
+						return false;
 					}
-				});
+					$('.woocommerce-product-gallery__image').each(function(){
+						var $wrap = $(this),
+							$zoomImg = $('.zoomImg', $wrap);
 
-				var galleryWidth = $zoomTrgt.width(),
-					zoom_options = {
-						touch: true,
-						callback: function(){
-							$('.woocommerce-product-gallery__image').each(function(){
-								var $wrap = $(this),
-									$zoomImg = $('.zoomImg', $wrap),
-									$overZoom = $('.zoom-overlay', $wrap),
-									$imageIL = $('a[data-lbox]', $wrap),
-									$carousel = $wrap.closest('.owl-carousel');
+						if (UNCODE.isMobile || !$zoomImg.length) {
+							$wrap.addClass('mouse-moving');
+						}
+					});
 
-								$wrap.prepend($zoomImg);
-								if (UNCODE.isMobile || !$zoomImg.length) {
-									$wrap.addClass('mouse-moving');
-									$zoomImg.css({
-										'visibility':'hidden'
-									});
-								}
+					var galleryWidth = $zoomTrgt.width(),
+						zoom_options = {
+							touch: true,
+							callback: function(){
+								$('.woocommerce-product-gallery__image').each(function(){
+									var $wrap = $(this),
+										$zoomImg = $('.zoomImg', $wrap),
+										$overZoom = $('.zoom-overlay', $wrap),
+										$imageIL = $('a[data-lbox]', $wrap),
+										$carousel = $wrap.closest('.owl-carousel');
 
-								/* Make work everything on touch events */
-								var onlongtouch,
-									timer,
-									now,
-									touchduration = 500,
-									startX = 0, startY, newX, newY;
-
-								$wrap.parent().on('mousemove.zoom', function(){
-									if ( ! $wrap.hasClass('mouse-moving') ) {
-										if ( startX == 0 ) {
-											startX = event.clientX;
-											startY = event.clientY;
-										}
-										newX = event.clientX;
-										newY = event.clientY;
-										if ( Math.abs( newX - startX ) > 50 && Math.abs( newY - startY ) > 50 ) {
-											$wrap.addClass('mouse-moving');
-										}
-									}
-								});
-
-								$overZoom.on('touchstart.zoom', function (e) {
-									now = new Date().getTime();
-								}).on('touchmove.zoom', function (e) {
-									setTimeout(function(){
-										$zoomImg.css({
-											'visibility':'visible'
-										});
-									}, 100);
-								}).on('touchend.zoom', function (e) {
-									var newTap = new Date().getTime();
-									if ( newTap - now < 75 && ! $('body').hasClass('ilightbox-noscroll') ) {
-										$imageIL.trigger('itap.iL');
-									}
-									if (UNCODE.isMobile) {
+									$wrap.prepend($zoomImg);
+									if (UNCODE.isMobile || !$zoomImg.length) {
+										$wrap.addClass('mouse-moving');
 										$zoomImg.css({
 											'visibility':'hidden'
 										});
 									}
+
+									/* Make work everything on touch events */
+									var onlongtouch,
+										timer,
+										now,
+										touchduration = 500,
+										startX = 0, startY, newX, newY;
+
+									$wrap.parent().on('mousemove.zoom', function(){
+										if ( ! $wrap.hasClass('mouse-moving') ) {
+											if ( startX == 0 ) {
+												startX = event.clientX;
+												startY = event.clientY;
+											}
+											newX = event.clientX;
+											newY = event.clientY;
+											if ( Math.abs( newX - startX ) > 50 && Math.abs( newY - startY ) > 50 ) {
+												$wrap.addClass('mouse-moving');
+											}
+										}
+									});
+
+									$overZoom.on('touchstart.zoom', function (e) {
+										now = new Date().getTime();
+									}).on('touchmove.zoom', function (e) {
+										setTimeout(function(){
+											$zoomImg.css({
+												'visibility':'visible'
+											});
+										}, 100);
+									}).on('touchend.zoom', function (e) {
+										var newTap = new Date().getTime();
+										if ( newTap - now < 75 && ! $('body').hasClass('ilightbox-noscroll') ) {
+											$imageIL.trigger('itap.iL');
+										}
+										if (UNCODE.isMobile) {
+											$zoomImg.css({
+												'visibility':'hidden'
+											});
+										}
+									});
+
 								});
+							}
+						};
 
-							});
-						}
-					};
-
-				if ( 'ontouchstart' in window ) {
-					zoom_options.on = 'click';
-				}
-
-				$zoomTrgt.trigger( 'zoom.destroy' );
-				$zoomTrgt.each(function(){
-					var $thisTrgt = $(this),
-						$img = $('img', $thisTrgt);
-
-					if ( $img.data( 'large_image_width' ) > galleryWidth ) {
-						$thisTrgt.zoom(zoom_options);
-					} else {
-						$thisTrgt.trigger( 'zoom.destroy' );
+					if ( 'ontouchstart' in window ) {
+						zoom_options.on = 'click';
 					}
 
-				});
-			};
-			checkForZoom();
+					$zoomTrgt.trigger( 'zoom.destroy' );
+					$zoomTrgt.each(function(){
+						var $thisTrgt = $(this),
+							$img = $('img', $thisTrgt);
 
-			var setCheckForZoom;
-			$(window).on( 'resize', function(){
-				clearTimeout(setCheckForZoom);
-				setCheckForZoom = setTimeout( checkForZoom, 500 );
-			});
-		}
+						if ( $img.data( 'large_image_width' ) > galleryWidth ) {
+							$thisTrgt.zoom(zoom_options);
+						} else {
+							$thisTrgt.trigger( 'zoom.destroy' );
+						}
+
+					});
+				};
+				checkForZoom();
+
+				var setCheckForZoom;
+				$(window).on( 'resize', function(){
+					clearTimeout(setCheckForZoom);
+					setCheckForZoom = setTimeout( checkForZoom, 500 );
+				});
+			}
+		});
 	}
 
 	woocommerce_product_gallery();

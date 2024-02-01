@@ -286,12 +286,14 @@ while (have_posts()):
 	}
 
 	if (!$with_builder) {
-		$the_content = apply_filters('the_content', $the_content);
+		$the_content = $the_content ? apply_filters('the_content', $the_content) : '';
 	} else {
 		if ( ( function_exists('vc_is_page_editable') && vc_is_page_editable() ) ) {
 			$the_content = '';
 		}
-		$get_content_appended = apply_filters('the_content', '');
+		$get_content_appended = apply_filters('the_content', 'uncode-placeholder');
+		$get_content_appended = str_replace( '<p>uncode-placeholder</p>', '', $get_content_appended );
+		$get_content_appended = trim( $get_content_appended );
 		if (!is_null($get_content_appended) && $get_content_appended !== '' && ( ! function_exists('vc_is_page_editable') || ! vc_is_page_editable() ) ) {
 			$the_content = apply_filters( 'uncode_single_content', $the_content ) . uncode_get_row_template($get_content_appended, $limit_width, $limit_content_width, $style, '', false, true, 'double', $page_custom_width);
 		}
@@ -376,16 +378,15 @@ while (have_posts()):
 			}
 			$block_data['single_style'] = $style;
 			$block_data['classes'][] = 'tmb-' . $style;
+			$lightbox_classes = array();
 			if ($media_display === 'isotope') {
 				$block_data['classes'][] = 'tmb-overlay-anim';
 				$block_data['classes'][] = 'tmb-overlay-text-anim';
 				$block_data['single_icon'] = 'fa fa-plus2';
 				$block_data['overlay_color'] = ($style == 'light') ? 'style-dark-bg' : 'style-light-bg';
 				$block_data['overlay_opacity'] = '50';
-				$lightbox_classes = array();
 				$lightbox_classes['data-noarr'] = false;
 			} else {
-				$lightbox_classes = false;
 				$block_data['link_class'] = 'inactive-link';
 				$block_data['link'] = '#';
 			}
