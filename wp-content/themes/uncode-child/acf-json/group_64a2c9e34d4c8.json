@@ -731,11 +731,11 @@
             ]
         },
         {
-            "key": "field_64a791bad7a25",
-            "label": "News Main Heading",
-            "name": "news_main_heading",
+            "key": "field_65c33befc3269",
+            "label": "Latest news and articles",
+            "name": "latest_news_and_articles",
             "aria-label": "",
-            "type": "text",
+            "type": "group",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -744,40 +744,14 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "News and Event Updates",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_64c1dafbc5df1",
-            "label": "News Items",
-            "name": "news_items",
-            "aria-label": "",
-            "type": "repeater",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "layout": "table",
-            "pagination": 0,
-            "min": 0,
-            "max": 0,
-            "collapsed": "",
-            "button_label": "Add Row",
-            "rows_per_page": 20,
+            "layout": "row",
             "sub_fields": [
                 {
-                    "key": "field_64c1db0bc5df2",
-                    "label": "The Post",
-                    "name": "the_post",
+                    "key": "field_65c33bfdc326a",
+                    "label": "Fetch automatically",
+                    "name": "fetch_automatically",
                     "aria-label": "",
-                    "type": "post_object",
+                    "type": "checkbox",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
@@ -786,21 +760,92 @@
                         "class": "",
                         "id": ""
                     },
-                    "post_type": [
-                        "post",
-                        "resources"
+                    "choices": {
+                        "yes": "Fetch latest news\/articles automatically"
+                    },
+                    "default_value": [
+                        "no"
                     ],
-                    "post_status": [
-                        "publish"
-                    ],
-                    "taxonomy": "",
-                    "return_format": "object",
-                    "multiple": 0,
-                    "allow_null": 0,
-                    "bidirectional": 0,
-                    "ui": 1,
-                    "bidirectional_target": [],
-                    "parent_repeater": "field_64c1dafbc5df1"
+                    "return_format": "value",
+                    "allow_custom": 0,
+                    "layout": "vertical",
+                    "toggle": 0,
+                    "save_custom": 0,
+                    "custom_choice_button_text": "Add new choice"
+                },
+                {
+                    "key": "field_64a791bad7a25",
+                    "label": "News Main Heading",
+                    "name": "news_main_heading",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "News and Event Updates",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_64c1dafbc5df1",
+                    "label": "News Items",
+                    "name": "news_items",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "layout": "table",
+                    "pagination": 0,
+                    "min": 0,
+                    "max": 0,
+                    "collapsed": "",
+                    "button_label": "Add Row",
+                    "rows_per_page": 20,
+                    "sub_fields": [
+                        {
+                            "key": "field_64c1db0bc5df2",
+                            "label": "The Post",
+                            "name": "the_post",
+                            "aria-label": "",
+                            "type": "post_object",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "post_type": [
+                                "post",
+                                "resources"
+                            ],
+                            "post_status": [
+                                "publish"
+                            ],
+                            "taxonomy": "",
+                            "return_format": "object",
+                            "multiple": 0,
+                            "allow_null": 0,
+                            "bidirectional": 0,
+                            "ui": 1,
+                            "bidirectional_target": [],
+                            "parent_repeater": "field_64c1dafbc5df1"
+                        }
+                    ]
                 }
             ]
         },
@@ -1093,5 +1138,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1704859867
+    "modified": 1707293862
 }

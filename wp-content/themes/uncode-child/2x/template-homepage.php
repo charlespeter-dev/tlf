@@ -47,12 +47,46 @@ $testimonials = get_field('testimonials', $post->ID);
 $featured_post = get_field('featured_post', $post->ID);
 
 /**
- * news
+ * latest_news_and_articles
  */
 
-$news_main_heading = get_field('news_main_heading', $post->ID);
+$latest_news_and_articles = get_field('latest_news_and_articles', $post->ID);
+$news_main_heading = $latest_news_and_articles['news_main_heading'];
+$news_items = $latest_news_and_articles['news_items'] ?? null;
 
-$news_items = get_field('news_items', $post->ID);
+if (isset($latest_news_and_articles['fetch_automatically'][0]) && $latest_news_and_articles['fetch_automatically'][0] == 'yes') {
+    $query = new WP_Query([
+        'post_type' => ['post', 'resources'],
+        'orderby' => 'date',
+        'order' => 'DESC',
+        'posts_per_page' => 3,
+        'fields' => 'ids',
+        'tax_query' => [
+            'relation' => 'OR',
+            [
+                'taxonomy' => 'category',
+                'field' => 'slug',
+                'terms' => 'news',
+            ],
+            [
+                'taxonomy' => 'resource_category',
+                'field' => 'slug',
+                'terms' => 'article',
+            ]
+        ]
+    ]);
+
+    if (isset($query->post_count) && $query->post_count) {
+
+        $news_items = [];
+
+        foreach ($query->posts as $i => $id) {
+            $news_items[$i]['the_post'] = new stdClass;
+            $news_items[$i]['the_post']->ID = $id;
+            $news_items[$i]['the_post']->post_title = get_the_title($id);
+        }
+    }
+}
 
 /**
  * resources_callout
