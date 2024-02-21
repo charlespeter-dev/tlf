@@ -74,7 +74,7 @@ if (!class_exists('unmenu')) {
 				$data_padding_shrink = ' data-padding-shrink ="' . esc_attr( $custom_menu_padding_desktop_shrinked ) . '"';
 			}
 
-			$logoDiv = '<a href="' . esc_url( home_url( '/' ) ) . '" class="navbar-brand"' . $data_padding_shrink . ' data-minheight="'.(($LOGO->logo_min == "") ? "20" : esc_attr($LOGO->logo_min)).'" aria-label="' . apply_filters( 'uncode_logo_aria_label', esc_html(get_bloginfo( 'name','display' )) ) . '">';
+			$logoDiv = '<a href="' . esc_url( apply_filters( 'uncode_logo_url', home_url( '/' ) ) ) . '" class="navbar-brand"' . $data_padding_shrink . ' data-minheight="'.(($LOGO->logo_min == "") ? "20" : esc_attr($LOGO->logo_min)).'" aria-label="' . apply_filters( 'uncode_logo_aria_label', esc_html(get_bloginfo( 'name','display' )) ) . '">';
 			$logoDivInner = '';
 			$logoMobileInner = '';
 
@@ -303,7 +303,7 @@ if (!class_exists('unmenu')) {
 				$customizer_logo_id   = get_theme_mod( 'custom_logo' );
 				$customizer_logo_data = wp_get_attachment_image_src( $customizer_logo_id , 'full' );
 
-				$logoDiv = '<a href="'.esc_url( home_url( get_current_blog_id(), '/' ) ).'" class="navbar-brand" data-minheight="20" aria-label="' . apply_filters( 'uncode_logo_aria_label', esc_html(get_bloginfo( 'name','display' )) ) . '"><div class="logo-customizer"><img src="' . esc_url( $customizer_logo_data[0] ) . '" alt="' . esc_attr( get_bloginfo( 'name' ) ) . '" width="' . esc_attr( $customizer_logo_data[1] ) . '" height="' . esc_attr( $customizer_logo_data[2] ) . '" /></div></a>';
+				$logoDiv = '<a href="'.esc_url( apply_filters( 'uncode_logo_url', home_url( get_current_blog_id(), '/' ) ) ).'" class="navbar-brand" data-minheight="20" aria-label="' . apply_filters( 'uncode_logo_aria_label', esc_html(get_bloginfo( 'name','display' )) ) . '"><div class="logo-customizer"><img src="' . esc_url( $customizer_logo_data[0] ) . '" alt="' . esc_attr( get_bloginfo( 'name' ) ) . '" width="' . esc_attr( $customizer_logo_data[1] ) . '" height="' . esc_attr( $customizer_logo_data[2] ) . '" /></div></a>';
 			}
 
 			$socials = ot_get_option( '_uncode_social_list');

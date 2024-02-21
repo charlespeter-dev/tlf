@@ -314,17 +314,17 @@ if ($footer): ?>
 								$permalinks = [];
 
 								if ($pagename == 'services') {
-									$page = get_page_by_slug('services', 'v2');
+									$page = get_page_by_slug('services');
 									$permalinks[$pagename] = get_the_permalink($page->ID);
 								}
 
 								if ($pagename == 'industries') {
-									$page = get_page_by_slug('industry', 'v2');
+									$page = get_page_by_slug('industry');
 									$permalinks[$pagename] = get_the_permalink($page->ID);
 								}
 
 								if ($pagename == 'resources') {
-									$page = get_page_by_slug('resources', 'v2');
+									$page = get_page_by_slug('resources');
 									$permalinks[$pagename] = get_the_permalink($page->ID);
 								}
 

@@ -2186,25 +2186,29 @@ button[type="submit"] {
 .menu-light .menu-smart > li.active > a,
 .menu-light .menu-smart > li a.active,
 .menu-light .menu-smart > li.current-menu-ancestor > a,
-.menu-light .menu-smart > li.current-menu-item:not(.menu-item-type-custom) > a {
+.menu-light .menu-smart > li.current-menu-item:not(.menu-item-type-custom) > a,
+.menu-light .menu-smart > li.current-menu-parent > a {
   color: <?php echo sanitize_text_field($color_menu_text_hover); ?>;
 }
 .isotope-filters .menu-light .menu-smart > li.active > a,
 .isotope-filters .menu-light .menu-smart > li a.active,
 .isotope-filters .menu-light .menu-smart > li.current-menu-ancestor > a,
-.isotope-filters .menu-light .menu-smart > li.current-menu-item:not(.menu-item-type-custom) > a {
+.isotope-filters .menu-light .menu-smart > li.current-menu-item:not(.menu-item-type-custom) > a,
+.isotope-filters .menu-light .menu-smart > li.current-menu-parent > a {
   color: <?php echo sanitize_text_field($color_menu_text_hover_static); ?>;
 }
 .menu-dark .menu-smart > li.active > a,
 .menu-dark .menu-smart > li a.active,
 .menu-dark .menu-smart > li.current-menu-ancestor > a,
-.menu-dark .menu-smart > li.current-menu-item:not(.menu-item-type-custom) > a {
+.menu-dark .menu-smart > li.current-menu-item:not(.menu-item-type-custom) > a,
+.menu-dark .menu-smart > li.current-menu-parent > a {
   color: <?php echo sanitize_text_field($color_menu_text_inverted_hover); ?>;
 }
 .isotope-filters .menu-dark .menu-smart > li.active > a,
 .isotope-filters .menu-dark .menu-smart > li a.active,
 .isotope-filters .menu-dark .menu-smart > li.current-menu-ancestor > a,
-.isotope-filters .menu-dark .menu-smart > li.current-menu-item:not(.menu-item-type-custom) > a {
+.isotope-filters .menu-dark .menu-smart > li.current-menu-item:not(.menu-item-type-custom) > a,
+.isotope-filters .menu-dark .menu-smart > li.current-menu-parent > a {
   color: <?php echo sanitize_text_field($color_menu_text_inverted_hover_static); ?>;
 }
 body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .menu-horizontal-inner > .nav > .menu-smart > li.active > a,

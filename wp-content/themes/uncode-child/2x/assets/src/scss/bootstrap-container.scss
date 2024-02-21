@@ -1688,6 +1688,29 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
 
 //----- begin: custom 2x css + override uncode specific styles
 
+.quoteCase p {
+    font-size: 16px;
+    text-wrap: balance;
+}
+
+@media (max-width: 569px) {
+    .main-container .row-container .row-parent {
+        padding: 0 36px 0 36px;
+    }
+
+    body.single-portfolio .portfolio-body [style="z-index: 1;"] {
+        margin-bottom: 30px;
+
+        div.wpb_column.pos-top.pos-center.align_left.column_parent.col-lg-10.boomapps_vccolumn.single-internal-gutter {
+            padding-top: 0;
+
+            .btnContentBlock {
+                top: 0;
+            }
+        }
+    }
+}
+
 @media (max-width: 959px) {
     .row div[class*=col-lg-] {
         padding: unset;

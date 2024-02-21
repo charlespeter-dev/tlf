@@ -184,6 +184,7 @@
 
 							requestTimeout(function() {
 								$galleryJustified.trigger('more-items-loaded');
+								$(window).trigger('more-items-loaded');
 							}, 1000);
 						});
 					if ($(justifiedContainersArray[i]).hasClass('isotope-infinite-button')) {
@@ -205,6 +206,7 @@
 							$infinite_justified.infinitescroll('retrieve');
 							$infinite_justified.infinitescroll('pause');
 							$infinite_justified.trigger('more-items-loaded');
+							$(window).trigger('more-items-loaded');
 						});
 					}
 				}
@@ -353,6 +355,7 @@
 							filterItems = $('> .tmb', container);
 						}
 						container.trigger('more-items-loaded');
+						$(window).trigger('more-items-loaded');
 
 						$('.t-inside.zoom-reverse', container).removeClass('zoom-reverse');
 						if (typeof UNCODE.lightbox !== 'undefined' && !SiteParameters.lbox_enhanced) {
@@ -372,6 +375,7 @@
 						requestTimeout(function() {
 							Waypoint.refreshAll();
 							container.trigger('more-items-loaded');
+							$(window).trigger('more-items-loaded');
 						}, 2000);
 
 					}, delay);
@@ -401,6 +405,7 @@
 					}
 					container.parent().addClass('justified-loading');
 					container.trigger('more-items-loaded');
+					$(window).trigger('more-items-loaded');
 				}
 			};
 

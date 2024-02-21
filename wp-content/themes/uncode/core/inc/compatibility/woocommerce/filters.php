@@ -801,3 +801,23 @@ function uncode_woocommerce_redirect_single_search_result( $redirect ) {
 	return $redirect;
 }
 add_filter( 'woocommerce_redirect_single_search_result', 'uncode_woocommerce_redirect_single_search_result' );
+
+/**
+ * Use legacy shortcodes when installing WooCommerce pages
+ */
+function uncode_woocommerce_use_legacy_shortcodes( $pages ) {
+	if ( isset( $pages['checkout'] ) ) {
+		$pages['checkout']['content'] = '<!-- wp:shortcode -->[woocommerce_checkout]<!-- /wp:shortcode -->';
+	}
+
+	if ( isset( $pages['cart'] ) ) {
+		$pages['cart']['content'] = '<!-- wp:shortcode -->[woocommerce_cart]<!-- /wp:shortcode -->';
+	}
+
+	if ( isset( $pages['myaccount'] ) ) {
+		$pages['myaccount']['content'] = '<!-- wp:shortcode -->[woocommerce_my_account]<!-- /wp:shortcode -->';
+	}
+
+	return $pages;
+}
+add_filter( 'woocommerce_create_pages', 'uncode_woocommerce_use_legacy_shortcodes' );

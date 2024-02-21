@@ -80,7 +80,11 @@ function uncode_get_dynamic_color_background_css_value( $key, $color_value, $gra
 			$uncode_option = get_option(ot_options_id());
 			if ( isset( $uncode_option['_uncode_heading_color_light'] ) ) {
 				$cs_heading_color_light = $uncode_option['_uncode_heading_color_light'];
-				$btn_outline = $front_background_colors[$cs_heading_color_light];
+				if ( isset( $front_background_colors[$cs_heading_color_light] ) ) {
+					$btn_outline = $front_background_colors[$cs_heading_color_light];
+				} else {
+					$btn_outline = false;
+				}
 			} else {
 				$btn_outline = false;
 			}

@@ -36,7 +36,17 @@
 						setArr = srcset.split(","),
 						setArrOrder = [],
 						biggest = 0,
-						checkBg = false;
+						checkBg = false,
+						desktopBG = $drop.data('[data-background-image]'),
+						mobileBG = $drop.data('[data-mobile-background-image]');
+
+					if ( $drop.hasClass('srcset-bg-async') ) {
+
+						if ( ( UNCODE.wwidth < UNCODE.mediaQuery && typeof mobileBG !== 'undefined' && mobileBG !== '' ) || ( UNCODE.wwidth >= UNCODE.mediaQuery && typeof desktopBG !== 'undefined' && desktopBG !== '' ) ) {
+							return;
+						}
+						
+					}
 
 					if ( SiteParameters.uncode_adaptive == true ) {
 						if (  typeof setArr[0] !== 'undefined' && setArr[0] !== null ) {

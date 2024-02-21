@@ -9,7 +9,7 @@
  * Truncate text
  */
 function uncode_truncate($text, $length) {
-	$text = strip_tags($text, '<img />');
+	$text = strip_tags($text, '<img>');
 	$length = abs((int)$length);
 	if(strlen($text) > $length) {
 	    if ( preg_match( '/^utf\-?8$/i', get_option( 'blog_charset' ) ) && function_exists('mb_substr') ) {
@@ -524,11 +524,20 @@ function uncode_resize_image( $media_id, $url, $path, $originalWidth, $originalH
 				$error_message = $img_editor->get_error_message() ? $img_editor->get_error_message() : esc_html__( 'Error when retrieving the image editor.', 'uncode' );
 				$error_message = sprintf( $basic_error_message, $error_message );
 
-				return array(
-					'url'    => '',
-					'width'  => '',
-					'height' => '',
-					'error'  => $error_message
+				return apply_filters( 'uncode_resized_image_error',
+					array(
+						'url'    => '',
+						'width'  => '',
+						'height' => '',
+						'error'  => $error_message
+					),
+					$media_id,
+					$url,
+					$originalWidth,
+					$originalHeight,
+					$single_width,
+					$single_height,
+					'get_image_editor',
 				);
 			}
 
@@ -539,11 +548,20 @@ function uncode_resize_image( $media_id, $url, $path, $originalWidth, $originalH
 				$error_message = $_resized->get_error_message() ? $_resized->get_error_message() : esc_html__( 'Error when resizing the image', 'uncode' );
 				$error_message = sprintf( $basic_error_message, $error_message );
 
-				return array(
-					'url'    => '',
-					'width'  => '',
-					'height' => '',
-					'error'  => $error_message
+				return apply_filters( 'uncode_resized_image_error',
+					array(
+						'url'    => '',
+						'width'  => '',
+						'height' => '',
+						'error'  => $error_message
+					),
+					$media_id,
+					$url,
+					$originalWidth,
+					$originalHeight,
+					$single_width,
+					$single_height,
+					'resize_image_editor'
 				);
 			}
 
@@ -589,11 +607,20 @@ function uncode_resize_image( $media_id, $url, $path, $originalWidth, $originalH
 				$error_message = $_resize_saved->get_error_message() ? $_resize_saved->get_error_message() : esc_html__( 'Error when saving the image', 'uncode' );
 				$error_message = sprintf( $basic_error_message, $error_message );
 
-				return array(
-					'url'    => '',
-					'width'  => '',
-					'height' => '',
-					'error'  => $error_message
+				return apply_filters( 'uncode_resized_image_error',
+					array(
+						'url'    => '',
+						'width'  => '',
+						'height' => '',
+						'error'  => $error_message
+					),
+					$media_id,
+					$url,
+					$originalWidth,
+					$originalHeight,
+					$single_width,
+					$single_height,
+					'save_image_editor'
 				);
 			} else {
 				if ($remote) {
@@ -622,11 +649,20 @@ function uncode_resize_image( $media_id, $url, $path, $originalWidth, $originalH
 				$error_message = esc_html__( 'Path not correct', 'uncode' );
 				$error_message = sprintf( $basic_error_message, $error_message );
 
-				return array(
-					'url'    => '',
-					'width'  => '',
-					'height' => '',
-					'error'  => $error_message
+				return apply_filters( 'uncode_resized_image_error',
+					array(
+						'url'    => '',
+						'width'  => '',
+						'height' => '',
+						'error'  => $error_message
+					),
+					$media_id,
+					$url,
+					$originalWidth,
+					$originalHeight,
+					$single_width,
+					$single_height,
+					'path',
 				);
 			}
 

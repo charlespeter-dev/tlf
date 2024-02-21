@@ -422,7 +422,7 @@ if (!function_exists('uncode_get_back_html')) {
 			if ( isset($background['mix-blend-mode']) && $background['mix-blend-mode']!=='' ){
 				$overlay_html = '<div class="block-bg-overlay block-bg-blend-mode for-ie' . $overlay_color . '"' . $overlay_color_alpha . '></div>';
 				$overlay_html .= '<div class="block-bg-overlay block-bg-blend-mode not-ie' . $overlay_color . '"' . $overlay_color_alpha_blend . '></div>';
-			}
+				}	
 		}
 
 		if ($type === 'row') {
@@ -540,9 +540,9 @@ if (!function_exists('uncode_get_row_template')) {
 if (!function_exists('uncode_create_single_block')) {
 	function uncode_create_single_block($block_data, $el_id, $style_preset, $layout, $lightbox_classes, $carousel_textual, $with_html = true, $is_default_product_content = false)
 	{
-		global $adaptive_images, $adaptive_images_async, $dynamic_srcset_active, $dynamic_srcset_sizes, $post, $activate_webp, $enable_adaptive_dynamic_img, $enable_adaptive_dynamic_bg;
+		global $adaptive_images, $adaptive_images_async, $dynamic_srcset_active, $dynamic_srcset_sizes, $post, $activate_webp, $enable_adaptive_dynamic_img, $enable_adaptive_dynamic_bg, $dynamic_srcset_bg_mobile_size;
 
-		$image_orig_w = $image_orig_h = $crop = $item_media = $media_code = $media_mime = $create_link = $title_link = $text_content = $media_attributes = $big_image = $lightbox_data = $single_height = $single_fixed = $single_title = $nested = $media_poster = $dummy_oembed = $images_size = $single_family = $object_class = $single_back_color = $single_animation = $is_product = $single_icon = $icon_size = $single_text = $single_image_size = $single_style = $single_elements_click = $single_secondary = $overlay_color = $overlay_opacity = $overlay_blend = $adaptive_async_class = $adaptive_async_data = $sep_extra = $but_media_poster = $data_lb = '';
+		$image_orig_w = $image_orig_h = $crop = $item_media = $media_code = $media_mime = $create_link = $title_link = $media_attributes = $big_image = $lightbox_data = $single_height = $single_fixed = $single_title = $nested = $media_poster = $dummy_oembed = $images_size = $single_family = $object_class = $single_back_color = $single_animation = $is_product = $single_icon = $icon_size = $single_text = $single_image_size = $single_style = $single_elements_click = $single_secondary = $overlay_color = $overlay_opacity = $overlay_blend = $adaptive_async_class = $adaptive_async_data = $sep_extra = $but_media_poster = $data_lb = '';
 		$tmb_data_parent = $tmb_data = array();
 		$media_type = 'image';
 		$multiple_items = $lightbox_code = false;
@@ -1670,23 +1670,28 @@ if (!function_exists('uncode_create_single_block')) {
 								$get_avatar = get_avatar( $author, $avatar_size, '', '', array( 'loading' => 'lazy' ) );
 							}
 
+							$get_avatar = apply_filters( 'uncode_posts_module_get_avatar', $get_avatar, $author, $block_data['id'] );
+
 							if ( $is_table && isset($value[2]) && $value[2] !== 'avatar_inline' ) {
 								$un_wrap_class .= ' tmb-username-wrap-block';
 							}
 
+							$author_text = esc_html__('by','uncode') . ' ' . $author_name . '</span>' . $qualification;
+							$author_text = apply_filters( 'uncode_posts_module_get_author_text', $author_text, $author, $block_data['id'] );
+
 							if ( isset( $block_data['drop_image_extra'] ) ) {
-								$drop_image_extra = '<span class="' . $un_wrap_class . '"><span class="tmb-username-text">' . esc_html__('by','uncode') . ' ' . $author_name . '</span>' . $qualification . '</span>';
+								$drop_image_extra = '<span class="' . $un_wrap_class . '"><span class="tmb-username-text">' . $author_text . '</span>';
 								if ( $key === 'date-author' ) {
 									$drop_image_extra = '<span class="tmb-date-wrap">' . get_the_date( '', $block_data['id'] ) . '</span><span class="tmb-date-author-separator"></span>' . $drop_image_extra;
 								}
 							} elseif ( isset( $block_data['table_heading'] ) ) {
-								$inner_entry .= '<p class="' . trim(implode(' ', $meta_class)) . ' t-table-author"><a href="'.$author_link.'" class="tmb-avatar-size-' . $avatar_size_class . '">' . $get_avatar . '<span class="' . $un_wrap_class . '"><span class="tmb-username-text">' . esc_html__('by','uncode') . ' ' . $author_name.'</span>' . $qualification . '</span></a></p>';
+								$inner_entry .= '<p class="' . trim(implode(' ', $meta_class)) . ' t-table-author"><a href="'.$author_link.'" class="tmb-avatar-size-' . $avatar_size_class . '">' . $get_avatar . '<span class="' . $un_wrap_class . '"><span class="tmb-username-text">' . $author_text . '</span></a></p>';
 							} else {
 								$inner_entry .= '<p class="t-entry-meta t-entry-author">';
 								if ($single_text === 'overlay' && $single_elements_click !== 'yes') {
-									$inner_entry .= '<span class="tmb-avatar-size-' . $avatar_size_class . '">' . $get_avatar. '<span class="' . $un_wrap_class . '"><span class="tmb-username-text">' . esc_html__('by','uncode') . ' ' . $author_name . '</span>' . $qualification . '</span>';
+									$inner_entry .= '<span class="tmb-avatar-size-' . $avatar_size_class . '">' . $get_avatar. '<span class="' . $un_wrap_class . '"><span class="tmb-username-text">' . $author_text . '</span>';
 								} else {
-									$inner_entry .= '<a href="'.$author_link.'" class="tmb-avatar-size-' . $avatar_size_class . '">' . $get_avatar . '<span class="' . $un_wrap_class . '"><span class="tmb-username-text">' . esc_html__('by','uncode') . ' ' . $author_name.'</span>' . $qualification . '</span></a>';
+									$inner_entry .= '<a href="'.$author_link.'" class="tmb-avatar-size-' . $avatar_size_class . '">' . $get_avatar . '<span class="' . $un_wrap_class . '"><span class="tmb-username-text">' . $author_text . '</span></a>';
 								}
 								$inner_entry .= '</p>';
 							}
@@ -1898,6 +1903,8 @@ if (!function_exists('uncode_create_single_block')) {
 											} else {
 												if ($host[0] === 'plus') {
 													$host[0] = 'google-' . $host[0];
+												} elseif ($host[0] === 'twitter') {
+													$host[0] = 'square-x-' . $host[0];
 												}
 												$inner_entry.= '<a href="'.esc_url($value).'" target="_blank"><i class="fa fa-'.esc_attr($host[0]).'"></i></a>';
 											}
@@ -2827,7 +2834,7 @@ if (!function_exists('uncode_create_single_block')) {
 			}
 		}
 
-		$output .= 	'<div class="'.implode(' ', $block_classes).'" '.implode(' ', $div_data_attributes_parent) .'>';
+			$output .= '<div class="'.implode(' ', $block_classes).'" '.implode(' ', $div_data_attributes_parent) .'>';
 
 		if ( $is_titles ) {
 			$data_values = (isset($block_data['link']['target']) && !empty($block_data['link']['target']) && is_array($block_data['link'])) ? ' target="'.trim($block_data['link']['target']).'"' : '';
@@ -2846,7 +2853,7 @@ if (!function_exists('uncode_create_single_block')) {
 			$output .= 	'<a href="' . esc_url( $title_link ) . '" class="table-click-row"' . $data_values . '></a>';
 		}
 
-		$output .= 	'<div class="' . (($nested !== 'yes') ? 't-inside' : '').$single_back_color . $single_animation . '" '.implode(' ', $div_data_attributes) .'>';
+			$output .= 	'<div class="' . (($nested !== 'yes') ? 't-inside' : '').$single_back_color . $single_animation . '" '.implode(' ', $div_data_attributes) .'>';
 
 		if ( $is_table ) {
 			if ( isset( $block_data['price_inline'] ) && $block_data['price_inline'] === 'yes' ) {
@@ -2944,8 +2951,8 @@ if (!function_exists('uncode_create_single_block')) {
 							}
 						}
 
-						$media_output .= 			'<div class="' . esc_attr( $dummy_class ) . '" style="' . $dummy_style . '"' . $dummy_async_data . '>' . $dummy_content . '</div>';
-					}
+							$media_output .= 			'<div class="' . esc_attr( $dummy_class ) . '" style="' . $dummy_style . '"' . $dummy_async_data . '>' . $dummy_content . '</div>';
+						}
 
 				}
 
@@ -3144,7 +3151,7 @@ if (!function_exists('uncode_create_single_block')) {
 						$href_att = ' href="'. ( ($media_type === 'image' || ( $media_mime === 'image/svg+xml' && apply_filters( 'uncode_use_svgs_for_links', false ) ) ) ? $create_link : '').'"';
 					}
 
-					$media_output .= '<a tabindex="-1"' . $href_att .((count($a_classes) > 0 ) ? ' class="'.trim(implode(' ', $a_classes)).'"' : '').$lightbox_data.$data_values.$data_lb.'>';
+						$media_output .= '<a tabindex="-1"' . $href_att .((count($a_classes) > 0 ) ? ' class="'.trim(implode(' ', $a_classes)).'"' : '').$lightbox_data.$data_values.$data_lb.'>';
 
 				}
 
@@ -3310,6 +3317,7 @@ if (!function_exists('uncode_create_single_block')) {
 								$back_position = (isset($drop_back['background-position']) && $drop_back['background-position'] !== '') ? 'background-position: ' . $drop_back['background-position'] . ';' : '';
 								$back_attachment = (isset($drop_back['background-attachment']) && $drop_back['background-attachment'] !== '') ? 'background-attachment: ' . $drop_back['background-attachment'] . ';' : '';
 								$back_size = (isset($drop_back['background-size']) && $drop_back['background-size'] !== '') ? 'background-size: ' . $drop_back['background-size'] . ';' : '';
+
 								$drop_style = ($back_repeat != '' || $back_position != '' || $back_attachment != '' || $back_size != '') ? ' style="' . $back_repeat . $back_position . $back_attachment . $back_size . '"' : '';
 								if ( $drop_back['background-attachment'] === 'fixed' ) {
 									$drop_classes[] = 'fixed-attachment';
@@ -3320,7 +3328,15 @@ if (!function_exists('uncode_create_single_block')) {
 							}
 
 							if ($media_type === 'image') {
-								$media_output .= '<div class="t-entry-drop '. esc_html( implode(' ', $drop_classes) ) . '" data-drop="' . esc_attr( $drop_rand_id ) . '" data-w="' . esc_attr( $single_width ) . '" data-bgset="' . esc_attr( $bg_srcset ) . '"' . $drop_style . '>';
+								$adaptive_async_data_all = uncode_get_srcset_bg_async_data( $dynamic_srcset_bg_mobile_size, $media_attributes, $resized_image, $image_orig_w, $image_orig_h, array( 'activate_webp' => $activate_webp ) );
+								$adaptive_async_data     = $adaptive_async_data_all['string'];
+								$adaptive_async_class    = uncode_get_srcset_bg_async_class( $adaptive_async_data_all );
+								if ( apply_filters( 'uncode_drop_mobile_image_original', false ) ) {
+									$data_bg_or = wp_get_attachment_image_src( $item_thumb_id, 'full' );
+									$data_bg_or = $data_bg_or[0];
+									$adaptive_async_data = ' data-mobile-background-image="' . esc_url($data_bg_or) . '"';
+								}
+								$media_output .= '<div class="t-entry-drop '. esc_html( implode(' ', $drop_classes) ) . $adaptive_async_class . '" data-drop="' . esc_attr( $drop_rand_id ) . '" data-w="' . esc_attr( $single_width ) . '" data-bgset="' . esc_attr( $bg_srcset ) . '"' . $drop_style . $adaptive_async_data . '>';
 								$media_output .= '</div><!-- .t-entry-drop -->';
 							} else {
 								if ( strpos($background_mime, 'video/') !== false ) {
@@ -3720,7 +3736,7 @@ if (!function_exists('uncode_create_single_block')) {
 			if ( $custom_entry_visual_after_image !== '' ) {
 				$media_output.= $custom_entry_visual_after_image;
 			}
-
+			
 			if ( !$is_titles ) {
 				$media_output .= '</div>
 					</div>
@@ -3749,18 +3765,24 @@ if (!function_exists('uncode_create_single_block')) {
 
 			$output .= '</div>';
 
-			if ( isset( $block_data['drop_image_separator'] ) && !isset( $block_data['drop_image_separator_last'] ) ) {
-				$drop_image_separator_classes = isset( $block_data['drop_image_separator_classes'] ) ? $block_data['drop_image_separator_classes'] : array();
+		if ( isset( $block_data['drop_image_separator'] ) && !isset( $block_data['drop_image_separator_last'] ) ) {
+			$drop_image_separator_classes = isset( $block_data['drop_image_separator_classes'] ) ? $block_data['drop_image_separator_classes'] : array();
 				$output .= '<span class="drop-image-separator drop-image-separator-after '. trim(implode(' ', $drop_image_separator_classes)) . ' ' . trim(implode(' ', $title_classes)) . $single_animation . '" '.implode(' ', $div_data_attributes) .'><span class="drop-image-separator-inner">' . esc_attr( $block_data['drop_image_separator'] ) . '</span></span>';
-			}
+		}
 
 		if ( $is_table ) {
 			$output .= 	'</div>'; //.t-inside-post-table
 		}
 
-		$output .= '</div>'; //.t-inside
+		if ( apply_filters( 'uncode_move_woocommerce_after_shop_loop_item', false ) && ot_get_option('_uncode_woocommerce_hooks') === 'on' && $is_product ) {
+			ob_start();
+			do_action( 'woocommerce_after_shop_loop_item');
+			$output .= ob_get_clean();
+		}
 
-		if ( ot_get_option('_uncode_woocommerce_hooks') === 'on' && $is_product ) {
+			$output .= '</div>'; //.t-inside
+
+		if ( ! apply_filters( 'uncode_move_woocommerce_after_shop_loop_item', false ) && ot_get_option('_uncode_woocommerce_hooks') === 'on' && $is_product ) {
 			ob_start();
 			do_action( 'woocommerce_after_shop_loop_item');
 			$output .= ob_get_clean();

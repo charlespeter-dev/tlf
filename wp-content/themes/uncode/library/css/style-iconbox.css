@@ -167,7 +167,6 @@ div > .icon-box:last-child {
 .icon-box-right .icon-box-heading {
   display: table;
   table-layout: fixed;
-  width: 100%;
   margin-top: 2px !important;
   margin-bottom: 2px !important;
 }
@@ -176,6 +175,10 @@ div > .icon-box:last-child {
   display: table-cell;
   vertical-align: middle;
   margin-top: 0px;
+}
+.icon-box-left:not(.icon-inline) .icon-box-heading,
+.icon-box-right:not(.icon-inline) .icon-box-heading {
+  width: 100%;
 }
 .icon-box-left .fa-1x,
 .icon-box-right .fa-1x {

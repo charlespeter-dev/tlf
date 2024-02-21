@@ -73,7 +73,7 @@
 			UNCODE.lightbox();
 		}
 		if (typeof UNCODE.lightgallery !== 'undefined' && SiteParameters.lbox_enhanced) {
-			$(window).on('load',function(){
+			$(window).on('load more-items-loaded',function(){
 				UNCODE.lightgallery();
 			});
 		}

@@ -139,7 +139,7 @@
 					}
 					// hide sub menus on resize
 					$(window).on('resize' + eNamespace + ' orientationchange' + eNamespace, $.proxy(this.winResize, this));
-					$(window).on('scroll' + eNamespace + ' orientationchange' + eNamespace, $.proxy(this.winResize, this));
+					//$(window).on('scroll' + eNamespace + ' orientationchange' + eNamespace, $.proxy(this.winResize, this));
 
 					if (this.opts.subIndicators) {
 						this.$subArrow = $('<span/>').addClass('sub-arrow');
@@ -573,7 +573,9 @@
 							return;
 						}
 					} else {
-						this.menuHide(this.visibleSubMenus[i]);
+						//if ( !this.visibleSubMenus[i].closest('.menu-accordion').length ) {
+							this.menuHide(this.visibleSubMenus[i]);
+						//}
 					}
 				}
 				// hide root if it's popup

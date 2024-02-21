@@ -22,6 +22,12 @@ extract($fields);
 
 $related_resources = _2x_related_resources($post->ID);
 
+/**
+ * specific css
+ */
+
+wp_enqueue_style('_2x-css-single-resources-article', sprintf('%s/2x/assets/css/single-resources.css', get_stylesheet_directory_uri()), ['_2x-css-bootstrap'], time());
+
 get_header() ?>
 
 <div class="bootstrap-container resources single-article">

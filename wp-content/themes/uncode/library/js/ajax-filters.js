@@ -111,6 +111,9 @@
 				if (undefined !== from && from === 'select_active_attributes') {
 					return;
 				}
+				if ($(e.target).closest('.select2-container--open').length ) {
+					return;
+				}
 				if ( ! $body.hasClass('ajax-hide-filters') && !sidebar_hover && $body.hasClass('ajax-filter-sidebar-overlay') ) {
 					$grid.add($body).addClass('ajax-hide-filters');
 				}
@@ -308,8 +311,10 @@
  			});
  		});
  	}
-	widget_hover_hack();
-	$(document).on('uncode-ajax-filtered', widget_hover_hack);
+	if (SiteParameters.disable_hover_hack !== '1') {
+		widget_hover_hack();
+		$(document).on('uncode-ajax-filtered', widget_hover_hack);
+	}
 
 /*************************
  *
@@ -704,6 +709,42 @@
 					}
 
 					maybe_scroll_to_top();
+
+					var woo_select2_cats = $('.dropdown_product_cat');
+
+					if (woo_select2_cats.length > 0) {
+						woo_select2_cats.on( 'change', function() {
+							if ( $(this).val() != '' ) {
+								var this_page = '';
+								var home_url  = UncodeWCParameters.uncode_wc_widget_product_categories_home_url;
+								if ( home_url.indexOf( '?' ) > 0 ) {
+									this_page = home_url + '&product_cat=' + $(this).val();
+								} else {
+									this_page = home_url + '?product_cat=' + $(this).val();
+								}
+								location.href = this_page;
+							} else {
+								location.href = UncodeWCParameters.uncode_wc_widget_product_categories_shop_url;
+							}
+						});
+
+						if ( $().selectWoo ) {
+							var wc_product_cat_select = function() {
+								woo_select2_cats.selectWoo( {
+									placeholder: UncodeWCParameters.uncode_wc_widget_product_categories_placeholder,
+									minimumResultsForSearch: 5,
+									width: '100%',
+									allowClear: true,
+									language: {
+										noResults: function() {
+											return UncodeWCParameters.uncode_wc_widget_product_categories_no_results;
+										}
+									}
+								} );
+							};
+							wc_product_cat_select();
+						}
+					}
 
 					$(document).trigger('uncode-ajax-filtered');
 					$(document.body).trigger('init_price_filter');

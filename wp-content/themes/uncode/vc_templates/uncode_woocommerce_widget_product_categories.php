@@ -39,6 +39,10 @@ if ( $hide_title === 'yes' ) {
 	$atts['title'] = '!';
 }
 
+if ( $orderby !== 'name' ) {
+	$atts['orderby'] = 'order';
+}
+
 if ( $el_id !== '' ) {
 	$el_id = ' id="' . esc_attr( trim( $el_id ) ) . '"';
 } else {

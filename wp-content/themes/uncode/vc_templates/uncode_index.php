@@ -2557,8 +2557,20 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 					}
 					if (isset($item_prop['read_more_text'])) {
 						$block_data['read_more_text'] = $item_prop['read_more_text'];
+					 	if ( class_exists('Sitepress') ) {
+							$string = $block_data['read_more_text'];
+							$textdomain = 'WordPress';
+							$string_name = 'Read more (Posts module - Single tab): '.substr($string, 0, 20);
+					 
+							$wpml_default_lang = apply_filters('wpml_default_language', NULL );
+							$wpml_current_lang = apply_filters( 'wpml_current_language', NULL );
+					 
+							if ($wpml_default_lang == $wpml_current_lang ) {
+								do_action( 'wpml_register_single_string', $textdomain, $string_name, $string );
+							}   
+							$block_data['read_more_text'] = apply_filters('wpml_translate_single_string', $string , $textdomain, $string_name);
+						}
 					}
-
 					if (!$is_tax_query && isset($item_prop['single_link']) && $item_prop['single_link'] != '') {
 						$post->link = $item_prop['single_link'];
 						$link = vc_build_link( $item_prop['single_link'] );

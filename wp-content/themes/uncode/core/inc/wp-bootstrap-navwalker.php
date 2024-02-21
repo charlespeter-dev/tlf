@@ -130,15 +130,15 @@ class wp_bootstrap_navwalker extends Walker_Nav_Menu {
 		 * comparison that is not case sensitive. The strcasecmp() function returns
 		 * a 0 if the strings are equal.
 		 */
-		if ( strcasecmp( $item->attr_title, 'divider' ) == 0 && $depth === 1 ) {
+		if ( ! is_null( $item->attr_title ) && strcasecmp( $item->attr_title, 'divider' ) == 0 && $depth === 1 ) {
 			$output .= $indent . '<li role="presentation" class="divider">';
-		} else if ( strcasecmp( $item->title, 'divider') == 0 && $depth === 1 ) {
+		} else if ( ! is_null( $item->title ) && strcasecmp( $item->title, 'divider') == 0 && $depth === 1 ) {
 			$output .= $indent . '<li role="presentation" class="divider">';
-		} else if ( strcasecmp( $item->attr_title, 'dropdown-header') == 0 && $depth === 1 ) {
+		} else if ( ! is_null( $item->attr_title ) && strcasecmp( $item->attr_title, 'dropdown-header') == 0 && $depth === 1 ) {
 			$output .= $indent . '<li role="presentation" class="dropdown-header">' . esc_attr( $item->title );
-		} else if ( strcasecmp($item->attr_title, 'disabled' ) == 0 ) {
+		} else if ( ! is_null( $item->attr_title ) && strcasecmp($item->attr_title, 'disabled' ) == 0 ) {
 			$output .= $indent . '<li role="presentation" class="disabled"><a href="#"><span>' . esc_attr( $item->title ) . $span_counter . '</span></a>';
-		} else if ( strcasecmp($item->megamenu, 'megamenu' ) == 0 && $depth === 0 ) {
+		} else if ( ! is_null( $item->megamenu ) && strcasecmp($item->megamenu, 'megamenu' ) == 0 && $depth === 0 ) {
 			$classes = empty( $item->classes ) ? array() : (array) $item->classes;
 			$class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args ) );
 			$class_names = $class_names ? ' ' . esc_attr( $class_names ) : '';
@@ -406,7 +406,7 @@ if ( ! function_exists( 'uncode_mobile_menu_additional_elems' ) ) {
 
 		if ( $additional_textarea !== '' || $additional_mobile_textarea !== '' ) {
 			$nav_menu .= '<div class="uncode-menu-additional-text navbar-mobile-el ' . esc_attr($additional_text_visibility) . ' ">';
-			if ( $additional_textarea !== '' ) {	
+			if ( $additional_textarea !== '' ) {
 				$nav_menu .= '<div class="mobile-hidden tablet-hidden">' . $additional_textarea . '</div>';
 			}
 			if ( $additional_mobile_textarea !== '' ) {

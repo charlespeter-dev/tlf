@@ -1,6 +1,6 @@
 !function($) {
 	"use strict";
-	$(document).on('ready', function() {
+	$(document).ready(function() {
 		$.fn.loadIcons = function() {
 			var icons = $(this).fontIconPicker({
 				theme: 'fip-bootstrap'

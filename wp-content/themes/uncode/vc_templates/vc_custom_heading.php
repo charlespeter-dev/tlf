@@ -225,6 +225,8 @@ if ( strpos( $content, '[uncode_hl_text') !== false ) {
 	$cont_classes[] = 'heading-lines';
 }
 
+$cont_classes = apply_filters( 'uncode_vc_custom_heading_classes', $cont_classes, $atts );
+
 $output .= '<div class="vc_custom_heading_wrap ' . esc_attr( $heading_display === 'inline' ? 'heading-inline ' : '' ) . esc_attr(trim(implode( ' ', $resp_classes ))) . '"><div class="' . esc_attr(trim(implode( ' ', $cont_classes ))) . '" '.implode(' ', $div_data_attributes). $el_id . '>';
 if ($separator === 'over') {
 	$output .= '<hr class="' . esc_attr(trim(implode( ' ', $separator_classes ))) . '" />';

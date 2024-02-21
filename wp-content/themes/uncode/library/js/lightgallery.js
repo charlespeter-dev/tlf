@@ -238,7 +238,7 @@
 			loadYouTubePoster: false,
 			enableDrag: $triggerGal.find($selector).length > 1,
 			mobileSettings: {
-				showCloseIcon: $('body').hasClass('lightgallery-show-close') ? true : false,
+				showCloseIcon: $('body').hasClass('lightgallery-hide-close') ? false : true,
 			},
 		});
 

@@ -93,7 +93,7 @@
 			goToSection = Number($('[data-name="' + goToSection + '"]').attr('data-section'));
 		}
 
-		if (typeof goToSection === 'number' && !isNaN(goToSection)) {
+		if (typeof goToSection === 'number' && !isNaN(goToSection) && !$('body').hasClass('uncode-no-hash-scroll') ) {
 			current = lastScrolled = goToSection;
 			$(window).on('load', function(){
 				if ( $('.owl-carousel').length ) {

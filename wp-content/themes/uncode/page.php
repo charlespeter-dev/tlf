@@ -380,6 +380,7 @@ get_header();
 				} else {
 					$the_content = apply_filters('the_content', 'uncode-placeholder');
 					$the_content = str_replace( '<p>uncode-placeholder</p>', '', $the_content );
+					$the_content = str_replace( 'uncode-placeholder', '', $the_content );
 					$the_content = trim( $the_content );
 					$the_content = uncode_get_row_template($the_content, $limit_width, $limit_content_width, $style, '', false, true, 'double', $page_custom_width);
 				}
@@ -396,6 +397,7 @@ get_header();
 		} else {
 			$get_content_appended = apply_filters('the_content', 'uncode-placeholder');
 			$get_content_appended = str_replace( '<p>uncode-placeholder</p>', '', $get_content_appended );
+			$get_content_appended = str_replace( 'uncode-placeholder', '', $get_content_appended );
 			$get_content_appended = trim( $get_content_appended );
 			if (!is_null($get_content_appended) && $get_content_appended !== '' && ( ! function_exists('vc_is_page_editable') || ! vc_is_page_editable() ) ) {
 				$the_content = apply_filters( 'uncode_single_content', $the_content ) . uncode_get_row_template($get_content_appended, $limit_width, $limit_content_width, $style, '', false, true, 'double', $page_custom_width);

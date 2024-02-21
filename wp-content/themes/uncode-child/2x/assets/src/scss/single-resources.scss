@@ -14,7 +14,11 @@
         }
 
         .full-width {
-            height: 375px;
+            height: 235px;
+
+            @include media-breakpoint-up(lg) {
+                height: 375px;
+            }
         }
 
         .blue {

@@ -159,14 +159,14 @@ if ( $dynamic !== '' ) {
 	$post_id = get_the_ID();
 	if ( is_tax() ) {
 		$termi_id = get_queried_object_id();
-		$media = uncode_get_term_featured_thumbnail_id( $termi_id, 'featured' );
+		$d_media = uncode_get_term_featured_thumbnail_id( $termi_id, 'featured' );
 	} elseif ( class_exists( 'WooCommerce' ) && is_shop() ) {
 		$shop_id = wc_get_page_id( 'shop' );
-		$media = get_post_thumbnail_id($shop_id);
+		$d_media = get_post_thumbnail_id($shop_id);
 	} else {
-		$media = get_post_thumbnail_id();
+		$d_media = get_post_thumbnail_id();
 	}
-	$media = apply_filters( 'uncode_featured_image_id', $media, $post_id );
+	$d_media = apply_filters( 'uncode_featured_image_id', $d_media, $post_id );
 
 	if ( $dynamic_source === 'secondary' ) {
 		if ( is_tax() ) {
@@ -176,8 +176,12 @@ if ( $dynamic !== '' ) {
 		}
 
 		if ( $secondary_id ) {
-			$media = $secondary_id;
+			$d_media = $secondary_id;
 		}
+	}
+
+	if ( apply_filters( 'uncode_single_show_placeholder', $d_media, $post_id ) ) {
+		$media = $d_media;
 	}
 }
 

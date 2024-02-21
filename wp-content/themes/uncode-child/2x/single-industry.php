@@ -14,7 +14,8 @@ $options = get_fields('options');
 
 $fields = get_fields($post->ID);
 
-extract($fields);
+if ($fields)
+    extract($fields);
 
 /**
  * collect featured testimonials
@@ -88,7 +89,43 @@ if (isset($featured_resource['resource']) && $featured_resource['resource'] && !
  * related resources
  */
 
-$related_resources = _2x_related_resources($post->ID);
+$_2x_related_resources = _2x_related_resources($post->ID);
+
+if (isset($related_resources['posts']) && $related_resources['posts']) {
+
+    $return = [];
+
+    foreach ($related_resources['posts'] as $p) {
+
+        /**
+         * get categories
+         */
+
+        $categories = get_the_terms($p['post'], 'category');
+        foreach ($categories as $cats) {
+            $return[$p['post']]['category'][] = $cats->name;
+        }
+
+        $categories = get_the_terms($p['post'], 'resource_category');
+        foreach ($categories as $cats) {
+            $return[$p['post']]['category'][] = $cats->name;
+        }
+
+        /**
+         * title
+         */
+
+        $return[$p['post']]['title'] = get_the_title($p['post']);
+
+        /**
+         * permalink
+         */
+
+        $return[$p['post']]['url'] = get_the_permalink($p['post']);
+    }
+
+    $_2x_related_resources = $return;
+}
 
 /**
  * specific css
@@ -484,7 +521,7 @@ get_header() ?>
         </section>
     <?php endif ?>
 
-    <?php if (!empty($related_resources)): ?>
+    <?php if (!empty($_2x_related_resources)): ?>
         <section class="related-resources pb-5">
             <div class="row-container">
                 <div class="single-h-padding limit-width position-relative">
@@ -497,18 +534,20 @@ get_header() ?>
                                 <?= $options['related_resources']['main_heading'] ?>
                             </h2>
                         </div>
-                        <div class="col-lg-6 show-more-top">
-                            <div>
-                                <a href="<?= $options['related_resources']['cta']['url'] ?>" class="red">
-                                    <?= $options['related_resources']['cta']['title'] ?> <i
-                                        class="fa fa-arrow-right2 t-icon-size-lg"></i>
-                                </a>
+                        <?php if (isset($related_resources['hide_cta'][0]) && $related_resources['hide_cta'][0] != 'yes'): ?>
+                            <div class="col-lg-6 show-more-top">
+                                <div>
+                                    <a href="<?= $options['related_resources']['cta']['url'] ?>" class="red">
+                                        <?= $options['related_resources']['cta']['title'] ?> <i
+                                            class="fa fa-arrow-right2 t-icon-size-lg"></i>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
+                        <?php endif ?>
                     </div>
 
                     <div class="row row-cols-1 row-cols-md-3 gy-4">
-                        <?php foreach ($related_resources as $post_id => $item): ?>
+                        <?php foreach ($_2x_related_resources as $post_id => $item): ?>
                             <div class="col">
 
                                 <a href="<?= $item['url'] ?>">

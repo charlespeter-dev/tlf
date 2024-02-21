@@ -2,7 +2,12 @@
   text-transform: uppercase;
 }
 .bootstrap-container.resources .full-width {
-  height: 375px;
+  height: 235px;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.resources .full-width {
+    height: 375px;
+  }
 }
 .bootstrap-container.resources .blue {
   color: #003375;

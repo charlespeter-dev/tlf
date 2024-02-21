@@ -1808,9 +1808,9 @@
 					 child.style.height = '';
 					 if (!!percentHeight) {
 						 if (percentHeight == 'full') {
-							 currentTallest = parseInt(wheight);
+							 currentTallest = parseInt(UNCODE.wheight);
 						 } else {
-							 currentTallest = parseInt((wheight * percentHeight) / 100);
+							 currentTallest = parseInt((UNCODE.wheight * percentHeight) / 100);
 						 }
 					 } else {
 						 currentTallest = el.clientHeight;
@@ -1837,9 +1837,9 @@
 						 percentHeight = el.getAttribute("data-height-ratio");
 						 minHeight = el.getAttribute("data-minheight");
 						 if (percentHeight == 'full') {
-							 currentTallest = parseInt(wheight);
+							 currentTallest = parseInt(UNCODE.wheight);
 						 } else {
-							 currentTallest = parseInt((wheight * percentHeight) / 100);
+							 currentTallest = parseInt((UNCODE.wheight * percentHeight) / 100);
 						 }
  
 						 var computedStyleRow = getComputedStyle(el),
@@ -2616,8 +2616,8 @@
 					 var section = visibleRows[i],
 						 sectionHeight = outerHeight(section),
 						 offSetTop = bodyTop + ( section != null ? section.getBoundingClientRect().top : 0 ),
-						 offSetPosition = wheight + bodyTop - offSetTop;
-					 if (offSetPosition > 0 && offSetPosition < (sectionHeight + wheight)) {
+						 offSetPosition = UNCODE.wheight + bodyTop - offSetTop;
+					 if (offSetPosition > 0 && offSetPosition < (sectionHeight + UNCODE.wheight)) {
 						 classie.addClass($kenburnsInner[0], 'uncode-scroll-visible');
 						 visibleRows[i].dispatchEvent(new CustomEvent('enter-row'));
 					 } else {
@@ -2635,12 +2635,12 @@
 					 var section = kenburnsHeaders[i].parentNode,
 						 sectionHeight = outerHeight(section),
 						 offSetTop = bodyTop + (section != null ? (classie.hasClass(section.parentNode.parentNode, 'owl-carousel') ? section.parentNode.parentNode.getBoundingClientRect().top : section.getBoundingClientRect().top) : 0),
-						 offSetPosition = wheight + bodyTop - offSetTop,
+						 offSetPosition = UNCODE.wheight + bodyTop - offSetTop,
 						 $kenburnsInner = kenburnsHeaders[i].querySelectorAll('.header-bg');
 					 if (classie.hasClass(kenburnsHeaders[i], 'header-carousel-wrapper')) {
 						 $kenburnsInner = kenburnsHeaders[i].querySelectorAll('.t-background-cover');
 					 }
-					 if (offSetPosition > 0 && offSetPosition < (sectionHeight + wheight)) {
+					 if (offSetPosition > 0 && offSetPosition < (sectionHeight + UNCODE.wheight)) {
 						 for (var i = 0; i < $kenburnsInner.length; i++) {
 							 classie.addClass($kenburnsInner[i], 'uncode-kburns');
 							 $kenburnsInner[i].dispatchEvent(new CustomEvent('enter-kburns'));
@@ -2664,9 +2664,9 @@
 					 var section = kenburnsRows[i].parentNode,
 						 sectionHeight = outerHeight(section),
 						 offSetTop = bodyTop + (section != null ? (classie.hasClass(section.parentNode.parentNode, 'owl-carousel') ? section.parentNode.parentNode.getBoundingClientRect().top : section.getBoundingClientRect().top) : 0),
-						 offSetPosition = wheight + bodyTop - offSetTop,
+						 offSetPosition = UNCODE.wheight + bodyTop - offSetTop,
 						 $kenburnsInner = kenburnsRows[i].querySelectorAll('.background-inner, .header-bg');
-					 if (offSetPosition > 0 && offSetPosition < (sectionHeight + wheight)) {
+					 if (offSetPosition > 0 && offSetPosition < (sectionHeight + UNCODE.wheight)) {
 						 classie.addClass($kenburnsInner[0], 'uncode-kburns');
 						 $kenburnsInner[0].dispatchEvent(new CustomEvent('enter-kburns'));
 					 } else {
@@ -2709,7 +2709,7 @@
 					 var section = backwashHeaders[i].parentNode,
 						 sectionHeight = outerHeight(section),
 						 offSetTop = bodyTop + (section != null ? (classie.hasClass(section.parentNode.parentNode, 'owl-carousel') ? section.parentNode.parentNode.getBoundingClientRect().top : section.getBoundingClientRect().top) : 0),
-						 offSetPosition = wheight + bodyTop - offSetTop,
+						 offSetPosition = UNCODE.wheight + bodyTop - offSetTop,
 						 $backwashInner = backwashHeaders[i].querySelectorAll('.header-bg');
  
 					 if ( classie.hasClass($backwashInner[0], 'uncode-video-container') ) {
@@ -2720,7 +2720,7 @@
 						 $backwashInner = backwashHeaders[i].querySelectorAll('.t-background-cover');
 					 }
  
-					 if (offSetPosition > 0 && offSetPosition < (sectionHeight + wheight)) {
+					 if (offSetPosition > 0 && offSetPosition < (sectionHeight + UNCODE.wheight)) {
 						 for (var i = 0; i < $backwashInner.length; i++) {
 							 classie.addClass($backwashInner[i], 'uncode-zoomout');
 							 $backwashInner[i].dispatchEvent(new CustomEvent('enter-zoomout'));
@@ -2756,14 +2756,14 @@
 					 var section = backwashRows[i].parentNode,
 						 sectionHeight = outerHeight(section),
 						 offSetTop = bodyTop + (section != null ? (classie.hasClass(section.parentNode.parentNode, 'owl-carousel') ? section.parentNode.parentNode.getBoundingClientRect().top : section.getBoundingClientRect().top) : 0),
-						 offSetPosition = wheight + bodyTop - offSetTop,
+						 offSetPosition = UNCODE.wheight + bodyTop - offSetTop,
 						 $backwashInner = backwashRows[i].querySelectorAll('.background-inner');
  
 					 if ( classie.hasClass($backwashInner[0], 'uncode-video-container') ) {
 						 continue;
 					 }
  
-					 if (offSetPosition > 0 && offSetPosition < (sectionHeight + wheight) ) {
+					 if (offSetPosition > 0 && offSetPosition < (sectionHeight + UNCODE.wheight) ) {
 						 classie.addClass($backwashInner[0], 'uncode-zoomout');
 						 $backwashInner[0].dispatchEvent(new CustomEvent('enter-zoomout'));
 					 } else {
@@ -2804,9 +2804,9 @@
 						 thisHeight = outerHeight(parallaxRows[i]),
 						 sectionHeight = outerHeight(section),
 						 offSetTop = bodyTop + (section != null ? (classie.hasClass(section.parentNode.parentNode, 'owl-carousel') ? section.parentNode.parentNode.getBoundingClientRect().top : section.getBoundingClientRect().top) : 0),
-						 offSetPosition = wheight + bodyTop - offSetTop;
-					 if (offSetPosition > 0 && offSetPosition < (sectionHeight + wheight)) {
-						 value = ((offSetPosition - wheight) * speedDivider);
+						 offSetPosition = UNCODE.wheight + bodyTop - offSetTop;
+					 if (offSetPosition > 0 && offSetPosition < (sectionHeight + UNCODE.wheight)) {
+						 value = ((offSetPosition - UNCODE.wheight) * speedDivider);
 						 if (Math.abs(value) < (thisHeight - sectionHeight)) {
 							 translateElement(parallaxRows[i], Math.floor(value));
 						 } else {
@@ -2824,9 +2824,9 @@
 						 thisHeight = outerHeight(parallaxCols[j]),
 						 sectionHeight = outerHeight(section),
 						 offSetTop = bodyTop + (section != null ? section.getBoundingClientRect().top : 0),
-						 offSetPosition = wheight + bodyTop - offSetTop;
-					 if (offSetPosition > 0 && offSetPosition < (sectionHeight + wheight)) {
-						 value = ((offSetPosition - wheight) * speedDivider);
+						 offSetPosition = UNCODE.wheight + bodyTop - offSetTop;
+					 if (offSetPosition > 0 && offSetPosition < (sectionHeight + UNCODE.wheight)) {
+						 value = ((offSetPosition - UNCODE.wheight) * speedDivider);
 						 value *= .8;
 						 if (Math.abs(value) < (thisHeight - sectionHeight)) {
 							 translateElement(parallaxCols[j], Math.floor(value));
@@ -2853,9 +2853,9 @@
 							 thisHeight = outerHeight(item);
 							 sectionHeight = outerHeight(section);
 							 offSetTop = bodyTop + section.getBoundingClientRect().top;
-							 offSetPosition = wheight + bodyTop - offSetTop;
-							 if (offSetPosition > 0 && offSetPosition < (sectionHeight + wheight)) {
-								 value = ((offSetPosition - wheight) * speedDivider);
+							 offSetPosition = UNCODE.wheight + bodyTop - offSetTop;
+							 if (offSetPosition > 0 && offSetPosition < (sectionHeight + UNCODE.wheight)) {
+								 value = ((offSetPosition - UNCODE.wheight) * speedDivider);
 								 if (Math.abs(value) < (thisHeight - sectionHeight)) {
 									 translateElement(item, Math.floor(value));
 								 }
@@ -2865,9 +2865,9 @@
 						 thisHeight = outerHeight(parallaxHeaders[i]);
 						 sectionHeight = outerHeight(section);
 						 offSetTop = bodyTop + section.getBoundingClientRect().top;
-						 offSetPosition = wheight + bodyTop - offSetTop;
-						 if (offSetPosition > 0 && offSetPosition < (sectionHeight + wheight)) {
-							 value = ((offSetPosition - wheight) * speedDivider);
+						 offSetPosition = UNCODE.wheight + bodyTop - offSetTop;
+						 if (offSetPosition > 0 && offSetPosition < (sectionHeight + UNCODE.wheight)) {
+							 value = ((offSetPosition - UNCODE.wheight) * speedDivider);
 							 if (Math.abs(value) < (thisHeight - sectionHeight)) {
 								 translateElement(parallaxHeaders[i], Math.floor(value));
 							 }
@@ -2893,7 +2893,7 @@
 		 /** Show hide scroll top arrow **/
 		 showHideScrollup = function(bodyTop) {
 			 if ( bodyTop != 0 ) {
-				 if (bodyTop > wheight || ((bodyTop + wheight) >= docheight) && docheight > 0) {
+				 if (bodyTop > UNCODE.wheight || ((bodyTop + UNCODE.wheight) >= docheight) && docheight > 0) {
 					 classie.addClass(document.body, 'window-scrolled');
 					 classie.removeClass(document.body, 'hide-scrollup');
 					 if (footerScroller && footerScroller[0] != undefined) {
@@ -2965,10 +2965,10 @@
 						 }
 					 }
 				 } else {
-					 if (menusticky.length == 0 && bodyTop < wheight / 3) {
+					 if (menusticky.length == 0 && bodyTop < UNCODE.wheight / 3) {
 						 if (sticky_element.style.position == 'fixed') sticky_element.style.position = '';
 					 }
-					 if (bodyTop > wheight / 2) {
+					 if (bodyTop > UNCODE.wheight / 2) {
 						 clearTimeout(hidingTimer);
 						 if (!classie.hasClass(menuhide, 'menu-hided')) {
 							 classie.addClass(menuhide, 'menu-hided');

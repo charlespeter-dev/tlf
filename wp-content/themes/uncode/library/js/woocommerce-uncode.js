@@ -611,7 +611,7 @@
 			}
 		});
 
-		$(window).load(function(){
+		var uncodeZoom = function(){
 			if ($.fn.zoom && $('body').hasClass('wc-zoom-enabled') ) {
 				var $zoomTrgt = $('.woocommerce-product-gallery__image', $slider);
 
@@ -726,7 +726,9 @@
 					setCheckForZoom = setTimeout( checkForZoom, 500 );
 				});
 			}
-		});
+		};
+		uncodeZoom();
+		window.addEventListener('load', uncodeZoom);
 	}
 
 	woocommerce_product_gallery();

@@ -502,6 +502,7 @@ function uncode_equeue() {
 		'index_pagination_disable_scroll' => apply_filters( "index_pagination_disable_scroll", false ),
 		'index_pagination_scroll_to' => apply_filters( "uncode_index_pagination_scroll_to", false ),
 		'uncode_wc_popup_cart_qty'   => apply_filters( 'uncode_woocommerce_popup_cart_quantity', ot_get_option( '_uncode_woocommerce_popup_cart_quantity'  ) === 'on' ),
+		'disable_hover_hack'         => apply_filters( 'uncode_ajax_filters_disable_hover_hack', false ),
 	);
 
 	/** JS */
@@ -1194,8 +1195,8 @@ function uncode_body_classes($classes){
 		$classes[] = 'no-qty-fx';
 	}
 
-	if ( apply_filters( 'uncode_lightgallery_enable_close_button_mobile', false ) ) {
-		$classes[] = 'lightgallery-show-close';
+	if ( apply_filters( 'uncode_lightgallery_hide_close_button_mobile', false ) ) {
+		$classes[] = 'lightgallery-hide-close';
 	}
 
 	return $classes;

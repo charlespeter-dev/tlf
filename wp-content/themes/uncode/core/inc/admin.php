@@ -192,7 +192,7 @@ function uncode_select_wrapper_category(){
 ?>
 <script type="text/javascript">
 (function($){
-	$(document).on('ready', function(){
+	$(document).ready(function(){
 		$('.colors-dropdown').each(function() {
 			var selectValue, selectName;
 			if (!$(this).parent().hasClass('select-wrapper')) {
@@ -889,7 +889,7 @@ function uncode_edit_tax_meta() {
 add_action('admin_init', 'uncode_edit_tax_meta');
 
 
-/////////////// 
+///////////////
 // Menu edit //
 ///////////////
 
@@ -1017,7 +1017,11 @@ function uncode_admin_get_oembed()
 		} else if ($bare_host[0] === 'vimeo') {
 			$urlEnterd = preg_replace('/#.*/', '', $urlEnterd);
 			$vimeo = unserialize(wp_remote_fopen("http://vimeo.com/api/v2/video/".basename(strtok($urlEnterd, '?')).".php"));
-			$code = '<img src="' . $vimeo[0]['thumbnail_large'] . '" />';
+			if ( isset( $vimeo[0] ) && isset( $vimeo[0]['thumbnail_large'] ) ) {
+				$code = '<img src="' . $vimeo[0]['thumbnail_large'] . '" />';
+			} else {
+				$code = '';
+			}
 		} else if ($bare_host[0] === 'flickr') {
 			$code = preg_replace('/<\/?a[^>]*>/','',$code);
 		}

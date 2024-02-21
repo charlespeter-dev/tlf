@@ -197,7 +197,7 @@
 			var parent_gallery = old_gallery.parent();
 
 			$.ajax({
-				url: wc_add_to_cart_params.ajax_url,
+				url: UncodeWCParameters.ajax_url,
 				data: {
 					action: 'uncode_get_variation_gallery',
 					variation: typeof variation !== 'undefined' ? variation : 0,

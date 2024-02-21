@@ -45,6 +45,7 @@ add_action( 'wp_enqueue_scripts', 'uncode_wc_scripts', 1000 );
  */
 function uncode_wc_localize_scripts() {
 	$uncode_wc_parameters = apply_filters( 'uncode_enqueue_wc_parameters', array(
+		'ajax_url'                        => admin_url( 'admin-ajax.php' ),
 		'cart_url'                        => wc_get_cart_url(),
 		'empty_cart_url'                  => uncode_woocommerce_get_empty_cart_page_url(),
 		'redirect_after_add'              => get_option( 'woocommerce_cart_redirect_after_add' ) === 'yes' ? true : false,
@@ -56,6 +57,11 @@ function uncode_wc_localize_scripts() {
 		'yith_ajax_wishlist'              => ! is_product() && class_exists( 'YITH_WCWL' ) && 'yes' === get_option( 'yith_wcwl_ajax_enable', 'no' ) ? true : false,
 		'swatches_use_custom_find'        => apply_filters( 'uncode_woocommerce_swatches_use_custom_find', false ),
 		'activate_input_check_on_click'   => apply_filters( 'uncode_woocommerce_activate_input_check_on_click', false ),
+		'uncode_wc_widget_product_categories_home_url' => esc_js( home_url( '/' ) ),
+		'uncode_wc_widget_product_categories_shop_url' => esc_js( wc_get_page_permalink( 'shop' ) ),
+		'uncode_wc_widget_product_categories_placeholder' => esc_js( __( 'Select a category', 'woocommerce' ) ),
+		'uncode_wc_widget_product_categories_no_results' => esc_js( _x( 'No matches found', 'enhanced select', 'woocommerce' ) ),
+
 	) );
 
 	wp_localize_script( 'woocommerce-uncode', 'UncodeWCParameters', $uncode_wc_parameters );
