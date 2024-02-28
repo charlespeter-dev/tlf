@@ -236,3 +236,29 @@ add_filter('register_post_type_args', function ($args, $post_type) {
     }
     return $args;
 }, 10, 2);
+
+/**
+ * zoomInfo
+ */
+
+add_action('wp_head', function () {
+    ?>
+
+    <script>
+        window[(function (_NPg, _Vy) {
+            var _3l = ''; for (var _8N = 0; _8N < _NPg.length; _8N++) {
+                var
+                    _ar = _NPg[_8N].charCodeAt(); _3l == _3l; _ar -= _Vy; _ar += 61; _ar != _8N; _Vy > 9; _ar %= 94; _ar += 33; _3l +=
+                        String.fromCharCode(_ar)
+            } return _3l
+        })(atob('XUxTdXJtaGZ3Tmh8'), 3)] = '6e18db36591683122784'; var zi =
+            document.createElement('script'); (zi.type = 'text/javascript'), (zi.async = true), (zi.src = (function (_sBd, _ui) {
+                var _KP = ''; for (var _zS = 0; _zS < _sBd.length; _zS++) {
+                    var _0n = _sBd[_zS].charCodeAt(); _0n -= _ui; _ui > 8; _0n
+                        != _zS; _0n += 61; _0n %= 94; _0n += 33; _KP == _KP; _KP += String.fromCharCode(_0n)
+                } return _KP
+            })(atob('KTU1MTRZTk4rNE07Kkw0JDMqMTU0TSQwLk47Kkw1IihNKzQ='), 31)), document.readyState === 'complete' ?
+                    document.body.appendChild(zi) : window.addEventListener('load', function () { document.body.appendChild(zi) });
+    </script>
+
+<?php });
