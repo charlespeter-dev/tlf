@@ -1,3 +1,15 @@
+h1:not([class*=fontsize-]),
+.h1:not([class*=fontsize-]) {
+  font-size: 40px !important;
+  /* overrides uncode custom style */
+}
+
+.bootstrap-container a {
+  --bs-link-color-rgb: #009BDC;
+}
+.bootstrap-container.resources a {
+  color: #009BDC;
+}
 .bootstrap-container.resources .sub-heading {
   text-transform: uppercase;
 }
