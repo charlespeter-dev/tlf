@@ -209,7 +209,7 @@ get_header() ?>
     </section>
 
     <?php if (isset($featured_testimonials['testimonials']) && $featured_testimonials['testimonials']): ?>
-        <section class="featured-testimonials my-5">
+        <section class="featured-testimonials <?= count($ft_collections) > 1 ? 'my-5' : 'mt-5' ?>">
             <div class="row-container">
                 <div class="single-h-padding limit-width position-relative">
 
@@ -230,7 +230,7 @@ get_header() ?>
 
                                 <?php foreach ($ft_collections as $ft): ?>
 
-                                    <div class="swiper-slide my-5">
+                                    <div class="swiper-slide <?= count($ft_collections) > 1 ? 'my-5' : 'mt-4' ?>">
 
                                         <div class="quote">
                                             <?php if (isset($ft['quote']) && $ft['quote']): ?>
@@ -262,8 +262,8 @@ get_header() ?>
 
                                             <?php if (isset($ft['cta']['url']) && $ft['cta']['url']): ?>
                                                 <div class="quote-cta">
-                                                    <p>
-                                                        <a href="<?= $ft['cta']['url'] ?>">
+                                                    <p class="mb-0">
+                                                        <a href="<?= $ft['cta']['url'] ?>" target="_blank">
                                                             <?= $ft['cta']['title'] ?> <i class="fa fa-arrow-right2 t-icon-size-lg"></i>
                                                         </a>
                                                     </p>
