@@ -10949,6 +10949,9 @@ a > .bootstrap-container code {
     display: none !important;
   }
 }
+.bootstrap-container p:empty {
+  display: none;
+}
 .bootstrap-container .row {
   --bs-gutter-x: 0;
 }
