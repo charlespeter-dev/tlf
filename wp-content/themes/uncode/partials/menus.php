@@ -430,9 +430,9 @@ if (!class_exists('unmenu')) {
 			$sub_extra_classes = $sub_shadows !== '' ? ' menu-dd-shadow-' . $sub_shadows_darker . $sub_shadows : '';
 
 			$sub_enhanced = ot_get_option( '_uncode_submenu_style' );
-			if ( $sub_extra_classes != '' ) {
+			//if ( $sub_extra_classes != '' ) {
 				$sub_extra_classes .= ' ' . esc_attr( $sub_enhanced );
-			}
+			//}
 
 			if ($boxed === 'on') {
 				$effects .= ' limit-width';

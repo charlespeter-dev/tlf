@@ -286,12 +286,13 @@ while (have_posts()):
 	}
 
 	if (!$with_builder) {
-		$the_content = $the_content ? apply_filters('the_content', $the_content) : '';
+		$the_content = $the_content || ( function_exists('vc_is_page_editable') && vc_is_page_editable() ) ? apply_filters('the_content', $the_content) : '';
 	} else {
 		if ( ( function_exists('vc_is_page_editable') && vc_is_page_editable() ) ) {
 			$the_content = '';
 		}
 		$get_content_appended = apply_filters('the_content', 'uncode-placeholder');
+		$get_content_appended = preg_replace('~\x{00AD}~u', "", $get_content_appended);
 		$get_content_appended = str_replace( '<p>uncode-placeholder</p>', '', $get_content_appended );
 		$get_content_appended = str_replace( 'uncode-placeholder', '', $get_content_appended );
 		$get_content_appended = trim( $get_content_appended );

@@ -78,6 +78,7 @@
 }
 .uncode-single-media .uncode-single-media-wrapper > .dummy ~ img,
 .uncode-single-media .uncode-single-media-wrapper > .dummy + * {
+  padding-top: 0 !important;
   position: absolute;
   top: 0;
   bottom: 0;

@@ -1265,7 +1265,8 @@ button[type="submit"] {
 /* #UI-border-color-accent */
 .ui-br-accent,
 .nav-tabs > li.active > a,
-.tabs-left > li.active > a {
+.tabs-left > li.active > a,
+.tabs-appended .nav-tabs > li.active > a {
   border-color: #0c2d69 !important;
 }
 /* break */

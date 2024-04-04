@@ -67,7 +67,7 @@ if ($css_animation !== '' && uncode_animations_enabled()) {
 $div_data_attributes = array_map(function ($v, $k) { return $k . '="' . $v . '"'; }, $div_data, array_keys($div_data));
 
 $output .= '<div class="uncode-wrapper ' . esc_attr( trim( implode( ' ', $classes ) ) ) . '" ' . implode( ' ', $div_data_attributes ) . $el_id . '>';
-$output .= $content;
+$output .= apply_filters( 'uncode_builder_content', $content, 'uncode_list' );
 $output .= uncode_print_dynamic_inline_style( $inline_style_css );
 $output .= '</div>';
 

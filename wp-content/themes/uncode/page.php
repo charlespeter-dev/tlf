@@ -379,6 +379,7 @@ get_header();
 					}
 				} else {
 					$the_content = apply_filters('the_content', 'uncode-placeholder');
+					$the_content = preg_replace('~\x{00AD}~u', "", $the_content);
 					$the_content = str_replace( '<p>uncode-placeholder</p>', '', $the_content );
 					$the_content = str_replace( 'uncode-placeholder', '', $the_content );
 					$the_content = trim( $the_content );
@@ -396,6 +397,7 @@ get_header();
 			}
 		} else {
 			$get_content_appended = apply_filters('the_content', 'uncode-placeholder');
+			$get_content_appended = preg_replace('~\x{00AD}~u', "", $get_content_appended);
 			$get_content_appended = str_replace( '<p>uncode-placeholder</p>', '', $get_content_appended );
 			$get_content_appended = str_replace( 'uncode-placeholder', '', $get_content_appended );
 			$get_content_appended = trim( $get_content_appended );

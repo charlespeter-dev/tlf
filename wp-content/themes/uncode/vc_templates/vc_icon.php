@@ -532,17 +532,21 @@ if ($media_lightbox !== '') {
 		}
 
 		if ( $lbox_enhance ) {
-			if ( $media_attributes->post_mime_type !== 'oembed/flickr' && isset( $data_options_th[0] ) ) {
-				$lightbox_data .= ' data-external-thumb-image="'. $data_options_th[0] .'"';
+			if ( isset( $media_attributes->post_mime_type ) ) {
+				if ( $media_attributes->post_mime_type !== 'oembed/flickr' && isset( $data_options_th[0] ) ) {
+					$lightbox_data .= ' data-external-thumb-image="'. $data_options_th[0] .'"';
+				}
+				if ( $media_attributes->post_mime_type === 'video/mp4' ) {
+					$lightbox_data .= 'data-video=\'{"source": [{"src":"' . $a_href . '", "type":"video/mp4"}]}\' data-icon="video"';
+				} elseif ( $media_attributes->post_mime_type === 'oembed/youtube' || $media_attributes->post_mime_type === 'oembed/vimeo' ) {
+					$lightbox_data .= 'data-icon="video"';
+				} elseif ( $media_attributes->post_mime_type === 'oembed/spotify' || $media_attributes->post_mime_type === 'oembed/soundcloud' ) {
+					$lightbox_data .= 'data-src="' . $a_href . '" data-iframe="true"';
+				}
 			}
-			if ( $media_attributes->post_mime_type === 'video/mp4' ) {
-				$lightbox_data .= 'data-video=\'{"source": [{"src":"' . $a_href . '", "type":"video/mp4"}]}\' data-icon="video"';
-			} elseif ( $media_attributes->post_mime_type === 'oembed/youtube' || $media_attributes->post_mime_type === 'oembed/vimeo' ) {
-				$lightbox_data .= 'data-icon="video"';
-			} elseif ( $media_attributes->post_mime_type === 'oembed/spotify' || $media_attributes->post_mime_type === 'oembed/soundcloud' ) {
-				$lightbox_data .= 'data-src="' . $a_href . '" data-iframe="true"';
+			if ( isset( $video_enhanced ) ) {
+				$lightbox_data .= $video_enhanced;
 			}
-			$lightbox_data .= $video_enhanced;
 			if ( isset($media_metavalues['width']) && isset($media_metavalues['height']) ) {
 				$lightbox_data .= ' data-lg-size="' . $media_metavalues['width'] . '-' . $media_metavalues['height'] . '"';
 			}

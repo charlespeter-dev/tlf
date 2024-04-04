@@ -114,7 +114,7 @@ if ( $auto_text === 'excerpt' && $post_type != 'uncodeblock' ) {
 		$content = apply_filters( 'the_content', $_content );
 	}
 } else {
-	$content = uncode_the_content($content);
+	$content = uncode_the_content(apply_filters('uncode_builder_content', $content, 'vc_column_text'));
 }
 
 $output.= $content;

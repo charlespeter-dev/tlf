@@ -258,6 +258,7 @@ if ( $is_header != 'yes' ) {
 }
 
 $content = apply_filters('uncode_vc_custom_heading_content', $content, $auto_text, $is_header);
+$content = apply_filters( 'uncode_builder_content', $content, 'vc_custom_heading' );
 
 if ( strpos( $content, '[uncode_hl_text') !== false ) {
 	if ( ! isset($data_font) ) {

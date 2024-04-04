@@ -22,6 +22,8 @@ class Uncode_VC_Functions {
 		add_action( 'uncode_upgraded', array( $this, 'disable_gutenberg' ) );
 		// Don't load Gutenberg CSS if disabled
 		add_filter( 'uncode_load_gutenberg_css', array( $this, 'disable_gutenberg_css' ) );
+		// Run actions after theme setup
+		add_action( 'after_setup_theme', array( $this, 'after_setup_theme' ) );
 	}
 
 	/**
@@ -47,6 +49,14 @@ class Uncode_VC_Functions {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Run actions after theme setup
+	 */
+	public function after_setup_theme() {
+		// Remove prompt
+		remove_action( 'upgrader_process_complete', 'vc_set_promo_editor_popup', 10, 2 );
 	}
 }
 

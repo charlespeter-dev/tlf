@@ -3644,6 +3644,12 @@ ul.wc-stripe-error {
 .has-paypal-payments .wc-proceed-to-checkout {
   text-align: left;
 }
+.wc_stripe_cart_payment_methods {
+  padding-left: 0 !important;
+}
+.wc_stripe_cart_payment_methods {
+  max-width: 100%;
+}
 div.product {
   position: relative;
 }

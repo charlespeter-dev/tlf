@@ -800,7 +800,8 @@ button[type="submit"] {
 /* #UI-border-color-accent */
 .ui-br-accent,
 .nav-tabs > li.active > a,
-.tabs-left > li.active > a {
+.tabs-left > li.active > a,
+.tabs-appended .nav-tabs > li.active > a {
   border-color: <?php echo sanitize_text_field($color_primary); ?> !important;
 }
 /* break */

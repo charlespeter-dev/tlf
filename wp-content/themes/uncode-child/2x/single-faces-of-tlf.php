@@ -52,7 +52,7 @@ get_header() ?>
     <section class="face-overview my-lg-5 my-4">
         <div class="row-container">
             <div class="single-h-padding limit-width">
-                <figure>
+                <figure class="mb-4">
                     <?php $image_data = wp_get_attachment_image_src(get_post_thumbnail_id(), '_2x_face-image-single'); ?>
                     <?php $image_url = $image_data[0]; ?>
                     <img src="<?= $image_url; ?>" class="face-img" alt="<?= $face_image['title'] ?>" loading="lazy">

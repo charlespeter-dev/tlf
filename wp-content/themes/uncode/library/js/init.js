@@ -1233,13 +1233,18 @@
 								 containerSpeed = $wrap.getAttribute('data-speed'),
 								 containerSpeed_val = typeof containerSpeed !== 'undefined' && containerSpeed !== null ? parseFloat(containerSpeed) : 400,
 								 containerInterval = typeof $wrap.getAttribute('data-interval') !== 'undefined' && $wrap.getAttribute('data-interval') !== null ? $wrap.getAttribute('data-interval') : 0,
+								 $cloned = $wrap.closest('.cloned'),
 								 delayAttr = (containerDelay != undefined) ? containerDelay : 0;
  
-							 if ( classie.hasClass($wrap, 'already-animated') ) {
+							if ( classie.hasClass($wrap, 'already-animated') ) {
 								 continue;
-							 }
+							}
  
-							 if ( classie.hasClass($wrap, 'curtain') ) {
+							if ( $cloned !== null ) {
+								continue;
+							}
+
+							if ( classie.hasClass($wrap, 'curtain') ) {
  
 								 for (var il = 0; il < $lines.length; il++) {
 									 var $line = $lines[il],
@@ -3860,8 +3865,12 @@
 				 } else {
 					 var parent_width = el.parentNode.parentElement.clientWidth;
 				 }
-				 el.sizes = parent_width + 'px';
-				 classie.addClass(el, 'srcset-sizes-done');
+				if ( parent_width === 0 ) {
+					el.sizes = UNCODE.wwidth;
+				} else {
+				   el.sizes = parent_width + 'px';
+				}
+				classie.addClass(el, 'srcset-sizes-done');
 				 if (el.dataset.srcset) {
 					 if (SiteParameters.activate_webp && el.dataset.srcsetWebp && ((el.dataset.mime === 'png' && UNCODE.webp_lossless_supported) || (el.dataset.mime === 'jpeg' && UNCODE.webp_lossy_supported))) {
 						 el.srcset = el.dataset.srcsetWebp;

@@ -1297,6 +1297,10 @@ html.android4 .page-wrapper .row.row-parent {
   box-sizing: border-box;
   height: 100%;
 }
+.row .uncont.col-custom-width {
+  margin-left: auto;
+  margin-right: auto;
+}
 @media (min-width: 960px) {
   .row .uncont.col-custom-width {
     border: 36px;
@@ -4437,12 +4441,6 @@ body.customer-area-active .cuar-css-wrapper .row {
   display: block;
   table-layout: auto;
 }
-.uncell[class*="unshadow-"]:not(.uncont-bordered),
-.uncont[class*="unshadow-"]:not(.uncont-bordered),
-.uncell[class*="unradius-"]:not(.uncont-bordered),
-.uncont[class*="unradius-"]:not(.uncont-bordered) {
-  border: 0 !important;
-}
 .empty-space {
   margin-top: 0 !important;
 }
@@ -4469,6 +4467,10 @@ body.customer-area-active .cuar-css-wrapper .row {
 }
 .custom-grid-container .row .align_right > .uncol > .uncoltable > .uncell > .uncont {
   margin-right: 0 !important;
+}
+.overflow-hidden-uncell .uncell,
+.overflow-hidden-uncont .uncont {
+  overflow: hidden;
 }
 /*
 ----------------------------------------------------------
@@ -5874,23 +5876,11 @@ ul.menu-smart {
 }
 .menu-smart span.scroll-up,
 .menu-smart span.scroll-down {
-  display: none !important;
-}
-.menu-smart span.scroll-up-arrow,
-.menu-smart span.scroll-down-arrow {
   position: absolute;
-  top: 4px;
-  left: 50%;
-  margin-left: -4px;
-  width: 0;
-  height: 0;
+  display: block;
+  visibility: hidden;
   overflow: hidden;
-  border-width: 4px;
-  border-style: dashed dashed solid dashed;
-}
-.menu-smart span.scroll-down-arrow {
-  top: 8px;
-  border-style: solid dashed dashed dashed;
+  left: auto !important;
 }
 .menu-smart > li > a > div > div > div.btn {
   margin: 0;
@@ -7767,6 +7757,11 @@ body[class*=vmenu-]:not(.menu-overlay):not(.menu-offcanvas) .logo-container {
     display: table;
     border-collapse: separate;
     table-layout: fixed;
+  }
+  body.scrollable-megamenu .menu-horizontal .menu-smart > .mega-menu .mega-menu-inner {
+    display: block;
+    overflow: auto;
+    overflow-x: hidden;
   }
   .menu-horizontal:not(.menu-sub-enhanced) .mega-menu-inner > li.menu-item {
     display: table-cell;

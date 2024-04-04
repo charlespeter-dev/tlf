@@ -485,8 +485,12 @@ body:not(.lg-from-hash) .lg-outer.lg-start-opacity .lg-item:not(.lg-zoomable).lg
   -webkit-transition: opacity 0s;
   -o-transition: opacity 0s;
   transition: opacity 0s;
-  white-space: nowrap;
   direction: ltr;
+}
+@media (min-width: 960px) {
+  .lg-outer .lg-inner {
+    white-space: nowrap;
+  }
 }
 .lg-outer .lg-item {
   display: none !important;
@@ -1440,7 +1444,13 @@ body:not(.lg-from-hash) .lg-outer.lg-start-opacity .lg-item:not(.lg-zoomable).lg
   position: absolute;
   right: 0;
   top: 0;
-  white-space: nowrap;
+  max-width: 800px;
+  margin: auto;
+}
+@media (min-width: 960px) {
+  .lg-item .uncode-noconsent-gdpr-wrap {
+    white-space: nowrap;
+  }
 }
 .lg-item .uncode-noconsent-gdpr-wrap .uncode-noconsent-gdpr-poster img {
   display: inline-block;

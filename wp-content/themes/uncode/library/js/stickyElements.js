@@ -36,8 +36,11 @@
 
 		},
 
-		initStickyElement = function() {
-			$.each($('.sticky-element'), function(index, element) {
+		initStickyElement = function($els) {
+			if ( typeof $els === 'undefined' ) {
+				$els = $('.sticky-element');
+			}
+			$.each($els, function(index, element) {
 				if ($(element).closest('.tab-pane').length) {
 					var $paneParent = $(element).closest('.tab-pane');
 					if ( !$paneParent.hasClass('active') ) {
@@ -93,10 +96,11 @@
 
 		$('.nav-tabs a').on('shown.bs.tab', function(e){
 			var $tabs = $(e.target).closest('.tab-container'),
-				$panel = $('.tab-pane.active', $tabs);
+				$panel = $('.tab-pane.active', $tabs),
+				$els = $(e.target).nextAll(".sticky-element");
 
-			$(".sticky-element").trigger("sticky_kit:detach");
-			initStickyElement();
+			$els.trigger("sticky_kit:detach");
+			initStickyElement($els);
 	});
 	}
 };

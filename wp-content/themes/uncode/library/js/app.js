@@ -741,6 +741,9 @@ UNCODE.counters = function() {
 	var $counters = $('.uncode-counter:not(.counter-init)');
 	$counters.each(function(){
 		var $counter = $(this).addClass('counter-init');
+		if ( SiteParameters.is_frontend_editor ) {
+			$counter.addClass('started');
+		}
 		if ( $counter.closest( '.owl-carousel' ).length ) {
 			return;
 		}
@@ -890,6 +893,7 @@ UNCODE.tabs = function() {
 				if ( UNCODE.wwidth <= mQuery ) {
 					if ( ! $('.tab-pane', $li ).length ) {
 						var $append_pane = $('[data-id="' + dataID + '"], #' + dataID, $tabContent);
+						$tabContainer.addClass('tabs-appended');
 						$li.append($append_pane);
 					}
 
@@ -899,6 +903,7 @@ UNCODE.tabs = function() {
 				} else {
 					if ( ! $('[data-id="' + dataID + '"]', $tabContent ).length ) {
 						var $append_pane = $('[data-id="' + dataID + '"], #' + dataID, $nav);
+						$tabContainer.removeClass('tabs-appended');
 						$tabContent.prepend($append_pane.removeAttr('style'));
 					}
 				}
@@ -1713,6 +1718,7 @@ UNCODE.menuSmartInit = function() {
 			subIndicatorsText: '',
 			showTimeout: showTimeout,
 			hideTimeout: hideTimeout,
+			scrollStep: 8,
 			showFunction: function($ul, complete) {
 				clearRequestTimeout(showTimeoutFunc);
 				$ul.fadeIn(0, 'linear', function(){
@@ -5058,8 +5064,11 @@ UNCODE.stickyElements = function() {
 
 		},
 
-		initStickyElement = function() {
-			$.each($('.sticky-element'), function(index, element) {
+		initStickyElement = function($els) {
+			if ( typeof $els === 'undefined' ) {
+				$els = $('.sticky-element');
+			}
+			$.each($els, function(index, element) {
 				if ($(element).closest('.tab-pane').length) {
 					var $paneParent = $(element).closest('.tab-pane');
 					if ( !$paneParent.hasClass('active') ) {
@@ -5115,10 +5124,11 @@ UNCODE.stickyElements = function() {
 
 		$('.nav-tabs a').on('shown.bs.tab', function(e){
 			var $tabs = $(e.target).closest('.tab-container'),
-				$panel = $('.tab-pane.active', $tabs);
+				$panel = $('.tab-pane.active', $tabs),
+				$els = $(e.target).nextAll(".sticky-element");
 
-			$(".sticky-element").trigger("sticky_kit:detach");
-			initStickyElement();
+			$els.trigger("sticky_kit:detach");
+			initStickyElement($els);
 	});
 	}
 };

@@ -12,7 +12,7 @@
  *
  * @see https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce/Templates
- * @version 7.0.1
+ * @version 8.7.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -48,6 +48,15 @@ do_action( 'woocommerce_before_edit_account_form' ); ?>
 		<input type="email" class="woocommerce-Input woocommerce-Input--email input-text" name="account_email" id="account_email" autocomplete="email" value="<?php echo esc_attr( $user->user_email ); ?>" placeholder="<?php echo esc_attr( uncode_woocommerce_get_form_field_placeholder( 'email' ) ); ?>" />
 	</p>
 
+	<?php
+		/**
+		 * Hook where additional fields should be rendered.
+		 *
+		 * @since 8.7.0
+		 */
+		do_action( 'woocommerce_edit_account_form_fields' );
+	?>
+
 	<fieldset>
 		<legend><?php esc_html_e( 'Password change', 'woocommerce' ); ?></legend>
 
@@ -66,7 +75,14 @@ do_action( 'woocommerce_before_edit_account_form' ); ?>
 	</fieldset>
 	<div class="clear"></div>
 
-	<?php do_action( 'woocommerce_edit_account_form' ); ?>
+	<?php
+		/**
+		 * My Account edit account form.
+		 *
+		 * @since 2.6.0
+		 */
+		do_action( 'woocommerce_edit_account_form' );
+	?>
 
 	<p>
 		<?php wp_nonce_field( 'save_account_details', 'save-account-details-nonce' ); ?>

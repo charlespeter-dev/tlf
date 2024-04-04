@@ -2731,7 +2731,11 @@ if (!function_exists('uncode_create_single_block')) {
 					} elseif ( $media_attributes->post_mime_type === 'oembed/youtube' || $media_attributes->post_mime_type === 'oembed/vimeo' ) {
 						$lightbox_data .= 'data-icon="video"';
 					} elseif ( $media_attributes->post_mime_type === 'oembed/spotify' || $media_attributes->post_mime_type === 'oembed/soundcloud' ) {
-						$lightbox_data .= 'data-src="' . $create_link . '" data-iframe="true"';
+						if ( uncode_privacy_allow_content( $consent_id ) === false ) {
+							$lightbox_data .= 'data-src="' . $create_link . '"';
+						} else {
+							$lightbox_data .= 'data-src="' . $create_link . '" data-iframe="true"';
+						}
 					}
 					$lightbox_data .= $video_enhanced;
 					if ( isset($media_metavalues['width']) && isset($media_metavalues['height']) ) {

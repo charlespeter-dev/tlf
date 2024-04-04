@@ -139,7 +139,10 @@
 					}
 					// hide sub menus on resize
 					$(window).on('resize' + eNamespace + ' orientationchange' + eNamespace, $.proxy(this.winResize, this));
-					//$(window).on('scroll' + eNamespace + ' orientationchange' + eNamespace, $.proxy(this.winResize, this));
+					var $vmenu = $('body.vmenu .vmenu-container');
+					if ( ! $vmenu.length && UNCODE.wwidth > UNCODE.mediaQuery ) {
+						$(window).on('scroll' + eNamespace + ' orientationchange' + eNamespace, $.proxy(this.winResize, this));
+					}
 
 					if (this.opts.subIndicators) {
 						this.$subArrow = $('<span/>').addClass('sub-arrow');
@@ -314,7 +317,7 @@
 					if ( 
 						($('body').hasClass('menu-mobile-off-canvas') && winW < 960 && $elm.closest('.main-menu-container').length)
 						||
-						($('body').hasClass('vmenu-offcanvas-overlay') && winW >= 960 && $elm.closest('.main-menu-container').length)
+						($('body').hasClass('vmenu-offcanvas-overlay') && winW >= 960 && $elm.closest('.main-menu-container').length && !$elm.closest('.menu-horizontal-inner').length)
 					) {
 						$elm.closest('li').addClass('smartmenu-open-item');
 					}
@@ -761,7 +764,8 @@
 			menuScroll: function($sub, up, wheel) {
 				var y = parseFloat($sub.css('margin-top')),
 					scroll = $sub.dataSM('scroll'),
-					end = scroll.vportY + (up ? 0 : scroll.winH - scroll.subH),
+					navH = $('.navbar-main').outerHeight(),
+					end = scroll.vportY + (up ? navH + 54 : scroll.winH - scroll.subH),
 					step = wheel || !this.opts.scrollAccelerate ? this.opts.scrollStep : Math.floor($sub.dataSM('scroll').step);
 				$sub.add($sub.dataSM('ie-shim')).css('margin-top', Math.abs(end - y) > step ? y + (up ? step : -step) : end);
 				y = parseFloat($sub.css('margin-top'));
@@ -793,7 +797,9 @@
 						this.menuScroll($sub, up, true);
 					}
 				}
-				e.preventDefault();
+				if ( ! $sub.hasClass('mega-menu-inner') ) {
+					e.preventDefault();
+				}
 			},
 			menuScrollOut: function($sub, e) {
 				var reClass = /^scroll-(up|down)/,
@@ -902,6 +908,21 @@
 							 	$sub.width($sub.width());
 							}
 							$sub.children().css('styleFloat', 'left');
+						}
+					}
+					if ( $sub.hasClass('mega-menu-inner') && $('body').hasClass('scrollable-megamenu') && UNCODE.wwidth > UNCODE.mediaQuery ) {
+						var $nav = $('.navbar-main'),
+							navH = 0,
+							navTop = 0,
+							$vmenu = $('body.vmenu .vmenu-container'),
+							$offcanvas = $('body.menu-offcanvas .vmenu-container');
+						if ( $nav.length && typeof $nav[0] !== 'undefined' ) {
+							var navRect = $nav[0].getBoundingClientRect();
+							navH = navRect.height;
+							navTop = navRect.top;
+						}
+						if ( ! $vmenu.length && ! $offcanvas.length ) {
+							$sub.css({ maxHeight: UNCODE.wheight - ( navH + navTop ) });
 						}
 					}
 					this.menuPosition($sub);

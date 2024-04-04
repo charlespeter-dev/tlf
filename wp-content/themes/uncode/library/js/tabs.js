@@ -129,6 +129,7 @@
 				if ( UNCODE.wwidth <= mQuery ) {
 					if ( ! $('.tab-pane', $li ).length ) {
 						var $append_pane = $('[data-id="' + dataID + '"], #' + dataID, $tabContent);
+						$tabContainer.addClass('tabs-appended');
 						$li.append($append_pane);
 					}
 
@@ -138,6 +139,7 @@
 				} else {
 					if ( ! $('[data-id="' + dataID + '"]', $tabContent ).length ) {
 						var $append_pane = $('[data-id="' + dataID + '"], #' + dataID, $nav);
+						$tabContainer.removeClass('tabs-appended');
 						$tabContent.prepend($append_pane.removeAttr('style'));
 					}
 				}

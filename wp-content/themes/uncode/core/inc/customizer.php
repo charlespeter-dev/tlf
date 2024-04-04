@@ -43,7 +43,7 @@ function uncode_the_content($the_content) {
 	$the_content = wpautop($the_content);
 	$the_content = shortcode_unautop($the_content);
 	$the_content = do_shortcode($the_content);
-	return $the_content;
+	return apply_filters('uncode_the_content', $the_content );
 }
 
 function uncode_remove_p_tag( $content, $autop = false ) {

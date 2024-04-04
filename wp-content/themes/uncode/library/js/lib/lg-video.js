@@ -381,7 +381,8 @@
 						: '');
 				// Uncode edit ##START##
 				// video = "<iframe allow=\"autoplay\" id=" + videoId + " class=\"lg-video-object lg-youtube " + addClass + "\" " + videoTitle + " src=\"//www.youtube.com/embed/" + (videoInfo.youtube[1] + playerParams) + "\" " + commonIframeProps + "></iframe>";
-				video = "<iframe allow=\"autoplay\"" + data_video + " id=" + videoId + " class=\"lg-video-object lg-youtube " + addClass + "\" " + videoTitle + " src=\"//www.youtube.com/embed/" + (videoInfo.youtube[1] + playerParams) + "\" " + commonIframeProps + "></iframe>";
+				var nocookie = typeof SiteParameters.uncode_nocookie !== 'undefined' ? SiteParameters.uncode_nocookie : '';
+				video = "<iframe allow=\"autoplay\"" + data_video + " id=" + videoId + " class=\"lg-video-object lg-youtube " + addClass + "\" " + videoTitle + " src=\"//www.youtube" + nocookie + ".com/embed/" + (videoInfo.youtube[1] + playerParams) + "\" " + commonIframeProps + "></iframe>";
 				var tag = document.createElement('script');
 				tag.src = "//www.youtube.com/player_api";
 				var firstScriptTag = document.getElementsByTagName('script')[0];

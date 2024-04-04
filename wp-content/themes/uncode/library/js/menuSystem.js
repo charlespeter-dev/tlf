@@ -668,6 +668,7 @@ UNCODE.menuSmartInit = function() {
 			subIndicatorsText: '',
 			showTimeout: showTimeout,
 			hideTimeout: hideTimeout,
+			scrollStep: 8,
 			showFunction: function($ul, complete) {
 				clearRequestTimeout(showTimeoutFunc);
 				$ul.fadeIn(0, 'linear', function(){

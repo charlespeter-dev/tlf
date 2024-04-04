@@ -411,6 +411,10 @@ function uncode_resize_image( $media_id, $url, $path, $originalWidth, $originalH
 		}
 	}
 
+	if ( ! apply_filters( 'uncode_adaptive_use_s3', true ) ) {
+		$remote = false;
+	}
+
 	if ($remote) {
 		$remote_url = as3cf_get_attachment_url($media_id);
 		if (empty($remote_url)) {
@@ -537,7 +541,7 @@ function uncode_resize_image( $media_id, $url, $path, $originalWidth, $originalH
 					$originalHeight,
 					$single_width,
 					$single_height,
-					'get_image_editor',
+					'get_image_editor'
 				);
 			}
 
@@ -662,7 +666,7 @@ function uncode_resize_image( $media_id, $url, $path, $originalWidth, $originalH
 					$originalHeight,
 					$single_width,
 					$single_height,
-					'path',
+					'path'
 				);
 			}
 

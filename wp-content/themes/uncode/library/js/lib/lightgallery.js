@@ -1726,11 +1726,36 @@
 					$currentSlide.prepend(markup);
 				}
 				else {
-					this.setImgMarkup(src, $currentSlide, index);
+					//Uncode edit ##START##
+					var $item = _this.galleryItems[index],
+						type = $item.type;
+
+					if ( typeof $item.src !== 'undefined' ) {
+						var inline_id = $item.src.replace('#', ''),
+							$inline = document.getElementById(inline_id),
+							inline_html;
+
+						if ( type === 'inline' && inline_id != null && typeof $inline !== 'undefined' ) {
+							inline_html = $inline.innerHTML;
+						} else {
+							inline_html = '';
+						}
+					}
+					if ( inline_html !== '' ) {
+						$currentSlide.html(inline_html);
+					} else {
+						this.setImgMarkup(src, $currentSlide, index);
+						if (srcset || sources) {
+							var $img = $currentSlide.find('.lg-object');
+							this.initPictureFill($img);
+						}
+					}
+					/*this.setImgMarkup(src, $currentSlide, index);
 					if (srcset || sources) {
 						var $img = $currentSlide.find('.lg-object');
 						this.initPictureFill($img);
-					}
+					}*/
+					//Uncode edit ##END##
 				}
 				if (poster || videoInfo) {
 					this.LGel.trigger(lGEvents.hasVideo, {
@@ -1931,15 +1956,14 @@
 						currentGalleryItem.src);
 					if (currentGalleryItem.download) {
 						//Uncode edit ##START##
-						var currentVideo, download_url, download_name;
-						if ( currentGalleryItem.video ) {
-							currentVideo = JSON.parse( currentGalleryItem.video );
-							download_name = currentVideo.source[0].src;
+						if ( typeof currentGalleryItem.video !== 'undefined' && currentGalleryItem.video ) {
+							var currentVideo = JSON.parse( currentGalleryItem.video ),
+								download_name = currentVideo.source[0].src;
 							$download.attr('href', download_name).removeAttr('download');
 						} else {
-							download_url = currentGalleryItem.downloadUrl || currentGalleryItem.src;
-							download_name = download_url.substring(download_url.lastIndexOf('/')+1);
-							$download.attr('download', download_name).removeAttr('href');
+							var download_url = currentGalleryItem.downloadUrl || currentGalleryItem.src,
+								download_name = download_url.substring(download_url.lastIndexOf('/')+1);
+							$download.attr('download', download_name);
 						}
 						// $download.attr('download', currentGalleryItem.download);
 						//Uncode edit ##END##

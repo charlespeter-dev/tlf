@@ -97,7 +97,8 @@ $output .= '<p class="' . esc_attr(trim(implode(' ', $counter_class))) . '">';
 if ($prefix !== '') {
 	$output .= '<span class="counter-prefix'.$counter_color.'">'.$prefix.'</span>';
 }
-$output .= '<span class="uncode-counter counter' . esc_attr( $counter_color ) . '" data-val="' . $value . '">' . $value . '</span>';
+$counter_edit = (function_exists('vc_is_page_editable') && vc_is_page_editable()) ? ' started' : '';
+$output .= '<span class="uncode-counter counter' . esc_attr( $counter_color ) . esc_attr( $counter_edit ) . '" data-val="' . $value . '">' . $value . '</span>';
 if ($suffix !== '') {
 	$output .= '<span class="counter-suffix' . esc_attr( $counter_color ) . '">'.$suffix.'</span>';
 }

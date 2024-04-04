@@ -503,6 +503,7 @@ function uncode_equeue() {
 		'index_pagination_scroll_to' => apply_filters( "uncode_index_pagination_scroll_to", false ),
 		'uncode_wc_popup_cart_qty'   => apply_filters( 'uncode_woocommerce_popup_cart_quantity', ot_get_option( '_uncode_woocommerce_popup_cart_quantity'  ) === 'on' ),
 		'disable_hover_hack'         => apply_filters( 'uncode_ajax_filters_disable_hover_hack', false ),
+		'uncode_nocookie'            => apply_filters('uncode_nocookie', false) ? '-nocookie' : ''
 	);
 
 	/** JS */
@@ -1197,6 +1198,10 @@ function uncode_body_classes($classes){
 
 	if ( apply_filters( 'uncode_lightgallery_hide_close_button_mobile', false ) ) {
 		$classes[] = 'lightgallery-hide-close';
+	}
+
+	if ( apply_filters( 'uncode_scrollable_megamenu', false ) ) {
+		$classes[] = 'scrollable-megamenu';
 	}
 
 	return $classes;
