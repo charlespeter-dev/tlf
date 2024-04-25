@@ -16,8 +16,13 @@
         }
 
         h2 {
-            @include rfs(2.8125rem, font-size);
-            @include rfs(3.4375rem, line-height);
+            @include rfs(2.1875rem, font-size);
+            @include rfs(2.8125rem, line-height);
+        }
+
+        h3 {
+            @include rfs(1.5625rem, font-size);
+            @include rfs(2.1875rem, line-height);
         }
 
         .featured-testimonials {

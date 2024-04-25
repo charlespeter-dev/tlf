@@ -5,17 +5,31 @@
   color: #003375;
 }
 .bootstrap-container.industry.single h2 {
-  font-size: calc(1.40625rem + 1.875vw);
-  line-height: calc(1.46875rem + 2.625vw);
+  font-size: calc(1.34375rem + 1.125vw);
+  line-height: calc(1.40625rem + 1.875vw);
 }
 @media (min-width: 1200px) {
   .bootstrap-container.industry.single h2 {
-    font-size: 2.8125rem;
+    font-size: 2.1875rem;
   }
 }
 @media (min-width: 1200px) {
   .bootstrap-container.industry.single h2 {
-    line-height: 3.4375rem;
+    line-height: 2.8125rem;
+  }
+}
+.bootstrap-container.industry.single h3 {
+  font-size: calc(1.28125rem + 0.375vw);
+  line-height: calc(1.34375rem + 1.125vw);
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.industry.single h3 {
+    font-size: 1.5625rem;
+  }
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.industry.single h3 {
+    line-height: 2.1875rem;
   }
 }
 .bootstrap-container.industry.single .featured-testimonials {

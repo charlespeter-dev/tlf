@@ -89,43 +89,7 @@ if (isset($featured_resource['resource']) && $featured_resource['resource'] && !
  * related resources
  */
 
-$_2x_related_resources = _2x_related_resources($post->ID);
-
-if (isset($related_resources['posts']) && $related_resources['posts']) {
-
-    $return = [];
-
-    foreach ($related_resources['posts'] as $p) {
-
-        /**
-         * get categories
-         */
-
-        $categories = get_the_terms($p['post'], 'category');
-        foreach ($categories as $cats) {
-            $return[$p['post']]['category'][] = $cats->name;
-        }
-
-        $categories = get_the_terms($p['post'], 'resource_category');
-        foreach ($categories as $cats) {
-            $return[$p['post']]['category'][] = $cats->name;
-        }
-
-        /**
-         * title
-         */
-
-        $return[$p['post']]['title'] = get_the_title($p['post']);
-
-        /**
-         * permalink
-         */
-
-        $return[$p['post']]['url'] = get_the_permalink($p['post']);
-    }
-
-    $_2x_related_resources = $return;
-}
+$_2x_related_resources = _2x_related_industries($post->ID);
 
 /**
  * specific css
@@ -531,36 +495,33 @@ get_header() ?>
                     <div class="row mb-5">
                         <div class="col-lg-6">
                             <h2 class="blue">
-                                <?= $options['related_resources']['main_heading'] ?>
+                                <?= __('Other Industries') ?>
                             </h2>
                         </div>
-                        <?php if (isset($related_resources['hide_cta'][0]) && $related_resources['hide_cta'][0] != 'yes'): ?>
-                            <div class="col-lg-6 show-more-top">
-                                <div>
-                                    <a href="<?= $options['related_resources']['cta']['url'] ?>" class="red">
-                                        <?= $options['related_resources']['cta']['title'] ?> <i
-                                            class="fa fa-arrow-right2 t-icon-size-lg"></i>
-                                    </a>
-                                </div>
+                        <div class="col-lg-6 show-more-top">
+                            <div>
+                                <a href="https://thelogicfactory.com/industry/" class="red fw-bold">
+                                    <?= __('Show More') ?> <i class="fa fa-arrow-right2 t-icon-size-lg"></i>
+                                </a>
                             </div>
-                        <?php endif ?>
+                        </div>
                     </div>
 
                     <div class="row row-cols-1 row-cols-md-3 gy-4">
-                        <?php foreach ($_2x_related_resources as $post_id => $item): ?>
+                        <?php foreach ($_2x_related_resources as $item): ?>
                             <div class="col">
 
                                 <a href="<?= $item['url'] ?>">
                                     <div class="card h-100">
                                         <img class="img-fluid"
-                                            src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($post_id), '_2x-card-faces-of-tlf-left-top') ?>"
+                                            src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($item['id']), '_2x-card-faces-of-tlf-left-top') ?>"
                                             alt="" loading="lazy">
                                         <div class="card-body position-relative wpk-box-brand">
                                             <p class="category mb-3">
-                                                <?= implode(' / ', $item['category']) ?>
+                                                <?= $item['title'] ?>
                                             </p>
                                             <p class="post-title">
-                                                <?= $item['title'] ?>
+                                                <?= get_field('overview_text', $item['id']) ?>
                                             </p>
                                         </div>
 
@@ -574,9 +535,8 @@ get_header() ?>
                     <div class="row mt-5">
                         <div class="col show-more-bottom">
                             <div>
-                                <a href="<?= $options['related_resources']['cta']['url'] ?>" class="red">
-                                    <?= $options['related_resources']['cta']['title'] ?> <i
-                                        class="fa fa-arrow-right2 t-icon-size-lg"></i>
+                                <a href="https://thelogicfactory.com/industry/" class="red fw-bold">
+                                    <?= __('Show More') ?> <i class="fa fa-arrow-right2 t-icon-size-lg"></i>
                                 </a>
                             </div>
                         </div>

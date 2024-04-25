@@ -174,14 +174,53 @@ function _2x_related_resources($exclude_post_id = 0)
 }
 
 /**
+ ** related industries
+ * - get 3 random industries except $post->ID
+ */
+
+function _2x_related_industries($exclude_post_id = 0)
+{
+    $industries_query = new WP_Query([
+        'post_type' => 'industry',
+        'posts_per_page' => -1,
+        'orderby' => 'rand',
+        'fields' => 'ids',
+        'post_status' => 'publish',
+        'post__not_in' => [$exclude_post_id]
+    ]);
+
+    wp_reset_query();
+
+    $return = [];
+
+    if (!empty($industries_query->posts)) {
+
+        foreach ($industries_query->posts as $post_id) {
+
+            if (count($return) < 3) {
+                $return[$post_id]['title'] = get_the_title($post_id);
+                $return[$post_id]['url'] = get_the_permalink($post_id);
+                $return[$post_id]['id'] = $post_id;
+            }
+        }
+    }
+
+    if ($return) {
+        array_multisort($return);
+    }
+
+    return $return;
+}
+
+/**
  * preload font 'gotham_boldregular'
  * https://thelogicfactory.com/wp-content/themes/uncode-child/style.css
  */
 
 add_action('wp_head', function () {
     ?>
-    <link rel="preload" href="https://thelogicfactory.com/wp-content/themes/uncode-child/gotham-bold-webfont.woff2"
-        as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="<?= sprintf("%s/gotham-bold-webfont.woff2", get_stylesheet_directory_uri()) ?>" as="font"
+        type="font/woff2" crossorigin>
     <?php
 });
 
