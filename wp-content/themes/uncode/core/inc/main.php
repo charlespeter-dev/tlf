@@ -503,7 +503,8 @@ function uncode_equeue() {
 		'index_pagination_scroll_to' => apply_filters( "uncode_index_pagination_scroll_to", false ),
 		'uncode_wc_popup_cart_qty'   => apply_filters( 'uncode_woocommerce_popup_cart_quantity', ot_get_option( '_uncode_woocommerce_popup_cart_quantity'  ) === 'on' ),
 		'disable_hover_hack'         => apply_filters( 'uncode_ajax_filters_disable_hover_hack', false ),
-		'uncode_nocookie'            => apply_filters('uncode_nocookie', false) ? '-nocookie' : ''
+		'uncode_nocookie'            => apply_filters('uncode_nocookie', false) ? '-nocookie' : '',
+		'menuHideOnClick'			 => apply_filters('uncode_menu_hide_on_click', true),
 	);
 
 	/** JS */

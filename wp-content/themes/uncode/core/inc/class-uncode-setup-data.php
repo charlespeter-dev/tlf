@@ -79,7 +79,7 @@ class Uncode_Setup_Post_Data {
 	 * Get associated Content Block IDs.
 	 */
 	private function get_page_content_blocks( $queried_object, $post_data ) {
-		if ( is_singular() ) {
+		if ( is_singular() && isset( $queried_object->ID ) && $queried_object->ID ) {
 			$post_data['is_singular'] = true;
 			$metabox_data             = get_post_meta( $queried_object->ID );
 			$_post_type = $queried_object->post_type === 'product_variation' ? 'product' : $queried_object->post_type;

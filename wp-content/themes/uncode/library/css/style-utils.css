@@ -467,7 +467,6 @@ select {
   border-style: solid;
   border-color: transparent;
   -moz-appearance: none;
-  text-overflow: "";
   outline: none;
   background-position: 100% center;
   background-repeat: no-repeat;

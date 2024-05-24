@@ -20,6 +20,16 @@ endif;//uncode_woocommerce_support
 add_action( 'after_setup_theme', 'uncode_woocommerce_support' );
 
 /**
+ * Opt-out from customize store
+ */
+function uncode_woocommerce_admin_get_feature_config( $config ) {
+	$config['customize-store'] = false;
+
+	return $config;
+}
+add_filter( 'woocommerce_admin_get_feature_config', 'uncode_woocommerce_admin_get_feature_config' );
+
+/**
  * Main WC scripts
  */
 function uncode_wc_scripts() {
@@ -315,3 +325,15 @@ function uncode_wc_wp_theme_get_element_class_name( $element ) {
 		return '';
 	}
 }
+
+/**
+ * Mark store theme completed
+ */
+function uncode_woocommerce_mark_theme_completed() {
+	$woocommerce_task_list_tracked_completed_actions = get_option( 'woocommerce_task_list_tracked_completed_actions', array() );
+
+	$woocommerce_task_list_tracked_completed_actions[] = 'appearance';
+
+	update_option( 'woocommerce_task_list_tracked_completed_actions', array_unique( $woocommerce_task_list_tracked_completed_actions ) );
+}
+add_action( 'uncode_upgraded', 'uncode_woocommerce_mark_theme_completed' );

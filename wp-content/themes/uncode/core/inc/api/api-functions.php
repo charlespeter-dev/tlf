@@ -292,7 +292,7 @@ if ( ! function_exists( 'uncode_get_premium_plugins' ) ) :
 				'remote_url'         => 'https://api.undsgn.com/downloads/uncode/plugins/revslider/api.json',
 				'zip_url'            => 'https://api.undsgn.com/downloads/uncode/plugins/revslider/revslider.zip',
 				'required'           => false,
-				'version'            => '6.6.20',
+				'version'            => '6.7.10',
 				'force_activation'   => false,
 				'force_deactivation' => false,
 			),
@@ -345,7 +345,7 @@ if ( ! function_exists( 'uncode_get_uncode_core_plugin_conf' ) ) :
 			'remote_url'         => 'https://api.undsgn.com/downloads/uncode/plugins/uncode-core/api.json',
 			'zip_url'            => 'https://api.undsgn.com/downloads/uncode/plugins/uncode-core/uncode-core.zip',
 			'required'           => true,
-			'version'            => '2.8.13',
+			'version'            => '2.8.15',
 			'force_activation'   => true,
 			'force_deactivation' => true,
 		);

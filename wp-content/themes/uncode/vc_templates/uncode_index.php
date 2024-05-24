@@ -244,6 +244,7 @@ $attributes_first = array(
 	'lbox_transparency' => '',
 	'lbox_dir' => '',
 	'lbox_title' => '',
+	'lbox_title_link' => '',
 	'lbox_caption' => '',
 	'lbox_social' => '',
 	'lbox_deep' => '',
@@ -258,6 +259,7 @@ $attributes_first = array(
 	'lbox_download' => '',
 	'lbox_transition' => '',
 	'no_double_tap' => '',
+	'hide_secondary_mobile' => '',
 	'table_display_tablet' => '',
 	'table_display_mobile' => '',
 	'table_mobile_gutter_size' => '',
@@ -501,6 +503,7 @@ $general_image_color_anim = $single_image_color_anim;
 $general_image_anim = $single_image_anim;
 $general_image_magnetic = $single_image_magnetic;
 $general_secondary = $single_secondary;
+$general_hide_secondary = $hide_secondary_mobile;
 $general_reduced = $single_reduced;
 $general_reduced_mobile = $single_reduced_mobile;
 $general_padding = $single_padding;
@@ -2243,8 +2246,12 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 					}
 
 					$single_secondary = (isset($item_prop['single_secondary'])) ? $item_prop['single_secondary'] : $general_secondary;
+					$hide_secondary_mobile = (isset($item_prop['hide_secondary_mobile'])) ? $item_prop['hide_secondary_mobile'] : $general_hide_secondary;
 					if ($single_secondary === 'yes') {
 						$block_classes[] = 'tmb-show-secondary';
+						if ($hide_secondary_mobile === 'yes') {
+							$block_classes[] = 'tmb-hide-secondary';
+						}
 					}
 
 					$single_icon = (isset($item_prop['single_icon'])) ? $item_prop['single_icon'] : $general_icon;
@@ -2515,6 +2522,7 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 					$block_data['single_image_position'] = $single_image_position;
 					$block_data['single_elements_click'] = $single_elements_click;
 					$block_data['single_secondary'] = $single_secondary;
+					$block_data['hide_secondary_mobile'] = $hide_secondary_mobile;
 					$block_data['overlay_opacity'] = $single_overlay_opacity;
 					$block_data['overlay_blend'] = $single_overlay_blend;
 					$block_data['overlay_color'] = $single_overlay_color;
@@ -2561,13 +2569,13 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 							$string = $block_data['read_more_text'];
 							$textdomain = 'WordPress';
 							$string_name = 'Read more (Posts module - Single tab): '.substr($string, 0, 20);
-					 
+
 							$wpml_default_lang = apply_filters('wpml_default_language', NULL );
 							$wpml_current_lang = apply_filters( 'wpml_current_language', NULL );
-					 
+
 							if ($wpml_default_lang == $wpml_current_lang ) {
 								do_action( 'wpml_register_single_string', $textdomain, $string_name, $string );
-							}   
+							}
 							$block_data['read_more_text'] = apply_filters('wpml_translate_single_string', $string , $textdomain, $string_name);
 						}
 					}
@@ -2575,6 +2583,9 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 						$post->link = $item_prop['single_link'];
 						$link = vc_build_link( $item_prop['single_link'] );
 						$link['url'] = apply_filters( 'wpml_permalink', $link['url'] );
+						if ( strpos( $link['url'], 'mailto' ) !== false ) {
+							$link['url'] = untrailingslashit( $link['url'] );
+						}
 						$post->link = $link['url'];
 						$a_title = $link['title'];
 						$a_target = $link['target'];
@@ -2667,6 +2678,10 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 						}
 						if ($lbox_title !== '') {
 							$lightbox_classes['data-title'] = true;
+
+							if ($lbox_title_link !== '') {
+								$lightbox_classes['data-title-link'] = true;
+							}
 						}
 						if ($lbox_caption !== '') {
 							$lightbox_classes['data-caption'] = true;

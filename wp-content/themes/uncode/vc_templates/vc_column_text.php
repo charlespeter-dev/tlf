@@ -110,8 +110,16 @@ if ( $auto_text === 'excerpt' && $post_type != 'uncodeblock' ) {
 	$content = wpautop( $the_excerpt );
 } elseif ( $auto_text === 'content' && $post_type != 'uncodeblock' && $is_cb ) {
 	$_content = get_the_content();
+	$content_is_empty = false;
+
 	if ( $_content ) {
 		$content = apply_filters( 'the_content', $_content );
+	} else {
+		$content_is_empty = true;
+	}
+
+	if ( $content_is_empty ) {
+		$content = apply_filters( 'uncode_builder_dynamic_content_empty', $content );
 	}
 } else {
 	$content = uncode_the_content(apply_filters('uncode_builder_content', $content, 'vc_column_text'));

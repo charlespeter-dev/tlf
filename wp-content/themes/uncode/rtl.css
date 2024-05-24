@@ -1859,6 +1859,10 @@ section.child-comments.comments-list {
 	/*	float: right; */
 }
 
+div.product div.images div.woocommerce-product-gallery__wrapper {
+	float: right;
+}
+
 .woocommerce .quantity>input.qty,
 .woocommerce #content .quantity>input.qty {
 	float: right;

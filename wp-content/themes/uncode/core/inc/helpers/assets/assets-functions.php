@@ -211,7 +211,7 @@ function uncode_print_inline_main_core_style() {
 		$filesystem = new WP_Filesystem_Direct( false );
 
 		$inline_css = $filesystem->get_contents( get_template_directory() . '/library/css/style-core.css' );
-		echo '<style type="text/css" id="uncode-style-core-inline">' . uncode_compress_css_inline( $inline_css ) . '</style>';
+		echo '<style id="uncode-style-core-inline">' . uncode_compress_css_inline( $inline_css ) . '</style>';
 	}
 }
 add_action( 'wp_head', 'uncode_print_inline_main_core_style', 0 );

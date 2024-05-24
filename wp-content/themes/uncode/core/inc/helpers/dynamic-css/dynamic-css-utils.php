@@ -126,7 +126,7 @@ function uncode_get_shortcode_color_attribute_value( $attr, $shortcode_id, $type
  */
 function uncode_print_dynamic_inline_style( $css ) {
 	if ( function_exists('vc_is_page_editable') && vc_is_page_editable() && $css ) {
-		$style = '<style type="text/css">' . $css . '</style>';
+		$style = '<style>' . $css . '</style>';
 	} else {
 		$style = '';
 	}

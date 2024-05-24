@@ -372,6 +372,7 @@ while (have_posts()):
 			} else {
 				$the_content = apply_filters('the_content', 'uncode-placeholder');
 				$the_content = str_replace( '<p>uncode-placeholder</p>', '', $the_content );
+				$the_content = str_replace( 'uncode-placeholder', '', $the_content );
 				$the_content = trim( $the_content );
 				$the_content = uncode_get_row_template($the_content, $limit_width, $limit_content_width, $style, '', false, true, 'double', $page_custom_width);
 			}
@@ -388,6 +389,7 @@ while (have_posts()):
 	} else {
 		$get_content_appended = apply_filters('the_content', 'uncode-placeholder');
 		$get_content_appended = str_replace( '<p>uncode-placeholder</p>', '', $get_content_appended );
+		$get_content_appended = str_replace( 'uncode-placeholder', '', $get_content_appended );
 		$get_content_appended = trim( $get_content_appended );
 		if (!is_null($get_content_appended) && $get_content_appended !== '' && ( ! function_exists('vc_is_page_editable') || ! vc_is_page_editable() ) ) {
 			$the_content = apply_filters( 'uncode_single_content', $the_content ) . uncode_get_row_template($get_content_appended, $limit_width, $limit_content_width, $style, '', false, true, 'double', $page_custom_width);
@@ -522,10 +524,13 @@ while (have_posts()):
 			$content_block_after = apply_filters( 'uncode_wpml_object_id', $content_block_after );
 		}
 		if ( $content_block_after !== false && $content_block_after !== null ) {
+			global $is_cb;
+			$is_cb = true;
+
 			$content_after_body_build = get_post_field('post_content', $content_block_after);
 			if (class_exists('Vc_Base')) {
 				$vc = new Vc_Base();
-				$vc->addShortcodesCustomCss($content_block_after);
+				$vc->addPageCustomCss($content_block_after);
 			}
 			if ( $content_block_after !== '' && function_exists('vc_is_page_editable') && vc_is_page_editable() ) {
 				$cb_edit_link = vc_frontend_editor()->getInlineUrl( '', $content_block_after );
@@ -750,7 +755,7 @@ while (have_posts()):
 
 				if ( class_exists( 'Vc_Base' ) ) {
 					$vc = new Vc_Base();
-					$vc->addShortcodesCustomCss( $navigation_content_block );
+					$vc->addPageCustomCss( $navigation_content_block );
 				}
 
 				if ( function_exists( 'vc_is_page_editable' ) && vc_is_page_editable() ) {

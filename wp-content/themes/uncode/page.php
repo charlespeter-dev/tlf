@@ -429,11 +429,14 @@ get_header();
 		}
 
 		if ($content_block_after !== false) {
+			global $is_cb;
+			$is_cb = true;
+
 			$content_block_after = apply_filters( 'wpml_object_id', $content_block_after, 'post' );
 			$content_after_body = get_post_field('post_content', $content_block_after);
 			if (class_exists('Vc_Base')) {
 				$vc = new Vc_Base();
-				$vc->addShortcodesCustomCss($content_block_after);
+				$vc->addPageCustomCss($content_block_after);
 			}
 			if ( $content_block_after !== '' && function_exists('vc_is_page_editable') && vc_is_page_editable() ) {
 				$cb_edit_link = vc_frontend_editor()->getInlineUrl( '', $content_block_after );

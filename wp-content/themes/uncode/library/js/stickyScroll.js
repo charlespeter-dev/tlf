@@ -388,6 +388,18 @@
 			setReLayout,
 			doubleResize = true,
 			oldW = UNCODE.wwidth;
+		$(window).on( 'load', function(){
+			if ( $('.body-borders .top-border').outerHeight() > 0 ) {
+				var $row_inners = document.querySelectorAll('.pin-spacer .row-inner');
+				Array.prototype.forEach.call($row_inners, function(el) {
+					el.style.height = '';
+					el.style.marginBottom = '';
+				});
+				setItemsRelHeight();
+				horScrollSizes();
+				ScrollTrigger.refresh();
+			}
+		});
 		$(window).on( 'resize orientationchange', function(){
 			if ( 'onorientationchange' in window && oldW === UNCODE.wwidth ) {
 				return;

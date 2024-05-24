@@ -188,7 +188,7 @@ function uncode_remove_iframe_style(){
 	$screen = get_current_screen();
 	if ( isset( $screen->id ) && $screen->id==='update' ) {
 		?>
-<style type="text/css">
+<style>
 	body.iframe {
 		background: none !important;
 		height: auto !important;

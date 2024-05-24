@@ -422,7 +422,7 @@ if (!function_exists('uncode_get_back_html')) {
 			if ( isset($background['mix-blend-mode']) && $background['mix-blend-mode']!=='' ){
 				$overlay_html = '<div class="block-bg-overlay block-bg-blend-mode for-ie' . $overlay_color . '"' . $overlay_color_alpha . '></div>';
 				$overlay_html .= '<div class="block-bg-overlay block-bg-blend-mode not-ie' . $overlay_color . '"' . $overlay_color_alpha_blend . '></div>';
-				}	
+				}
 		}
 
 		if ($type === 'row') {
@@ -2102,6 +2102,20 @@ if (!function_exists('uncode_create_single_block')) {
 			$block_classes[] = 'tmb-woocommerce-variable-product';
 		}
 
+		if ( apply_filters( 'uncode_woocommerce_use_parent_image_if_redirect_to_product', false ) ) {
+			if ( $is_product && $product->get_type() === 'variation' ) {
+				$use_parent_image = uncode_single_variations_use_parent_image( $product );
+
+				if ( $use_parent_image ) {
+					$product_parent_thumb_id = $parent_product->get_image_id();
+
+					if ( $product_parent_thumb_id ) {
+						$item_thumb_id = $product_parent_thumb_id;
+					}
+				}
+			}
+		}
+
 		if ( empty( $item_thumb_id ) && $is_product && $product->get_type() === 'variation' ) {
 			if ( apply_filters( 'uncode_woocommerce_use_get_image_id_original_hook', false ) ) {
 				$parent_product = wc_get_product( $product->get_parent_id() );
@@ -2257,6 +2271,14 @@ if (!function_exists('uncode_create_single_block')) {
 				if ($lightbox_classes && !( isset($block_data['explode_album']) && is_array($block_data['explode_album']) && !empty($block_data['explode_album']) ) ) {
 					if ( isset($lightbox_classes['data-title']) && $lightbox_classes['data-title'] === true && isset($media_attributes->post_title) ) {
 						$lightbox_classes['data-title'] = apply_filters( 'uncode_media_attribute_title', $media_attributes->post_title, $items_thumb_id[0]);
+
+						if ( isset($block_data['id']) ) {
+							$lbox_permalink = get_permalink($block_data['id']);
+
+							if ( ( apply_filters('uncode_lightbox_permalink', false) || ( isset($lightbox_classes['data-title-link']) && $lightbox_classes['data-title-link'] === true ) ) && $lbox_permalink ) {
+								$lightbox_classes['data-title'] = '<a href=\'' . esc_url($lbox_permalink) . '\'>' . $lightbox_classes['data-title'] . '</a>';
+							}
+						}
 					}
 					if ( isset($lightbox_classes['data-caption']) && $lightbox_classes['data-caption'] === true && isset($media_attributes->post_excerpt) ) {
 						$lightbox_classes['data-caption'] = apply_filters( 'uncode_media_attribute_excerpt', $media_attributes->post_excerpt, $items_thumb_id[0]);
@@ -2388,7 +2410,7 @@ if (!function_exists('uncode_create_single_block')) {
 						} else {
 							$icon_width = ' style="width:100%"';
 						}
-						$media_code = '<div'.$icon_width.' class="icon-media">'.$media_code.'</div>';
+						$media_code = '<span'.$icon_width.' class="icon-media">'.$media_code.'</span>';
 						if ($media_attributes->animated_svg) {
 							$media_metavalues = unserialize($media_attributes->metadata);
 							$icon_time = (isset($media_attributes->animated_svg_time) && $media_attributes->animated_svg_time !== '') ? $media_attributes->animated_svg_time : 100;
@@ -2425,7 +2447,7 @@ if (!function_exists('uncode_create_single_block')) {
 					if ($media_attributes->animated_svg) {
 						$media_metavalues = unserialize($media_attributes->metadata);
 						$icon_time = (isset($media_attributes->animated_svg_time) && $media_attributes->animated_svg_time !== '') ? $media_attributes->animated_svg_time : 100;
-						$media_code = '<div id="'.$id_icon.'"'.$icon_width.' class="icon-media"></div>';
+						$media_code = '<span id="'.$id_icon.'"'.$icon_width.' class="icon-media"></span>';
 						if (isset($block_data['delay']) && $block_data['delay'] !== '') {
 							$icon_delay = $block_data['delay'];
 						} else {
@@ -2437,7 +2459,7 @@ if (!function_exists('uncode_create_single_block')) {
 							$media_code .= "<script type='text/javascript'>document.addEventListener('DOMContentLoaded', function(event) { UNCODE.vivus('".$id_icon."', '".$icon_time."', '".$icon_delay."', '".$media_attributes->guid."'); });</script>";
 						}
 					} else {
-						$media_code = '<div id="'.$id_icon.'"'.$icon_width.' class="icon-media"><img src="'.$media_code.'" alt="' . $media_alt . '" /></div>';
+						$media_code = '<span id="'.$id_icon.'"'.$icon_width.' class="icon-media"><img src="'.$media_code.'" alt="' . $media_alt . '" /></span>';
 					}
 				} else { // This is an oembed
 					$object_class = 'object-size';
@@ -3696,6 +3718,7 @@ if (!function_exists('uncode_create_single_block')) {
 
 			$has_add_to_cart_overlay = false;
 
+
 			if ( !$is_titles && $is_product && ( !isset($block_data['show_atc']) || $block_data['show_atc'] == 'yes') ) {
 				$redirect_to_product = uncode_single_variations_redirect_to_product( $product );
 
@@ -3740,7 +3763,7 @@ if (!function_exists('uncode_create_single_block')) {
 			if ( $custom_entry_visual_after_image !== '' ) {
 				$media_output.= $custom_entry_visual_after_image;
 			}
-			
+
 			if ( !$is_titles ) {
 				$media_output .= '</div>
 					</div>

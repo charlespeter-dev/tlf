@@ -382,7 +382,7 @@ class Uncode_Gutenberg {
 		ob_start();
 		?>
 
-		<style type="text/css" id="uncode-gutenberg-css">
+		<style id="uncode-gutenberg-css">
 			/* Headings */
 			.block-editor .editor-post-title__block .editor-post-title__input,
 			.block-editor .wp-block-heading h1,

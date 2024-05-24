@@ -721,7 +721,7 @@ function uncode_product_additional_information_placeholder(){
 			<tr class="woocommerce-product-attributes-item woocommerce-product-attributes-item--placeholder">
 				<th class="woocommerce-product-attributes-item__label"><?php esc_html_e( 'Weight', 'uncode' ); ?></th>
 				<td class="woocommerce-product-attributes-item__value"><?php esc_html_e( '25.00', 'uncode' ); ?></td>
-			</tr>c
+			</tr>
 			<tr class="woocommerce-product-attributes-item woocommerce-product-attributes-item--placeholder">
 				<th class="woocommerce-product-attributes-item__label"><?php esc_html_e( 'Size', 'uncode' ); ?></th>
 				<td class="woocommerce-product-attributes-item__value"><?php esc_html_e( '79 x 55 x 176', 'uncode' ); ?></td>

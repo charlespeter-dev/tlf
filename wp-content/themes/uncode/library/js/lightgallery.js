@@ -122,47 +122,50 @@
 	};
 
 	//caption builder
-	$el.each( function( index, val ) {
-		var $gallery = $(this).attr('data-lbox-init','true'),
-			$_a = '.lbox-trigger-item',
-			$_nested_a = '.lbox-nested-item';
+	var captionBuilder = function($el){
+		$el.each( function( index, val ) {
+			var $gallery = $(this).attr('data-lbox-init','true'),
+				$_a = '.lbox-trigger-item',
+				$_nested_a = '.lbox-nested-item';
 
-		$gallery.find($_a, $_nested_a).each(function(){
-			var $a = $(this),
-				$img = $('img', $a).first(),
-				imgw = $img.attr('data-width'),
-				imgh = $img.attr('data-height'),
-				caption = $a.attr('data-caption'),
-				title = $a.attr('data-title');
+			$gallery.find($_a, $_nested_a).each(function(){
+				var $a = $(this),
+					$img = $('img', $a).first(),
+					imgw = $img.attr('data-width'),
+					imgh = $img.attr('data-height'),
+					caption = $a.attr('data-caption'),
+					title = $a.attr('data-title');
 
-			if ( $img.length && $img.attr('data-crop') != true ) {
-				if ( typeof $img.attr('data-guid') !== 'undefined' && $img.attr('data-guid') !== '' ) {
-					$a.attr('data-external-thumb-image', $img.attr('data-guid'));
-				} else if ( $img[0].src && typeof $img.attr('data-srcset') == 'undefined' && $a.attr('data-external-thumb-image') == '' ) {
-					$a.attr('data-external-thumb-image', $img[0].src);
+				if ( $img.length && $img.attr('data-crop') != true ) {
+					if ( typeof $img.attr('data-guid') !== 'undefined' && $img.attr('data-guid') !== '' ) {
+						$a.attr('data-external-thumb-image', $img.attr('data-guid'));
+					} else if ( $img[0].src && typeof $img.attr('data-srcset') == 'undefined' && $a.attr('data-external-thumb-image') == '' ) {
+						$a.attr('data-external-thumb-image', $img[0].src);
+					}
 				}
-			}
 
-			if ( typeof title !== 'undefined' && title !== '' ) {
-				title = '<h6>' + title + '</h6>';
-			} else {
-				title = '';
-			}
+				if ( typeof title !== 'undefined' && title !== '' ) {
+					title = '<h6>' + title + '</h6>';
+				} else {
+					title = '';
+				}
 
-			if ( typeof caption !== 'undefined' && caption !== '' ) {
-				caption = '<p>' + caption + '</p>';
-				title += caption;
-			}
+				if ( typeof caption !== 'undefined' && caption !== '' ) {
+					caption = '<p>' + caption + '</p>';
+					title += caption;
+				}
 
-			if ( title !== '' ) {
-				$a.attr( 'title', title );
-			}
+				if ( title !== '' ) {
+					$a.attr( 'title', title );
+				}
 
-			if ( $img.attr('data-crop') != true && typeof imgw !== 'undefined' && typeof imgh !== 'undefined' && imgw !== '' && imgh !== '' && ( typeof $a.attr('data-lg-size') === 'undefined' || !$a.attr('data-lg-size') ) ) {
-				$a.attr('data-lg-size', imgw + '-' + imgh);
-			}
+				if ( $img.attr('data-crop') != true && typeof imgw !== 'undefined' && typeof imgh !== 'undefined' && imgw !== '' && imgh !== '' && ( typeof $a.attr('data-lg-size') === 'undefined' || !$a.attr('data-lg-size') ) ) {
+					$a.attr('data-lg-size', imgw + '-' + imgh);
+				}
+			});
 		});
-	});
+	};
+	captionBuilder($el);
 
 	//regular galleries
 	$el.each( function( index, val ) {
@@ -248,10 +251,11 @@
 			gallery.openGallery(index-1);
 		});
 
+		clearRequestTimeout(itemsLoadedTimeOut);
 		$triggerGal.on('more-items-loaded', function(e, items) {
-			clearRequestTimeout(itemsLoadedTimeOut);
 			itemsLoadedTimeOut = requestTimeout(function(){
 				createSelectors();
+				captionBuilder($triggerGal);
 				gallery.refresh();
 			}, 100);
 		});
@@ -381,6 +385,26 @@
 			$('.page-wrapper')[0].addEventListener('lgBeforeOpen', beforeOpen);
 		});
 	}
+
+	var onGalleryEsc = function(e){
+		if (e.keyCode === 27 || e.key === 'Escape' || e.keyCode === 90 || e.key === 'z') {
+			if (document.fullscreenElement) {
+				document.exitFullscreen()
+			} else {
+				document.documentElement.requestFullscreen();
+			}
+		}
+	};
+	window.addEventListener('keydown', onGalleryEsc, { once: true });
+
+	$(document).on(
+		'webkitfullscreenchange mozfullscreenchange fullscreenchange MSFullscreenChange',
+		function(e){
+			if ( e.target.tagName === 'IFRAME' ) {
+				window.addEventListener('keydown', onGalleryEsc, { once: true });
+			}
+		}
+	);
 };
 
 

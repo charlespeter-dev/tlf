@@ -193,7 +193,8 @@ if ($font_family !== '') {
 }
 
 if (!empty($mobile_height)) {
-	$uncoltable_style .= 'min-height: ' . preg_replace("/[^0-9,.]/", "", $mobile_height) . 'px;';
+	$mobile_height .= is_numeric( $mobile_height ) ? 'px' : '';
+	$uncoltable_style .= 'min-height: ' . esc_html($mobile_height) . ';';
 }
 
 if ( $back_image_auto === 'yes' && is_singular() && $is_cb ) {

@@ -215,10 +215,13 @@ get_header( 'shop' );
 					$content_block_after = apply_filters( 'uncode_wpml_object_id', $content_block_after );
 				}
 				if ( $content_block_after !== false && $content_block_after !== null ) {
+					global $is_cb;
+					$is_cb = true;
+					
 					$content_after_body = get_post_field('post_content', $content_block_after);
 					if (class_exists('Vc_Base')) {
 						$vc = new Vc_Base();
-						$vc->addShortcodesCustomCss($content_block_after);
+						$vc->addPageCustomCss($content_block_after);
 					}
 					if ( $content_block_after !== '' && function_exists('vc_is_page_editable') && vc_is_page_editable() ) {
 						$cb_edit_link = vc_frontend_editor()->getInlineUrl( '', $content_block_after );
@@ -315,7 +318,7 @@ get_header( 'shop' );
 
 						if ( class_exists( 'Vc_Base' ) ) {
 							$vc = new Vc_Base();
-							$vc->addShortcodesCustomCss( $navigation_content_block );
+							$vc->addPageCustomCss( $navigation_content_block );
 						}
 
 						if ( function_exists( 'vc_is_page_editable' ) && vc_is_page_editable() ) {

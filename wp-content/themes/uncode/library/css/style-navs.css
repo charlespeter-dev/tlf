@@ -304,13 +304,15 @@ body.rtl .nav-tabs > li > a i.fa.icon-position-right {
   .nav-tabs .tab-pane {
     display: none;
     font-weight: normal;
-    padding: 18px 0px 0px 0px;
     text-align: initial;
   }
-  :not(.tab-h-border).nav-tabs .tab-pane {
+  .tab-container:not(.tabs-appended) .nav-tabs .tab-pane {
+    padding: 18px 0px 0px 0px;
+  }
+  .tab-container:not(.tabs-appended) :not(.tab-h-border).nav-tabs .tab-pane {
     padding: 0px 0px 18px 0px;
   }
-  .tab-h-border.nav-tabs .tab-pane {
+  .tab-container:not(.tabs-appended) .tab-h-border.nav-tabs .tab-pane {
     padding: 18px 0px 0px 0px;
   }
 }
@@ -319,8 +321,16 @@ body.rtl .nav-tabs > li > a i.fa.icon-position-right {
   padding-left: 0;
   padding-right: 0;
 }
-.uncode-wrapper .tab-pane {
-  padding-bottom: 0;
+@media (min-width: 570px) {
+  .uncode-wrapper .tab-pane {
+    padding-bottom: 0;
+  }
+}
+@media (max-width: 569px) {
+  .uncode-wrapper:not(.tabs-appended) .tab-pane,
+  .uncode-wrapper.tabs-appended .nav-tabs > li:last-of-type > .tab-pane {
+    padding-bottom: 0;
+  }
 }
 .tab-pane.active {
   display: block;

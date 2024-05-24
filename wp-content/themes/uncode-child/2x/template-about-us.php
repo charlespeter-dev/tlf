@@ -188,7 +188,7 @@ get_header() ?>
                 }
 
                 const swiperHistory = new Swiper("._2x-swiper-history", {
-                    loop: true,
+                    loop: false,
                     slidesPerView: slidesPerView,
                     spaceBetween: 30,
                     centeredSlides: true,
@@ -214,38 +214,45 @@ get_header() ?>
                 <div class="single-h-padding limit-width position-relative">
 
                     <?php foreach ($boards as $i => $board): ?>
-                        <div class="row">
-                            <div class="col">
-                                <h2 class="board-name blue text-center pb-5 mb-5 <?= ($i == 1) ? 'pt-5 mt-5' : '' ?>">
-                                    <?= $board['board_name'] ?>
-                                </h2>
-                            </div>
-                        </div>
 
-                        <?php foreach ($board['managers'] as $k => $manager): ?>
-
-                            <div class="row <?= ($k) ? 'mt-5' : '' ?>">
-                                <div class="col-lg-3">
-                                    <img class="img-fluid mb-4"
-                                        src="<?= wp_get_attachment_image_url($manager['profile_picture'], '_2x-carousel-news') ?>"
-                                        alt="" loading="lazy">
-                                </div>
-                                <div class="col-lg-9">
-                                    <div class="manager-name">
-                                        <h3 class="blue">
-                                            <?= $manager['manager_name'] ?>
-                                        </h3>
-                                    </div>
-                                    <div class="manager-title mb-4">
-                                        <?= $manager['manager_title'] ?>
-                                    </div>
-                                    <div class="manager-description">
-                                        <?= $manager['manager_description'] ?>
-                                    </div>
+                        <?php if (isset($board['board_name']) && $board['board_name']): ?>
+                            <div class="row">
+                                <div class="col">
+                                    <h2 class="board-name blue text-center pb-5 mb-5 <?= ($i == 1) ? 'pt-5 mt-5' : '' ?>">
+                                        <?= $board['board_name'] ?>
+                                    </h2>
                                 </div>
                             </div>
+                        <?php endif ?>
 
-                        <?php endforeach ?>
+                        <?php if (isset($board['managers']) && $board['managers']): ?>
+
+                            <?php foreach ($board['managers'] as $k => $manager): ?>
+
+                                <div class="row <?= ($k) ? 'mt-5' : '' ?>">
+                                    <div class="col-lg-3">
+                                        <img class="img-fluid mb-4"
+                                            src="<?= wp_get_attachment_image_url($manager['profile_picture'], '_2x-carousel-news') ?>"
+                                            alt="" loading="lazy">
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <div class="manager-name">
+                                            <h3 class="blue">
+                                                <?= $manager['manager_name'] ?>
+                                            </h3>
+                                        </div>
+                                        <div class="manager-title mb-4">
+                                            <?= $manager['manager_title'] ?>
+                                        </div>
+                                        <div class="manager-description">
+                                            <?= $manager['manager_description'] ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <?php endforeach ?>
+
+                        <?php endif ?>
 
                     <?php endforeach ?>
 

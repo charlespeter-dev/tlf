@@ -15,7 +15,7 @@ $the_content = get_post_field('post_content', $id);
 
 if (class_exists('Vc_Base')) {
 	$vc = new Vc_Base();
-	$vc->addShortcodesCustomCss($id);
+	$vc->addPageCustomCss($id);
 }
 
 if ( !function_exists('vc_is_page_editable') || !vc_is_page_editable() ) {

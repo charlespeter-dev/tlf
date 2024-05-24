@@ -343,7 +343,7 @@ foreach ( $tab_titles as $tab ) {
 		}
 		$excerpt = $a_title = $a_target = $a_rel ='';
 		if ( isset($tab_atts['excerpt']) && $vertical === 'yes' ) {
-			$excerpt = '<span class="' . esc_attr(trim(implode(' ', $tab_excerpts_class))) . '">' . wp_kses( $tab_atts['excerpt'], array( 'strong' => array(), 'em' => array(), 'b' => array(), 'i' => array(), 'span' => array( 'class' => array() ) ) );
+			$excerpt = '<span class="' . esc_attr(trim(implode(' ', $tab_excerpts_class))) . '">' . wp_kses( $tab_atts['excerpt'], array( 'strong' => array(), 'em' => array(), 'b' => array(), 'i' => array(), 'br' => array(), 'span' => array( 'class' => array() ) ) );
 		}
 		
 		if ( isset($tab_atts['link']) && $vertical === 'yes' ) {

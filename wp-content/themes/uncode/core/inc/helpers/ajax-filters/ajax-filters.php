@@ -1984,6 +1984,11 @@ function uncode_is_only_current_filter( $taxonomy, $query_args, $tax_source = fa
 		if ( ! in_array( $query_key, $all_taxonomies ) && ! in_array( $query_key, $all_products_attributes ) && ! in_array( $query_key, uncode_get_special_filter_keys() ) ) {
 			unset( $query_args[$query_key] );
 		}
+
+		// Ignore orderby
+		if ( $query_key === 'orderby' ) {
+			unset( $query_args[$query_key] );
+		}
 	}
 
 	if ( count( $query_args ) > 0 ) {

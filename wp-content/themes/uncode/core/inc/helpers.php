@@ -2401,32 +2401,3 @@ function uncode_no_ctrl_videos( $item_thumb_id, $consent_id, $single_width, $sin
 	return $media_output;
 }
 endif;
-
-function uncode_fo8l_op() {
-	$is_valid      = true;
-	$purchase_code = trim( uncode_get_purchase_code() );
-
-	if ( $purchase_code && ! preg_match("/^([a-f0-9]{8})-(([a-f0-9]{4})-){3}([a-f0-9]{12})$/i", $purchase_code ) ) {
-		$is_valid = false;
-	}
-
-	$purchase_code_chars = str_replace('-', '', $purchase_code );
-
-	if ( strlen( $purchase_code_chars ) > 0 && isset( $purchase_code_chars[0] ) ) {
-		$first_char          = $purchase_code_chars[0];
-		$has_same_chars      = true;
-
-		for ( $i = 1; $i < strlen( $purchase_code_chars ); $i++ ) {
-			if ( $purchase_code_chars[$i] != $first_char ) {
-				$has_same_chars = false;
-			}
-		}
-
-		if ( $has_same_chars ) {
-			$is_valid = false;
-		}
-	}
-
-
-	return $is_valid;
-}

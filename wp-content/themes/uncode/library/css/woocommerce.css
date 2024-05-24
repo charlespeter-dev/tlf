@@ -1366,6 +1366,7 @@ ul.wc-notice {
   }
 }
 .tmb-woocommerce.tmb .t-entry-stock--in-stock {
+  display: none;
   margin-top: 0 !important;
 }
 .tmb.tmb-current-term {

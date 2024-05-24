@@ -96,7 +96,7 @@ add_action('wp_ajax_recordMedia', 'uncode_recordMedia');
 function uncode_addScripts() {
 
 	?>
-	<style type="text/css">
+	<style>
 
 		.media-caption, .media-description {
 			float: left;

@@ -1473,8 +1473,8 @@ button[type="submit"],
 .style-dark .style-light :-moz-placeholder {
   color: <?php echo function_exists( 'uncode_darken_color' ) ? uncode_darken_color( $color_text, 50 ) : sanitize_text_field( $color_text ); ?>;
 }
-.style-light :placeholder,
-.style-dark .style-light :placeholder {
+.style-light ::placeholder,
+.style-dark .style-light ::placeholder {
   color: <?php echo function_exists( 'uncode_darken_color' ) ? uncode_darken_color( $color_text, 50 ) : sanitize_text_field( $color_text ); ?>;
 }
 .style-light .select2-selection__placeholder,
@@ -1497,8 +1497,8 @@ button[type="submit"],
 .style-light .style-dark :-moz-placeholder {
   color: <?php echo sanitize_text_field( $color_text_inverted ); ?>;
 }
-.style-dark :placeholder,
-.style-light .style-dark :placeholder {
+.style-dark ::placeholder,
+.style-light .style-dark ::placeholder {
   color: <?php echo sanitize_text_field( $color_text_inverted ); ?>;
 }
 .style-dark .select2-selection__placeholder,
@@ -2247,7 +2247,7 @@ body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_st
   .submenu-light .overlay-search :-moz-placeholder {
     color: <?php echo sanitize_text_field($color_submenu_enhanced); ?>;
   }
-  .submenu-light .overlay-search :placeholder {
+  .submenu-light .overlay-search ::placeholder {
     color: <?php echo sanitize_text_field($color_submenu_enhanced); ?>;
   }
   .submenu-light .menu-horizontal:not(.menu-sub-enhanced) .menu-smart ul a:hover,
@@ -2298,7 +2298,7 @@ body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_st
   .submenu-dark .overlay-search :-moz-placeholder {
     color: <?php echo sanitize_text_field($color_submenu_enhanced_inverted); ?>;
   }
-  .submenu-dark .overlay-search :placeholder {
+  .submenu-dark .overlay-search ::placeholder {
     color: <?php echo sanitize_text_field($color_submenu_enhanced_inverted); ?>;
   }
   .submenu-dark .menu-horizontal:not(.menu-sub-enhanced) .menu-smart ul a:hover,

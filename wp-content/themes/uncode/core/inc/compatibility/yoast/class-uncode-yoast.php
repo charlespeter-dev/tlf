@@ -85,7 +85,14 @@ class Uncode_YOAST_Support {
 
 
 		foreach ( $image_ids as $image_id ) { //Populate an array with URLs taken from featured image IDs
-			$image_url = wp_get_attachment_image_src($image_id, 'large');
+			$meta_data = wp_get_attachment_metadata( $image_id );
+
+			if ( ! isset( $meta_data['width'] ) || ! isset( $meta_data['height'] ) || $meta_data['width'] === '' || $meta_data['height'] === '') {
+				continue;
+			}
+
+			$image_url = wp_get_attachment_image_src( $image_id );
+
 			if ( $image_url && is_array( $image_url ) && isset( $image_url[0] ) ) {
 				$image_title = get_the_title($image_id);
 				$image_alt = get_post_meta( $image_id, '_wp_attachment_image_alt', true);

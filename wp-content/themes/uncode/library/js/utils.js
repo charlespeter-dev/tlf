@@ -67,13 +67,17 @@ Number.isInteger = Number.isInteger || function(value) {
 };
 
 UNCODE.utils = function() {
-	$(document).on('mouseover', 'a', function() {
-		$(this).attr('data-title', $(this).attr('title'));
-		$(this).removeAttr('title');
+	$(document).on('mouseover', 'a', function () {
+		if (!$(this).hasClass('star')) {
+			$(this).attr('data-title', $(this).attr('title'));
+			$(this).removeAttr('title');
+		}
 	});
-	$(document).on('mouseout', 'a', function() {
-		$(this).attr('title', $(this).attr('data-title'));
-		$(this).removeAttr('data-title');
+	$(document).on('mouseout', 'a', function () {
+		if (!$(this).hasClass('star')) {
+			$(this).attr('title', $(this).attr('data-title'));
+			$(this).removeAttr('data-title');
+		}
 	});
 
 	this.get_scroll_offset = function(e) {
@@ -117,7 +121,7 @@ UNCODE.utils = function() {
 					}
 				}
 			}
-	
+
 		}
 
 		scroll_offset += UNCODE.bodyBorder;
@@ -252,7 +256,7 @@ UNCODE.utils = function() {
 						if ( UNCODE.menuStickyMobileOverlay === false && UNCODE.isMobile ) {
 							calc_scroll = calc_scroll - parseFloat( $('.overlay.overlay-menu').outerHeight() );
 						}
-						
+
 						if (scrollSpeed == 0) {
 							$('html, body').scrollTop(calc_scroll);
 							UNCODE.scrolling = false;

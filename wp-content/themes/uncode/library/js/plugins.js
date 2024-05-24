@@ -13242,7 +13242,7 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 						var $nav = $('.navbar-main'),
 							navH = 0,
 							navTop = 0,
-							$vmenu = $('body.vmenu .vmenu-container'),
+							$vmenu = $('body.vmenu .vmenu-container, body.menu-overlay .vmenu-container'),
 							$offcanvas = $('body.menu-offcanvas .vmenu-container');
 						if ( $nav.length && typeof $nav[0] !== 'undefined' ) {
 							var navRect = $nav[0].getBoundingClientRect();
@@ -13250,7 +13250,7 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 							navTop = navRect.top;
 						}
 						if ( ! $vmenu.length && ! $offcanvas.length ) {
-							$sub.css({ maxHeight: UNCODE.wheight - ( navH + navTop ) });
+							$sub.css({ maxHeight: UNCODE.wheight - navH });
 						}
 					}
 					this.menuPosition($sub);

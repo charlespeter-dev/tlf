@@ -107,6 +107,7 @@ function uncode_wc_variations_add_srcset_json( $async_data, $type, $block_data, 
 							'height' => $variation_resized_image['height'],
 							'alt'    => isset( $variation_media_attributes->alt ) ? $variation_media_attributes->alt : '',
 						);
+
 					} else if ( $type === 'ai_async' ) {
 						$json_data[$variation_image_id] = array(
 							'src'         => $variation_resized_image['url'],
@@ -1053,4 +1054,39 @@ function uncode_single_variations_redirect_to_product( $product ) {
 	$redirect_to_product = apply_filters( 'uncode_single_variations_redirect_to_product', $redirect_to_product, $product );
 
 	return $redirect_to_product;
+}
+
+/**
+ * Use parent image if no variations are found
+ */
+function uncode_single_variations_use_parent_image( $product ) {
+	$use_parent_image = false;
+
+	if ( ! uncode_single_variations_enabled() ) {
+		return true;
+	}
+
+	global $uncode_query_options;
+
+	if ( is_array( $uncode_query_options ) && isset( $uncode_query_options['single_variations'] ) && $uncode_query_options['single_variations'] && $product->get_type() === 'variation' ) {
+		$product_attributes = $product->get_variation_attributes();
+
+		$found_variations = 0;
+
+		if ( is_array( $product_attributes ) ) {
+			foreach( $product_attributes as $product_attribute_key => $product_attribute ) {
+				if ( ! in_array( str_replace( 'attribute_', '', $product_attribute_key ), uncode_single_variations_get_excluded_attributes() ) ) {
+					$found_variations++;
+				}
+			}
+		}
+
+		if ( $found_variations === 0 ) {
+			$use_parent_image = true;
+		}
+	}
+
+	$use_parent_image = apply_filters( 'uncode_single_variations_use_parent_image', $use_parent_image, $product );
+
+	return $use_parent_image;
 }

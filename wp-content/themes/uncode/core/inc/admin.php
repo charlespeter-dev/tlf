@@ -128,7 +128,7 @@ function uncode_load_admin_script($hook) {
 			)
 		),
 		'uncode_colors_flat_array' => $uncode_colors_flat_array,
-		'has_valid_purchase_code'  => uncode_check_valid_purchase_code() && uncode_fo8l_op() ? true : false,
+		'has_valid_purchase_code'  => uncode_check_valid_purchase_code() && uncode_9iol_er() ? true : false,
 		'lbox_enhanced' => apply_filters( 'uncode_lightgallery', get_option( 'uncode_core_settings_opt_lightbox_enhance' ) === 'on' ),
 		'disable_oembed_preview' => apply_filters( 'uncode_disable_oembed_preview', false)
 	);
