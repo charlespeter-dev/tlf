@@ -247,8 +247,10 @@ get_header() ?>
                         <script>
                             window.addEventListener('DOMContentLoaded', function () {
 
+                                const loop = <?= (count($ft_collections) > 1) ? 2 : 0 ?>;
+
                                 const swiperTestimonials = new Swiper("._2x-swiper-testimonials", {
-                                    loop: true,
+                                    loop: loop ? true : false,
                                     slidesPerView: 1,
                                     spaceBetween: 30,
                                     centeredSlides: true,

@@ -54,6 +54,7 @@
   height: 20px;
 }
 .bootstrap-container.industry.single .featured-testimonials a {
+  text-transform: uppercase;
   text-decoration: none;
   color: #E30613;
   font-weight: 600;
