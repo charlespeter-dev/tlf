@@ -22,8 +22,9 @@ extract($fields);
 
 $customers_query = new WP_Query([
     'post_type' => 'portfolio',
-    'orderby' => 'date',
-    'order' => 'DESC',
+    'posts_per_page' => -1,
+    'orderby' => 'title',
+    'order' => 'ASC',
     'fields' => 'ids',
     'post_status' => 'publish'
 ]);
