@@ -86,10 +86,11 @@ if (isset($featured_resource['resource']) && $featured_resource['resource'] && !
 }
 
 /**
- * related resources
+ * related industries
+ * always show F&B + Metals in the top 3
  */
 
-$_2x_related_resources = _2x_related_industries($post->ID);
+$_2x_related_resources = _2x_related_industries($post->ID, [29812, 29835]);
 
 /**
  * specific css

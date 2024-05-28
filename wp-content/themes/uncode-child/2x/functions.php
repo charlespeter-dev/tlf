@@ -178,24 +178,35 @@ function _2x_related_resources($exclude_post_id = 0)
  * - get 3 random industries except $post->ID
  */
 
-function _2x_related_industries($exclude_post_id = 0)
+function _2x_related_industries($exclude_post_id = 0, $post__in = [])
 {
+    $post__not_in = [$exclude_post_id];
+
+    if ($post__in) {
+        $post__not_in = array_merge($post__not_in, $post__in);
+    }
+
     $industries_query = new WP_Query([
         'post_type' => 'industry',
         'posts_per_page' => -1,
         'orderby' => 'rand',
         'fields' => 'ids',
         'post_status' => 'publish',
-        'post__not_in' => [$exclude_post_id]
+        'post__not_in' => $post__not_in
     ]);
 
     wp_reset_query();
 
     $return = [];
 
-    if (!empty($industries_query->posts)) {
+    if ($industries_query->posts) {
+
+        $industries_query->posts = array_merge($post__in, $industries_query->posts);
 
         foreach ($industries_query->posts as $post_id) {
+
+            if ($post_id == $exclude_post_id)
+                continue;
 
             if (count($return) < 3) {
                 $return[$post_id]['title'] = get_the_title($post_id);
