@@ -185,6 +185,21 @@ if ( ! function_exists( 'uncode_hide_gallery_attachments_grid_view' ) ) :
 function uncode_hide_gallery_attachments_grid_view( $query ) {
 	$post_id = isset( $_REQUEST[ 'post_id' ] ) ? $_REQUEST[ 'post_id' ] : false;
 
+	if ( ! $post_id ) {
+		$url     = wp_get_referer();
+		$parts   = parse_url( $url );
+
+		if ( isset( $parts['query'] ) ) {
+			parse_str( $parts['query'], $_query );
+
+			if ( isset( $_query['post'] ) ) {
+				$post_id = absint( $_query['post'] );
+			} else if ( isset( $_query['vc_action'] ) && isset( $_query['post_id'] ) ) {
+				$post_id = absint( $_query['post_id'] );
+			}
+		}
+	}
+
 	// Return early (ie. do not filter galleries) if the uploader
 	// was opened by an allowed post type
 	if ( $post_id ) {

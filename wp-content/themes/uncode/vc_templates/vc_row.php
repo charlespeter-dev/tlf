@@ -1,6 +1,6 @@
 <?php
 
-$el_id = $el_class = $row_name = $back_image = $back_image_auto = $back_image_option = $back_repeat = $back_attachment = $back_position = $back_size = $back_color = $overlay_color = $overlay_color_blend = $overlay_alpha = $unlock_row = $unlock_row_content = $limit_content = $row_height_percent = $row_inner_height_percent = $row_height_pixel = $inner_height = $kburns = $parallax = $changer_back_color = $equal_height = $top_padding = $bottom_padding = $h_padding = $gutter_size = $override_padding = $force_width_grid = $shift_y = $shift_y_fixed = $z_index = $css = $border_color = $border_style = $output = $row_style = $background_div = $row_inline_style = $desktop_visibility = $medium_visibility = $mobile_visibility = $sticky = $skew = $column_width_use_pixel = $column_width_percent = $column_width_pixel = $enable_bottom_divider = $shape_bottom_invert = $bottom_divider = $bottom_divider_inv = $shape_bottom_color = $shape_bottom_opacity = $shape_bottom_custom = $shape_bottom_index = $shape_bottom_h_use_pixel = $shape_bottom_height = $shape_bottom_height_percent = $shape_bottom_ratio = $shape_bottom_safe = $shape_bottom_responsive = $shape_bottom_tablet_hide = $shape_bottom_mobile_hide = $enable_top_divider = $shape_top_invert = $top_divider = $top_divider_inv = $shape_top_color = $shape_top_opacity = $shape_top_index = $shape_top_h_use_pixel = $shape_top_height = $shape_top_height_percent = $shape_top_ratio = $shape_top_safe = $shape_top_responsive = $shape_top_tablet_hide = $shape_top_mobile_hide = $gdpr_consent_id = $gdpr_consent_logic = $row_custom_slug_check = $row_custom_slug = $inverted_device_order = $preserve_border = $preserve_border_tablet = $preserve_border_mobile = $custom_inline_css = $auto_height_device = $featured_image = '';
+$el_id = $el_class = $row_name = $back_image = $back_image_auto = $back_image_option = $back_repeat = $back_attachment = $back_position = $back_size = $back_color = $overlay_color = $overlay_color_blend = $overlay_alpha = $unlock_row = $unlock_row_content = $limit_content = $row_height_percent = $row_inner_height_percent = $row_height_pixel = $inner_height = $kburns = $parallax = $changer_back_color = $equal_height = $top_padding = $bottom_padding = $h_padding = $gutter_size = $override_padding = $force_width_grid = $shift_y = $shift_y_fixed = $z_index = $css = $border_color = $border_style = $output = $row_style = $background_div = $row_inline_style = $desktop_visibility = $medium_visibility = $mobile_visibility = $sticky = $skew = $column_width_use_pixel = $column_width_percent = $column_width_pixel = $enable_bottom_divider = $shape_bottom_invert = $bottom_divider = $bottom_divider_inv = $shape_bottom_color = $shape_bottom_opacity = $shape_bottom_custom = $shape_bottom_index = $shape_bottom_h_use_pixel = $shape_bottom_height = $shape_bottom_height_percent = $shape_bottom_ratio = $shape_bottom_safe = $shape_bottom_responsive = $shape_bottom_tablet_hide = $shape_bottom_mobile_hide = $enable_top_divider = $shape_top_invert = $top_divider = $top_divider_inv = $shape_top_color = $shape_top_opacity = $shape_top_index = $shape_top_h_use_pixel = $shape_top_height = $shape_top_height_percent = $shape_top_ratio = $shape_top_safe = $shape_top_responsive = $shape_top_tablet_hide = $shape_top_mobile_hide = $gdpr_consent_id = $gdpr_consent_logic = $row_custom_slug_check = $row_custom_slug = $inverted_device_order = $preserve_border = $preserve_border_tablet = $preserve_border_mobile = $custom_inline_css = $auto_height_device = $featured_image = $multi_bg_out = $bg_transition = $bg_transition_time = $bg_carousel_time = $mobile_slideshow = $bg_carousel_time_mobile = $multi_scroll_manually = $bg_transition_pace = $bg_transition_pace_mouse = $bg_transition_threshold = $bg_transition_threshold_mobile = $multi_random = '';
 
 extract(shortcode_atts(array(
 	'uncode_shortcode_id' => '',
@@ -24,6 +24,28 @@ extract(shortcode_atts(array(
 	'overlay_color_gradient' => '',
 	'overlay_color_blend' => '',
 	'overlay_alpha' => '',
+	'overlay_animated' => '',
+	'overlay_animated_1_color' => '',
+	'overlay_animated_1_color_type' => '',
+	'overlay_animated_1_color_solid' => '',
+	'overlay_animated_2_color' => '',
+	'overlay_animated_2_color_type' => '',
+	'overlay_animated_2_color_solid' => '',
+	'overlay_animated_speed' => '',
+	'overlay_animated_size' => '',
+	'multiple_media' => '',
+	'medias' => '',
+	'bg_transition' => '',
+	'bg_transition_time' => '250',
+	'bg_carousel_time' => '5000',
+	'mobile_slideshow' => '',
+	'bg_carousel_time_mobile' => '5000',
+	'bg_transition_pace' => '20',
+	'bg_transition_pace_mouse' => '200',
+	'bg_transition_threshold' => 0,
+	'bg_transition_threshold_mobile' => 0,
+	'multi_scroll_manually' => '',
+	'multi_random' => '',
 	'unlock_row' => 'yes',
 	'unlock_row_content' => '',
 	'limit_content' => '',
@@ -270,7 +292,7 @@ if ( $back_image_auto === 'yes' && $featured_image !== "yes" && is_singular() &&
 }
 
 /** BEGIN - background construction **/
-if (!empty($back_image) || $overlay_color !== '') {
+if (!empty($back_image) || $overlay_color !== '' || $overlay_animated === 'yes') {
 
 	if ($parallax === 'yes') {
 		$back_attachment = '';
@@ -308,8 +330,72 @@ if (!empty($back_image) || $overlay_color !== '') {
 		$previous_blend = true;
 	}
 
-	$back_result_array = uncode_get_back_html($back_array, $overlay_color, $overlay_alpha, '', 'row');
-	$background_div = $back_result_array['back_html'];
+	if ( $overlay_animated === 'yes' ) {
+		if ( $overlay_animated_1_color_type === 'uncode-palette' ) {
+			if ( isset($front_background_colors[$overlay_animated_1_color]) && in_array( $overlay_animated_1_color, $uncode_colors_flat_array ) ) {
+				$back_array['overlay-animated-1'] = $front_background_colors[$overlay_animated_1_color];
+			}
+		} elseif ( $overlay_animated_1_color_type === 'uncode-solid' ) {
+			$back_array['overlay-animated-1'] = $overlay_animated_1_color_solid;
+		}
+		if ( $overlay_animated_2_color_type === 'uncode-palette' ) {
+			if ( isset($front_background_colors[$overlay_animated_2_color]) && in_array( $overlay_animated_2_color, $uncode_colors_flat_array ) ) {
+				$back_array['overlay-animated-2'] = $front_background_colors[$overlay_animated_2_color];
+			}
+		} elseif ( $overlay_animated_2_color_type === 'uncode-solid' ) {
+			$back_array['overlay-animated-2'] = $overlay_animated_2_color_solid;
+		}
+
+		$back_array['overlay-animated-speed'] = $overlay_animated_speed !== '' ? esc_attr($overlay_animated_speed) : '200';
+		$back_array['overlay-animated-size'] = $overlay_animated_size !== '' ? esc_attr($overlay_animated_size) : '1';
+	}
+
+	if ( $multiple_media === 'yes' && $medias !== '' && !(function_exists('vc_is_page_editable') && vc_is_page_editable()) ) {
+		$medias = $back_image . ','. $medias;
+		$media_ids = explode(',', $medias);
+		$multi_bg_array = array();
+		$multi_bg_array['transition-time'] = $bg_transition_time !== '' ? esc_html( $bg_transition_time ) : '250';
+		if ( $bg_transition !== '' ) {
+			$multi_bg_array['transition'] = esc_html( $bg_transition );
+			if ( $bg_transition === 'mouse' ) {
+				$multi_bg_array['transition-pace'] = $bg_transition_pace_mouse !== '' ? esc_html( $bg_transition_pace_mouse ) : '200';
+				if ( $mobile_slideshow === 'yes' ) {
+					$multi_bg_array['carousel-mobile'] = "yes";
+					$multi_bg_array['carousel-time'] = $bg_carousel_time_mobile !== '' ? esc_html( $bg_carousel_time_mobile ) : '5000';
+				}
+			} else {
+				if ( $multi_scroll_manually === 'yes' ) {
+					$multi_bg_array['transition-pace'] = $bg_transition_pace !== '' ? esc_html( $bg_transition_pace ) : '20';
+				}
+			}
+
+		} else {
+			$multi_bg_array['carousel-time'] = $bg_carousel_time !== '' ? esc_html( $bg_carousel_time ) : '5000';
+		}
+		if ( $bg_transition !== 'mouse' ) {
+			$multi_bg_array['transition-threshold'] = $bg_transition_threshold !== '' ? esc_html( $bg_transition_threshold ) : '0';
+		} else {
+			$multi_bg_array['transition-threshold'] = $bg_transition_threshold_mobile !== '' ? esc_html( $bg_transition_threshold_mobile ) : '0';
+		}
+		if ( $multi_random === 'yes' ) {
+			$multi_bg_array['multi-random'] = 'true';
+		}
+		$multi_bg_data = '';
+		foreach ($multi_bg_array as $att => $data_val) {
+			$multi_bg_data .= ' data-' . $att . '="' . $data_val . '"';
+		}
+		$background_div .= '<div class="uncode-multi-bgs"' . $multi_bg_data . '>';
+		foreach ($media_ids as $media_key => $media_id) {
+			$back_array_multi = $back_array;
+			$back_array_multi['background-image'] = $media_id;
+			$back_result_array = uncode_get_back_html($back_array_multi, $overlay_color, $overlay_alpha, '', 'row', 'multi-background');
+			$background_div .= $back_result_array['back_html'];	
+		}
+		$background_div .= '</div>';
+	} else {
+		$back_result_array = uncode_get_back_html($back_array, $overlay_color, $overlay_alpha, '', 'row');
+		$background_div = $back_result_array['back_html'];	
+	}	
 
 	if ( $background_div == '' ) {
 
@@ -318,6 +404,7 @@ if (!empty($back_image) || $overlay_color !== '') {
 
 	}
 }
+
 /** END - background construction **/
 
 /** BEGIN - shape dividers **/
@@ -1308,6 +1395,7 @@ if (!$uncodeblock_found) :
 	$uncode_row_parent = 12;
 	$css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $row_cont_classes ) ), $this->settings['base'], $atts ) );
 	$output.= '<div data-parent="true" class="' . esc_attr(trim($css_class)) . '"' . $row_name . $row_style . $attr_id . '>';
+	$output .= $multi_bg_out; //multi bg
 	if ($unlock_row === 'yes') {
 		$output.= $background_div;
 	}

@@ -11,6 +11,7 @@ extract(shortcode_atts(array(
 	'height' => '',
 	'transform' => '',
 	'size' => 'h2',
+	'heading_custom_size' => '',
 	'counter_color' => '',
 	'counter_color_type' => '',
 	'counter_color_solid' => '',
@@ -43,6 +44,13 @@ $inline_style_css = uncode_get_dynamic_colors_css_from_shortcode( array(
 	)
 ) );
 
+if ( $size === 'custom' && $heading_custom_size !== '' ) {
+	$inline_style_css .= uncode_get_dynamic_css_font_size_shortcode( array(
+		'id'         => $uncode_shortcode_id,
+		'font_size'  => $heading_custom_size
+	) );
+}
+
 $counter_color = uncode_get_shortcode_color_attribute_value( 'counter_color', $uncode_shortcode_id, $counter_color_type, $counter_color, $counter_color_solid, false );
 
 $counter_class = array();
@@ -51,6 +59,9 @@ if ($font !== '') {
 }
 if ($size !== '') {
 	$counter_class[] = $size;
+}
+if ($size === 'custom' && $heading_custom_size !== '') {
+	$counter_class[] = 'fontsize-' . $uncode_shortcode_id . '-custom';
 }
 if ($weight !== '') {
 	$counter_class[] = 'font-weight-' . $weight;

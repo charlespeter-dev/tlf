@@ -332,5 +332,12 @@
 				<attribute>select_first_option</attribute>
 			</attributes>
 		</shortcode>
+		<shortcode>
+			<tag>uncode_carousel_nav</tag>
+			<attributes>
+				<attribute>previous_label</attribute>
+				<attribute>next_label</attribute>
+			</attributes>
+		</shortcode>
 	</shortcodes>
 </wpml-config>

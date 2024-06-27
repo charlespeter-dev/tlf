@@ -10,6 +10,7 @@
 		UNCODE.preventDoubleTransition();
 		UNCODE.betterResize();
 		UNCODE.utils();
+		UNCODE.magnetic();
 		if (typeof UNCODE.changeSkinOnScroll !== 'undefined') {
 			UNCODE.changeSkinOnScroll();
 		}
@@ -149,6 +150,18 @@
 		}
 		if (typeof UNCODE.lottie !== 'undefined') {
 			UNCODE.lottie();
+		}
+		if (typeof UNCODE.inlineImgs !== 'undefined') {
+			UNCODE.inlineImgs();
+		}
+		if (typeof UNCODE.animatedBgGradient !== 'undefined') {
+			UNCODE.animatedBgGradient();
+		}
+		if (typeof UNCODE.readMoreCol !== 'undefined') {
+			UNCODE.readMoreCol();
+		}
+		if (typeof UNCODE.multibg !== 'undefined') {
+			UNCODE.multibg();
 		}
 		$(window).on('load',function(){
 			clearRequestTimeout(waypoint_request);

@@ -426,20 +426,19 @@
 .btn-custom-typo.font-198536 { font-family: 'gotham_bookregular' !important; }
 
 /*----------------------------------------------------------
-#Font-size: 56px
+# fontsize-109641
 ----------------------------------------------------------*/
 .fontsize-109641 { font-size: 56px; }
 @media (max-width: 959px) { .fontsize-109641 { font-size: 37.333333333333px; }}
 @media (max-width: 569px) { .fontsize-109641 { font-size: 35px; }}
-@media (max-width: 320px) { .fontsize-109641 { font-size: 28px; }}
 
 /*----------------------------------------------------------
-#Font-size: 42px
+# fontsize-101008
 ----------------------------------------------------------*/
 .fontsize-101008 { font-size: 42px; }
 @media (max-width: 959px) { .fontsize-101008 { font-size: 28px; }}
 
 /*----------------------------------------------------------
-#Font-size: 18px
+# fontsize-406319
 ----------------------------------------------------------*/
 .fontsize-406319 { font-size: 18px; }

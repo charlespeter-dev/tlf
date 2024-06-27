@@ -111,7 +111,7 @@ function uncode_page_require_asset_gsap( $content_array ) {
 			$gsap_required = true;
 		}
 
-		if ( strpos( $content, ' css_animation="marquee' ) !== false ) {
+		if ( strpos( $content, ' css_animation="marquee' ) !== false || strpos( $content, ' css_alt_animation="marquee' ) !== false ) {
 			$uncode_check_asset['textMarquee'] = true; // This activates the text marquee
 			$gsap_required = true;
 		}

@@ -38,6 +38,8 @@ require_once get_template_directory() . '/core/inc/helpers/dynamic-css/modules/v
 require_once get_template_directory() . '/core/inc/helpers/dynamic-css/modules/vc_tabs.php';
 require_once get_template_directory() . '/core/inc/helpers/dynamic-css/modules/uncode_list.php';
 require_once get_template_directory() . '/core/inc/helpers/dynamic-css/modules/uncode_princing.php';
+require_once get_template_directory() . '/core/inc/helpers/dynamic-css/modules/uncode_pricing_list.php';
+require_once get_template_directory() . '/core/inc/helpers/dynamic-css/modules/uncode_star_rating.php';
 require_once get_template_directory() . '/core/inc/helpers/dynamic-css/modules/uncode_index.php';
 require_once get_template_directory() . '/core/inc/helpers/dynamic-css/modules/uncode_counter.php';
 require_once get_template_directory() . '/core/inc/helpers/dynamic-css/modules/uncode_vertical_text.php';

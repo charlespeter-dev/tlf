@@ -1882,6 +1882,13 @@ UNCODE.numericTextField = function(){
 	});
 }
 
+UNCODE.wpmlMsgSecLng = function(){
+	var $msg = $('#theme-options-ajax-message');
+	if ( $msg.hasClass('wpml-secondary-lang-warning') ) {
+		$msg.fadeIn();
+	}
+}
+
 $(function(){
 	UNCODE.dismissAdminNotices();
 	UNCODE.messagePosition();
@@ -1897,6 +1904,9 @@ $(function(){
 		$( document ).on( 'vc.display.template vc.display.lists', function(e) {
 			UNCODE.toggleDescription();
 		});
+	});
+	$(window).on( 'load', function(){
+		UNCODE.wpmlMsgSecLng();
 	});
 });
 

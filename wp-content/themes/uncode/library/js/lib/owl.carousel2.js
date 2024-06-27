@@ -2998,11 +2998,11 @@
 		 * @type {Object}
 		 */
 		this._handlers = {
-			/*'initialized.owl.carousel': $.proxy(function(e) {
+			'initialized.owl.carousel': $.proxy(function(e) {
 				if (e.namespace && this._core.settings.startPosition === 'URLHash') {
 					$(window).trigger('hashchange.owl.navigation');
 				}
-			}, this),*/
+			}, this),
 			'prepared.owl.carousel': $.proxy(function(e) {
 				if (e.namespace) {
 					var hash = $(e.content).find('[data-hash]').addBack('[data-hash]').attr('data-hash');

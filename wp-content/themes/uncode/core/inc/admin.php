@@ -264,6 +264,7 @@ function uncode_add_additional_fields($form_fields, $post)
 	$social_original = (bool) get_post_meta($post->ID, "_uncode_social_original", true);
 	$animated_svg = (bool) get_post_meta($post->ID, "_uncode_animated_svg", true);
 	$animated_svg_time = get_post_meta($post->ID, "_uncode_animated_svg_time", true);
+	$start_rating_val = get_post_meta($post->ID, "_uncode_start_rating_val", true);
 	$team_social = get_post_meta($post->ID, "_uncode_team_member_social", true);
 	$poster = get_post_meta($post->ID, "_uncode_poster_image", true);
 	$poster_video = get_post_meta($post->ID, "_uncode_poster_video", true);
@@ -394,6 +395,14 @@ function uncode_add_additional_fields($form_fields, $post)
 		"value" => $team
 	);
 
+	if ( $post->post_mime_type === 'oembed/html') {
+		$form_fields["star_rating"] = array(
+			"label" => esc_html__("Star Rating", 'uncode') ,
+			"input" => 'html',
+			"html" => "<input type='text' value='" . $start_rating_val . "' name='attachments[{$post->ID}][start_rating_val]' id='attachments[{$post->ID}][start_rating_val]' /><br />"
+		);
+	}
+
 	if ($team) {
 		$form_fields["team_member_social"] = array(
 			"label" => esc_html__("Socials", 'uncode') ,
@@ -456,6 +465,13 @@ function uncode_save_additional_fields($attachment_id)
 			update_post_meta($attachment_id, '_uncode_animated_svg_time', $animated_svg_time);
 		} else {
 			delete_post_meta($attachment_id, '_uncode_animated_svg_time');
+		}
+
+		if (isset($_REQUEST['attachments'][$attachment_id]['start_rating_val'])) {
+			$start_rating_val = $_REQUEST['attachments'][$attachment_id]['start_rating_val'];
+			update_post_meta($attachment_id, '_uncode_start_rating_val', $start_rating_val);
+		} else {
+			delete_post_meta($attachment_id, '_uncode_start_rating_val');
 		}
 
 		if (isset($_REQUEST['attachments'][$attachment_id]['video_loop'])) {
@@ -1470,10 +1486,13 @@ if (!function_exists('uncode_get_post_types')) {
 		$get_post_types = get_post_types($args,$output,$operator);
 		$uncode_post_types = array();
 		if (($key = array_search('uncodeblock', $get_post_types)) !== false) {
-	    unset($get_post_types[$key]);
+	    	unset($get_post_types[$key]);
 		}
 		if (($key = array_search('uncode_gallery', $get_post_types)) !== false) {
-	    unset($get_post_types[$key]);
+	    	unset($get_post_types[$key]);
+		}
+		if (($key = array_search('popup', $get_post_types)) !== false) {
+	    	unset($get_post_types[$key]);
 		}
 		if ($built_in) {
 			$uncode_post_types[] = 'post';

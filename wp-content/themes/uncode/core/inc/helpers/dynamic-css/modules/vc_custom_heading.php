@@ -14,6 +14,7 @@ function uncode_get_dynamic_colors_css_for_shortcode_vc_custom_heading( $shortco
 	$accepted_keys = array(
 		'text_color' => array( 'text' ),
 		'back_color' => array( 'bg' ),
+		'text_stroke' => array( 'stroke' ),
 	);
 
 	$css = '';

@@ -46,10 +46,13 @@ require_once get_template_directory() . '/core/inc/helpers/assets/tests/livesear
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/vivus.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/lottie.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/pricing-tables.php';
+require_once get_template_directory() . '/core/inc/helpers/assets/tests/read-more.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/iconbox.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/dividers.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/single-media.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/post-table.php';
+require_once get_template_directory() . '/core/inc/helpers/assets/tests/pricing-list.php';
+require_once get_template_directory() . '/core/inc/helpers/assets/tests/star-rating.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/rotateit.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/author.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/comments.php';
@@ -67,6 +70,10 @@ require_once get_template_directory() . '/core/inc/helpers/assets/tests/vc_navig
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/ajax-filters.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/swatches.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/video-thumbs.php';
+require_once get_template_directory() . '/core/inc/helpers/assets/tests/inline-images.php';
+require_once get_template_directory() . '/core/inc/helpers/assets/tests/noise.php';
+require_once get_template_directory() . '/core/inc/helpers/assets/tests/multi-bg.php';
+require_once get_template_directory() . '/core/inc/helpers/assets/tests/owl-nav.php';
 
 /**
  * Check if we can split the CSS

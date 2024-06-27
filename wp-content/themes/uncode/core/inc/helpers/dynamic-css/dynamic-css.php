@@ -27,6 +27,15 @@ function uncode_get_page_dynamic_css() {
 	// Generate custom CSS for css grids
 	$dynamic_css .= uncode_get_dynamic_css_grid_css( $content_array );
 
+	// Generate custom CSS font size
+	$dynamic_css .= uncode_get_dynamic_css_font_size( $content_array );
+
+	// Generate custom CSS text indent
+	$dynamic_css .= uncode_get_dynamic_css_text_indent( $content_array );
+
+	// Generate custom CSS nav_carousel
+	$dynamic_css .= uncode_get_dynamic_css_nav_carousel( $content_array );
+
 	return $dynamic_css;
 }
 
@@ -151,6 +160,10 @@ function uncode_get_dynamic_colors_css_from_shortcode( $shortcode ) {
 			if ( $attributes_value === 'uncode-solid' || $attributes_value === 'uncode-gradient' ) {
 				$custom_color_keys[] = str_replace( '_type', '', $attributes_key );
 			}
+			if ( $attributes_key === 'text_stroke' && $attributes_value === 'yes' ) {
+				$custom_color_keys[] = 'text_stroke';
+			}
+
 		}
 
 		$shortcode_function_name = 'uncode_get_dynamic_colors_css_for_shortcode_' . str_replace( '-', '_', $shortcode['type'] );
@@ -190,8 +203,12 @@ function uncode_get_modules_with_dynamic_colors() {
 		'vc_pie',
 		'vc_tabs',
 		'uncode_pricing',
+		'uncode_pricing_list',
+		'uncode_star_rating',
 		'uncode_list',
 		'uncode_index',
+		'vc_gallery',
+		'vc_single_image',
 		'uncode_counter',
 		'uncode_vertical_text',
 		'uncode_woocommerce_cart',
@@ -355,6 +372,443 @@ function uncode_get_dynamic_css_grids_css_from_shortcode( $shortcode_data ) {
 		}
 
 		$uncode_dynamic_css_selectors[] = 'cssgrid-'.$shortcode_data['id'];
+	}
+
+	return $css;
+}
+
+/**
+ * Get dynamic font size CSS
+ */
+function uncode_get_dynamic_css_font_size( $content_array ) {
+	$css = '';
+
+	foreach ( $content_array as $content ) {
+		if ( preg_match( '/\[[vc_custom_heading|uncode_index|vc_gallery|vc_single_image|uncode_carousel_nav][^\]]+heading_custom_size="(.*?)"/', $content ) !== false || preg_match( '/\[uncode_star_rating[^\]]+custom_size="(.*?)"/', $content ) !== false ) {
+			$css .= uncode_get_single_dynamic_css_font_size( $content );
+		}
+	}
+
+	return $css;
+}
+
+/**
+ * Get dynamic font size CSS from a piece of content
+ */
+function uncode_get_single_dynamic_css_font_size( $content ) {
+	$css = '';
+
+	$regex_index = '/\[[vc_custom_heading|uncode_index|vc_gallery|vc_single_image|uncode_carousel_nav]([^\[]+)heading_custom_size="(.*?)"(.*?)]/m';
+	preg_match_all( $regex_index, $content, $indexes, PREG_SET_ORDER, 0 );
+
+	foreach ( $indexes as $index ) {
+		$params = $index[0];
+
+		preg_match('/ uncode_shortcode_id=\"(.*?)"/', $params, $id); //row ID
+		preg_match('/ heading_custom_size=\"(.*?)"/', $params, $size);
+
+		$shortcode_data = array(
+			'id'        => $id[1],
+			'font_size' => $size[1],
+		);
+		$css .= uncode_get_dynamic_css_font_size_shortcode( $shortcode_data );
+	}
+
+	$regex_index_2 = '/\[uncode_star_rating([^\[]+)custom_size="(.*?)"(.*?)]/m';
+	preg_match_all( $regex_index_2, $content, $indexes_2, PREG_SET_ORDER, 0 );
+
+	foreach ( $indexes_2 as $index_2 ) {
+		$params = $index_2[0];
+
+		preg_match('/ uncode_shortcode_id=\"(.*?)\"/', $params, $id); //row ID
+		preg_match('/ custom_size=\"(.*?)\"/', $params, $size);
+
+		$shortcode_data = array(
+			'id'        => $id[1],
+			'font_size' => $size[1],
+		);
+		$css .= uncode_get_dynamic_css_font_size_shortcode( $shortcode_data );
+	}
+
+	return $css;
+}
+
+/**
+ * Get CSS from font size shortcode
+ */
+function uncode_get_dynamic_css_font_size_shortcode( $shortcode_data ) {
+	global $uncode_dynamic_css_selectors;
+
+	$css = '';
+
+	if ( isset( $shortcode_data['id'] ) ) {
+
+		$shortcode_id = absint( $shortcode_data['id'] );
+		$font_size = $shortcode_data['font_size'];
+
+		// Check if we have already processed the same ID
+		// (ie. a cloned module)
+		if ( is_array( $uncode_dynamic_css_selectors ) && in_array( 'fontsize-'.$shortcode_id . '-custom', $uncode_dynamic_css_selectors ) ) {
+			return $css;
+		}
+
+		if ( is_numeric($font_size) ) {
+			$font_size .= 'px';
+		}
+		$numeric_val = str_replace('px', '', $font_size);
+		if ( is_numeric($numeric_val) && strpos($font_size, 'px') !== false ) {
+			$css .= '.fontsize-' . $shortcode_id . '-custom { font-size: ' . $font_size . '; }';
+			$first_mquery = $numeric_val / 1.5;
+			if ($numeric_val > 35) {
+				$css .= '@media (max-width: 959px) { .fontsize-' . $shortcode_id . '-custom { font-size: ' . $first_mquery . 'px; }}';
+				if ($first_mquery > 35) {
+					$css .= '@media (max-width: 569px) { .fontsize-' . $shortcode_id . '-custom { font-size: 35px; }}';
+				}
+			}
+			if ($first_mquery > 28) {
+				$css .= '@media (max-width: 320px) { .fontsize-' . $shortcode_id . '-custom { font-size: 28px; }}';
+			}
+		} else {
+			$css .= '.fontsize-' . $shortcode_id . '-custom { font-size:' . $font_size . ' }';
+		}
+
+		$uncode_dynamic_css_selectors[] = 'font_size-'.$shortcode_id . '-custom';
+	}
+
+	return $css;
+}
+
+
+
+/**
+ * Get dynamic text indent CSS
+ */
+function uncode_get_dynamic_css_text_indent( $content_array ) {
+	$css = '';
+
+	foreach ( $content_array as $content ) {
+		if ( preg_match( '/\[vc_custom_heading[^\]]+text_indent="(.*?)"/', $content ) !== false ) {
+			$css .= uncode_get_single_dynamic_css_text_indent( $content );
+		}
+	}
+
+	return $css;
+}
+
+/**
+ * Get dynamic text indent CSS from a piece of content
+ */
+function uncode_get_single_dynamic_css_text_indent( $content ) {
+	$css = '';
+
+	$regex_index = '/\[vc_custom_heading[^\]]+text_indent="(.*?)"/m';
+	preg_match_all( $regex_index, $content, $indexes, PREG_SET_ORDER, 0 );
+
+	foreach ( $indexes as $index ) {
+		$params = $index[0];
+
+		preg_match('/ uncode_shortcode_id=\"(.*?)"/', $params, $id); //row ID
+		preg_match('/ text_indent=\"(.*?)"/', $params, $size);
+
+		$shortcode_data = array(
+			'id'        => $id[1],
+			'text_indent' => $size[1],
+		);
+		$css .= uncode_get_dynamic_css_text_indent_shortcode( $shortcode_data );
+	}
+
+	return $css;
+}
+
+/**
+ * Get CSS text indent grids shortcode
+ */
+function uncode_get_dynamic_css_text_indent_shortcode( $shortcode_data ) {
+	global $uncode_dynamic_css_selectors;
+
+	$css = '';
+
+	if ( isset( $shortcode_data['id'] ) ) {
+
+		$shortcode_id = absint( $shortcode_data['id'] );
+		$text_indent = $shortcode_data['text_indent'];
+
+		// Check if we have already processed the same ID
+		// (ie. a cloned module)
+		if ( is_array( $uncode_dynamic_css_selectors ) && in_array( 'text-'.$shortcode_id . '-indent', $uncode_dynamic_css_selectors ) ) {
+			return $css;
+		}
+
+		if ( is_numeric($text_indent) ) {
+			$text_indent .= 'px';
+		}
+		$css .= '@media (min-width: 570px) { ';
+		$css .= '.text-' . $shortcode_id . '-indent { text-indent: ' . $text_indent . '; }';
+		$css .= '.text-' . $shortcode_id . '-indent .heading-foreword { margin-left: -' . $text_indent . '; margin-right: ' . $text_indent . '; text-indent: 0; width: 0; }';
+		$css .= '.text-' . $shortcode_id . '-indent span:not(:first-child) { text-indent: 0; }';
+		$css .= ' }';
+
+		$uncode_dynamic_css_selectors[] = 'text-'.$shortcode_id . '-indent:first-child';
+	}
+
+	return $css;
+}
+
+/**
+ * Get dynamic text indent CSS
+ */
+function uncode_get_dynamic_css_nav_carousel( $content_array ) {
+	$css = '';
+
+	foreach ( $content_array as $content ) {
+		if ( preg_match( '/\[uncode_carousel_nav[^\]]+[dot_single_width|dot_single_height|dot_single_space|dot_single_radius|dot_single_active|dot_single_boundary|dot_number_align|counter_index_width]="(.*?)"/', $content ) !== false ) {
+			$css .= uncode_get_single_dynamic_css_nav_carousel( $content );
+		}
+	}
+
+	return $css;
+}
+
+/**
+ * Get dynamic text indent CSS from a piece of content
+ */
+function uncode_get_single_dynamic_css_nav_carousel( $content ) {
+	$css = '';
+
+	$regex_index = '/\[uncode_carousel_nav[^\]]+[dot_single_width|dot_single_height|dot_single_space|dot_single_radius|dot_single_active|dot_single_boundary|dot_number_align|counter_index_width]="(.*?)"/m';
+	preg_match_all( $regex_index, $content, $indexes, PREG_SET_ORDER, 0 );
+
+	foreach ( $indexes as $index ) {
+		$params = $index[0];
+
+		preg_match('/ uncode_shortcode_id=\"(.*?)"/', $params, $id); //row ID
+		preg_match('/ dot_single_width=\"(.*?)"/', $params, $width);
+		preg_match('/ dot_single_height=\"(.*?)"/', $params, $height);
+		preg_match('/ dot_single_space=\"(.*?)"/', $params, $space);
+		preg_match('/ dot_single_radius=\"(.*?)"/', $params, $radius);
+		preg_match('/ dot_single_active=\"(.*?)"/', $params, $active);
+		preg_match('/ dot_single_boundary=\"(.*?)"/', $params, $boundary);
+		preg_match('/ dot_number_align=\"(.*?)"/', $params, $align);
+		preg_match('/ counter_index_width=\"(.*?)"/', $params, $counter_w);
+		preg_match('/ dots_style=\"(.*?)"/', $params, $style);
+
+		$shortcode_data = array(
+			'id'        => $id[1],
+			'width' => isset($width[1]) ? $width[1] : '',
+			'height' => isset($height[1]) ? $height[1] : '',
+			'space' => isset($space[1]) ? $space[1] : '',
+			'radius' => isset($radius[1]) ? $radius[1] : '',
+			'active' => isset($active[1]) ? $active[1] : '',
+			'boundary' => isset($boundary[1]) ? $boundary[1] : '',
+			'align' => isset($align[1]) ? $align[1] : '',
+			'counter_w' => isset($counter_w[1]) ? $counter_w[1] : '',
+			'style' => isset($style[1]) ? $style[1] : '',
+		);
+		$css .= uncode_get_dynamic_css_nav_carousel_shortcode( $shortcode_data );
+	}
+
+	return $css;
+}
+
+/**
+ * Get CSS text indent grids shortcode
+ */
+function uncode_get_dynamic_css_nav_carousel_shortcode( $shortcode_data ) {
+	global $uncode_dynamic_css_selectors;
+
+	$css = '';
+
+	if ( isset( $shortcode_data['id'] ) ) {
+
+		$shortcode_id = absint( $shortcode_data['id'] );
+		$width = isset($shortcode_data['width']) ? $shortcode_data['width'] : '';
+		$height = isset($shortcode_data['height']) ? $shortcode_data['height'] : '';
+		$space = isset($shortcode_data['space']) ? $shortcode_data['space'] : '';
+		$radius = isset($shortcode_data['radius']) ? $shortcode_data['radius'] : '';
+		$active = isset($shortcode_data['active']) ? $shortcode_data['active'] : '';
+		$boundary = isset($shortcode_data['boundary']) ? $shortcode_data['boundary'] : '';
+		$counter_w = isset($shortcode_data['counter_w']) ? $shortcode_data['counter_w'] : '';
+		$align = isset($shortcode_data['align']) ? $shortcode_data['align'] : '';
+		$style = isset($shortcode_data['style']) ? $shortcode_data['style'] : '';
+
+		// Check if we have already processed the same ID
+		// (ie. a cloned module)
+		if ( is_array( $uncode_dynamic_css_selectors ) && in_array( 'carousel-nav-'.$shortcode_id . '-custom', $uncode_dynamic_css_selectors ) ) {
+			return $css;
+		}
+
+		$return = true;
+
+		if ( $width !== '' ) {
+			if ( !is_numeric($width) ) {
+				$width = floatval($width);
+			}
+			if ( is_numeric($width) ) {
+				$width .= 'px';
+				$return = false;
+			}
+		}
+
+		if ( $height !== '' ) {
+			if ( !is_numeric($height) ) {
+				$height = floatval($height);
+			}
+			if ( is_numeric($height) ) {
+				$height .= 'px';
+				$return = false;
+			}
+		}
+
+		if ( $space !== '' ) {
+			if ( !is_numeric($space) ) {
+				$space = floatval($space);
+			}
+			if ( is_numeric($space) ) {
+				$space .= 'px';
+				$return = false;
+			}
+		}
+
+		if ( $radius !== '' ) {
+			if ( !is_numeric($radius) ) {
+				$radius = floatval($radius);
+			}
+			if ( is_numeric($radius) ) {
+				$radius .= 'px';
+				$return = false;
+			}
+		}
+
+		if ( $boundary !== '' ) {
+			if ( !is_numeric($boundary) ) {
+				$boundary = floatval($boundary);
+			}
+			if ( is_numeric($boundary) ) {
+				$boundary = ($boundary*2) . 'px';
+				$return = false;
+			}
+		}
+
+		$active_scale = 1;
+		if ( $active !== '' ) {
+			if ( !is_numeric($active) ) {
+				$active = floatval($active);
+			}
+			if ( is_numeric($active) ) {
+				$def_w = $style === '' ? 8 : 20;
+				if ( $width !== '' ) {
+					$def_w = floatval($width);
+				}
+				$active_scale = $active / $def_w;
+				$active .= 'px';
+				$return = false;
+			}
+		}
+
+		if ( $counter_w !== '' ) {
+			if ( !is_numeric($counter_w) ) {
+				$counter_w = floatval($counter_w);
+			}
+			if ( is_numeric($counter_w) ) {
+				$counter_w = $counter_w . 'px';
+				$return = false;
+			}
+		}
+
+		if ( $return === false ) {
+			//$css .= '@media (min-width: 570px) { ';
+			$css_1 = '';
+			if ( $width !== '' ) {
+				$css_1 .= 'width: ' . $width . '; height: ' . $width . ';';
+			}
+			if ( $space !== '' ) {
+				$css_1 .= 'margin: 0 ' . $space . ';';
+			}
+			if ( $radius !== '' ) {
+				$css_1 .= 'border-radius: ' . $radius . ';';
+			}
+			if ( $css_1 !== '' ) {
+				$css .= '.carousel-nav-' . $shortcode_id . '-custom.dots-default .uncode-nav-dots .uncode-nav-index span { ';
+					$css .= $css_1;
+				$css .= ' }';
+			}
+
+			$css_2 = '';
+			if ( $width !== '' ) {
+				$css_2 .= 'width: ' . $width . ';';
+			}
+			if ( $height !== '' ) {
+				$css_2 .= 'height: ' . $height . ';';
+			}
+			if ( $space !== '' ) {
+				$css_2 .= 'margin: 0 ' . $space . ';';
+			}
+			if ( $radius !== '' ) {
+				$css_2 .= 'border-radius: ' . $radius . ';';
+			}
+			if ( $css_2 !== '' ) {
+				$css .= '.carousel-nav-' . $shortcode_id . '-custom.dots-lines .uncode-nav-dots .uncode-nav-index span { ';
+					$css .= $css_2;
+				$css .= ' }';
+			}
+
+			$css_3 = '';
+			if ( $width !== '' ) {
+				$css_3 .= 'min-width: ' . $width . ';';
+			}
+			if ( $space !== '' ) {
+				if ( $align === 'right' ) {
+					$css_3 .= 'margin: 0 0 0 ' . $space . ';';
+					$css_3 .= 'text-align: right;';
+				} elseif ( $align === 'left' ) {
+					$css_3 .= 'margin: 0 ' . $space . ' 0 0;';
+					$css_3 .= 'text-align: left;';
+				} else {
+					$css_3 .= 'margin: 0 ' . $space . ';';
+					$css_3 .= 'text-align: center;';
+				}
+			}
+			if ( $css_3 !== '' ) {
+				$css .= '.carousel-nav-' . $shortcode_id . '-custom.dots-numbers .uncode-nav-dots .uncode-nav-index span { ';
+					$css .= $css_3;
+				$css .= ' }';
+			}
+
+			if ( $active !== '' ) {
+				if ( $active_scale !== 1 ) {
+					$css .= '.carousel-nav-' . $shortcode_id . '-custom.dots-default .uncode-nav-dots .uncode-nav-index span { ';
+						$css .= 'height: ' . $active . ';';
+						$css .= 'width: ' . $active . ';';
+						$css .= 'transform: scale(' . 1/$active_scale . ');';
+					$css .= ' }';
+					$css .= '.carousel-nav-' . $shortcode_id . '-custom.dots-default .uncode-nav-dots .uncode-nav-index.active-index span, ';
+					$css .= '.carousel-nav-' . $shortcode_id . '-custom.dots-default .uncode-nav-dots .uncode-nav-index:hover span { ';
+						$css .= 'transform: scale(1);';
+					$css .= ' }';
+				}
+				$css .= '.carousel-nav-' . $shortcode_id . '-custom.dots-lines .uncode-nav-dots .uncode-nav-index.active-index span { ';
+					$css .= 'width: ' . $active . ';';
+				$css .= ' }';
+			}
+
+			if ( $boundary !== '' ) {
+				$css .= '.carousel-nav-' . $shortcode_id . '-custom.dots-look-border:not(.dots-numbers).uncode-owl-nav .uncode-nav-index span:after,';
+				$css .= '.carousel-nav-' . $shortcode_id . '-custom.dots-look-shadow:not(.dots-numbers).uncode-owl-nav .uncode-nav-index span:after {';
+					$css .= 'width: calc(100% + ' . $boundary . '); height: calc(100% + ' . $boundary . ');';
+				$css .= ' }';
+			}
+
+			if ( $counter_w !== '' ) {
+				$css .= '.carousel-nav-' . $shortcode_id . '-custom .uncode-nav-counter {';
+					$css .= 'min-width: ' . $counter_w . ';';
+					$css .= 'justify-content: center;';
+				$css .= ' }';
+			}
+
+			$uncode_dynamic_css_selectors[] = 'carousel-nav-' . $shortcode_id . '-custom';
+		} else {
+			return $css;
+		}
 	}
 
 	return $css;

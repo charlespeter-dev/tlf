@@ -26,6 +26,7 @@ extract(shortcode_atts(array(
 	'title_padding' => '',
 	'titles_font' => '',
 	'titles_size' => '',
+	'heading_custom_size' => '',
 	'titles_weight' => '',
 	'titles_transform' => '',
 	'titles_height' => '',
@@ -54,8 +55,10 @@ $history_tab = $history;
 
 global $tab_titles_typography;
 $tab_titles_typography = array(
+	'uncode_shortcode_id' => $uncode_shortcode_id,
 	'titles_font' => $titles_font,
 	'titles_size' => $titles_size,
+	'heading_custom_size' => $heading_custom_size,
 	'titles_weight' => $titles_weight,
 	'titles_transform' => $titles_transform,
 	'titles_height' => $titles_height,
@@ -133,6 +136,13 @@ $inline_style_css = uncode_get_dynamic_colors_css_from_shortcode( array(
 		'active_txt_color_gradient' => $active_txt_color_gradient,
 	)
 ) );
+
+if ( $titles_size === 'custom' && $heading_custom_size !== '' ) {
+	$inline_style_css .= uncode_get_dynamic_css_font_size_shortcode( array(
+		'id'         => $uncode_shortcode_id,
+		'font_size'  => $heading_custom_size
+	) );
+}
 
 global $acc_tab_active_bg_color, $acc_tab_active_txt_color;
 $acc_tab_active_bg_color = uncode_get_shortcode_color_attribute_value( 'active_bg_color', $uncode_shortcode_id, $active_bg_color_type, $active_bg_color, $active_bg_color_solid, $active_bg_color_gradient );

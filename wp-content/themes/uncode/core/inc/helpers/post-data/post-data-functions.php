@@ -183,5 +183,5 @@ function uncode_get_post_data_content_array() {
 		}
 	}
 
-	return $content_array;
+	return ( apply_filters( 'uncode_get_post_data_content_array', $content_array ) );
 }

@@ -93,3 +93,8 @@ require_once get_template_directory() . '/core/inc/compatibility/memberpress/mem
  * BuddyPress.
  */
 require_once get_template_directory() . '/core/inc/compatibility/buddypress/class-uncode-buddypress.php';
+
+/**
+ * Popup Maker.
+ */
+require_once get_template_directory() . '/core/inc/compatibility/popup-maker/class-uncode-popup-maker.php';

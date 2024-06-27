@@ -71,7 +71,7 @@ function uncode_wc_localize_scripts() {
 		'uncode_wc_widget_product_categories_shop_url' => esc_js( wc_get_page_permalink( 'shop' ) ),
 		'uncode_wc_widget_product_categories_placeholder' => esc_js( __( 'Select a category', 'woocommerce' ) ),
 		'uncode_wc_widget_product_categories_no_results' => esc_js( _x( 'No matches found', 'enhanced select', 'woocommerce' ) ),
-
+		'default_notices' => apply_filters( 'uncode_woocommerce_default_notices', false ),
 	) );
 
 	wp_localize_script( 'woocommerce-uncode', 'UncodeWCParameters', $uncode_wc_parameters );
@@ -337,3 +337,13 @@ function uncode_woocommerce_mark_theme_completed() {
 	update_option( 'woocommerce_task_list_tracked_completed_actions', array_unique( $woocommerce_task_list_tracked_completed_actions ) );
 }
 add_action( 'uncode_upgraded', 'uncode_woocommerce_mark_theme_completed' );
+
+/**
+ * Increase variation threshold
+ */
+function uncode_woocommerce_variation_threshold( $threshold) {
+	$threshold = uncode_wc_swatches_global_active() ? 1000 : $threshold;
+
+	return $threshold;
+}
+add_filter( 'woocommerce_ajax_variation_threshold', 'uncode_woocommerce_variation_threshold' );

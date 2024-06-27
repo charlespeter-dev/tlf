@@ -119,7 +119,9 @@ if (!class_exists('unmenu')) {
 							$media_width = isset($media_metavalues['width']) ? absint( $media_metavalues['width'] ) : 1;
 							$media_height = isset($media_metavalues['height']) ? absint( $media_metavalues['height'] ) : 1;
 							$logo_ratio = $media_width / $media_height;
-							$media_code = preg_replace('#\s(id)="([^"]+)"#', ' $1="$2-' .rand() .'"', $media_code);
+							$rand_id = rand();
+							$media_code = preg_replace('#\s(id)="([^"]+)"#', ' $1="$2-' .$rand_id .'"', $media_code);
+							$media_code = preg_replace('#\s(fill)="url\(\'\#([^"]+)\'\)"#', ' $1="url(\'#$2-' .$rand_id .'\')"', $media_code);
 							$media_code = preg_replace('#\s(xmlns)="([^"]+)"#', '', $media_code);
 							$media_code = preg_replace('#\s(xmlns:svg)="([^"]+)"#', '', $media_code);
 							$media_code = preg_replace('#\s(xmlns:xlink)="([^"]+)"#', '', $media_code);
@@ -220,7 +222,9 @@ if (!class_exists('unmenu')) {
 						if ($logo_info->post_mime_type === 'oembed/svg') {
 							$media_code = $logo_info->post_content;
 							$logo_ratio = (isset($media_metavalues['width']) && $media_metavalues['width'] && isset($media_metavalues['height']) && $media_metavalues['height']) ? $media_metavalues['width'] / $media_metavalues['height'] : 1;
-							$media_code = preg_replace('#\s(id)="([^"]+)"#', ' $1="$2-' .rand() .'"', $media_code);
+							$rand_id = rand();
+							$media_code = preg_replace('#\s(id)="([^"]+)"#', ' $1="$2-' .$rand_id .'"', $media_code);
+							$media_code = preg_replace('#\s(fill)="url\(\'\#([^"]+)\'\)"#', ' $1="url(\'#$2-' .$rand_id .'\')"', $media_code);
 							$media_code = preg_replace('#\s(xmlns)="([^"]+)"#', '', $media_code);
 							$media_code = preg_replace('#\s(xmlns:svg)="([^"]+)"#', '', $media_code);
 							$media_code = preg_replace('#\s(xmlns:xlink)="([^"]+)"#', '', $media_code);
@@ -312,9 +316,11 @@ if (!class_exists('unmenu')) {
 			$menu_bloginfo_show = '';
 			$menu_secondary_show = '';
 			$menu_socials_top_bar = '';
+			if ( $secondary_enhanced === 'on' ) {
+				$menu_secondary_show = ot_get_option( '_uncode_menu_secondary_show' );
+			}
 			if ( $secondary_enhanced === 'on' && strpos($type, 'hmenu') !== false ) {
 				$menu_bloginfo_show = ot_get_option( '_uncode_menu_bloginfo_show' );
-				$menu_secondary_show = ot_get_option( '_uncode_menu_secondary_show' );
 				$menu_socials_top_bar = ot_get_option( '_uncode_menu_socials_top_bar' );
 
 				$num_cols = array( $menu_bloginfo_show, $menu_secondary_show, $menu_socials_top_bar );
@@ -1584,7 +1590,7 @@ if (!class_exists('unmenu')) {
 
 							$secondary_menu_html = $search;
 
-							if ($no_secondary !== 'on' && $secondary_enhanced !== 'on') {
+							if ( ( $no_secondary !== 'on' && $secondary_enhanced !== 'on' ) || ( $secondary_enhanced === 'on' && $menu_secondary_show !== '' ) ) {
 								$secondary_menu_nav = wp_nav_menu( array(
 														 							"menu"              => $secondary_menu,
 														 							"theme_location"    => "secondary",

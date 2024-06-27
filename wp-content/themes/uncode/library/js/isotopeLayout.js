@@ -242,7 +242,7 @@
 						$(isotopeContainersArray[i]).infinitescroll({
 								navSelector: '#' + isotopeId + ' .loadmore-button', // selector for the pagination container
 								nextSelector: '#' + isotopeId + ' .loadmore-button a', // selector for the NEXT link (to page 2)
-								itemSelector: '#' + isotopeId + ' .isotope-layout .tmb, #' + isotopeId + ' .isotope-filters li.filter-cat', // selector for all items you'll retrieve
+								itemSelector: '#' + isotopeId + ' .isotope-layout .tmb, #' + isotopeId + ' .isotope-filters li.filter-cat, #' + isotopeId + ' .woocommerce-result-count-wrapper--default', // selector for all items you'll retrieve
 								animate: false,
 								behavior: 'local',
 								debug: false,
@@ -261,21 +261,29 @@
 							// append the new items to isotope on the infinitescroll callback function.
 							function(newElements, opts) {
 								var $isotope = $(this),
-									isotopeId = $isotope.closest('.isotope-system').attr('id'),
+									isotope_system = $isotope.closest('.isotope-system'),
+									isotopeId = isotope_system.attr('id'),
 									filters = new Array(),
-									$loading_button = $isotope.closest('.isotope-system').find('.loading-button'),
-									$infinite_button = $isotope.closest('.isotope-system').find('.loadmore-button'),
+									$loading_button = isotope_system.find('.loading-button'),
+									$infinite_button = isotope_system.find('.loadmore-button'),
 									$numPages = $('a', $infinite_button).data('pages'),
+									$woo_results,
 									delay = 300;
 								$('a', $infinite_button).html($('a', $infinite_button).data('label'));
 								$infinite_button.show();
 								$loading_button.hide();
 								if ( $numPages != undefined && opts.state.currPage == $numPages) $infinite_button.hide();
 								$('> li', $isotope).remove();
-								$.each($(newElements), function(index, val) {
-									$(val).addClass('tmb-iso');
-									if ($(val).is("li")) {
-										filters.push($(val)[0]);
+								$('.isotope-container').find('.woocommerce-result-count-wrapper').remove();
+								$.each($(newElements), function (index, val) {
+									if ($(val).hasClass('woocommerce-result-count-wrapper')) {
+										$woo_results = $(val);
+										delete newElements[index];
+									} else {
+										$(val).addClass('tmb-iso');
+										if ($(val).is("li")) {
+											filters.push($(val)[0]);
+										}
 									}
 								});
 								newElements = newElements.filter(function(x) {
@@ -284,6 +292,17 @@
 								$.each($(filters), function(index, val) {
 									if ($('#' + isotopeId + ' a[data-filter="' + $('a', val).attr('data-filter') + '"]').length == 0) $('#' + isotopeId + ' .isotope-filters ul').append($(val));
 								});
+								if ($woo_results && $woo_results.length > 0) {
+									var old_count = isotope_system.find('.woocommerce-result-count').text();
+									var new_count = $woo_results.find('.woocommerce-result-count').text();
+									var old_start = old_count.match(/(\d+)–(\d+)/)[1];
+									var new_end = new_count.match(/(\d+)–(\d+)/)[2];
+									function replaceMatch(match, p1, p2) {
+        								return old_start + '–' + new_end;
+									}
+									var new_count_text = old_count.replace(/(\d+)–(\d+)/, replaceMatch);
+									isotope_system.find('.woocommerce-result-count').text(new_count_text);
+								}
 								$isotope.isotope('reloadItems', onLayout($isotope, newElements.length));
 								if (typeof UNCODE.lightbox !== 'undefined' && !SiteParameters.lbox_enhanced) {
 									var getLightbox = UNCODE.lightboxArray['ilightbox_' + isotopeId];

@@ -1,6 +1,8 @@
 (function($) {
 	"use strict";
 
+	var has_default_notices = window.UncodeWCParameters != undefined && window.UncodeWCParameters.default_notices === '1';
+
 	/************************************************************
 	 * Inject HTML classes when the checkout updates
 	 ************************************************************/
@@ -152,7 +154,9 @@
 	 ************************************************************/
 
 	function listen_for_checkout_init() {
-		append_legacy_notices_to_wrapper();
+		if (!has_default_notices) {
+			append_legacy_notices_to_wrapper();
+		}
 	}
 
 	/************************************************************
@@ -160,7 +164,9 @@
 	 ************************************************************/
 
 	function listen_for_checkout_updates() {
-		append_notices_to_wrapper();
+		if (!has_default_notices) {
+			append_notices_to_wrapper();
+		}
 	}
 
 	/************************************************************
@@ -168,7 +174,9 @@
 	 ************************************************************/
 
 	function listen_for_checkout_errors() {
-		append_notices_to_wrapper();
+		if (!has_default_notices) {
+			append_notices_to_wrapper();
+		}
 	}
 
 	/************************************************************

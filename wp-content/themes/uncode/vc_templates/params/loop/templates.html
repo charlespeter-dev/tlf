@@ -171,7 +171,7 @@
             if(!_.isEmpty(params) && is_locked) {
 				params += ' disabled="true"';
 			}
-            if ( value !== 'uncodeblock' && value !== 'uncode_gallery' ) {
+            if ( value !== 'uncodeblock' && value !== 'uncode_gallery' && value !== 'popup' ) {
             #>
             <label><input type="checkbox" data-input="{{ name }}" value="{{ value }}" {{ params }}/> {{ label }}</label>
             <#

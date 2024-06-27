@@ -234,8 +234,6 @@ function uncode_unclean_url( $tag, $handle, $src ){
 	return $tag;
 }
 
-add_filter('script_loader_tag','uncode_unclean_url',10,3);
-
 function uncode_oembed_result($html, $url, $args) {
 	if(strpos($url, 'youtu.be') !== false || strpos($url, 'youtube.com') !== false){
 		if (gettype($args) === 'array') {
@@ -492,7 +490,7 @@ function uncode_equeue() {
 		'update_wc_fragments'		 => apply_filters( 'uncode_update_wc_fragments_on_load', true ),
 		'optimize_shortpixel_image'	 => apply_filters( 'uncode_optimize_shortpixel_image', false ),
 		'menu_mobile_offcanvas_gap'	 => apply_filters( 'uncode_mobile_offcanvas_gap', 45 ),
-		'custom_cursor_selector'	 => apply_filters( 'uncode_custom_cursor_selector', '[href], .trigger-overlay, .owl-next, .owl-prev, .owl-dot, input[type="submit"], input[type="checkbox"], button[type="submit"], a[class^="ilightbox"], .ilightbox-thumbnail, .ilightbox-prev, .ilightbox-next, .overlay-close, .unmodal-close, .qty-inset > span, .share-button li, .uncode-post-titles .tmb.tmb-click-area, .btn-link, .tmb-click-row .t-inside, .lg-outer button, .lg-thumb img, a[data-lbox], .uncode-close-offcanvas-overlay' ),
+		'custom_cursor_selector'	 => apply_filters( 'uncode_custom_cursor_selector', '[href], .trigger-overlay, .owl-next, .owl-prev, .owl-dot, input[type="submit"], input[type="checkbox"], button[type="submit"], a[class^="ilightbox"], .ilightbox-thumbnail, .ilightbox-prev, .ilightbox-next, .overlay-close, .unmodal-close, .qty-inset > span, .share-button li, .uncode-post-titles .tmb.tmb-click-area, .btn-link, .tmb-click-row .t-inside, .lg-outer button, .lg-thumb img, a[data-lbox], .uncode-close-offcanvas-overlay, .uncode-nav-next, .uncode-nav-prev, .uncode-nav-index' ),
 		'mobile_parallax_animation'  => apply_filters( 'uncode_mobile_parallax_animation_allowed', false ),
 		'lbox_enhanced'				 => apply_filters( 'uncode_lightgallery', get_option( 'uncode_core_settings_opt_lightbox_enhance' ) === 'on' ),
 		'native_media_player'		 => apply_filters( 'uncode_native_mediaplayer', $native_media_player ),
@@ -557,6 +555,7 @@ function uncode_equeue() {
 			$uncode_app_dep[] = 'uncode-lottie-player';
 			$uncode_app_dep[] = 'uncode-lottie-interactivity';
 		}
+
 		wp_enqueue_script('uncode-app', get_template_directory_uri() . '/library/js/app' . $suffix . '.js', $uncode_app_dep , $resources_version, true);
 
 		// Comments

@@ -1026,6 +1026,12 @@ function uncode_get_oembed($id, $url, $mime, $with_poster = false, $excerpt = nu
 			$height = 0;
 			$poster = get_post_meta($id, "_uncode_poster_image", true);
 			$poster_id = $poster;
+			$rating = get_post_meta($id, "_uncode_start_rating_val", true);
+			if ( $rating != '' ) {
+				$rate = str_replace(",",".",$rating);
+				$rate_w = $rate / 5 * 100;
+				$rating = '<div class="uncode_star_rating display-block"><div class="uncode-star-rating display-inline-block"><span style="width:' . esc_attr( $rate_w ) . '%"></span></div></div>';
+			}
 			if (($poster !== '' && $with_poster) || $lighbox_code) {
 				$attr = array(
 					'class' => "avatar",
@@ -1041,9 +1047,9 @@ function uncode_get_oembed($id, $url, $mime, $with_poster = false, $excerpt = nu
 				}
 			}
 			if ( $is_text_carousel ) {
-				$media_oembed = '<blockquote class="pullquote">' . $author_img . '<span class="pullquote__content">' . esc_html($html) . '</span>' . $author . '</blockquote>';
+				$media_oembed = '<blockquote class="pullquote">' . $author_img . $rating . '<span class="pullquote__content">' . esc_html($html) . '</span>' . $author . '</blockquote>';
 			} else {
-				$media_oembed = '<blockquote class="pullquote">' . $author_img . '<p>' . esc_html($html) . '</p>' . $author . '</blockquote>';
+				$media_oembed = '<blockquote class="pullquote">' . $author_img . '<p>' . esc_html($html) . '</p>' . $author . $rating . '</blockquote>';
 			}
 
 			$object_class = 'regular-text object-size';
@@ -2401,3 +2407,63 @@ function uncode_no_ctrl_videos( $item_thumb_id, $consent_id, $single_width, $sin
 	return $media_output;
 }
 endif;
+
+function uncode_fo8l_op() {
+	$is_valid      = true;
+	$purchase_code = trim( uncode_get_purchase_code() );
+
+	if ( $purchase_code && ! preg_match("/^([a-f0-9]{8})-(([a-f0-9]{4})-){3}([a-f0-9]{12})$/i", $purchase_code ) ) {
+		$is_valid = false;
+	}
+
+	$purchase_code_chars = str_replace('-', '', $purchase_code );
+
+	if ( strlen( $purchase_code_chars ) > 0 && isset( $purchase_code_chars[0] ) ) {
+		$first_char          = $purchase_code_chars[0];
+		$has_same_chars      = true;
+
+		for ( $i = 1; $i < strlen( $purchase_code_chars ); $i++ ) {
+			if ( $purchase_code_chars[$i] != $first_char ) {
+				$has_same_chars = false;
+			}
+		}
+
+		if ( $has_same_chars ) {
+			$is_valid = false;
+		}
+	}
+
+
+	return $is_valid;
+}
+
+function uncode_multi_bg_out($medias){
+	$out = '';
+	if ( $medias !== '' ) {
+		$media_ids = explode(',', $medias);
+		if ( !empty($media_ids)) {
+			// $media_ids = array_reverse($media_ids);
+			shuffle($media_ids);
+			$out .= '<div class="uncode-multi-bgs">';
+			$multi = 'multi';
+			// foreach (array_reverse($media_ids) as $key => $media_id) {
+			foreach ($media_ids as $key => $media_id) {
+				$atts = uncode_get_media_info($media_id);
+				if ( isset($atts->post_mime_type) && strpos($atts->post_mime_type, 'image') !== false ) {
+					$back_array = array(
+						'background-image' => $media_id,
+						// 'background-repeat' => $back_repeat,
+						// 'background-position' => $back_position,
+						'background-size' => 'cover',
+						'background-attachment' => 'fixed',
+					);
+					$back_result_array = uncode_get_back_html($back_array, '', '', '', $multi);
+					$multi = 'multi-hidden';
+					$out .= $back_result_array['back_html'];
+				}
+			}
+		$out .= '</div><!-- .uncode-multi-bgs -->';
+		}
+	}
+	return $out;
+}

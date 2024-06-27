@@ -11,7 +11,7 @@
 				$video_wrap = $video.closest('.fluid-object.is-no-control.play-on-hover'),
 				$mobile_video_wrap = $video.closest('.fluid-object.is-no-control.no-control-mobile-autoplay'),
 				restart = !$video_wrap.hasClass('play-pause'),
-				$tmb = $video.closest('.tmb-all-hover.tmb-content-under').length ? $video.closest('.t-inside') : $video.closest('.t-entry-visual'),
+				$tmb = $video.closest('.tmb-all-hover.tmb-content-under').length ? $video.closest('.t-inside') : $video.closest('.t-entry-visual, .un-inline-image'),
 				setTime;
 			if ( newW >= UNCODE.mediaQuery ) {
 
@@ -46,7 +46,7 @@
 				$video_wrap = $video.closest('.fluid-object.is-no-control.play-on-hover'),
 				$mobile_video_wrap = $video.closest('.fluid-object.is-no-control.no-control-mobile-autoplay'),
 				restart = !$video_wrap.hasClass('play-pause'),
-				$tmb = $video.closest('.tmb-all-hover.tmb-content-under').length ? $video.closest('.t-inside') : $video.closest('.t-entry-visual'),
+				$tmb = $video.closest('.tmb-all-hover.tmb-content-under').length ? $video.closest('.t-inside') : $video.closest('.t-entry-visual, .un-inline-image'),
 				setTime;
 
 			if ( newW >= UNCODE.mediaQuery ) {
@@ -93,7 +93,7 @@
 				$video_wrap = $video.closest('.fluid-object.is-no-control.play-on-hover'),
 				restart = !$video_wrap.hasClass('play-pause'),
 				$mobile_video_wrap = $video.closest('.fluid-object.is-no-control.no-control-mobile-autoplay'),
-				$tmb = $video.closest('.tmb-all-hover.tmb-content-under').length ? $video.closest('.t-inside') : $video.closest('.t-entry-visual'),
+				$tmb = $video.closest('.tmb-all-hover.tmb-content-under').length ? $video.closest('.t-inside') : $video.closest('.t-entry-visual, .un-inline-image'),
 				setTime,
 			manageVideo = function(){
 				video.currentTime = 0;

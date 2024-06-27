@@ -947,6 +947,9 @@ body:not(.ajax-hide-filters) .ajax-filter-sidebar-overlay .ajax-filter-sidebar {
 .widget-ajax-filters--checkbox input[type=radio]:checked:before {
   line-height: 17px;
 }
+.widget-ajax-filters {
+  margin-top: 0 !important;
+}
 .widget-ajax-filters .star-rating {
   line-height: 1.2;
   vertical-align: middle;

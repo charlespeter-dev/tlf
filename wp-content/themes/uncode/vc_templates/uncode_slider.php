@@ -8,6 +8,7 @@ extract(shortcode_atts(array(
 	'slider_interval' => 0,
 	'slider_navspeed' => 400,
 	'slider_loop' => '',
+	'advanced_nav' => '',
 	'slider_hide_arrows' => '',
 	'slider_hide_dots' => '',
 	'slider_dots_space' => '',
@@ -64,8 +65,12 @@ if ( function_exists('vc_is_page_editable') && vc_is_page_editable() ) {
 
 $style = $is_header !== 'yes' ? ' style-'.$style : '';
 
-$data_nav = $slider_hide_arrows === '' ? 'true' : 'false';
-if ( $slider_hide_dots === '' ) {
+if ( $advanced_nav === 'yes' ) {
+	$slider_hide_arrows = $slider_hide_dots = 'yes';
+}
+
+$data_nav = $slider_hide_arrows === '' && $advanced_nav !== 'yes' ? 'true' : 'false';
+if ( $slider_hide_dots === '' && $advanced_nav !== 'yes' ) {
 	$data_dots = 'true';
 	$limit_width = $slider_dot_width !== '' ? 'true' : 'false';
 	if ($slider_dots_space === 'yes') {
@@ -126,7 +131,7 @@ $output .= '<div class="'.esc_attr($css_class).'owl-carousel-container owl-dots-
 $output .= '<div id="'.esc_attr($el_unique_id).'" class="owl-carousel owl-element owl-dots-inside owl-height-'.esc_attr($slider_height).'"'.$slider_type.' data-loop="'.($slider_loop === 'yes' && !( function_exists('vc_is_page_editable') && vc_is_page_editable() ) ? "true" : "false").'" data-autoheight="'.($slider_height === 'auto' ? 'true' : 'false').'" data-nav="' . esc_attr( $data_nav ) . '" data-dotsmobile="' . esc_attr( $data_dots ) . '" data-dots="' . esc_attr( $data_dots ) . '" data-navspeed="' . esc_attr( $slider_navspeed ) . '" data-autoplay="' . esc_attr( $slider_autoplay ) . '"' . $slider_timeout . ' data-lg="1" data-md="1" data-sm="1" data-limit-width="' . esc_attr( $limit_width ) . '">';
 $output .= $content;
 $output .= '</div>';
-if ( $slider_hide_dots === '' && !empty($dots_classes) ) {
+if ( $slider_hide_dots === '' && !empty($dots_classes) && $advanced_nav !== 'yes' ) {
 	$dots_classes[] = 'owl-dots-classes';
 }
 $output .= '<div class="uncode_slider-dot_classes ' . esc_attr(trim(implode( ' ', $dots_classes ))) . '"' . $internal_width . '></div>';

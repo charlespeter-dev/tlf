@@ -23,7 +23,7 @@
 					$(cssGridContainersArray[i]).infinitescroll({
 						navSelector: '#' + cssGridId + ' .loadmore-button', // selector for the pagination container
 						nextSelector: '#' + cssGridId + ' .loadmore-button a', // selector for the NEXT link (to page 2)
-						itemSelector: '#' + cssGridId + ' .cssgrid-layout .tmb, #' + cssGridId + ' .grid-filters li.filter-cat', // selector for all items you'll retrieve
+						itemSelector: '#' + cssGridId + ' .cssgrid-layout .tmb, #' + cssGridId + ' .grid-filters li.filter-cat, #' + cssGridId + ' .woocommerce-result-count-wrapper--default', // selector for all items you'll retrieve
 						animate: false,
 						behavior: 'local',
 						debug: false,
@@ -45,19 +45,26 @@
 							cssGridSystemCont = $cssGrid.closest('.cssgrid-system'),
 							cssGridId = cssGridSystemCont.attr('id'),
 							filters = new Array(),
-							$loading_button = $cssGrid.closest('.cssgrid-system').find('.loading-button'),
-							$infinite_button = $cssGrid.closest('.cssgrid-system').find('.loadmore-button'),
+							$loading_button = cssGridSystemCont.find('.loading-button'),
+							$infinite_button = cssGridSystemCont.find('.loadmore-button'),
 							$numPages = $('a', $infinite_button).data('pages'),
+							$woo_results,
 							delay = 300;
 						$('a', $infinite_button).html($('a', $infinite_button).data('label'));
 						$infinite_button.show();
 						$loading_button.hide();
 						if ( $numPages != undefined && opts.state.currPage == $numPages) $infinite_button.hide();
 						$('> li', $cssGrid).remove();
-						$.each($(newElements), function(index, val) {
-							$(val).addClass('tmb-grid');
-							if ($(val).is("li")) {
-								filters.push($(val)[0]);
+						$('.cssgrid-container').find('.woocommerce-result-count-wrapper').remove();
+						$.each($(newElements), function (index, val) {
+							if ($(val).hasClass('woocommerce-result-count-wrapper')) {
+								$woo_results = $(val);
+								delete newElements[index];
+							} else {
+								$(val).addClass('tmb-grid');
+								if ($(val).is("li")) {
+									filters.push($(val)[0]);
+								}
 							}
 						});
 						newElements = newElements.filter(function(x) {
@@ -66,6 +73,17 @@
 						$.each($(filters), function(index, val) {
 							if ($('#' + cssGridId + ' a[data-filter="' + $('a', val).attr('data-filter') + '"]').length == 0) $('#' + cssGridId + ' .grid-filters ul').append($(val));
 						});
+						if ($woo_results && $woo_results.length > 0) {
+							var old_count = cssGridSystemCont.find('.woocommerce-result-count').text();
+							var new_count = $woo_results.find('.woocommerce-result-count').text();
+							var old_start = old_count.match(/(\d+)–(\d+)/)[1];
+							var new_end = new_count.match(/(\d+)–(\d+)/)[2];
+							function replaceMatch(match, p1, p2) {
+        						return old_start + '–' + new_end;
+							}
+							var new_count_text = old_count.replace(/(\d+)–(\d+)/, replaceMatch);
+							cssGridSystemCont.find('.woocommerce-result-count').text(new_count_text);
+						}
 
 						var filterValue = cssGridSystemCont.find('.grid-nav-link.active').attr('data-filter');
 						var sequential = cssGridSystemCont.hasClass('cssgrid-animate-sequential') ? true : false;

@@ -182,6 +182,10 @@ function uncode_print_style_custom_solid_color_css( $key, $value, $value_rgb, $b
 			echo "\n" . '.tmb-overlay-gradient-bottom .style-' . $key . '-bg:not(.tmb-term-evidence) { background-color: transparent !important; }';
 		}
 	}
+
+	if ( is_array( $properties ) && in_array( 'stroke', $properties ) ) {
+		echo "\n" . '.text-' . $key . '-color { color: transparent !important; -webkit-text-stroke-color: ' . $value . ' !important; -webkit-text-stroke-width: 1.5px }';
+	}
 }
 
 /**
@@ -211,6 +215,7 @@ function uncode_print_style_custom_gradient_color_css( $key, $value, $properties
 			echo "\n" . '.text-' . $key . '-color:before { color: '.$matches[0][0].'; }';
 		}
 		echo "\n" . '.text-' . $key . '-color > * { -webkit-text-fill-color: transparent !important; -webkit-background-clip: text !important; '.$value.' }';
+		echo "\n" . '.text-' . $key . '-color:before { -webkit-text-fill-color: transparent !important; -webkit-background-clip: text !important; '.$value.' }';
 		// echo "\n" . '.text-' . $key . '-color > * { background: none !important \0/IE9; }';
 		// echo "\n" . '@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { .text-' . $key . '-color > * { background: none !important; } }';
 	}

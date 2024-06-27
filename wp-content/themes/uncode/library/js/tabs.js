@@ -67,7 +67,7 @@
 				var $tabs = $(e.currentTarget).closest('.uncode-tabs');
 
 				if ( $tabs.hasClass('tabs-trigger-box-resized') ) {
-				window.dispatchEvent(new CustomEvent('boxResized'));
+					window.dispatchEvent(new CustomEvent('boxResized'));
 				} else if ( $tabs.hasClass('tabs-trigger-window-resize') ) {
 					window.dispatchEvent(new Event('resize'));
 					$(window).trigger('uncode.re-layout');

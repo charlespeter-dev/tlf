@@ -21,6 +21,7 @@ extract( shortcode_atts( array(
 	'typography' => '',
 	'titles_font' => '',
 	'titles_size' => '',
+	'heading_custom_size' => '',
 	'titles_weight' => '',
 	'titles_transform' => '',
 	'titles_height' => '',
@@ -126,6 +127,13 @@ $inline_style_css = uncode_get_dynamic_colors_css_from_shortcode( array(
 	)
 ) );
 
+if ( $titles_size === 'custom' && $heading_custom_size !== '' ) {
+	$inline_style_css .= uncode_get_dynamic_css_font_size_shortcode( array(
+		'id'         => $uncode_shortcode_id,
+		'font_size'  => $heading_custom_size
+	) );
+}
+
 $active_bg_color = uncode_get_shortcode_color_attribute_value( 'active_bg_color', $uncode_shortcode_id, $active_bg_color_type, $active_bg_color, $active_bg_color_solid, $active_bg_color_gradient );
 $active_txt_color = uncode_get_shortcode_color_attribute_value( 'active_txt_color', $uncode_shortcode_id, $active_txt_color_type, $active_txt_color, $active_txt_color_solid, $active_txt_color_gradient );
 
@@ -174,6 +182,9 @@ $tabs_advanced = array();
 if( $typography === 'advanced' ) {
 	$tabs_advanced[] = $titles_font;
 	$tabs_advanced[] = $titles_size;
+	if ($titles_size === 'custom' && $heading_custom_size !== '') {
+		$tabs_advanced[] = 'fontsize-' . $uncode_shortcode_id . '-custom';
+	}
 	$tabs_advanced[] = $titles_weight !== '' ? 'font-weight-' . $titles_weight : '';
 	$tabs_advanced[] = $titles_transform !== '' ? 'text-' . $titles_transform : '';
 	$tabs_advanced[] = $titles_height;

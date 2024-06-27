@@ -53,6 +53,29 @@ $cs_font_fallback = isset($uncode_option['_uncode_fallback_font']) ? $uncode_opt
 
 $btn_outline = $front_background_colors[$cs_heading_color_light];
 
+if ( !function_exists('uncode_loop_fontsizes') ) {
+	function uncode_loop_fontsizes( $font_title, $font_selector, $font_size ) {
+		$out = '';
+		$out .= "\n\n" . '/*----------------------------------------------------------';
+		$out .= "\n" . '# ' . $font_title;
+		$out .= "\n" . '----------------------------------------------------------*/';
+		if ( ( $font_size > 0 && is_numeric( $font_size ) ) || str_replace(floatval($font_size), '', $font_size) === 'px' ) {
+			$font_size = floatval($font_size);
+			$out .= "\n" . $font_selector . ' { font-size: ' . $font_size . 'px; }';
+			$first_mquery = $font_size / 1.5;
+			if ($font_size > 35) {
+				$out .= "\n" . '@media (max-width: 959px) { ' . $font_selector . ' { font-size: ' . $first_mquery . 'px; }}';
+				if ($first_mquery > 35) {
+					$out .= "\n" . '@media (max-width: 569px) { ' . $font_selector . ' { font-size: 35px; }}';
+				}
+			}
+		} else {
+			$out .= "\n" . $font_selector . ' { font-size: ' . $font_size . '; }';
+		}
+		return $out;
+	}
+}
+
 echo "/*";
 echo "\n" . "----------------------------------------------------------";
 echo "\n" . "[Table of contents]";
@@ -259,22 +282,9 @@ if (isset($uncode_option['_uncode_heading_font_sizes'])) {
 	$font_sizes = $uncode_option['_uncode_heading_font_sizes'];
 	if (!empty($font_sizes) && is_array($font_sizes)) {
 		foreach ($font_sizes as $key => $value) {
-			$_heading_font_size = isset( $value['_uncode_heading_font_size'] ) ? floatval( $value['_uncode_heading_font_size'] ) : 0;
-			if ( $_heading_font_size && $_heading_font_size > 0 ) {
-				echo "\n\n" . '/*----------------------------------------------------------';
-				echo "\n" . '#Font-size: '.$_heading_font_size.'px';
-				echo "\n" . '----------------------------------------------------------*/';
-				echo "\n" . '.' . $value['_uncode_heading_font_size_unique_id'] . ' { font-size: ' . $_heading_font_size . 'px; }';
-				$first_mquery = $_heading_font_size / 1.5;
-				if ($_heading_font_size > 35) {
-					echo "\n" . '@media (max-width: 959px) { .' . $value['_uncode_heading_font_size_unique_id'] . ' { font-size: ' . $first_mquery . 'px; }}';
-					if ($first_mquery > 35) {
-						echo "\n" . '@media (max-width: 569px) { .' . $value['_uncode_heading_font_size_unique_id'] . ' { font-size: 35px; }}';
-					}
-				}
-				if ($first_mquery > 28) {
-					echo "\n" . '@media (max-width: 320px) { .' . $value['_uncode_heading_font_size_unique_id'] . ' { font-size: 28px; }}';
-				}
+			$_heading_font_size = isset( $value['_uncode_heading_font_size'] ) ? $value['_uncode_heading_font_size'] : 0;
+			if ( $_heading_font_size ) {
+				echo uncode_loop_fontsizes($value['_uncode_heading_font_size_unique_id'], '.' . $value['_uncode_heading_font_size_unique_id'], $_heading_font_size);
 			}
 		}
 	}
@@ -301,7 +311,8 @@ if (isset($uncode_option['_uncode_heading_font_spacings'])) {
 			echo "\n\n" . '/*----------------------------------------------------------';
 			echo "\n" . '#Letter-spacing: '.$value['_uncode_heading_font_spacing'];
 			echo "\n" . '----------------------------------------------------------*/';
-			echo "\n" . '.' . $value['_uncode_heading_font_spacing_unique_id'] . ' { letter-spacing: ' . $value['_uncode_heading_font_spacing'] . ' !important; }';
+			echo "\n" . '.' . $value['_uncode_heading_font_spacing_unique_id'] . ':not(.bigtext) { letter-spacing: ' . $value['_uncode_heading_font_spacing'] . ' !important; }';
+			echo "\n" . '.' . $value['_uncode_heading_font_spacing_unique_id'] . '.bigtext > span { letter-spacing: ' . $value['_uncode_heading_font_spacing'] . ' !important; }';
 		}
 	}
 }
@@ -326,98 +337,42 @@ if ($default_font_size !== '') {
 }
 if ($large_text_font_size !== '') {
 	echo "\n.text-lead, .text-lead > *, .nav-tabs .tab-excerpt.text-lead { font-size: " . intval($large_text_font_size) . "px; }".
-	"\n.module-text-lead,.module-text-lead > *,.module-text-lead p,.module-text-lead li,.module-text-lead dt,.module-text-lead dd,.module-text-lead dl,.module-text-lead address,.module-text-lead label,.module-text-lead small,.uncode-wc-module.text-lead pre,.module-text-lead code { font-size: " . intval($large_text_font_size) . "px; }".
-	"\n@media (max-width: 1499px) { .uncode-slider .text-lead > * { font-size: " . ( ( intval($large_text_font_size) / 9 ) * 8 ) . "px; } }".
-	"\n@media (max-width: 959px) { .uncode-slider .text-lead > * { font-size: " . ( ( intval($large_text_font_size) / 18 ) * 13 ) . "px; } }";
+	"\n.module-text-lead,.module-text-lead > *,.module-text-lead p,.module-text-lead li,.module-text-lead dt,.module-text-lead dd,.module-text-lead dl,.module-text-lead address,.module-text-lead label,.module-text-lead small,.uncode-wc-module.text-lead pre,.module-text-lead code { font-size: " . intval($large_text_font_size) . "px; }";
+	// "\n@media (max-width: 1499px) { .uncode-slider .text-lead > * { font-size: " . ( ( intval($large_text_font_size) / 9 ) * 8 ) . "px; } }".
+	// "\n@media (max-width: 959px) { .uncode-slider .text-lead > * { font-size: " . ( ( intval($large_text_font_size) / 18 ) * 13 ) . "px; } }";
 }
 if ($small_text_font_size !== '') {
 	echo "\n.text-small, .text-small > *, .nav-tabs .tab-excerpt.text-small { font-size: " . intval($small_text_font_size) . "px; }".
-	"\n.module-text-small,.module-text-small > *,.module-text-small p,.module-text-small li,.module-text-small dt,.module-text-small dd,.module-text-small dl,.module-text-small address,.module-text-small label,.module-text-small small,.uncode-wc-module.text-small pre,.module-text-small code { font-size: " . intval($small_text_font_size) . "px; }".
-	"\n@media (max-width: 1499px) { .uncode-slider .text-small > * { font-size: " . ( ( intval($small_text_font_size) / 9 ) * 8 ) . "px; } }".
-	"\n@media (max-width: 959px) { .uncode-slider .text-small > * { font-size: " . ( ( intval($small_text_font_size) / 18 ) * 13 ) . "px; } }";
+	"\n.module-text-small,.module-text-small > *,.module-text-small p,.module-text-small li,.module-text-small dt,.module-text-small dd,.module-text-small dl,.module-text-small address,.module-text-small label,.module-text-small small,.uncode-wc-module.text-small pre,.module-text-small code { font-size: " . intval($small_text_font_size) . "px; }";
+	// "\n@media (max-width: 1499px) { .uncode-slider .text-small > * { font-size: " . ( ( intval($small_text_font_size) / 9 ) * 8 ) . "px; } }".
+	// "\n@media (max-width: 959px) { .uncode-slider .text-small > * { font-size: " . ( ( intval($small_text_font_size) / 18 ) * 13 ) . "px; } }";
 }
 if ($h1 !== '') {
-	echo "\n" . 'h1:not([class*="fontsize-"]),.h1:not([class*="fontsize-"]) { font-size: ' . $h1 . 'px; }';
-	$first_mquery = $h1 / 1.5;
-	if ($h1 > 35) {
-		echo "\n" . '@media (max-width: 959px) { h1:not([class*="fontsize-"]),.h1:not([class*="fontsize-"]) { font-size: ' . $first_mquery . 'px; }}';
-		if ($first_mquery > 35) {
-			echo "\n" . '@media (max-width: 569px) { h1:not([class*="fontsize-"]),.h1:not([class*="fontsize-"]) { font-size: 35px; }}';
-		}
-	}
-	if ($first_mquery > 28) {
-		echo "\n" . '@media (max-width: 320px) { h1:not([class*="fontsize-"]),.h1:not([class*="fontsize-"]) { font-size: 28px; }}';
-	}
+	echo uncode_loop_fontsizes('h1', 'h1:not([class*="fontsize-"]),.h1:not([class*="fontsize-"])', $h1);
 }
 if ($h2 !== '') {
-	echo "\n" . 'h2:not([class*="fontsize-"]),.h2:not([class*="fontsize-"]) { font-size: ' . $h2 . 'px; }';
-	$first_mquery = $h2 / 1.5;
-	if ($h2 > 35) {
-		echo "\n" . '@media (max-width: 959px) { h2:not([class*="fontsize-"]),.h2:not([class*="fontsize-"]) { font-size: ' . $first_mquery . 'px; }}';
-		if ($first_mquery > 35) {
-			echo "\n" . '@media (max-width: 569px) { h2:not([class*="fontsize-"]),.h2:not([class*="fontsize-"]) { font-size: 35px; }}';
-		}
-	}
-	if ($first_mquery > 28) {
-		echo "\n" . '@media (max-width: 320px) { h2:not([class*="fontsize-"]),.h2:not([class*="fontsize-"]) { font-size: 28px; }}';
-	}
+	echo uncode_loop_fontsizes('h2', 'h2:not([class*="fontsize-"]),.h2:not([class*="fontsize-"])', $h2);
 }
 if ($h3 !== '') {
-	echo "\n" . 'h3:not([class*="fontsize-"]),.h3:not([class*="fontsize-"]) { font-size: ' . $h3 . 'px; }';
-	$first_mquery = $h3 / 1.5;
-	if ($h3 > 35) {
-		echo "\n" . '@media (max-width: 959px) { h3:not([class*="fontsize-"]),.h3:not([class*="fontsize-"]) { font-size: ' . $first_mquery . 'px; }}';
-		if ($first_mquery > 35) {
-			echo "\n" . '@media (max-width: 569px) { h3:not([class*="fontsize-"]),.h3:not([class*="fontsize-"]) { font-size: 35px; }}';
-		}
-	}
-	if ($first_mquery > 28) {
-		echo "\n" . '@media (max-width: 320px) { h3:not([class*="fontsize-"]),.h3:not([class*="fontsize-"]) { font-size: 28px; }}';
-	}
+	echo uncode_loop_fontsizes('h3', 'h3:not([class*="fontsize-"]),.h3:not([class*="fontsize-"])', $h3);
 }
 if ($h4 !== '') {
-	echo "\n" . 'h4:not([class*="fontsize-"]),.h4:not([class*="fontsize-"]) { font-size: ' . $h4 . 'px; }';
-	$first_mquery = $h4 / 1.5;
-	if ($h4 > 35) {
-		echo "\n" . '@media (max-width: 959px) { h4:not([class*="fontsize-"]),.h4:not([class*="fontsize-"]) { font-size: ' . $first_mquery . 'px; }}';
-		if ($first_mquery > 35) {
-			echo "\n" . '@media (max-width: 569px) { h4:not([class*="fontsize-"]),.h4:not([class*="fontsize-"]) { font-size: 35px; }}';
-		}
-	}
-	if ($first_mquery > 28) {
-		echo "\n" . '@media (max-width: 320px) { h4:not([class*="fontsize-"]),.h4:not([class*="fontsize-"]) { font-size: 28px; }}';
-	}
+	echo uncode_loop_fontsizes('h4', 'h4:not([class*="fontsize-"]),.h4:not([class*="fontsize-"])', $h4);
 }
 if ($h5 !== '') {
-	echo "\n" . 'h5:not([class*="fontsize-"]),.h5:not([class*="fontsize-"]) { font-size: ' . $h5 . 'px; }';
-	$first_mquery = $h5 / 1.5;
-	if ($h5 > 35) {
-		echo "\n" . '@media (max-width: 959px) { h5:not([class*="fontsize-"]),.h5:not([class*="fontsize-"]) { font-size: ' . $first_mquery . 'px; }}';
-		if ($first_mquery > 35) {
-			echo "\n" . '@media (max-width: 569px) { h5:not([class*="fontsize-"]),.h5:not([class*="fontsize-"]) { font-size: 35px; }}';
-		}
-	}
-	if ($first_mquery > 28) {
-		echo "\n" . '@media (max-width: 320px) { h5:not([class*="fontsize-"]),.h5:not([class*="fontsize-"]) { font-size: 28px; }}';
-	}
+	echo uncode_loop_fontsizes('h5', 'h5:not([class*="fontsize-"]),.h5:not([class*="fontsize-"])', $h5);
 }
 if ($h6 !== '') {
-	echo "\n" . 'h6:not([class*="fontsize-"]),.h6:not([class*="fontsize-"]) { font-size: ' . $h6 . 'px; }';
-	$first_mquery = $h6 / 1.5;
-	if ($h6 > 35) {
-		echo "\n" . '@media (max-width: 959px) { h6:not([class*="fontsize-"]),.h6:not([class*="fontsize-"]) { font-size: ' . $first_mquery . 'px; }}';
-		if ($first_mquery > 35) {
-			echo "\n" . '@media (max-width: 569px) { h6:not([class*="fontsize-"]),.h6:not([class*="fontsize-"]) { font-size: 35px; }}';
-		}
-	}
-	if ($first_mquery > 28) {
-		echo "\n" . '@media (max-width: 320px) { h6:not([class*="fontsize-"]),.h6:not([class*="fontsize-"]) { font-size: 28px; }}';
-	}
+	echo uncode_loop_fontsizes('h6', 'h6:not([class*="fontsize-"]),.h6:not([class*="fontsize-"])', $h6);
 }
 
 echo "\n\n";
 
 $color_primary = $cs_accent_color;
+$_color_primary_alpha = function_exists('uncode_hex2rgb') ? uncode_hex2rgb($color_primary) : array(0,0,0);
+$color_primary_alpha = 'rgba('.$_color_primary_alpha[0].','.$_color_primary_alpha[1].','.$_color_primary_alpha[2].',0.75)';
+$color_primary_alpha_01 = 'rgba('.$_color_primary_alpha[0].','.$_color_primary_alpha[1].','.$_color_primary_alpha[2].',0.1)';
+
 
 /** Light skin **/
 $color_logo = $cs_logo_color_light;
@@ -461,9 +416,9 @@ $color_menu_text_inverted_hover_static = function_exists('uncode_hex2rgb') ? unc
 $color_menu_text_inverted_hover_static = 'rgba('.$color_menu_text_inverted_hover_static[0].','.$color_menu_text_inverted_hover_static[1].','.$color_menu_text_inverted_hover_static[2].',.5)';
 
 $color_heading = $cs_heading_color_light;
-$color_heading_alpha = function_exists('uncode_hex2rgb') ? uncode_hex2rgb($color_heading) : array(0,0,0);
-$color_heading_alpha = 'rgba('.$color_heading_alpha[0].','.$color_heading_alpha[1].','.$color_heading_alpha[2].',0.75)';
-$color_heading_alpha_01 = 'rgba('.$color_heading_alpha[0].','.$color_heading_alpha[1].','.$color_heading_alpha[2].',0.1)';
+$_color_heading_alpha = function_exists('uncode_hex2rgb') ? uncode_hex2rgb($color_heading) : array(0,0,0);
+$color_heading_alpha = 'rgba('.$_color_heading_alpha[0].','.$_color_heading_alpha[1].','.$_color_heading_alpha[2].',0.75)';
+$color_heading_alpha_01 = 'rgba('.$_color_heading_alpha[0].','.$_color_heading_alpha[1].','.$_color_heading_alpha[2].',0.1)';
 
 $color_heading_inverted = $cs_heading_color_dark;
 $color_text = $cs_text_color_light;

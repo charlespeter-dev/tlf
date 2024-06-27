@@ -56,13 +56,6 @@ body > .woocommerce-notices-wrapper {
   display: none !important;
 }
 @font-face {
-  font-family: 'star';
-  src: url('../fonts/woocommerce/star.eot');
-  src: url('../fonts/woocommerce/star.eot?#iefix') format('embedded-opentype'), url('../fonts/woocommerce/star.woff') format('woff'), url('../fonts/woocommerce/star.ttf') format('truetype'), url('../fonts/woocommerce/star.svg#star') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
   font-family: 'WooCommerce';
   src: url('../fonts/woocommerce/WooCommerce.eot');
   src: url('../fonts/woocommerce/WooCommerce.eot?#iefix') format('embedded-opentype'), url('../fonts/woocommerce/WooCommerce.woff') format('woff'), url('../fonts/woocommerce/WooCommerce.ttf') format('truetype'), url('../fonts/woocommerce/WooCommerce.svg#WooCommerce') format('svg');
@@ -1345,6 +1338,9 @@ ul.wc-notice {
 .tmb-woocommerce.tmb .t-entry-inline-price .t-entry .t-entry-title {
   display: inline-block;
   width: auto;
+}
+.hide-title-tooltip.tmb-woocommerce.tmb .t-entry-inline-price .t-entry .t-entry-title {
+  display: none !important;
 }
 .tmb-woocommerce.tmb .t-entry-inline-price .t-entry .price {
   color: inherit !important;
@@ -3186,32 +3182,37 @@ span.woocommerce-review-link {
   display: inline-block;
   overflow: hidden;
   position: relative;
-  height: 16px;
-  line-height: 19px;
+  height: 1.25em;
+  line-height: 1.5em;
   font-size: 11px;
-  width: 58px;
-  font-family: 'star';
+  letter-spacing: 0.1em;
+  width: 5.5em;
+  font-family: 'uncodeicon';
 }
 .star-rating:before {
-  font-size: 11px;
-  content: "\53\53\53\53\53";
+  font-size: inherit;
+  content: "\e946\e946\e946\e946\e946";
   float: left;
   opacity: .5;
   top: 0;
   left: 0;
   position: absolute;
 }
+.uncode-star-rating.star-rating:before {
+  font-size: inherit;
+}
 .star-rating span {
   overflow: hidden;
   float: left;
+  height: 0;
   top: 0;
   left: 0;
   position: absolute;
   padding-top: 1.5em;
 }
 .star-rating span:before {
-  font-size: 11px;
-  content: "\53\53\53\53\53";
+  font-size: inherit;
+  content: "\e946\e946\e946\e946\e946";
   top: 0;
   position: absolute;
   left: 0;

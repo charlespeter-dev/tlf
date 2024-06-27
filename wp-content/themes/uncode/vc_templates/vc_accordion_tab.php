@@ -92,6 +92,9 @@ if ( is_array($tab_titles_typography)) {
 	}
 	if ( isset($titles_size) ) {
 		$panel_title_class[] = $titles_size;
+		if ($titles_size === 'custom' && $heading_custom_size !== '') {
+			$panel_title_class[] = 'fontsize-' . $uncode_shortcode_id . '-custom';
+		}
 	}
 	if ( isset($titles_weight) ) {
 		$panel_title_class[] = 'font-weight-' . $titles_weight;

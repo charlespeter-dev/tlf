@@ -1,6 +1,6 @@
 <?php
 
-$output = $el_id = $el_class = $width = $column_width_use_pixel = $column_width_percent = $column_width_pixel = $style = $font_family = $limit_content = $uncell_style = $back_color = $back_image = $back_image_auto = $back_image_option = $back_repeat = $back_attachment = $back_position = $back_size = $overlay_color = $overlay_alpha = $overlay_color_blend = $position_vertical = $position_horizontal = $align_horizontal = $expand_height = $override_padding = $gutter_size = $style_back = $div_style = $spaced_cell = $mobile_height = $uncoltable_style = $desktop_visibility = $medium_visibility = $mobile_visibility = $align_medium = $align_mobile = $col_style = $uncol_style = $background_div = $zoom_width = $zoom_height = $shift_x = $shift_x_fixed = $shift_y_fixed = $shift_y = $shift_y_down = $shift_y_down_fixed = $z_index = $internal_width = $link_div = $sticky = $skew = $shadow = $shadow_darker = $radius = $css_animation = $animation_delay = $animation_speed = $is_carousel = $medium_width = $mobile_width = $col_perc_md = $col_perc_sm = $kburns = $preserve_border = $preserve_border_tablet = $preserve_border_mobile = $custom_inline_css = '';
+$output = $el_id = $el_class = $width = $column_width_use_pixel = $column_width_percent = $column_width_pixel = $style = $font_family = $limit_content = $uncell_style = $back_color = $back_image = $back_image_auto = $back_image_option = $back_repeat = $back_attachment = $back_position = $back_size = $overlay_color = $overlay_alpha = $overlay_color_blend = $position_vertical = $position_horizontal = $align_horizontal = $expand_height = $override_padding = $gutter_size = $style_back = $div_style = $spaced_cell = $mobile_height = $uncoltable_style = $desktop_visibility = $medium_visibility = $mobile_visibility = $align_medium = $align_mobile = $col_style = $background_div = $zoom_width = $zoom_height = $shift_x = $shift_x_fixed = $shift_y_fixed = $shift_y = $shift_y_down = $shift_y_down_fixed = $z_index = $internal_width = $link_div = $sticky = $skew = $shadow = $shadow_darker = $radius = $css_animation = $animation_delay = $animation_speed = $is_carousel = $medium_width = $mobile_width = $col_perc_md = $col_perc_sm = $kburns = $preserve_border = $preserve_border_tablet = $preserve_border_mobile = $custom_inline_css = $toggle = $max_height = $max_height_mobile = $closed_txt = $icon_closed = $icon_position = $open_txt = $icon_open = $fade = $toggle_classes = $btn_align = $btn_margin = $toggle_scroll = $btn_margin_open = $trigger_resize = $toggle_navbar = $toggle_navbar_mobile = $multi_bg_out = $bg_transition = $bg_transition_time = $bg_carousel_time = $mobile_slideshow = $bg_carousel_time_mobile = $multi_scroll_manually = $bg_transition_pace = $bg_transition_pace_mouse = $bg_transition_threshold = $bg_transition_threshold_mobile = $multi_random = '';
 extract(shortcode_atts(array(
 	'uncode_shortcode_id' => '',
 	'el_id' => '',
@@ -32,7 +32,16 @@ extract(shortcode_atts(array(
 	'overlay_color_gradient' => '',
 	'overlay_alpha' => '',
 	'overlay_color_blend' => '',
-	'position_vertical' => 'top',
+	'overlay_animated' => '',
+	'overlay_animated_1_color' => '',
+	'overlay_animated_1_color_type' => '',
+	'overlay_animated_1_color_solid' => '',
+	'overlay_animated_2_color' => '',
+	'overlay_animated_2_color_type' => '',
+	'overlay_animated_2_color_solid' => '',
+	'overlay_animated_speed' => '',
+	'overlay_animated_size' => '',
+    'position_vertical' => 'top',
 	'position_horizontal' => 'center',
 	'align_horizontal' => 'align_left',
 	'expand_height' => '',
@@ -75,6 +84,36 @@ extract(shortcode_atts(array(
 	'preserve_border' => '',
 	'preserve_border_tablet' => '',
 	'preserve_border_mobile' => '',
+	'toggle' => '',
+	'max_height' => 200,
+	'max_height_mobile' => '',
+	'closed_txt' => esc_html__("Open", 'uncode-core') ,
+	'icon_closed' => '',
+	'icon_open' => '',
+	'icon_position' => '',
+	'open_txt' => esc_html__("Close", 'uncode-core') ,
+	'fade' => '',
+	'toggle_classes' => '',
+	'btn_align' => '',
+	'btn_margin' => '',
+	'btn_margin_open' => '',
+	'toggle_scroll' => '',
+	'trigger_resize' => '',
+	'toggle_navbar' => '',
+	'toggle_navbar_mobile' => '',
+	'multiple_media' => '',
+	'medias' => '',
+	'bg_transition' => '',
+	'bg_transition_time' => '250',
+	'bg_carousel_time' => '5000',
+	'mobile_slideshow' => '',
+	'bg_carousel_time_mobile' => '5000',
+	'bg_transition_pace' => '20',
+	'bg_transition_pace_mouse' => '200',
+	'bg_transition_threshold' => 0,
+	'bg_transition_threshold_mobile' => 0,
+	'multi_scroll_manually' => '',
+	'multi_random' => '',
 ) , $atts));
 
 if ( $el_id !== '' ) {
@@ -128,7 +167,7 @@ $back_color = uncode_get_shortcode_color_attribute_value( 'back_color', $uncode_
 $overlay_color = uncode_get_shortcode_color_attribute_value( 'overlay_color', $uncode_shortcode_id, $overlay_color_type, $overlay_color, $overlay_color_solid, $overlay_color_gradient );
 $border_color = uncode_get_shortcode_color_attribute_value( 'border_color', $uncode_shortcode_id, $border_color_type, $border_color, $border_color_solid, false );
 
-global $vc_column_width, $vc_column_inner_width, $changer_back_color_row_inner, $changer_back_color_column_inner;
+global $vc_column_width, $vc_column_inner_width, $changer_back_color_row_inner, $changer_back_color_column_inner, $front_background_colors, $uncode_colors_flat_array;
 
 $vc_column_width = $vc_column_width == 0 ? 1 : $vc_column_width;
 $vc_column_inner_width = $vc_column_inner_width == 0 ? 1 : $vc_column_inner_width;
@@ -169,10 +208,10 @@ if ($align_mobile !== '') {
 if ($column_width_use_pixel === 'yes' && $column_width_pixel !== '') {
 	$column_width_pixel = preg_replace("/[^0-9,.]/", "", $column_width_pixel);
 	$column_width_pixel = 12 * round(($column_width_pixel) / 12);
-	$internal_width = ' style="max-width:' . esc_attr( $column_width_pixel ) . 'px;"';
+	$internal_width = ' max-width:' . esc_attr( $column_width_pixel ) . 'px;';
 } else {
 	if (!empty($column_width_percent) && $column_width_percent !== '100') {
-		$internal_width = ' style="max-width:' . esc_attr( $column_width_percent ) . '%;"';
+		$internal_width = ' max-width:' . esc_attr( $column_width_percent ) . '%;';
 	}
 }
 
@@ -450,7 +489,7 @@ if ( $changer_back_color_row_inner && empty($back_color) ) {
 }
 
 /** BEGIN - background construction **/
-if (!empty($back_image) || $overlay_color !== '') {
+if (!empty($back_image) || $overlay_color !== '' || $overlay_animated === 'yes') {
 	if ($parallax === 'yes' || $kburns !== '') {
 		$back_size = 'cover';
 		if ($parallax === 'yes') {
@@ -503,8 +542,72 @@ if (!empty($back_image) || $overlay_color !== '') {
 		$previous_blend = true;
 	}
 
-	$back_result_array = uncode_get_back_html($back_array, $overlay_color, $overlay_alpha, '', 'column');
-	$background_div = $back_result_array['back_html'];
+	if ( $overlay_animated === 'yes' ) {
+		if ( $overlay_animated_1_color_type === 'uncode-palette' ) {
+			if ( isset($front_background_colors[$overlay_animated_1_color]) && in_array( $overlay_animated_1_color, $uncode_colors_flat_array ) ) {
+				$back_array['overlay-animated-1'] = $front_background_colors[$overlay_animated_1_color];
+			}
+		} elseif ( $overlay_animated_1_color_type === 'uncode-solid' ) {
+			$back_array['overlay-animated-1'] = $overlay_animated_1_color_solid;
+		}
+		if ( $overlay_animated_2_color_type === 'uncode-palette' ) {
+			if ( isset($front_background_colors[$overlay_animated_2_color]) && in_array( $overlay_animated_2_color, $uncode_colors_flat_array ) ) {
+				$back_array['overlay-animated-2'] = $front_background_colors[$overlay_animated_2_color];
+			}
+		} elseif ( $overlay_animated_2_color_type === 'uncode-solid' ) {
+			$back_array['overlay-animated-2'] = $overlay_animated_2_color_solid;
+		}
+
+		$back_array['overlay-animated-speed'] = $overlay_animated_speed !== '' ? esc_attr($overlay_animated_speed) : '200';
+		$back_array['overlay-animated-size'] = $overlay_animated_size !== '' ? esc_attr($overlay_animated_size) : '1';
+	}
+
+	if ( $multiple_media === 'yes' && $medias !== '' && !(function_exists('vc_is_page_editable') && vc_is_page_editable()) ) {
+		$medias = $back_image . ','. $medias;
+		$media_ids = explode(',', $medias);
+		$multi_bg_array = array();
+		$multi_bg_array['transition-time'] = $bg_transition_time !== '' ? esc_html( $bg_transition_time ) : '250';
+		if ( $bg_transition !== '' ) {
+			$multi_bg_array['transition'] = esc_html( $bg_transition );
+			if ( $bg_transition === 'mouse' ) {
+				$multi_bg_array['transition-pace'] = $bg_transition_pace_mouse !== '' ? esc_html( $bg_transition_pace_mouse ) : '200';
+				if ( $mobile_slideshow === 'yes' ) {
+					$multi_bg_array['carousel-mobile'] = "yes";
+					$multi_bg_array['carousel-time'] = $bg_carousel_time_mobile !== '' ? esc_html( $bg_carousel_time_mobile ) : '5000';
+				}
+			} else {
+				if ( $multi_scroll_manually === 'yes' ) {
+					$multi_bg_array['transition-pace'] = $bg_transition_pace !== '' ? esc_html( $bg_transition_pace ) : '20';
+				}
+			}
+
+		} else {
+			$multi_bg_array['carousel-time'] = $bg_carousel_time !== '' ? esc_html( $bg_carousel_time ) : '5000';
+		}
+		if ( $bg_transition !== 'mouse' ) {
+			$multi_bg_array['transition-threshold'] = $bg_transition_threshold !== '' ? esc_html( $bg_transition_threshold ) : '0';
+		} else {
+			$multi_bg_array['transition-threshold'] = $bg_transition_threshold_mobile !== '' ? esc_html( $bg_transition_threshold_mobile ) : '0';
+		}
+		if ( $multi_random === 'yes' ) {
+			$multi_bg_array['multi-random'] = 'true';
+		}
+		$multi_bg_data = '';
+		foreach ($multi_bg_array as $att => $data_val) {
+			$multi_bg_data .= ' data-' . $att . '="' . $data_val . '"';
+		}
+		$background_div .= '<div class="uncode-multi-bgs"' . $multi_bg_data . '>';
+		foreach ($media_ids as $media_key => $media_id) {
+			$back_array_multi = $back_array;
+			$back_array_multi['background-image'] = $media_id;
+			$back_result_array = uncode_get_back_html($back_array_multi, $overlay_color, $overlay_alpha, '', 'column', 'multi-background');
+			$background_div .= $back_result_array['back_html'];	
+		}
+		$background_div .= '</div>';
+	} else {
+		$back_result_array = uncode_get_back_html($back_array, $overlay_color, $overlay_alpha, '', 'column');
+		$background_div = $back_result_array['back_html'];
+	}	
 }
 
 /** END - background construction **/
@@ -694,6 +797,105 @@ if ( $skew === 'yes' ) {
 	$uncoltable_classes[] = 'uncode-skew';
 }
 
+
+$uncont_style = $read_more_btn = $btn_txt_open = '';
+if ( $internal_width !== '' ) {
+	$uncont_style = $internal_width;
+}
+$uncode_data = array();
+if ( $toggle === 'yes' && $max_height !== '' ) {
+	if ( $max_height > 0 && is_numeric( $max_height ) ) {
+		$uncont_style .= 'max-height:' . esc_attr($max_height) . 'px;';
+		$uncode_data['data-ov-height'] = esc_attr($max_height . 'px');
+	} else {
+		$uncont_style .= 'max-height:' . esc_attr($max_height) . ';';
+		$uncode_data['data-ov-height'] = esc_attr($max_height);
+	}
+	$uncode_data['data-ov-height'] = esc_attr($max_height);
+
+	if ( $max_height_mobile !== '' ) {
+		if ( $max_height_mobile > 0 && is_numeric( $max_height_mobile ) ) {
+			$uncode_data['data-ov-height-mobile'] = esc_attr($max_height_mobile . 'px');
+		} else {
+			$uncode_data['data-ov-height-mobile'] = esc_attr($max_height_mobile);
+		}
+	}
+	$uncont_classes[] = 'overflow-hidden-mask overflow-mask';
+	if ( $fade !== '' ) {
+		$uncont_classes[] = 'overflow-fade-' . esc_attr( $fade );
+	}
+	$btn_txt = wp_kses_post( $closed_txt );
+	if ( $open_txt !== '' ) {
+		$btn_txt_open = wp_kses_post( $open_txt );
+	}
+	$btn_wrap_classes = array('btn-more-wrap', 'state-closed', 'style-' . $style);
+	$btn_classes = array('read-more-ov-trigger', 'btn-no-scale');
+	if ($icon_closed !== '') {
+		$icon_closed = '<i class="' . esc_attr($icon_closed) . '"></i>';
+	} else {
+		$icon_closed = '';
+	}
+	if ($icon_open !== '') {
+		$icon_open = '<i class="' . esc_attr($icon_open) . '"></i>';
+	} else {
+		$icon_open = '';
+	}
+	if ($icon_position === 'right') {
+		$btn_txt = $btn_txt . $icon_closed;
+		$btn_txt_open = $btn_txt_open . $icon_open;
+		$btn_classes[] = 'btn-icon-right';
+	} else {
+		$btn_txt = $icon_closed . $btn_txt;
+		$btn_txt_open = $icon_open . $btn_txt_open;
+		$btn_classes[] = 'btn-icon-left';
+	}
+	$btn_txt = '<span class="read_more_of_txt_closed">' . $btn_txt . '</span>';
+	if ( $btn_txt_open !== '' ) {
+		$btn_txt = '<span class="read_more_of_txt_open">' . $btn_txt_open . '</span>' . $btn_txt;
+	}
+	if ( $btn_align !== '' ) {
+		$btn_wrap_classes[] = 'read_more_of_' . $btn_align;
+	} else {
+		$btn_wrap_classes[] = 'read_more_of_center';
+	}
+	if ( $btn_margin !== '' ) {
+		$btn_wrap_classes[] = $btn_margin . '-top-mrgn';
+		$uncode_data['data-margin-closed'] = $btn_margin;
+	} else {
+		$uncode_data['data-margin-closed'] = 'no';
+	}
+
+	if ( $btn_margin_open !== '' ) {
+		$uncode_data['data-margin-open'] = $btn_margin_open;
+	}
+	if ( $toggle_scroll === 'yes' ) {
+		$btn_classes[] = 'toggle-scroll';
+		if ( $toggle_navbar === 'yes' ) {
+			$btn_classes[] = 'toggle-navbar';
+		}
+		if ( $toggle_navbar_mobile === 'yes' ) {
+			$btn_classes[] = 'toggle-navbar-mobile';
+		}
+	}
+	$btn_classes[] = $toggle_classes;
+
+	$style_button = '';
+	if ( $internal_width !== '' ) {
+		$style_button = ' style="' . $internal_width . '"';
+		$btn_wrap_classes[] = 'w-internal-width';
+	}
+
+	if ( $trigger_resize === 'yes' ) {
+		$btn_wrap_classes[] = 'trigger-resize';
+	}
+
+	$btn_wrap_classes = implode(' ', $btn_wrap_classes);
+	$btn_classes = implode(' ', $btn_classes);
+	$read_more_btn = '<span class="' . esc_attr(trim($btn_wrap_classes)) . '"' . $style_button . '><a href="#" class="' . esc_attr(trim($btn_classes)) . '">' . $btn_txt . '</a></span>';
+}
+
+$uncont_style = $uncont_style != '' ? ' style="' . $uncont_style . '"' : '';
+
 if ($is_carousel) {
 	$output.= $content;
 } else {
@@ -710,13 +912,16 @@ if ($is_carousel) {
 	}
 	$div_data_attributes = array_map(function ($v, $k) { return $k . '="' . $v . '"'; }, $div_data, array_keys($div_data));
 	$output.= '<div class="' . esc_attr(trim(implode(' ', $col_classes))) . '"' . $col_style . $el_id . '>';
-	$output.= '<div class="' . esc_attr(trim(implode(' ', $uncol_classes))) . '"' . $uncol_style . ' '.implode(' ', $div_data_attributes).'>';
+	$output.= '<div class="' . esc_attr(trim(implode(' ', $uncol_classes))) . '" '.implode(' ', $div_data_attributes).'>';
 	$output.= '<div class="' . esc_attr(trim(implode(' ', $uncoltable_classes))) . '"' . $uncoltable_style . '>';
 	$output.= '<div class="' . esc_attr(trim(implode(' ', $uncell_classes))) . '"'.$uncell_style.' ' . $uncell_div_data . '>';
+	$output .= $multi_bg_out; //multi bg
 	$output.= $background_div;
-	$output.= '<div class="' . esc_attr(trim(implode(' ', $uncont_classes))) . '"' . $internal_width . '>';
+	$uncode_data_attributes = array_map(function ($v, $k) { return $k . '="' . $v . '"'; }, $uncode_data, array_keys($uncode_data));
+	$output.= '<div class="' . esc_attr(trim(implode(' ', $uncont_classes))) . '"' . $uncont_style . ' '.implode(' ', $uncode_data_attributes).'>';
 	$output.= $content;
 	$output.= '</div>';
+	$output.= $read_more_btn;
 	$output.= '</div>';
 	$output.= '</div>';
 	$output.= '</div>';

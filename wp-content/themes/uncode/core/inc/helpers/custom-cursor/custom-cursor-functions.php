@@ -73,7 +73,7 @@ function uncode_custom_cursor() {
 
 		?>
 
-		<div id="uncode-custom-cursor" class="<?php echo esc_attr($custom_cursor); ?>" data-cursor="" data-skin="light"><span></span><span></span></div>
+		<div id="uncode-custom-cursor" class="<?php echo esc_attr($custom_cursor); ?>" data-cursor="" data-skin="light"><span></span><span class="title-tooltip"><span></span></span><span></span></div>
 		<div id="uncode-custom-cursor-pilot" class="<?php echo esc_attr($custom_cursor); ?>" data-cursor="" data-skin="light"><span></span><span></span></div>
 		<script type="text/javascript">UNCODE.initCursor();</script>
 

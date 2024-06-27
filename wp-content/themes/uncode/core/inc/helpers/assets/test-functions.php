@@ -343,6 +343,23 @@ function uncode_get_page_assets() {
 		);
 	}
 
+	// Uncode Owl Nav
+	if ( uncode_page_require_asset_owlnav( $content_array ) ) {
+		$assets['uncode-owl-nav'] = array(
+			'handle'    => 'uncode-owl-nav',
+			'path'      => get_template_directory_uri() . '/library/js/uncode-owl-nav' . $suffix . '.js',
+			'deps'      => array( 'jquery', 'owl-carousel' ),
+			'type'      => 'js',
+			'in_footer' => true,
+		);
+		
+		$assets['uncode-style-owl-nav'] = array(
+			'handle'    => 'uncode-style-owl-nav',
+			'path'      => get_template_directory_uri() . '/library/css/style-owl-nav.css',
+			'type'      => 'css',
+		);
+	}
+
 	// iLightBox
 	if ( ( is_array( $uncode_check_asset ) && isset( $uncode_check_asset['ilightbox'] ) ) || uncode_page_require_asset_ilightbox( $content_array ) ) {
 
@@ -573,6 +590,48 @@ function uncode_get_page_assets() {
 		);
 	}
 
+	// Noise
+	if ( uncode_page_require_asset_simplex_noise( $content_array ) ) {
+		$assets['simple-noise'] = array(
+			'handle'    => 'simplex-noise',
+			'path'      => get_template_directory_uri() . '/library/js/lib/simplex-noise' . $suffix . '.js',
+			'deps'      => array( 'jquery' ),
+			'type'      => 'js',
+			'in_footer' => true,
+		);
+
+		$assets['uncode-noise'] = array(
+			'handle'    => 'uncode-noise',
+			'path'      => get_template_directory_uri() . '/library/js/noise' . $suffix . '.js',
+			'deps'      => array( 'simplex-noise' ),
+			'type'      => 'js',
+			'in_footer' => true,
+		);
+
+		$assets['uncode-style-noise'] = array(
+			'handle'    => 'uncode-style-noise',
+			'path'      => get_template_directory_uri() . '/library/css/style-noise.css',
+			'type'      => 'css',
+		);
+	}
+
+	// Multi BG
+	if ( uncode_page_require_asset_multi_bg( $content_array ) ) {
+		$assets['uncode-multi-bg'] = array(
+			'handle'    => 'uncode-multi-bg',
+			'path'      => get_template_directory_uri() . '/library/js/multiBg' . $suffix . '.js',
+			'deps'      => array( 'jquery' ),
+			'type'      => 'js',
+			'in_footer' => true,
+		);
+
+		$assets['uncode-style-multi-bg'] = array(
+			'handle'    => 'uncode-style-multi-bg',
+			'path'      => get_template_directory_uri() . '/library/css/style-multi-bg.css',
+			'type'      => 'css',
+		);
+	}
+
 	// Sticky Kit (always required)
 	$assets['jquery-sticky-kit'] = array(
 		'handle'    => 'jquery-sticky-kit',
@@ -742,6 +801,23 @@ function uncode_get_page_assets() {
 			'deps'      => array( 'jquery' ),
 			'type'      => 'js',
 			'in_footer' => true,
+		);
+	}
+
+	// Inline Images
+	if ( uncode_page_require_asset_inline_images( $content_array ) ) {
+		$assets['uncode-inline-images'] = array(
+			'handle'    => 'uncode-inline-images',
+			'path'      => get_template_directory_uri() . '/library/js/inline-images' . $suffix . '.js',
+			'deps'      => array( 'jquery' ),
+			'type'      => 'js',
+			'in_footer' => true,
+		);
+
+		$assets['uncode-style-inline-images'] = array(
+			'handle'    => 'uncode-style-inline-images',
+			'path'      => get_template_directory_uri() . '/library/css/style-inline-images.css',
+			'type'      => 'css',
 		);
 	}
 
@@ -1106,6 +1182,23 @@ function uncode_get_page_assets() {
 		);
 	}
 
+	// Read more
+	if ( uncode_page_require_asset_read_more( $content_array ) ) {
+		$assets['uncode-read-more'] = array(
+			'handle'    => 'uncode-read-more',
+			'path'      => get_template_directory_uri() . '/library/js/read-more' . $suffix . '.js',
+			'deps'      => array( 'jquery' ),
+			'type'      => 'js',
+			'in_footer' => true,
+		);
+
+		$assets['uncode-style-read-more'] = array(
+			'handle'    => 'uncode-style-read-more',
+			'path'      => get_template_directory_uri() . '/library/css/style-read-more.css',
+			'type'      => 'css',
+		);
+	}
+
 	// Rotate It
 	if ( uncode_page_require_asset_rotate_it( $content_array ) ) {
 		$assets['uncode-rotateIt'] = array(
@@ -1138,6 +1231,25 @@ function uncode_get_page_assets() {
 		$assets['uncode-style-text-marquee'] = array(
 			'handle'    => 'uncode-style-text-marquee',
 			'path'      => get_template_directory_uri() . '/library/css/style-text-marquee.css',
+			'type'      => 'css',
+		);
+
+	}
+
+	// Pricing List
+	if ( uncode_page_require_asset_pricing_list( $content_array ) ) {
+		$assets['uncode-style-pricing-list'] = array(
+			'handle'    => 'uncode-style-pricing-list',
+			'path'      => get_template_directory_uri() . '/library/css/style-pricing-list.css',
+			'type'      => 'css',
+		);
+	}
+
+	// Star Rating
+	if ( uncode_page_require_asset_star_rating( $content_array ) ) {
+		$assets['uncode-style-star-rating'] = array(
+			'handle'    => 'uncode-style-star-rating',
+			'path'      => get_template_directory_uri() . '/library/css/style-star-rating.css',
 			'type'      => 'css',
 		);
 	}

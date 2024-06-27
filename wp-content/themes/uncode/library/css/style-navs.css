@@ -142,9 +142,19 @@
   margin-bottom: -18px !important;
   margin-top: -18px !important;
 }
+@media (max-width: 1699px) {
+  .nav-tabs > li > a.half-block-padding + .tab-pane {
+    padding-top: 18px !important;
+  }
+}
 .nav-tabs > li > a.single-block-padding {
   margin-bottom: -36px !important;
   margin-top: -36px !important;
+}
+@media (max-width: 1699px) {
+  .nav-tabs > li > a.single-block-padding + .tab-pane {
+    padding-top: 36px !important;
+  }
 }
 .nav-tabs > li > a.double-block-padding {
   margin-bottom: -72px !important;
@@ -154,6 +164,9 @@
   .nav-tabs > li > a.double-block-padding {
     margin-bottom: -54px !important;
     margin-top: -54px !important;
+  }
+  .nav-tabs > li > a.double-block-padding + .tab-pane {
+    padding-top: 54px !important;
   }
 }
 .text-left:not(.tab-switch).nav-tabs > li > a {

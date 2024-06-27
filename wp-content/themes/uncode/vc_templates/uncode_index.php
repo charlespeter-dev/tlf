@@ -2,7 +2,7 @@
 
 global $uncode_post_types, $uncode_vc_index, $changer_back_color_column, $changer_back_color_column_inner;
 $uncode_vc_index = true;
-$title = $index_type = $isotope_mode = $index_back_color = $items = $filtering = $filter_style = $filter_back_color = $filtering_full_width = $filters_widgets = $filtering_menu = $filtering_toggle_align = $filter_toggle_hide_text = $filter_toggle_show_text = $filtering_position = $filtering_uppercase = $filter_all_opposite = $filter_all_text = $filter_mobile = $filter_mobile_align = $filter_mobile_wrapper = $filter_mobile_wrapper_text = $filter_mobile_dropdown = $filter_mobile_dropdown_text = $filter_scroll = $footer_style = $footer_back_color = $footer_full_width = $pagination = $infinite = $infinite_hover_fx = $infinite_button = $infinite_button_text = $infinite_button_shape = $infinite_button_outline = $infinite_button_color = $style_preset = $images_size = $thumb_size = $table_images_size = $single_width = $single_height = $single_height_viewport = $single_height_viewport_minus = $single_back_color = $single_shape = $radius = $single_text = $single_image_position = $single_vertical_text = $single_image_size = $single_lateral_responsive = $drop_image_position = $drop_image_time = $drop_image_default = $drop_title_default = $back_repeat = $back_attachment = $back_position = $back_size = $drop_image_hover = $drop_image_separator = $drop_image_extra = $drop_image_extra_type = $drop_image_extra_size = $drop_image_extra_weight = $drop_image_extra_position = $drop_image_custom_separator = $drop_ratio = $drop_radius = $drop_anchor = $drop_image_arrange = $off_grid = $off_grid_element = $off_grid_val = $off_grid_all = $single_elements_click =$single_text_visible = $single_text_anim = $single_text_anim_type = $single_overlay_visible = $single_overlay_anim = $single_image_coloration = $single_image_color_anim = $single_image_anim = $single_image_magnetic = $single_secondary =$single_reduced = $single_reduced_mobile = $single_padding = $single_padding_vertical = $single_text_reduced = $single_h_align = $single_h_align_mobile = $single_table_last_align = $single_v_position = $single_h_position = $single_style = $single_overlay_color = $single_overlay_coloration = $single_overlay_blend = $single_overlay_opacity = $single_shadow = $shadow_weight = $shadow_darker = $drop_shadow = $drop_shadow_weight = $drop_shadow_darker = $single_border = $single_icon = $single_title_transform = $single_title_weight = $single_title_family = $single_title_dimension = $single_title_semantic = $single_title_height = $single_title_space = $single_text_lead = $single_css_animation = $single_animation_delay = $single_animation_speed = $single_animation_first = $carousel_height = $carousel_v_align = $carousel_type = $carousel_interval = $carousel_navspeed = $carousel_loop = $carousel_nav = $carousel_nav_mobile = $carousel_nav_skin = $carousel_dots = $carousel_dots_space = $carousel_dots_mobile = $carousel_dot_position = $carousel_dot_width = $column_width_use_pixel = $carousel_width_percent = $carousel_width_pixel = $carousel_dots_inside = $carousel_dot_padding = $carousel_autoh = $carousel_lg = $carousel_md = $carousel_sm = $gutter_size = $drop_h_space = $inner_padding = $stage_padding = $carousel_overflow = $carousel_half_opacity = $carousel_scaled = $carousel_pointer_events = $table_v_align = $table_border = $table_click_row = $table_hover = $post_items = $portfolio_items = $page_items = $product_items = $post_table_items = $portfolio_table_items = $page_table_items = $product_table_items = $screen_lg = $screen_md = $screen_sm = $filter = $el_id = $lbox_skin = $lbox_transparency = $lbox_dir = $lbox_title = $lbox_caption = $lbox_social = $lbox_deep = $lbox_no_tmb = $lbox_no_arrows = $lbox_gallery_arrows = $lbox_gallery_arrows_bg = $lbox_zoom_origin = $lbox_counter = $lbox_actual_size = $lbox_full = $lbox_download = $lbox_transition = $no_double_tap = $table_display_tablet = $table_display_mobile = $table_mobile_gutter_size = $titles_display_mobile = $titles_gap_reduced_mobile = $titles_hide_meta_mobile = $titles_hide_separator_mobile = $el_class = $custom_cursor = $skew = $orderby = $order = $custom_order = $order_ids = $css_class = $filter = $filter_background = $filter_sticky = $offset = $search_query = $using_plugin = $post_matrix = $matrix_amount = $matrix_items = $single_fluid_height = $carousel_height_viewport = $carousel_height_viewport_minus = $auto_query = $auto_query_type = $pagination_disable_history = $show_extra_filters = $show_woo_sorting = $show_woo_result_count = $woo_sorting_default_text = $hide_woo_sorting_icon = $woo_sorting_skin = $show_widgetized_content_block = $widgetized_content_block_id = $widgetized_content_block_toggle_text = $hide_widgetized_content_block_icon = $filter_hide_cats = $filter_typography = $woo_sorting_shadow = $parent_id = $filters_wrapper_trigger = $internal_width = $drop_hide_media = $drop_width = $titles_display = $wrong_layout = $wrong_layout_check = $single_meta_custom_typo = $single_meta_size = $single_meta_weight = $single_meta_transform = $table_general_typo = $table_meta_custom_typo = $table_meta_size = $table_meta_weight = $table_meta_transform = $sticky_dir = $sticky_wrap = $sticky_th_size = $sticky_th_size = $sticky_th_vh_lg = $sticky_th_vh_md = $sticky_th_vh_sm = $sticky_th_vh_minus = $sticky_th_grid_lg = $sticky_th_grid_md = $sticky_th_grid_sm = $sticky_scroll_v_align = $sticky_thumb_size = $no_sticky_scroll_tablet = $no_sticky_scroll_mobile = $sticky_scroll_mobile_safe_height = $active_filters = $clear_all = $show_woo_sorting_ajax = $show_woo_result_count_ajax = $woo_sorting_default_text_ajax = $woo_sorting_skin_ajax = $woo_sorting_shadow_ajax = $ajax_filters_content_block_id = $ajax_filters_layout = $ajax_filters_position = $ajax_filters_position_mobile = $gutter_size_ajax_filters = $column_size_ajax_filters = $min_w_ajax_filters = $max_w_ajax_filters = $advanced_videos = $play_hover = $play_pause = $mobile_videos = $lb_video_advanced = $lb_autoplay = $lb_muted = '';
+$title = $index_type = $isotope_mode = $index_back_color = $items = $filtering = $filter_style = $filter_back_color = $filtering_full_width = $filters_widgets = $filtering_menu = $filtering_toggle_align = $filter_toggle_hide_text = $filter_toggle_show_text = $filtering_position = $filtering_uppercase = $filter_all_opposite = $filter_all_text = $filter_mobile = $filter_mobile_align = $filter_mobile_wrapper = $filter_mobile_wrapper_text = $filter_mobile_dropdown = $filter_mobile_dropdown_text = $filter_scroll = $footer_style = $footer_back_color = $footer_full_width = $pagination = $infinite = $infinite_hover_fx = $infinite_button = $infinite_button_text = $infinite_button_shape = $infinite_button_outline = $infinite_button_color = $style_preset = $images_size = $thumb_size = $table_images_size = $single_width = $single_height = $single_height_viewport = $single_height_viewport_minus = $single_back_color = $single_shape = $radius = $single_text = $single_image_position = $single_vertical_text = $single_image_size = $single_lateral_responsive = $drop_image_position = $drop_image_time = $drop_image_default = $drop_title_default = $back_repeat = $back_attachment = $back_position = $back_size = $drop_image_hover = $drop_image_separator = $drop_image_extra = $drop_image_extra_type = $drop_image_extra_size = $drop_image_extra_weight = $drop_image_extra_position = $drop_image_custom_separator = $drop_ratio = $drop_radius = $drop_anchor = $drop_image_arrange = $off_grid = $off_grid_element = $off_grid_val = $off_grid_all = $single_elements_click =$single_text_visible = $single_text_anim = $single_text_anim_type = $single_overlay_visible = $single_overlay_anim = $single_image_coloration = $single_image_color_anim = $single_image_anim = $single_image_magnetic = $single_secondary =$single_reduced = $single_reduced_mobile = $single_padding = $single_padding_vertical = $single_text_reduced = $single_h_align = $single_h_align_mobile = $single_table_last_align = $single_v_position = $single_h_position = $single_style = $single_overlay_color = $single_overlay_coloration = $single_overlay_blend = $single_overlay_opacity = $single_shadow = $shadow_weight = $shadow_darker = $drop_shadow = $drop_shadow_weight = $drop_shadow_darker = $single_border = $single_icon = $single_title_transform = $single_title_weight = $single_title_family = $single_title_dimension = $heading_custom_size = $single_title_semantic = $single_title_height = $single_title_space = $single_text_lead = $single_css_animation = $single_animation_delay = $single_animation_speed = $single_animation_first = $carousel_height = $carousel_v_align = $carousel_type = $carousel_interval = $carousel_navspeed = $carousel_loop = $carousel_nav = $carousel_nav_mobile = $carousel_nav_skin = $carousel_dots = $carousel_dots_space = $carousel_dots_mobile = $carousel_dot_position = $carousel_dot_width = $column_width_use_pixel = $carousel_width_percent = $carousel_width_pixel = $carousel_dots_inside = $carousel_dot_padding = $carousel_autoh = $carousel_lg = $carousel_md = $carousel_sm = $gutter_size = $drop_h_space = $inner_padding = $stage_padding = $carousel_overflow = $carousel_half_opacity = $carousel_scaled = $carousel_pointer_events = $table_v_align = $table_border = $table_click_row = $table_hover = $post_items = $portfolio_items = $page_items = $product_items = $post_table_items = $portfolio_table_items = $page_table_items = $product_table_items = $screen_lg = $screen_md = $screen_sm = $filter = $el_id = $lbox_skin = $lbox_transparency = $lbox_dir = $lbox_title = $lbox_caption = $lbox_social = $lbox_deep = $lbox_no_tmb = $lbox_no_arrows = $lbox_gallery_arrows = $lbox_gallery_arrows_bg = $lbox_zoom_origin = $lbox_counter = $lbox_actual_size = $lbox_full = $lbox_download = $lbox_transition = $no_double_tap = $table_display_tablet = $table_display_mobile = $table_mobile_gutter_size = $titles_display_mobile = $titles_gap_reduced_mobile = $titles_hide_meta_mobile = $titles_hide_separator_mobile = $el_class = $custom_cursor = $cursor_title = $custom_tooltip = $cursor_title_boing = $hide_cursor_bg = $hide_title_tooltip = $tooltip_class = $skew = $orderby = $order = $custom_order = $order_ids = $css_class = $filter = $filter_background = $filter_sticky = $offset = $search_query = $using_plugin = $post_matrix = $matrix_amount = $matrix_items = $single_fluid_height = $carousel_height_viewport = $carousel_height_viewport_minus = $auto_query = $auto_query_type = $pagination_disable_history = $show_extra_filters = $show_woo_sorting = $show_woo_result_count = $woo_sorting_default_text = $hide_woo_sorting_icon = $woo_sorting_skin = $show_widgetized_content_block = $widgetized_content_block_id = $widgetized_content_block_toggle_text = $hide_widgetized_content_block_icon = $filter_hide_cats = $filter_typography = $woo_sorting_shadow = $parent_id = $filters_wrapper_trigger = $internal_width = $drop_hide_media = $drop_width = $titles_display = $wrong_layout = $wrong_layout_check = $single_meta_custom_typo = $single_meta_size = $single_meta_weight = $single_meta_transform = $table_general_typo = $table_meta_custom_typo = $table_meta_size = $table_meta_weight = $table_meta_transform = $sticky_dir = $sticky_wrap = $sticky_th_size = $sticky_th_size = $sticky_th_vh_lg = $sticky_th_vh_md = $sticky_th_vh_sm = $sticky_th_vh_minus = $sticky_th_grid_lg = $sticky_th_grid_md = $sticky_th_grid_sm = $sticky_scroll_v_align = $sticky_thumb_size = $no_sticky_scroll_tablet = $no_sticky_scroll_mobile = $sticky_scroll_mobile_safe_height = $active_filters = $clear_all = $show_woo_sorting_ajax = $show_woo_result_count_ajax = $woo_sorting_default_text_ajax = $woo_sorting_skin_ajax = $woo_sorting_shadow_ajax = $ajax_filters_content_block_id = $ajax_filters_layout = $ajax_filters_position = $ajax_filters_position_mobile = $gutter_size_ajax_filters = $column_size_ajax_filters = $min_w_ajax_filters = $max_w_ajax_filters = $advanced_videos = $play_hover = $play_pause = $mobile_videos = $lb_video_advanced = $lb_autoplay = $lb_muted = '';
 $post_types = array();
 $wc_filtered = array();
 
@@ -159,6 +159,7 @@ $attributes_first = array(
 	'single_title_weight' => '',
 	'single_title_family' => '',
 	'single_title_dimension' => '',
+	'heading_custom_size' => '',
 	'single_title_semantic' => 'h3',
 	'single_title_height' => '',
 	'single_title_space' => '',
@@ -207,6 +208,7 @@ $attributes_first = array(
 	'drop_h_space' => '',
 	'stage_padding' => 0,
 	'carousel_overflow' => '',
+	'advanced_nav' => '',
 	'carousel_half_opacity' => '',
 	'carousel_scaled' => '',
 	'carousel_pointer_events' => '',
@@ -215,9 +217,9 @@ $attributes_first = array(
 	'table_click_row' => '',
 	'table_hover' => '',
 	'inner_padding' => '',
-	'post_items' => 'media|featured|onpost|original,title,category|nobg,date,text|excerpt,link|default,author,sep-one|full,extra',
-	'page_items' => 'media|featured|onpost|original,title,text|excerpt,link|default',
-	'product_items' => 'media|featured|onpost|original,title,text|excerpt,link|default',
+	'post_items' => 'media|featured|onpost|original,title,date',
+	'page_items' => 'media|featured|onpost|original,title',
+	'product_items' => 'media|featured|onpost|original|hide-sale|inherit-atc|inherit-w-atc|atc-typo-default|show-atc,title,price|default',
 	'uncode_taxonomy_items' => 'media|featured|onpost|original,title,count|nobg|relative|hide-label',
 	'uncode_taxonomy_table_items' => 'col-one|1,media|featured|onpost|original,col-two|6,title,col-three|3,text|120,col-four|2,count|nobg|relative|hide-label,link|default|default_size',
 	'post_table_items' => 'col-one|1,media|featured|onpost|poster,col-two|5,title,col-three|2,date,col-four|2,category|inline,col-five|2,link|default|default_size',
@@ -269,6 +271,12 @@ $attributes_first = array(
 	'titles_hide_separator_mobile' => '',
 	'el_class' => '',
 	'custom_cursor' => '',
+	'cursor_title' => '',
+	'custom_tooltip' => '',
+	'cursor_title_boing' => '',
+	'hide_cursor_bg' => '',
+	'hide_title_tooltip' => '',
+	'tooltip_class' => '',
 	'skew' => '',
 	'orderby' => NULL,
 	'order' => 'DESC',
@@ -323,6 +331,8 @@ $attributes_first = array(
 	'sticky_scroll_mobile_safe_height' => '',
 	'swatch_attr' => '',
 	'css_grid_equal_height' => '',
+	'css_grid_equal_height_bottom' => '',
+	'css_grid_equal_height_no_mobile' => '',
 	'active_filters' => '',
 	'clear_all' => '',
 	'show_woo_sorting_ajax' => '',
@@ -348,6 +358,7 @@ $attributes_first = array(
 	'woo_single_variations' => '',
 	'woo_single_variations_hide_parent' => '',
 	'css_grid_v_align' => '',
+	'button_class' => '',
 );
 
 $attributes_second = array();
@@ -364,7 +375,7 @@ if (isset($uncode_post_types) && !empty($uncode_post_types)) {
 			unset($atts[$value . '_items']);
 			$value = $new_key;
 		}
-		$attributes_second[$value . '_items'] = $value === 'product' ? 'media|featured,title,type,category,text,price' : 'media|featured,title,type,category,text';
+		$attributes_second[$value . '_items'] = $value === 'product' ? 'media|featured|onpost|original|hide-sale|inherit-atc|inherit-w-atc|atc-typo-default|show-atc,title,price|default' : 'media|featured|onpost|original,title';
 
 		if (isset($atts[$value . '_table_items']) && strpos($value, '-') !== false) {
 			$new_key = str_replace('-', '_', $value);
@@ -525,6 +536,7 @@ $general_title_transform = $single_title_transform;
 $general_title_weight = $single_title_weight;
 $general_title_family = $single_title_family;
 $general_title_dimension = $single_title_dimension;
+$general_title_custom = $heading_custom_size;
 $general_title_semantic = $single_title_semantic;
 $general_title_height = $single_title_height;
 $general_title_space = $single_title_space;
@@ -967,8 +979,15 @@ if ($index_type == 'isotope') {
 		$parent_container_classes[] = 'style-'.$index_back_color.'-bg';
 	}
 } elseif ($index_type == 'carousel') {
+
+	if ( $advanced_nav === 'yes' ) {
+		$carousel_nav = $carousel_nav_mobile = $carousel_dots = $carousel_dots_space = $carousel_dots_mobile = $carousel_dots_inside = $carousel_dot_position = $carousel_dot_width = $column_width_use_pixel = $carousel_width_pixel = '';
+	}
 	$main_container_classes[] = 'owl-carousel-wrapper';
 	if ($carousel_overflow === 'yes') {
+		$carousel_nav = '';
+		$carousel_nav_skin = 'light';
+		$carousel_nav_mobile = '';
 		$main_container_classes[] = 'carousel-overflow-visible';
 		if ( $carousel_half_opacity === 'yes' ) {
 			$main_container_classes[] = 'carousel-not-active-opacity';
@@ -1017,6 +1036,12 @@ if ($index_type == 'isotope') {
 	$container_classes[] = 'cssgrid-layout';
 	if ( $css_grid_equal_height === 'yes' && $single_text === 'under' ) {
 		$container_classes[] = 'cssgrid-equal-height';
+		if ( $css_grid_equal_height_bottom === 'yes' ) {
+			$container_classes[] = 'cssgrid-equal-height-bottom';
+		}
+		if ( $css_grid_equal_height_no_mobile === 'yes' ) {
+			$container_classes[] = 'cssgrid-equal-height-no-mobile';
+		}
 	}
 	$main_container_classes[] = 'cssgrid-' . esc_attr( $uncode_shortcode_id );
 	if ($inner_padding === 'yes') {
@@ -1628,7 +1653,8 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 								$filtering_menu_out .= function_exists( 'uncode_woocommerce_print_sorting_dropdown' ) ? uncode_woocommerce_print_sorting_dropdown( $woo_sorting_default_text_ajax, false ): '';
 
 								if ( $show_woo_result_count_ajax !== '' ) {
-									$filtering_menu_out .= '<div class="woocommerce-result-count-wrapper">';
+									$woo_result_wrapper_class = $show_woo_result_count_ajax === 'short' ? 'woocommerce-result-count-wrapper woocommerce-result-count-wrapper--short' : 'woocommerce-result-count-wrapper woocommerce-result-count-wrapper--default';
+									$filtering_menu_out .= '<div class="' . $woo_result_wrapper_class . '">';
 										if ( $show_woo_result_count_ajax === 'short' ) {
 											$filtering_menu_out .= '<p class="woocommerce-result-count">' . esc_attr( sprintf( esc_html__( "%s items", 'uncode' ), $uncode_index_query_found_posts ) ) . '</p>';
 										} else {
@@ -1895,6 +1921,8 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 					$tmb_data = array();
 					$item_thumb_id = '';
 					$block_classes = array('tmb');
+
+					$block_data['button_class'] = $button_class;
 
 					if ($index_type === 'carousel') {
 						$block_classes[] = 'tmb-carousel';
@@ -2302,8 +2330,20 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 					}
 
 					$single_title_dimension = (isset($item_prop['single_title_dimension'])) ? $item_prop['single_title_dimension'] : $general_title_dimension;
+					$heading_custom_size = (isset($item_prop['heading_custom_size'])) ? $item_prop['heading_custom_size'] : $general_title_custom;
 					if ($single_title_dimension !== '') {
 						$title_classes[] = $single_title_dimension;
+						if ( $single_title_dimension === 'custom' && $heading_custom_size !== '' ) {
+							if ( $single_title_dimension === 'custom' && isset($item_prop['heading_custom_size']) && isset($item_prop['heading_custom_size']) !== '' ) {
+								$block_data['title_style'] = 'font-size:' . $item_prop['heading_custom_size'] . ';';
+							} else {
+								$title_classes[] = 'fontsize-' . $uncode_shortcode_id . '-custom';
+								$inline_style_css .= uncode_get_dynamic_css_font_size_shortcode( array(
+									'id'         => $uncode_shortcode_id,
+									'font_size'  => $heading_custom_size
+								) );
+							}
+						}
 					} else {
 						if ($style_preset === 'metro') {
 							switch ($single_width) {
@@ -2402,10 +2442,34 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 								$tmb_data['data-speed'] = $single_animation_speed;
 							}
 						}
+					} else {
+						$block_data['animation'] = ' no-anim';
 					}
 
 					if ( $custom_cursor !== '' ) {
+
 						$tmb_data['data-cursor'] = 'icon-' . esc_attr( $custom_cursor );
+
+						if ( $cursor_title === 'yes' ) {
+							$tmb_data['data-cursor-title'] = 'true';
+							if ( $hide_cursor_bg === 'yes' ) {
+								$tmb_data['data-cursor-transparent'] = 'true';
+							}
+							if ($tooltip_class !== '') {
+								$tmb_data['data-tooltip-class'] = $tooltip_class;
+							}
+							if ( $custom_tooltip !== '' ) {
+								$tmb_data['data-tooltip-text'] = wp_kses_post( $custom_tooltip );
+							}
+							if ( $hide_title_tooltip !== '' ) {
+								$block_classes[] = 'show-title-' . esc_attr( $hide_title_tooltip );
+							} else {
+								$block_classes[] = 'hide-title-tooltip';
+							}
+							if ( $cursor_title_boing !== '' ) {
+								$tmb_data['data-cursor-title'] = 'boing';
+							}
+						}
 					}
 
 					if (isset($typeLayout['media']) && isset($typeLayout['media'][0])) {
@@ -3091,7 +3155,9 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 </div>
 <?php
 $uncode_vc_index = false;
-$uncode_ajax_filter_query = null;
+if ( $filtering === 'ajax' ) {
+	$uncode_ajax_filter_query = null;
+}
 
 if ( $index_type === 'custom_grid' && $custom_grid_content_block_id ) {
 	ob_end_clean();

@@ -10,10 +10,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Get complete data of a dynamic color attribute
  */
-function uncode_get_dynamic_color_attr_data( $shortcode, $attr, $properties = array( 'bg', 'button', 'text', 'border', 'overlay' ) ) {
+function uncode_get_dynamic_color_attr_data( $shortcode, $attr, $properties = array( 'bg', 'button', 'text', 'border', 'overlay', 'stroke' ) ) {
 	$color_type       = uncode_get_dynamic_color_attr_value( $shortcode, $attr . '_type' );
 	$is_gradient      = $color_type === 'uncode-gradient' ? true : false;
 	$color_value_attr = $is_gradient ? $attr . '_gradient' : $attr . '_solid';
+	if ( in_array( 'stroke', $properties ) ) {
+		$color_value_attr = 'text_color_solid';
+	}
 	$color_value      = uncode_get_dynamic_color_attr_value( $shortcode, $color_value_attr, $is_gradient );
 	$color_key        = $attr . '-' . $shortcode['id'];
 

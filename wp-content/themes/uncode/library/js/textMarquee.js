@@ -2,7 +2,8 @@
 	"use strict";
 
 	var marqueeAttempts = 0,
-	marqueeTO;
+	marqueeTO,
+	marqueeCheckResize;
 
 UNCODE.textMarquee = function( $titles ) {
 
@@ -18,25 +19,56 @@ UNCODE.textMarquee = function( $titles ) {
 
 		$titles.each(function(){
 			var $title = $(this),
-				$span = $('> span', $title),
+				$span = $('> span, > i > span', $title),
 				txt,
 				first = true,
-				newW = UNCODE.wwidth;
+				dataSpeed = parseFloat( $title.closest('.heading-text').attr('data-marquee-speed') ),
+				dataSpace = parseFloat( $title.closest('.heading-text').attr('data-marquee-space') ),
+				dataTrigger = $title.closest('.heading-text').attr('data-marquee-trigger'),
+				dataNavBar = $title.closest('.heading-text').attr('data-marquee-navbar'),
+				dataNavBarMobile = $title.closest('.heading-text').attr('data-marquee-navbar-mobile'),
+				newW = UNCODE.wwidth,
+				marqueeTL, inview;
+
+			if ( $title.closest('.sticky-trigger').length || $title.closest('.pin-spacer').length ) {
+				dataTrigger = 'row';
+			}
+
+			if ( UNCODE.wwidth <= UNCODE.mediaQuery ) {
+				dataNavBar = dataNavBarMobile;
+			}
+
+			dataSpeed = isNaN(dataSpeed) ? 0 : dataSpeed;
+			dataSpace = isNaN(dataSpace) ? 'default' : dataSpace;
+			var dataX = dataSpeed;
+
+			if ( dataSpeed < 0 ) {
+				dataSpeed -= 1;
+			} else if ( dataSpeed > 0 ) {
+				dataSpeed += 1;
+			}
+
+			if ( dataSpeed <= 0 ) {
+				dataSpeed = (dataSpeed * 10);
+			} else {
+				dataSpeed = ( dataSpeed * 2 ) - 1;
+			}
 
 			$('.marquee-clone-wrap', $title).remove();
 
-			txt = $title.text();
+			txt = $span.html();
 
 			if ( ! $('.marquee-original-core', $span).length ) {
-				$span = $('> span', $title).wrapInner('<span class="marquee-original-core" />').addClass('marquee-original');
+				txt = $span.html();
+				$span = $('> span, > i > span', $title).wrapInner('<span class="marquee-original-core" />').addClass('marquee-original');
+			} else {
+				txt = $('.marquee-original-core', $span).html();
 			}
 
-			var checkResize,
-				spanW,
+			var spanW,
 				$prepended = $('<span class="marquee-clone-wrap wrap-prepended" />'),
 				$appended = $('<span class="marquee-clone-wrap wrap-appended" />'),
-				clearSpeed,
-				speed = 10;
+				speed = 10 - dataSpeed;
 
 			$span.prepend($prepended);
 			$span.append($appended);
@@ -45,28 +77,52 @@ UNCODE.textMarquee = function( $titles ) {
 				var bound = $title.css({
 						'transform': 'none',
 						'opacity': 0
-					}).offset();
+					}).offset(),
+					ease = 'none';
 
 				var xStrt = first || $title.hasClass('un-marquee-infinite') ? 0 : UNCODE.wwidth - bound.left,
 					xEnd = $title.hasClass('un-marquee-infinite') ? spanW : ( spanW + bound.left ),
 					xSpeed = $title.hasClass('un-marquee-infinite') ? ( spanW + bound.left ) : ( xStrt + ( UNCODE.wwidth + bound.left ) ),
 					direction = $title.hasClass('un-marquee-opposite') ? 1 : -1;
 
-				var marqueeTL = new TimelineMax({paused:true, reversed:true});
+				marqueeTL = new TimelineMax({paused:true, reversed:true});
 
-				var inViewElement = $title.closest('.sticky-trigger').length || $title.closest('.pin-spacer').length ? $title.closest('.vc_row')[0] : $title[0];
+				var inViewElement = (dataTrigger === 'row') ? $title.closest('.vc_row')[0] : $title[0],
+					wayOff = dataTrigger === 'row' && dataNavBar === 'yes' ? UNCODE.menuHeight : 0;
 
-				var inview = new Waypoint.Inview({
+				inview = new Waypoint.Inview({
 					element: inViewElement,
+					offset: wayOff,
 					enter: function(direction) {
 						marqueeTL.play();
 					},
 					exited: function(direction) {
-						marqueeTL.pause();
-					}
+						if ( ! $title.closest('.pin-spacer').length ) {
+							marqueeTL.pause();
+						}
+					},
 				});
 
-				//gsap.killTweensOf($title);
+				if ( $title.hasClass('un-marquee-hover') ) {
+					var $column = $title.closest('.wpb_column'),
+						$col_link = $('.col-link', $column),
+						$hover_sel = $title;
+
+					if ( $col_link.length ) {
+						$hover_sel = $title.add($column);
+					}
+					$hover_sel.on('mouseover', function(){
+						speed = ( 10 - dataSpeed ) * 5;
+						ease = 'power2.out';
+						marqueeTL.duration( xSpeed / UNCODE.wwidth * speed );
+					}).on('mouseout', function(){
+						speed = ( 10 - dataSpeed );
+						ease = 'power2.in';
+						marqueeTL.duration( xSpeed / UNCODE.wwidth * speed );
+					});
+				}
+		
+				gsap.killTweensOf($title);
 				marqueeTL.fromTo( $title, {
 					opacity: 1,
 					x: xStrt * direction * -1
@@ -78,19 +134,26 @@ UNCODE.textMarquee = function( $titles ) {
 						first = false;
 						continuousTextMarquee();
 					},
-					ease: Linear.easeNone
+					ease: ease
 				});
+		
 			};
-
+			
 			var runTextMarquee = function(){
 				var time = Date.now();
 
 				var textMarqueeScroll = function(){
 					var $row = $title.closest('.vc_row'),
-						$bound = $title.closest('.pin-spacer').length ? $row : $title,
-						bound = $bound[0].getBoundingClientRect(),
+						$bound = (dataTrigger === 'row' || dataTrigger === 'row-middle') ? $row : $title;
+
+					if ( !$bound.length ) {
+						return;
+					}
+
+					var bound = $bound[0].getBoundingClientRect(),
 						wait = 100,
-						direction = $title.hasClass('un-marquee-scroll-opposite') ? -1 : 1;
+						direction = $title.hasClass('un-marquee-scroll-opposite') ? -1 : 1,
+						dataMove = dataX >= 0 ? 1 + dataX : -1 * ( 5 / (dataX - 0.5) * 0.25);
 
 					if ( bound.top === 0 && bound.bottom === 0 && bound.left === 0 && bound.right === 0 &&
 						bound.height === 0 && bound.width === 0 && bound.x === 0 && bound.y === 0 &&
@@ -104,22 +167,29 @@ UNCODE.textMarquee = function( $titles ) {
 						}, 100);
 					}
 
-					//if ((time + wait - Date.now()) < 0) {
-						//if ( bound.top > ( bound.height * -4 ) && ( bound.top - bound.height ) < UNCODE.wheight * 2 ) {
-							// $title[0].style.transform = 'translateX(' + ( UNCODE.wheight * 0.5 - bound.top ) * 0.75 + 'px)';
-							gsap.killTweensOf($title);
-							gsap.to( $title, {
-								duration: 0.24,
-								x: ( UNCODE.wheight * 0.35 - bound.top ) * 0.5 * direction,
-								//ease: Expo.easeOut,
-							});
-						//}
-						//time = Date.now();
-					//}
+
+					var bound_top = bound.top,
+						gsap_calc = ( ( UNCODE.wheight * 0.35 - bound_top ) * dataMove ) * 0.5 * direction;
+
+					if ( dataTrigger === 'row' || dataTrigger === 'row-middle' ) {
+						if ( dataTrigger === 'row-middle' ) {
+							bound_top = (bound.top + bound.height*0.5) - (UNCODE.wheight * 0.5)
+						}
+						if ( dataNavBar === 'yes' ) {
+							bound_top = bound_top - UNCODE.menuHeight;
+						}
+						gsap_calc = ( bound_top * dataMove ) * 0.5 * direction;
+					}
+
+					gsap.killTweensOf($title);
+					gsap.to( $title, {
+						duration: 0.24,
+						x: gsap_calc,
+					});
 				};
 
 				textMarqueeScroll();
-				$(window).on( 'load scroll', function() {
+				$(window).on( 'load scroll', function(e) {
 					textMarqueeScroll();
 				});
 
@@ -141,17 +211,23 @@ UNCODE.textMarquee = function( $titles ) {
 					return;
 				}
 
-				var part = Math.ceil( UNCODE.wwidth / spanW ) * 2;
+				var part = Math.ceil( UNCODE.wwidth / spanW ) * 2,
+					spaceSpan = dataSpace !== 'default' ? '<span class="marquee-space-' + dataSpace + '">\u00A0</span>' : "\u00A0";
 
 				if ( $_title.hasClass('un-marquee-infinite') ) {
 
 					for ( var i = 0; i < part; i++ ) {
-						$prepended[0].textContent += cntnt + "\u00A0";
-						$appended[0].textContent += cntnt + "\u00A0";
+						$prepended.append(cntnt + spaceSpan);
+						$appended.append(cntnt + spaceSpan);
 					}
 				}
 
 				if ( $('body').hasClass('compose-mode') ) {
+					$('.uncode_fe_safe').remove();
+					return;
+				}
+
+				if ( $title.closest('.marquee-freezed').length ) {
 					return;
 				}
 
@@ -165,33 +241,52 @@ UNCODE.textMarquee = function( $titles ) {
 
 			};
 
-			var marqueResize = function(){
-				clearRequestTimeout(checkResize);
-				checkResize = requestTimeout(function(){
+			var marqueeResize = function(e){
+				clearRequestTimeout(marqueeCheckResize);
+				marqueeCheckResize = requestTimeout(function(){
 					if ( newW !== UNCODE.wwidth ) {
 						gsap.killTweensOf($title);
+						if ( typeof inview !== 'undefined' && inview !== null ) {
+							inview.destroy();
+						}
+						if ( typeof marqueeTL !== 'undefined' && marqueeTL !== null ) {
+							marqueeTL.kill();
+						}
+						first = true;
 						initTextMarquee();
 						newW = UNCODE.wwidth;
 					}
 				}, 1000);
 			};
 
-			$(window).off('resize', marqueResize)
-			.on( 'resize', marqueResize);
+			$(window).off('resize uncode.re-layout', marqueeResize)
+			.on( 'resize uncode.re-layout', marqueeResize);
 
 			cloneSpan($title, txt);
 
 			if ( $('body').hasClass('compose-mode') && typeof window.parent.vc !== 'undefined' ) {
 				window.parent.vc.events.on( 'shortcodeView:updated', function( e ){
-					// imageHover();
 					var $_titles = $('.un-text-marquee',e.view.$el);
-					initTextMarquee($_titles);
+					clearRequestTimeout(marqueeCheckResize);
+					marqueeCheckResize = requestTimeout(function(){
+						initTextMarquee($_titles);
+					}, 1000);
 				});
 			}
 		});
 	};
 
 	$(document).ready(function(){
+		initTextMarquee();
+	});
+
+	$(window).on('focus',function(){
+		setTimeout(function(){
+			initTextMarquee();
+		},500);
+	});
+
+	$(document).on('pumAfterOpen pumAfterClose', function(args){
 		initTextMarquee();
 	});
 

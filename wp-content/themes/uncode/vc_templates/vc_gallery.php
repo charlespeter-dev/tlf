@@ -2,7 +2,7 @@
 global $uncode_vc_gallery;
 $uncode_vc_gallery = true;
 
-$el_id = $isotope_mode = $gallery_back_color = $items = $random = $medias = $explode_albums = $filtering = $filter_style = $filter_background = $filter_back_color = $filtering_full_width = $filtering_position = $filtering_uppercase = $filter_all_opposite = $filter_all_text = $filter_mobile = $filter_mobile_align = $filter_mobile_dropdown = $filter_mobile_dropdown_text = $filter_scroll = $filter_sticky = $style_preset = $images_size = $thumb_size = $gutter_size = $stage_padding = $carousel_overflow = $carousel_half_opacity = $carousel_scaled = $carousel_pointer_events = $inner_padding = $single_width = $single_height = $single_back_color = $single_shape = $radius = $single_elements_click = $single_text = $single_text_visible = $single_text_visible = $single_text_anim = $single_text_anim_type = $single_overlay_visible = $single_overlay_anim = $single_image_coloration = $single_image_color_anim = $single_image_anim = $single_image_magnetic = $single_reduced = $single_reduced_mobile = $single_padding = $single_text_reduced = $single_h_align = $single_v_position = $single_h_position = $single_style = $single_overlay_color = $single_overlay_coloration = $single_overlay_blend = $single_overlay_opacity = $single_link = $single_shadow = $shadow_weight = $shadow_darker = $single_border = $single_icon = $single_title_transform = $single_animation_first = $single_title_family = $single_title_dimension = $single_title_weight = $single_title_semantic = $single_title_height = $single_title_space = $single_text_lead = $single_css_animation = $single_animation_delay = $single_animation_speed = $carousel_fluid = $carousel_type = $carousel_interval = $carousel_navspeed = $carousel_loop = $carousel_nav = $carousel_dots = $carousel_dots_space = $carousel_nav_mobile = $carousel_nav_skin = $carousel_dots_mobile = $carousel_dots_inside = $carousel_dot_position = $carousel_dot_padding = $carousel_autoh = $carousel_lg = $carousel_md = $carousel_sm = $carousel_textual = $hide_quotes = $carousel_height = $carousel_v_align = $off_grid = $off_grid_element = $off_grid_val = $off_grid_all = $screen_lg = $screen_md = $screen_sm = $lbox_skin = $lbox_transparency = $lbox_dir = $lbox_title = $lbox_caption = $lbox_social = $lbox_deep = $lbox_no_tmb = $lbox_no_arrows = $lbox_gallery_arrows = $lbox_gallery_arrows_bg = $lbox_zoom_origin = $lbox_counter = $lbox_actual_size = $lbox_full = $lbox_download = $lbox_transition = $no_double_tap = $nested = $media_items = $output = $title = $type = $el_class = $justify_row_height = $justify_max_row_height = $justify_last_row = $sticky_dir = $sticky_wrap = $sticky_th_size = $sticky_th_vh_lg = $sticky_th_vh_md = $sticky_th_vh_sm = $sticky_th_grid_lg = $sticky_th_grid_md = $sticky_th_grid_sm = $dynamic = $dynamic_source = $filter_typography = $custom_cursor = $skew = $container_style = $sticky_scroll_v_align = $sticky_thumb_size = $no_sticky_scroll_tablet = $no_sticky_scroll_mobile = $sticky_th_vh_minus = $sticky_scroll_mobile_safe_height = $oembed_params = $advanced_videos = $play_hover = $play_pause = $mobile_videos = $lb_video_advanced = $lb_autoplay = $lb_muted = '';
+$el_id = $isotope_mode = $gallery_back_color = $items = $random = $medias = $explode_albums = $filtering = $filter_style = $filter_background = $filter_back_color = $filtering_full_width = $filtering_position = $filtering_uppercase = $filter_all_opposite = $filter_all_text = $filter_mobile = $filter_mobile_align = $filter_mobile_dropdown = $filter_mobile_dropdown_text = $filter_scroll = $filter_sticky = $style_preset = $images_size = $thumb_size = $gutter_size = $stage_padding = $carousel_overflow = $carousel_half_opacity = $carousel_scaled = $carousel_pointer_events = $inner_padding = $single_width = $single_height = $single_back_color = $single_shape = $radius = $single_elements_click = $single_text = $single_text_visible = $single_text_visible = $single_text_anim = $single_text_anim_type = $single_overlay_visible = $single_overlay_anim = $single_image_coloration = $single_image_color_anim = $single_image_anim = $single_image_magnetic = $single_reduced = $single_reduced_mobile = $single_padding = $single_text_reduced = $single_h_align = $single_v_position = $single_h_position = $single_style = $single_overlay_color = $single_overlay_coloration = $single_overlay_blend = $single_overlay_opacity = $single_link = $single_shadow = $shadow_weight = $shadow_darker = $single_border = $single_icon = $single_title_transform = $single_animation_first = $single_title_family = $single_title_dimension = $single_title_weight = $single_title_semantic = $single_title_height = $single_title_space = $single_text_lead = $single_css_animation = $single_animation_delay = $single_animation_speed = $carousel_fluid = $carousel_type = $carousel_interval = $carousel_navspeed = $carousel_loop = $carousel_nav = $carousel_dots = $carousel_dots_space = $carousel_nav_mobile = $carousel_nav_skin = $carousel_dots_mobile = $carousel_dots_inside = $carousel_dot_position = $carousel_dot_padding = $carousel_autoh = $carousel_lg = $carousel_md = $carousel_sm = $carousel_textual = $hide_quotes = $carousel_height = $carousel_v_align = $off_grid = $off_grid_element = $off_grid_val = $off_grid_all = $screen_lg = $screen_md = $screen_sm = $lbox_skin = $lbox_transparency = $lbox_dir = $lbox_title = $lbox_caption = $lbox_social = $lbox_deep = $lbox_no_tmb = $lbox_no_arrows = $lbox_gallery_arrows = $lbox_gallery_arrows_bg = $lbox_zoom_origin = $lbox_counter = $lbox_actual_size = $lbox_full = $lbox_download = $lbox_transition = $no_double_tap = $nested = $media_items = $output = $title = $type = $el_class = $justify_row_height = $justify_max_row_height = $justify_last_row = $sticky_dir = $sticky_wrap = $sticky_th_size = $sticky_th_vh_lg = $sticky_th_vh_md = $sticky_th_vh_sm = $sticky_th_grid_lg = $sticky_th_grid_md = $sticky_th_grid_sm = $dynamic = $dynamic_source = $filter_typography = $custom_cursor = $skew = $container_style = $sticky_scroll_v_align = $sticky_thumb_size = $no_sticky_scroll_tablet = $no_sticky_scroll_mobile = $sticky_th_vh_minus = $sticky_scroll_mobile_safe_height = $oembed_params = $advanced_videos = $play_hover = $play_pause = $mobile_videos = $lb_video_advanced = $lb_autoplay = $lb_muted = $heading_custom_size = '';
 
 extract( shortcode_atts( array(
 		'uncode_shortcode_id' => '',
@@ -49,6 +49,7 @@ extract( shortcode_atts( array(
 		'gutter_size' => 3,
 		'stage_padding' => 0,
 		'carousel_overflow' => '',
+		'advanced_nav' => '',
 		'carousel_half_opacity' => '',
 		'carousel_scaled' => '',
 		'carousel_pointer_events' => '',
@@ -93,6 +94,7 @@ extract( shortcode_atts( array(
 		'single_animation_first' => '',
 		'single_title_family' => '',
 		'single_title_dimension' => '',
+		'heading_custom_size' => '',
 		'single_title_weight' => '',
 		'single_title_semantic' => 'h3',
 		'single_title_height' => '',
@@ -182,6 +184,12 @@ extract( shortcode_atts( array(
 		'dynamic' => '',
 		'dynamic_source' => '',
 		'custom_cursor' => '',
+		'cursor_title' => '',
+		'custom_tooltip' => '',
+		'cursor_title_boing' => '',
+		'hide_cursor_bg' => '',
+		'hide_title_tooltip' => '',
+		'tooltip_class' => '',
 		'skew' => '',
 		'infinite' => '',
 		'infinite_preloaded_items' => '',
@@ -340,6 +348,7 @@ $general_back_color = $single_back_color;
 $general_title_transform = $single_title_transform;
 $general_title_family = $single_title_family;
 $general_title_dimension = $single_title_dimension;
+$general_title_custom = $heading_custom_size;
 $general_title_weight = $single_title_weight;
 $general_title_semantic = $single_title_semantic;
 $general_title_height = $single_title_height;
@@ -562,6 +571,9 @@ if ($type == 'isotope') {
 		$parent_container_classes[] = 'style-'.$gallery_back_color.'-bg';
 	}
 } elseif ($type == 'carousel') {
+	if ( $advanced_nav === 'yes' ) {
+		$carousel_nav = $carousel_nav_mobile = $carousel_dots = $carousel_dots_space = $carousel_dots_mobile = $carousel_dots_inside = $carousel_dot_position = $carousel_dot_padding = '';
+	}
 	$main_container_classes[] = 'owl-carousel-wrapper';
 	if ($carousel_overflow === 'yes') {
 		$main_container_classes[] = 'carousel-overflow-visible';
@@ -1237,9 +1249,21 @@ if (count($medias) > 0) {
 		}
 
 		$single_title_dimension = (isset($item_prop['single_title_dimension'])) ? $item_prop['single_title_dimension'] : $general_title_dimension;
+		$heading_custom_size = (isset($item_prop['heading_custom_size'])) ? $item_prop['heading_custom_size'] : $general_title_custom;
 
 		if ($single_title_dimension !== '') {
 			$title_classes[] = $single_title_dimension;
+			if ( $single_title_dimension === 'custom' && $heading_custom_size !== '' ) {
+				if ( $single_title_dimension === 'custom' && isset($item_prop['heading_custom_size']) && isset($item_prop['heading_custom_size']) !== '' ) {
+					$block_data['title_style'] = 'font-size:' . $item_prop['heading_custom_size'] . ';';
+				} else {
+					$title_classes[] = 'fontsize-' . $uncode_shortcode_id . '-custom';
+					$inline_style_css .= uncode_get_dynamic_css_font_size_shortcode( array(
+						'id'         => $uncode_shortcode_id,
+						'font_size'  => $heading_custom_size
+					) );
+				}
+			}
 		} else {
 			if ($style_preset === 'metro') {
 				switch ($single_width) {
@@ -1339,10 +1363,34 @@ if (count($medias) > 0) {
 					$tmb_data['data-speed'] = $single_animation_speed;
 				}
 			}
+		} else {
+			$block_data['animation'] = ' no-anim';
 		}
 
 		if ( $custom_cursor !== '' ) {
+
 			$tmb_data['data-cursor'] = 'icon-' . esc_attr( $custom_cursor );
+
+			if ( $cursor_title === 'yes' ) {
+				$tmb_data['data-cursor-title'] = 'true';
+				if ( $hide_cursor_bg === 'yes' ) {
+					$tmb_data['data-cursor-transparent'] = 'true';
+				}
+				if ($tooltip_class !== '') {
+					$tmb_data['data-tooltip-class'] = $tooltip_class;
+				}
+				if ( $custom_tooltip !== '' ) {
+					$tmb_data['data-tooltip-text'] = wp_kses_post( $custom_tooltip );
+				}
+				if ( $hide_title_tooltip !== '' ) {
+					$block_classes[] = 'show-title-' . esc_attr( $hide_title_tooltip );
+				} else {
+					$block_classes[] = 'hide-title-tooltip';
+				}
+				if ( $cursor_title_boing !== '' ) {
+					$tmb_data['data-cursor-title'] = 'boing';
+				}
+			}
 		}
 
 		$block_classes[] = 'tmb-id-' . $item_thumb_id;

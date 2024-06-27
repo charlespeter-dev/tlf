@@ -46,6 +46,18 @@ window.clearRequestTimeout = function(handle) {
 	}
 };
 
+UNCODE.checkImgLoad = function( src, cb, err, el ) {
+	var img = new Image();
+	img.onload = function () {
+		var result = (img.width > 0) && (img.height > 0);
+		cb(el);
+	};
+	img.onerror = function () {
+		err();
+	};
+	img.src = src
+};
+
 UNCODE.betterResize = function() {
 	var setResize,
 		doubleResize = true,
@@ -58,6 +70,19 @@ UNCODE.betterResize = function() {
 			$(window).trigger('wwResize');
 		}
 	});
+};
+
+UNCODE.shuffle = function(array) {
+	var currentIndex = array.length,
+		randomIndex;
+  
+	while (currentIndex > 0) {
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex--;
+		[array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+	}
+  
+	return array;
 };
 
 Number.isInteger = Number.isInteger || function(value) {
@@ -614,5 +639,43 @@ UNCODE.hasEqualURLParams = function(obj1, obj2) {
     return true;
 }
 
+UNCODE.magnetic = function(){
+	
+	$(document).on('mousemove', '.un-magnetic-zone', function(e){
+
+		var $zone = $(this),
+			zoneOff = $zone.offset(),
+			$mgntcEl = $('.un-magnetic-el', this),
+			elBound = this.getBoundingClientRect(),
+			maxSize = Math.max($zone.outerWidth(), $zone.outerHeight());
+
+		var Xvalue = e.pageX - (zoneOff.left + maxSize / 2),
+	  		Yvalue = e.pageY - (zoneOff.top + maxSize / 2);
+	  
+		$mgntcEl.each(function(key, val){
+			var magneticValue = $(val).attr('data-mgntc') || 0.5;
+		
+			val.animate({
+				transform: 'translate(' + (Xvalue * magneticValue) + '%, ' + (Yvalue * magneticValue) + '%)',
+			},{
+				duration: 500,
+				fill: 'forwards',
+			})
+	  	});
+	})
+	
+	$(document).on('mouseleave', '.un-magnetic-zone', function(e){
+		var $mgntcEl = $('.un-magnetic-el', this);
+
+		$mgntcEl.each(function(key, val){
+			val.animate({
+		  		transform: 'translate(0)',
+			},{
+		  		duration: 500,
+		  		fill: 'forwards',
+			})
+	  	});
+	})
+};
 
 })(jQuery);

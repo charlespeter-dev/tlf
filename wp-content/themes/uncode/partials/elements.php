@@ -4,7 +4,7 @@
  * Build background HTML
  */
 if (!function_exists('uncode_get_back_html')) {
-	function uncode_get_back_html($background = array() , $overlay_color = '', $overlay_color_alpha = '', $overlay_pattern = '', $type = '')
+	function uncode_get_back_html($background = array() , $overlay_color = '', $overlay_color_alpha = '', $overlay_pattern = '', $type = '', $multi = false)
 	{
 
 		global $front_background_colors, $adaptive_images, $adaptive_images_async, $dynamic_srcset_active, $dynamic_srcset_bg_mobile_size, $activate_webp, $enable_adaptive_dynamic_bg;
@@ -402,13 +402,38 @@ if (!function_exists('uncode_get_back_html')) {
 			$overlay_color = ' style-' . $overlay_color . '-bg';
 		}
 
-		if ($overlay_color_alpha !== '' && $overlay_color !== '') {
+		$overlay_animated_noise = '';
+		$noise_bgs = 0;
+		if ( ( isset($background['overlay-animated-1']) && $background['overlay-animated-1'] !== '' ) || ( isset($background['overlay-animated-2']) && $background['overlay-animated-2'] !== '' ) ) {
+			if ( isset($background['overlay-animated-1']) && $background['overlay-animated-1'] !== '' ) {
+				$noise_bgs++;
+				$overlay_animated_noise .= ' data-bg-noise-' . $noise_bgs . '="' . $background['overlay-animated-1'] . '"';
+			}
+			if ( isset($background['overlay-animated-2']) && $background['overlay-animated-2'] !== '' ) {
+				$noise_bgs++;
+				$overlay_animated_noise .= ' data-bg-noise-' . $noise_bgs . '="' . $background['overlay-animated-2'] . '"';
+			}
+			if ( isset($background['overlay-animated-speed']) && $background['overlay-animated-speed'] !== '' ) {
+				$overlay_animated_noise .= ' data-bg-noise-speed="' . $background['overlay-animated-speed'] . '"';
+			}
+			if ( isset($background['overlay-animated-size']) && $background['overlay-animated-size'] !== '' ) {
+				$overlay_animated_noise .= ' data-bg-noise-size="' . $background['overlay-animated-size'] . '"';
+			}
+		}
+
+		$overlay_color_alpha_css = $overlay_color_alpha;
+
+		if ($overlay_color_alpha !== '' && ($overlay_color !== '' || $noise_bgs > 0)) {
 			$overlay_color_alpha = ' style="opacity: ' . ($overlay_color_alpha / 100) . ';"';
 		} else {
 			$overlay_color_alpha = '';
 		}
 		if ( isset($background['mix-blend-mode']) && $background['mix-blend-mode']!=='' ){
-			$overlay_color_alpha_blend = ' style="mix-blend-mode:' . $background['mix-blend-mode'] . ';"';
+			$overlay_color_alpha_blend = ' style="mix-blend-mode:' . $background['mix-blend-mode'] . ';';
+			// if ($overlay_color_alpha_css !== '') {
+			// 	$overlay_color_alpha_blend .= 'opacity: ' . ($overlay_color_alpha_css / 100) . ';';
+			// }
+			$overlay_color_alpha_blend .= '"';
 		} else {
 			$overlay_color_alpha_blend = $overlay_color_alpha;
 		}
@@ -417,16 +442,29 @@ if (!function_exists('uncode_get_back_html')) {
 		}
 
 		$back_image = ($back_url != '' || $back_repeat != '' || $back_position != '' || $back_attachment != '' || $back_size != '') ? ' style="' . $back_url . $back_repeat . $back_position . $back_attachment . $back_size . '"' : '';
-		if ( $overlay_color !== '') {
-			$overlay_html = '<div class="block-bg-overlay' . $overlay_color . '"' . $overlay_color_alpha . '></div>';
+		if ( $overlay_color !== '' || $overlay_animated_noise !== '' ) {
+			$overlay_html = '<div class="block-bg-overlay' . $overlay_color . '"' . $overlay_color_alpha . $overlay_animated_noise . '>';
+			if ( $overlay_animated_noise !== '' ) {
+				$overlay_html .= '<span class="uncode-canvas-bg-noise-wrap"></span>';
+			}
+			$overlay_html .= '</div>';
 			if ( isset($background['mix-blend-mode']) && $background['mix-blend-mode']!=='' ){
 				$overlay_html = '<div class="block-bg-overlay block-bg-blend-mode for-ie' . $overlay_color . '"' . $overlay_color_alpha . '></div>';
-				$overlay_html .= '<div class="block-bg-overlay block-bg-blend-mode not-ie' . $overlay_color . '"' . $overlay_color_alpha_blend . '></div>';
+				$overlay_html .= '<div class="block-bg-overlay block-bg-blend-mode not-ie' . $overlay_color . '"' . $overlay_color_alpha_blend . $overlay_animated_noise . '>';
+				if ( $overlay_animated_noise !== '' ) {
+					$overlay_html .= '<span class="uncode-canvas-bg-noise-wrap"></span>';
 				}
+				$overlay_html .= '</div>';
+			}
+		}
+
+		$wrap_bg_class = '';
+		if ( $multi !== false ) {
+			$wrap_bg_class = ' ' . esc_html( $multi );
 		}
 
 		if ($type === 'row') {
-			$back_html = '<div class="row-background background-element"'.(($back_mime_css === '' && $header_background_video === '' && $back_image === '' && $header_background_selfvideo === '' && $content_html === '') ? ' style="opacity: 1;"' : '').'>
+			$back_html = '<div class="row-background background-element' . $wrap_bg_class . '"'.(($back_mime_css === '' && $header_background_video === '' && $back_image === '' && $header_background_selfvideo === '' && $content_html === '') ? ' style="opacity: 1;"' : '').'>
 											<div class="background-wrapper">
 												<div class="background-inner' . $back_mime_css . $adaptive_async_class . '"' . $header_background_video . $back_image . $adaptive_async_data . '>' . $header_background_selfvideo . $content_html . '</div>
 												'.$overlay_html.'
@@ -434,7 +472,7 @@ if (!function_exists('uncode_get_back_html')) {
 										</div>';
 		} elseif ($type === 'column') {
 			$data_o_src = $back_attributes && $back_attributes->guid !== '' ? ' data-o_src="' . $back_attributes->guid . '"' : '';
-			$back_html = '<div class="column-background background-element"'.(($back_mime_css === '' && $header_background_video === '' && $back_image === '' && $header_background_selfvideo === '' && $content_html === '') ? ' style="opacity: 1;"' : '').'>
+			$back_html = '<div class="column-background background-element' . $wrap_bg_class . '"'.(($back_mime_css === '' && $header_background_video === '' && $back_image === '' && $header_background_selfvideo === '' && $content_html === '') ? ' style="opacity: 1;"' : '').'>
 											<div class="background-wrapper">
 												<div class="background-inner' . $back_mime_css . $adaptive_async_class . '"' . $header_background_video . $back_image . $adaptive_async_data . $data_o_src . '>' . $header_background_selfvideo . $content_html . '</div>
 												'.$overlay_html.'
@@ -442,13 +480,19 @@ if (!function_exists('uncode_get_back_html')) {
 										</div>';
 		} elseif ($type === 'div') {
 			if ($header_background_video !== '' || $back_image !== '' || $header_background_selfvideo !== '' || $content_html !== '') {
-				$back_html = '<div class="main-background background-element">
+				$back_html = '<div class="main-background background-element' . $wrap_bg_class . '">
 												<div class="' . $back_mime_css . $adaptive_async_class . '"' . $header_background_video . $back_image . $adaptive_async_data . '>' . $header_background_selfvideo . $content_html . '</div>
 											</div>';
 			}
+		} elseif ($type === 'multi' || $type === 'multi-hidden' ) {
+			$back_html = '<div class="multi-background background-element' . ($type === 'multi' ? ' multi-show' : '' ) . ' ">
+											<div class="background-wrapper">
+												<div class="background-inner' . $back_mime_css . $adaptive_async_class . '"' . $header_background_video . $back_image . $adaptive_async_data . '>' . $header_background_selfvideo . $content_html . '</div>
+											</div>
+										</div>';
 		} else {
 			if ( $overlay_html !== '' || $header_background_video !== '' || $back_image !== '' || $header_background_selfvideo !== '' || $carousel_html !== '' || ( $adaptive_images === 'off' && $dynamic_srcset_active && $enable_adaptive_dynamic_bg && $do_bg_replace ) ) {
-				$back_html = 	'<div class="header-bg-wrapper' . ($carousel_html !=='' ? ' header-carousel-wrapper' : '') . '">
+				$back_html = 	'<div class="header-bg-wrapper' . ($carousel_html !=='' ? ' header-carousel-wrapper' : '') . $wrap_bg_class . '">
 											<div class="header-bg' . $back_mime_css . $adaptive_async_class . '"' . $header_background_video . $back_image . $adaptive_async_data . '>' . $header_background_selfvideo . $carousel_html . '</div>
 											'.$overlay_html.'
 										</div>';
@@ -614,6 +658,8 @@ if (!function_exists('uncode_create_single_block')) {
 		}
 		if (isset($block_data['single_width'])) {
 			$single_width = $block_data['single_width'];
+		} else {
+			$single_width = 12;
 		}
 		if (isset($block_data['single_height'])) {
 			$single_height = $block_data['single_height'];
@@ -655,6 +701,10 @@ if (!function_exists('uncode_create_single_block')) {
 		$title_classes = array();
 		if (isset($block_data['title_classes'])) {
 			$title_classes = (!$block_data['title_classes']) ? array('h3') : $block_data['title_classes'];
+		}
+		$title_style = '';
+		if (isset($block_data['title_style'])) {
+			$title_style = (!$block_data['title_style']) ? '' : ' style="' . $block_data['title_style'] . '"';
 		}
 		if (uncode_animations_enabled() && isset($block_data['animation'])) {
 			$single_animation = $block_data['animation'];
@@ -919,7 +969,7 @@ if (!function_exists('uncode_create_single_block')) {
 								$price_html = $product->get_price_html();
 							}
 
-							$price_case = '<span class="price '.trim(implode(' ', $title_classes)).'">'.$price_html.'</span>';
+							$price_case = '<span class="price '.trim(implode(' ', $title_classes)).'"' . $title_style . '>'.$price_html.'</span>';
 						} else {
 							$price_case = '';
 						}
@@ -927,7 +977,7 @@ if (!function_exists('uncode_create_single_block')) {
 						if ( $is_tax_block && isset($layout['count']) && isset( $block_data['count_inline'] ) && $block_data['count_inline'] === 'yes' ) {
 							$count = uncode_get_posts_element_term_count( $block_data, $layout['count'] );
 							if ( $count ) {
-								$count_case = ' <span class="inline-count '.trim(implode(' ', $title_classes)).'">' . $count . '</span>';
+								$count_case = ' <span class="inline-count '.trim(implode(' ', $title_classes)).'"' . $title_style . '>' . $count . '</span>';
 							} else {
 								$count_case = '';
 							}
@@ -986,7 +1036,7 @@ if (!function_exists('uncode_create_single_block')) {
 
 								$print_title .= $title_extra_after;
 
-								$inner_entry .= '<' . $title_tag . ' class="t-entry-title '. trim(implode(' ', $title_classes)) . '">'.$print_title.'</' . $title_tag . '>';
+								$inner_entry .= '<' . $title_tag . ' class="t-entry-title '. trim(implode(' ', $title_classes)) . '"' . $title_style . '>'.$print_title.'</' . $title_tag . '>';
 							}
 						} else {
 							$print_title = $single_title ? $single_title : $get_title;
@@ -1038,9 +1088,9 @@ if (!function_exists('uncode_create_single_block')) {
 								$data_values = (isset($block_data['link']['target']) && !empty($block_data['link']['target']) && is_array($block_data['link'])) ? ' target="'.trim($block_data['link']['target']).'"' : '';
 								$data_values .= (isset($block_data['link']['rel']) && !empty($block_data['link']['rel']) && is_array($block_data['link'])) ? ' rel="'.trim($block_data['link']['rel']).'"' : '';
 								if ($title_link === '') {
-									$inner_entry .= '<' . $title_tag . ' class="t-entry-title '. trim(implode(' ', $title_classes)) . '">'.$print_title.'</' . $title_tag . '>';
+									$inner_entry .= '<' . $title_tag . ' class="t-entry-title '. trim(implode(' ', $title_classes)) . '"' . $title_style . '>'.$print_title.'</' . $title_tag . '>';
 								} else {
-									$inner_entry .= '<' . $title_tag . ' class="t-entry-title '. trim(implode(' ', $title_classes)) . '"><a href="'.$title_link.'"'.$data_values.'>'.$print_title.'</a></' . $title_tag . '>';
+									$inner_entry .= '<' . $title_tag . ' class="t-entry-title '. trim(implode(' ', $title_classes)) . '"' . $title_style . '><a href="'.$title_link.'"'.$data_values.'>'.$print_title.'</a></' . $title_tag . '>';
 								}
 							}
 						}
@@ -1523,6 +1573,7 @@ if (!function_exists('uncode_create_single_block')) {
 					case 'link':
 						$btn_shape = ' btn-default';
 						$btn_has_style = false;
+						$btn_has_2_9_0_fields = false;
 
 						if ( isset($value[2]) ) {
 							if ( $value[2] === 'outline_inv') {
@@ -1540,8 +1591,26 @@ if (!function_exists('uncode_create_single_block')) {
 							$btn_shape .= ' btn-sm';
 						}
 
+						if (isset($value[1]) && $value[1] === 'large_size') {
+							$btn_shape .= ' btn-lg';
+						}
+
 						if (isset($value[2]) && $value[2] === 'not_scale_mobile') {
 							$btn_shape .= ' btn-no-scale';
+						}
+
+						if (isset($value[3]) && $value[3] === 'fluid_width') {
+							$btn_shape .= ' btn-block';
+							$btn_has_2_9_0_fields = true;
+						} else if ( isset($value[3]) && $value[3] === 'default_width' ) {
+							$btn_has_2_9_0_fields = true;
+						}
+
+						if (isset($value[4]) && $value[4] === 'outline_inverse') {
+							$btn_shape .= ' btn-outline';
+							$btn_has_2_9_0_fields = true;
+						} else if ( isset($value[3]) && $value[3] === 'default_outline' ) {
+							$btn_has_2_9_0_fields = true;
 						}
 
 						if (isset($value[0]) && $value[0] !== 'default') {
@@ -1561,21 +1630,31 @@ if (!function_exists('uncode_create_single_block')) {
 
 						if (isset($block_data['read_more_text']) && $block_data['read_more_text'] !== '') {
 							$read_more_text = $block_data['read_more_text'];
-						} elseif (isset($value[4]) && !empty($value[4])) {
+						} elseif (isset($value[5]) && !empty($value[5])) {
+							$read_more_text = $value[5];
+						} elseif (isset($value[4]) && !empty($value[4]) && $btn_has_2_9_0_fields === false) {
 							$read_more_text = $value[4];
-						} elseif (isset($value[3]) && !empty($value[3]) && $btn_has_style === false) {
+						} elseif (isset($value[3]) && !empty($value[3]) && $btn_has_style === false && $btn_has_2_9_0_fields === false) {
 							$read_more_text = $value[3];
-						} elseif (isset($value[1]) && !empty($value[1]) && $value[1]!== 'default_size' && $value[1]!== 'small_size') {
+						} elseif (isset($value[1]) && !empty($value[1]) && $value[1]!== 'default_size' && $value[1]!== 'small_size' && $value[1]!== 'large_size') {
 							$read_more_text = $value[1];
+						}
+
+						$btn_shape = 'btn' . $btn_shape;
+
+						if ( $block_data['button_class'] ) {
+							$btn_shape = $block_data['button_class'];
+
+							$data_values .= ' class="' . $block_data['button_class'] . '"';
 						}
 
 						if ( isset( $block_data['table_heading'] ) ) {
 							$inner_entry .= '<p class="' . trim(implode(' ', $meta_class)) . ' "><a href="'.$read_more_link.'"' . $data_values . '>' . $read_more_text . '</a></p>';
 						} else {
 							if ($single_text === 'overlay' && $single_elements_click !== 'yes') {
-								$inner_entry .= '<p class="t-entry-readmore btn-container"><span class="btn'.$btn_shape.'">' . $read_more_text . '</span></p>';
+								$inner_entry .= '<p class="t-entry-readmore btn-container"><span class="'.$btn_shape.'">' . $read_more_text . '</span></p>';
 							} else {
-								$inner_entry .= '<p class="t-entry-readmore btn-container"><a href="'.$read_more_link.'" class="btn'.$btn_shape.'"' . $data_values . '>' . $read_more_text . '</a></p>';
+								$inner_entry .= '<p class="t-entry-readmore btn-container"><a href="'.$read_more_link.'" class="'.$btn_shape.'"' . $data_values . '>' . $read_more_text . '</a></p>';
 							}
 						}
 					break;
@@ -1589,6 +1668,10 @@ if (!function_exists('uncode_create_single_block')) {
 								$btn_shape .= ' btn-sm';
 							}
 
+							if (isset($value[1]) && $value[1] === 'large_size') {
+								$btn_shape .= ' btn-lg';
+							}
+
 							if (isset($value[0]) && $value[0] !== 'default') {
 								if ($value[0] === 'link') {
 									$btn_shape = ' btn-link';
@@ -1598,6 +1681,18 @@ if (!function_exists('uncode_create_single_block')) {
 							}
 							if ( uncode_btn_style() !== '' ) {
 								$btn_shape .= ' ' . uncode_btn_style();
+							}
+
+							if (isset($value[2]) && $value[2] === 'fluid_width') {
+								$btn_shape .= ' btn-block';
+							}
+
+							if (isset($value[3]) && $value[3] === 'outline_inverse') {
+								$btn_shape .= ' btn-outline';
+							}
+
+							if ( $block_data['button_class'] ) {
+								$btn_shape = $block_data['button_class'];
 							}
 
 							$redirect_to_product = uncode_single_variations_redirect_to_product( $product );
@@ -1624,6 +1719,10 @@ if (!function_exists('uncode_create_single_block')) {
 									$add_to_cart_button_html = str_replace( ' btn', ' t-table-add-to-cart', $add_to_cart_button_html );
 									$inner_entry .= '<p class="' . trim(implode(' ', $meta_class)) . ' ">' . $add_to_cart_button_html . '</p>';
 								} else {
+									if ( $block_data['button_class'] ) {
+										$add_to_cart_button_html = str_replace( 'btn ', ' ', $add_to_cart_button_html );
+									}
+
 									$add_to_cart_button_html = str_replace( 'btn-default', $btn_shape, $add_to_cart_button_html );
 
 									if ($single_text === 'overlay' && $single_elements_click !== 'yes') {
@@ -1753,7 +1852,7 @@ if (!function_exists('uncode_create_single_block')) {
 							if ( $is_titles && isset( $block_data['drop_image_extra'] ) ) {
 								$drop_image_extra = preg_replace( "/<ins .*?>(.*?)<\/ins>/", "<ins>$1</ins>", $price_html );
 							} else {
-								$inner_entry .= '<span class="price '.trim(implode(' ', $title_classes)).'">'.$price_html.'</span>';
+								$inner_entry .= '<span class="price '.trim(implode(' ', $title_classes)).'"' . $title_style . '>'.$price_html.'</span>';
 							}
 						}
 					break;
@@ -2665,6 +2764,10 @@ if (!function_exists('uncode_create_single_block')) {
 			}
 		}
 
+		if ( $block_data['template'] === 'inline-image' && strpos($media_attributes->post_mime_type, 'image/') === false ) {
+			return;
+		}
+
 		if ($item_media === '' && !isset($media_attributes->guid) && !$multiple_items) {
 			$media_type = 'image';
 			$item_media = 'http://placehold.it/500&amp;text=media+not+available';
@@ -2860,7 +2963,17 @@ if (!function_exists('uncode_create_single_block')) {
 			}
 		}
 
+		if ( $block_data['template'] === 'inline-image' ) {
+			$output .= '<span class="'.implode(' ', $block_classes).'"';
+			if ( isset($block_data['inline-img-link']) ) {
+				foreach ($block_data['inline-img-link'] as $att => $val) {
+					$output .= ' data-link-' . trim($att) . '="' . $val . '"';
+				}
+			}
+			$output .= 	implode(' ', $div_data_attributes) .'><span>';
+		} else {
 			$output .= '<div class="'.implode(' ', $block_classes).'" '.implode(' ', $div_data_attributes_parent) .'>';
+		}
 
 		if ( $is_titles ) {
 			$data_values = (isset($block_data['link']['target']) && !empty($block_data['link']['target']) && is_array($block_data['link'])) ? ' target="'.trim($block_data['link']['target']).'"' : '';
@@ -2870,7 +2983,7 @@ if (!function_exists('uncode_create_single_block')) {
 
 		if ( isset( $block_data['drop_image_separator'] ) && !isset( $block_data['drop_image_separator_first'] ) ) {
 			$drop_image_separator_classes = isset( $block_data['drop_image_separator_classes'] ) ? $block_data['drop_image_separator_classes'] : array();
-			$output .= '<span class="drop-image-separator drop-image-separator-before '. trim(implode(' ', $drop_image_separator_classes)) . ' ' . trim(implode(' ', $title_classes)) . $single_animation . '" '.implode(' ', $div_data_attributes) .'><span class="drop-image-separator-inner">' . esc_attr( $block_data['drop_image_separator'] ) . '</span></span>';
+			$output .= '<span class="drop-image-separator drop-image-separator-before '. trim(implode(' ', $drop_image_separator_classes)) . ' ' . trim(implode(' ', $title_classes)) . $single_animation . '"' . $title_style . ' '.implode(' ', $div_data_attributes) .'><span class="drop-image-separator-inner">' . esc_attr( $block_data['drop_image_separator'] ) . '</span></span>';
 		}
 
 		if ( isset( $block_data['table_click_row'] ) ) {
@@ -2879,7 +2992,9 @@ if (!function_exists('uncode_create_single_block')) {
 			$output .= 	'<a href="' . esc_url( $title_link ) . '" class="table-click-row"' . $data_values . '></a>';
 		}
 
+		if ( $block_data['template'] !== 'inline-image' ) {
 			$output .= 	'<div class="' . (($nested !== 'yes') ? 't-inside' : '').$single_back_color . $single_animation . '" '.implode(' ', $div_data_attributes) .'>';
+		}
 
 		if ( $is_table ) {
 			if ( isset( $block_data['price_inline'] ) && $block_data['price_inline'] === 'yes' ) {
@@ -2902,7 +3017,7 @@ if (!function_exists('uncode_create_single_block')) {
 
 			$media_output = '';
 
-			if ( !$is_titles ) {
+			if ( !$is_titles && $block_data['template'] !== 'inline-image' ) {
 				$media_output .= 		'<div class="t-entry-visual"><div class="t-entry-visual-tc"><div class="t-entry-visual-cont">';
 
 				//Over image categories
@@ -2977,8 +3092,10 @@ if (!function_exists('uncode_create_single_block')) {
 							}
 						}
 
+						if ( $block_data['template'] !== 'inline-image' ) {
 							$media_output .= 			'<div class="' . esc_attr( $dummy_class ) . '" style="' . $dummy_style . '"' . $dummy_async_data . '>' . $dummy_content . '</div>';
 						}
+					}
 
 				}
 
@@ -3177,11 +3294,13 @@ if (!function_exists('uncode_create_single_block')) {
 						$href_att = ' href="'. ( ($media_type === 'image' || ( $media_mime === 'image/svg+xml' && apply_filters( 'uncode_use_svgs_for_links', false ) ) ) ? $create_link : '').'"';
 					}
 
+					if ( $block_data['template'] !== 'inline-image' ) {
 						$media_output .= '<a tabindex="-1"' . $href_att .((count($a_classes) > 0 ) ? ' class="'.trim(implode(' ', $a_classes)).'"' : '').$lightbox_data.$data_values.$data_lb.'>';
+					}
 
 				}
 
-				if (is_object($media_attributes) && $media_attributes->post_mime_type !== 'oembed/twitter' && !$is_titles ) {
+				if (is_object($media_attributes) && $media_attributes->post_mime_type !== 'oembed/twitter' && !$is_titles && $block_data['template'] !== 'inline-image' ) {
 
 					$single_limit_width = isset($block_data['limit-width']) && $block_data['limit-width'] === true ? ' limit-width' : '';
 
@@ -3278,7 +3397,7 @@ if (!function_exists('uncode_create_single_block')) {
 
 					if ( isset( $secondary_featured_image ) && $secondary_featured_image !== false && ! $is_titles ) {
 						if ( $adaptive_images === 'off' && $dynamic_srcset_active && $enable_adaptive_dynamic_img ) {
-							if ( isset( $secondary_featured_image['id'] ) && $secondary_featured_image['id'] > 0 ) {
+							if ( isset( $media_post_id ) && isset( $secondary_featured_image['id'] ) && $secondary_featured_image['id'] > 0 ) {
 								$secondary_adaptive_async_class = uncode_get_srcset_async_class( $block_data );
 								$secondary_adaptive_async_class .= ' t-secondary-background-cover';
 
@@ -3299,7 +3418,7 @@ if (!function_exists('uncode_create_single_block')) {
 						}
 					}
 
-					if ( $adaptive_images === 'off' && $dynamic_srcset_active && $enable_adaptive_dynamic_bg ) {
+					if ( isset( $media_post_id ) && $adaptive_images === 'off' && $dynamic_srcset_active && $enable_adaptive_dynamic_bg ) {
 						$picture_cover_class = 't-background-cover'.($adaptive_async_class !== '' ? $adaptive_async_class : '');
 						$media_alt     = isset( $media_alt ) ? $media_alt : '';
 						$adaptive_async_data_all = isset( $adaptive_async_data_all ) ? $adaptive_async_data_all : array();
@@ -3614,7 +3733,7 @@ if (!function_exists('uncode_create_single_block')) {
 						}
 
 						//here
-						if ( $item_media !== '' ) {
+						if ( $item_media !== '' && !( strpos($media_mime, 'image/') === false && $block_data['template'] === 'inline-image' ) ) {
 							$media_output .= apply_filters( 'post_thumbnail_html', '<img' . ( $adaptive_async_class !== '' ? ' class="' . trim( $adaptive_async_class ) . '"' : '' ) . ' src="' . $item_media . '" width="' . $image_orig_w . '" height="' . $image_orig_h . '" alt="' . $media_alt . '"' . ( $adaptive_async_data !== '' ? $adaptive_async_data : '' ) . ' />', $media_post_id, $item_thumb_id, array($image_orig_w, $image_orig_h), '');
 						}
 
@@ -3712,12 +3831,11 @@ if (!function_exists('uncode_create_single_block')) {
 
 			}
 
-			if (($single_text !== 'overlay' || $single_elements_click !== 'yes') && ( ( isset( $oembed_no_control ) && $oembed_no_control === true ) || $media_type === 'image' || ( $media_mime === 'image/svg+xml' && apply_filters( 'uncode_use_svgs_for_links', false ) ) ) && !isset($block_data['is_avatar'])) {
+			if (($single_text !== 'overlay' || $single_elements_click !== 'yes') && ( ( isset( $oembed_no_control ) && $oembed_no_control === true ) || $media_type === 'image' || ( $media_mime === 'image/svg+xml' && apply_filters( 'uncode_use_svgs_for_links', false ) ) ) && !isset($block_data['is_avatar']) && $block_data['template'] !== 'inline-image' ) {
 				$media_output .= '</a>';
 			}
 
 			$has_add_to_cart_overlay = false;
-
 
 			if ( !$is_titles && $is_product && ( !isset($block_data['show_atc']) || $block_data['show_atc'] == 'yes') ) {
 				$redirect_to_product = uncode_single_variations_redirect_to_product( $product );
@@ -3764,7 +3882,7 @@ if (!function_exists('uncode_create_single_block')) {
 				$media_output.= $custom_entry_visual_after_image;
 			}
 
-			if ( !$is_titles ) {
+			if ( !$is_titles && $block_data['template'] !== 'inline-image' ) {
 				$media_output .= '</div>
 					</div>
 				</div>';
@@ -3790,11 +3908,13 @@ if (!function_exists('uncode_create_single_block')) {
 			$output .= ob_get_clean();
 		}
 
+		if ( $block_data['template'] !== 'inline-image' ) {
 			$output .= '</div>';
+		}
 
 		if ( isset( $block_data['drop_image_separator'] ) && !isset( $block_data['drop_image_separator_last'] ) ) {
 			$drop_image_separator_classes = isset( $block_data['drop_image_separator_classes'] ) ? $block_data['drop_image_separator_classes'] : array();
-				$output .= '<span class="drop-image-separator drop-image-separator-after '. trim(implode(' ', $drop_image_separator_classes)) . ' ' . trim(implode(' ', $title_classes)) . $single_animation . '" '.implode(' ', $div_data_attributes) .'><span class="drop-image-separator-inner">' . esc_attr( $block_data['drop_image_separator'] ) . '</span></span>';
+			$output .= '<span class="drop-image-separator drop-image-separator-after '. trim(implode(' ', $drop_image_separator_classes)) . ' ' . trim(implode(' ', $title_classes)) . $single_animation . '"' . $title_style . ' '.implode(' ', $div_data_attributes) .'><span class="drop-image-separator-inner">' . esc_attr( $block_data['drop_image_separator'] ) . '</span></span>';
 		}
 
 		if ( $is_table ) {
@@ -3807,7 +3927,11 @@ if (!function_exists('uncode_create_single_block')) {
 			$output .= ob_get_clean();
 		}
 
+		if ( $block_data['template'] !== 'inline-image' ) {
 			$output .= '</div>'; //.t-inside
+		} else {
+			$output .= '</span></span>';
+		}
 
 		if ( ! apply_filters( 'uncode_move_woocommerce_after_shop_loop_item', false ) && ot_get_option('_uncode_woocommerce_hooks') === 'on' && $is_product ) {
 			ob_start();

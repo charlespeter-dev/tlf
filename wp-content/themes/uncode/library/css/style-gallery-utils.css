@@ -581,7 +581,7 @@ body.rtl .grid-filters .menu-smart--filter-cats_mobile-toggle-trigger:after {
 .tmb > .t-inside {
   background-clip: content-box;
 }
-.no-touch .isotope-container > .tmb > .t-inside {
+.no-touch .isotope-container > .tmb > .t-inside:not(.no-anim) {
   opacity: 0;
 }
 .px-gutter:not(.owl-carousel-container):not(.uncode-post-table):not(.justified-wrapper):not(.post-titles-inner):not(.index-scroll-wrapper):not(.pin-wrap) .tmb > .t-inside {

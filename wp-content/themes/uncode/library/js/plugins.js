@@ -5559,7 +5559,8 @@
 })));
 
 (function(window, $) {
-  'use strict';
+  "use strict";
+
   var counter = 0,
     $headCache = $('head'),
     oldBigText = window.BigText,
@@ -5604,11 +5605,11 @@
       },
       bindResize: function(eventName, resizeFunction) {
         var timeoutId;
-        $(window).unbind(eventName).bind(eventName, function() {
+        $(window).off(eventName).on(eventName, function() {
           if( timeoutId ) {
             clearTimeout( timeoutId );
           }
-          timeoutId = setTimeout( resizeFunction, 300 );
+          timeoutId = setTimeout( resizeFunction, 100 );
         });
       },
       getStyleId: function(id)
@@ -5680,165 +5681,163 @@
                 BigText.LINE_CLASS_PREFIX + lineNumber].join(' ');
           });
 
-          var sizes = calculateSizes($t, $children, maxWidth, options.maxfontsize, options.minfontsize);
+          var sizes = BigText.calculateSizes($t, $children, maxWidth, options.maxfontsize, options.minfontsize);
           $headCache.append(BigText.generateCss(id, sizes.fontSizes, sizes.wordSpacings, sizes.minFontSizes));
         });
 
         return this.trigger('bigtext:complete');
-      }
-    };
+      },
+      testLineDimensions: function($line, maxWidth, property, size, interval, units, previousWidth)
+      {
+        var width;
+        previousWidth = typeof previousWidth === 'number' ? previousWidth : 0;
+        $line.css(property, size + units);
 
-  function testLineDimensions($line, maxWidth, property, size, interval, units, previousWidth)
-  {
-    var width;
-    previousWidth = typeof previousWidth === 'number' ? previousWidth : 0;
-    $line.css(property, size + units);
+        width = $line.width();
 
-    width = $line.width();
+        if(width >= maxWidth) {
+    // console.log(width, ' previous: ' + previousWidth, property + ' at ' + interval, 'prior: ' + (parseFloat(size) - interval), 'new:' + parseFloat(size));
+          $line.css(property, '');
 
-    if(width >= maxWidth) {
+          if(width === maxWidth) {
+            return {
+              match: 'exact',
+              size: parseFloat((parseFloat(size) - 0.1).toFixed(3))
+            };
+          }
 
-      $line.css(property, '');
+          // Since this is an estimate, we calculate how far over the width we went with the new value.
+          // If this is word-spacing (our last resort guess) and the over is less than the under, we keep the higher value.
+          // Otherwise, we revert to the underestimate.
+          var under = maxWidth - previousWidth,
+            over = width - maxWidth;
 
-      if(width === maxWidth) {
+          return {
+            match: 'estimate',
+            size: parseFloat((parseFloat(size) - (property === 'word-spacing' && previousWidth && ( over < under ) ? 0 : interval)).toFixed(3))
+          };
+        }
+
+        return width;
+      },
+      calculateSizes: function($t, $children, maxWidth, maxFontSize, minFontSize)
+      {
+        var $c = $t.clone(true)
+          .addClass('bigtext-cloned')
+          .css({
+            fontFamily: $t.css('font-family'),
+            textTransform: $t.css('text-transform'),
+            wordSpacing: $t.css('word-spacing'),
+            letterSpacing: $t.css('letter-spacing'),
+            position: 'absolute',
+            left: BigText.DEBUG_MODE ? 0 : -9999,
+            top: BigText.DEBUG_MODE ? 0 : -9999
+          })
+          .appendTo(document.body);
+
+        // font-size isn't the only thing we can modify, we can also mess with:
+        // word-spacing and letter-spacing. WebKit does not respect subpixel
+        // letter-spacing, word-spacing, or font-size.
+        // TODO try -webkit-transform: scale() as a workaround.
+        var fontSizes = [],
+          wordSpacings = [],
+          minFontSizes = [],
+          ratios = [];
+
+        $children.css('float', 'left').each(function() {
+          var $line = $(this),
+            // TODO replace 8, 4 with a proportional size to the calculated font-size.
+            intervals = BigText.supports.wholeNumberFontSizeOnly ? [8, 4, 1] : [8, 4, 1, 0.1],
+            lineMax,
+            newFontSize;
+
+          if($line.hasClass(BigText.EXEMPT_CLASS)) {
+            fontSizes.push(null);
+            ratios.push(null);
+            minFontSizes.push(false);
+            return;
+          }
+
+          // TODO we can cache this ratio?
+          var autoGuessSubtraction = 32, // font size in px
+            currentFontSize = parseFloat($line.css('font-size')),
+            ratio = ( $line.width() / currentFontSize ).toFixed(6);
+
+          newFontSize = parseInt( maxWidth / ratio, 10 ) - autoGuessSubtraction;
+
+          outer: for(var m=0, n=intervals.length; m<n; m++) {
+            inner: for(var j=1, k=10; j<=k; j++) {
+              if(newFontSize + j*intervals[m] > maxFontSize) {
+                newFontSize = maxFontSize;
+                break outer;
+              }
+
+              lineMax = BigText.testLineDimensions($line, maxWidth, 'font-size', newFontSize + j*intervals[m], intervals[m], 'px', lineMax);
+              if(typeof lineMax !== 'number') {
+                newFontSize = lineMax.size;
+
+                if(lineMax.match === 'exact') {
+                  break outer;
+                }
+                break inner;
+              }
+            }
+          }
+
+          ratios.push(maxWidth / newFontSize);
+
+          if(newFontSize > maxFontSize) {
+            fontSizes.push(maxFontSize);
+            minFontSizes.push(false);
+          } else if(!!minFontSize && newFontSize < minFontSize) {
+            fontSizes.push(minFontSize);
+            minFontSizes.push(true);
+          } else {
+            fontSizes.push(newFontSize);
+            minFontSizes.push(false);
+          }
+        }).each(function(lineNumber) {
+          var $line = $(this),
+            wordSpacing = 0,
+            interval = 1,
+            maxWordSpacing;
+
+          if($line.hasClass(BigText.EXEMPT_CLASS)) {
+            wordSpacings.push(null);
+            return;
+          }
+
+          // must re-use font-size, even though it was removed above.
+          $line.css('font-size', fontSizes[lineNumber] + 'px');
+
+          for(var m=1, n=3; m<n; m+=interval) {
+            maxWordSpacing = BigText.testLineDimensions($line, maxWidth, 'word-spacing', m, interval, 'px', maxWordSpacing);
+            if(typeof maxWordSpacing !== 'number') {
+              wordSpacing = maxWordSpacing.size;
+              break;
+            }
+          }
+
+          $line.css('font-size', '');
+          wordSpacings.push(wordSpacing);
+        }).removeAttr('style');
+
+        if( !BigText.DEBUG_MODE ) {
+          $c.remove();
+        } else {
+          $c.css({
+            'background-color': 'rgba(255,255,255,.4)'
+          });
+        }
+
         return {
-          match: 'exact',
-          size: parseFloat((parseFloat(size) - 0.1).toFixed(3))
+          fontSizes: fontSizes,
+          wordSpacings: wordSpacings,
+          ratios: ratios,
+          minFontSizes: minFontSizes
         };
       }
-
-      // Since this is an estimate, we calculate how far over the width we went with the new value.
-      // If this is word-spacing (our last resort guess) and the over is less than the under, we keep the higher value.
-      // Otherwise, we revert to the underestimate.
-      var under = maxWidth - previousWidth,
-        over = width - maxWidth;
-
-      return {
-        match: 'estimate',
-        size: parseFloat((parseFloat(size) - (property === 'word-spacing' && previousWidth && ( over < under ) ? 0 : interval)).toFixed(3))
-      };
-    }
-
-    return width;
-  }
-
-  function calculateSizes($t, $children, maxWidth, maxFontSize, minFontSize)
-  {
-    var $c = $t.clone(true)
-      .addClass('bigtext-cloned')
-      .css({
-        fontFamily: $t.css('font-family'),
-        textTransform: $t.css('text-transform'),
-        wordSpacing: $t.css('word-spacing'),
-        letterSpacing: $t.css('letter-spacing'),
-        position: 'absolute',
-        left: BigText.DEBUG_MODE ? 0 : -9999,
-        top: BigText.DEBUG_MODE ? 0 : -9999
-      })
-      .appendTo(document.body);
-
-    // font-size isn't the only thing we can modify, we can also mess with:
-    // word-spacing and letter-spacing. WebKit does not respect subpixel
-    // letter-spacing, word-spacing, or font-size.
-    // TODO try -webkit-transform: scale() as a workaround.
-    var fontSizes = [],
-      wordSpacings = [],
-      minFontSizes = [],
-      ratios = [];
-
-    $children.css('float', 'left').each(function() {
-      var $line = $(this),
-        // TODO replace 8, 4 with a proportional size to the calculated font-size.
-        intervals = BigText.supports.wholeNumberFontSizeOnly ? [8, 4, 1] : [8, 4, 1, 0.1],
-        lineMax,
-        newFontSize;
-
-      if($line.hasClass(BigText.EXEMPT_CLASS)) {
-        fontSizes.push(null);
-        ratios.push(null);
-        minFontSizes.push(false);
-        return;
-      }
-
-      // TODO we can cache this ratio?
-      var autoGuessSubtraction = 32, // font size in px
-        currentFontSize = parseFloat($line.css('font-size')),
-        ratio = ( $line.width() / currentFontSize ).toFixed(6);
-
-      newFontSize = parseInt( maxWidth / ratio, 10 ) - autoGuessSubtraction;
-
-      outer: for(var m=0, n=intervals.length; m<n; m++) {
-        inner: for(var j=1, k=10; j<=k; j++) {
-          if(newFontSize + j*intervals[m] > maxFontSize) {
-            newFontSize = maxFontSize;
-            break outer;
-          }
-
-          lineMax = testLineDimensions($line, maxWidth, 'font-size', newFontSize + j*intervals[m], intervals[m], 'px', lineMax);
-          if(typeof lineMax !== 'number') {
-            newFontSize = lineMax.size;
-
-            if(lineMax.match === 'exact') {
-              break outer;
-            }
-            break inner;
-          }
-        }
-      }
-
-      ratios.push(maxWidth / newFontSize);
-
-      if(newFontSize > maxFontSize) {
-        fontSizes.push(maxFontSize);
-        minFontSizes.push(false);
-      } else if(!!minFontSize && newFontSize < minFontSize) {
-        fontSizes.push(minFontSize);
-        minFontSizes.push(true);
-      } else {
-        fontSizes.push(newFontSize);
-        minFontSizes.push(false);
-      }
-    }).each(function(lineNumber) {
-      var $line = $(this),
-        wordSpacing = 0,
-        interval = 1,
-        maxWordSpacing;
-
-      if($line.hasClass(BigText.EXEMPT_CLASS)) {
-        wordSpacings.push(null);
-        return;
-      }
-
-      // must re-use font-size, even though it was removed above.
-      $line.css('font-size', fontSizes[lineNumber] + 'px');
-
-      for(var m=1, n=3; m<n; m+=interval) {
-        maxWordSpacing = testLineDimensions($line, maxWidth, 'word-spacing', m, interval, 'px', maxWordSpacing);
-        if(typeof maxWordSpacing !== 'number') {
-          wordSpacing = maxWordSpacing.size;
-          break;
-        }
-      }
-
-      $line.css('font-size', '');
-      wordSpacings.push(wordSpacing);
-    }).removeAttr('style');
-
-    if( !BigText.DEBUG_MODE ) {
-      $c.remove();
-    } else {
-      $c.css({
-        'background-color': 'rgba(255,255,255,.4)'
-      });
-    }
-
-    return {
-      fontSizes: fontSizes,
-      wordSpacings: wordSpacings,
-      ratios: ratios,
-      minFontSizes: minFontSizes
     };
-  }
 
   $.fn.bigtext = BigText.jQueryMethod;
   window.BigText = BigText;
@@ -10731,267 +10730,271 @@ return Packery;
 
 // Uses AMD or browser globals to create a jQuery plugin.
 (function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
-        define(['jquery'], factory);
-    } else {
-        // Browser globals
-        factory(jQuery);
-    }
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(['jquery'], factory);
+	} else {
+		// Browser globals
+		factory(jQuery);
+	}
 }(function ($, undefined) {
-    'use strict';
+	'use strict';
 
-    $.infinitescroll = function infscr(options, callback, element) {
-        this.element = $(element);
+	$.infinitescroll = function infscr(options, callback, element) {
+		this.element = $(element);
 
-        // Flag the object in the event of a failed creation
-        if (!this._create(options, callback)) {
-            this.failed = true;
-        }
-    };
+		// Flag the object in the event of a failed creation
+		if (!this._create(options, callback)) {
+			this.failed = true;
+		}
+	};
 
-    $.infinitescroll.defaults = {
-        loading: {
-            finished: undefined,
-            finishedMsg: "<em>Congratulations, you've reached the end of the internet.</em>",
-            img: 'data:image/gif;base64,R0lGODlh3AATAPQeAPDy+MnQ6LW/4N3h8MzT6rjC4sTM5r/I5NHX7N7j8c7U6tvg8OLl8uXo9Ojr9b3G5MfP6Ovu9tPZ7PT1+vX2+tbb7vf4+8/W69jd7rC73vn5/O/x+K243ai02////wAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQECgD/ACwAAAAA3AATAAAF/6AnjmRpnmiqrmzrvnAsz3Rt33iu73zv/8CgcEj0BAScpHLJbDqf0Kh0Sq1ar9isdioItAKGw+MAKYMFhbF63CW438f0mg1R2O8EuXj/aOPtaHx7fn96goR4hmuId4qDdX95c4+RBIGCB4yAjpmQhZN0YGYGXitdZBIVGAsLoq4BBKQDswm1CQRkcG6ytrYKubq8vbfAcMK9v7q7EMO1ycrHvsW6zcTKsczNz8HZw9vG3cjTsMIYqQkCLBwHCgsMDQ4RDAYIqfYSFxDxEfz88/X38Onr16+Bp4ADCco7eC8hQYMAEe57yNCew4IVBU7EGNDiRn8Z831cGLHhSIgdFf9chIeBg7oA7gjaWUWTVQAGE3LqBDCTlc9WOHfm7PkTqNCh54rePDqB6M+lR536hCpUqs2gVZM+xbrTqtGoWqdy1emValeXKzggYBBB5y1acFNZmEvXAoN2cGfJrTv3bl69Ffj2xZt3L1+/fw3XRVw4sGDGcR0fJhxZsF3KtBTThZxZ8mLMgC3fRatCbYMNFCzwLEqLgE4NsDWs/tvqdezZf13Hvk2A9Szdu2X3pg18N+68xXn7rh1c+PLksI/Dhe6cuO3ow3NfV92bdArTqC2Ebd3A8vjf5QWfH6Bg7Nz17c2fj69+fnq+8N2Lty+fuP78/eV2X13neIcCeBRwxorbZrA1ANoCDGrgoG8RTshahQ9iSKEEzUmYIYfNWViUhheCGJyIP5E4oom7WWjgCeBFAJNv1DVV01MAdJhhjdkplWNzO/5oXI846njjVEIqR2OS2B1pE5PVscajkxhMycqLJghQSwT40PgfAl4GqNSXYdZXJn5gSkmmmmJu1aZYb14V51do+pTOCmA40AqVCIhG5IJ9PvYnhIFOxmdqhpaI6GeHCtpooisuutmg+Eg62KOMKuqoTaXgicQWoIYq6qiklmoqFV0UoeqqrLbq6quwxirrrLTWauutJ4QAACH5BAUKABwALAcABADOAAsAAAX/IPd0D2dyRCoUp/k8gpHOKtseR9yiSmGbuBykler9XLAhkbDavXTL5k2oqFqNOxzUZPU5YYZd1XsD72rZpBjbeh52mSNnMSC8lwblKZGwi+0QfIJ8CncnCoCDgoVnBHmKfByGJimPkIwtiAeBkH6ZHJaKmCeVnKKTHIihg5KNq4uoqmEtcRUtEREMBggtEr4QDrjCuRC8h7/BwxENeicSF8DKy82pyNLMOxzWygzFmdvD2L3P0dze4+Xh1Arkyepi7dfFvvTtLQkZBC0T/FX3CRgCMOBHsJ+EHYQY7OinAGECgQsB+Lu3AOK+CewcWjwxQeJBihtNGHSoQOE+iQ3//4XkwBBhRZMcUS6YSXOAwIL8PGqEaSJCiYt9SNoCmnJPAgUVLChdaoFBURN8MAzl2PQphwQLfDFd6lTowglHve6rKpbjhK7/pG5VinZP1qkiz1rl4+tr2LRwWU64cFEihwEtZgbgR1UiHaMVvxpOSwBA37kzGz9e8G+B5MIEKLutOGEsAH2ATQwYfTmuX8aETWdGPZmiZcccNSzeTCA1Sw0bdiitC7LBWgu8jQr8HRzqgpK6gX88QbrB14z/kF+ELpwB8eVQj/JkqdylAudji/+ts3039vEEfK8Vz2dlvxZKG0CmbkKDBvllRd6fCzDvBLKBDSCeffhRJEFebFk1k/Mv9jVIoIJZSeBggwUaNeB+Qk34IE0cXlihcfRxkOAJFFhwGmKlmWDiakZhUJtnLBpnWWcnKaAZcxI0piFGGLBm1mc90kajSCveeBVWKeYEoU2wqeaQi0PetoE+rr14EpVC7oAbAUHqhYExbn2XHHsVqbcVew9tx8+XJKk5AZsqqdlddGpqAKdbAYBn1pcczmSTdWvdmZ17c1b3FZ99vnTdCRFM8OEcAhLwm1NdXnWcBBSMRWmfkWZqVlsmLIiAp/o1gGV2vpS4lalGYsUOqXrddcKCmK61aZ8SjEpUpVFVoCpTj4r661Km7kBHjrDyc1RAIQAAIfkEBQoAGwAsBwAEAM4ACwAABf/gtmUCd4goQQgFKj6PYKi0yrrbc8i4ohQt12EHcal+MNSQiCP8gigdz7iCioaCIvUmZLp8QBzW0EN2vSlCuDtFKaq4RyHzQLEKZNdiQDhRDVooCwkbfm59EAmKi4SGIm+AjIsKjhsqB4mSjT2IOIOUnICeCaB/mZKFNTSRmqVpmJqklSqskq6PfYYCDwYHDC4REQwGCBLGxxIQDsHMwhAIX8bKzcENgSLGF9PU1j3Sy9zX2NrgzQziChLk1BHWxcjf7N046tvN82715czn9Pryz6Ilc4ACj4EBOCZM8KEnAYYADBRKnACAYUMFv1wotIhCEcaJCisqwJFgAUSQGyX/kCSVUUTIdKMwJlyo0oXHlhskwrTJciZHEXsgaqS4s6PJiCAr1uzYU8kBBSgnWFqpoMJMUjGtDmUwkmfVmVypakWhEKvXsS4nhLW5wNjVroJIoc05wSzTr0PtiigpYe4EC2vj4iWrFu5euWIMRBhacaVJhYQBEFjA9jHjyQ0xEABwGceGAZYjY0YBOrRLCxUp29QM+bRkx5s7ZyYgVbTqwwti2ybJ+vLtDYpycyZbYOlptxdx0kV+V7lC5iJAyyRrwYKxAdiz82ng0/jnAdMJFz0cPi104Ec1Vj9/M6F173vKL/feXv156dw11tlqeMMnv4V5Ap53GmjQQH97nFfg+IFiucfgRX5Z8KAgbUlQ4IULIlghhhdOSB6AgX0IVn8eReghen3NRIBsRgnH4l4LuEidZBjwRpt6NM5WGwoW0KSjCwX6yJSMab2GwwAPDXfaBCtWpluRTQqC5JM5oUZAjUNS+VeOLWpJEQ7VYQANW0INJSZVDFSnZphjSikfmzE5N4EEbQI1QJmnWXCmHulRp2edwDXF43txukenJwvI9xyg9Q26Z3MzGUcBYFEChZh6DVTq34AU8Iflh51Sd+CnKFYQ6mmZkhqfBKfSxZWqA9DZanWjxmhrWwi0qtCrt/43K6WqVjjpmhIqgEGvculaGKklKstAACEAACH5BAUKABwALAcABADOAAsAAAX/ICdyQmaMYyAUqPgIBiHPxNpy79kqRXH8wAPsRmDdXpAWgWdEIYm2llCHqjVHU+jjJkwqBTecwItShMXkEfNWSh8e1NGAcLgpDGlRgk7EJ/6Ae3VKfoF/fDuFhohVeDeCfXkcCQqDVQcQhn+VNDOYmpSWaoqBlUSfmowjEA+iEAEGDRGztAwGCDcXEA60tXEiCrq8vREMEBLIyRLCxMWSHMzExnbRvQ2Sy7vN0zvVtNfU2tLY3rPgLdnDvca4VQS/Cpk3ABwSLQkYAQwT/P309vcI7OvXr94jBQMJ/nskkGA/BQBRLNDncAIAiDcG6LsxAWOLiQzmeURBKWSLCQbv/1F0eDGinJUKR47YY1IEgQASKk7Yc7ACRwZm7mHweRJoz59BJUogisKCUaFMR0x4SlJBVBFTk8pZivTR0K73rN5wqlXEAq5Fy3IYgHbEzQ0nLy4QSoCjXLoom96VOJEeCosK5n4kkFfqXjl94wa+l1gvAcGICbewAOAxY8l/Ky/QhAGz4cUkGxu2HNozhwMGBnCUqUdBg9UuW9eUynqSwLHIBujePef1ZGQZXcM+OFuEBeBhi3OYgLyqcuaxbT9vLkf4SeqyWxSQpKGB2gQpm1KdWbu72rPRzR9Ne2Nu9Kzr/1Jqj0yD/fvqP4aXOt5sW/5qsXXVcv1Nsp8IBUAmgswGF3llGgeU1YVXXKTN1FlhWFXW3gIE+DVChApysACHHo7Q4A35lLichh+ROBmLKAzgYmYEYDAhCgxKGOOMn4WR4kkDaoBBOxJtdNKQxFmg5JIWIBnQc07GaORfUY4AEkdV6jHlCEISSZ5yTXpp1pbGZbkWmcuZmQCaE6iJ0FhjMaDjTMsgZaNEHFRAQVp3bqXnZED1qYcECOz5V6BhSWCoVJQIKuKQi2KFKEkEFAqoAo7uYSmO3jk61wUUMKmknJ4SGimBmAa0qVQBhAAAIfkEBQoAGwAsBwAEAM4ACwAABf/gJm5FmRlEqhJC+bywgK5pO4rHI0D3pii22+Mg6/0Ej96weCMAk7cDkXf7lZTTnrMl7eaYoy10JN0ZFdco0XAuvKI6qkgVFJXYNwjkIBcNBgR8TQoGfRsJCRuCYYQQiI+ICosiCoGOkIiKfSl8mJkHZ4U9kZMbKaI3pKGXmJKrngmug4WwkhA0lrCBWgYFCCMQFwoQDRHGxwwGCBLMzRLEx8iGzMMO0cYNeCMKzBDW19lnF9DXDIY/48Xg093f0Q3s1dcR8OLe8+Y91OTv5wrj7o7B+7VNQqABIoRVCMBggsOHE36kSoCBIcSH3EbFangxogJYFi8CkJhqQciLJEf/LDDJEeJIBT0GsOwYUYJGBS0fjpQAMidGmyVP6sx4Y6VQhzs9VUwkwqaCCh0tmKoFtSMDmBOf9phg4SrVrROuasRQAaxXpVUhdsU6IsECZlvX3kwLUWzRt0BHOLTbNlbZG3vZinArge5Dvn7wbqtQkSYAAgtKmnSsYKVKo2AfW048uaPmG386i4Q8EQMBAIAnfB7xBxBqvapJ9zX9WgRS2YMpnvYMGdPK3aMjt/3dUcNI4blpj7iwkMFWDXDvSmgAlijrt9RTR78+PS6z1uAJZIe93Q8g5zcsWCi/4Y+C8bah5zUv3vv89uft30QP23punGCx5954oBBwnwYaNCDY/wYrsYeggnM9B2Fpf8GG2CEUVWhbWAtGouEGDy7Y4IEJVrbSiXghqGKIo7z1IVcXIkKWWR361QOLWWnIhwERpLaaCCee5iMBGJQmJGyPFTnbkfHVZGRtIGrg5HALEJAZbu39BuUEUmq1JJQIPtZilY5hGeSWsSk52G9XqsmgljdIcABytq13HyIM6RcUA+r1qZ4EBF3WHWB29tBgAzRhEGhig8KmqKFv8SeCeo+mgsF7YFXa1qWSbkDpom/mqR1PmHCqJ3fwNRVXjC7S6CZhFVCQ2lWvZiirhQq42SACt25IK2hv8TprriUV1usGgeka7LFcNmCldMLi6qZMgFLgpw16Cipb7bC1knXsBiEAACH5BAUKABsALAcABADOAAsAAAX/4FZsJPkUmUGsLCEUTywXglFuSg7fW1xAvNWLF6sFFcPb42C8EZCj24EJdCp2yoegWsolS0Uu6fmamg8n8YYcLU2bXSiRaXMGvqV6/KAeJAh8VgZqCX+BexCFioWAYgqNi4qAR4ORhRuHY408jAeUhAmYYiuVlpiflqGZa5CWkzc5fKmbbhIpsAoQDRG8vQwQCBLCwxK6vb5qwhfGxxENahvCEA7NzskSy7vNzzzK09W/PNHF1NvX2dXcN8K55cfh69Luveol3vO8zwi4Yhj+AQwmCBw4IYclDAAJDlQggVOChAoLKkgFkSCAHDwWLKhIEOONARsDKryogFPIiAUb/95gJNIiw4wnI778GFPhzBKFOAq8qLJEhQpiNArjMcHCmlTCUDIouTKBhApELSxFWiGiVKY4E2CAekPgUphDu0742nRrVLJZnyrFSqKQ2ohoSYAMW6IoDpNJ4bLdILTnAj8KUF7UeENjAKuDyxIgOuGiOI0EBBMgLNew5AUrDTMGsFixwBIaNCQuAXJB57qNJ2OWm2Aj4skwCQCIyNkhhtMkdsIuodE0AN4LJDRgfLPtn5YDLdBlraAByuUbBgxQwICxMOnYpVOPej074OFdlfc0TqC62OIbcppHjV4o+LrieWhfT8JC/I/T6W8oCl29vQ0XjLdBaA3s1RcPBO7lFvpX8BVoG4O5jTXRQRDuJ6FDTzEWF1/BCZhgbyAKE9qICYLloQYOFtahVRsWYlZ4KQJHlwHS/IYaZ6sZd9tmu5HQm2xi1UaTbzxYwJk/wBF5g5EEYOBZeEfGZmNdFyFZmZIR4jikbLThlh5kUUVJGmRT7sekkziRWUIACABk3T4qCsedgO4xhgGcY7q5pHJ4klBBTQRJ0CeHcoYHHUh6wgfdn9uJdSdMiebGJ0zUPTcoS286FCkrZxnYoYYKWLkBowhQoBeaOlZAgVhLidrXqg2GiqpQpZ4apwSwRtjqrB3muoF9BboaXKmshlqWqsWiGt2wphJkQbAU5hoCACH5BAUKABsALAcABADOAAsAAAX/oGFw2WZuT5oZROsSQnGaKjRvilI893MItlNOJ5v5gDcFrHhKIWcEYu/xFEqNv6B1N62aclysF7fsZYe5aOx2yL5aAUGSaT1oTYMBwQ5VGCAJgYIJCnx1gIOBhXdwiIl7d0p2iYGQUAQBjoOFSQR/lIQHnZ+Ue6OagqYzSqSJi5eTpTxGcjcSChANEbu8DBAIEsHBChe5vL13G7fFuscRDcnKuM3H0La3EA7Oz8kKEsXazr7Cw9/Gztar5uHHvte47MjktznZ2w0G1+D3BgirAqJmJMAQgMGEgwgn5Ei0gKDBhBMALGRYEOJBb5QcWlQo4cbAihZz3GgIMqFEBSM1/4ZEOWPAgpIIJXYU+PIhRG8ja1qU6VHlzZknJNQ6UanCjQkWCIGSUGEjAwVLjc44+DTqUQtPPS5gejUrTa5TJ3g9sWCr1BNUWZI161StiQUDmLYdGfesibQ3XMq1OPYthrwuA2yU2LBs2cBHIypYQPPlYAKFD5cVvNPtW8eVGbdcQADATsiNO4cFAPkvHpedPzc8kUcPgNGgZ5RNDZG05reoE9s2vSEP79MEGiQGy1qP8LA4ZcdtsJE48ONoLTBtTV0B9LsTnPceoIDBDQvS7W7vfjVY3q3eZ4A339J4eaAmKqU/sV58HvJh2RcnIBsDUw0ABqhBA5aV5V9XUFGiHfVeAiWwoFgJJrIXRH1tEMiDFV4oHoAEGlaWhgIGSGBO2nFomYY3mKjVglidaNYJGJDkWW2xxTfbjCbVaOGNqoX2GloR8ZeTaECS9pthRGJH2g0b3Agbk6hNANtteHD2GJUucfajCQBy5OOTQ25ZgUPvaVVQmbKh9510/qQpwXx3SQdfk8tZJOd5b6JJFplT3ZnmmX3qd5l1eg5q00HrtUkUn0AKaiGjClSAgKLYZcgWXwocGRcCFGCKwSB6ceqphwmYRUFYT/1WKlOdUpipmxW0mlCqHjYkAaeoZlqrqZ4qd+upQKaapn/AmgAegZ8KUtYtFAQQAgAh+QQFCgAbACwHAAQAzgALAAAF/+C2PUcmiCiZGUTrEkKBis8jQEquKwU5HyXIbEPgyX7BYa5wTNmEMwWsSXsqFbEh8DYs9mrgGjdK6GkPY5GOeU6ryz7UFopSQEzygOGhJBjoIgMDBAcBM0V/CYqLCQqFOwobiYyKjn2TlI6GKC2YjJZknouaZAcQlJUHl6eooJwKooobqoewrJSEmyKdt59NhRKFMxLEEA4RyMkMEAjDEhfGycqAG8TQx9IRDRDE3d3R2ctD1RLg0ttKEnbY5wZD3+zJ6M7X2RHi9Oby7u/r9g38UFjTh2xZJBEBMDAboogAgwkQI07IMUORwocSJwCgWDFBAIwZOaJIsOBjRogKJP8wTODw5ESVHVtm3AhzpEeQElOuNDlTZ0ycEUWKWFASqEahGwYUPbnxoAgEdlYSqDBkgoUNClAlIHbSAoOsqCRQnQHxq1axVb06FWFxLIqyaze0Tft1JVqyE+pWXMD1pF6bYl3+HTqAWNW8cRUFzmih0ZAAB2oGKukSAAGGRHWJgLiR6AylBLpuHKKUMlMCngMpDSAa9QIUggZVVvDaJobLeC3XZpvgNgCmtPcuwP3WgmXSq4do0DC6o2/guzcseECtUoO0hmcsGKDgOt7ssBd07wqesAIGZC1YIBa7PQHvb1+SFo+++HrJSQfB33xfav3i5eX3Hnb4CTJgegEq8tH/YQEOcIJzbm2G2EoYRLgBXFpVmFYDcREV4HIcnmUhiGBRouEMJGJGzHIspqgdXxK0yCKHRNXoIX4uorCdTyjkyNtdPWrA4Up82EbAbzMRxxZRR54WXVLDIRmRcag5d2R6ugl3ZXzNhTecchpMhIGVAKAYpgJjjsSklBEd99maZoo535ZvdamjBEpusJyctg3h4X8XqodBMx0tiNeg/oGJaKGABpogS40KSqiaEgBqlQWLUtqoVQnytekEjzo0hHqhRorppOZt2p923M2AAV+oBtpAnnPNoB6HaU6mAAIU+IXmi3j2mtFXuUoHKwXpzVrsjcgGOauKEjQrwq157hitGq2NoWmjh7z6Wmxb0m5w66+2VRAuXN/yFUAIACH5BAUKABsALAcABADOAAsAAAX/4CZuRiaM45MZqBgIRbs9AqTcuFLE7VHLOh7KB5ERdjJaEaU4ClO/lgKWjKKcMiJQ8KgumcieVdQMD8cbBeuAkkC6LYLhOxoQ2PF5Ys9PKPBMen17f0CCg4VSh32JV4t8jSNqEIOEgJKPlkYBlJWRInKdiJdkmQlvKAsLBxdABA4RsbIMBggtEhcQsLKxDBC2TAS6vLENdJLDxMZAubu8vjIbzcQRtMzJz79S08oQEt/guNiyy7fcvMbh4OezdAvGrakLAQwyABsELQkY9BP+//ckyPDD4J9BfAMh1GsBoImMeQUN+lMgUJ9CiRMa5msxoB9Gh/o8GmxYMZXIgxtR/yQ46S/gQAURR0pDwYDfywoyLPip5AdnCwsMFPBU4BPFhKBDi444quCmDKZOfwZ9KEGpCKgcN1jdALSpPqIYsabS+nSqvqplvYqQYAeDPgwKwjaMtiDl0oaqUAyo+3TuWwUAMPpVCfee0cEjVBGQq2ABx7oTWmQk4FglZMGN9fGVDMCuiH2AOVOu/PmyxM630gwM0CCn6q8LjVJ8GXvpa5Uwn95OTC/nNxkda1/dLSK475IjCD6dHbK1ZOa4hXP9DXs5chJ00UpVm5xo2qRpoxptwF2E4/IbJpB/SDz9+q9b1aNfQH08+p4a8uvX8B53fLP+ycAfemjsRUBgp1H20K+BghHgVgt1GXZXZpZ5lt4ECjxYR4ScUWiShEtZqBiIInRGWnERNnjiBglw+JyGnxUmGowsyiiZg189lNtPGACjV2+S9UjbU0JWF6SPvEk3QZEqsZYTk3UAaRSUnznJI5LmESCdBVSyaOWUWLK4I5gDUYVeV1T9l+FZClCAUVA09uSmRHBCKAECFEhW51ht6rnmWBXkaR+NjuHpJ40D3DmnQXt2F+ihZxlqVKOfQRACACH5BAUKABwALAcABADOAAsAAAX/ICdyUCkUo/g8mUG8MCGkKgspeC6j6XEIEBpBUeCNfECaglBcOVfJFK7YQwZHQ6JRZBUqTrSuVEuD3nI45pYjFuWKvjjSkCoRaBUMWxkwBGgJCXspQ36Bh4EEB0oKhoiBgyNLjo8Ki4QElIiWfJqHnISNEI+Ql5J9o6SgkqKkgqYihamPkW6oNBgSfiMMDQkGCBLCwxIQDhHIyQwQCGMKxsnKVyPCF9DREQ3MxMPX0cu4wt7J2uHWx9jlKd3o39MiuefYEcvNkuLt5O8c1ePI2tyELXGQwoGDAQf+iEC2xByDCRAjTlAgIUWCBRgCPJQ4AQBFXAs0coT40WLIjRxL/47AcHLkxIomRXL0CHPERZkpa4q4iVKiyp0tR/7kwHMkTUBBJR5dOCEBAVcKKtCAyOHpowXCpk7goABqBZdcvWploACpBKkpIJI1q5OD2rIWE0R1uTZu1LFwbWL9OlKuWb4c6+o9i3dEgw0RCGDUG9KlRw56gDY2qmCByZBaASi+TACA0TucAaTteCcy0ZuOK3N2vJlx58+LRQyY3Xm0ZsgjZg+oPQLi7dUcNXi0LOJw1pgNtB7XG6CBy+U75SYfPTSQAgZTNUDnQHt67wnbZyvwLgKiMN3oCZB3C76tdewpLFgIP2C88rbi4Y+QT3+8S5USMICZXWj1pkEDeUU3lOYGB3alSoEiMIjgX4WlgNF2EibIwQIXauWXSRg2SAOHIU5IIIMoZkhhWiJaiFVbKo6AQEgQXrTAazO1JhkBrBG3Y2Y6EsUhaGn95hprSN0oWpFE7rhkeaQBchGOEWnwEmc0uKWZj0LeuNV3W4Y2lZHFlQCSRjTIl8uZ+kG5HU/3sRlnTG2ytyadytnD3HrmuRcSn+0h1dycexIK1KCjYaCnjCCVqOFFJTZ5GkUUjESWaUIKU2lgCmAKKQIUjHapXRKE+t2og1VgankNYnohqKJ2CmKplso6GKz7WYCgqxeuyoF8u9IQAgA7',
-            msg: null,
-            msgText: '<em>Loading the next set of posts...</em>',
-            selector: null,
-            speed: 'fast',
-            start: undefined
-        },
-        state: {
-            isDuringAjax: false,
-            isInvalidPage: false,
-            isDestroyed: false,
-            isDone: false, // For when it goes all the way through the archive.
-            isPaused: false,
-            isBeyondMaxPage: false,
-            currPage: 1
-        },
-        debug: false,
-        behavior: undefined,
-        binder: $(window), // used to cache the selector
-        nextSelector: 'div.navigation a:first',
-        navSelector: 'div.navigation',
-        contentSelector: null, // rename to pageFragment
-        extraScrollPx: 150,
-        itemSelector: 'div.post',
-        animate: false,
-        pathParse: undefined,
-        dataType: 'html',
-        appendCallback: true,
-        bufferPx: 40,
-        errorCallback: function () { },
-        infid: 0, //Instance ID
-        pixelsFromNavToBottom: undefined,
-        path: undefined, // Either parts of a URL as an array (e.g. ["/page/", "/"] or a function that takes in the page number and returns a URL
-        prefill: false, // When the document is smaller than the window, load data until the document is larger or links are exhausted
-        maxPage: undefined // to manually control maximum page (when maxPage is undefined, maximum page limitation is not work)
-    };
+	$.infinitescroll.defaults = {
+		loading: {
+			finished: undefined,
+			finishedMsg: "<em>Congratulations, you've reached the end of the internet.</em>",
+			img: 'data:image/gif;base64,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',
+			msg: null,
+			msgText: '<em>Loading the next set of posts...</em>',
+			selector: null,
+			speed: 'fast',
+			start: undefined
+		},
+		state: {
+			isDuringAjax: false,
+			isInvalidPage: false,
+			isDestroyed: false,
+			isDone: false, // For when it goes all the way through the archive.
+			isPaused: false,
+			isBeyondMaxPage: false,
+			currPage: 1
+		},
+		debug: false,
+		behavior: undefined,
+		binder: $(window), // used to cache the selector
+		nextSelector: 'div.navigation a:first',
+		navSelector: 'div.navigation',
+		contentSelector: null, // rename to pageFragment
+		extraScrollPx: 150,
+		itemSelector: 'div.post',
+		animate: false,
+		pathParse: undefined,
+		dataType: 'html',
+		appendCallback: true,
+		bufferPx: 40,
+		errorCallback: function () { },
+		infid: 0, //Instance ID
+		pixelsFromNavToBottom: undefined,
+		path: undefined, // Either parts of a URL as an array (e.g. ["/page/", "/"] or a function that takes in the page number and returns a URL
+		prefill: false, // When the document is smaller than the window, load data until the document is larger or links are exhausted
+		maxPage: undefined // to manually control maximum page (when maxPage is undefined, maximum page limitation is not work)
+	};
 
-    $.infinitescroll.prototype = {
+	$.infinitescroll.prototype = {
 
-        /*
-            ----------------------------
-            Private methods
-            ----------------------------
-            */
+		/*
+			----------------------------
+			Private methods
+			----------------------------
+			*/
 
-        // Bind or unbind from scroll
-        _binding: function infscr_binding(binding) {
+		// Bind or unbind from scroll
+		_binding: function infscr_binding(binding) {
 
-            var instance = this,
-            opts = instance.options;
+			var instance = this,
+				opts = instance.options;
 
-            opts.v = '2.0b2.120520';
+			opts.v = '2.0b2.120520';
 
-            // if behavior is defined and this function is extended, call that instead of default
-            if (!!opts.behavior && this['_binding_'+opts.behavior] !== undefined) {
-                this['_binding_'+opts.behavior].call(this);
-                return;
-            }
+			// if behavior is defined and this function is extended, call that instead of default
+			if (!!opts.behavior && this['_binding_' + opts.behavior] !== undefined) {
+				this['_binding_' + opts.behavior].call(this);
+				return;
+			}
 
-            if (binding !== 'bind' && binding !== 'unbind') {
-                this._debug('Binding value  ' + binding + ' not valid');
-                return false;
-            }
+			if (binding !== 'bind' && binding !== 'unbind') {
+				this._debug('Binding value  ' + binding + ' not valid');
+				return false;
+			}
 
-            if (binding === 'unbind') {
-                (this.options.binder).unbind('smartscroll.infscr.' + instance.options.infid);
-            } else {
-                (this.options.binder)[binding]('smartscroll.infscr.' + instance.options.infid, function () {
-                    instance.scroll();
-                });
-            }
+			if (binding === 'unbind') {
+				(this.options.binder).unbind('smartscroll.infscr.' + instance.options.infid);
+			} else {
+				(this.options.binder)[binding]('smartscroll.infscr.' + instance.options.infid, function () {
+					instance.scroll();
+				});
+			}
 
-            this._debug('Binding', binding);
-        },
+			this._debug('Binding', binding);
+		},
 
-        // Fundamental aspects of the plugin are initialized
-        _create: function infscr_create(options, callback) {
+		// Fundamental aspects of the plugin are initialized
+		_create: function infscr_create(options, callback) {
 
-            // Add custom options to defaults
-            var opts = $.extend(true, {}, $.infinitescroll.defaults, options);
-            this.options = opts;
-            var $window = $(window);
-            var instance = this;
+			// Add custom options to defaults
+			var opts = $.extend(true, {}, $.infinitescroll.defaults, options);
+			this.options = opts;
+			var $window = $(window);
+			var instance = this;
 
-            // Validate selectors
-            if (!instance._validate(options)) {
-                return false;
-            }
+			// Validate selectors
+			if (!instance._validate(options)) {
+				return false;
+			}
 
-            // Validate page fragment path
-            var path = $(opts.nextSelector).attr('href');
-            if (!path) {
-                this._debug('Navigation selector not found');
-                return false;
-            }
+			// Validate page fragment path
+			var path = $(opts.nextSelector).attr('href');
+			if (!path) {
+				this._debug('Navigation selector not found');
+				return false;
+			}
 
-            // Set the path to be a relative URL from root.
-            opts.path = opts.path || this._determinepath(path);
+			// Set the path to be a relative URL from root.
+			opts.path = opts.path || this._determinepath(path);
 
-            // contentSelector is 'page fragment' option for .load() / .ajax() calls
-            opts.contentSelector = opts.contentSelector || this.element;
+			// contentSelector is 'page fragment' option for .load() / .ajax() calls
+			opts.contentSelector = opts.contentSelector || this.element;
 
-            // loading.selector - if we want to place the load message in a specific selector, defaulted to the contentSelector
-            opts.loading.selector = opts.loading.selector || opts.contentSelector;
+			// loading.selector - if we want to place the load message in a specific selector, defaulted to the contentSelector
+			opts.loading.selector = opts.loading.selector || opts.contentSelector;
 
-            // Define loading.msg
-            opts.loading.msg = opts.loading.msg || $('<div id="infscr-loading"><img alt="Loading..." src="' + opts.loading.img + '" /><div>' + opts.loading.msgText + '</div></div>');
+			// Define loading.msg
+			opts.loading.msg = opts.loading.msg || $('<div id="infscr-loading"><img alt="Loading..." src="' + opts.loading.img + '" /><div>' + opts.loading.msgText + '</div></div>');
 
-            // Preload loading.img
-            (new Image()).src = opts.loading.img;
+			// Preload loading.img
+			(new Image()).src = opts.loading.img;
 
-            // distance from nav links to bottom
-            // computed as: height of the document + top offset of container - top offset of nav link
-            if(opts.pixelsFromNavToBottom === undefined) {
-                opts.pixelsFromNavToBottom = $(document).height() - $(opts.navSelector).offset().top;
-                this._debug('pixelsFromNavToBottom: ' + opts.pixelsFromNavToBottom);
-            }
+			// distance from nav links to bottom
+			// computed as: height of the document + top offset of container - top offset of nav link
+			if (opts.pixelsFromNavToBottom === undefined) {
+				opts.pixelsFromNavToBottom = $(document).height() - $(opts.navSelector).offset().top;
+				this._debug('pixelsFromNavToBottom: ' + opts.pixelsFromNavToBottom);
+			}
 
-            var self = this;
+			var self = this;
 
-            // determine loading.start actions
-            opts.loading.start = opts.loading.start || function() {
-                $(opts.navSelector).hide();
-                opts.loading.msg
-                .appendTo(opts.loading.selector)
-                .show(opts.loading.speed, $.proxy(function() {
-                    this.beginAjax(opts);
-                }, self));
-            };
+			// determine loading.start actions
+			opts.loading.start = opts.loading.start || function () {
+				$(opts.navSelector).hide();
+				opts.loading.msg
+					.appendTo(opts.loading.selector)
+					.show(opts.loading.speed, $.proxy(function () {
+						this.beginAjax(opts);
+					}, self));
+			};
 
-            // determine loading.finished actions
-            opts.loading.finished = opts.loading.finished || function() {
-                if (!opts.state.isBeyondMaxPage)
-                    opts.loading.msg.fadeOut(opts.loading.speed);
-            };
+			// determine loading.finished actions
+			opts.loading.finished = opts.loading.finished || function () {
+				if (!opts.state.isBeyondMaxPage)
+					opts.loading.msg.fadeOut(opts.loading.speed);
+			};
 
-            // callback loading
-            opts.callback = function(instance, data, url) {
-                if (!!opts.behavior && instance['_callback_'+opts.behavior] !== undefined) {
-                    instance['_callback_'+opts.behavior].call($(opts.contentSelector)[0], data, url);
-                }
+			// callback loading
+			opts.callback = function (instance, data, url) {
+				if (!!opts.behavior && instance['_callback_' + opts.behavior] !== undefined) {
+					instance['_callback_' + opts.behavior].call($(opts.contentSelector)[0], data, url);
+				}
 
-                if (callback) {
-                    callback.call($(opts.contentSelector)[0], data, opts, url);
-                }
+				if (callback) {
+					callback.call($(opts.contentSelector)[0], data, opts, url);
+				}
 
-                if (opts.prefill) {
-                    $window.bind('resize.infinite-scroll', instance._prefill);
-                }
-            };
+				if (opts.prefill) {
+					$window.bind('resize.infinite-scroll', instance._prefill);
+				}
+			};
 
-            if (options.debug) {
-                // Tell IE9 to use its built-in console
-                if (Function.prototype.bind && (typeof console === 'object' || typeof console === 'function') && typeof console.log === 'object') {
-                    ['log','info','warn','error','assert','dir','clear','profile','profileEnd']
-                        .forEach(function (method) {
-                            console[method] = this.call(console[method], console);
-                        }, Function.prototype.bind);
-                }
-            }
+			if (options.debug) {
+				// Tell IE9 to use its built-in console
+				if (Function.prototype.bind && (typeof console === 'object' || typeof console === 'function') && typeof console.log === 'object') {
+					['log', 'info', 'warn', 'error', 'assert', 'dir', 'clear', 'profile', 'profileEnd']
+						.forEach(function (method) {
+							console[method] = this.call(console[method], console);
+						}, Function.prototype.bind);
+				}
+			}
 
-            this._setup();
+			this._setup();
 
-            // Setups the prefill method for use
-            if (opts.prefill) {
-                this._prefill();
-            }
+			// Setups the prefill method for use
+			if (opts.prefill) {
+				this._prefill();
+			}
 
-            // Return true to indicate successful creation
-            return true;
-        },
+			// Return true to indicate successful creation
+			return true;
+		},
 
-        _prefill: function infscr_prefill() {
-            var instance = this;
-            var $window = $(window);
+		_prefill: function infscr_prefill() {
+			var instance = this;
+			var $window = $(window);
 
-            function needsPrefill() {
-                return ( $(instance.options.contentSelector).height() <= $window.height() );
-            }
+			function needsPrefill() {
+				return ($(instance.options.contentSelector).height() <= $window.height());
+			}
 
-            this._prefill = function() {
-                if (needsPrefill()) {
-                    instance.scroll();
-                }
+			this._prefill = function () {
+				if (needsPrefill()) {
+					instance.scroll();
+				}
 
-                $window.bind('resize.infinite-scroll', function() {
-                    if (needsPrefill()) {
-                        $window.unbind('resize.infinite-scroll');
-                        instance.scroll();
-                    }
-                });
-            };
+				$window.bind('resize.infinite-scroll', function () {
+					if (needsPrefill()) {
+						$window.unbind('resize.infinite-scroll');
+						instance.scroll();
+					}
+				});
+			};
 
-            // Call self after setting up the new function
-            this._prefill();
-        },
+			// Call self after setting up the new function
+			this._prefill();
+		},
 
-        // Console log wrapper
-        _debug: function infscr_debug() {
-            if (true !== this.options.debug) {
-                return;
-            }
+		// Console log wrapper
+		_debug: function infscr_debug() {
+			if (true !== this.options.debug) {
+				return;
+			}
 
-            if (typeof console !== 'undefined' && typeof console.log === 'function') {
-                // Modern browsers
-                // Single argument, which is a string
-                if ((Array.prototype.slice.call(arguments)).length === 1 && typeof Array.prototype.slice.call(arguments)[0] === 'string') {
-                    console.log( (Array.prototype.slice.call(arguments)).toString() );
-                } else {
-                    console.log( Array.prototype.slice.call(arguments) );
-                }
-            } else if (!Function.prototype.bind && typeof console !== 'undefined' && typeof console.log === 'object') {
-                // IE8
-                Function.prototype.call.call(console.log, console, Array.prototype.slice.call(arguments));
-            }
-        },
+			if (typeof console !== 'undefined' && typeof console.log === 'function') {
+				// Modern browsers
+				// Single argument, which is a string
+				if ((Array.prototype.slice.call(arguments)).length === 1 && typeof Array.prototype.slice.call(arguments)[0] === 'string') {
+					console.log((Array.prototype.slice.call(arguments)).toString());
+				} else {
+					console.log(Array.prototype.slice.call(arguments));
+				}
+			} else if (!Function.prototype.bind && typeof console !== 'undefined' && typeof console.log === 'object') {
+				// IE8
+				Function.prototype.call.call(console.log, console, Array.prototype.slice.call(arguments));
+			}
+		},
 
-        // find the number to increment in the path.
-        _determinepath: function infscr_determinepath(path) {
+		// find the number to increment in the path.
+		_determinepath: function infscr_determinepath(path) {
 
-            var opts = this.options;
+			var opts = this.options;
 
-            // if behavior is defined and this function is extended, call that instead of default
-            if (!!opts.behavior && this['_determinepath_'+opts.behavior] !== undefined) {
-                return this['_determinepath_'+opts.behavior].call(this,path);
-            }
+			// if behavior is defined and this function is extended, call that instead of default
+			if (!!opts.behavior && this['_determinepath_' + opts.behavior] !== undefined) {
+				return this['_determinepath_' + opts.behavior].call(this, path);
+			}
 
-            if (!!opts.pathParse) {
+			var url = new URL(path);
+			var pathname = url.pathname;
+			var hasNumber = /\d/.test(pathname);
 
-                this._debug('pathParse manual');
-                return opts.pathParse(path, this.options.state.currPage+1);
-
+			if (!!opts.pathParse) {
+				this._debug('pathParse manual');
+				return opts.pathParse(path, this.options.state.currPage + 1);
+            } else if (hasNumber && path.match(/(\?|\&)(upage=)(\d+)/)) {
+				var parts = path.split(/(\?|\&)(upage=)(\d+)/);
+				return [parts[0] + parts[1] + parts[2], parts[4]];
             } else if (path.match(/^(.*?)\b2\b(.*?$)/)) {
-                path = path.match(/^(.*?)\b2\b(.*?$)/).slice(1);
+				path = path.match(/^(.*?)\b2\b(.*?$)/).slice(1);
 
                 // if there is any 2 in the url at all.
             } else if (path.match(/^(.*?)2(.*?$)/)) {
-
                 // page= is used in django:
                 // http://www.infinite-scroll.com/changelog/comment-page-1/#comment-127
                 if (path.match(/^(.*?page=)2(\/.*|$)/)) {
@@ -11002,7 +11005,6 @@ return Packery;
                 path = path.match(/^(.*?)2(.*?$)/).slice(1);
 
             } else {
-
                 // page= is used in drupal too but second page is page=1 not page=2:
                 // thx Jerod Fritz, vladikoff
                 if (path.match(/^(.*?page=)1(\/.*|$)/)) {
@@ -11264,7 +11266,7 @@ return Packery;
                 path = opts.path,
                 box, desturl, method, condition;
 
-            // increment the URL bit. e.g. /page/3/
+			// increment the URL bit. e.g. /page/3/
             opts.state.currPage++;
 
             // Manually control maximum page
@@ -11277,7 +11279,8 @@ return Packery;
             // if we're dealing with a table we can't use DIVs
             box = $(opts.contentSelector).is('table, tbody') ? $('<tbody/>') : $('<div/>');
 
-            desturl = (typeof path === 'function') ? path(opts.state.currPage) : path.join(opts.state.currPage);
+			desturl = (typeof path === 'function') ? path(opts.state.currPage) : path.join(opts.state.currPage);
+
             instance._debug('heading into ajax', desturl);
 
             method = (opts.dataType === 'html' || opts.dataType === 'json' ) ? opts.dataType : 'html+callback';
@@ -13242,14 +13245,13 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 						var $nav = $('.navbar-main'),
 							navH = 0,
 							navTop = 0,
-							$vmenu = $('body.vmenu .vmenu-container, body.menu-overlay .vmenu-container'),
-							$offcanvas = $('body.menu-offcanvas .vmenu-container');
+							$vmenu = $('body.vmenu .vmenu-container, body.menu-overlay .vmenu-container, body.menu-offcanvas .vmenu-container');
 						if ( $nav.length && typeof $nav[0] !== 'undefined' ) {
 							var navRect = $nav[0].getBoundingClientRect();
 							navH = navRect.height;
 							navTop = navRect.top;
 						}
-						if ( ! $vmenu.length && ! $offcanvas.length ) {
+						if ( ! $vmenu.length ) {
 							$sub.css({ maxHeight: UNCODE.wheight - navH });
 						}
 					}
@@ -25592,11 +25594,11 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 		 * @type {Object}
 		 */
 		this._handlers = {
-			/*'initialized.owl.carousel': $.proxy(function(e) {
+			'initialized.owl.carousel': $.proxy(function(e) {
 				if (e.namespace && this._core.settings.startPosition === 'URLHash') {
 					$(window).trigger('hashchange.owl.navigation');
 				}
-			}, this),*/
+			}, this),
 			'prepared.owl.carousel': $.proxy(function(e) {
 				if (e.namespace) {
 					var hash = $(e.content).find('[data-hash]').addBack('[data-hash]').attr('data-hash');
@@ -36414,6 +36416,8 @@ if ( typeof module != 'undefined' && module.exports ) {
         element.closest('li.dropdown').addClass('active')
       }
 
+      element.closest('.tab-content').find('.active').not(element).removeClass('active');
+
       callback && callback()
     }
 
@@ -38827,3 +38831,6 @@ parsePositiveInt = function (value, defaultValue) {
   }
 
 }());
+
+//Noise.js
+!function(){"use strict";var r=.5*(Math.sqrt(3)-1),e=(3-Math.sqrt(3))/6,t=1/6,a=(Math.sqrt(5)-1)/4,o=(5-Math.sqrt(5))/20;function i(r){var e;e="function"==typeof r?r:r?function(){var r=0,e=0,t=0,a=1,o=(i=4022871197,function(r){r=r.toString();for(var e=0;e<r.length;e++){var t=.02519603282416938*(i+=r.charCodeAt(e));t-=i=t>>>0,i=(t*=i)>>>0,i+=4294967296*(t-=i)}return 2.3283064365386963e-10*(i>>>0)});var i;r=o(" "),e=o(" "),t=o(" ");for(var n=0;n<arguments.length;n++)(r-=o(arguments[n]))<0&&(r+=1),(e-=o(arguments[n]))<0&&(e+=1),(t-=o(arguments[n]))<0&&(t+=1);return o=null,function(){var o=2091639*r+2.3283064365386963e-10*a;return r=e,e=t,t=o-(a=0|o)}}(r):Math.random,this.p=n(e),this.perm=new Uint8Array(512),this.permMod12=new Uint8Array(512);for(var t=0;t<512;t++)this.perm[t]=this.p[255&t],this.permMod12[t]=this.perm[t]%12}function n(r){var e,t=new Uint8Array(256);for(e=0;e<256;e++)t[e]=e;for(e=0;e<255;e++){var a=e+~~(r()*(256-e)),o=t[e];t[e]=t[a],t[a]=o}return t}i.prototype={grad3:new Float32Array([1,1,0,-1,1,0,1,-1,0,-1,-1,0,1,0,1,-1,0,1,1,0,-1,-1,0,-1,0,1,1,0,-1,1,0,1,-1,0,-1,-1]),grad4:new Float32Array([0,1,1,1,0,1,1,-1,0,1,-1,1,0,1,-1,-1,0,-1,1,1,0,-1,1,-1,0,-1,-1,1,0,-1,-1,-1,1,0,1,1,1,0,1,-1,1,0,-1,1,1,0,-1,-1,-1,0,1,1,-1,0,1,-1,-1,0,-1,1,-1,0,-1,-1,1,1,0,1,1,1,0,-1,1,-1,0,1,1,-1,0,-1,-1,1,0,1,-1,1,0,-1,-1,-1,0,1,-1,-1,0,-1,1,1,1,0,1,1,-1,0,1,-1,1,0,1,-1,-1,0,-1,1,1,0,-1,1,-1,0,-1,-1,1,0,-1,-1,-1,0]),noise2D:function(t,a){var o,i,n=this.permMod12,f=this.perm,s=this.grad3,v=0,h=0,l=0,u=(t+a)*r,d=Math.floor(t+u),p=Math.floor(a+u),M=(d+p)*e,m=t-(d-M),c=a-(p-M);m>c?(o=1,i=0):(o=0,i=1);var y=m-o+e,w=c-i+e,g=m-1+2*e,A=c-1+2*e,x=255&d,q=255&p,D=.5-m*m-c*c;if(D>=0){var S=3*n[x+f[q]];v=(D*=D)*D*(s[S]*m+s[S+1]*c)}var U=.5-y*y-w*w;if(U>=0){var b=3*n[x+o+f[q+i]];h=(U*=U)*U*(s[b]*y+s[b+1]*w)}var F=.5-g*g-A*A;if(F>=0){var N=3*n[x+1+f[q+1]];l=(F*=F)*F*(s[N]*g+s[N+1]*A)}return 70*(v+h+l)},noise3D:function(r,e,a){var o,i,n,f,s,v,h,l,u,d,p=this.permMod12,M=this.perm,m=this.grad3,c=(r+e+a)*(1/3),y=Math.floor(r+c),w=Math.floor(e+c),g=Math.floor(a+c),A=(y+w+g)*t,x=r-(y-A),q=e-(w-A),D=a-(g-A);x>=q?q>=D?(s=1,v=0,h=0,l=1,u=1,d=0):x>=D?(s=1,v=0,h=0,l=1,u=0,d=1):(s=0,v=0,h=1,l=1,u=0,d=1):q<D?(s=0,v=0,h=1,l=0,u=1,d=1):x<D?(s=0,v=1,h=0,l=0,u=1,d=1):(s=0,v=1,h=0,l=1,u=1,d=0);var S=x-s+t,U=q-v+t,b=D-h+t,F=x-l+2*t,N=q-u+2*t,C=D-d+2*t,P=x-1+.5,T=q-1+.5,_=D-1+.5,j=255&y,k=255&w,z=255&g,B=.6-x*x-q*q-D*D;if(B<0)o=0;else{var E=3*p[j+M[k+M[z]]];o=(B*=B)*B*(m[E]*x+m[E+1]*q+m[E+2]*D)}var G=.6-S*S-U*U-b*b;if(G<0)i=0;else{var H=3*p[j+s+M[k+v+M[z+h]]];i=(G*=G)*G*(m[H]*S+m[H+1]*U+m[H+2]*b)}var I=.6-F*F-N*N-C*C;if(I<0)n=0;else{var J=3*p[j+l+M[k+u+M[z+d]]];n=(I*=I)*I*(m[J]*F+m[J+1]*N+m[J+2]*C)}var K=.6-P*P-T*T-_*_;if(K<0)f=0;else{var L=3*p[j+1+M[k+1+M[z+1]]];f=(K*=K)*K*(m[L]*P+m[L+1]*T+m[L+2]*_)}return 32*(o+i+n+f)},noise4D:function(r,e,t,i){var n,f,s,v,h,l,u,d,p,M,m,c,y,w,g,A,x,q=this.perm,D=this.grad4,S=(r+e+t+i)*a,U=Math.floor(r+S),b=Math.floor(e+S),F=Math.floor(t+S),N=Math.floor(i+S),C=(U+b+F+N)*o,P=r-(U-C),T=e-(b-C),_=t-(F-C),j=i-(N-C),k=0,z=0,B=0,E=0;P>T?k++:z++,P>_?k++:B++,P>j?k++:E++,T>_?z++:B++,T>j?z++:E++,_>j?B++:E++;var G=P-(l=k>=3?1:0)+o,H=T-(u=z>=3?1:0)+o,I=_-(d=B>=3?1:0)+o,J=j-(p=E>=3?1:0)+o,K=P-(M=k>=2?1:0)+2*o,L=T-(m=z>=2?1:0)+2*o,O=_-(c=B>=2?1:0)+2*o,Q=j-(y=E>=2?1:0)+2*o,R=P-(w=k>=1?1:0)+3*o,V=T-(g=z>=1?1:0)+3*o,W=_-(A=B>=1?1:0)+3*o,X=j-(x=E>=1?1:0)+3*o,Y=P-1+4*o,Z=T-1+4*o,$=_-1+4*o,rr=j-1+4*o,er=255&U,tr=255&b,ar=255&F,or=255&N,ir=.6-P*P-T*T-_*_-j*j;if(ir<0)n=0;else{var nr=q[er+q[tr+q[ar+q[or]]]]%32*4;n=(ir*=ir)*ir*(D[nr]*P+D[nr+1]*T+D[nr+2]*_+D[nr+3]*j)}var fr=.6-G*G-H*H-I*I-J*J;if(fr<0)f=0;else{var sr=q[er+l+q[tr+u+q[ar+d+q[or+p]]]]%32*4;f=(fr*=fr)*fr*(D[sr]*G+D[sr+1]*H+D[sr+2]*I+D[sr+3]*J)}var vr=.6-K*K-L*L-O*O-Q*Q;if(vr<0)s=0;else{var hr=q[er+M+q[tr+m+q[ar+c+q[or+y]]]]%32*4;s=(vr*=vr)*vr*(D[hr]*K+D[hr+1]*L+D[hr+2]*O+D[hr+3]*Q)}var lr=.6-R*R-V*V-W*W-X*X;if(lr<0)v=0;else{var ur=q[er+w+q[tr+g+q[ar+A+q[or+x]]]]%32*4;v=(lr*=lr)*lr*(D[ur]*R+D[ur+1]*V+D[ur+2]*W+D[ur+3]*X)}var dr=.6-Y*Y-Z*Z-$*$-rr*rr;if(dr<0)h=0;else{var pr=q[er+1+q[tr+1+q[ar+1+q[or+1]]]]%32*4;h=(dr*=dr)*dr*(D[pr]*Y+D[pr+1]*Z+D[pr+2]*$+D[pr+3]*rr)}return 27*(n+f+s+v+h)}},i._buildPermutationTable=n,"undefined"!=typeof define&&define.amd&&define(function(){return i}),"undefined"!=typeof exports?exports.SimplexNoise=i:"undefined"!=typeof window&&(window.SimplexNoise=i),"undefined"!=typeof module&&(module.exports=i)}();

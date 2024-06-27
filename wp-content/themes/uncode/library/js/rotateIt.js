@@ -7,6 +7,7 @@
 		return;
 	}
 
+	var frameRotate = false;
 	var loadRotateIt = function(){
 
 		var $toRotate = $('.uncode-rotate');
@@ -67,12 +68,24 @@
 					// }
 				}
 
-				$rotate[0].style.transform = 'rotate(' + deg + 'deg)';
+				if ( $rotate.closest('.un-text-marquee').length && UNCODE.wwidth <= UNCODE.mediaQuery ) {
+					return false;
+				}
+				
+				if ( $rotate.closest('.un-text-marquee').length && ! $rotate.closest('.un-marquee-scroll, .un-marquee-opposite').length ) {
+					var undeg = deg*-1;
+					$rotate[0].style.transform = 'rotate(' + undeg + 'deg)';
+				} else {
+					$rotate[0].style.transform = 'rotate(' + deg + 'deg)';
+				}
 
 				requestAnimationFrame(function() {
+					if ( frameRotate === true ) {
+						frameRotate = false;
+						return;
+					}
 					checkScroll($rotate);
 				});
-
 			};
 
 			checkScroll($rotate);
@@ -82,6 +95,25 @@
 	};
 
 	$(window).on('load', loadRotateIt);
+
+	var checkRotate;
+	var resizeRotate = function(){
+		var $inlineRotates = $('.inline-rotate');
+		$inlineRotates.each(function(){
+			$(this).addClass('inline-rotate-standby');
+		});
+		clearTimeout(checkRotate);
+		checkRotate = setTimeout(function(){
+			$('.inline-rotate').each(function(){
+				$(this).removeClass('inline-rotate-standby');
+				frameRotate = true;
+			});
+			loadRotateIt();
+		}, 500);
+	};
+
+	$(window).off('resize.inline-rotate', resizeRotate)
+	.on('resize.inline-rotate', resizeRotate);
 
 };
 

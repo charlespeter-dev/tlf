@@ -68,8 +68,39 @@
     row-gap: 36px;
   }
 }
-.cssgrid-container.cssgrid-equal-height {
-  grid-auto-rows: 1fr;
+@media (min-width: 960px) {
+  .cssgrid-container.cssgrid-equal-height {
+    grid-auto-rows: 1fr;
+  }
+}
+@media (max-width: 959px) {
+  .cssgrid-container.cssgrid-equal-height:not(.cssgrid-equal-height-no-mobile) {
+    grid-auto-rows: 1fr;
+  }
+}
+.cssgrid-container.cssgrid-equal-height.cssgrid-equal-height-bottom .t-entry-text {
+  display: table-row;
+  height: 100%;
+}
+.cssgrid-container.cssgrid-equal-height.cssgrid-equal-height-bottom .t-entry-text-tc {
+  display: flex;
+  height: 100%;
+}
+.cssgrid-container.cssgrid-equal-height.cssgrid-equal-height-bottom .t-entry {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+}
+.cssgrid-container.cssgrid-equal-height.cssgrid-equal-height-bottom .t-entry > *:last-child {
+  flex-grow: 1;
+  display: flex;
+  align-items: flex-end;
+}
+.cssgrid-container.cssgrid-equal-height.cssgrid-equal-height-bottom .tmb.tmb-content-center .t-entry > *:last-child {
+  justify-content: center;
+}
+.cssgrid-container.cssgrid-equal-height.cssgrid-equal-height-bottom .tmb.tmb-content-right .t-entry > *:last-child {
+  justify-content: end;
 }
 .cssgrid-container.cssgrid-equal-height .tmb > .t-inside {
   height: 100%;

@@ -748,6 +748,7 @@
 
 					$(document).trigger('uncode-ajax-filtered');
 					$(document.body).trigger('init_price_filter');
+					window.dispatchEvent(new CustomEvent('uncode-ajax-filtered'));
 				}
 			},
 			error: function() {

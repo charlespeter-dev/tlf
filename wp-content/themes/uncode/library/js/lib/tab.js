@@ -84,6 +84,8 @@
         element.closest('li.dropdown').addClass('active')
       }
 
+      element.closest('.tab-content').find('.active').not(element).removeClass('active');
+
       callback && callback()
     }
 
