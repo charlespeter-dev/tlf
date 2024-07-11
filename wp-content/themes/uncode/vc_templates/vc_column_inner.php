@@ -285,7 +285,7 @@ if ($override_padding === 'yes') {
 if ($expand_height === 'yes') {
 	$uncol_classes[] = 'unexpand';
 }
-if ($sticky === 'yes') {
+if ($sticky === 'yes' && !(function_exists('vc_is_page_editable') && vc_is_page_editable())) {
 	$uncol_classes[] = 'sticky-element sticky-sidebar';
 }
 

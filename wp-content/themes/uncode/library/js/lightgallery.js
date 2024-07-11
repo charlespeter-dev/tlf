@@ -340,7 +340,12 @@
 				thumbWidth: 50,
 				thumbHeight: '50px',
 				loadYouTubePoster: false,
-				counter: counter
+				counter: counter,
+				exThumbImage: 'data-external-thumb-image',
+				loadYouTubePoster: false,
+				mobileSettings: {
+					showCloseIcon: $('body').hasClass('lightgallery-hide-close') ? false : true,
+				},
 			});
 
 			$album.on('click', function(){

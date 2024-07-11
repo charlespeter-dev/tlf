@@ -333,19 +333,29 @@ $h4 = isset($uncode_option['_uncode_heading_h4']) ? $uncode_option['_uncode_head
 $h5 = isset($uncode_option['_uncode_heading_h5']) ? $uncode_option['_uncode_heading_h5'] : '';
 $h6 = isset($uncode_option['_uncode_heading_h6']) ? $uncode_option['_uncode_heading_h6'] : '';
 if ($default_font_size !== '') {
-	echo "\n" . 'body,p,li,dt,dd,dl,address,label,pre,code,.nav-tabs .tab-excerpt { font-size: ' . $default_font_size . 'px; }';
+	if ( ( $default_font_size > 0 && is_numeric( $default_font_size ) ) || str_replace(floatval($default_font_size), '', $default_font_size) === 'px' ) {
+		echo "\n" . 'body,p,li,dt,dd,dl,address,label,pre,code,.nav-tabs .tab-excerpt { font-size: ' . $default_font_size . 'px; }';
+	} else {
+		echo "\n" . 'body,p,li,dt,dd,dl,address,label,pre,code,.nav-tabs .tab-excerpt { font-size: ' . $default_font_size . '; }';
+	}
 }
 if ($large_text_font_size !== '') {
-	echo "\n.text-lead, .text-lead > *, .nav-tabs .tab-excerpt.text-lead { font-size: " . intval($large_text_font_size) . "px; }".
+	if ( ( $large_text_font_size > 0 && is_numeric( $large_text_font_size ) ) || str_replace(floatval($large_text_font_size), '', $large_text_font_size) === 'px' ) {
+		echo "\n.text-lead, .text-lead > *, .nav-tabs .tab-excerpt.text-lead { font-size: " . intval($large_text_font_size) . "px; }".
 	"\n.module-text-lead,.module-text-lead > *,.module-text-lead p,.module-text-lead li,.module-text-lead dt,.module-text-lead dd,.module-text-lead dl,.module-text-lead address,.module-text-lead label,.module-text-lead small,.uncode-wc-module.text-lead pre,.module-text-lead code { font-size: " . intval($large_text_font_size) . "px; }";
-	// "\n@media (max-width: 1499px) { .uncode-slider .text-lead > * { font-size: " . ( ( intval($large_text_font_size) / 9 ) * 8 ) . "px; } }".
-	// "\n@media (max-width: 959px) { .uncode-slider .text-lead > * { font-size: " . ( ( intval($large_text_font_size) / 18 ) * 13 ) . "px; } }";
+	} else {
+		echo "\n.text-lead, .text-lead > *, .nav-tabs .tab-excerpt.text-lead { font-size: " . $large_text_font_size . "; }".
+	"\n.module-text-lead,.module-text-lead > *,.module-text-lead p,.module-text-lead li,.module-text-lead dt,.module-text-lead dd,.module-text-lead dl,.module-text-lead address,.module-text-lead label,.module-text-lead small,.uncode-wc-module.text-lead pre,.module-text-lead code { font-size: " . $large_text_font_size . "; }";
+	}
 }
 if ($small_text_font_size !== '') {
-	echo "\n.text-small, .text-small > *, .nav-tabs .tab-excerpt.text-small { font-size: " . intval($small_text_font_size) . "px; }".
+	if ( ( $small_text_font_size > 0 && is_numeric( $small_text_font_size ) ) || str_replace(floatval($small_text_font_size), '', $small_text_font_size) === 'px' ) {
+		echo "\n.text-small, .text-small > *, .nav-tabs .tab-excerpt.text-small { font-size: " . intval($small_text_font_size) . "px; }".
 	"\n.module-text-small,.module-text-small > *,.module-text-small p,.module-text-small li,.module-text-small dt,.module-text-small dd,.module-text-small dl,.module-text-small address,.module-text-small label,.module-text-small small,.uncode-wc-module.text-small pre,.module-text-small code { font-size: " . intval($small_text_font_size) . "px; }";
-	// "\n@media (max-width: 1499px) { .uncode-slider .text-small > * { font-size: " . ( ( intval($small_text_font_size) / 9 ) * 8 ) . "px; } }".
-	// "\n@media (max-width: 959px) { .uncode-slider .text-small > * { font-size: " . ( ( intval($small_text_font_size) / 18 ) * 13 ) . "px; } }";
+	} else {
+		echo "\n.text-small, .text-small > *, .nav-tabs .tab-excerpt.text-small { font-size: " . $small_text_font_size . "; }".
+	"\n.module-text-small,.module-text-small > *,.module-text-small p,.module-text-small li,.module-text-small dt,.module-text-small dd,.module-text-small dl,.module-text-small address,.module-text-small label,.module-text-small small,.uncode-wc-module.text-small pre,.module-text-small code { font-size: " . $small_text_font_size . "; }";
+	}
 }
 if ($h1 !== '') {
 	echo uncode_loop_fontsizes('h1', 'h1:not([class*="fontsize-"]),.h1:not([class*="fontsize-"])', $h1);

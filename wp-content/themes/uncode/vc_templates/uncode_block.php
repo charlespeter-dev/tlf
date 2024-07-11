@@ -13,9 +13,8 @@ extract(shortcode_atts(array(
 $id = apply_filters( 'wpml_object_id', $id, 'post', true );
 $the_content = get_post_field('post_content', $id);
 
-if (class_exists('Vc_Base')) {
-	$vc = new Vc_Base();
-	$vc->addPageCustomCss($id);
+if (function_exists('vc_modules_manager')) {
+	vc_modules_manager()->get_module( 'vc-custom-css' )->output_custom_css_to_page($id);
 }
 
 if ( !function_exists('vc_is_page_editable') || !vc_is_page_editable() ) {

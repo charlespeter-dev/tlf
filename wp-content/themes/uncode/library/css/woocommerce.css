@@ -3337,8 +3337,8 @@ p.stars a.star-2:after,
 p.stars a.star-3:after,
 p.stars a.star-4:after,
 p.stars a.star-5:after {
-  content: "\53";
-  font-family: "star";
+  content: "\e946";
+  font-family: "uncodeicon";
   text-indent: 0;
   position: absolute;
   top: 0;

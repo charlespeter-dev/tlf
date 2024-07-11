@@ -430,13 +430,13 @@ get_header();
 
 		if ($content_block_after !== false) {
 			global $is_cb;
+			$old_cb = $is_cb;
 			$is_cb = true;
 
 			$content_block_after = apply_filters( 'wpml_object_id', $content_block_after, 'post' );
 			$content_after_body = get_post_field('post_content', $content_block_after);
-			if (class_exists('Vc_Base')) {
-				$vc = new Vc_Base();
-				$vc->addPageCustomCss($content_block_after);
+			if (function_exists('vc_modules_manager')) {
+				vc_modules_manager()->get_module( 'vc-custom-css' )->output_custom_css_to_page($content_block_after);
 			}
 			if ( $content_block_after !== '' && function_exists('vc_is_page_editable') && vc_is_page_editable() ) {
 				$cb_edit_link = vc_frontend_editor()->getInlineUrl( '', $content_block_after );
@@ -496,6 +496,7 @@ get_header();
 					$content_after_body = str_replace($value[0], $replacement, $content_after_body);
 				}
 			}
+			$is_cb = $old_cb;
 		}
 
   	/** Build post footer **/

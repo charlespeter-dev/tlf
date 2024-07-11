@@ -50,6 +50,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php
 	global $is_cb;
 	$product_cb = $is_cb = uncode_get_content_cb();
+	$old_cb = $is_cb;
 	$show_content = true;
 
 	if ( $product_cb ) {
@@ -92,7 +93,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			echo '</div>';
 		}
 
-		$is_cb = false;
+		$is_cb = $old_cb;
 
 	}
 

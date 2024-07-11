@@ -12648,7 +12648,7 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 					if ( 
 						($('body').hasClass('menu-mobile-off-canvas') && winW < 960 && $elm.closest('.main-menu-container').length)
 						||
-						($('body').hasClass('vmenu-offcanvas-overlay') && winW >= 960 && $elm.closest('.main-menu-container').length && !$elm.closest('.menu-horizontal-inner').length)
+						(( $('body').hasClass('vmenu-offcanvas-overlay') || $('body').hasClass('vmenu') ) && winW >= 960 && $elm.closest('.main-menu-container').length && !$elm.closest('.menu-horizontal-inner').length)
 					) {
 						$elm.closest('li').addClass('smartmenu-open-item');
 					}
@@ -36416,7 +36416,9 @@ if ( typeof module != 'undefined' && module.exports ) {
         element.closest('li.dropdown').addClass('active')
       }
 
-      element.closest('.tab-content').find('.active').not(element).removeClass('active');
+      if ( ! element.is('li') ) {
+        element.closest('.tab-content').find('> .active').not(element).removeClass('active');
+      }
 
       callback && callback()
     }

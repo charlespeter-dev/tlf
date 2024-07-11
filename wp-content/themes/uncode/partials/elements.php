@@ -1557,6 +1557,7 @@ if (!function_exists('uncode_create_single_block')) {
 						}
 
 						if ($block_text !== '') {
+							$block_text = apply_filters( 'uncode_block_text_out', $block_text, $block_data['id'] );
 							if ($single_text === 'overlay' && $single_elements_click !== 'yes') {
 								$inner_entry .= '<div class="t-entry-excerpt '.$text_size.'">'.preg_replace('/<\/?a(.|\s)*?>/', '', $block_text).'</div>';
 							} else {
@@ -3831,7 +3832,7 @@ if (!function_exists('uncode_create_single_block')) {
 
 			}
 
-			if (($single_text !== 'overlay' || $single_elements_click !== 'yes') && ( ( isset( $oembed_no_control ) && $oembed_no_control === true ) || $media_type === 'image' || ( $media_mime === 'image/svg+xml' && apply_filters( 'uncode_use_svgs_for_links', false ) ) ) && !isset($block_data['is_avatar']) && $block_data['template'] !== 'inline-image' ) {
+			if (($single_text !== 'overlay' || $single_elements_click !== 'yes') && ( ( isset( $oembed_no_control ) && $oembed_no_control === true ) || $media_type === 'image' || ( $media_mime === 'image/svg+xml' && apply_filters( 'uncode_use_svgs_for_links', false ) ) ) && !isset($block_data['is_avatar']) && $block_data['template'] !== 'inline-image' && !$is_titles ) {
 				$media_output .= '</a>';
 			}
 

@@ -276,7 +276,7 @@ UNCODE.textMarquee = function( $titles ) {
 		});
 	};
 
-	$(document).ready(function(){
+	$(document).on('ready', function(){
 		initTextMarquee();
 	});
 

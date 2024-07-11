@@ -3066,11 +3066,16 @@ function whichAnimationEvent() {
 				 mainmenu = document.querySelectorAll('.vmenu .vmenu-container, .menu-primary .menu-container');
 			 }
 			 if (header && mainmenu[0] != undefined) {
+				var stickyHeight = secmenuHeight;
 				 menuMobileTransparent = document.querySelector('.menu-absolute.menu-transparent');
 				 if (classie.hasClass(mainmenu[0], 'vmenu-container') && wwidth > mediaQuery) return;
 				 /** fix for hmenu-center **/
 				 var sticky_element = (typeof mainmenu.item === 'undefined' ? (( ( isMobileTransparent && menuMobileTransparent !== null ) || wwidth > mediaQuery) ? mainmenu[0] : mainmenu[1]) : mainmenu[0]);
-				 if ((secmenuHeight == 0 && ( ( isMobileTransparent && menuMobileTransparent !== null ) || wwidth > mediaQuery)) ? bodyTop > (0 + adminBarHeight)  : bodyTop > (secmenuHeight + adminBarHeight)) {
+				if ( classie.hasClass(document.body, 'hmenu-center') && document.getElementById("logo-container-mobile") != null ) {
+					stickyHeight = secmenuHeight + outerHeight(document.getElementById("logo-container-mobile"));
+				}
+
+				 if ((stickyHeight == 0 && ( ( isMobileTransparent && menuMobileTransparent !== null ) || wwidth > mediaQuery)) ? bodyTop > (0 + adminBarHeight)  : bodyTop > (stickyHeight + adminBarHeight)) {
 					 if (!classie.hasClass(sticky_element.parentNode, 'is_stuck')) {
 						 classie.addClass(sticky_element.parentNode, 'is_stuck');
 						 sticky_element.style.position = 'fixed';

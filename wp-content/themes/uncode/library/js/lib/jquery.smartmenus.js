@@ -317,7 +317,7 @@
 					if ( 
 						($('body').hasClass('menu-mobile-off-canvas') && winW < 960 && $elm.closest('.main-menu-container').length)
 						||
-						($('body').hasClass('vmenu-offcanvas-overlay') && winW >= 960 && $elm.closest('.main-menu-container').length && !$elm.closest('.menu-horizontal-inner').length)
+						(( $('body').hasClass('vmenu-offcanvas-overlay') || $('body').hasClass('vmenu') ) && winW >= 960 && $elm.closest('.main-menu-container').length && !$elm.closest('.menu-horizontal-inner').length)
 					) {
 						$elm.closest('li').addClass('smartmenu-open-item');
 					}

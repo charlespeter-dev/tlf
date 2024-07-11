@@ -211,9 +211,12 @@ if ( ! function_exists( 'uncode_get_current_post_type' ) || uncode_get_current_p
 					</div><!-- main container -->
 				</div><!-- main wrapper -->
 				<?php
-				if ($is_redirect !== true && $menutype === 'vmenu' && ( ( $vmenu_position === 'right' && !is_rtl() ) || ( $vmenu_position !== 'right' && is_rtl() ) ) ) {
-					$mainmenu = new unmenu($menutype, $menutype);
-					echo uncode_remove_p_tag( $mainmenu->html );
+				$remove_menu = (isset($metabox_data['_uncode_specific_menu_remove'][0]) && $metabox_data['_uncode_specific_menu_remove'][0] === 'on') ? true : false;
+				if ( ! $remove_menu ) {
+					if ($is_redirect !== true && $menutype === 'vmenu' && ( ( $vmenu_position === 'right' && !is_rtl() ) || ( $vmenu_position !== 'right' && is_rtl() ) ) ) {
+						$mainmenu = new unmenu($menutype, $menutype);
+						echo uncode_remove_p_tag( $mainmenu->html );
+					}
 				}
 				?>
 			</div><!-- box container -->

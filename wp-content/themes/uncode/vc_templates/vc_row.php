@@ -224,7 +224,7 @@ if ( strpos( $el_class, 'ajax-filters' ) !== false ) {
 }
 
 $row_cont_classes[] = $this->getExtraClass($el_class);
-if ($sticky === 'yes') {
+if ($sticky === 'yes' && !(function_exists('vc_is_page_editable') && vc_is_page_editable())) {
 	$row_cont_classes[] = 'sticky-element';
 }
 if ( $skew === 'yes' ) {

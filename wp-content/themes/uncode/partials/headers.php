@@ -310,6 +310,7 @@ if (!class_exists('unheader')) {
 
 				if ( $header_type === 'header_uncodeblock' ) {
 					global $is_cb, $is_header_cb;
+					$old_cb = $is_cb;
 					$is_cb = $is_header_cb = true;
 				}
 
@@ -480,6 +481,9 @@ if (!class_exists('unheader')) {
 				$this->html.= $uncode_block;
 				$this->html.= $header_scroll_html;
 				$this->html.= '</div>';
+				if ( isset($old_cb) ) {
+					$is_cb = $old_cb;
+				}
 
 			break;
 

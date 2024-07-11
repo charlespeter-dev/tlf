@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Uncode\n"
 "Report-Msgid-Bugs-To: info@undsgn.com\n"
-"POT-Creation-Date: 2024-06-11 15:41+0200\n"
-"PO-Revision-Date: 2024-06-11 15:41+0200\n"
+"POT-Creation-Date: 2024-07-08 09:12+0200\n"
+"PO-Revision-Date: 2024-07-08 09:12+0200\n"
 "Last-Translator: Undsgn <info@undsgn.com>\n"
 "Language-Team: Undsgn <info@undsgn.com>\n"
 "Language: en_US\n"
@@ -2177,7 +2177,7 @@ msgid "Prev"
 msgstr ""
 
 #: core/inc/template-tags.php:91 vc_templates/uncode_navigation.php:131
-#: woocommerce/myaccount/orders.php:100
+#: woocommerce/myaccount/orders.php:101
 msgid "Next"
 msgstr ""
 
@@ -2726,9 +2726,9 @@ msgstr ""
 msgid "All rights reserved"
 msgstr ""
 
-#: footer.php:191 page.php:445 partials/headers.php:472
+#: footer.php:191 page.php:445 partials/headers.php:473
 #: single-portfolio.php:448 single-portfolio.php:757 single.php:539
-#: single.php:765 woocommerce/content-single-product.php:79
+#: single.php:765 woocommerce/content-single-product.php:80
 #: woocommerce/single-product.php:230 woocommerce/single-product.php:328
 msgid "Edit Content Block"
 msgstr ""
@@ -2758,42 +2758,42 @@ msgstr ""
 msgid "Sticky"
 msgstr ""
 
-#: partials/elements.php:1629
+#: partials/elements.php:1630
 msgid "Read More"
 msgstr ""
 
-#: partials/elements.php:1778
+#: partials/elements.php:1779
 msgid "by"
 msgstr ""
 
-#: partials/elements.php:1825 partials/elements.php:4037
+#: partials/elements.php:1826 partials/elements.php:4038
 msgctxt "comments"
 msgid "Comment"
 msgid_plural "Comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: partials/elements.php:3373
+#: partials/elements.php:3374
 #: vc_templates/uncode_single_product_gallery.php:243
 msgid "Sale!"
 msgstr ""
 
-#: partials/elements.php:3375 woocommerce/wishlist-view.php:226
+#: partials/elements.php:3376 woocommerce/wishlist-view.php:226
 msgid "Out of stock"
 msgstr ""
 
-#: partials/elements.php:3968 partials/elements.php:3992
-#: partials/elements.php:4068
+#: partials/elements.php:3969 partials/elements.php:3993
+#: partials/elements.php:4069
 #, php-format
 msgid "View all posts in %s"
 msgstr ""
 
-#: partials/elements.php:3970 partials/elements.php:3994
-#: partials/elements.php:4074
+#: partials/elements.php:3971 partials/elements.php:3995
+#: partials/elements.php:4075
 msgid "In"
 msgstr ""
 
-#: partials/elements.php:3973 partials/elements.php:4021
+#: partials/elements.php:3974 partials/elements.php:4022
 msgid "By"
 msgstr ""
 
@@ -2812,7 +2812,7 @@ msgid "Login"
 msgstr ""
 
 #: partials/menus.php:739 partials/menus.php:831 partials/menus.php:836
-#: vc_templates/vc_wp_search.php:109
+#: vc_templates/vc_wp_search.php:111
 msgid "Search"
 msgstr ""
 
@@ -2824,15 +2824,15 @@ msgstr ""
 msgid "Edit Theme Options"
 msgstr ""
 
-#: partials/headers.php:472
+#: partials/headers.php:473
 msgid "Header Content Block"
 msgstr ""
 
-#: partials/headers.php:497 partials/headers.php:519
+#: partials/headers.php:501 partials/headers.php:523
 msgid "Edit Slider"
 msgstr ""
 
-#: partials/headers.php:497 partials/headers.php:519
+#: partials/headers.php:501 partials/headers.php:523
 msgid "Header Slider"
 msgstr ""
 
@@ -2844,7 +2844,7 @@ msgstr ""
 msgid "Search for:"
 msgstr ""
 
-#: single-portfolio.php:517 woocommerce/single-product/share.php:35
+#: single-portfolio.php:518 woocommerce/single-product/share.php:35
 msgid "Share"
 msgstr ""
 
@@ -2929,7 +2929,7 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: vc_templates/uncode_navigation.php:130 woocommerce/myaccount/orders.php:96
+#: vc_templates/uncode_navigation.php:130 woocommerce/myaccount/orders.php:97
 msgid "Previous"
 msgstr ""
 
@@ -3215,7 +3215,7 @@ msgid ""
 "alternate arrangements."
 msgstr ""
 
-#: woocommerce/content-single-product.php:79
+#: woocommerce/content-single-product.php:80
 msgid "Product Content Block"
 msgstr ""
 
@@ -3289,22 +3289,27 @@ msgid "Enter a new password below."
 msgstr ""
 
 #: woocommerce/myaccount/orders.php:56
+#, php-format
+msgid "View order number %s"
+msgstr ""
+
+#: woocommerce/myaccount/orders.php:57
 msgctxt "hash before order number"
 msgid "#"
 msgstr ""
 
-#: woocommerce/myaccount/orders.php:68
+#: woocommerce/myaccount/orders.php:69
 #, php-format
 msgid "%1$s for %2$s item"
 msgid_plural "%1$s for %2$s items"
 msgstr[0] ""
 msgstr[1] ""
 
-#: woocommerce/myaccount/orders.php:107
+#: woocommerce/myaccount/orders.php:108
 msgid "No order has been made yet."
 msgstr ""
 
-#: woocommerce/myaccount/orders.php:107
+#: woocommerce/myaccount/orders.php:108
 msgid "Browse products"
 msgstr ""
 
@@ -3480,8 +3485,8 @@ msgstr[1] ""
 msgid "Tag"
 msgstr ""
 
-#: woocommerce/single-product/product-image.php:205
-#: woocommerce/single-product/product-image.php:365
+#: woocommerce/single-product/product-image.php:208
+#: woocommerce/single-product/product-image.php:367
 msgid "Awaiting product image"
 msgstr ""
 

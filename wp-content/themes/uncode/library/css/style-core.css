@@ -425,6 +425,10 @@ img.async-done {
   overflow: hidden;
   perspective: 1000px;
 }
+.img-round .tmb-round.tmb.tmb-show-secondary .t-entry-visual-cont,
+.tmb-round .tmb-round.tmb.tmb-show-secondary .t-entry-visual-cont {
+  overflow: hidden;
+}
 .img-thumbnail {
   display: inline-block;
   max-width: 100%;
@@ -11338,6 +11342,11 @@ body:not(.single-product) .header-wrapper .owl-stage-outer {
 .tmb-round.tmb > .t-inside {
   border-radius: 4px;
 }
+.tmb-show-secondary.tmb-media-first.tmb-content-under.tmb-round.tmb > .t-inside .t-entry-visual .t-entry-visual-cont {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+}
 .tmb-media-first.tmb-content-under.tmb-round.tmb > .t-inside .t-entry-visual a:not(.tmb-term-evidence):not(.product_button_loop) {
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
@@ -11629,6 +11638,8 @@ body:not(.single-product) .header-wrapper .owl-stage-outer {
   height: 100% !important;
 }
 .tmb .t-entry-visual .t-secondary-background-cover {
+  opacity: 0;
+  pointer-events: none;
   width: 100%;
   height: 100%;
   display: block;
@@ -11638,7 +11649,7 @@ body:not(.single-product) .header-wrapper .owl-stage-outer {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 0;
+  z-index: 2;
   transition: all 0.3s cubic-bezier(0.57, 0.21, 0.69, 1);
 }
 @media (min-width: 570px) {
@@ -11657,9 +11668,13 @@ body:not(.single-product) .header-wrapper .owl-stage-outer {
   position: absolute !important;
   z-index: 1000;
 }
+@media (max-width: 959px) {
+  .tmb .t-entry-visual .t-secondary-background-cover {
+    opacity: 0 !important;
+  }
+}
 .tmb .t-entry-visual .uncode-picture-image {
   object-fit: cover;
-  font-family: 'object-fit: cover;';
 }
 .tmb .t-entry-visual .t-background-click {
   z-index: auto !important;
@@ -12002,8 +12017,7 @@ body:not(.single-product) .header-wrapper .owl-stage-outer {
   filter: gray;
   filter: grayscale(100%);
 }
-.tmb .t-entry-visual .dummy.secondary-dummy-image,
-.tmb .t-entry-visual .t-secondary-background-cover {
+.tmb .t-entry-visual .dummy.secondary-dummy-image {
   transition-property: opacity;
   transition-duration: 0.2s;
   transition-timing-function: cubic-bezier(0.57, 0.21, 0.69, 1);
@@ -12013,8 +12027,7 @@ body:not(.single-product) .header-wrapper .owl-stage-outer {
   z-index: 2;
 }
 @media (max-width: 959px) {
-  .tmb .t-entry-visual .dummy.secondary-dummy-image,
-  .tmb .t-entry-visual .t-secondary-background-cover {
+  .tmb .t-entry-visual .dummy.secondary-dummy-image {
     opacity: 0 !important;
   }
 }

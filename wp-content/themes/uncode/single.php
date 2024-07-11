@@ -525,12 +525,12 @@ while (have_posts()):
 		}
 		if ( $content_block_after !== false && $content_block_after !== null ) {
 			global $is_cb;
+			$old_cb = $is_cb;
 			$is_cb = true;
 
 			$content_after_body_build = get_post_field('post_content', $content_block_after);
-			if (class_exists('Vc_Base')) {
-				$vc = new Vc_Base();
-				$vc->addPageCustomCss($content_block_after);
+			if (function_exists('vc_modules_manager')) {
+				vc_modules_manager()->get_module( 'vc-custom-css' )->output_custom_css_to_page($content_block_after);
 			}
 			if ( $content_block_after !== '' && function_exists('vc_is_page_editable') && vc_is_page_editable() ) {
 				$cb_edit_link = vc_frontend_editor()->getInlineUrl( '', $content_block_after );
@@ -587,6 +587,7 @@ while (have_posts()):
 					$content_after_body_build = str_replace($value[0], $replacement, $content_after_body_build);
 				}
 			}
+			$is_cb = $old_cb;
 		}
 
 		$content_after_body .= $content_after_body_build;
@@ -753,11 +754,10 @@ while (have_posts()):
 			if ( $navigation_content_block ) {
 				$navigation_content_block_value = get_post_field( 'post_content', $navigation_content_block );
 
-				if ( class_exists( 'Vc_Base' ) ) {
-					$vc = new Vc_Base();
-					$vc->addPageCustomCss( $navigation_content_block );
+				if (function_exists('vc_modules_manager')) {
+					vc_modules_manager()->get_module( 'vc-custom-css' )->output_custom_css_to_page($navigation_content_block);
 				}
-
+	
 				if ( function_exists( 'vc_is_page_editable' ) && vc_is_page_editable() ) {
 					$cb_edit_link = vc_frontend_editor()->getInlineUrl( '', $navigation_content_block );
 					$navigation_content_block_value .= '<div class="vc_controls-element vc_controls vc_controls-content_block"><div

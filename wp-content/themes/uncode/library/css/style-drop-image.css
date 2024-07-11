@@ -630,7 +630,6 @@
     top: 0;
     transform: translateZ(0);
     width: 100vw;
-    z-index: -1;
   }
 }
 .drop-list-loaded .t-entry-drop.drop-parent.active {

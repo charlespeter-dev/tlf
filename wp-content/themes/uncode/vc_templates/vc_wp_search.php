@@ -93,7 +93,9 @@ $widget_unique_id = uncode_get_widget_module_id();
 
 $output = '<div class="vc_wp_search wpb_content_element' . esc_attr( $el_class ) . (($live_search === 'yes') ? ' uncode-live-search' : '') . '" ' . $el_id . ' data-id="' . esc_attr( $widget_unique_id ) . '">';
 $type = 'WP_Widget_Search';
-global $wp_widget_factory, $use_live_search;
+global $wp_widget_factory, $use_live_search, $overlay_search;
+$overlay_search_store = $overlay_search;
+$overlay_search = false;
 // to avoid unwanted warnings let's check before using widget
 if ( is_object( $wp_widget_factory ) && isset( $wp_widget_factory->widgets, $wp_widget_factory->widgets[ $type ] ) ) {
 	ob_start();
@@ -116,4 +118,5 @@ if ( is_object( $wp_widget_factory ) && isset( $wp_widget_factory->widgets, $wp_
 } else {
 	echo esc_html( $this->debugComment( 'Widget ' . $type . 'Not found in : vc_wp_search' ) );
 }
+$overlay_search = $overlay_search_store;
 // TODO: make more informative if wp is in debug mode

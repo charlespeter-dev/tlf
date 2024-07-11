@@ -1904,6 +1904,9 @@ $(function(){
 		$( document ).on( 'vc.display.template vc.display.lists', function(e) {
 			UNCODE.toggleDescription();
 		});
+		window.parent.vc.events.on('vc-param-group-add-new', function(model) {
+			UNCODE.toggleDescription();
+		});
 	});
 	$(window).on( 'load', function(){
 		UNCODE.wpmlMsgSecLng();

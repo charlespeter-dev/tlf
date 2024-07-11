@@ -23,9 +23,8 @@
 
 	if ( UNCODE.wwidth > UNCODE.mediaQuery ) {
 		bigTextLaunch();
-	} else {
-		$(window).on( 'load', bigTextLaunch );
 	}
+	$(window).on( 'load', bigTextLaunch );
 };
 
 

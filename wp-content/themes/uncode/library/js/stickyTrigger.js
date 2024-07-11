@@ -40,6 +40,30 @@
 
 	$(window).on( 'load', function(){
 		stickyTrigger();
+		var carousel = document.querySelector(".owl-carousel"),
+			grid = document.querySelector(".isotope-container"),
+			stickyAll = document.querySelectorAll(".sticky-trigger");
+
+		if ( stickyAll.length ) {
+			var sticky = stickyAll[(stickyAll.length-1)];
+		}
+
+		if ( typeof sticky !== "undefined" ) {
+
+			if ( typeof carousel !== "undefined" && carousel !== null ) {
+				var carousel_position = sticky.compareDocumentPosition(carousel);
+			}
+			if ( typeof grid !== "undefined" && grid !== null ) {
+				var grid_position = sticky.compareDocumentPosition(grid);
+			}
+
+			if ( carousel_position === 2 || grid_position === 2 ) {
+				setTimeout(function(){
+					ScrollTrigger.refresh();
+				}, 500);
+			}
+
+		}
 	});
 
 	var oldW = UNCODE.wwidth;

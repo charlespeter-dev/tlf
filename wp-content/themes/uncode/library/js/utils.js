@@ -127,7 +127,11 @@ UNCODE.utils = function() {
 			if  ( !( $('.menu-desktop-transparent').length && UNCODE.wwidth > UNCODE.mediaQuery ) ) {
 				if ( ( $('.menu-sticky').length && !$('.menu-hide').length && !UNCODE.isMobile ) || ( $('.menu-sticky-mobile').length && UNCODE.isMobile ) ) {
 					if ( !$('.menu-hided').length ) {
-						scroll_offset += $('.logo-container:visible').outerHeight();
+						if ( $('body').hasClass('hmenu-center') ) {
+							scroll_offset += $('.menu-sticky .menu-container').outerHeight();
+						} else {
+							scroll_offset += $('.logo-container:visible').outerHeight();
+						}
 					}
 				} else if ( $('.menu-sticky .menu-container:not(.menu-hide)').length && ! $('.menu-shrink').length ) {
 					var shrink = typeof $('.navbar-brand').data('padding-shrink') !== 'undefined' ?  $('.navbar-brand').data('padding-shrink')*2 : 36;
@@ -677,5 +681,6 @@ UNCODE.magnetic = function(){
 	  	});
 	})
 };
+
 
 })(jQuery);

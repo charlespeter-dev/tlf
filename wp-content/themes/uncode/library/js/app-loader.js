@@ -168,7 +168,8 @@
 			waypoint_request = requestTimeout( function(){
 				Waypoint.refreshAll();
 			}, 1000);
-
+		});
+		$(window).one('load',function(){
 			if (typeof UNCODE.parallax !== 'undefined') {
 				UNCODE.parallax();
 			}

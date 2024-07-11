@@ -12,7 +12,7 @@
  *
  * @see 	    https://docs.woocommerce.com/document/template-structure/
  * @package 	WooCommerce/Templates
- * @version     7.8.0
+ * @version     9.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -201,10 +201,12 @@ $wrapper_classes = apply_filters( 'woocommerce_single_product_image_gallery_clas
 
 		} else {
 
-			$html  = '<div class="woocommerce-product-gallery__image--placeholder">';
-			$html .= sprintf( '<img src="%s" alt="%s" class="wp-post-image" />', esc_url( wc_placeholder_img_src( 'woocommerce_single' ) ), esc_html__( 'Awaiting product image', 'woocommerce' ) );
-			$html .= '</div>';
-
+			$wrapper_classname = $product->is_type( 'variable' ) && ! empty( $product->get_available_variations( 'image' ) ) ?
+				'woocommerce-product-gallery__image woocommerce-product-gallery__image--placeholder' :
+				'woocommerce-product-gallery__image--placeholder';
+			$html              = sprintf( '<div class="%s">', esc_attr( $wrapper_classname ) );
+			$html             .= sprintf( '<img src="%s" alt="%s" class="wp-post-image" />', esc_url( wc_placeholder_img_src( 'woocommerce_single' ) ), esc_html__( 'Awaiting product image', 'woocommerce' ) );
+			$html             .= '</div>';
 		}
 	?>
 
@@ -234,7 +236,7 @@ $product_gallery_data      = function_exists( 'wc_esc_json' ) ? wc_esc_json( $pr
 ?>
 
 <div class="<?php echo esc_attr( implode( ' ', array_map( 'sanitize_html_class', $wrapper_classes ) ) ); ?>" data-columns="<?php echo esc_attr( $columns ); ?>"<?php if ( ( ! function_exists('vc_is_page_editable') || ! vc_is_page_editable() ) && $post_type !== 'uncodeblock' ) { ?> style="opacity: 0; transition: opacity .05s ease-in-out;"<?php } ?> data-gallery-options="<?php echo uncode_switch_stock_string( $product_gallery_data ); ?>">
-	<?php 
+	<?php
 		$woo_carousel_atts = '';
 		if ( $woo_carousel ) {
 			if ( $_uncode_thumb_layout === '' ) {
