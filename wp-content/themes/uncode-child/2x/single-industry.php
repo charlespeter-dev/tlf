@@ -173,6 +173,44 @@ get_header() ?>
         </div>
     </section>
 
+    <?php if (isset($video_file) && $video_file): ?>
+
+        <div class="py-3"></div>
+
+        <section class="video my-5">
+            <div class="row-container">
+                <div class="single-h-padding limit-width position-relative">
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <!-- video -->
+                            <video src="<?= $video_file ?>" class="img-fluid rounded-4"
+                                poster="<?= $video_poster ? $video_poster : '' ?>" controls>
+                            </video>
+                        </div>
+
+                        <div class="col-lg-6 mt-5 mt-lg-0">
+                            <!-- video text -->
+
+                            <h2 class="blue">Redefine your operational resilience</h2>
+                            <p>
+                                You’re on the precipice of a radical shift in how you operate. Forces beyond your control
+                                could have a damaging impact on your supply chain unless you take action. It’s time to
+                                redefine your operational resilience.
+                            </p>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </section>
+
+        <div class="py-lg-2"></div>
+
+    <?php endif ?>
+
     <?php if (isset($featured_testimonials['testimonials']) && $featured_testimonials['testimonials']): ?>
         <section class="featured-testimonials <?= count($ft_collections) > 1 ? 'my-5' : 'mt-5' ?>">
             <div class="row-container">
