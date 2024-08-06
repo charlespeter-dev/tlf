@@ -436,7 +436,8 @@ get_header() ?>
     <?php endif ?>
 
     <?php if (isset($callout['callouts']) && $callout['callouts']): ?>
-        <section class="callout">
+
+        <section class="callout my-5 py-5">
             <div class="row-container">
                 <div class="single-h-padding limit-width position-relative">
 
@@ -532,8 +533,6 @@ get_header() ?>
         <section class="related-resources pb-5">
             <div class="row-container">
                 <div class="single-h-padding limit-width position-relative">
-
-                    <hr class="my-5">
 
                     <div class="row mb-5">
                         <div class="col-lg-6">
