@@ -59,10 +59,10 @@
   color: #E30613;
   font-weight: 600;
 }
-.bootstrap-container.industry.single .tabbed {
+.bootstrap-container.industry.single .video {
   position: relative;
 }
-.bootstrap-container.industry.single .tabbed::before {
+.bootstrap-container.industry.single .video::before {
   content: "";
   position: absolute;
   display: block;
