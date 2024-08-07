@@ -302,10 +302,36 @@ get_header() ?>
 
                         <div class="col-lg-6">
                             <!-- video -->
-                            <video src="<?= $video_file ?>" class="img-fluid rounded-4"
-                                style="border-radius: 15px !important;" poster="<?= $video_poster ? $video_poster : '' ?>"
-                                controls>
-                            </video>
+                            <div class="video-container">
+                                <video src="<?= $video_file ?>" class="img-fluid rounded-4"
+                                    style="border-radius: 15px !important;"
+                                    poster="<?= $video_poster ? $video_poster : '' ?>" preload="metadata">
+                                </video>
+                                <svg id="Play_button" data-name="Play button" xmlns="http://www.w3.org/2000/svg" width="127"
+                                    height="127" viewBox="0 0 127 127">
+                                    <circle id="Ellipse_4" data-name="Ellipse 4" cx="63.5" cy="63.5" r="63.5" fill="#e30613"
+                                        opacity="0.851" />
+                                    <path id="Polygon_2" data-name="Polygon 2" d="M23,0,46,39H0Z"
+                                        transform="translate(88 40) rotate(90)" fill="#fff" />
+                                </svg>
+                                <script>
+                                    window.addEventListener('DOMContentLoaded', function () {
+
+                                        const videoContainer = document.querySelector('.video-container');
+                                        videoContainer.addEventListener('click', function () {
+
+                                            const video = videoContainer.querySelector('video');
+                                            video.setAttribute('controls', 'controls');
+                                            video.addEventListener('play', function () {
+                                                const svg = videoContainer.querySelector('svg');
+                                                svg.style.display = 'none';
+                                            });
+                                            video.play();
+                                        });
+
+                                    });
+                                </script>
+                            </div>
                         </div>
 
                     </div>
@@ -437,7 +463,7 @@ get_header() ?>
 
     <?php if (isset($callout['callouts']) && $callout['callouts']): ?>
 
-        <section class="callout my-5 py-5">
+        <section class="callout mt-5 py-5">
             <div class="row-container">
                 <div class="single-h-padding limit-width position-relative">
 
@@ -530,7 +556,7 @@ get_header() ?>
     <?php endif ?>
 
     <?php if (!empty($_2x_related_resources)): ?>
-        <section class="related-resources pb-5">
+        <section class="related-resources py-5">
             <div class="row-container">
                 <div class="single-h-padding limit-width position-relative">
 
