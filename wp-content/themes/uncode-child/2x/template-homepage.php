@@ -60,6 +60,7 @@ if (isset($latest_news_and_articles['fetch_automatically'][0]) && $latest_news_a
         'orderby' => 'date',
         'order' => 'DESC',
         'posts_per_page' => 3,
+        'post_status' => 'publish',
         'fields' => 'ids',
         'tax_query' => [
             'relation' => 'OR',
