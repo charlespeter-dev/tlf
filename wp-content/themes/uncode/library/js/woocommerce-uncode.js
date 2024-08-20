@@ -847,7 +847,16 @@
 				}
 			}
 		};
-		$( document.body ).on( 'added_to_cart', show_added_to_cart );
+
+		if ( $('body').hasClass('uncode-wc-disable-added-to-cart-trigger')) {
+			$( document.body ).on( 'added_to_cart', function() {
+				setTimeout(function(){
+					$(document.body).trigger('wc_fragment_refresh');
+				}, 500);
+			} );
+		} else {
+			$( document.body ).on( 'added_to_cart', show_added_to_cart );
+		}
 
 		$(document).ready(function() {
 			if ( $('body').hasClass('uncode-wc-added-to-cart')) {

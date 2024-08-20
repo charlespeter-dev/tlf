@@ -57,6 +57,9 @@ $block_classes[] = 'tmb-overlay-text-anim';
 //$block_classes[] = 'tmb-text-space-reduced';
 $block_classes[] = 'tmb-iso-w' . $single_post_width;
 $block_classes[] = implode(' ', get_post_class());
+if ( apply_filters( 'uncode_index_no_double_tap', false ) ) {
+	$block_classes[] = 'tmb-no-double-tap';
+}
 
 if ( ot_get_option('_uncode_woocommerce_enhanced_atc') === 'on' ) {
 	$block_classes[] = 'enhanced-atc';

@@ -17,6 +17,9 @@ get_header();
 $limit_width = $limit_content_width = $the_content = $main_content = $layout = $bg_color = $sidebar_style = $sidebar_bg_color = $sidebar = $sidebar_size = $sidebar_sticky = $sidebar_padding = $sidebar_inner_padding = $sidebar_content = $title_content = $media_content = $navigation_content = $page_custom_width = $row_classes = $main_classes = $footer_content = $footer_classes = $content_after_body = '';
 $with_builder = false;
 
+global $is_cb;
+$old_cb = $is_cb;
+
 $post_type = $post->post_type;
 
 /** Get general datas **/
@@ -524,8 +527,6 @@ while (have_posts()):
 			$content_block_after = apply_filters( 'uncode_wpml_object_id', $content_block_after );
 		}
 		if ( $content_block_after !== false && $content_block_after !== null ) {
-			global $is_cb;
-			$old_cb = $is_cb;
 			$is_cb = true;
 
 			$content_after_body_build = get_post_field('post_content', $content_block_after);
@@ -587,7 +588,6 @@ while (have_posts()):
 					$content_after_body_build = str_replace($value[0], $replacement, $content_after_body_build);
 				}
 			}
-			$is_cb = $old_cb;
 		}
 
 		$content_after_body .= $content_after_body_build;
@@ -805,6 +805,7 @@ while (have_posts()):
 	}
 
 	$the_content = uncode_remove_p_tag( $the_content );
+	$is_cb = $old_cb;
 	$the_content = apply_filters( 'uncode_single_content_final_output', $the_content );
 
 	/** Display post html **/

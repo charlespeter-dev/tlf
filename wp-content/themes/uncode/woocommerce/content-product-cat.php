@@ -58,6 +58,9 @@ $block_classes[] = 'tmb-overlay-anim';
 $block_classes[] = 'tmb-overlay-text-anim';
 $block_classes[] = 'tmb-iso-w' . $single_post_width;
 $block_classes[] = implode(' ', get_post_class());
+if ( apply_filters( 'uncode_index_no_double_tap', false ) ) {
+	$block_classes[] = 'tmb-no-double-tap';
+}
 
 $media_items = array();
 $block_data = array();

@@ -29,6 +29,10 @@ if ( isset( $args['uncode_add_to_cart_url'] ) && $args['uncode_add_to_cart_url']
 	$add_to_cart_text = __( 'Select options', 'woocommerce' );
 }
 
+if ( apply_filters( 'uncode_show_out_of_stock_button_for_variable_products', false ) && ! $product->is_in_stock() ) {
+	$add_to_cart_text = __( 'Read more', 'woocommerce' );
+}
+
 echo apply_filters(
 	'woocommerce_loop_add_to_cart_link', // WPCS: XSS ok.
 	sprintf(

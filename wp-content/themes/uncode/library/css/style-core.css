@@ -13529,12 +13529,12 @@ html:not(.no-cssanimations) body:not(.fp-waiting) .animate_when_almost_visible.s
 }
 html:not(.no-cssanimations) body:not(.fp-waiting) .animate_when_almost_visible.start_animation:not(.zoom-reverse):not(.srcset-lazy-animations).zoom-in {
   animation-name: zoom-in;
-  transform: scale(1);
+  transform: none;
   opacity: 1;
 }
 html:not(.no-cssanimations) body:not(.fp-waiting) .animate_when_almost_visible.start_animation:not(.zoom-reverse):not(.srcset-lazy-animations).zoom-out {
   animation-name: zoom-out;
-  transform: scale(1);
+  transform: none;
   opacity: 1;
 }
 html:not(.no-cssanimations) body:not(.fp-waiting) .animate_inner_when_almost_visible:not(.already-animated) .animate_when_parent_almost_visible.start_animation:not(.zoom-reverse):not(.srcset-lazy-animations).typewriter {

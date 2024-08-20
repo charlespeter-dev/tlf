@@ -1,7 +1,8 @@
 (function($) {
 	"use strict";
 
-	UNCODE.ajax_filters = function() {
+	UNCODE.ajax_filters = function () {
+	var isAjaxing = false;
 
 /*************************
  *
@@ -542,6 +543,12 @@
 
 	// Reload items via AJAX
 	function reload_items(container, url, push) {
+		if (isAjaxing) {
+			return
+		};
+
+		isAjaxing = true;
+
 		container.addClass('grid-filtering');
 
 		$.ajax({
@@ -749,10 +756,14 @@
 					$(document).trigger('uncode-ajax-filtered');
 					$(document.body).trigger('init_price_filter');
 					window.dispatchEvent(new CustomEvent('uncode-ajax-filtered'));
+
+					isAjaxing = false;
 				}
 			},
 			error: function() {
 				container.removeClass('grid-filtering');
+
+				isAjaxing = false;
 
 				if (SiteParameters.enable_debug == true) {
 					// This console log is disabled by default

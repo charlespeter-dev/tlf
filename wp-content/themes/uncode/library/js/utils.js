@@ -61,7 +61,9 @@ UNCODE.checkImgLoad = function( src, cb, err, el ) {
 UNCODE.betterResize = function() {
 	var setResize,
 		doubleResize = true,
-		oldW = UNCODE.wwidth;
+		oldW = UNCODE.wwidth,
+		oldH = UNCODE.wheight,
+		setCTA;
 	$(window).on( 'resize orientationchange', function(){
 		if ( oldW === UNCODE.wwidth ) {
 			return;
@@ -69,6 +71,18 @@ UNCODE.betterResize = function() {
 			oldW = UNCODE.wwidth;
 			$(window).trigger('wwResize');
 		}
+
+		if ( oldH === UNCODE.wheight ) {
+			return;
+		} else {
+			oldH = UNCODE.wheight;
+			$(window).trigger('whResize');
+		}
+	});
+
+	$(window).on( 'resize orientationchange', function(){
+		clearRequestTimeout(setCTA);
+		setCTA = requestTimeout( function(){ $(window).trigger('resize-int'); }, 100 );
 	});
 };
 
@@ -681,6 +695,5 @@ UNCODE.magnetic = function(){
 	  	});
 	})
 };
-
 
 })(jQuery);

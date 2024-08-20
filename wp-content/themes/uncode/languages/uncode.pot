@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Uncode\n"
 "Report-Msgid-Bugs-To: info@undsgn.com\n"
-"POT-Creation-Date: 2024-07-08 09:12+0200\n"
-"PO-Revision-Date: 2024-07-08 09:12+0200\n"
+"POT-Creation-Date: 2024-08-13 09:30+0200\n"
+"PO-Revision-Date: 2024-08-13 09:30+0200\n"
 "Last-Translator: Undsgn <info@undsgn.com>\n"
 "Language-Team: Undsgn <info@undsgn.com>\n"
 "Language: en_US\n"
@@ -662,6 +662,7 @@ msgid "All Media Categories"
 msgstr ""
 
 #: core/inc/admin.php:94 core/inc/main.php:1291
+#: woocommerce/loop/add-to-cart.php:33
 #: woocommerce/single-product/add-to-cart/simple.php:70
 msgid "Read more"
 msgstr ""
@@ -2177,7 +2178,7 @@ msgid "Prev"
 msgstr ""
 
 #: core/inc/template-tags.php:91 vc_templates/uncode_navigation.php:131
-#: woocommerce/myaccount/orders.php:101
+#: woocommerce/myaccount/orders.php:112
 msgid "Next"
 msgstr ""
 
@@ -2487,6 +2488,20 @@ msgid "TGMPA v%s"
 msgstr ""
 
 #: core/plugins_activation/class-tgm-plugin-activation.php:2414
+#: woocommerce/global/form-login.php:42 woocommerce/global/form-login.php:46
+#: woocommerce/myaccount/form-login.php:43
+#: woocommerce/myaccount/form-login.php:47
+#: woocommerce/myaccount/form-login.php:83
+#: woocommerce/myaccount/form-login.php:90
+#: woocommerce/myaccount/form-login.php:97
+#: woocommerce/myaccount/form-lost-password.php:32
+#: woocommerce/myaccount/form-reset-password.php:32
+#: woocommerce/myaccount/form-reset-password.php:36
+#: woocommerce/myaccount/uncode-my-account-form-login.php:35
+#: woocommerce/myaccount/uncode-my-account-form-login.php:39
+#: woocommerce/myaccount/uncode-my-account-form-register.php:36
+#: woocommerce/myaccount/uncode-my-account-form-register.php:43
+#: woocommerce/myaccount/uncode-my-account-form-register.php:50
 msgid "Required"
 msgstr ""
 
@@ -2726,8 +2741,8 @@ msgstr ""
 msgid "All rights reserved"
 msgstr ""
 
-#: footer.php:191 page.php:445 partials/headers.php:473
-#: single-portfolio.php:448 single-portfolio.php:757 single.php:539
+#: footer.php:191 page.php:446 partials/headers.php:473
+#: single-portfolio.php:449 single-portfolio.php:757 single.php:540
 #: single.php:765 woocommerce/content-single-product.php:80
 #: woocommerce/single-product.php:230 woocommerce/single-product.php:328
 msgid "Edit Content Block"
@@ -2745,11 +2760,11 @@ msgstr ""
 msgid "Ooops, obsolete PHP version"
 msgstr ""
 
-#: page.php:414 partials/elements.php:1508 single.php:403
+#: page.php:417 partials/elements.php:1508 single.php:406
 msgid "Pages:"
 msgstr ""
 
-#: page.php:445 single-portfolio.php:448 single.php:539
+#: page.php:446 single-portfolio.php:449 single.php:540
 #: woocommerce/single-product.php:230
 msgid "Post After Content Block"
 msgstr ""
@@ -2929,7 +2944,7 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: vc_templates/uncode_navigation.php:130 woocommerce/myaccount/orders.php:97
+#: vc_templates/uncode_navigation.php:130 woocommerce/myaccount/orders.php:108
 msgid "Previous"
 msgstr ""
 
@@ -3288,28 +3303,28 @@ msgstr ""
 msgid "Enter a new password below."
 msgstr ""
 
-#: woocommerce/myaccount/orders.php:56
+#: woocommerce/myaccount/orders.php:63
 #, php-format
 msgid "View order number %s"
 msgstr ""
 
-#: woocommerce/myaccount/orders.php:57
+#: woocommerce/myaccount/orders.php:64
 msgctxt "hash before order number"
 msgid "#"
 msgstr ""
 
-#: woocommerce/myaccount/orders.php:69
+#: woocommerce/myaccount/orders.php:76
 #, php-format
 msgid "%1$s for %2$s item"
 msgid_plural "%1$s for %2$s items"
 msgstr[0] ""
 msgstr[1] ""
 
-#: woocommerce/myaccount/orders.php:108
+#: woocommerce/myaccount/orders.php:119
 msgid "No order has been made yet."
 msgstr ""
 
-#: woocommerce/myaccount/orders.php:108
+#: woocommerce/myaccount/orders.php:119
 msgid "Browse products"
 msgstr ""
 

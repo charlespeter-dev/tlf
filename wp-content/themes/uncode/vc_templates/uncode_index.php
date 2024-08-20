@@ -2522,7 +2522,7 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 					}
 
 					$block_classes[] = $post->categories_css;
-					if ($no_double_tap === 'yes') {
+					if (apply_filters( 'uncode_index_no_double_tap', false ) || $no_double_tap === 'yes') {
 						$block_classes[] = 'tmb-no-double-tap';
 					}
 

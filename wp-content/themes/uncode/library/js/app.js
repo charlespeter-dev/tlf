@@ -67,7 +67,9 @@ UNCODE.checkImgLoad = function( src, cb, err, el ) {
 UNCODE.betterResize = function() {
 	var setResize,
 		doubleResize = true,
-		oldW = UNCODE.wwidth;
+		oldW = UNCODE.wwidth,
+		oldH = UNCODE.wheight,
+		setCTA;
 	$(window).on( 'resize orientationchange', function(){
 		if ( oldW === UNCODE.wwidth ) {
 			return;
@@ -75,6 +77,18 @@ UNCODE.betterResize = function() {
 			oldW = UNCODE.wwidth;
 			$(window).trigger('wwResize');
 		}
+
+		if ( oldH === UNCODE.wheight ) {
+			return;
+		} else {
+			oldH = UNCODE.wheight;
+			$(window).trigger('whResize');
+		}
+	});
+
+	$(window).on( 'resize orientationchange', function(){
+		clearRequestTimeout(setCTA);
+		setCTA = requestTimeout( function(){ $(window).trigger('resize-int'); }, 100 );
 	});
 };
 
@@ -687,7 +701,6 @@ UNCODE.magnetic = function(){
 	  	});
 	})
 };
-
 UNCODE.changeSkinOnScroll = function(){
 	if ( UNCODE.isFullPage && ! UNCODE.isFullPageSnap ) {
 		return;
@@ -9129,7 +9142,7 @@ UNCODE.textMarquee = function( $titles ) {
 		});
 	};
 
-	$(document).on('ready', function(){
+	document.addEventListener("DOMContentLoaded", function() {
 		initTextMarquee();
 	});
 
@@ -11085,7 +11098,8 @@ UNCODE.layerslider = function() {
 	});
 };
 
-UNCODE.ajax_filters = function() {
+UNCODE.ajax_filters = function () {
+	var isAjaxing = false;
 
 /*************************
  *
@@ -11626,6 +11640,12 @@ UNCODE.ajax_filters = function() {
 
 	// Reload items via AJAX
 	function reload_items(container, url, push) {
+		if (isAjaxing) {
+			return
+		};
+
+		isAjaxing = true;
+
 		container.addClass('grid-filtering');
 
 		$.ajax({
@@ -11833,10 +11853,14 @@ UNCODE.ajax_filters = function() {
 					$(document).trigger('uncode-ajax-filtered');
 					$(document.body).trigger('init_price_filter');
 					window.dispatchEvent(new CustomEvent('uncode-ajax-filtered'));
+
+					isAjaxing = false;
 				}
 			},
 			error: function() {
 				container.removeClass('grid-filtering');
+
+				isAjaxing = false;
 
 				if (SiteParameters.enable_debug == true) {
 					// This console log is disabled by default

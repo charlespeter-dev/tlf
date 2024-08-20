@@ -1044,7 +1044,7 @@ if (count($medias) > 0) {
 			$block_classes[] = 'off-grid-custom-item';
 		}
 
-		if ($no_double_tap === 'yes') {
+		if (apply_filters( 'uncode_index_no_double_tap', false ) || $no_double_tap === 'yes') {
 			$block_classes[] = 'tmb-no-double-tap';
 		}
 

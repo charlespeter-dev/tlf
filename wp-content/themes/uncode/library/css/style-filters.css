@@ -578,6 +578,9 @@ body.rtl .uncode-woocommerce-toggle-widgetized-cb__link:after {
 .uncode-woocommerce-sorting-dropdown__link {
   line-height: 1.1em;
 }
+.grid-filtering {
+  pointer-events: none;
+}
 .ajax-filter-wrapper .ajax-filter-sidebar-wrapper {
   overflow: hidden;
 }
