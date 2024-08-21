@@ -83,6 +83,18 @@ if (isset($featured_resource['resource']) && $featured_resource['resource'] && !
      */
 
     $fresource['permalink'] = get_the_permalink($post_id);
+
+    /**
+     * featured image
+     */
+
+    $fresource['featured_image'] = get_the_post_thumbnail_url($post_id, '_2x-industry-single-tabbed');
+
+    /**
+     * custom CTA text
+     */
+
+    $fresource['custom_cta_text'] = $featured_resource['custom_cta_text'];
 }
 
 /**
@@ -519,16 +531,14 @@ get_header() ?>
         </section>
     <?php endif ?>
 
-    <?php if (isset($fresource['bottom_content']['left_thumbnail_image']) && $fresource['bottom_content']['left_thumbnail_image']): ?>
-        <section class="featured-resource my-5">
+    <?php if (isset($fresource['excerpt']) && $fresource['excerpt']): ?>
+        <section class="featured-resource">
             <div class="row-container">
                 <div class="single-h-padding limit-width position-relative">
 
-                    <hr>
-
-                    <div class="row align-items-center mt-5">
+                    <div class="row align-items-center">
                         <div class="col-lg-6">
-                            <img src="<?= $fresource['bottom_content']['left_thumbnail_image'] ?>" alt="" loading="lazy">
+                            <img src="<?= $fresource['featured_image'] ?>" alt="" loading="lazy">
                         </div>
                         <div class="col-lg-6">
                             <div class="resource-type mb-4">
@@ -543,8 +553,8 @@ get_header() ?>
                                 <?= $fresource['excerpt'] ?>
                             </p>
                             <div>
-                                <a href="<?= $fresource['permalink'] ?>">
-                                    <?= __('Download the Brochure') ?> <i class="fa fa-arrow-right2 t-icon-size-lg"></i>
+                                <a href="<?= $fresource['permalink'] ?>" target="_blank">
+                                    <?= $fresource['custom_cta_text'] ?> <i class="fa fa-arrow-right2 t-icon-size-lg"></i>
                                 </a>
                             </div>
                         </div>

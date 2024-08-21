@@ -619,6 +619,26 @@
                     "bidirectional_target": []
                 },
                 {
+                    "key": "field_66c55dbfb4070",
+                    "label": "Custom CTA Text",
+                    "name": "custom_cta_text",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
                     "key": "field_65262313e850e",
                     "label": "Hide",
                     "name": "hide",
@@ -659,5 +679,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1722924845
+    "modified": 1724210642
 }

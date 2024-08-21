@@ -12634,6 +12634,10 @@ h1:not([class*=fontsize-]),
   font-weight: bold;
   text-transform: uppercase;
 }
+.bootstrap-container.resources.single-article br,
+.bootstrap-container.resources.single-article p:empty {
+  display: none;
+}
 .bootstrap-container.resources.single-article .resources-quote {
   display: flex;
   align-items: center;
