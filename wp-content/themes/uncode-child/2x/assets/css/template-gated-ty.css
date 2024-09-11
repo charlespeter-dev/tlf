@@ -1,0 +1,28 @@
+@media (min-width: 992px) {
+  .bootstrap-container .full-width {
+    height: 375px;
+  }
+}
+.bootstrap-container .headline {
+  text-transform: uppercase;
+}
+.bootstrap-container .news h2 {
+  text-align: left;
+}
+.bootstrap-container .news .card .card-body {
+  min-height: unset;
+}
+.bootstrap-container .show-more-top a {
+  color: #E30613;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+@media (min-width: 992px) {
+  .bootstrap-container .show-more-top {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}
+
+/*# sourceMappingURL=template-gated-ty.css.map */

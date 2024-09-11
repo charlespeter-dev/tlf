@@ -1,0 +1,63 @@
+@import "../../../node_modules/bootstrap/scss/functions";
+@import "../../../node_modules/bootstrap/scss/variables";
+@import "../../../node_modules/bootstrap/scss/variables-dark";
+@import "../../../node_modules/bootstrap/scss/maps";
+@import "../../../node_modules/bootstrap/scss/mixins";
+@import "../../../node_modules/bootstrap/scss/utilities";
+
+.bootstrap-container {
+
+    .full-width {
+        @include media-breakpoint-up(lg) {
+            height: 375px;
+        }
+    }
+
+    .headline {
+        text-transform: uppercase;
+    }
+
+    .form {
+        background-color: #F6F7F8;
+        border-radius: 10px;
+        padding-inline: 1rem;
+        padding-block: 1rem;
+
+        @include media-breakpoint-up(lg) {
+            padding-inline: 3rem;
+            padding-block: 3rem;
+        }
+
+        .form-heading {
+            h3 {
+                color: #003375;
+                font-size: 24px;
+                line-height: 25px;
+            }
+        }
+    }
+
+    .main-contents {
+        a {
+            color: #009BDC !important;
+        }
+
+        ul>li {
+            list-style-type: disc;
+        }
+
+        li {
+
+            &.tick {
+                list-style-image: url('https://thelogicfactory.com/wp-content/uploads/2023/09/Icon-Tick.svg');
+                margin-bottom: .1em;
+
+                span {
+                    vertical-align: 0.3em;
+                    transform: translate(-0.1em, 0.2em);
+                }
+            }
+        }
+    }
+
+}

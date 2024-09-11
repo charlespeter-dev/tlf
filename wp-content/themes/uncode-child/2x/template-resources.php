@@ -43,7 +43,7 @@ $resource_categories = [];
 foreach ($resources_ids as $resource_id) {
     $categories = get_the_terms($resource_id, 'resource_category');
     foreach ($categories as $cats) {
-        if ($cats->slug != 'visible' || $cats->slug != 'hidden') {
+        if (!in_array($cats->slug, ['visible', 'hidden', 'gated'])) {
             $resource_categories[$resource_id] = $cats->name;
         }
     }
@@ -82,7 +82,7 @@ get_header() ?>
 
                                             <div class="col-lg-7">
                                                 <div class="mb-3">
-                                                   
+
                                                     <?php if ($k == 0): ?>
                                                         <h1 class="mb-0">
                                                             <?= $item['main_heading'] ?>

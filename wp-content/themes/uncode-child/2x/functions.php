@@ -312,3 +312,165 @@ add_action('wp_head', function () {
     </script>
 
 <?php });
+
+/**
+ * resources slug modifier
+ * @link https://wordpress.stackexchange.com/questions/94817/add-category-base-to-url-in-custom-post-type-taxonomy
+ * 
+ * /resources/<taxonomy>/<postname>
+ */
+
+// add_filter('post_type_link', function ($post_link, $id = 0) {
+//     $post = get_post($id);
+//     if (is_object($post)) {
+//         $terms = wp_get_object_terms($post->ID, 'resource_category');
+//         if ($terms) {
+//             return str_replace('%resource_category%', $terms[0]->slug, $post_link);
+//         }
+//     }
+//     return $post_link;
+// }, 1, 3);
+
+// add_action('init', function () {
+//     add_rewrite_rule(
+//         '^resources/(.*)/(.*)/?$',
+//         'index.php?post_type=resources&name=$matches[2]',
+//         'top'
+//     );
+// });
+
+// ----------------------------------------
+// Gated Resource:
+// save all submitted entries
+// ----------------------------------------
+
+add_action('wpcf7_submit', function ($form, $result) {
+
+    if ($result['status'] != 'mail_sent')
+        return;
+
+    $submission = WPCF7_Submission::get_instance();
+
+    $data = $submission->get_posted_data();
+
+    if (!$data)
+        return;
+
+    $data['url'] = $submission->get_meta('url');
+    $data['timestamp'] = $submission->get_meta('timestamp');
+
+    foreach ($data as $form_tag => $value) {
+        if (!is_scalar($value)) {
+            unset($data[$form_tag]);
+        }
+    }
+
+    $post_content = '';
+
+    foreach ($data as $form_tag => $value) {
+        $post_content .= sprintf("%s: %s\n", $form_tag, $value);
+    }
+
+    $args = [
+        'post_type' => 'gated-submission',
+        'post_title' => sprintf("%s %s", $data['first_name'], $data['last_name']),
+        'post_content' => $post_content,
+        'post_status' => 'publish',
+        'meta_input' => $data,
+    ];
+
+    $post_id = wp_insert_post($args);
+
+    if (!is_wp_error($post_id) && $post_id !== 0 && is_int($post_id)) {
+        update_post_meta($post_id, 'gated_submission_form', serialize($form));
+        update_post_meta($post_id, 'gated_submission_result', serialize($result));
+    }
+
+}, PHP_INT_MAX, 2);
+
+// --------------------------------
+// Gated Submission:
+// modify table list
+// --------------------------------
+
+add_filter('manage_gated-submission_posts_columns', function ($columns) {
+    $columns = [
+        'cb' => $columns['cb'],
+        'date' => $columns['date'],
+        'first_name' => __('First Name'),
+        'last_name' => __('Last Name'),
+        'email' => __('Email'),
+        'company_name' => __('Company Name'),
+        'url' => __('Form Source')
+    ];
+
+    return $columns;
+});
+
+add_action('manage_gated-submission_posts_custom_column', function ($column, $post_id) {
+
+    if ('first_name' === $column) {
+        echo get_post_meta($post_id, 'first_name', true);
+    }
+
+    if ('last_name' === $column) {
+        echo get_post_meta($post_id, 'last_name', true);
+    }
+
+    if ('email' === $column) {
+        echo get_post_meta($post_id, 'email', true);
+    }
+
+    if ('company_name' === $column) {
+        echo get_post_meta($post_id, 'company_name', true);
+    }
+
+    if ('url' === $column) {
+        $url = get_post_meta($post_id, 'url', true);
+        echo sprintf('<a href="%s" target="_blank">%s</a>', $url, $url);
+    }
+
+}, PHP_INT_MAX, 2);
+
+add_filter('manage_edit-gated-submission_sortable_columns', function ($columns) {
+    $columns['first_name'] = 'first_name';
+    $columns['last_name'] = 'last_name';
+    $columns['email'] = 'email';
+    $columns['company_name'] = 'company_name';
+    $columns['url'] = 'url';
+    return $columns;
+});
+
+add_action(
+    'pre_get_posts',
+    function ($query) {
+        if (!is_admin() || !$query->is_main_query()) {
+            return;
+        }
+
+        if ('last_name' === $query->get('orderby')) {
+            $query->set('orderby', 'meta_value');
+            $query->set('meta_key', 'last_name');
+        }
+
+        if ('first_name' === $query->get('orderby')) {
+            $query->set('orderby', 'meta_value');
+            $query->set('meta_key', 'first_name');
+        }
+
+        if ('email' === $query->get('orderby')) {
+            $query->set('orderby', 'meta_value');
+            $query->set('meta_key', 'email');
+        }
+
+        if ('company_name' === $query->get('orderby')) {
+            $query->set('orderby', 'meta_value');
+            $query->set('meta_key', 'company_name');
+        }
+
+        if ('url' === $query->get('orderby')) {
+            $query->set('orderby', 'meta_value');
+            $query->set('meta_key', 'url');
+        }
+    }
+);

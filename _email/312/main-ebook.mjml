@@ -1,0 +1,117 @@
+<mjml>
+
+  <mj-head>
+    <mj-attributes>
+      <mj-all font-family="Arial, san-serif" font-size="16px" line-height="24px" color="#000" />
+      <mj-wrapper background-color="#e1e1e1" />
+      <mj-section background-color="#ffffff" />
+      <mj-button background-color="#E30613" color="#FFF" font-weight="700" />
+      <mj-class name="name" font-size="18px" font-weight="bold" />
+      <mj-class name="bg-grey" background-color="#EDEFF0" />
+      <mj-class name="bg-dark" background-color="#2C3444" />
+      <mj-class name="headline" color="#E30613" />
+      <mj-class name="h1" color="#003375" font-size="28px" line-height="36px" color="#003375" font-weight="700" />
+      <mj-class name="footer" font-size="12px" align="center" color="#ffffff" />
+    </mj-attributes>
+
+  </mj-head>
+  <mj-body>
+
+    <mj-wrapper full-width="full-width">
+
+      <mj-section>
+        <mj-column>
+          <mj-image padding="0" width="133px" src="https://thelogicfactory.com/wp-content/uploads/2024/07/tlf-logo-email-default.png" alt="" />
+        </mj-column>
+      </mj-section>
+
+      <mj-section mj-class="bg-grey" padding-bottom="0">
+        <mj-column>
+          <mj-text mj-class="headline" align="center">
+            EBOOK
+          </mj-text>
+          <mj-text mj-class="h1" align="center">
+            Pursuing Food Manufacturing Excellence with Blending Optimization
+          </mj-text>
+          <mj-button href="https://thelogicfactory.com/" target="_blank">
+            DOWNLOAD HERE
+          </mj-button>
+          <mj-image padding="0" src="https://thelogicfactory.com/wp-content/uploads/2024/09/email-banner-assets.png" alt="" />
+        </mj-column>
+      </mj-section>
+
+      <mj-section>
+        <mj-column>
+          <mj-text>
+            Hi [first-name]
+          </mj-text>
+          <mj-text>
+            Thank you for your interest in our eBook, Pursuing Food Manufacturing Excellence with Blending Optimization! You can now access it here.
+          </mj-text>
+
+          <mj-text>
+            This eBook covers the flexibility and challenges of blending and provides insights on how you can leverage Blending Optimization without compromising on quality or taste to:
+          </mj-text>
+
+          <mj-text>
+            <table cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="20" align="center" valign="top">&bull;</td>
+                <td align="left" valign="top">Minimize cost and waste</td>
+              </tr>
+              <tr>
+                <td align="center" valign="top">&bull;</td>
+                <td align="left" valign="top">Reduce inventory</td>
+              </tr>
+              <tr>
+                <td align="center" valign="top">&bull;</td>
+                <td align="left" valign="top">Ensure business continuity</td>
+              </tr>
+            </table>
+          </mj-text>
+
+          <mj-text>
+            We sincerely hope you find this content helpful.
+          </mj-text>
+
+          <mj-text>
+            For further information on food supply chain optimization and planning, visit our Resources page <a href="https://thelogicfactory.com/resources/" style="color:#009BDC; text-decoration: none;" target="_blank">here</a>.
+          </mj-text>
+
+          <mj-text>
+            If you have any questions, feel free to reach out to us <a href="https://thelogicfactory.com/contact/" style="color:#009BDC; text-decoration: none;" target="_blank">here</a>.
+          </mj-text>
+
+          <mj-text padding-bottom="0">
+            Best regards,
+          </mj-text>
+
+          <mj-text padding-top="0">
+            The Logic Factory
+          </mj-text>
+        </mj-column>
+      </mj-section>
+
+      <mj-section mj-class="bg-dark">
+        <mj-column>
+          <mj-image padding="0" width="143px" src="https://thelogicfactory.com/wp-content/uploads/2024/07/tlf-logo-email-dark-bg.png" alt="" />
+
+          <mj-text mj-class="footer" padding-bottom="0">
+            Europe (HQ) Reitscheweg 1, 5232 BX, Den Bosch Netherlands
+          </mj-text>
+
+          <mj-text mj-class="footer" padding-top="0" padding-bottom="0">
+            © 2024 The Logic Factory. All rights reserved.
+          </mj-text>
+
+          <mj-text mj-class="footer" padding-top="0">
+            <a href="https://thelogicfactory.com/" style="color:#009BDC; text-decoration: none;" target="_blank">unsubscribe</a>
+          </mj-text>
+
+        </mj-column>
+      </mj-section>
+
+    </mj-wrapper>
+
+  </mj-body>
+</mjml>

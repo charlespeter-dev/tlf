@@ -2,7 +2,7 @@
 
 /**
  * Template Name: v2 / Resources / Single Brochure
- * Template Post Type: resources
+ * Template Post Type: resources, gated-resource
  */
 
 if (is_admin())
@@ -81,7 +81,7 @@ get_header() ?>
                     </div>
 
                     <div class="text-center my-5">
-                        <a href="<?= $pdf['url'] ?>" target="_blank" class="btn btn-primary">
+                        <a href="<?= $pdf['url'] ?>" target="_blank" class="btn btn-primary" style="color: #fff;">
                             <?= $pdf['title'] ?>
                         </a>
                     </div>

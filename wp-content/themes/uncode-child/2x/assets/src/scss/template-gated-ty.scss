@@ -1,0 +1,47 @@
+@import "../../../node_modules/bootstrap/scss/functions";
+@import "../../../node_modules/bootstrap/scss/variables";
+@import "../../../node_modules/bootstrap/scss/variables-dark";
+@import "../../../node_modules/bootstrap/scss/maps";
+@import "../../../node_modules/bootstrap/scss/mixins";
+@import "../../../node_modules/bootstrap/scss/utilities";
+
+.bootstrap-container {
+
+    .full-width {
+        @include media-breakpoint-up(lg) {
+            height: 375px;
+        }
+    }
+
+    .headline {
+        text-transform: uppercase;
+    }
+
+    .news {
+
+        h2 {
+            text-align: left;
+        }
+    }
+
+    .news .card .card-body {
+        min-height: unset;
+    }
+
+    .show-more-top {
+
+        a {
+            color: #E30613;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        @include media-breakpoint-up(lg) {
+
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+
+        }
+    }
+}

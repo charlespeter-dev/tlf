@@ -2,7 +2,7 @@
 
 /**
  * Template Name: v2 / Resources / Single Webinar
- * Template Post Type: resources
+ * Template Post Type: resources, gated-resource
  */
 
 if (is_admin())

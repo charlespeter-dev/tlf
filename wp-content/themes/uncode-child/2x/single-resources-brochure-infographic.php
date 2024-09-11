@@ -2,7 +2,7 @@
 
 /**
  * Template Name: v2 / Resources / Single Brochure / Infographic
- * Template Post Type: resources
+ * Template Post Type: resources, gated-resource
  */
 
 if (is_admin())
