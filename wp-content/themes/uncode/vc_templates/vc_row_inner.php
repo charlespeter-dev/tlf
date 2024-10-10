@@ -159,7 +159,7 @@ if ( $gdpr_consent_id !== '' && uncode_privacy_check_needed($gdpr_consent_id) ) 
 	}
 }
 
-global $row_cols_md_counter_inner, $row_cols_sm_counter_inner, $inner_column_style, $front_background_colors, $uncode_colors_flat_array, $previous_blend, $is_cb, $changer_back_color_column, $changer_back_color_row_inner, $changer_back_color_column_inner;
+global $row_cols_md_counter_inner, $row_cols_sm_counter_inner, $inner_column_style, $front_background_colors, $uncode_colors_flat_array, $previous_blend, $is_cb, $changer_back_color_column, $changer_back_color_row_inner, $changer_back_color_column_inner, $bento;
 $row_cols_md_counter_inner = $row_cols_sm_counter_inner = 0;
 
 $row_classes = array(
@@ -1082,8 +1082,13 @@ if ($row_height_pixel !== '') {
 	$row_inline_style = ' data-minheight="' . esc_attr($min_height) . '"';
 }
 
-if (!empty($row_inner_height_percent) && $row_inner_height_percent != '0') {
-	$row_inner_height_percent = ' data-height="' . esc_attr( $row_inner_height_percent ) . '"';
+if (!empty($row_inner_height_percent) && $row_inner_height_percent != '0' ) {
+	if ( $bento !== true ) {
+		$row_inner_height_percent = ' data-height="' . esc_attr( $row_inner_height_percent ) . '"';
+	} else {
+		$row_cont_classes[] = 'unequal-flex-100';
+		$row_inner_height_percent = '';
+	}
 } else {
 	$row_inner_height_percent = '';
 }

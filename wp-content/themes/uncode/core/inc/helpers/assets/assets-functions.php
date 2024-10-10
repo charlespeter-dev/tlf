@@ -12,6 +12,7 @@ require_once get_template_directory() . '/core/inc/helpers/assets/tests/object-f
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/gsap.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/jquery-bigtext.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/css-grid.php';
+require_once get_template_directory() . '/core/inc/helpers/assets/tests/linear-grid.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/isotope.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/jquery-infinitescroll.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/owl-carousel.php';
@@ -54,6 +55,7 @@ require_once get_template_directory() . '/core/inc/helpers/assets/tests/post-tab
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/pricing-list.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/star-rating.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/rotateit.php';
+require_once get_template_directory() . '/core/inc/helpers/assets/tests/row-parallax.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/author.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/comments.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/breadcrumbs.php';

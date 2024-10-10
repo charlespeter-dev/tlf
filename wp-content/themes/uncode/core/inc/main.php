@@ -322,7 +322,7 @@ function uncode_setup_globals() {
  */
 function uncode_equeue() {
 
-	global $LOGO, $adaptive_images, $adaptive_images_async, $adaptive_images_async_blur, $dynamic_srcset_active, $dynamic_srcset_sizes, $dynamic_srcset_bg_mobile_size, $register_adaptive_meta, $ai_sizes, $ai_bpoints, $general_style, $menutype, $post, $resize_image_quality, $activate_webp, $uncode_row_id;
+	global $LOGO, $adaptive_images, $adaptive_images_async, $dynamic_srcset_active, $dynamic_srcset_bg_mobile_size, $register_adaptive_meta, $ai_sizes, $general_style, $menutype, $post, $resize_image_quality, $activate_webp, $uncode_post_data;
 
 	$LOGO = new stdClass;
 	$logo_switchable = ot_get_option('_uncode_logo_switch');
@@ -462,6 +462,13 @@ function uncode_equeue() {
 	if ($scroll_speed == 0 && $constant_scroll === 'on') {
 		$scroll_speed = 0.1;
 	}
+
+	if ( uncode_post_data_is_singular() ) {
+		$smooth_scroll = get_post_meta( $uncode_post_data['ID'], '_uncode_specific_smooth_scroll', true );
+	}
+
+	$smooth_scroll = (isset($smooth_scroll) && $smooth_scroll !== '') ? $smooth_scroll : ot_get_option('_uncode_smooth_scroll');
+
 	$site_parameters = array(
 		'days'                       => esc_html__( 'days', 'uncode' ),
 		'hours'                      => esc_html__( 'hours', 'uncode' ),
@@ -503,6 +510,9 @@ function uncode_equeue() {
 		'disable_hover_hack'         => apply_filters( 'uncode_ajax_filters_disable_hover_hack', false ),
 		'uncode_nocookie'            => apply_filters('uncode_nocookie', false) ? '-nocookie' : '',
 		'menuHideOnClick'			 => apply_filters('uncode_menu_hide_on_click', true),
+		'smoothScroll'				 => apply_filters( 'uncode_smooth_scroll', $smooth_scroll ),
+		'smoothScrollDisableHover'	 => apply_filters( 'uncode_smooth_scroll_disable_hover', false ),
+		'smoothScrollQuery'			 => apply_filters( 'uncode_smooth_scroll_query', 960 ),
 	);
 
 	/** JS */
@@ -1202,6 +1212,13 @@ function uncode_body_classes($classes){
 
 	if ( apply_filters( 'uncode_scrollable_megamenu', false ) ) {
 		$classes[] = 'scrollable-megamenu';
+	}
+
+	if ($menutype !== 'hmenu-center' && $menutype !== 'vmenu') {
+		$blur_menu = ot_get_option('_uncode_menu_blur');
+		if ( $blur_menu !== '' ) {
+			$classes[] = 'blur-menu-' . $blur_menu;
+		}
 	}
 
 	return $classes;

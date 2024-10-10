@@ -17,6 +17,8 @@ UNCODE.textMarquee = function( $titles ) {
 			return;
 		}
 
+		var stableHeight = UNCODE.wheight;
+
 		$titles.each(function(){
 			var $title = $(this),
 				$span = $('> span, > i > span', $title),
@@ -42,17 +44,7 @@ UNCODE.textMarquee = function( $titles ) {
 			dataSpace = isNaN(dataSpace) ? 'default' : dataSpace;
 			var dataX = dataSpeed;
 
-			if ( dataSpeed < 0 ) {
-				dataSpeed -= 1;
-			} else if ( dataSpeed > 0 ) {
-				dataSpeed += 1;
-			}
-
-			if ( dataSpeed <= 0 ) {
-				dataSpeed = (dataSpeed * 10);
-			} else {
-				dataSpeed = ( dataSpeed * 2 ) - 1;
-			}
+			dataSpeed += 5;
 
 			$('.marquee-clone-wrap', $title).remove();
 
@@ -82,8 +74,9 @@ UNCODE.textMarquee = function( $titles ) {
 
 				var xStrt = first || $title.hasClass('un-marquee-infinite') ? 0 : UNCODE.wwidth - bound.left,
 					xEnd = $title.hasClass('un-marquee-infinite') ? spanW : ( spanW + bound.left ),
-					xSpeed = $title.hasClass('un-marquee-infinite') ? ( spanW + bound.left ) : ( xStrt + ( UNCODE.wwidth + bound.left ) ),
-					direction = $title.hasClass('un-marquee-opposite') ? 1 : -1;
+					xSpeed = (xEnd + xStrt) / (dataSpeed*dataSpeed*dataSpeed) / 5*dataSpeed,
+					direction = $title.hasClass('un-marquee-opposite') ? 1 : -1,
+					speedSlow = (xEnd + xStrt) / 45;
 
 				marqueeTL = new TimelineMax({paused:true, reversed:true});
 
@@ -112,13 +105,11 @@ UNCODE.textMarquee = function( $titles ) {
 						$hover_sel = $title.add($column);
 					}
 					$hover_sel.on('mouseover', function(){
-						speed = ( 10 - dataSpeed ) * 5;
 						ease = 'power2.out';
-						marqueeTL.duration( xSpeed / UNCODE.wwidth * speed );
+						marqueeTL.duration( speedSlow );
 					}).on('mouseout', function(){
-						speed = ( 10 - dataSpeed );
 						ease = 'power2.in';
-						marqueeTL.duration( xSpeed / UNCODE.wwidth * speed );
+						marqueeTL.duration( speedSlow );
 					});
 				}
 		
@@ -128,7 +119,7 @@ UNCODE.textMarquee = function( $titles ) {
 					x: xStrt * direction * -1
 				},
 				{
-					duration: xSpeed / UNCODE.wwidth * speed,
+					duration: xSpeed,
 					x: xEnd * direction,
 					onComplete: function(){
 						first = false;
@@ -169,11 +160,11 @@ UNCODE.textMarquee = function( $titles ) {
 
 
 					var bound_top = bound.top,
-						gsap_calc = ( ( UNCODE.wheight * 0.35 - bound_top ) * dataMove ) * 0.5 * direction;
+						gsap_calc = ( ( stableHeight * 0.35 - bound_top ) * dataMove ) * 0.5 * direction;
 
 					if ( dataTrigger === 'row' || dataTrigger === 'row-middle' ) {
 						if ( dataTrigger === 'row-middle' ) {
-							bound_top = (bound.top + bound.height*0.5) - (UNCODE.wheight * 0.5)
+							bound_top = (bound.top + bound.height*0.5) - (stableHeight * 0.5)
 						}
 						if ( dataNavBar === 'yes' ) {
 							bound_top = bound_top - UNCODE.menuHeight;
@@ -274,6 +265,11 @@ UNCODE.textMarquee = function( $titles ) {
 				});
 			}
 		});
+
+		$(window).on( 'load wwResize', function(e) {
+			stableHeight = UNCODE.wheight;
+		});
+
 	};
 
 	document.addEventListener("DOMContentLoaded", function() {
@@ -285,7 +281,7 @@ UNCODE.textMarquee = function( $titles ) {
 			initTextMarquee();
 		},500);
 	});
-
+	
 	$(document).on('pumAfterOpen pumAfterClose', function(args){
 		initTextMarquee();
 	});

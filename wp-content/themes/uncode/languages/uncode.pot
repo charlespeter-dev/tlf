@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Uncode\n"
 "Report-Msgid-Bugs-To: info@undsgn.com\n"
-"POT-Creation-Date: 2024-08-13 09:30+0200\n"
-"PO-Revision-Date: 2024-08-13 09:30+0200\n"
+"POT-Creation-Date: 2024-09-17 08:55+0200\n"
+"PO-Revision-Date: 2024-09-17 08:55+0200\n"
 "Last-Translator: Undsgn <info@undsgn.com>\n"
 "Language-Team: Undsgn <info@undsgn.com>\n"
 "Language: en_US\n"
@@ -661,8 +661,8 @@ msgstr ""
 msgid "All Media Categories"
 msgstr ""
 
-#: core/inc/admin.php:94 core/inc/main.php:1291
-#: woocommerce/loop/add-to-cart.php:33
+#: core/inc/admin.php:94 core/inc/main.php:1308
+#: woocommerce/loop/add-to-cart.php:35
 #: woocommerce/single-product/add-to-cart/simple.php:70
 msgid "Read more"
 msgstr ""
@@ -1362,7 +1362,7 @@ msgid "Add to cart"
 msgstr ""
 
 #: core/inc/compatibility/woocommerce/core-functions.php:65
-#: woocommerce/loop/add-to-cart.php:29
+#: woocommerce/loop/add-to-cart.php:31
 msgid "Select options"
 msgstr ""
 
@@ -1502,13 +1502,13 @@ msgid "Subtotal:"
 msgstr ""
 
 #: core/inc/compatibility/woocommerce/icon-cart.php:65
-#: woocommerce/cart/mini-cart.php:111
+#: woocommerce/cart/mini-cart.php:113
 msgid "View cart"
 msgstr ""
 
 #: core/inc/compatibility/woocommerce/icon-cart.php:66
 #: vc_templates/uncode_woocommerce_steps.php:129
-#: woocommerce/cart/mini-cart.php:112
+#: woocommerce/cart/mini-cart.php:114
 msgid "Checkout"
 msgstr ""
 
@@ -1932,7 +1932,7 @@ msgid "Search…"
 msgstr ""
 
 #: core/inc/helpers/ajax-filters/ajax-filters-views.php:495
-#: vc_templates/uncode_index.php:1719
+#: vc_templates/uncode_index.php:1761
 msgid "Clear all"
 msgstr ""
 
@@ -2085,32 +2085,32 @@ msgstr ""
 msgid "Sidebar"
 msgstr ""
 
-#: core/inc/main.php:466 vc_templates/uncode_countdown.php:63
+#: core/inc/main.php:473 vc_templates/uncode_countdown.php:63
 msgid "days"
 msgstr ""
 
-#: core/inc/main.php:467 vc_templates/uncode_countdown.php:63
+#: core/inc/main.php:474 vc_templates/uncode_countdown.php:63
 msgid "hours"
 msgstr ""
 
-#: core/inc/main.php:468 vc_templates/uncode_countdown.php:63
+#: core/inc/main.php:475 vc_templates/uncode_countdown.php:63
 msgid "minutes"
 msgstr ""
 
-#: core/inc/main.php:469 vc_templates/uncode_countdown.php:63
+#: core/inc/main.php:476 vc_templates/uncode_countdown.php:63
 msgid "seconds"
 msgstr ""
 
-#: core/inc/main.php:473 vc_templates/uncode_index.php:3004
-#: vc_templates/vc_gallery.php:1591
+#: core/inc/main.php:480 vc_templates/uncode_index.php:3087
+#: vc_templates/vc_gallery.php:1672
 msgid "Loading…"
 msgstr ""
 
-#: core/inc/main.php:474
+#: core/inc/main.php:481
 msgid "slide"
 msgstr ""
 
-#: core/inc/main.php:475
+#: core/inc/main.php:482
 msgid "footer"
 msgstr ""
 
@@ -2760,7 +2760,7 @@ msgstr ""
 msgid "Ooops, obsolete PHP version"
 msgstr ""
 
-#: page.php:417 partials/elements.php:1508 single.php:406
+#: page.php:417 partials/elements.php:1512 single.php:406
 msgid "Pages:"
 msgstr ""
 
@@ -2769,46 +2769,46 @@ msgstr ""
 msgid "Post After Content Block"
 msgstr ""
 
-#: partials/elements.php:1173
+#: partials/elements.php:1177
 msgid "Sticky"
 msgstr ""
 
-#: partials/elements.php:1630
+#: partials/elements.php:1634
 msgid "Read More"
 msgstr ""
 
-#: partials/elements.php:1779
+#: partials/elements.php:1783
 msgid "by"
 msgstr ""
 
-#: partials/elements.php:1826 partials/elements.php:4038
+#: partials/elements.php:1830 partials/elements.php:4091
 msgctxt "comments"
 msgid "Comment"
 msgid_plural "Comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: partials/elements.php:3374
+#: partials/elements.php:3378
 #: vc_templates/uncode_single_product_gallery.php:243
 msgid "Sale!"
 msgstr ""
 
-#: partials/elements.php:3376 woocommerce/wishlist-view.php:226
+#: partials/elements.php:3380 woocommerce/wishlist-view.php:226
 msgid "Out of stock"
 msgstr ""
 
-#: partials/elements.php:3969 partials/elements.php:3993
-#: partials/elements.php:4069
+#: partials/elements.php:4022 partials/elements.php:4046
+#: partials/elements.php:4122
 #, php-format
 msgid "View all posts in %s"
 msgstr ""
 
-#: partials/elements.php:3971 partials/elements.php:3995
-#: partials/elements.php:4075
+#: partials/elements.php:4024 partials/elements.php:4048
+#: partials/elements.php:4128
 msgid "In"
 msgstr ""
 
-#: partials/elements.php:3974 partials/elements.php:4022
+#: partials/elements.php:4027 partials/elements.php:4075
 msgid "By"
 msgstr ""
 
@@ -2890,49 +2890,49 @@ msgstr ""
 msgid "<?php do_action(\"%s\"); ?>"
 msgstr ""
 
-#: vc_templates/uncode_index.php:44
+#: vc_templates/uncode_index.php:45
 msgid "Hide filters"
 msgstr ""
 
-#: vc_templates/uncode_index.php:45
+#: vc_templates/uncode_index.php:46
 msgid "Show filters"
 msgstr ""
 
-#: vc_templates/uncode_index.php:53
+#: vc_templates/uncode_index.php:54
 msgid "Filters"
 msgstr ""
 
-#: vc_templates/uncode_index.php:55 vc_templates/vc_gallery.php:41
+#: vc_templates/uncode_index.php:56 vc_templates/vc_gallery.php:41
 #: vc_templates/vc_wp_categories.php:112 woocommerce/single-product/meta.php:44
 msgid "Categories"
 msgstr ""
 
-#: vc_templates/uncode_index.php:1483 vc_templates/vc_gallery.php:914
+#: vc_templates/uncode_index.php:1525 vc_templates/vc_gallery.php:971
 msgid "Show all"
 msgstr ""
 
-#: vc_templates/uncode_index.php:1534
+#: vc_templates/uncode_index.php:1576
 msgid "Options"
 msgstr ""
 
-#: vc_templates/uncode_index.php:1659
+#: vc_templates/uncode_index.php:1701
 #, php-format
 msgid "%s items"
 msgstr ""
 
-#: vc_templates/uncode_index.php:1707
+#: vc_templates/uncode_index.php:1749
 msgid "<span>&times;</span> Close"
 msgstr ""
 
-#: vc_templates/uncode_index.php:1720
+#: vc_templates/uncode_index.php:1762
 msgid "Apply"
 msgstr ""
 
-#: vc_templates/uncode_index.php:2952
+#: vc_templates/uncode_index.php:3034
 msgid "The Post Table layout must start with a 'Column' element."
 msgstr ""
 
-#: vc_templates/uncode_index.php:3004 vc_templates/vc_gallery.php:1591
+#: vc_templates/uncode_index.php:3087 vc_templates/vc_gallery.php:1672
 msgid "Load more"
 msgstr ""
 
@@ -3115,7 +3115,12 @@ msgid ""
 "label\">Close</span>"
 msgstr ""
 
-#: woocommerce/cart/mini-cart.php:87
+#: woocommerce/cart/mini-cart.php:66
+#, php-format
+msgid "&ldquo;%s&rdquo; has been removed from your cart"
+msgstr ""
+
+#: woocommerce/cart/mini-cart.php:89
 msgid "No products in the cart."
 msgstr ""
 
@@ -3303,7 +3308,7 @@ msgstr ""
 msgid "Enter a new password below."
 msgstr ""
 
-#: woocommerce/myaccount/orders.php:63
+#: woocommerce/myaccount/orders.php:63 woocommerce/myaccount/orders.php:85
 #, php-format
 msgid "View order number %s"
 msgstr ""

@@ -319,6 +319,7 @@
 									Waypoint.refreshAll();
 									$isotope.trigger('more-items-loaded');
 									$(window).trigger('more-items-loaded');
+									window.dispatchEvent(new CustomEvent('uncode-more-items-loaded'));
 								}, 1000);
 
 							});
@@ -553,6 +554,7 @@
 								}
 								container.trigger('more-items-loaded');
 								$(window).trigger('more-items-loaded');
+								window.dispatchEvent(new CustomEvent('uncode-more-items-loaded'));
 								return filterable;
 							}
 						});
@@ -743,6 +745,7 @@
 					}
 					isotopeContainer.trigger('more-items-loaded');
 					$(window).trigger('more-items-loaded');
+					window.dispatchEvent(new CustomEvent('uncode-more-items-loaded'));
 				}, 300);
 				$('.pagination', isotopeFooter).remove();
 				isotopeFooter.append($resultPagination);

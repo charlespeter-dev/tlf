@@ -175,6 +175,7 @@ if ($text_size === 'custom' && $heading_custom_size !== '') {
 	$classes[] = 'fontsize-' . $uncode_shortcode_id . '-custom';
 }
 if ($text_indent !== '') {
+	$cont_classes[] = 'has-text-indent';
 	$classes[] = 'text-' . $uncode_shortcode_id . '-indent';
 }
 if ( $badge_style === 'yes' ) {

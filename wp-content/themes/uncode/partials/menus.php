@@ -1412,7 +1412,7 @@ if (!class_exists('unmenu')) {
 						$this->html =	'<div class="overlay overlay-'.$overlay_animation.' overlay-menu" data-area="menu" data-container="main-container">
 														<div class="overlay-bg ' . $bgoverlay . '"></div>
 														<div class="main-header">
-															<div class="vmenu-container menu-container style-'.$styleoverlay.$menu_no_arrow.$stylemaincombo.'">
+															<div class="vmenu-container menu-container style-'.$styleoverlay.$menu_no_arrow.$stylemaincombo.'" data-lenis-prevent>
 																<div class="row row-parent">
 																	<div class="row-inner">
 																		<div class="menu-sidebar main-menu-container">
@@ -1537,7 +1537,7 @@ if (!class_exists('unmenu')) {
 					}
 					$this->html = '<div class="main-header">
 													<div id="masthead" class="masthead-vertical'.$menu_sticky.'">
-														<div class="vmenu-container menu-container '.str_replace(' menu-transparent', '', $stylemaincombo).$stylemainbackfull.$menu_no_arrow.$menu_hide.'">
+														<div class="vmenu-container menu-container '.str_replace(' menu-transparent', '', $stylemaincombo).$stylemainbackfull.$menu_no_arrow.$menu_hide.'" data-lenis-prevent>
 															<div class="row row-parent'.$stylemainback.'">';
 					$offcanvas_overlay = ot_get_option('_uncode_offcanvas_overlay');
 					if ($menutype === 'vmenu-offcanvas' && $offcanvas_overlay === 'on' ) {

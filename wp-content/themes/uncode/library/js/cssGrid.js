@@ -122,6 +122,7 @@
 						requestTimeout(function() {
 							$cssGrid.trigger('more-items-loaded');
 							$(window).trigger('more-items-loaded');
+							window.dispatchEvent(new CustomEvent('uncode-more-items-loaded'));
 						}, 1000);
 
 					});
@@ -259,6 +260,7 @@
 						}
 						container.trigger('more-items-loaded');
 						$(window).trigger('more-items-loaded');
+						window.dispatchEvent(new CustomEvent('uncode-more-items-loaded'));
 					}, delay);
 				} else {
 					$.each($('> .tmb-grid > .t-inside', container), function(index, val) {
@@ -400,6 +402,7 @@
 					}
 					cssgridContainer.trigger('more-items-loaded');
 					$(window).trigger('more-items-loaded');
+					window.dispatchEvent(new CustomEvent('uncode-more-items-loaded'));
 				}, 300);
 
 				$('.pagination', cssgridFooter).remove();

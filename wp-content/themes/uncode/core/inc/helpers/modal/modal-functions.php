@@ -42,7 +42,7 @@ function uncode_modal_get_wrapper_markup( $sizes = array(), $container_classes =
 		}
 	}
 
-	$html = '<div class="unmodal-overlay"></div><div class="unmodal ' . esc_attr( $container_classes ) . '" style="max-width:' . esc_attr( $max_width ) . ';max-height:' . esc_attr( $max_height ) . ';' . esc_attr( $height ) . '"><div class="unmodal-content-wrapper ' . esc_attr( $content_classes ) . '"><span class="unmodal-close"></span><div id="unmodal-content" class="unmodal-content quick-view-content"></div></div></div>';
+	$html = '<div class="unmodal-overlay"></div><div class="unmodal ' . esc_attr( $container_classes ) . '" style="max-width:' . esc_attr( $max_width ) . ';max-height:' . esc_attr( $max_height ) . ';' . esc_attr( $height ) . '"><div class="unmodal-content-wrapper ' . esc_attr( $content_classes ) . '"><span class="unmodal-close"></span><div id="unmodal-content" class="unmodal-content quick-view-content" data-lenis-prevent></div></div></div>';
 
 	return $html;
 }

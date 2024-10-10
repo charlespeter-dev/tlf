@@ -7,7 +7,7 @@
  * Get page's required assets
  */
 function uncode_get_page_assets() {
-	global $uncode_check_asset;
+	global $uncode_check_asset, $uncode_post_data;
 
 	$assets = array();
 
@@ -17,6 +17,12 @@ function uncode_get_page_assets() {
 	// Suffix
 	$scripts_prod_conf = uncode_get_scripts_production_conf();
 	$suffix            = $scripts_prod_conf['suffix'];
+
+	// Check smooth scroll from PO or TO
+	if ( uncode_post_data_is_singular() ) {
+		$smooth_scroll = get_post_meta( $uncode_post_data['ID'], '_uncode_specific_smooth_scroll', true );
+	}
+	$smooth_scroll = (isset($smooth_scroll) && $smooth_scroll === 'on') ? $smooth_scroll : ot_get_option('_uncode_smooth_scroll');
 
 	// Global App (always required)
 	$assets['uncode-global'] = array(
@@ -32,7 +38,7 @@ function uncode_get_page_assets() {
 	$assets['uncode-utils'] = array(
 		'handle'    => 'uncode-utils',
 		'path'      => get_template_directory_uri() . '/library/js/utils' . $suffix . '.js',
-		'deps'      => array( 'jquery' ),
+		'deps'      => apply_filters( 'uncode_smooth_scroll', $smooth_scroll ) ? array( 'jquery', 'lenis-scroll' ) : array( 'jquery' ),
 		'in_footer' => true,
 		'type'      => 'js',
 		'required'  => true,
@@ -109,6 +115,17 @@ function uncode_get_page_assets() {
 		);
 	}
 
+	// Check Content Parallax
+	if ( uncode_page_require_asset_row_parallax( $content_array ) ) {
+		$assets['row-parallax'] = array(
+			'handle'    => 'row-parallax',
+			'path'      => get_template_directory_uri() . '/library/js/rowParallax' . $suffix . '.js',
+			'deps'      => array( 'jquery' ),
+			'type'      => 'js',
+			'in_footer' => true,
+		);
+	}
+
 	// Check Sticky Trigger
 	if ( uncode_page_require_asset_sticky_trigger( $content_array ) ) {
 		$assets['sticky-trigger'] = array(
@@ -133,6 +150,23 @@ function uncode_get_page_assets() {
 			'in_footer' => true,
 		);
 
+	}
+
+	// Check Lenis Scroll
+	if ( apply_filters( 'uncode_smooth_scroll', $smooth_scroll ) ) {
+		$assets['lenis-scroll'] = array(
+			'handle'    => 'lenis-scroll',
+			'path'      => get_template_directory_uri() . '/library/js/lib/lenis' . $suffix . '.js',
+			'deps'      => array(),
+			'type'      => 'js',
+			'in_footer' => true,
+		);
+
+		$assets['lenis-scroll-style'] = array(
+			'handle'    => 'lenis-scroll-style',
+			'path'      => get_template_directory_uri() . '/library/css/style-lenis.css',
+			'type'      => 'css',
+		);
 	}
 
 	// Check medias attached to a single post/page once
@@ -1314,6 +1348,39 @@ function uncode_get_page_assets() {
 				'in_footer' => true,
 			);
 		}
+	}
+
+	// Linear Grid
+	if ( uncode_page_require_asset_linear_grid( $content_array ) ) {
+		$assets['uncode-style-linear-grid'] = array(
+			'handle'    => 'uncode-style-linear-grid',
+			'path'      => get_template_directory_uri() . '/library/css/style-linear-grid.css',
+			'type'      => 'css',
+		);
+
+		$assets['gsap'] = array(
+			'handle'    => 'gsap',
+			'path'      => get_template_directory_uri() . '/library/js/lib/gsap' . $suffix . '.js',
+			'deps'      => array(),
+			'type'      => 'js',
+			'in_footer' => true,
+		);
+
+		$assets['gsap-draggable'] = array(
+			'handle'    => 'gsap-draggable',
+			'path'      => get_template_directory_uri() . '/library/js/lib/Draggable' . $suffix . '.js',
+			'deps'      => array( 'gsap' ),
+			'type'      => 'js',
+			'in_footer' => true,
+		);
+
+		$assets['uncode-linear-grid'] = array(
+			'handle'    => 'uncode-linear-grid',
+			'path'      => get_template_directory_uri() . '/library/js/linearGrid' . $suffix . '.js',
+			'deps'      => array( 'jquery', 'gsap', 'gsap-draggable' ),
+			'type'      => 'js',
+			'in_footer' => true,
+		);
 	}
 
 	// Ajax Filters

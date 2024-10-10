@@ -12,7 +12,7 @@
  *
  * @see         https://docs.woocommerce.com/document/template-structure/
  * @package     WooCommerce/Templates
- * @version     9.0.0
+ * @version     9.2.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -20,6 +20,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $product;
+
+$aria_describedby = isset( $args['aria-describedby_text'] ) ? sprintf( 'aria-describedby="woocommerce_loop_add_to_cart_link_describedby_%s"', esc_attr( $product->get_id() ) ) : '';
 
 $add_to_cart_url  = $product->add_to_cart_url();
 $add_to_cart_text = $product->add_to_cart_text();
@@ -36,9 +38,9 @@ if ( apply_filters( 'uncode_show_out_of_stock_button_for_variable_products', fal
 echo apply_filters(
 	'woocommerce_loop_add_to_cart_link', // WPCS: XSS ok.
 	sprintf(
-		'<a href="%s" aria-describedby="woocommerce_loop_add_to_cart_link_describedby_%s" data-quantity="%s" class="%s" %s><span class="add_to_cart_text">%s</span><span class="view-cart added_to_cart"></span></a>',
+		'<a href="%s" %s data-quantity="%s" class="%s" %s><span class="add_to_cart_text">%s</span><span class="view-cart added_to_cart"></span></a>',
 		esc_url( $add_to_cart_url ),
-		esc_attr( $product->get_id() ),
+		$aria_describedby,
 		esc_attr( isset( $args['quantity'] ) ? $args['quantity'] : 1 ),
 		esc_attr( isset( $args['class'] ) ? $args['class'] : 'button' ),
 		isset( $args['attributes'] ) ? wc_implode_html_attributes( $args['attributes'] ) : '',
@@ -50,7 +52,7 @@ echo apply_filters(
 ?>
 
 <?php if ( isset( $args['aria-describedby_text'] ) ) : ?>
-<span id="woocommerce_loop_add_to_cart_link_describedby_<?php echo esc_attr( $product->get_id() ); ?>" class="screen-reader-text">
-	<?php echo esc_html( $args['aria-describedby_text'] ); ?>
-</span>
+	<span id="woocommerce_loop_add_to_cart_link_describedby_<?php echo esc_attr( $product->get_id() ); ?>" class="screen-reader-text">
+		<?php echo esc_html( $args['aria-describedby_text'] ); ?>
+	</span>
 <?php endif; ?>

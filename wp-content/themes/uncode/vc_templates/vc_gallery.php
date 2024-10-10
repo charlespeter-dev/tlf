@@ -2,7 +2,7 @@
 global $uncode_vc_gallery;
 $uncode_vc_gallery = true;
 
-$el_id = $isotope_mode = $gallery_back_color = $items = $random = $medias = $explode_albums = $filtering = $filter_style = $filter_background = $filter_back_color = $filtering_full_width = $filtering_position = $filtering_uppercase = $filter_all_opposite = $filter_all_text = $filter_mobile = $filter_mobile_align = $filter_mobile_dropdown = $filter_mobile_dropdown_text = $filter_scroll = $filter_sticky = $style_preset = $images_size = $thumb_size = $gutter_size = $stage_padding = $carousel_overflow = $carousel_half_opacity = $carousel_scaled = $carousel_pointer_events = $inner_padding = $single_width = $single_height = $single_back_color = $single_shape = $radius = $single_elements_click = $single_text = $single_text_visible = $single_text_visible = $single_text_anim = $single_text_anim_type = $single_overlay_visible = $single_overlay_anim = $single_image_coloration = $single_image_color_anim = $single_image_anim = $single_image_magnetic = $single_reduced = $single_reduced_mobile = $single_padding = $single_text_reduced = $single_h_align = $single_v_position = $single_h_position = $single_style = $single_overlay_color = $single_overlay_coloration = $single_overlay_blend = $single_overlay_opacity = $single_link = $single_shadow = $shadow_weight = $shadow_darker = $single_border = $single_icon = $single_title_transform = $single_animation_first = $single_title_family = $single_title_dimension = $single_title_weight = $single_title_semantic = $single_title_height = $single_title_space = $single_text_lead = $single_css_animation = $single_animation_delay = $single_animation_speed = $carousel_fluid = $carousel_type = $carousel_interval = $carousel_navspeed = $carousel_loop = $carousel_nav = $carousel_dots = $carousel_dots_space = $carousel_nav_mobile = $carousel_nav_skin = $carousel_dots_mobile = $carousel_dots_inside = $carousel_dot_position = $carousel_dot_padding = $carousel_autoh = $carousel_lg = $carousel_md = $carousel_sm = $carousel_textual = $hide_quotes = $carousel_height = $carousel_v_align = $off_grid = $off_grid_element = $off_grid_val = $off_grid_all = $screen_lg = $screen_md = $screen_sm = $lbox_skin = $lbox_transparency = $lbox_dir = $lbox_title = $lbox_caption = $lbox_social = $lbox_deep = $lbox_no_tmb = $lbox_no_arrows = $lbox_gallery_arrows = $lbox_gallery_arrows_bg = $lbox_zoom_origin = $lbox_counter = $lbox_actual_size = $lbox_full = $lbox_download = $lbox_transition = $no_double_tap = $nested = $media_items = $output = $title = $type = $el_class = $justify_row_height = $justify_max_row_height = $justify_last_row = $sticky_dir = $sticky_wrap = $sticky_th_size = $sticky_th_vh_lg = $sticky_th_vh_md = $sticky_th_vh_sm = $sticky_th_grid_lg = $sticky_th_grid_md = $sticky_th_grid_sm = $dynamic = $dynamic_source = $filter_typography = $custom_cursor = $skew = $container_style = $sticky_scroll_v_align = $sticky_thumb_size = $no_sticky_scroll_tablet = $no_sticky_scroll_mobile = $sticky_th_vh_minus = $sticky_scroll_mobile_safe_height = $oembed_params = $advanced_videos = $play_hover = $play_pause = $mobile_videos = $lb_video_advanced = $lb_autoplay = $lb_muted = $heading_custom_size = '';
+$el_id = $isotope_mode = $gallery_back_color = $items = $random = $medias = $explode_albums = $filtering = $filter_style = $filter_background = $filter_back_color = $filtering_full_width = $filtering_position = $filtering_uppercase = $filter_all_opposite = $filter_all_text = $filter_mobile = $filter_mobile_align = $filter_mobile_dropdown = $filter_mobile_dropdown_text = $filter_scroll = $filter_sticky = $style_preset = $images_size = $thumb_size = $gutter_size = $stage_padding = $carousel_overflow = $carousel_half_opacity = $carousel_scaled = $carousel_pointer_events = $inner_padding = $single_width = $single_height = $single_back_color = $single_shape = $radius = $single_elements_click = $single_text = $single_text_visible = $single_text_visible = $single_text_anim = $single_text_anim_type = $single_overlay_visible = $single_overlay_anim = $single_image_coloration = $single_image_color_anim = $single_image_anim = $single_image_magnetic = $single_reduced = $single_reduced_mobile = $single_padding = $single_text_reduced = $single_h_align = $single_v_position = $single_h_position = $single_style = $single_overlay_color = $single_overlay_coloration = $single_overlay_blend = $single_overlay_opacity = $single_link = $single_shadow = $shadow_weight = $shadow_darker = $single_border = $single_icon = $single_title_transform = $single_animation_first = $single_title_family = $single_title_dimension = $single_title_weight = $single_title_semantic = $single_title_height = $single_title_space = $single_text_lead = $single_css_animation = $single_animation_delay = $single_animation_speed = $carousel_fluid = $carousel_type = $carousel_interval = $carousel_navspeed = $carousel_loop = $carousel_nav = $carousel_dots = $carousel_dots_space = $carousel_nav_mobile = $carousel_nav_skin = $carousel_dots_mobile = $carousel_dots_inside = $carousel_dot_position = $carousel_dot_padding = $carousel_autoh = $carousel_lg = $carousel_md = $carousel_sm = $carousel_textual = $hide_quotes = $carousel_height = $carousel_v_align = $off_grid = $off_grid_element = $off_grid_val = $off_grid_all = $screen_lg = $screen_md = $screen_sm = $lbox_skin = $lbox_transparency = $lbox_dir = $lbox_title = $lbox_caption = $lbox_social = $lbox_deep = $lbox_no_tmb = $lbox_no_arrows = $lbox_gallery_arrows = $lbox_gallery_arrows_bg = $lbox_zoom_origin = $lbox_counter = $lbox_actual_size = $lbox_full = $lbox_download = $lbox_transition = $no_double_tap = $nested = $media_items = $output = $title = $type = $el_class = $justify_row_height = $justify_max_row_height = $justify_last_row = $sticky_dir = $sticky_wrap = $sticky_th_size = $sticky_th_vh_lg = $sticky_th_vh_md = $sticky_th_vh_sm = $sticky_th_grid_lg = $sticky_th_grid_md = $sticky_th_grid_sm = $dynamic = $dynamic_source = $filter_typography = $custom_cursor = $skew = $container_style = $sticky_scroll_v_align = $sticky_thumb_size = $no_sticky_scroll_tablet = $no_sticky_scroll_mobile = $sticky_th_vh_minus = $sticky_scroll_mobile_safe_height = $oembed_params = $advanced_videos = $play_hover = $play_pause = $mobile_videos = $lb_video_advanced = $lb_autoplay = $lb_muted = $heading_custom_size = $linear_orientation = $linear_animation = $linear_speed = $linear_hover = $draggable = $marquee_clone = $linear_width = $linear_height = $linear_v_alingment = $linear_h_alingment = $marquee_freeze = $marquee_freeze_desktop = $marquee_freeze_mobile = '';
 
 extract( shortcode_atts( array(
 		'uncode_shortcode_id' => '',
@@ -225,6 +225,20 @@ extract( shortcode_atts( array(
 		'lb_autoplay' => '',
 		'lb_muted' => '',
 		'css_grid_v_align' => '',
+		'linear_orientation' => '',
+		'linear_animation' => 'marquee',
+		'linear_speed' => '',
+		'linear_hover' => '',
+		'marquee_clone' => '',
+		'draggable' => '',
+		'size_by' => '',
+		'linear_width' => 'clamp(100px, 20vw, 450px)',
+		'linear_height' => 'clamp(100px, 20vw, 450px)',
+		'linear_v_alingment' => '',
+		'linear_h_alingment' => '',
+		'marquee_freeze' => '',
+		'marquee_freeze_desktop' => '',
+		'marquee_freeze_mobile' => ''
 ), $atts ) );
 
 $stylesArray = array(
@@ -667,6 +681,33 @@ if ($type == 'isotope') {
 	if ($sticky_scroll_v_align !== '') {
 		$main_container_classes[] = 'hor-scroll-valign-' . $sticky_scroll_v_align;
 	}
+} elseif ($type == 'linear') {
+	$main_container_classes[] = 'linear-system';
+	$main_container_classes[] = 'linear-' . ( $linear_orientation === '' ? 'horizontal' : 'vertical');
+	$main_container_classes[] = 'linear-general-' . $general_style;
+	$main_container_classes[] = $size_by === 'height' ? 'linear-by-h' : 'linear-by-w';
+	$main_container_classes[] = 'grid-general-' . $general_style;
+	if ( $linear_v_alingment !== '' ) {
+		$main_container_classes[] = 'linear-v-align-' . $linear_v_alingment;
+	}
+	if ( $linear_h_alingment !== '' ) {
+		$main_container_classes[] = 'linear-h-align-' . $linear_h_alingment;
+	}
+	$parent_container_classes[] = 'linear-wrapper grid-wrapper';
+	$parent_container_classes[] = $gutter_size;
+	$container_classes[] = 'linear-container';
+	$container_classes[] = 'linear-layout';
+	$container_classes[] = 'linear-or-' . ( $linear_orientation === '' ? 'horizontal' : 'vertical');
+	$main_container_classes[] = 'lineargrid-' . esc_attr( $uncode_shortcode_id );
+	if ( function_exists( 'uncode_get_dynamic_linear_grids_css_from_shortcode' ) ) {
+		$shortcode_data = array(
+			'id' => $uncode_shortcode_id,
+			'by' => $size_by,
+			'w' => $linear_width,
+			'h' => $linear_height,
+		);
+		$inline_style_css .= uncode_get_dynamic_linear_grids_css_from_shortcode( $shortcode_data );
+	}
 } else {
 	$main_container_classes[] = 'index-system';
 	$main_container_classes[] = $gutter_size;
@@ -695,7 +736,7 @@ if ( $infinite === 'yes' )  {
 
 if ( $type === 'custom_grid' ) {
 	$images_size = $custom_grid_images_size;
-} else if ( $type === 'css_grid' ) {
+} else if ( $type === 'css_grid' || $type === 'linear' ) {
 	$images_size = $css_grid_images_size;
 }
 
@@ -710,6 +751,7 @@ $main_container_classes[] = $this->getExtraClass( $el_class );
 $media_blocks = uncode_flatArray(vc_sorted_list_parse_value( $media_items ));
 
 /*** data module preparation ***/
+$div_data_cont = array();
 $div_data = array();
 $div_pattern_data = array();
 switch ($type) {
@@ -838,6 +880,21 @@ switch ($type) {
 			$div_data['data-md'] = $carousel_md;
 			$div_data['data-sm'] = $carousel_sm;
 	break;
+	case 'linear':
+		$div_data_cont['data-animation'] = $linear_animation;
+		$div_data_cont['data-infinite'] = $linear_animation === 'marquee' || $linear_animation === 'marquee-opposite' ? 'yes' : $marquee_clone;
+		$div_data_cont['data-draggable'] = $draggable;
+		$div_data_cont['data-speed'] = $linear_speed;
+		$div_data_cont['data-hover'] = $linear_hover;
+		if ( $marquee_freeze !== '' ) {
+			if ( $marquee_freeze_desktop !== '' ) {
+				$div_data_cont['data-freeze'] = 'desktop';
+			}
+			if ( $marquee_freeze_mobile !== '' ) {
+				$div_data_cont['data-freeze'] = 'mobile';
+			}
+		}
+	break;
 }
 
 if ( $lb_video_advanced === 'yes' ) {
@@ -926,8 +983,9 @@ if ( $lb_video_advanced === 'yes' ) {
 			<?php endif; ?>
 		<?php endif; ?>
 	<?php endif; ?>
+	<?php $div_data_cont_attributes = array_map(function ($v, $k) { return $k . '="' . $v . '"'; }, $div_data_cont, array_keys($div_data_cont)); ?>
 
-	<div class="<?php echo esc_attr(trim(implode(' ', $parent_container_classes))); ?>">
+	<div class="<?php echo esc_attr(trim(implode(' ', $parent_container_classes))); ?>" <?php echo implode(' ', $div_data_cont_attributes); ?>>
 		<?php if ($type == 'justified') { ?><div class="<?php echo esc_attr(trim(implode(' ', $fixer_classes))); ?>"><?php } ?>
 		<?php
 		$div_data = array_merge($div_data, $div_pattern_data);
@@ -937,7 +995,26 @@ if ( $lb_video_advanced === 'yes' ) {
 			$container_style = ' style="' . $container_style . '"';
 		}
 		?>
-		<div<?php if ($type === 'carousel') { echo ' id="' . esc_attr($el_id) .'"'; } ?> class="<?php echo esc_attr(trim(implode(' ', $container_classes))); ?>" <?php echo implode(' ', $div_data_attributes); ?><?php echo uncode_switch_stock_string( $container_style ); ?>>
+	<?php $linear_count = 0;
+	$linear_class = '';
+	$or_id = $el_id;
+	if ( $type === 'linear' && ( $marquee_clone === 'yes' || $linear_animation === 'marquee' || $linear_animation === 'marquee-opposite' ) && ( !function_exists('vc_is_page_editable') || !vc_is_page_editable() ) ) { 
+		$linear_count = 2;
+	}
+	for ($x = 0; $x <= $linear_count; $x++) { ?>
+		<?php if ( $type === 'linear' ) {
+			if ( $x === 0 && $linear_count === 2 && ( !function_exists('vc_is_page_editable') || !vc_is_page_editable() ) ){
+				$linear_class = ' first-child';
+				$el_id = $or_id . '_first';
+			} elseif ( $x === 2 && $linear_count === 2 && ( !function_exists('vc_is_page_editable') || !vc_is_page_editable() ) ){
+				$linear_class = ' last-child';
+				$el_id = $or_id . '_last';
+			} else {
+				$linear_class = ' cont-leader';
+				$el_id = $or_id;
+			}  
+		} ?>
+		<div<?php if ($type === 'carousel') { echo ' id="' . esc_attr($el_id) .'"'; } ?> class="<?php echo esc_attr(trim(implode(' ', $container_classes)) . $linear_class ); ?>" <?php echo implode(' ', $div_data_attributes); ?><?php echo uncode_switch_stock_string( $container_style ); ?>>
 <?php
 /**
  * init loop
@@ -956,6 +1033,9 @@ if (count($medias) > 0) {
 
 		$block_data = array();
 		$block_data['template'] = 'vc_gallery';
+		if ( $type === 'linear' ) {
+			$block_data['type'] = 'linear';
+		}
 		$tmb_data = array();
 
 		if ( $oembed_params !== '' ) {
@@ -1564,7 +1644,8 @@ if (count($medias) > 0) {
 	$i_matrix++;
 	}
 } ?>
-						</div>
+			</div>
+<?php } ?>
 			<?php if ($type == 'justified') { ?></div><?php } ?>
 		</div>
 

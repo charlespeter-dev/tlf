@@ -53,7 +53,7 @@ class wp_bootstrap_navwalker extends Walker_Nav_Menu {
 					$columns = '';
 					break;
 			}
-			$output .= "\n$indent<ul role=\"menu\" class=\"mega-menu-inner in-mega $columns\">\n";
+			$output .= "\n$indent<ul role=\"menu\" class=\"mega-menu-inner in-mega $columns\" data-lenis-prevent>\n";
 		}
 		else $output .= "\n$indent<ul role=\"menu\" class=\"drop-menu\">\n";
 	}

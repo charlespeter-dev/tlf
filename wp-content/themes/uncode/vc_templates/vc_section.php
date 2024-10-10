@@ -1,7 +1,7 @@
 <?php
 global $row_cols_md_counter, $row_cols_sm_counter;
 
-$el_id = $el_class = $back_image = $back_repeat = $back_attachment = $back_position = $back_size = $back_color = $overlay_color = $overlay_alpha = $parallax = $output = $row_style = $background_div = $row_inline_style = $desktop_visibility = $medium_visibility = $mobile_visibility = '';
+$el_id = $el_class = $back_image = $back_repeat = $back_attachment = $back_position = $back_size = $back_color = $overlay_color = $overlay_alpha = $parallax = $output = $row_style = $background_div = $row_inline_style = $desktop_visibility = $medium_visibility = $mobile_visibility = $content_parallax = $content_parallax = $content_parallax_safe = '';
 
 extract(shortcode_atts(array(
 	'uncode_shortcode_id' => '',
@@ -26,6 +26,8 @@ extract(shortcode_atts(array(
   	'medium_visibility' => '',
   	'mobile_visibility' => '',
 	'is_header' => '',
+	'content_parallax' => '',
+	'content_parallax_safe' => '', 
 ) , $atts));
 
 if ( $el_id !== '' ) {
@@ -33,6 +35,8 @@ if ( $el_id !== '' ) {
 } else {
 	$el_id = '';
 }
+
+$div_data = array();
 
 $inline_style_css = uncode_get_dynamic_colors_css_from_shortcode( array(
 	'type'       => 'vc_section',
@@ -55,12 +59,20 @@ $overlay_color = uncode_get_shortcode_color_attribute_value( 'overlay_color', $u
 $row_classes = array(
 	'row'
 );
-$row_cont_classes = array();
+$row_cont_classes = array('vc_section');
 
 $row_cont_classes[] = $this->getExtraClass($el_class);
 
 if (!empty($back_color)) {
 	$row_cont_classes[] = 'style-' . $back_color . '-bg';
+}
+
+if ( $content_parallax && $content_parallax > 0 && !(function_exists('vc_is_page_editable') && vc_is_page_editable()) ) {
+	$row_cont_classes[] = 'parallax-move';
+	$div_data['data-parallax-move'] = intval($content_parallax);
+	if ( $content_parallax_safe !== '' ) {
+		$div_data['data-parallax-safe'] = esc_attr($content_parallax_safe);
+	}
 }
 
 /** BEGIN - background construction **/
@@ -126,7 +138,8 @@ if ($mobile_visibility === 'yes') {
 global $uncode_row_parent;
 $uncode_row_parent = 12;
 $css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $row_cont_classes ) ), $this->settings['base'], $atts ) );
-$output.= '<section data-parent="true" class="' . esc_attr(trim($css_class)) . '"' . $row_style . $el_id . '>';
+$div_data_attributes = array_map(function ($v, $k) { return $k . '="' . $v . '"'; }, $div_data, array_keys($div_data));
+$output.= '<section data-parent="true" class="' . esc_attr(trim($css_class)) . '"' . implode(' ', $div_data_attributes) . $row_style . $el_id . '>';
 $output.= $background_div;
 $output.= '<div class="' . esc_attr(trim(implode(' ', $row_classes))) . '"' . $row_inline_style . '>';
 $output.= $content;

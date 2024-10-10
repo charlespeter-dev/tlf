@@ -161,6 +161,9 @@
 	$(window).off('resize.videos', checkVideoResize)
 	.on( 'resize.videos', checkVideoResize);
 
+	$(window).off('more-items-loaded.videos', checkForVideos)
+	.on('more-items-loaded.videos', checkForVideos);
+
 };
 
 })(jQuery);

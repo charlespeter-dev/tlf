@@ -11,6 +11,9 @@
 		UNCODE.betterResize();
 		UNCODE.utils();
 		UNCODE.magnetic();
+		if (typeof UNCODE.rowParallax !== 'undefined') {
+			UNCODE.rowParallax();
+		}
 		if (typeof UNCODE.changeSkinOnScroll !== 'undefined') {
 			UNCODE.changeSkinOnScroll();
 		}
@@ -56,6 +59,9 @@
 		}
 		if (typeof UNCODE.okvideo !== 'undefined') {
 			UNCODE.okvideo();
+			window.addEventListener( "uncode-more-items-loaded", function() {
+				UNCODE.okvideo();
+			});
 		}
 		if (typeof UNCODE.backgroundSelfVideos !== 'undefined') {
 			UNCODE.backgroundSelfVideos();
@@ -69,6 +75,9 @@
 		}
 		if (typeof UNCODE.cssGrid !== 'undefined') {
 			UNCODE.cssGrid();
+		}
+		if (typeof UNCODE.linearGrid !== 'undefined') {
+			UNCODE.linearGrid();
 		}
 		if (typeof UNCODE.lightbox !== 'undefined' && !SiteParameters.lbox_enhanced) {
 			UNCODE.lightbox();
@@ -162,6 +171,9 @@
 		}
 		if (typeof UNCODE.multibg !== 'undefined') {
 			UNCODE.multibg();
+		}
+		if (typeof UNCODE.flexEqual !== 'undefined') {
+			UNCODE.flexEqual();
 		}
 		$(window).on('load',function(){
 			clearRequestTimeout(waypoint_request);

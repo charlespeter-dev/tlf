@@ -1,6 +1,6 @@
 <?php
 
-$el_id = $el_class = $row_name = $back_image = $back_image_auto = $back_image_option = $back_repeat = $back_attachment = $back_position = $back_size = $back_color = $overlay_color = $overlay_color_blend = $overlay_alpha = $unlock_row = $unlock_row_content = $limit_content = $row_height_percent = $row_inner_height_percent = $row_height_pixel = $inner_height = $kburns = $parallax = $changer_back_color = $equal_height = $top_padding = $bottom_padding = $h_padding = $gutter_size = $override_padding = $force_width_grid = $shift_y = $shift_y_fixed = $z_index = $css = $border_color = $border_style = $output = $row_style = $background_div = $row_inline_style = $desktop_visibility = $medium_visibility = $mobile_visibility = $sticky = $skew = $column_width_use_pixel = $column_width_percent = $column_width_pixel = $enable_bottom_divider = $shape_bottom_invert = $bottom_divider = $bottom_divider_inv = $shape_bottom_color = $shape_bottom_opacity = $shape_bottom_custom = $shape_bottom_index = $shape_bottom_h_use_pixel = $shape_bottom_height = $shape_bottom_height_percent = $shape_bottom_ratio = $shape_bottom_safe = $shape_bottom_responsive = $shape_bottom_tablet_hide = $shape_bottom_mobile_hide = $enable_top_divider = $shape_top_invert = $top_divider = $top_divider_inv = $shape_top_color = $shape_top_opacity = $shape_top_index = $shape_top_h_use_pixel = $shape_top_height = $shape_top_height_percent = $shape_top_ratio = $shape_top_safe = $shape_top_responsive = $shape_top_tablet_hide = $shape_top_mobile_hide = $gdpr_consent_id = $gdpr_consent_logic = $row_custom_slug_check = $row_custom_slug = $inverted_device_order = $preserve_border = $preserve_border_tablet = $preserve_border_mobile = $custom_inline_css = $auto_height_device = $featured_image = $multi_bg_out = $bg_transition = $bg_transition_time = $bg_carousel_time = $mobile_slideshow = $bg_carousel_time_mobile = $multi_scroll_manually = $bg_transition_pace = $bg_transition_pace_mouse = $bg_transition_threshold = $bg_transition_threshold_mobile = $multi_random = '';
+$el_id = $el_class = $row_name = $back_image = $back_image_auto = $back_image_option = $back_repeat = $back_attachment = $back_position = $back_size = $back_color = $overlay_color = $overlay_color_blend = $overlay_alpha = $unlock_row = $unlock_row_content = $limit_content = $row_height_percent = $row_inner_height_percent = $row_height_pixel = $inner_height = $kburns = $parallax = $changer_back_color = $equal_height = $top_padding = $bottom_padding = $h_padding = $gutter_size = $override_padding = $force_width_grid = $shift_y = $shift_y_fixed = $z_index = $css = $border_color = $border_style = $output = $row_style = $background_div = $row_inline_style = $desktop_visibility = $medium_visibility = $mobile_visibility = $sticky = $skew = $column_width_use_pixel = $column_width_percent = $column_width_pixel = $enable_bottom_divider = $shape_bottom_invert = $bottom_divider = $bottom_divider_inv = $shape_bottom_color = $shape_bottom_opacity = $shape_bottom_custom = $shape_bottom_index = $shape_bottom_h_use_pixel = $shape_bottom_height = $shape_bottom_height_percent = $shape_bottom_ratio = $shape_bottom_safe = $shape_bottom_responsive = $shape_bottom_tablet_hide = $shape_bottom_mobile_hide = $enable_top_divider = $shape_top_invert = $top_divider = $top_divider_inv = $shape_top_color = $shape_top_opacity = $shape_top_index = $shape_top_h_use_pixel = $shape_top_height = $shape_top_height_percent = $shape_top_ratio = $shape_top_safe = $shape_top_responsive = $shape_top_tablet_hide = $shape_top_mobile_hide = $gdpr_consent_id = $gdpr_consent_logic = $row_custom_slug_check = $row_custom_slug = $inverted_device_order = $preserve_border = $preserve_border_tablet = $preserve_border_mobile = $custom_inline_css = $auto_height_device = $featured_image = $multi_bg_out = $bg_transition = $bg_transition_time = $bg_carousel_time = $mobile_slideshow = $bg_carousel_time_mobile = $multi_scroll_manually = $bg_transition_pace = $bg_transition_pace_mouse = $bg_transition_threshold = $bg_transition_threshold_mobile = $multi_random = $content_parallax = $content_parallax_safe = '';
 
 extract(shortcode_atts(array(
 	'uncode_shortcode_id' => '',
@@ -129,6 +129,8 @@ extract(shortcode_atts(array(
 	'preserve_border_mobile' => '',
 	'auto_height_device' => '',
 	'featured_image' => '',
+	'content_parallax' => '',
+	'content_parallax_safe' => '', 
 ) , $atts));
 
 if ( $el_id === '' ) {
@@ -137,6 +139,8 @@ if ( $el_id === '' ) {
 	$el_id = 'row-unique-' . $uncode_row_id++;
 }
 $attr_id = ' id="' . esc_attr( trim( $el_id ) ) . '"';
+
+$div_data = array();
 
 $inline_style_css = uncode_get_dynamic_colors_css_from_shortcode( array(
 	'type'       => 'vc_row',
@@ -170,7 +174,7 @@ if ( $gdpr_consent_id !== '' && uncode_privacy_check_needed($gdpr_consent_id) ) 
 	}
 }
 
-global $row_cols_md_counter, $row_cols_sm_counter, $inner_column_style, $front_background_colors, $previous_blend, $is_cb, $uncode_vc_block, $uncode_colors_flat_array, $changer_back_first, $changer_back_color_div, $changer_back_color_row, $changer_back_color_row_inner, $changer_back_color_column_inner, $is_footer;
+global $row_cols_md_counter, $row_cols_sm_counter, $inner_column_style, $front_background_colors, $previous_blend, $is_cb, $uncode_vc_block, $uncode_colors_flat_array, $changer_back_first, $changer_back_color_div, $changer_back_color_row, $changer_back_color_row_inner, $changer_back_color_column_inner, $is_footer, $bento;
 $row_cols_md_counter = $row_cols_sm_counter = 0;
 
 $inner_column_style = '';
@@ -288,6 +292,14 @@ if ( $back_image_auto === 'yes' && $featured_image !== "yes" && is_singular() &&
 
 	if ( $featured_id ) {
 		$back_image = $featured_id;
+	}
+}
+
+if ( $content_parallax && $content_parallax > 0 && !(function_exists('vc_is_page_editable') && vc_is_page_editable()) ) {
+	$row_cont_classes[] = 'parallax-move';
+	$div_data['data-parallax-move'] = intval($content_parallax);
+	if ( $content_parallax_safe !== '' ) {
+		$div_data['data-parallax-safe'] = esc_attr($content_parallax_safe);
 	}
 }
 
@@ -1181,8 +1193,13 @@ if (!empty($row_inner_height_percent) && $row_inner_height_percent != '0') {
 	$row_inner_height_percent = '';
 }
 
-if ($equal_height == 'yes') {
-	$row_classes[] = 'unequal';
+if ($equal_height !== '') {
+	if ($equal_height === 'justify') {
+		$bento = true;
+		$row_classes[] = 'unequal-flex';
+	} else {
+		$row_classes[] = 'unequal';
+	}
 }
 
 switch ($gutter_size) {
@@ -1394,7 +1411,8 @@ if (!$uncodeblock_found) :
 	global $uncode_row_parent;
 	$uncode_row_parent = 12;
 	$css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $row_cont_classes ) ), $this->settings['base'], $atts ) );
-	$output.= '<div data-parent="true" class="' . esc_attr(trim($css_class)) . '"' . $row_name . $row_style . $attr_id . '>';
+	$div_data_attributes = array_map(function ($v, $k) { return $k . '="' . $v . '"'; }, $div_data, array_keys($div_data));
+	$output.= '<div data-parent="true" class="' . esc_attr(trim($css_class)) . '"' . implode(' ', $div_data_attributes) . $row_name . $row_style . $attr_id . '>';
 	$output .= $multi_bg_out; //multi bg
 	if ($unlock_row === 'yes') {
 		$output.= $background_div;
@@ -1434,4 +1452,4 @@ if (!$uncodeblock_found) :
 endif;
 
 echo uncode_remove_p_tag($output);
-$changer_back_color_row = $changer_back_color_row_inner = $changer_back_color_column_inner = false;
+$changer_back_color_row = $changer_back_color_row_inner = $changer_back_color_column_inner = $bento = false;

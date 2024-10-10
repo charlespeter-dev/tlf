@@ -143,17 +143,14 @@
             }
         }
 
-        $nav.off('click', '.uncode-nav-index');
         $nav.on('click', '.uncode-nav-index', function(){
-                var $bullet = $(this),
+            var $bullet = $(this),
                 slide_index = parseFloat( $bullet.attr('data-key') );
             $carousel.trigger("to.owl.carousel", [slide_index, navSpeed, true]);
         });
-        $nav.off('click', '.uncode-nav-prev');
         $nav.on('click', '.uncode-nav-prev', function(){
             $carousel.trigger('prev.owl.carousel', [navSpeed]);
         });
-        $nav.off('click', '.uncode-nav-next');
         $nav.on('click', '.uncode-nav-next', function(){
             $carousel.trigger('next.owl.carousel', [navSpeed]);
         });

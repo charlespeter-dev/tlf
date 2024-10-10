@@ -14,7 +14,7 @@
  * @see     http://docs.woothemes.com/document/template-structure/
  * @author  WooThemes
  * @package WooCommerce/Templates
- * @version 7.9.0
+ * @version 9.2.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="woocommerce-mini-cart-header">
 	<div class="close-mini-cart btn btn-link"><?php echo wp_kses_post( apply_filters( 'uncode_close_mini_cart_text', __( '<span class="cart-close-icon">&times;</span><span class="cart-close-label">Close</span>', 'uncode' ) ) ); ?></div>
 </div>
-<div class="woocommerce-mini-cart-body">
+<div class="woocommerce-mini-cart-body" data-lenis-prevent>
 	<ul class="woocommerce-mini-cart cart_list product_list_widget <?php echo esc_attr( $args['list_class'] ); ?>">
 
 		<?php if ( ! WC()->cart->is_empty() ) : ?>
@@ -55,16 +55,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 							echo apply_filters( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 								'woocommerce_cart_item_remove_link',
 								sprintf(
-									'<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s"><i class="fa fa-cross"></i></a>',
+									'<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s" data-success_message="%s"><i class="fa fa-cross"></i></a>',
 									esc_url( wc_get_cart_remove_url( $cart_item_key ) ),
 									/* translators: %s is the product name */
 									esc_attr( sprintf( __( 'Remove %s from cart', 'woocommerce' ), wp_strip_all_tags( $product_name ) ) ),
 									esc_attr( $product_id ),
 									esc_attr( $cart_item_key ),
-									esc_attr( $_product->get_sku() )
-								),
-								$cart_item_key
-							);
+									esc_attr( $_product->get_sku() ),
+									/* translators: %s is the product name */
+									esc_attr( sprintf( __( '&ldquo;%s&rdquo; has been removed from your cart', 'woocommerce' ), wp_strip_all_tags( $product_name ) ) )
+									),
+									$cart_item_key
+								);
 							?>
 							<?php if ( empty( $product_permalink ) ) : ?>
 								<?php echo str_replace( array( 'http:', 'https:' ), '', $thumbnail ) . wp_kses_post( $product_name ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>

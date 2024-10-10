@@ -46,8 +46,8 @@ extract(shortcode_atts(array(
 	'mobile_visibility' => '',
 ), $atts));
 
-if ( function_exists( 'TO_apply_order_filter' ) ) {
-	uncode_core_unhook( 'terms_clauses', 'TO_apply_order_filter', 10, 3 );
+if ( defined( 'TOPATH' ) ) {
+	add_filter( 'to/get_terms_orderby/ignore', '__return_true' );
 }
 
 if ( $el_id !== '' ) {
@@ -332,6 +332,6 @@ if ( is_search() && $filter_group === 'search' ) {
 	</div>
 <?php endif;
 
-if ( function_exists( 'TO_apply_order_filter' ) ) {
-	add_filter( 'terms_clauses', 'TO_apply_order_filter', 10, 3 );
+if ( defined( 'TOPATH' ) ) {
+	add_filter( 'to/get_terms_orderby/ignore', '__return_false' );
 }

@@ -46,6 +46,28 @@ window.clearRequestTimeout = function(handle) {
 	}
 };
 
+if ( SiteParameters.smoothScroll === 'on' && ! SiteParameters.is_frontend_editor ) {
+	const lenis = new Lenis({
+		duration: 1
+	})
+
+	function raf(time) {
+		lenis.raf(time)
+		requestAnimationFrame(raf)
+		window.dispatchEvent(new CustomEvent('lenis-scroll'));
+	}
+
+	requestAnimationFrame(raf)
+
+	$(window).on('unmodal-open', function(){
+		lenis.stop();
+	});
+
+	$(document).on('unmodal-close', function(){
+		lenis.start();
+	});
+}
+
 UNCODE.checkImgLoad = function( src, cb, err, el ) {
 	var img = new Image();
 	img.onload = function () {
@@ -136,7 +158,7 @@ UNCODE.utils = function() {
 			}
 		}
 
-		if ( ! $('body').hasClass('vmenu') || UNCODE.wwidth < UNCODE.mediaQuery  ) {
+		if ( ! $('body').hasClass('vmenu') || UNCODE.wwidth < UNCODE.mediaQuery ) {
 			// if  ( !( $('.menu-desktop-transparent').length && UNCODE.wwidth > UNCODE.mediaQuery ) && !( $('.menu-mobile-transparent').length && UNCODE.wwidth <= UNCODE.mediaQueryMobile ) ) {
 			if  ( !( $('.menu-desktop-transparent').length && UNCODE.wwidth > UNCODE.mediaQuery ) ) {
 				if ( ( $('.menu-sticky').length && !$('.menu-hide').length && !UNCODE.isMobile ) || ( $('.menu-sticky-mobile').length && UNCODE.isMobile ) ) {
@@ -392,7 +414,7 @@ UNCODE.utils = function() {
 		var uncol = $(e.target).prev('.uncol'),
 		el = uncol.find('.column-background');
 		if (el) {
-			$('.btn-container .btn', uncol).toggleClass('active');
+			$('.btn-container .btn', uncol).addClass('active');
 			var elOverlay = $(el[0]).find('.block-bg-overlay');
 			if (elOverlay.length) {
 				var getOpacity = $(elOverlay).css('opacity');
@@ -407,7 +429,7 @@ UNCODE.utils = function() {
 	}).on('mouseleave', '.col-link', function(e) {
 		var uncol = $(e.target).prev('.uncol'),
 		el = uncol.find('.column-background');
-		$('.btn-container .btn', uncol).toggleClass('active');
+		$('.btn-container .btn', uncol).removeClass('active');
 		if (el) {
 			var elOverlay = $(el[0]).find('.block-bg-overlay');
 			if (elOverlay.length) {

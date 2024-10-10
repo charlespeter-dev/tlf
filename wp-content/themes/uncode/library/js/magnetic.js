@@ -7,7 +7,8 @@
 		var $magnetics = $wrap.find('.tmb-image-anim-magnetic .t-entry-visual').has('img:not(.avatar), .t-background-cover, .dummy.secondary-dummy-image, .t-secondary-background-cover').add($('.magnetic').has('.background-inner, .header-bg'));
 
 		$magnetics.on('mousemove', function(e){
-			var $el = $('img:not(.avatar), .t-background-cover, .fluid-object, .dummy.secondary-dummy-image, .t-secondary-background-cover, .background-inner, .header-bg', this),
+			var $this = $(this),
+				$el,
 				bound = e.currentTarget.getBoundingClientRect(),
 				coeff = 30,
 				hor = (bound.width / 2) - (e.clientX - bound.left),
@@ -17,6 +18,12 @@
 				scaleX = ((bound.width + coeff + 5) / bound.width).toFixed(2),
 				scaleY = ((bound.height + coeff + 5) / bound.height).toFixed(2),
 				toScale = Math.max(scaleX, scaleY);
+
+			if ( $this.hasClass('magnetic') ) {
+				$el = $('.background-inner, .header-bg', $this);
+			} else {
+				$el = $('img:not(.avatar), .t-background-cover, .fluid-object, .dummy.secondary-dummy-image, .t-secondary-background-cover', $this);
+			}
 
 			gsap.killTweensOf($el);
 			gsap.to( $el, {
@@ -30,7 +37,13 @@
 				force3D: true
 			});
 		}).on('mouseout', function(e){
-			var $el = $('img:not(.avatar), .t-background-cover, .fluid-object, .dummy.secondary-dummy-image, .t-secondary-background-cover, .background-inner, .header-bg', this);
+			var $this = $(this),
+				$el
+			if ( $this.hasClass('magnetic') ) {
+				$el = $('.background-inner, .header-bg', $this);
+			} else {
+				$el = $('img:not(.avatar), .t-background-cover, .fluid-object, .dummy.secondary-dummy-image, .t-secondary-background-cover', $this);
+			}
 			gsap.killTweensOf($el);
 			gsap.to( $el, {
 				duration: 0.6,

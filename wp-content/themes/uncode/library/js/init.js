@@ -1192,9 +1192,14 @@
 								 // 	img_h = img_bound.height,
 								 var img_w = $img[0].offsetWidth,
 									 img_h = $img[0].offsetHeight,
-									img_r = img_w/img_h
+									 img_r = img_w/img_h
 								 if ( isNaN(img_r) ) {
-									 img_r = 1;
+									img_w = parseFloat($img[0].getAttribute('width'));
+									img_h = parseFloat($img[0].getAttribute('height'));
+								   	img_r = img_w/img_h
+									if ( isNaN(img_r) ) {
+										img_r = 1;
+									}
 								 }
 								 var final_w = span_h*img_r;
 								 $imgs[im].setAttribute('data-ratio', img_r);
@@ -1204,8 +1209,8 @@
 						 $imgs[im].style.width = final_w + 'px';
 					 }
  
-					 if ( span_h === 0 ) {
-						 setTimeout(heading_inline_images, 1);
+					 if ( span_h === 0 && $span[0].offsetParent !== null ) {
+						 heading_inline_images();
 					 }
  
 				 }
@@ -1661,10 +1666,10 @@
 			  }
   
 			  el.addEventListener("owl-carousel-initialized", function() {
-				  word_for_lines("owl-carousel-initialized", el); 
+				  word_for_lines("owl-carousel-initialized", el);
 			  });
- 
-			 el.addEventListener("vc-shortcodeView-updated", function() {
+  
+			  el.addEventListener("vc-shortcodeView-updated", function() {
 				 heading_inline_images();
 				  word_for_lines(false, el);
 			  });
@@ -1833,6 +1838,10 @@
 			  };
 			  waitForSrcSetMedia();
 			 window.addEventListener( "uncode-ajax-filtered", waitForSrcSetMedia, {
+				 passive: true,
+				 once: true,
+			 });
+			 window.addEventListener( "uncode-more-items-loaded", waitForSrcSetMedia, {
 				 passive: true,
 				 once: true,
 			 });
@@ -2028,188 +2037,189 @@
 					  }
 				  }
   
-				  if (wwidth > mediaQuery) {
-  
-					  getDivChildren(el, '.column_parent', function(col, i, total) {
-						  var $col = col,
-							  $colHeight = 0,
-							  $colDiff = 0,
-							  $colPercDiff = 100;
-						  $col.oversized = false;
-						  $col.forceHeight = currentTallest;
-						  currentTallest = child.clientHeight;
-						  if ((isHeader || isFirst) && currentTallest != 'auto') currentTallest -= transmenuHeight;
-						  var getFirstCol = null,
-						  getMargin = 0,
-						  getSubMargin = 0;
-						  getDivChildren(col, '.row-child', function(obj, i, total) {
-							  var $colChild = obj,
-								  $colParent = $colChild.parentNode,
-								  computedStyleCol = getComputedStyle($colParent);
-							  parseFloat(computedStyleCol.marginTop);
-							  getSubMargin += parseFloat(computedStyleCol.marginTop);
-						  });
-						  currentTallest += getSubMargin;
-						  getDivChildren(col, '.row-child', function(obj, i, total) {
-							  var $colChild = obj,
-								  $colInner,
-								  $colParent = $colChild.parentNode,
-								  $uncont = $colParent.parentNode;
-							  for (var it = 0; it < $colChild.childNodes.length; it++) {
-								  if ( ! classie.hasClass($colChild.childNodes[it], 'uncode-divider-wrap') ) {
-									  $colInner = $colChild.childNodes[it];
-									  break;
-								  }
-							  }
-							  if (i == 0 && total > 1) getFirstCol = $colInner;
-							  $colChild.oversized = false;
-							  percentHeight = $colChild.getAttribute("data-height");
-							  minHeight = $colChild.getAttribute("data-minheight");
-							  if (percentHeight != null || minHeight != null) {
-								  if ( ! classie.hasClass($colInner, 'uncode-divider-wrap') )
-									  $colInner.style.height = '';
-								  $colParent.style.height = 'auto';
-								  $uncont.style.height = '100%';
-								  $colChild.removeAttribute("style");
-								  var newHeight = (percentHeight != null) ? Math.ceil((currentTallest) * (percentHeight / 100)) : parseInt(minHeight);
-								  var computedStyleCol = getComputedStyle($colParent);
-								  getMargin = parseFloat(computedStyleCol.marginTop);
-								  newHeight -= (getMargin);
-								  $colPercDiff -= (percentHeight != null) ? percentHeight : 0;
-								 if (currentTallest >= newHeight) {
-									  var getColHeight = outerHeight($colChild);
-									  if (getColHeight > newHeight) {
-										  $colHeight += getColHeight;
-										  $colDiff += getColHeight;
-										  $colChild.oversized = true;
-										  $col.oversized = true;
-										  $row.oversized = true;
-									  } else {
-										  $colHeight += newHeight;
-										  if ( ! classie.hasClass($colInner, 'uncode-divider-wrap') ) {
-											  $colInner.style.height = newHeight + 'px';
-										  }
-									  }
-								  }
-							  } else {
-								  $colHeight += outerHeight($colChild);
-							  }
-						  });
-						  if (getFirstCol != null) {
-							  getFirstCol.style.height = (parseFloat(getFirstCol.style.height) - getMargin) + 'px';
-						  }
-						  colsArray.push({
-							  colHeight: $colHeight,
-							  colDiv: $col
-						  });
-						  $col.colDiff = $colDiff;
-						  $col.colPercDiff = $colPercDiff;
-  
-					  });
-  
-					  if ($row.oversized) {
-						  child.style.height = '';
-						  colsArray.sort(function(a, b) {
-							  if (a.colHeight < b.colHeight) return 1;
-							  if (a.colHeight > b.colHeight) return -1;
-							  return 0;
-						  });
-						  var $totalHeight = 0;
-						  colsArray.forEach(function(col) {
-							  var $col = col.colDiv,
-								  $colHeight = col.colHeight;
-							  getDivChildren($col, '.row-child', function(obj, i, total) {
-								  var $colChild = obj,
-									  $colInner = $colChild.children[0],
-									  percentHeight = parseFloat($colChild.getAttribute("data-height")),
-									  $colParent = $colChild.parentNode,
-									  $uncont = $colParent.parentNode,
-									  newHeight;
-  
-								  $colHeight = $col.forceHeight - $col.colDiff;
-								  if (percentHeight != null) {
-									  if ($colHeight > 0) {
-										  if ($col.oversized) {
-											  if (!$colChild.oversized) {
-												  newHeight = Math.ceil(($colHeight) * (percentHeight / $col.colPercDiff));
-												  if (i == total - 1 && total > 1) {
-													  $uncont.style.height = 'auto';
-													  $colChild.style.display = 'none';
-													  newHeight = outerHeight($col.parentNode) - outerHeight($uncont);
-													  $uncont.style.height = '100%';
-													  $colChild.style.display = 'table';
-												  }
-												  if (newHeight == 0) newHeight = Math.ceil(($col.forceHeight) * (percentHeight / 100));
-												  $colInner.style.height = newHeight + 'px';
-											  }
-										  } else {
-											  if ($totalHeight == 0) newHeight = Math.ceil(($colHeight) * (percentHeight / $col.colPercDiff));
-											  else {
-												  newHeight = Math.ceil(($totalHeight) * (percentHeight / $col.colPercDiff));
-											  }
-											  if (i == total - 1 && total > 1) {
-												  $uncont.style.height = 'auto';
-												  $colChild.style.display = 'none';
-												  newHeight = outerHeight($col.parentNode) - outerHeight($uncont);
-												  $uncont.style.height = '100%';
-												  $colChild.style.display = 'table';
-											  }
-											  $colInner.style.height = newHeight + 'px';
+				  if (wwidth > mediaQuery) { 
+					 if ( ! classie.hasClass(el, 'unequal-flex') && ! classie.hasClass(el, 'wpb-content-wrapper') ) {
+						 getDivChildren(el, '.column_parent', function(col, i, total) {
+							 var $col = col,
+								 $colHeight = 0,
+								 $colDiff = 0,
+								 $colPercDiff = 100;
+							 $col.oversized = false;
+							 $col.forceHeight = currentTallest;
+							 currentTallest = child.clientHeight;
+							 if ((isHeader || isFirst) && currentTallest != 'auto') currentTallest -= transmenuHeight;
+							 var getFirstCol = null,
+							 getMargin = 0,
+							 getSubMargin = 0;
+							 getDivChildren(col, '.row-child', function(obj, i, total) {
+								 var $colChild = obj,
+									 $colParent = $colChild.parentNode,
+									 computedStyleCol = getComputedStyle($colParent);
+								 parseFloat(computedStyleCol.marginTop);
+								 getSubMargin += parseFloat(computedStyleCol.marginTop);
+							 });
+							 currentTallest += getSubMargin;
+							 getDivChildren(col, '.row-child', function(obj, i, total) {
+								 var $colChild = obj,
+									 $colInner,
+									 $colParent = $colChild.parentNode,
+									 $uncont = $colParent.parentNode;
+								 for (var it = 0; it < $colChild.childNodes.length; it++) {
+									 if ( ! classie.hasClass($colChild.childNodes[it], 'uncode-divider-wrap') ) {
+										 $colInner = $colChild.childNodes[it];
+										 break;
+									 }
+								 }
+								 if (i == 0 && total > 1) getFirstCol = $colInner;
+								 $colChild.oversized = false;
+								 percentHeight = $colChild.getAttribute("data-height");
+								 minHeight = $colChild.getAttribute("data-minheight");
+								 if (percentHeight != null || minHeight != null) {
+									 if ( ! classie.hasClass($colInner, 'uncode-divider-wrap') )
+										 $colInner.style.height = '';
+									 $colParent.style.height = 'auto';
+									 $uncont.style.height = '100%';
+									 $colChild.removeAttribute("style");
+									 var newHeight = (percentHeight != null) ? Math.ceil((currentTallest) * (percentHeight / 100)) : parseInt(minHeight);
+									 var computedStyleCol = getComputedStyle($colParent);
+									 getMargin = parseFloat(computedStyleCol.marginTop);
+									 newHeight -= (getMargin);
+									 $colPercDiff -= (percentHeight != null) ? percentHeight : 0;
+									 if (currentTallest >= newHeight) {
+										 var getColHeight = outerHeight($colChild);
+										 if (getColHeight > newHeight) {
+											 $colHeight += getColHeight;
+											 $colDiff += getColHeight;
+											 $colChild.oversized = true;
+											 $col.oversized = true;
+											 $row.oversized = true;
+										 } else {
+											 $colHeight += newHeight;
+											 if ( ! classie.hasClass($colInner, 'uncode-divider-wrap') ) {
+												 $colInner.style.height = newHeight + 'px';
 											 }
-									  } else {
-										  if ($colChild.oversized) {
-											  if ($totalHeight == 0) newHeight = Math.ceil(($colHeight) * (percentHeight / $col.colPercDiff));
-											  else {
-												  if ($col.colPercDiff == 0) $col.colPercDiff = 100;
-												  newHeight = Math.ceil(($totalHeight) * (percentHeight / $col.colPercDiff));
-											  }
-											  if (i == total - 1 && total > 1) {
-												  $uncont.style.height = 'auto';
-												  $colChild.style.display = 'none';
-												  newHeight = outerHeight($col.parentNode) - outerHeight($uncont);
-												  $uncont.style.height = '100%';
-												  $colChild.style.display = 'table';
-											  }
-											  //and here
-											  $colInner.style.height = newHeight + 'px';
-											 }
-									  }
-								  }
-							  });
-							  var uncell = $col.getElementsByClassName('uncell');
-							  if (uncell[0] != undefined && $totalHeight == 0) $totalHeight = outerHeight(uncell[0]);
-						  });
-					  }
-					  if (isFF) {
-						  getDivChildren(el, '.uncoltable', function(col, i, total) {
-							  if (col.style.minHeight != '') {
-								  col.style.height = '';
-							  }
-						  });
-					  }
-					  if (resized) {
-						  getDivChildren(el, '.row-child > .row-inner', function(obj, k, total) {
-							  if (obj.style.height == '') {
-								  if (wwidth > mediaQueryMobile) {
-									  var getStyle = (window.getComputedStyle((obj.parentNode), null)),
-									  getInnerHeight = (parseInt(obj.parentNode.clientHeight) - parseInt(getStyle.paddingTop) - parseInt(getStyle.paddingBottom));
-									  obj.style.height = getInnerHeight + 'px';
-									  //obj.style.marginBottom = '-1px';
-								  }
-							  }
-						  });
-						  getDivChildren(el, '.row-parent > .row-inner', function(obj, k, total) {
-							  if (obj.style.height != '') {
-								  var getStyle = (window.getComputedStyle((obj.parentNode), null)),
-								  getInnerHeight = (parseInt(obj.parentNode.clientHeight) - parseInt(getStyle.paddingTop) - parseInt(getStyle.paddingBottom)),
-								  getTempHeight = parseInt(obj.style.height);
-								  if (getInnerHeight > getTempHeight && ( obj.parentNode.parentNode == null || ! classie.hasClass(obj.parentNode.parentNode, 'pin-trigger') ) ) {
-									  obj.style.height = getInnerHeight + 'px';
-									  //obj.style.marginBottom = '-1px';
-								  }
-							  }
-						  });
-					  }
+										 }
+									 }
+								 } else {
+									 $colHeight += outerHeight($colChild);
+								 }
+							 });
+							 if (getFirstCol != null) {
+								 getFirstCol.style.height = (parseFloat(getFirstCol.style.height) - getMargin) + 'px';
+							 }
+							 colsArray.push({
+								 colHeight: $colHeight,
+								 colDiv: $col
+							 });
+							 $col.colDiff = $colDiff;
+							 $col.colPercDiff = $colPercDiff;
+	 
+						 });
+	 
+						 if ($row.oversized) {
+							 child.style.height = '';
+							 colsArray.sort(function(a, b) {
+								 if (a.colHeight < b.colHeight) return 1;
+								 if (a.colHeight > b.colHeight) return -1;
+								 return 0;
+							 });
+							 var $totalHeight = 0;
+							 colsArray.forEach(function(col) {
+								 var $col = col.colDiv,
+									 $colHeight = col.colHeight;
+								 getDivChildren($col, '.row-child', function(obj, i, total) {
+									 var $colChild = obj,
+										 $colInner = $colChild.children[0],
+										 percentHeight = parseFloat($colChild.getAttribute("data-height")),
+										 $colParent = $colChild.parentNode,
+										 $uncont = $colParent.parentNode,
+										 newHeight;
+	 
+									 $colHeight = $col.forceHeight - $col.colDiff;
+									 if (percentHeight != null) {
+										 if ($colHeight > 0) {
+											 if ($col.oversized) {
+												 if (!$colChild.oversized) {
+													 newHeight = Math.ceil(($colHeight) * (percentHeight / $col.colPercDiff));
+													 if (i == total - 1 && total > 1) {
+														 $uncont.style.height = 'auto';
+														 $colChild.style.display = 'none';
+														 newHeight = outerHeight($col.parentNode) - outerHeight($uncont);
+														 $uncont.style.height = '100%';
+														 $colChild.style.display = 'table';
+													 }
+													 if (newHeight == 0) newHeight = Math.ceil(($col.forceHeight) * (percentHeight / 100));
+													 $colInner.style.height = newHeight + 'px';
+												 }
+											 } else {
+												 if ($totalHeight == 0) newHeight = Math.ceil(($colHeight) * (percentHeight / $col.colPercDiff));
+												 else {
+													 newHeight = Math.ceil(($totalHeight) * (percentHeight / $col.colPercDiff));
+												 }
+												 if (i == total - 1 && total > 1) {
+													 $uncont.style.height = 'auto';
+													 $colChild.style.display = 'none';
+													 newHeight = outerHeight($col.parentNode) - outerHeight($uncont);
+													 $uncont.style.height = '100%';
+													 $colChild.style.display = 'table';
+												 }
+												 $colInner.style.height = newHeight + 'px';
+												 }
+										 } else {
+											 if ($colChild.oversized) {
+												 if ($totalHeight == 0) newHeight = Math.ceil(($colHeight) * (percentHeight / $col.colPercDiff));
+												 else {
+													 if ($col.colPercDiff == 0) $col.colPercDiff = 100;
+													 newHeight = Math.ceil(($totalHeight) * (percentHeight / $col.colPercDiff));
+												 }
+												 if (i == total - 1 && total > 1) {
+													 $uncont.style.height = 'auto';
+													 $colChild.style.display = 'none';
+													 newHeight = outerHeight($col.parentNode) - outerHeight($uncont);
+													 $uncont.style.height = '100%';
+													 $colChild.style.display = 'table';
+												 }
+												 //and here
+												 $colInner.style.height = newHeight + 'px';
+												 }
+										 }
+									 }
+								 });
+								 var uncell = $col.getElementsByClassName('uncell');
+								 if (uncell[0] != undefined && $totalHeight == 0) $totalHeight = outerHeight(uncell[0]);
+							 });
+						 }
+						 if (isFF) {
+							 getDivChildren(el, '.uncoltable', function(col, i, total) {
+								 if (col.style.minHeight != '') {
+									 col.style.height = '';
+								 }
+							 });
+						 }
+						 if (resized) {
+							 getDivChildren(el, '.row-child > .row-inner', function(obj, k, total) {
+								 if (obj.style.height == '') {
+									 if (wwidth > mediaQueryMobile) {
+										 var getStyle = (window.getComputedStyle((obj.parentNode), null)),
+										 getInnerHeight = (parseInt(obj.parentNode.clientHeight) - parseInt(getStyle.paddingTop) - parseInt(getStyle.paddingBottom));
+										 obj.style.height = getInnerHeight + 'px';
+										 //obj.style.marginBottom = '-1px';
+									 }
+								 }
+							 });
+							 getDivChildren(el, '.row-parent > .row-inner', function(obj, k, total) {
+								 if (obj.style.height != '') {
+									 var getStyle = (window.getComputedStyle((obj.parentNode), null)),
+									 getInnerHeight = (parseInt(obj.parentNode.clientHeight) - parseInt(getStyle.paddingTop) - parseInt(getStyle.paddingBottom)),
+									 getTempHeight = parseInt(obj.style.height);
+									 if (getInnerHeight > getTempHeight && ( obj.parentNode.parentNode == null || ! classie.hasClass(obj.parentNode.parentNode, 'pin-trigger') ) ) {
+										 obj.style.height = getInnerHeight + 'px';
+										 //obj.style.marginBottom = '-1px';
+									 }
+								 }
+							 });
+						 }
+					 }
 				  } else {
 					  if (isFF) {
 						  getDivChildren(el, '.uncoltable', function(col, i, total) {
@@ -2235,6 +2245,44 @@
 							  sliderColumnFix.style.setProperty("height", outerHeight(sliderColumnFix.parentNode) + "px", "important");
 						  }
 					  }
+				  }
+ 
+				  //Flex Justify Equal Height
+				  if ( classie.hasClass( $row, 'unequal-flex') ) {
+					 var $cols = $row.querySelectorAll('.wpb_column.column_parent'),
+						 $colMds = $row.querySelectorAll('.wpb_column.column_parent[class*=col-md]:not(.col-md-100)'),
+						 maxMd = 0,
+						 $colSms = $row.querySelectorAll('.wpb_column.column_parent[class*=col-sm]:not(.col-sm-100)'),
+						 maxSm = 0;
+					 if ( $colSms.length || $colMds.length ) {	
+						 if ( UNCODE.wwidth <= UNCODE.mediaQueryMobile && $colSms.length ) {
+							 for (var sMi = 0; sMi < $colSms.length; sMi++) {
+								 $colSms[sMi].style.height = '';
+								 var colH = outerHeight($colSms[sMi]);
+								 if ( maxSm < colH ) {
+									 maxSm = colH;
+								 }								
+							 }
+							 for (var sMi = 0; sMi < $colSms.length; sMi++) {
+								 $colSms[sMi].style.height = maxMd;
+							 }
+						 } else if ( UNCODE.wwidth <= UNCODE.mediaQuery && UNCODE.wwidth > UNCODE.mediaQueryMobile  && $colMds.length ) {
+							 for (var mDi = 0; mDi < $colMds.length; mDi++) {
+								 $colMds[mDi].style.height = '';
+								 var colH = outerHeight($colMds[mDi]);
+								 if ( maxMd < colH ) {
+									 maxMd = colH;
+								 }								
+							 }
+							 for (var mDi = 0; mDi < $colMds.length; mDi++) {
+								 $colMds[mDi].style.height = maxMd + 'px';
+							 }
+						 } else {
+							 for (var colI = 0; colI < $cols.length; colI++) {
+								 $cols[colI].style.height = '';
+							 }
+						 }
+					 }
 				  }
 				  container[i].dispatchEvent(new CustomEvent('setResized'));
 			  };
@@ -4126,3 +4174,4 @@
   b)}else m(function(){function v(){var b;if(b=-1!=f&&-1!=g||-1!=f&&-1!=h||-1!=g&&-1!=h)(b=f!=g&&f!=h&&g!=h)||(null===C&&(b=/AppleWebKit\/([0-9]+)(?:\.([0-9]+))/.exec(window.navigator.userAgent),C=!!b&&(536>parseInt(b[1],10)||536===parseInt(b[1],10)&&11>=parseInt(b[2],10))),b=C&&(f==w&&g==w&&h==w||f==x&&g==x&&h==x||f==y&&g==y&&h==y)),b=!b;b&&(d.parentNode&&d.parentNode.removeChild(d),clearTimeout(r),a(c))}function I(){if((new Date).getTime()-H>=n)d.parentNode&&d.parentNode.removeChild(d),b(Error(""+
   n+"ms timeout exceeded"));else{var a=document.hidden;if(!0===a||void 0===a)f=e.a.offsetWidth,g=p.a.offsetWidth,h=q.a.offsetWidth,v();r=setTimeout(I,50)}}var e=new t(k),p=new t(k),q=new t(k),f=-1,g=-1,h=-1,w=-1,x=-1,y=-1,d=document.createElement("div");d.dir="ltr";u(e,L(c,"sans-serif"));u(p,L(c,"serif"));u(q,L(c,"monospace"));d.appendChild(e.a);d.appendChild(p.a);d.appendChild(q.a);document.body.appendChild(d);w=e.a.offsetWidth;x=p.a.offsetWidth;y=q.a.offsetWidth;I();A(e,function(a){f=a;v()});u(e,
   L(c,'"'+c.family+'",sans-serif'));A(p,function(a){g=a;v()});u(p,L(c,'"'+c.family+'",serif'));A(q,function(a){h=a;v()});u(q,L(c,'"'+c.family+'",monospace'))})})};"object"===typeof module?module.exports=B:(window.FontFaceObserver=B,window.FontFaceObserver.prototype.load=B.prototype.load);}());
+ 

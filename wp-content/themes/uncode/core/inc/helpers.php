@@ -1684,7 +1684,7 @@ function uncode_custom_dynamic_heading_in_content( $type = 'title' ){
 	global $post, $wp_query;
 
 	$title = get_the_title();
-	$get_subtitle = $post->post_excerpt ? get_the_excerpt() : '';
+	$get_subtitle = $post && isset($post->post_excerpt) ? get_the_excerpt() : '';
 
 	if ( is_archive() ) {
 		if ($post && isset($post->post_type)) {
@@ -2326,9 +2326,18 @@ function uncode_no_ctrl_videos( $item_thumb_id, $consent_id, $single_width, $sin
 
 		$_object_class = $_media_oembed['class'];
 
-		$_dummy_oembed = '';
+		$_dummy_oembed = $dummy_ratio = '';
 		if ($_media_oembed['dummy'] !== 0 && $style_preset !== 'metro' && uncode_privacy_allow_content( $consent_id ) !== false) {
-			$_dummy_oembed .= ' style="padding-top: ' . $_media_oembed['dummy'] . '%"';
+			$_media_oembed_dummy = $_media_oembed['dummy'];
+			if (isset($oembed_params['dummy_padding']) && $oembed_params['dummy_padding'] !== '') {
+				$dummy_padding = $oembed_params['dummy_padding'];
+				$_media_oembed_dummy = $dummy_padding;
+			} 
+			if (isset($oembed_params['ratio']) && $oembed_params['ratio'] !== '') {
+				$dummy_ratio = $oembed_params['ratio'];
+				$dummy_ratio = 'aspect-ratio:' . $dummy_ratio . '; ';
+			} 
+			$_dummy_oembed .= ' style="' . $dummy_ratio . 'padding-top: ' . $_media_oembed_dummy . '%"';
 		}
 
 		$back_url_id = get_post_meta($oembed_attributes->id, "_uncode_poster_image", true);
@@ -2345,9 +2354,18 @@ function uncode_no_ctrl_videos( $item_thumb_id, $consent_id, $single_width, $sin
 
 			$_object_class = $_media_oembed['class'];
 
-			$_dummy_oembed = '';
+			$_dummy_oembed = $dummy_ratio = '';
 			if ($_media_oembed['dummy'] !== 0 && $style_preset !== 'metro' && uncode_privacy_allow_content( $consent_id ) !== false) {
-				$_dummy_oembed .= ' style="padding-top: ' . $_media_oembed['dummy'] . '%"';
+				$_media_oembed_dummy = $_media_oembed['dummy'];
+				if (isset($oembed_params['dummy_padding']) && $oembed_params['dummy_padding'] !== '') {
+					$dummy_padding = $oembed_params['dummy_padding'];
+					$_media_oembed_dummy = $dummy_padding;
+				} 
+				if (isset($oembed_params['ratio']) && $oembed_params['ratio'] !== '') {
+					$dummy_ratio = $oembed_params['ratio'];
+					$dummy_ratio = 'aspect-ratio:' . $dummy_ratio . '; ';
+				} 
+				$_dummy_oembed .= ' style="' . $dummy_ratio . 'padding-top: ' . $_media_oembed_dummy . '%"';
 			}
 			$_title_classes = $title_classes;
 			if ( $is_metro ) {

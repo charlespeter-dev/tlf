@@ -37,7 +37,7 @@
 	});
 
 	var set_modal_height = function() {
-		var modal = $('.unmodal');
+		var modal = $('.unmodal').css({height: 'auto'});
 		var window_height = $(window).outerHeight();
 		var modal_height = modal.outerHeight();
 
