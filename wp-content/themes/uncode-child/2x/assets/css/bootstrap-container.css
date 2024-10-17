@@ -12603,6 +12603,12 @@ h1:not([class*=fontsize-]),
   height: 100vh;
   border: 1px solid #003375;
 }
+.bootstrap-container.resources.single-brochure.resources a {
+  color: #FFF !important;
+}
+.bootstrap-container.resources.single-brochure.resources a:hover {
+  color: #E30613 !important;
+}
 .bootstrap-container.resources.single-webinar video {
   width: 100%;
   height: auto;

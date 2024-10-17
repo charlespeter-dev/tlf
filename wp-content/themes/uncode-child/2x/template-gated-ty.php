@@ -40,6 +40,7 @@ wp_reset_postdata();
 $query = new WP_Query([
     'post_type' => ['resources'],
     'posts_per_page' => 3,
+    'post_status' => 'publish',
     'order' => 'DESC',
     'orderby' => 'date',
     'post__not_in' => $query_exclude->posts,

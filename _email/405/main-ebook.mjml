@@ -1,0 +1,96 @@
+<mjml>
+
+  <mj-head>
+    <mj-attributes>
+      <mj-all font-family="Arial, san-serif" font-size="16px" line-height="24px" color="#000" />
+      <mj-wrapper background-color="#e1e1e1" />
+      <mj-section background-color="#ffffff" />
+      <mj-button background-color="#E30613" color="#FFF" font-weight="700" />
+      <mj-class name="name" font-size="18px" font-weight="bold" />
+      <mj-class name="bg-grey" background-color="#EDEFF0" />
+      <mj-class name="bg-dark" background-color="#2C3444" />
+      <mj-class name="headline" color="#E30613" />
+      <mj-class name="h1" color="#003375" font-size="28px" line-height="36px" color="#003375" font-weight="700" />
+      <mj-class name="footer" font-size="12px" align="center" color="#ffffff" />
+    </mj-attributes>
+
+  </mj-head>
+  <mj-body>
+
+    <mj-wrapper full-width="full-width">
+
+      <mj-section>
+        <mj-column>
+          <mj-image padding="0" width="133px" src="https://thelogicfactory.com/wp-content/uploads/2024/07/tlf-logo-email-default.png" alt="" />
+        </mj-column>
+      </mj-section>
+
+      <mj-section mj-class="bg-grey" padding-bottom="0">
+        <mj-column>
+          <mj-text mj-class="headline" align="center">
+            EBOOK
+          </mj-text>
+          <mj-text mj-class="h1" align="center">
+            Unearthing Enhanced Efficiency with Integrated Mining Operations Planning for Increased Profitability
+          </mj-text>
+          <mj-button href="https://thelogicfactory.com/wp-content/uploads/2024/10/Unearthing-Enhanced-Efficiency-with-Integrated-Mining-Operations-Planning-for-Increased-Profitability.pdf" target="_blank">
+            DOWNLOAD HERE
+          </mj-button>
+          <mj-image padding="0" src="https://thelogicfactory.com/wp-content/uploads/2024/10/TLF-405-email-banner.png" alt="" />
+        </mj-column>
+      </mj-section>
+
+      <mj-section>
+        <mj-column>
+          <mj-text>
+            Hi [first_name][last_name],
+          </mj-text>
+          <mj-text>
+            Thank you for your interest in our ebook Unearthing Enhanced Efficiency with Integrated Mining Operations Planning for Increased Profitability. You can find the link to access the ebook <a href="https://thelogicfactory.com/wp-content/uploads/2024/10/Unearthing-Enhanced-Efficiency-with-Integrated-Mining-Operations-Planning-for-Increased-Profitability.pdf" style="color:#009BDC; text-decoration: none;" target="_blank">here</a>.
+          </mj-text>
+
+          <mj-text>
+            We hope this ebook provides you with valuable insights into how planning and optimization can help enhance efficiency and profitability in mining and minerals processing.
+          </mj-text>
+
+          <mj-text>
+            Looking for more information on how to extract maximum value from your supply chain? Visit our <a href="https://thelogicfactory.com/" style="color:#009BDC; text-decoration: none;" target="_blank">website</a>.
+          </mj-text>
+
+          <mj-text>
+            If you have any questions, feel free to reach out to us <a href="https://thelogicfactory.com/contact/" style="color:#009BDC; text-decoration: none;" target="_blank">here</a>.
+          </mj-text>
+
+          <mj-text padding-bottom="0">
+            Best regards,
+          </mj-text>
+
+          <mj-text padding-top="0">
+            The Logic Factory
+          </mj-text>
+        </mj-column>
+      </mj-section>
+
+      <mj-section mj-class="bg-dark">
+        <mj-column>
+          <mj-image padding="0" width="143px" src="https://thelogicfactory.com/wp-content/uploads/2024/07/tlf-logo-email-dark-bg.png" alt="" />
+
+          <mj-text mj-class="footer" padding-bottom="0">
+            Europe (HQ) Reitscheweg 1, 5232 BX, Den Bosch Netherlands
+          </mj-text>
+
+          <mj-text mj-class="footer" padding-top="0" padding-bottom="0">
+            © 2024 The Logic Factory. All rights reserved.
+          </mj-text>
+
+          <mj-text mj-class="footer" padding-top="0">
+            <a href="https://thelogicfactory.com/unsubscribe/" style="color:#009BDC; text-decoration: none;" target="_blank">unsubscribe</a>
+          </mj-text>
+
+        </mj-column>
+      </mj-section>
+
+    </mj-wrapper>
+
+  </mj-body>
+</mjml>

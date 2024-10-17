@@ -162,6 +162,18 @@ h1:not([class*="fontsize-"]),
                 border: 1px solid #003375;
             }
 
+            &.resources {
+
+                a {
+                    color: #FFF !important;
+
+                    &:hover {
+                        color: #E30613 !important;
+                    }
+
+                }
+            }
+
 
         }
 
