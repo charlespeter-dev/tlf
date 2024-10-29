@@ -12705,5 +12705,46 @@ h1:not([class*=fontsize-]),
     line-height: 1.5625rem;
   }
 }
+.bootstrap-container.resources.single-whitepaper a.btn.btn-primary {
+  color: #fff;
+}
+.bootstrap-container.resources.single-whitepaper .hero-carousels {
+  position: relative;
+  padding-block: 3rem;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.resources.single-whitepaper .hero-carousels {
+    padding-block: unset;
+  }
+}
+.bootstrap-container.resources.single-whitepaper .hero-carousels::before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 100vw;
+  height: 100%;
+  top: 0;
+  left: calc((100vw - 100%) / -2);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 55% 0;
+  background-image: var(--bg-url);
+}
+.bootstrap-container.resources.single-whitepaper .hero-carousels .full-width {
+  display: none;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.resources.single-whitepaper .hero-carousels .full-width {
+    display: block;
+  }
+}
+.bootstrap-container.resources.single-whitepaper .hero-carousels ._2x-hero-content {
+  position: relative;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.resources.single-whitepaper .hero-carousels ._2x-hero-content {
+    position: absolute;
+  }
+}
 
 /*# sourceMappingURL=bootstrap-container.css.map */

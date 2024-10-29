@@ -265,5 +265,54 @@ h1:not([class*="fontsize-"]),
                 }
             }
         }
+
+        &.single-whitepaper {
+
+            a.btn.btn-primary {
+                color: #fff;
+            }
+
+            .hero-carousels {
+
+                position: relative;
+                padding-block: 3rem;
+
+                @include media-breakpoint-up(lg) {
+                    padding-block: unset;
+                }
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    display: block;
+                    width: 100vw;
+                    height: 100%;
+                    top: 0;
+                    left: calc((100vw - 100%) / -2);
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    background-position: 55% 0;
+                    background-image: var(--bg-url);
+                }
+
+                .full-width {
+                    display: none;
+
+                    @include media-breakpoint-up(lg) {
+                        display: block;
+                    }
+                }
+
+                ._2x-hero-content {
+                    position: relative;
+
+                    @include media-breakpoint-up(lg) {
+                        position: absolute;
+                    }
+                }
+            }
+
+
+        }
     }
 }
