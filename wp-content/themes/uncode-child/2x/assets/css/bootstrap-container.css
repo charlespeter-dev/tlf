@@ -12466,7 +12466,7 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
 
 h1:not([class*=fontsize-]),
 .h1:not([class*=fontsize-]) {
-  font-size: 40px !important;
+  font-size: 35px !important;
   /* overrides uncode custom style */
 }
 
@@ -12704,6 +12704,17 @@ h1:not([class*=fontsize-]),
   .bootstrap-container.resources.single-article .resources-quote .font-source {
     line-height: 1.5625rem;
   }
+}
+.bootstrap-container.resources.single-article h1, .bootstrap-container.resources.single-article .h1 {
+  color: #003375;
+}
+.bootstrap-container.resources.single-article h1.h-35-45, .bootstrap-container.resources.single-article .h-35-45.h1 {
+  font-size: 35px;
+  line-height: 45px;
+}
+.bootstrap-container.resources.single-article h2.h-25-35, .bootstrap-container.resources.single-article .h-25-35.h2 {
+  font-size: 25px;
+  line-height: 35px;
 }
 .bootstrap-container.resources.single-whitepaper a.btn.btn-primary {
   color: #fff;
