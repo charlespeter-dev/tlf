@@ -72,7 +72,7 @@ if (isset($latest_news_and_articles['fetch_automatically'][0]) && $latest_news_a
             [
                 'taxonomy' => 'resource_category',
                 'field' => 'slug',
-                'terms' => 'article',
+                'terms' => ['article', 'factsheet', 'whitepaper'],
             ]
         ]
     ]);
@@ -82,9 +82,24 @@ if (isset($latest_news_and_articles['fetch_automatically'][0]) && $latest_news_a
         $news_items = [];
 
         foreach ($query->posts as $i => $id) {
+
+            // -------------
+            // categories
+            // -------------
+
+            $categories = get_the_terms($id, 'resource_category');
+            $category_names = [];
+
+            if ($categories) {
+                foreach ($categories as $category) {
+                    $category_names[] = $category->name;
+                }
+            }
+
             $news_items[$i]['the_post'] = new stdClass;
             $news_items[$i]['the_post']->ID = $id;
             $news_items[$i]['the_post']->post_title = get_the_title($id);
+            $news_items[$i]['the_post']->categories = $category_names;
         }
     }
 }
@@ -397,6 +412,13 @@ get_header() ?>
                                                 <p class="date">
                                                     <?= get_the_date('F j, Y', $item['the_post']->ID) ?>
                                                 </p>
+
+                                                <?php if ($item['the_post']->categories): ?>
+                                                    <small class="categories p-0 m-0">
+                                                        <?= implode(' / ', $item['the_post']->categories) ?>
+                                                    </small>
+                                                <?php endif ?>
+
                                                 <p class="post-title">
                                                     <?= $item['the_post']->post_title ?>
                                                 </p>
