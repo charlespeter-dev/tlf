@@ -513,6 +513,10 @@ function uncode_equeue() {
 		'smoothScroll'				 => apply_filters( 'uncode_smooth_scroll', $smooth_scroll ),
 		'smoothScrollDisableHover'	 => apply_filters( 'uncode_smooth_scroll_disable_hover', false ),
 		'smoothScrollQuery'			 => apply_filters( 'uncode_smooth_scroll_query', 960 ),
+		'uncode_force_onepage_dots'  => apply_filters( 'uncode_force_onepage_dots', false ),
+		'uncode_smooth_scroll_safe'  => apply_filters( 'uncode_smooth_scroll_safe', ot_get_option( '_uncode_smooth_scroll_safe' ) === 'on' ),
+		'uncode_lb_add_galleries'    => apply_filters( 'uncode_lb_add_galleries', ', .gallery' ),
+		'uncode_lb_add_items' 	     => apply_filters( 'uncode_lb_add_items', ', .gallery .gallery-item a' ),
 	);
 
 	/** JS */

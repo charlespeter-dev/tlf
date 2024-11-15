@@ -1,5 +1,5 @@
 <?php
-$subheading = $subtext_one = $subtext_two = $heading_semantic = $text_size = $text_height = $text_space = $text_font = $text_weight = $text_transform = $text_italic = $text_color = $back_color = $separator = $separator_color = $separator_double = $sub_text = $sub_lead = $sub_reduced = $desktop_visibility = $medium_visibility = $mobile_visibility = $css_animation = $marquee_clone = $animation_delay = $animation_speed = $css_alt_animation = $marquee_clone_alt = $css_alt_animation_speed = $css_alt_animation_delay = $interval_animation = $output = $el_id = $el_class = $skew = $sticky_trigger = $sticky_trigger_option = $sub_class = $is_header = $auto_text = $medias = $media_ratio = $shape = $img_radius = $inline_media_anim = $inline_media_anim_speed = $inline_media_anim_delay = $marquee_speed = $marquee_speed_alt = $marquee_hover = $marquee_hover_alt = $media_height = $media_space = $inline_media = $marquee_space = $marquee_space_alt = $marquee_trigger = $marquee_trigger_alt = $marquee_navbar_alt = $marquee_navbar = $marquee_navbar_mobile = $marquee_navbar_mobile_alt = $heading_custom_size = $text_stroke = $foreword = $text_indent = $color_blend = '';
+$subheading = $subtext_one = $subtext_two = $heading_semantic = $text_size = $text_height = $text_space = $text_font = $text_weight = $text_transform = $text_italic = $text_color = $back_color = $separator = $separator_color = $separator_double = $sub_text = $sub_lead = $sub_reduced = $desktop_visibility = $medium_visibility = $mobile_visibility = $css_animation = $marquee_clone = $animation_delay = $animation_speed = $css_alt_animation = $marquee_clone_alt = $css_alt_animation_speed = $css_alt_animation_delay = $interval_animation = $output = $el_id = $el_class = $skew = $sticky_trigger = $sticky_trigger_option = $sub_class = $is_header = $auto_text = $medias = $media_ratio = $shape = $img_radius = $inline_media_anim = $inline_media_anim_speed = $inline_media_anim_delay = $marquee_speed = $marquee_speed_alt = $marquee_hover = $marquee_hover_alt = $media_height = $media_space = $inline_media = $marquee_space = $marquee_space_alt = $marquee_trigger = $marquee_trigger_alt = $marquee_navbar_alt = $marquee_navbar = $marquee_navbar_mobile = $marquee_navbar_mobile_alt = $heading_custom_size = $text_stroke = $foreword = $text_indent = $color_blend = $marquee_blur = $marquee_blur_alt = '';
 extract( shortcode_atts( array(
 	'uncode_shortcode_id' => '',
 	'subheading' => '',
@@ -78,6 +78,8 @@ extract( shortcode_atts( array(
 	'foreword' => '',
 	'text_indent' => '',
 	'color_blend' => '',
+	'marquee_blur' => '',
+	'marquee_blur_alt' => ''
 ), $atts ) );
 
 if ( $el_id !== '' ) {
@@ -224,6 +226,7 @@ if ( $inline_media !== '' ) {
 	$marquee_trigger = $marquee_trigger_alt;
 	$marquee_navbar = $marquee_navbar_alt;
 	$marquee_navbar_mobile = $marquee_navbar_mobile_alt;
+	$marquee_blur = $marquee_blur_alt;
 	
 	if ( strpos( $content, 'uncode_inline_image') !== false ) {
 		$content = preg_replace("/\[uncode_hl_text(.*?)\]/", '', $content);
@@ -295,6 +298,10 @@ if ( strpos( $css_animation, 'marquee') !== false) {
 		$div_data['data-marquee-trigger'] = $marquee_trigger;
 		$div_data['data-marquee-navbar'] = $marquee_navbar;
 		$div_data['data-marquee-navbar-mobile'] = $marquee_navbar_mobile;
+	}
+
+	if ( $marquee_blur === 'yes' ) {
+		$cont_classes[] = 'un-marquee-blur';
 	}
 }
 

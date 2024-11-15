@@ -1259,6 +1259,8 @@ if ($index_type == 'isotope') {
 			'by' => $size_by,
 			'w' => $linear_width,
 			'h' => $linear_height,
+			'layout' => $single_text,
+			'size' => $single_image_size,
 		);
 		$inline_style_css .= uncode_get_dynamic_linear_grids_css_from_shortcode( $shortcode_data );
 	}
@@ -1996,13 +1998,14 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 
 					$block_data = array();
 					$block_data['template'] = 'uncode_index';
-					if ( $index_type === 'linear' ) {
-						$block_data['type'] = 'linear';
-					}
 					$tmb_data_parent = array();
 					$tmb_data = array();
 					$item_thumb_id = '';
 					$block_classes = array('tmb');
+					if ( $index_type === 'linear' ) {
+						$block_data['type'] = 'linear';
+						$block_classes[] = 'tmb-linear';
+					}
 
 					$block_data['button_class'] = $button_class;
 

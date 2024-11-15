@@ -65,52 +65,79 @@ UNCODE.textMarquee = function( $titles ) {
 			$span.prepend($prepended);
 			$span.append($appended);
 
-			var continuousTextMarquee = function(){
-				var bound = $title.css({
-						'transform': 'none',
-						'opacity': 0
-					}).offset(),
-					ease = 'none';
+			var continuousTextMarquee = function () {
+				var bound = $title
+						.css({
+							transform: "none",
+							opacity: 0,
+						})
+						.offset(),
+					ease = "none";
 
-				var xStrt = first || $title.hasClass('un-marquee-infinite') ? 0 : UNCODE.wwidth - bound.left,
-					xEnd = $title.hasClass('un-marquee-infinite') ? spanW : ( spanW + bound.left ),
-					xSpeed = (xEnd + xStrt) / (dataSpeed*dataSpeed*dataSpeed) / 5*dataSpeed,
-					direction = $title.hasClass('un-marquee-opposite') ? 1 : -1,
-					speedSlow = (xEnd + xStrt) / 45;
+				var xStrt =
+						first || $title.hasClass("un-marquee-infinite")
+							? 0
+							: UNCODE.wwidth - bound.left,
+					xEnd = $title.hasClass("un-marquee-infinite")
+						? spanW
+						: spanW + bound.left,
+					xSpeed =
+						((xEnd + xStrt) / (dataSpeed * dataSpeed * dataSpeed) / 5) *
+						dataSpeed,
+					direction = $title.hasClass("un-marquee-opposite") ? 1 : -1,
+					speedSlow = (xEnd + xStrt) / 45,
+					transFormVal,
+					translX;
 
-				marqueeTL = new TimelineMax({paused:true, reversed:true});
+				marqueeTL = new TimelineMax({ paused: true, reversed: true });
 
-				var inViewElement = (dataTrigger === 'row') ? $title.closest('.vc_row')[0] : $title[0],
-					wayOff = dataTrigger === 'row' && dataNavBar === 'yes' ? UNCODE.menuHeight : 0;
+				var inViewElement =
+						dataTrigger === "row" ? $title.closest(".vc_row")[0] : $title[0],
+					wayOff =
+						dataTrigger === "row" && dataNavBar === "yes"
+							? UNCODE.menuHeight
+							: 0;
 
 				inview = new Waypoint.Inview({
 					element: inViewElement,
 					offset: wayOff,
-					enter: function(direction) {
+					enter: function (direction) {
 						marqueeTL.play();
 					},
-					exited: function(direction) {
-						if ( ! $title.closest('.pin-spacer').length ) {
+					exited: function (direction) {
+						if (!$title.closest(".pin-spacer").length) {
 							marqueeTL.pause();
 						}
 					},
 				});
 
-				if ( $title.hasClass('un-marquee-hover') ) {
-					var $column = $title.closest('.wpb_column'),
-						$col_link = $('.col-link', $column),
+				if ($title.hasClass("un-marquee-hover")) {
+					var $column = $title.closest(".wpb_column"),
+						$col_link = $(".col-link", $column),
 						$hover_sel = $title;
 
-					if ( $col_link.length ) {
+					if ($col_link.length) {
 						$hover_sel = $title.add($column);
 					}
-					$hover_sel.on('mouseover', function(){
-						ease = 'power2.out';
-						marqueeTL.duration( speedSlow );
-					}).on('mouseout', function(){
-						ease = 'power2.in';
-						marqueeTL.duration( speedSlow );
-					});
+					$hover_sel
+						.on("mouseover", function () {
+							ease = "power2.out";
+							transFormVal = $title.css("transform").split(/[()]/)[1];
+							translX = transFormVal.split(",")[4];
+							speedSlow = (xEnd + (xStrt - translX)) / 45;
+							marqueeTL.duration(speedSlow);
+						})
+						.on("mouseout", function () {
+							ease = "power2.in";
+							transFormVal = $title.css("transform").split(/[()]/)[1];
+							translX = transFormVal.split(",")[4];
+							speedSlow =
+								((xEnd + (xStrt - translX)) /
+									(dataSpeed * dataSpeed * dataSpeed) /
+									5) *
+								dataSpeed;
+							marqueeTL.duration(speedSlow);
+						});
 				}
 		
 				gsap.killTweensOf($title);

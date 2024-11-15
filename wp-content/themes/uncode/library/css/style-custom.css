@@ -1757,7 +1757,7 @@ button[type="submit"] {
 }
 .style-light .ui-form-placeholder,
 .style-dark .style-light .ui-form-placeholder {
-  color: #323232;
+  color: #000000;
   text-transform: capitalize;
 }
 /* #Form-inset-shadow */
@@ -1994,27 +1994,27 @@ button[type="submit"],
 }
 .style-light ::-webkit-input-placeholder,
 .style-dark .style-light ::-webkit-input-placeholder {
-  color: #323232;
+  color: #000000;
 }
 .style-light ::-moz-placeholder,
 .style-dark .style-light ::-moz-placeholder {
-  color: #323232;
+  color: #000000;
 }
 .style-light :-ms-input-placeholder,
 .style-dark .style-light :-ms-input-placeholder {
-  color: #323232;
+  color: #000000;
 }
 .style-light :-moz-placeholder,
 .style-dark .style-light :-moz-placeholder {
-  color: #323232;
+  color: #000000;
 }
 .style-light ::placeholder,
 .style-dark .style-light ::placeholder {
-  color: #323232;
+  color: #000000;
 }
 .style-light .select2-selection__placeholder,
 .style-dark .style-light .select2-selection__placeholder {
-  color: #323232;
+  color: #000000;
 }
 .style-dark ::-webkit-input-placeholder,
 .style-light .style-dark ::-webkit-input-placeholder {

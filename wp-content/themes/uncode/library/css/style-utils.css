@@ -191,6 +191,14 @@ select,
 .style-dark .style-light .select2-selection--single {
   background-color: #fff;
 }
+.form-large input,
+.form-large textarea,
+.form-large select,
+.form-large .seldiv,
+.form-large .select2-choice,
+.form-large .select2-selection--single {
+  padding: 27px 27px 27px 27px;
+}
 html.ie11 input,
 html.ie11 textarea,
 html.ie11 select {
@@ -349,13 +357,14 @@ input[type=radio] {
   height: 16px;
   box-sizing: border-box;
   vertical-align: middle;
+  padding: 0 !important;
 }
 .webkit input[type=checkbox],
 .webkit input[type=radio],
 .android input[type=checkbox],
 .android input[type=radio] {
-  padding-left: 6px;
-  padding-right: 6px;
+  padding-left: 6px !important;
+  padding-right: 6px !important;
 }
 input[type=checkbox]:checked:before,
 input[type=radio]:checked:before {

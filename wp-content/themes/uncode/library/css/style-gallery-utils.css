@@ -584,6 +584,11 @@ body.rtl .grid-filters .menu-smart--filter-cats_mobile-toggle-trigger:after {
 .no-touch .isotope-container > .tmb > .t-inside:not(.no-anim) {
   opacity: 0;
 }
+@media (hover: none) and (pointer: coarse) {
+  .isotope-container > .tmb > .t-inside:not(.no-anim).parallax-el[style*=translate] {
+    opacity: 1 !important;
+  }
+}
 .px-gutter:not(.owl-carousel-container):not(.uncode-post-table):not(.justified-wrapper):not(.post-titles-inner):not(.index-scroll-wrapper):not(.pin-wrap) .tmb > .t-inside {
   margin-top: 1px;
 }

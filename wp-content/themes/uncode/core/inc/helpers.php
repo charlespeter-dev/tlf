@@ -1684,7 +1684,7 @@ function uncode_custom_dynamic_heading_in_content( $type = 'title' ){
 	global $post, $wp_query;
 
 	$title = get_the_title();
-	$get_subtitle = $post && isset($post->post_excerpt) ? get_the_excerpt() : '';
+	$get_subtitle = $post && isset($post->post_excerpt) && $post->post_excerpt ? get_the_excerpt() : '';
 
 	if ( is_archive() ) {
 		if ($post && isset($post->post_type)) {
@@ -1944,6 +1944,7 @@ function uncode_get_the_content($content = false, $check = false, $post_id = fal
 		$post = get_post($post_id);
 	}
 	global $metabox_data, $is_cb;
+	$old_cb = $is_cb;
 
 	$content_cb = false;
 
@@ -1968,8 +1969,8 @@ function uncode_get_the_content($content = false, $check = false, $post_id = fal
 				$is_cb = $content_cb;
 				$object_cb = get_post($content_cb);
 				$content = $object_cb->post_content;
+				$is_cb = $old_cb;
 			} else {
-				$is_cb = false;
 				$content = get_the_content();
 			}
 		}
@@ -1987,6 +1988,8 @@ function uncode_get_the_content($content = false, $check = false, $post_id = fal
 	if ( $uncode_vc_index !== true ) {
 		$content = apply_filters( 'uncode_get_single_content_raw', $content );
 	}
+
+	$is_cb = $old_cb;
 
 	return $content;
 }

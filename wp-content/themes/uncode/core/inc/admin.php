@@ -1517,6 +1517,10 @@ if (!function_exists('uncode_get_post_types')) {
 
 function uncode_hex2rgb($hex)
 {
+	if ( strpos( $hex, 'rgba') !== false ) {
+		return $hex;
+	}
+
 	$hex = str_replace("#", "", $hex);
 
 	if (strlen($hex) == 3)

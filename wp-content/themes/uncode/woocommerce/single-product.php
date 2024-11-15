@@ -121,7 +121,7 @@ get_header( 'shop' );
 
 	$show_body_title = $show_title;
 
-	global $show_body_title, $is_cb, $is_header_cb;
+	global $show_body_title, $is_header_cb;
 
 	/**
 	* DATA COLLECTION - END
@@ -153,7 +153,10 @@ get_header( 'shop' );
 			if (!empty($page_header->poster_id) && $page_header->poster_id !== false && $media !== '' && $media != 0 ) {
 				$media = $page_header->poster_id;
 			}
-			$is_cb = $is_header_cb = false;
+			$is_header_cb = false;
+			if ( isset( $old_cb ) ) {
+				$is_cb = $old_cb;
+			}
 		}
 		echo '<script type="text/javascript">UNCODE.initHeader();</script>';
 		/** Build breadcrumb **/
@@ -216,9 +219,11 @@ get_header( 'shop' );
 				}
 				if ( $content_block_after !== false && $content_block_after !== null ) {
 					global $is_cb;
-					$old_cb = $is_cb;
-					$is_cb = true;
-					
+					if ( !$is_cb ) {
+						$old_cb = $is_cb;
+						$is_cb = true;
+					}
+							
 					$content_after_body = get_post_field('post_content', $content_block_after);
 					if (function_exists('vc_modules_manager')) {
 						vc_modules_manager()->get_module( 'vc-custom-css' )->output_custom_css_to_page($content_block_after);
@@ -278,7 +283,9 @@ get_header( 'shop' );
 							$content_after_body = str_replace($value[0], $replacement, $content_after_body);
 						}
 					}
-					$is_cb = $old_cb;
+					if ( isset( $old_cb ) ) {
+						$is_cb = $old_cb;
+					}
 				}
 
 				if ($content_after_body !== '') {

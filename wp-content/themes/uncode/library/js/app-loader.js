@@ -60,7 +60,7 @@
 		if (typeof UNCODE.okvideo !== 'undefined') {
 			UNCODE.okvideo();
 			window.addEventListener( "uncode-more-items-loaded", function() {
-				UNCODE.okvideo();
+				UNCODE.okvideo("uncode-more-items-loaded");
 			});
 		}
 		if (typeof UNCODE.backgroundSelfVideos !== 'undefined') {

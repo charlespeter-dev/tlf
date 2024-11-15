@@ -125,7 +125,7 @@
 			};
 			if ( $noscript.length && newW >= UNCODE.mediaQuery ) {
 				$noscript.each(function(key, val){
-					$noscript.after(val.textContent || val.innerText);
+					$noscript.after(val.textContent || val.innerText || val.innerHTML);
 					$noscript.remove();
 				});
 			}

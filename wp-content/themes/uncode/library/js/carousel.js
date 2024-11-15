@@ -209,6 +209,12 @@
 							}
 						});
 					}
+					if ( typeof window.lenis !== 'undefined' && window.lenis !== null ) {
+						setTimeout(function(){
+							window.lenis.resize();
+						}, 1000);
+					}
+			  
 				});
 				//}
 
@@ -363,7 +369,6 @@
 					UNCODE.lightgallery( $galleries );
 				}
 
-
 			});
 
 			$elSelector.on('resized.owl.carousel', function(event) {
@@ -393,6 +398,12 @@
 							$(event.currentTarget).closest('.isotope-container').isotope('layout');
 						}
 					});
+				}
+
+				if ( typeof window.lenis !== 'undefined' && window.lenis !== null ) {
+					setTimeout(function(){
+						window.lenis.resize();
+					}, 1000);
 				}
 			});
 

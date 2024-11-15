@@ -1397,6 +1397,10 @@ if (!function_exists('uncode_create_single_block')) {
 								$category = '';
 							}
 
+							if ( isset($block_data['single_categories'][$t_key]['cat_id']) ) {
+								$cat_classes = apply_filters( 'uncode_posts_loop_cat_classes', $cat_classes, $block_data['single_categories'][$t_key]['cat_id'] );
+							}
+
 							if ( !$cat_over_bool || ( isset( $block_data['single_categories'][$t_key]['tax'] ) && $block_data['single_categories'][$t_key]['tax'] === 'post_tag' ) || ( ( empty($item_thumb_id) || FALSE === get_post_mime_type( $item_thumb_id )) && !is_array($items_thumb_id) ) ) {
 								if ( $is_table && $key === 'meta' ) {
 									if ( $first_cat === true  && $cat_break === false ) {
@@ -3455,7 +3459,7 @@ if (!function_exists('uncode_create_single_block')) {
 								$bg_srcset = wp_get_attachment_image_srcset( $item_thumb_id, 'full' );
 							} else {
 								$bg_srcset = wp_get_attachment_image_src( $item_thumb_id, 'full' );
-								$bg_srcset = $bg_srcset[0];
+								$bg_srcset = isset( $bg_srcset[0] ) ? $bg_srcset[0] : '';
 							}
 							$drop_data_bg_video = $drop_bg_video = '';
 
@@ -3478,13 +3482,15 @@ if (!function_exists('uncode_create_single_block')) {
 							}
 
 							if ($media_type === 'image') {
-								$adaptive_async_data_all = uncode_get_srcset_bg_async_data( $dynamic_srcset_bg_mobile_size, $media_attributes, $resized_image, $image_orig_w, $image_orig_h, array( 'activate_webp' => $activate_webp ) );
-								$adaptive_async_data     = $adaptive_async_data_all['string'];
-								$adaptive_async_class    = uncode_get_srcset_bg_async_class( $adaptive_async_data_all );
-								if ( apply_filters( 'uncode_drop_mobile_image_original', false ) ) {
-									$data_bg_or = wp_get_attachment_image_src( $item_thumb_id, 'full' );
-									$data_bg_or = $data_bg_or[0];
-									$adaptive_async_data = ' data-mobile-background-image="' . esc_url($data_bg_or) . '"';
+								if ( isset( $resized_image ) ) {
+									$adaptive_async_data_all = uncode_get_srcset_bg_async_data( $dynamic_srcset_bg_mobile_size, $media_attributes, $resized_image, $image_orig_w, $image_orig_h, array( 'activate_webp' => $activate_webp ) );
+									$adaptive_async_data     = $adaptive_async_data_all['string'];
+									$adaptive_async_class    = uncode_get_srcset_bg_async_class( $adaptive_async_data_all );
+									if ( apply_filters( 'uncode_drop_mobile_image_original', false ) ) {
+										$data_bg_or = wp_get_attachment_image_src( $item_thumb_id, 'full' );
+										$data_bg_or = $data_bg_or[0];
+										$adaptive_async_data = ' data-mobile-background-image="' . esc_url($data_bg_or) . '"';
+									}
 								}
 								$media_output .= '<div class="t-entry-drop '. esc_html( implode(' ', $drop_classes) ) . $adaptive_async_class . '" data-drop="' . esc_attr( $drop_rand_id ) . '" data-w="' . esc_attr( $single_width ) . '" data-bgset="' . esc_attr( $bg_srcset ) . '"' . $drop_style . $adaptive_async_data . '>';
 								$media_output .= '</div><!-- .t-entry-drop -->';
@@ -3614,7 +3620,7 @@ if (!function_exists('uncode_create_single_block')) {
 										}
 									}
 									if (isset($block_data['type']) && $block_data['type'] === 'linear') {
-										$oembed_attributes = uncode_get_media_info($item_thumb_id);										
+										$oembed_attributes = uncode_get_media_info($item_thumb_id);
 										$back_metavalues = unserialize($oembed_attributes->metadata);
 										$video_orig_w = $back_metavalues['width'];
 										$video_orig_h = $back_metavalues['height'];
@@ -3623,7 +3629,7 @@ if (!function_exists('uncode_create_single_block')) {
 											$dummy_padding = round( ( $single_height / $single_width ) * 100, 1 );
 											$oembed_params['dummy_padding'] = $dummy_padding;
 										}
-									} 
+									}
 									$oembed_params['mobile_videos'] = isset( $block_data['mobile_videos'] ) ? $block_data['mobile_videos'] : '';
 									$is_text_carousel = $carousel_textual === 'yes' ? true : false;
 									$is_metro = ($style_preset === 'metro');
@@ -3656,7 +3662,7 @@ if (!function_exists('uncode_create_single_block')) {
 									$is_metro = ($style_preset === 'metro');
 									$is_text_carousel = $carousel_textual === 'yes' ? true : false;
 									if (isset($block_data['type']) && $block_data['type'] === 'linear') {
-										$oembed_attributes = uncode_get_media_info($item_thumb_id);										
+										$oembed_attributes = uncode_get_media_info($item_thumb_id);
 										$back_metavalues = unserialize($oembed_attributes->metadata);
 										$video_orig_w = $back_metavalues['width'];
 										$video_orig_h = $back_metavalues['height'];
@@ -3665,7 +3671,7 @@ if (!function_exists('uncode_create_single_block')) {
 											$dummy_padding = round( ( $single_height / $single_width ) * 100, 1 );
 											$oembed_params['dummy_padding'] = $dummy_padding;
 										}
-									} 
+									}
 									$media_code = uncode_no_ctrl_videos($item_thumb_id, $consent_id, $single_width, $single_height_oembed, $single_fixed, $is_metro, $is_text_carousel, $oembed_params, $style_preset, $title_classes, $background_mime);
 								}
 
@@ -3756,7 +3762,7 @@ if (!function_exists('uncode_create_single_block')) {
 							}
 
 							if (isset($block_data['type']) && $block_data['type'] === 'linear') {
-								$oembed_attributes = uncode_get_media_info($item_thumb_id);										
+								$oembed_attributes = uncode_get_media_info($item_thumb_id);
 								$back_metavalues = unserialize($oembed_attributes->metadata);
 								$video_orig_w = $back_metavalues['width'];
 								$video_orig_h = $back_metavalues['height'];
@@ -3765,7 +3771,7 @@ if (!function_exists('uncode_create_single_block')) {
 									$dummy_padding = round( ( $single_height / $single_width ) * 100, 1 );
 									$oembed_params['dummy_padding'] = $dummy_padding;
 								}
-							} 
+							}
 
 							$is_text_carousel = $carousel_textual === 'yes' ? true : false;
 							$media_output .= uncode_no_ctrl_videos($item_thumb_id, $consent_id, $single_width, $single_height, $single_fixed, false, $is_text_carousel, $oembed_params, $style_preset, $crtl_videos_class, $background_mime);
@@ -3860,7 +3866,7 @@ if (!function_exists('uncode_create_single_block')) {
 								$is_metro = ($style_preset === 'metro');
 								$is_text_carousel = $carousel_textual === 'yes' ? true : false;
 								if (isset($block_data['type']) && $block_data['type'] === 'linear') {
-									$oembed_attributes = uncode_get_media_info($item_thumb_id);										
+									$oembed_attributes = uncode_get_media_info($item_thumb_id);
 									$back_metavalues = unserialize($oembed_attributes->metadata);
 									$video_orig_w = $back_metavalues['width'];
 									$video_orig_h = $back_metavalues['height'];
@@ -3869,13 +3875,13 @@ if (!function_exists('uncode_create_single_block')) {
 										$dummy_padding = round( ( $single_height / $single_width ) * 100, 1 );
 										$oembed_params['dummy_padding'] = $dummy_padding;
 									}
-								} 
+								}
 								$media_code = uncode_no_ctrl_videos($item_thumb_id, $consent_id, $single_width, $single_height_oembed, $single_fixed, $is_metro, $is_text_carousel, $oembed_params, $style_preset, $title_classes, $background_mime);
 							}
 							if (isset($block_data['type']) && $block_data['type'] === 'linear' && $images_size !== '') {
 								$dummy_padding = round( ( $single_height / $single_width ) * 100, 1 );
 								$dummy_oembed = ' style="padding-top: ' . $dummy_padding . '%"';
-							} 
+							}
 							$media_output .= '<div class="'. trim(implode(' ', $title_classes)) . '"'.$dummy_oembed.'>'.$media_code.'</div>';
 						}
 

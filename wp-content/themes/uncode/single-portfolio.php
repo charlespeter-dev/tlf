@@ -17,9 +17,6 @@ get_header();
 $limit_width = $limit_content_width = $the_content = $main_content = $media_content = $info_content = $info_top_content = $info_bottom_content = $navigation_content = $layout = $bg_color = $portfolio_style = $portfolio_bg_color = $sidebar = $sidebar_size = $sidebar_sticky = $sidebar_padding = $sidebar_inner_padding = $sidebar_content = $title_content = $comment_content = $page_custom_width = $row_classes = $main_classes = $media_classes = $info_classes = $footer_content = $content_after_body = '';
 $with_builder = $skip_details = $skip_content = false;
 
-global $is_cb;
-$old_cb = $is_cb;
-
 $post_type = 'portfolio';
 
 /** Get general datas **/
@@ -437,7 +434,11 @@ while (have_posts()):
 		$content_block_after = apply_filters( 'uncode_wpml_object_id', $content_block_after );
 	}
 	if ( $content_block_after !== false && $content_block_after !== null ) {
-		$is_cb = true;
+		global $is_cb;
+		if ( !$is_cb ) {
+			$old_cb = $is_cb;
+			$is_cb = true;
+		}
 		$content_after_body = get_post_field('post_content', $content_block_after);
 		if (function_exists('vc_modules_manager')) {
 			vc_modules_manager()->get_module( 'vc-custom-css' )->output_custom_css_to_page($content_block_after);
@@ -499,6 +500,9 @@ while (have_posts()):
 				$replacement = '[uncode_index' . $value[1] . ']';
 				$content_after_body = str_replace($value[0], $replacement, $content_after_body);
 			}
+		}
+		if ( isset( $old_cb ) ) {
+			$is_cb = $old_cb;
 		}
 	}
 
@@ -811,7 +815,9 @@ while (have_posts()):
 					</div>'
 					. $navigation_content;
 	}
-	$is_cb = $old_cb;
+	if ( isset( $old_cb ) ) {
+		$is_cb = $old_cb;
+	}
 
 endwhile;
 // end of the loop.

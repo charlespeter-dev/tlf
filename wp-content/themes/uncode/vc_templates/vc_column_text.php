@@ -1,5 +1,5 @@
 <?php
-global $product, $is_cb;
+global $product;
 
 $output = $el_id = $el_class = $css = $border_color = $border_style = $text_lead = $el_style = $css_animation = $animation_delay = $animation_speed = $auto_text = $custom_inline_css = '';
 
@@ -102,13 +102,14 @@ $div_data_attributes = array_map(function ($v, $k) { return $k . '="' . $v . '"'
 
 $output.= '<div class="' . esc_attr(trim($css_class)) . '" '.implode(' ', $div_data_attributes) . $el_style . $el_id . '>';
 $post_type = uncode_get_current_post_type();
+$content_cb = uncode_get_content_cb();
 if ( $auto_text === 'excerpt' && $post_type != 'uncodeblock' ) {
 	$the_excerpt = uncode_custom_dynamic_heading_in_content('subtitle');
 	if ( ( ! function_exists('vc_is_page_editable') || ! vc_is_page_editable() ) && $product ) {
 		$the_excerpt = apply_filters( 'woocommerce_short_description', $the_excerpt );
 	}
 	$content = wpautop( $the_excerpt );
-} elseif ( $auto_text === 'content' && $post_type != 'uncodeblock' && $is_cb ) {
+} elseif ( $auto_text === 'content' && $post_type != 'uncodeblock' && $content_cb ) {
 	$_content = get_the_content();
 	$content_is_empty = false;
 

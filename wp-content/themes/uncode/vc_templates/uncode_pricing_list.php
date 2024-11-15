@@ -88,6 +88,8 @@ if ( $text_size === 'custom' && $heading_custom_size !== '' ) {
 	) );
 }
 
+$head_classes_in = array();
+
 if ($text_font !== '') {
 	$head_classes_in[] = $text_font;
 }

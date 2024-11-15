@@ -130,7 +130,7 @@ extract(shortcode_atts(array(
 	'auto_height_device' => '',
 	'featured_image' => '',
 	'content_parallax' => '',
-	'content_parallax_safe' => '', 
+	'content_parallax_safe' => '',
 ) , $atts));
 
 if ( $el_id === '' ) {
@@ -295,6 +295,8 @@ if ( $back_image_auto === 'yes' && $featured_image !== "yes" && is_singular() &&
 	}
 }
 
+$back_image = apply_filters( 'wpml_object_id', $back_image, 'attachment' );
+
 if ( $content_parallax && $content_parallax > 0 && !(function_exists('vc_is_page_editable') && vc_is_page_editable()) ) {
 	$row_cont_classes[] = 'parallax-move';
 	$div_data['data-parallax-move'] = intval($content_parallax);
@@ -401,13 +403,13 @@ if (!empty($back_image) || $overlay_color !== '' || $overlay_animated === 'yes')
 			$back_array_multi = $back_array;
 			$back_array_multi['background-image'] = $media_id;
 			$back_result_array = uncode_get_back_html($back_array_multi, $overlay_color, $overlay_alpha, '', 'row', 'multi-background');
-			$background_div .= $back_result_array['back_html'];	
+			$background_div .= $back_result_array['back_html'];
 		}
 		$background_div .= '</div>';
 	} else {
 		$back_result_array = uncode_get_back_html($back_array, $overlay_color, $overlay_alpha, '', 'row');
-		$background_div = $back_result_array['back_html'];	
-	}	
+		$background_div = $back_result_array['back_html'];
+	}
 
 	if ( $background_div == '' ) {
 
@@ -778,7 +780,29 @@ foreach ($shape_positions as $shape_position) {
 		</svg>';
 						break;
 
-					default:
+						case 'gradient-soft':
+							$gradient_soft_id = 'svg-gradient-'.uncode_big_rand();
+							${$shape_position.'_divider_svg'} = '<svg version="1.1" class="uncode-row-divider uncode-row-divider-' . ${$shape_position.'_divider'} . '" x="0px" y="0px" width="240px" height="24px" viewBox="0 0 240 24" enable-background="new 0 0 240 24" xml:space="preserve" preserveAspectRatio="' . ${'preserveAspectRatio_'.$shape_position} . '">
+			<linearGradient id="' . $gradient_soft_id . '" gradientUnits="userSpaceOnUse" x1="120" y1="0" x2="120" y2="34">
+				<stop  offset="0" style="stop-color:' . ${'shape_'.$shape_position.'_divider_color'} . ';stop-opacity:0"/>
+				<stop  offset="1" style="stop-color:' . ${'shape_'.$shape_position.'_divider_color'} . '"/>
+			</linearGradient>
+			<path fill="url(#' . $gradient_soft_id . ')" d="M240,24V0H0v24H240z"/>
+			</svg>';
+							break;
+
+						case 'gradient-strong':
+							$gradient_hard_id = 'svg-gradient-'.uncode_big_rand();
+							${$shape_position.'_divider_svg'} = '<svg version="1.1" class="uncode-row-divider uncode-row-divider-' . ${$shape_position.'_divider'} . '" x="0px" y="0px" width="240px" height="24px" viewBox="0 0 240 24" enable-background="new 0 0 240 24" xml:space="preserve" preserveAspectRatio="' . ${'preserveAspectRatio_'.$shape_position} . '">
+			<linearGradient id="' . $gradient_hard_id . '" gradientUnits="userSpaceOnUse" x1="120" y1="0" x2="120" y2="16">
+				<stop  offset="0" style="stop-color:' . ${'shape_'.$shape_position.'_divider_color'} . ';stop-opacity:0"/>
+				<stop  offset="1" style="stop-color:' . ${'shape_'.$shape_position.'_divider_color'} . '"/>
+			</linearGradient>
+			<path fill="url(#' . $gradient_hard_id . ')" d="M240,24V0H0v24H240z"/>
+			</svg>';
+							break;
+
+						default:
 						${$shape_position.'_divider_svg'} = '';
 						break;
 				}
@@ -1081,17 +1105,37 @@ foreach ($shape_positions as $shape_position) {
 						break;
 
 					case 'gradient':
-						$gradient_id = 'svg-gradient-'.uncode_big_rand();
+						$gradient_inv_id = 'svg-gradient-'.uncode_big_rand();
 						${$shape_position.'_divider_svg'} = '<svg version="1.1" class="uncode-row-divider uncode-row-divider-' . ${$shape_position.'_divider'} . '" x="0px" y="0px" width="240px" height="24px" viewBox="0 0 240 24" enable-background="new 0 0 240 24" xml:space="preserve" preserveAspectRatio="' . ${'preserveAspectRatio_'.$shape_position} . '">
-		<linearGradient id="' . $gradient_id . '" gradientUnits="userSpaceOnUse" x1="119.9995" y1="0" x2="119.9995" y2="24.0005">
+		<linearGradient id="' . $gradient_inv_id . '" gradientUnits="userSpaceOnUse" x1="119.9995" y1="0" x2="119.9995" y2="24.0005">
 			<stop  offset="0" style="stop-color:' . ${'shape_'.$shape_position.'_divider_color'} . '"/>
 			<stop  offset="1" style="stop-color:' . ${'shape_'.$shape_position.'_divider_color'} . ';stop-opacity:0"/>
 		</linearGradient>
-		<path fill="url(#' . $gradient_id . ')" d="M240,24V0H0v24H240z"/>
+		<path fill="url(#' . $gradient_inv_id . ')" d="M240,24V0H0v24H240z"/>
 		</svg>';
 						break;
 
-					default:
+						case 'gradient-soft':
+							$gradient_soft_invid = 'svg-gradient-'.uncode_big_rand();
+							${$shape_position.'_divider_svg'} = '<svg version="1.1" class="uncode-row-divider uncode-row-divider-' . ${$shape_position.'_divider'} . '" x="0px" y="0px" width="240px" height="24px" viewBox="0 0 240 24" enable-background="new 0 0 240 24" xml:space="preserve" preserveAspectRatio="' . ${'preserveAspectRatio_'.$shape_position} . '">
+			<linearGradient id="' . $gradient_soft_invid . '" gradientUnits="userSpaceOnUse" x1="120" y1="-10" x2="120" y2="24">
+				<stop  offset="0" style="stop-color:' . ${'shape_'.$shape_position.'_divider_color'} . '"/>
+				<stop  offset="1" style="stop-color:' . ${'shape_'.$shape_position.'_divider_color'} . ';stop-opacity:0"/>
+			</linearGradient>
+			<path fill="url(#' . $gradient_soft_invid . ')" d="M240,24V0H0v24H240z"/>
+			</svg>';
+							break;
+
+						case 'gradient-strong':
+							$gradient_hard_inv_id = 'svg-gradient-'.uncode_big_rand();
+							${$shape_position.'_divider_svg'} = '<svg version="1.1" class="uncode-row-divider uncode-row-divider-' . ${$shape_position.'_divider'} . '" x="0px" y="0px" width="240px" height="24px" viewBox="0 0 240 24" enable-background="new 0 0 240 24" xml:space="preserve" preserveAspectRatio="' . ${'preserveAspectRatio_'.$shape_position} . '">
+			<linearGradient id="' . $gradient_hard_inv_id . '" gradientUnits="userSpaceOnUse" x1="120" y1="8" x2="120" y2="24">
+				<stop  offset="0" style="stop-color:' . ${'shape_'.$shape_position.'_divider_color'} . '"/>
+				<stop  offset="1" style="stop-color:' . ${'shape_'.$shape_position.'_divider_color'} . ';stop-opacity:0"/>
+			</linearGradient>
+			<path fill="url(#' . $gradient_hard_inv_id . ')" d="M240,24V0H0v24H240z"/>
+			</svg>';
+						default:
 						${$shape_position.'_divider_svg'} = '';
 						break;
 				}
@@ -1206,7 +1250,7 @@ switch ($gutter_size) {
 	case '0':
 		$row_classes[] = 'col-no-gutter';
 		break;
-	
+
 	case '1':
 		$row_classes[] = 'col-one-gutter';
 		break;

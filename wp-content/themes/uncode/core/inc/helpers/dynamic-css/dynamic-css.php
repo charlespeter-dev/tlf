@@ -331,12 +331,16 @@ function uncode_get_single_dynamic_linear_grid_css( $content ) {
 		preg_match('/ size_by=\"(.*?)"/', $params, $by);
 		preg_match('/ linear_width=\"(.*?)"/', $params, $width);
 		preg_match('/ linear_height=\"(.*?)"/', $params, $height);
+		preg_match('/ single_text=\"(.*?)"/', $params, $layout);
+		preg_match('/ single_image_size=\"(.*?)"/', $params, $size);
 
 		$shortcode_data = array(
-			'id'       => $id[1],
-			'by'    => isset( $by[1] ) ? $by[1] : '',
-			'w'    => isset( $width[1] ) ? $width[1] : '',
-			'h'    => isset( $height[1] ) ? $height[1] : '',
+			'id'		=> $id[1],
+			'by'		=> isset( $by[1] ) ? $by[1] : '',
+			'w'			=> isset( $width[1] ) ? $width[1] : '',
+			'h'			=> isset( $height[1] ) ? $height[1] : '',
+			'layout'	=> isset( $layout[1] ) ? $layout[1] : '',
+			'size'		=> isset( $size[1] ) ? $size[1] : ''
 		);
 		$css .= uncode_get_dynamic_linear_grids_css_from_shortcode( $shortcode_data );
 	}

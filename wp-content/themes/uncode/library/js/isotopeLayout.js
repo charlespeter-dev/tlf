@@ -285,6 +285,7 @@
 											filters.push($(val)[0]);
 										}
 									}
+									$(val).addClass('uncode-appended');
 								});
 								newElements = newElements.filter(function(x) {
 									return filters.indexOf(x) < 0

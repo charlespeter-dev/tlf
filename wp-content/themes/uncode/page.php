@@ -21,9 +21,6 @@ get_header();
 	$limit_width = $limit_content_width = $the_content = $main_content = $layout = $bg_color = $sidebar_style = $sidebar_bg_color = $sidebar = $sidebar_size = $sidebar_sticky = $sidebar_padding = $sidebar_inner_padding = $sidebar_content = $title_content = $media_content = $page_custom_width = $row_classes = $main_classes = $footer_content = $footer_classes = $content_after_body = '';
 	$with_builder = false;
 
-	global $is_cb;
-	$old_cb = $is_cb;
-
 	if ($post->ID === 0) {
 		$post = get_post( get_queried_object_id() );
 	}
@@ -432,8 +429,12 @@ get_header();
 		}
 
 		if ($content_block_after !== false) {
-			$is_cb = true;
-
+			global $is_cb;
+			if ( !$is_cb ) {
+				$old_cb = $is_cb;
+				$is_cb = true;
+			}
+		
 			$content_block_after = apply_filters( 'wpml_object_id', $content_block_after, 'post' );
 			$content_after_body = get_post_field('post_content', $content_block_after);
 			if (function_exists('vc_modules_manager')) {
@@ -497,7 +498,9 @@ get_header();
 					$content_after_body = str_replace($value[0], $replacement, $content_after_body);
 				}
 			}
-			$is_cb = $old_cb;
+			if ( isset( $old_cb ) ) {
+				$is_cb = $old_cb;
+			}
 		}
 
   	/** Build post footer **/
@@ -629,7 +632,9 @@ get_header();
 		}
 
 		$the_content = uncode_remove_p_tag( $the_content . $content_after_body);
-		$is_cb = $old_cb;
+		if ( isset( $old_cb ) ) {
+			$is_cb = $old_cb;
+		}
 		$the_content = apply_filters( 'uncode_single_content_final_output', $the_content );
 
 		/** Display post html **/

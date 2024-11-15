@@ -1,7 +1,7 @@
 (function($) {
 	"use strict";
 
-	UNCODE.okvideo = function() {
+	UNCODE.okvideo = function(ev) {
 	var BLANK_GIF = "data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw%3D%3D";
 	$.okvideo = function(options) {
 		// if the option var was just a string, turn it into an object
@@ -59,24 +59,34 @@
 			$(window).data('okoptions-' + base.options.id, base.options);
 		};
 		// insert js into the head and exectue a callback function
-		base.insertJS = function(src, callback){
+		base.insertJS = function(src, callback, provider){
 			var tag;
-			if (UNCODE.insertedSripts && UNCODE.insertedSripts[src]) {
-				tag = UNCODE.insertedSripts[src];
-				if (callback){
-					if (tag.readyState){  //IE
-						tag.onreadystatechange = function(){
-							if (tag.readyState === "loaded" ||
-								tag.readyState === "complete"){
-								tag.onreadystatechange = null;
-								callback();
-							}
-						};
-					} else {
-						$(tag).on('load', callback);
+			if ( ev === 'uncode-more-items-loaded' && provider !== 'youtube' ) {
+				delete UNCODE.insertedSripts[src];
+				var tags = document.getElementsByTagName('script');
+				for (var i = tags.length; i >= 0; i--){
+					if (tags[i] && tags[i].getAttribute('src') != null && tags[i].getAttribute('src').indexOf(src) != -1) {
+						tags[i].parentNode.removeChild(tags[i]);
 					}
 				}
-				return;
+			} else {
+				if (UNCODE.insertedSripts && UNCODE.insertedSripts[src]) {
+					tag = UNCODE.insertedSripts[src];
+					if (callback){
+						if (tag.readyState){  //IE
+							tag.onreadystatechange = function(){
+								if (tag.readyState === "loaded" ||
+									tag.readyState === "complete"){
+									tag.onreadystatechange = null;
+									callback();
+								}
+							};
+						} else {
+							$(tag).on('load', callback);
+						}
+					}
+					return;
+				}
 			}
 			tag = document.createElement('script');
 			if (callback){
@@ -103,7 +113,11 @@
 		};
 		// load the youtube api
 		base.loadYouTubeAPI = function(callback) {
-			base.insertJS('https://www.youtube.com/player_api');
+			if ( ev === 'uncode-more-items-loaded' ) {
+				onYouTubeIframeAPIReady();
+			} else {
+				base.insertJS('https://www.youtube.com/player_api', false, 'youtube');
+			}
 		};
 		base.loadYouTubePlaylist = function() {
 			player.loadPlaylist(base.options.playlist.list, base.options.playlist.index, base.options.playlist.startSeconds, base.options.playlist.suggestedQuality);
@@ -116,7 +130,7 @@
 			$('#okplayer-' + base.options.id).replaceWith(jIframe[0]);
 			base.insertJS('//player.vimeo.com/api/player.js', function() {
 				vimeoPlayerReady(base.options.id);
-			});
+			}, 'vimeo');
 		};
 		// is it from youtube or vimeo?
 		base.determineProvider = function() {

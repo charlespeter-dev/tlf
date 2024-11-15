@@ -271,6 +271,8 @@ if ( $back_image_auto === 'yes' && $featured_image !== "yes" && is_singular() &&
 	}
 }
 
+$back_image = apply_filters( 'wpml_object_id', $back_image, 'attachment' );
+
 if ($override_padding === 'yes') {
 	switch ($column_padding) {
 		case '0':
@@ -618,13 +620,13 @@ if (!empty($back_image) || $overlay_color !== '' || $overlay_animated === 'yes')
 			$back_array_multi = $back_array;
 			$back_array_multi['background-image'] = $media_id;
 			$back_result_array = uncode_get_back_html($back_array_multi, $overlay_color, $overlay_alpha, '', 'column', 'multi-background');
-			$background_div .= $back_result_array['back_html'];	
+			$background_div .= $back_result_array['back_html'];
 		}
 		$background_div .= '</div>';
 	} else {
 		$back_result_array = uncode_get_back_html($back_array, $overlay_color, $overlay_alpha, '', 'column');
 		$background_div = $back_result_array['back_html'];
-	}	
+	}
 }
 
 /** END - background construction **/

@@ -14,6 +14,8 @@
 			return calculateOffset;
 		}
 
+	isMobile = SiteParameters.uncode_force_onepage_dots ? false : isMobile;
+
 	// if ( UNCODE.isFullPage || UNCODE.isFullPageSnap )
 	// 	return false;
 

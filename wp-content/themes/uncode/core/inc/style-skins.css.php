@@ -1273,7 +1273,7 @@ button[type="submit"] {
 }
 .style-light .ui-form-placeholder,
 .style-dark .style-light .ui-form-placeholder {
-  color: <?php echo function_exists( 'uncode_darken_color' ) ? uncode_darken_color( $color_text, 50 ) : sanitize_text_field( $color_text ); ?>;
+  color: <?php echo sanitize_text_field( $color_text ); ?>;
   text-transform: capitalize;
 }
 /* #Form-inset-shadow */
@@ -1510,27 +1510,27 @@ button[type="submit"],
 }
 .style-light ::-webkit-input-placeholder,
 .style-dark .style-light ::-webkit-input-placeholder {
-  color: <?php echo function_exists( 'uncode_darken_color' ) ? uncode_darken_color( $color_text, 50 ) : sanitize_text_field( $color_text ); ?>;
+  color: <?php echo sanitize_text_field( $color_text ); ?>;
 }
 .style-light ::-moz-placeholder,
 .style-dark .style-light ::-moz-placeholder {
-  color: <?php echo function_exists( 'uncode_darken_color' ) ? uncode_darken_color( $color_text, 50 ) : sanitize_text_field( $color_text ); ?>;
+  color: <?php echo sanitize_text_field( $color_text ); ?>;
 }
 .style-light :-ms-input-placeholder,
 .style-dark .style-light :-ms-input-placeholder {
-  color: <?php echo function_exists( 'uncode_darken_color' ) ? uncode_darken_color( $color_text, 50 ) : sanitize_text_field( $color_text ); ?>;
+  color: <?php echo sanitize_text_field( $color_text ); ?>;
 }
 .style-light :-moz-placeholder,
 .style-dark .style-light :-moz-placeholder {
-  color: <?php echo function_exists( 'uncode_darken_color' ) ? uncode_darken_color( $color_text, 50 ) : sanitize_text_field( $color_text ); ?>;
+  color: <?php echo sanitize_text_field( $color_text ); ?>;
 }
 .style-light ::placeholder,
 .style-dark .style-light ::placeholder {
-  color: <?php echo function_exists( 'uncode_darken_color' ) ? uncode_darken_color( $color_text, 50 ) : sanitize_text_field( $color_text ); ?>;
+  color: <?php echo sanitize_text_field( $color_text ); ?>;
 }
 .style-light .select2-selection__placeholder,
 .style-dark .style-light .select2-selection__placeholder {
-  color: <?php echo function_exists( 'uncode_darken_color' ) ? uncode_darken_color( $color_text, 50 ) : sanitize_text_field( $color_text ); ?>;
+  color: <?php echo sanitize_text_field( $color_text ); ?>;
 }
 .style-dark ::-webkit-input-placeholder,
 .style-light .style-dark ::-webkit-input-placeholder {

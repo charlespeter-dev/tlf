@@ -713,12 +713,12 @@ UNCODE.menuSmartInit = function() {
 		});
 
 		if ( $('body').hasClass('menu-accordion-active') ) {
-			requestTimeout(function(){
-				$menusmart.addClass('menu-smart-init');
-				$menusmart.smartmenus( 'itemActivate', $menusmart.find( '.current-menu-item > a' ).eq( -1 ) );
-			}, 1000);
+			$menusmart.each(function(key, menu){
+				$(menu).addClass('menu-smart-init');
+				$(menu).smartmenus( 'itemActivate', $(menu).find( '.current-menu-item > a' ).eq( -1 ) );
+			});
 		}
-
+		
 		$(document).on( 'uncode.smartmenu-appended', function(){
 			requestTimeout(function(){
 				$menusmart.smartmenus( 'refresh' );

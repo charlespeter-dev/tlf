@@ -18,7 +18,12 @@ function uncode_index_query_options_add_filters( $query_options = array() ) {
 		ksort( $_GET );
 
 		foreach ( $_GET as $key => $value ) {
-			$value             = str_replace( '%2C', ',', urlencode( sanitize_text_field( wp_unslash( $value ) ) ) );
+			if ( apply_filters( 'uncode_filters_sanitize_value', true ) ) {
+				$value = str_replace( '%2C', ',', urlencode( sanitize_text_field( wp_unslash( $value ) ) ) );
+			} else {
+				$value = str_replace( '%2C', ',', sanitize_text_field( wp_unslash( $value ) ) );
+			}
+
 			$selected_term_ids = array();
 			$selected_terms    = explode( ',', $value );
 

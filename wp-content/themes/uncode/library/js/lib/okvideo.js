@@ -177,7 +177,7 @@ OKEvents = {
 			var id = event.target.videoId,
 				$video = jQuery('#okplayer-' + id),
 				options = jQuery(window).data('okoptions-' + id);
-			if ( typeof options === 'undefined' ) {
+			if ( typeof options === 'undefined' || typeof event.target.setVolume === 'undefined' ) {
 				return true;
 			}
 			youtubePlayers[id] = event.target;

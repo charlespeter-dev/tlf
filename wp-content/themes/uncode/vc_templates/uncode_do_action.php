@@ -68,7 +68,7 @@ if ( class_exists( 'WooCommerce' ) && $hook === 'woocommerce_single_product_summ
 				$action_priority = '[' . $action['priority'] . ']';
 				$action_name = is_array( $action['callback'] ) ? implode( '/' , $action['callback'] ) : $action['callback'];
 
-				$pre_list .= esc_html( $action_name . ' ' . $action_priority );
+				$pre_list .= esc_html( is_object( $action_name ) ? 'Object' : $action_name . ' ' . $action_priority );
 				$pre_list .= "\n";
 			}
 			$pre_list .= '</pre>';

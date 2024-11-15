@@ -83,8 +83,11 @@
 			$(row).addClass('uncode-scroll-active');
 	});
 
-	if ( !UNCODE.isMobile && !$('body').hasClass('uncode-scroll-no-dots') )
+    var isMobile = SiteParameters.uncode_force_onepage_dots ? false : UNCODE.isMobile;
+
+	if ( !isMobile && !$('body').hasClass('uncode-scroll-no-dots') ) {
 		$("<ul class='onepage-pagination'></ul>").prependTo("body");
+	}
 
 	$all.each(function(index, val) {
 		var getName = $(val).data('name'),

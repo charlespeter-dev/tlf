@@ -82,6 +82,22 @@
 .linear-h-align-center.linear-system .linear-wrapper .linear-container .tmb .t-inside {
   justify-content: center;
 }
+.linear-system .linear-wrapper .linear-container .tmb.tmb-content-lateral:not(.tmb-content-lateral-right) .t-inside {
+  flex-direction: row;
+}
+@media (max-width: 569px) {
+  .linear-system .linear-wrapper .linear-container .tmb.tmb-content-lateral.tmb-content-lateral-responsive:not(.tmb-content-lateral-right) .t-inside {
+    flex-direction: column;
+  }
+}
+.linear-system .linear-wrapper .linear-container .tmb.tmb-content-lateral.tmb-content-lateral-right .t-inside {
+  flex-direction: row-reverse;
+}
+@media (max-width: 569px) {
+  .linear-system .linear-wrapper .linear-container .tmb.tmb-content-lateral.tmb-content-lateral-right.tmb-content-lateral-responsive .t-inside {
+    flex-direction: column;
+  }
+}
 .linear-system .linear-wrapper .linear-container .tmb .t-entry-visual .pushed {
   position: relative;
 }
@@ -96,6 +112,6 @@
   width: auto;
 }
 .linear-system .linear-wrapper .linear-container .tmb .t-entry-visual .t-entry-visual-cont > a > img,
-.linear-system .linear-wrapper .linear-container .tmb .t-entry-visual .t-entry-visual-cont > a > .fluid-object {
+.linear-system .linear-wrapper .linear-container .tmb .t-entry-visual .t-entry-visual-cont > a > .fluid-object:not(.has-poster) {
   position: relative;
 }

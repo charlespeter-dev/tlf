@@ -13,7 +13,7 @@
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @author  WooThemes
  * @package WooCommerce/Templates
- * @version 3.6.0
+ * @version 9.4.0
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -23,8 +23,8 @@ global $product, $wp_query, $woocommerce_loop;
 $vars = $wp_query->query_vars;
 $single_post_width = (isset($vars['single_post_width']) && $vars['single_post_width'] !== '') ? $vars['single_post_width'] : ( isset($woocommerce_loop['columns']) ? 12/$woocommerce_loop['columns'] : 4 );
 
-// Ensure visibility
-if ( empty( $product ) || ! $product->is_visible() ) {
+// Check if the product is a valid WooCommerce product and ensure its visibility before proceeding.
+if ( ! is_a( $product, WC_Product::class ) || ! $product->is_visible() ) {
 	return;
 }
 

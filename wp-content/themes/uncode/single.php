@@ -17,9 +17,6 @@ get_header();
 $limit_width = $limit_content_width = $the_content = $main_content = $layout = $bg_color = $sidebar_style = $sidebar_bg_color = $sidebar = $sidebar_size = $sidebar_sticky = $sidebar_padding = $sidebar_inner_padding = $sidebar_content = $title_content = $media_content = $navigation_content = $page_custom_width = $row_classes = $main_classes = $footer_content = $footer_classes = $content_after_body = '';
 $with_builder = false;
 
-global $is_cb;
-$old_cb = $is_cb;
-
 $post_type = $post->post_type;
 
 /** Get general datas **/
@@ -374,8 +371,10 @@ while (have_posts()):
 				}
 			} else {
 				$the_content = apply_filters('the_content', 'uncode-placeholder');
+				$the_content = preg_replace('~\x{00AD}~u', "", $the_content);
 				$the_content = str_replace( '<p>uncode-placeholder</p>', '', $the_content );
 				$the_content = str_replace( 'uncode-placeholder', '', $the_content );
+				$the_content = trim( $the_content );
 				$the_content = trim( $the_content );
 				$the_content = uncode_get_row_template($the_content, $limit_width, $limit_content_width, $style, '', false, true, 'double', $page_custom_width);
 			}
@@ -391,6 +390,7 @@ while (have_posts()):
 		}
 	} else {
 		$get_content_appended = apply_filters('the_content', 'uncode-placeholder');
+		$get_content_appended = str_replace( '~\x{00AD}~u', '', $get_content_appended );
 		$get_content_appended = str_replace( '<p>uncode-placeholder</p>', '', $get_content_appended );
 		$get_content_appended = str_replace( 'uncode-placeholder', '', $get_content_appended );
 		$get_content_appended = trim( $get_content_appended );
@@ -527,7 +527,11 @@ while (have_posts()):
 			$content_block_after = apply_filters( 'uncode_wpml_object_id', $content_block_after );
 		}
 		if ( $content_block_after !== false && $content_block_after !== null ) {
-			$is_cb = true;
+			global $is_cb;
+			if ( !$is_cb ) {
+				$old_cb = $is_cb;
+				$is_cb = true;
+			}
 
 			$content_after_body_build = get_post_field('post_content', $content_block_after);
 			if (function_exists('vc_modules_manager')) {
@@ -592,6 +596,9 @@ while (have_posts()):
 
 		$content_after_body .= $content_after_body_build;
 
+		if ( isset( $old_cb ) ) {
+			$is_cb = $old_cb;
+		}
 	}
 
 	/** Build post footer **/
@@ -805,7 +812,9 @@ while (have_posts()):
 	}
 
 	$the_content = uncode_remove_p_tag( $the_content );
-	$is_cb = $old_cb;
+	if ( isset( $old_cb ) ) {
+		$is_cb = $old_cb;
+	}
 	$the_content = apply_filters( 'uncode_single_content_final_output', $the_content );
 
 	/** Display post html **/
