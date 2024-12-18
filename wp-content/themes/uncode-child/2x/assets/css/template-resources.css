@@ -48,5 +48,8 @@
   padding-left: 15px !important;
   padding-right: 15px !important;
 }
+.bootstrap-container .searchandfilter [name="_sf_search[]"] {
+  width: 300px;
+}
 
 /*# sourceMappingURL=template-resources.css.map */
