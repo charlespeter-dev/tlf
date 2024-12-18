@@ -104,7 +104,10 @@ $lbox_enhance = get_option( 'uncode_core_settings_opt_lightbox_enhance' ) === 'o
 if ($media_lightbox !== '') {
 	$lightbox_classes = array();
 	if ( get_post_mime_type($media_lightbox) == 'oembed/gallery' && wp_get_post_parent_id($media_lightbox) ) {
-		$parent_id = apply_filters( 'wpml_object_id', wp_get_post_parent_id($media_lightbox) );
+		$parent_id = wp_get_post_parent_id($media_lightbox);
+		if ( class_exists( 'SitePress' ) ) {
+			$parent_id = apply_filters( 'wpml_object_id', $parent_id );
+		}
 		$media_album_ids = get_post_meta($parent_id, '_uncode_featured_media', true);//string of images in the album
 		$media_album_ids_arr = explode(',', $media_album_ids);//array of images in the album
 		$a_href = '#';
@@ -283,7 +286,9 @@ if ($media_lightbox !== '') {
 		$div_data_attributes = array_map(function ($v, $k) { return $k . '="' . $v . '"'; }, $lightbox_classes, array_keys($lightbox_classes));
 
 	} else {
-		$media_lightbox = apply_filters( 'wpml_object_id', $media_lightbox );
+		if ( class_exists( 'SitePress' ) ) {
+			$media_lightbox = apply_filters( 'wpml_object_id', $media_lightbox );
+		}
 		$media_attributes = uncode_get_media_info($media_lightbox);
 		if (isset($media_attributes)) {
 			$media_metavalues = unserialize($media_attributes->metadata);
@@ -766,7 +771,8 @@ if ( class_exists( 'WooCommerce' ) && $dynamic === 'add-to-cart' && is_a( $produ
 
 		echo uncode_print_dynamic_inline_style( $inline_style_css );
 
-		if ( $product_allowed && ( ! is_admin() || ( function_exists('vc_is_page_editable') && vc_is_page_editable() ) ) ) {
+		if ( $product_allowed && ( ! is_admin() || uncode_is_quick_view() || ( function_exists('vc_is_page_editable') && vc_is_page_editable() ) ) ) {
+
 			wc_get_template( 'single-product/add-to-cart/' . $product_type . '.php', $product_args );
 			if ( function_exists('vc_is_page_editable') && vc_is_page_editable() && !$is_header_cb ) {
 				echo '</div>';

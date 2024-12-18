@@ -278,7 +278,8 @@ if ( $previous_blend === true ) {
 	$row_cont_classes[] = 'row-next-to-blend';
 }
 $previous_blend = false;
-if ( $back_image_auto === 'yes' && $featured_image !== "yes" && is_singular() && ( $is_cb || $uncode_vc_block || $is_footer ) ) {
+$content_cb = uncode_get_content_cb();
+if ( $back_image_auto === 'yes' && $featured_image !== "yes" && is_singular() && ( $is_cb || $content_cb || $uncode_vc_block || $is_footer ) ) {
 	$featured_id = get_post_thumbnail_id(get_the_id());
 	$featured_id = apply_filters( 'uncode_featured_image_id', $featured_id, get_the_id() );
 
@@ -295,7 +296,9 @@ if ( $back_image_auto === 'yes' && $featured_image !== "yes" && is_singular() &&
 	}
 }
 
+if ( class_exists( 'SitePress' ) ) {
 $back_image = apply_filters( 'wpml_object_id', $back_image, 'attachment' );
+}
 
 if ( $content_parallax && $content_parallax > 0 && !(function_exists('vc_is_page_editable') && vc_is_page_editable()) ) {
 	$row_cont_classes[] = 'parallax-move';

@@ -70,9 +70,9 @@ if ( SiteParameters.smoothScroll === 'on' && ! SiteParameters.is_frontend_editor
 				document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight );
 			
 			if ( UNCODE.hDoc !== newHdoc ) {
-				console.log(UNCODE.hDoc, newHdoc);
 				UNCODE.hDoc = newHdoc;
 				window.lenis.resize();
+				//window.dispatchEvent(new CustomEvent('boxResized'));
 			}
 		}
 	}
@@ -3066,6 +3066,7 @@ UNCODE.isotopeLayout = function() {
 
 			var filter_items = function(){
 				if (filterValue !== undefined) {
+					container.addClass('grid-filtering');
 					$.each($('> .tmb-iso > .t-inside', container), function(index, val) {
 						var parent = $(val).parent(),
 							objTimeout = parent.data('objTimeout');
@@ -3128,6 +3129,7 @@ UNCODE.isotopeLayout = function() {
 						}
 						requestTimeout(function() {
 							Waypoint.refreshAll();
+							container.removeClass('grid-filtering');
 						}, 2000);
 					});
 					/** once filtered - end **/
@@ -3491,7 +3493,7 @@ UNCODE.lightgallery = function( $el ) {
 		nested_a = $('a[data-lbox]:not(.lb-disabled):not([data-lbox-init]):not([data-album])').filter(function( index ) {
 			return !$(this).closest('.nested-carousel').length;
 		}),
-		$_galleries = $('.isotope-container:not([data-lbox-init]), .owl-carousel:not([data-lbox-init]), .custom-grid-container:not([data-lbox-init]), .index-scroll-wrapper:not([data-lbox-init]), .justified-gallery:not([data-lbox-init]), .linear-container:not([data-lbox-init]), .uncode-single-media-wrapper:not([data-lbox-init]), .woocommerce-product-gallery:not([data-lbox-init]), .icon-box:not([data-lbox-init]), .grid-container:not([data-lbox-init]), .btn-container' + SiteParameters.uncode_lb_add_galleries).has('.lbox-trigger-item').not('.isotope-container *, .owl-carousel *, .index-scroll-wrapper *, .justified-gallery *, .woocommerce-product-gallery *, .grid-container *, .linear-container *'), 
+		$_galleries = $('.isotope-container:not([data-lbox-init]), .owl-carousel:not([data-lbox-init]), .custom-grid-container:not([data-lbox-init]), .index-scroll-wrapper:not([data-lbox-init]), .justified-gallery:not([data-lbox-init]), .linear-container:not([data-lbox-init]), .uncode-single-media-wrapper:not([data-lbox-init]), .woocommerce-product-gallery:not([data-lbox-init]), .icon-box .icon-box-icon:not([data-lbox-init]), .icon-box .icon-box-content:not([data-lbox-init]), .grid-container:not([data-lbox-init]), .btn-container:not([data-lbox-init])' + SiteParameters.uncode_lb_add_galleries).has('.lbox-trigger-item').not('.isotope-container *, .owl-carousel *, .index-scroll-wrapper *, .justified-gallery *, .woocommerce-product-gallery *, .grid-container *, .linear-container *'), 
 		$galleries = $_galleries.filter(function( index ) {
 			return !$(this).closest('.owl-carousel').length || $(this).is('.owl-carousel');
 		}),
@@ -3659,6 +3661,10 @@ UNCODE.lightgallery = function( $el ) {
 			connect = $_first.attr('data-connect'),
 			lgPlugins = [lgVideo],
 			itemsLoadedTimeOut;
+
+		if ( typeof galleryID === 'undefined' ) {
+			galleryID = $gallery.attr('id');
+		}
 
 		containerClass += $_first.attr('data-transparency') === 'opaque' ? ' lg-opaque' : '';
 		containerClass += controls && $_first.attr('data-arrows-bg') === 'semi-transparent' ? ' lg-semi-transparent-arrows' : '';
@@ -7386,7 +7392,8 @@ UNCODE.linearGrid = function(){
 			if ( !$wrap.is(':visible') )  {
 				return;
 			}
-			var matrix, _x, _y;
+			var matrix, _x, _y,
+				dragAction = false;
 			Draggable.create($wrap[0], {
 				type: vertical ? "y" : "x",
 				bounds: document.getElementById("container"),
@@ -7394,17 +7401,20 @@ UNCODE.linearGrid = function(){
 				onPress: function (e) {
 				},
 				onRelease: function (e) {
-					matrix = $wrap.css('transform').replace(/[^0-9\-.,]/g, '').split(',');
-					_x = matrix[12] || matrix[4];
-					_y = matrix[13] || matrix[5];
-					if ( vertical ) {
-						continuousLinearMarquee(_y * -1);
-					} else {
-						continuousLinearMarquee(_x * -1);
+					if ( dragAction === true ) {
+						matrix = $wrap.css('transform').replace(/[^0-9\-.,]/g, '').split(',');
+						_x = matrix[12] || matrix[4];
+						_y = matrix[13] || matrix[5];
+						if ( vertical ) {
+							continuousLinearMarquee(_y * -1);
+						} else {
+							continuousLinearMarquee(_x * -1);
+						}
+						$wrap.removeClass('linear-dragging');
 					}
-					$wrap.removeClass('linear-dragging');
 				},
 				onDrag: function (e) {
+					dragAction = true;
 					$wrap.addClass('linear-dragging');
 				},
 				onDragEnd: function (e) {
@@ -7433,6 +7443,7 @@ UNCODE.linearGrid = function(){
 						continuousLinearMarquee(_x * -1);
 					}
 					$wrap.removeClass('linear-dragging');
+					dragAction = false;
 				},
 			});
 		};
@@ -9486,7 +9497,7 @@ UNCODE.textMarquee = function( $titles ) {
 				newW = UNCODE.wwidth,
 				marqueeTL, inview;
 
-			if ( $title.closest('.sticky-trigger').length || $title.closest('.pin-spacer').length ) {
+			if ( $title.closest('.sticky-trigger').length || $title.closest('.sticky-element').length || $title.closest('.pin-spacer').length ) {
 				dataTrigger = 'row';
 			}
 
@@ -9546,7 +9557,7 @@ UNCODE.textMarquee = function( $titles ) {
 				marqueeTL = new TimelineMax({ paused: true, reversed: true });
 
 				var inViewElement =
-						dataTrigger === "row" ? $title.closest(".vc_row")[0] : $title[0],
+						dataTrigger === "row" ? $title.closest('.sticky-trigger, .sticky-element').parent()[0] : $title[0],
 					wayOff =
 						dataTrigger === "row" && dataNavBar === "yes"
 							? UNCODE.menuHeight
@@ -9615,7 +9626,7 @@ UNCODE.textMarquee = function( $titles ) {
 				var time = Date.now();
 
 				var textMarqueeScroll = function(){
-					var $row = $title.closest('.vc_row'),
+					var $row = $title.closest('.sticky-trigger, .sticky-element').parent(),
 						$bound = (dataTrigger === 'row' || dataTrigger === 'row-middle') ? $row : $title;
 
 					if ( !$bound.length ) {
@@ -9783,6 +9794,25 @@ UNCODE.parallax = function() {
 				}, 100);
 			});
 
+			if ( typeof UNCODE.hDoc === 'undefined' ) {
+				UNCODE.hDoc = Math.max( document.body.scrollHeight, document.body.offsetHeight, 
+					document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight );
+			}
+		
+			function paralraf(time) {
+				requestAnimationFrame(paralraf)
+		
+				var newHdoc = Math.max( document.body.scrollHeight, document.body.offsetHeight, 
+					document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight );
+				
+				if ( UNCODE.hDoc !== newHdoc ) {
+					UNCODE.hDoc = newHdoc;
+					parallax_elements.refresh();
+				}
+			}
+		
+			requestAnimationFrame(paralraf)
+		
 		}
 	}
 };

@@ -10,8 +10,8 @@ extract(
 			'el_id'                                    => '',
 			'el_class'                                 => '',
 			'account_forms_form_type'                  => 'login',
-			'account_forms_show_titles'                => 'yes',
-			'custom_titles_typography'                 => '',
+			'titles_account_forms_show_titles'         => 'yes',
+			'titles_custom_titles_typography'          => '',
 			'titles_font'                              => '',
 			'titles_size'                              => '',
 			'titles_weight'                            => '',
@@ -48,8 +48,8 @@ extract(
 
 // General settings
 $account_forms_form_type   = $account_forms_form_type ? $account_forms_form_type : 'login';
-$account_forms_show_titles = $account_forms_show_titles === 'yes' ? true : false;
-$custom_titles_typography  = $custom_titles_typography === 'yes' ? true : false;
+$account_forms_show_titles = $titles_account_forms_show_titles === 'yes' ? true : false;
+$custom_titles_typography  = $titles_custom_titles_typography === 'yes' ? true : false;
 $titles_font               = $titles_font ? $titles_font : false;
 $titles_size               = $titles_size ? $titles_size : 'h2';
 $titles_weight             = $titles_weight ? $titles_weight : false;

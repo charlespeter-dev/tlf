@@ -34,6 +34,16 @@ body {
 .font-size-small {
   font-size: <?php echo sanitize_text_field($small_text_font_size); ?>px;
 }
+/* #Font-size-large */
+.font-size-large,
+.form-large input,
+.form-large textarea,
+.form-large select,
+.form-large .seldiv,
+.form-large .select2-choice,
+.form-large .select2-selection--single {
+  font-size: <?php echo sanitize_text_field($large_text_font_size); ?>px;
+}
 /* #Font-ui-fixed */
 .font-ui-fixed,
 .post-info,

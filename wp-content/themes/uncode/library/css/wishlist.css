@@ -283,6 +283,14 @@ ul.wishlist_table {
 .uncode-wishlist-module .yith-wcwl-add-to-wishlist {
   opacity: 1 !important;
 }
+.uncode-wishlist-module .yith-wcwl-add-to-wishlist .yith-wcwl-add-button {
+  align-items: flex-start;
+}
+.uncode-wishlist-module .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistaddedbrowse {
+  align-items: flex-start;
+  flex-direction: row;
+  gap: 5px;
+}
 .add-to-wishlist-overlay {
   height: 27px;
   position: absolute;

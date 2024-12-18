@@ -14,7 +14,7 @@
  * @see     http://docs.woothemes.com/document/template-structure/
  * @author  WooThemes
  * @package WooCommerce/Templates
- * @version 9.3.0
+ * @version 9.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="woocommerce-mini-cart-body" data-lenis-prevent>
 	<ul class="woocommerce-mini-cart cart_list product_list_widget <?php echo esc_attr( $args['list_class'] ); ?>">
 
-		<?php if ( ! WC()->cart->is_empty() ) : ?>
+		<?php if ( WC()->cart && ! WC()->cart->is_empty() ) : ?>
 
 			<?php
 				do_action( 'woocommerce_before_mini_cart_contents' );

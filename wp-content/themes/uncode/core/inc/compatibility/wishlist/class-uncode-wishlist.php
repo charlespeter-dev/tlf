@@ -28,6 +28,11 @@ class Uncode_Wishlist {
 		add_filter( 'yith_wcwl_add_to_wishlist_options', array( $this, 'remove_wishlist_options' ) );
 		add_filter( 'yith_wcwl_wishlist_page_options', array( $this, 'remove_wishlist_page_options' ) );
 		add_filter( 'yith_wcwl_ask_an_estimate_options', array( $this, 'ask_an_estimate_options' ) );
+		add_filter( 'yith_wcwl_customization_style_options', array( $this, 'customization_style_options' ) );
+		add_filter( 'yith_wcwl_customization_labels_options', array( $this, 'customization_labels_options' ) );
+
+		// Custom CSS in Wishlist settings
+		add_action( 'admin_head', array( $this, 'add_admin_css' ) );
 
 		// Remove default loop action (we use the custom module to print the button)
 		add_filter( 'yith_wcwl_show_add_to_wishlist', '__return_false' );
@@ -77,6 +82,19 @@ class Uncode_Wishlist {
 
 		// Disable mobile views
 		add_filter( 'yith_wcwl_is_wishlist_responsive', '__return_false' );
+
+		// Use legacy templates
+		add_filter( 'yith_wcwl_rendering_method', array( $this, 'rendering_method' ) );
+	}
+
+
+	/**
+	 * Add custom CSS in Wishlist settings
+	 */
+	public function add_admin_css() {
+		if ( apply_filters( 'uncode_use_custom_yith_wishlist', true ) ) {
+			echo '<style>#yith-plugin-fw__panel__menu-item-customization {display: none !important;}</style>';
+		}
 	}
 
 	/**
@@ -88,6 +106,28 @@ class Uncode_Wishlist {
 				unset( $options['settings']['enable_add_to_wishlist_tooltip'] );
 				unset( $options['settings']['add_to_wishlist_tooltip_style'] );
 			}
+		}
+
+		return $options;
+	}
+
+	/**
+	 * Remove style options in Customization tab.
+	 */
+	public function customization_style_options( $options ) {
+		if ( apply_filters( 'uncode_use_custom_yith_wishlist', true ) ) {
+			$options['customization-style'] = array();
+		}
+
+		return $options;
+	}
+
+	/**
+	 * Remove labels options in Customization tab.
+	 */
+	public function customization_labels_options( $options ) {
+		if ( apply_filters( 'uncode_use_custom_yith_wishlist', true ) ) {
+			$options['customization-labels'] = array();
 		}
 
 		return $options;
@@ -225,7 +265,17 @@ class Uncode_Wishlist {
 	public function add_wishlist_button_loop( $block_data, $layout, $is_default_product_content ) {
 		if ( ! isset( $block_data['is_table'] ) || $block_data['is_table'] !== true ) {
 			if ( $is_default_product_content && get_option( 'yith_wcwl_show_on_loop', 'no' ) === 'yes' || isset( $layout['wishlist-button'] ) ) {
-				echo '<div class="add-to-wishlist-overlay icon-badge">' . do_shortcode( "[yith_wcwl_add_to_wishlist]" ) . '</div>';
+				$atts = '';
+
+				if ( isset( $block_data['id'] ) ) {
+					$product = wc_get_product( $block_data['id'] );
+
+					if ( $product && $product->get_type() === 'variation' ) {
+						$atts = 'product_id="' . $block_data['id'] . '"';
+					}
+				}
+
+				echo '<div class="add-to-wishlist-overlay icon-badge">' . do_shortcode( "[yith_wcwl_add_to_wishlist " . $atts . "]" ) . '</div>';
 			}
 		}
 	}
@@ -371,6 +421,13 @@ class Uncode_Wishlist {
 		}
 
 		return $options;
+	}
+
+	/**
+	 * Use legacy templates
+	 */
+	public function rendering_method() {
+		return 'php-templates';
 	}
 }
 

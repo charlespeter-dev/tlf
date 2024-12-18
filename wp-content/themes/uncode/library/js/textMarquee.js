@@ -32,7 +32,7 @@ UNCODE.textMarquee = function( $titles ) {
 				newW = UNCODE.wwidth,
 				marqueeTL, inview;
 
-			if ( $title.closest('.sticky-trigger').length || $title.closest('.pin-spacer').length ) {
+			if ( $title.closest('.sticky-trigger').length || $title.closest('.sticky-element').length || $title.closest('.pin-spacer').length ) {
 				dataTrigger = 'row';
 			}
 
@@ -92,7 +92,7 @@ UNCODE.textMarquee = function( $titles ) {
 				marqueeTL = new TimelineMax({ paused: true, reversed: true });
 
 				var inViewElement =
-						dataTrigger === "row" ? $title.closest(".vc_row")[0] : $title[0],
+						dataTrigger === "row" ? $title.closest('.sticky-trigger, .sticky-element').parent()[0] : $title[0],
 					wayOff =
 						dataTrigger === "row" && dataNavBar === "yes"
 							? UNCODE.menuHeight
@@ -161,7 +161,7 @@ UNCODE.textMarquee = function( $titles ) {
 				var time = Date.now();
 
 				var textMarqueeScroll = function(){
-					var $row = $title.closest('.vc_row'),
+					var $row = $title.closest('.sticky-trigger, .sticky-element').parent(),
 						$bound = (dataTrigger === 'row' || dataTrigger === 'row-middle') ? $row : $title;
 
 					if ( !$bound.length ) {

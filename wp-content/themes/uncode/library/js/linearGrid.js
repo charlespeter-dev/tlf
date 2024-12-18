@@ -194,7 +194,8 @@
 			if ( !$wrap.is(':visible') )  {
 				return;
 			}
-			var matrix, _x, _y;
+			var matrix, _x, _y,
+				dragAction = false;
 			Draggable.create($wrap[0], {
 				type: vertical ? "y" : "x",
 				bounds: document.getElementById("container"),
@@ -202,17 +203,20 @@
 				onPress: function (e) {
 				},
 				onRelease: function (e) {
-					matrix = $wrap.css('transform').replace(/[^0-9\-.,]/g, '').split(',');
-					_x = matrix[12] || matrix[4];
-					_y = matrix[13] || matrix[5];
-					if ( vertical ) {
-						continuousLinearMarquee(_y * -1);
-					} else {
-						continuousLinearMarquee(_x * -1);
+					if ( dragAction === true ) {
+						matrix = $wrap.css('transform').replace(/[^0-9\-.,]/g, '').split(',');
+						_x = matrix[12] || matrix[4];
+						_y = matrix[13] || matrix[5];
+						if ( vertical ) {
+							continuousLinearMarquee(_y * -1);
+						} else {
+							continuousLinearMarquee(_x * -1);
+						}
+						$wrap.removeClass('linear-dragging');
 					}
-					$wrap.removeClass('linear-dragging');
 				},
 				onDrag: function (e) {
+					dragAction = true;
 					$wrap.addClass('linear-dragging');
 				},
 				onDragEnd: function (e) {
@@ -241,6 +245,7 @@
 						continuousLinearMarquee(_x * -1);
 					}
 					$wrap.removeClass('linear-dragging');
+					dragAction = false;
 				},
 			});
 		};

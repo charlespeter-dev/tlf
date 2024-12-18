@@ -15,6 +15,25 @@
 				}, 100);
 			});
 
+			if ( typeof UNCODE.hDoc === 'undefined' ) {
+				UNCODE.hDoc = Math.max( document.body.scrollHeight, document.body.offsetHeight, 
+					document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight );
+			}
+		
+			function paralraf(time) {
+				requestAnimationFrame(paralraf)
+		
+				var newHdoc = Math.max( document.body.scrollHeight, document.body.offsetHeight, 
+					document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight );
+				
+				if ( UNCODE.hDoc !== newHdoc ) {
+					UNCODE.hDoc = newHdoc;
+					parallax_elements.refresh();
+				}
+			}
+		
+			requestAnimationFrame(paralraf)
+		
 		}
 	}
 };

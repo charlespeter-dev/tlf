@@ -41,13 +41,15 @@ function uncode_get_adaptive_async() {
 		$images        = array();
 
 		foreach( $posted_images as $d ){
-			$media_id              = explode( '-', $d[ 'unique' ] );
-			$media_id              = $media_id[ 0 ];
-			$resized               = uncode_resize_image( $media_id, $d[ 'url' ], $d[ 'path' ], $d[ 'origwidth' ], $d[ 'origheight' ], $d[ 'singlew' ], $d[ 'singleh' ], $d[ 'crop' ], $d[ 'fixed' ], array('images' => $d[ 'images' ], 'screen' => $d[ 'screen' ] ), $async_data );
-			$resized[ 'id' ]       = $media_id;
-			$resized[ 'unique' ]   = $d[ 'unique' ];
-			$resized[ 'new_crop' ] = isset( $resized['new_crop'] ) && $resized['new_crop'] ? true : false;
-			$images[]              = $resized;
+			if ( isset( $d[ 'screen' ] ) && isset( $d[ 'images' ] ) ) {
+				$media_id              = explode( '-', $d[ 'unique' ] );
+				$media_id              = $media_id[ 0 ];
+				$resized               = uncode_resize_image( $media_id, $d[ 'url' ], $d[ 'path' ], $d[ 'origwidth' ], $d[ 'origheight' ], $d[ 'singlew' ], $d[ 'singleh' ], $d[ 'crop' ], $d[ 'fixed' ], array('images' => $d[ 'images' ], 'screen' => $d[ 'screen' ] ), $async_data );
+				$resized[ 'id' ]       = $media_id;
+				$resized[ 'unique' ]   = $d[ 'unique' ];
+				$resized[ 'new_crop' ] = isset( $resized['new_crop'] ) && $resized['new_crop'] ? true : false;
+				$images[]              = $resized;
+			}
 		}
 
 		$response = array(

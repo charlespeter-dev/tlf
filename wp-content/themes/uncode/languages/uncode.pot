@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Uncode\n"
 "Report-Msgid-Bugs-To: info@undsgn.com\n"
-"POT-Creation-Date: 2024-11-06 09:29+0100\n"
-"PO-Revision-Date: 2024-11-06 09:29+0100\n"
+"POT-Creation-Date: 2024-12-16 16:22+0100\n"
+"PO-Revision-Date: 2024-12-16 16:22+0100\n"
 "Last-Translator: Undsgn <info@undsgn.com>\n"
 "Language-Team: Undsgn <info@undsgn.com>\n"
 "Language: en_US\n"
@@ -1258,22 +1258,22 @@ msgid ""
 "Settings[/uncode_privacy_box]."
 msgstr ""
 
-#: core/inc/compatibility/wishlist/class-uncode-wishlist.php:132
+#: core/inc/compatibility/wishlist/class-uncode-wishlist.php:172
 msgid "Show \"Add to wishlist\" in single product"
 msgstr ""
 
-#: core/inc/compatibility/wishlist/class-uncode-wishlist.php:133
+#: core/inc/compatibility/wishlist/class-uncode-wishlist.php:173
 msgid ""
 "Enable the \"Add to wishlist\" feature in single product pages when using "
 "the default template"
 msgstr ""
 
-#: core/inc/compatibility/wishlist/class-uncode-wishlist.php:294
+#: core/inc/compatibility/wishlist/class-uncode-wishlist.php:344
 #: woocommerce/wishlist-view.php:233
 msgid "Actions"
 msgstr ""
 
-#: core/inc/compatibility/wishlist/class-uncode-wishlist.php:370
+#: core/inc/compatibility/wishlist/class-uncode-wishlist.php:420
 #: partials/menus.php:690
 msgid "Wishlist"
 msgstr ""
@@ -2179,7 +2179,7 @@ msgid "Prev"
 msgstr ""
 
 #: core/inc/template-tags.php:91 vc_templates/uncode_navigation.php:131
-#: woocommerce/myaccount/orders.php:112
+#: woocommerce/myaccount/orders.php:120
 msgid "Next"
 msgstr ""
 
@@ -2945,7 +2945,7 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: vc_templates/uncode_navigation.php:130 woocommerce/myaccount/orders.php:108
+#: vc_templates/uncode_navigation.php:130 woocommerce/myaccount/orders.php:116
 msgid "Previous"
 msgstr ""
 
@@ -3309,7 +3309,7 @@ msgstr ""
 msgid "Enter a new password below."
 msgstr ""
 
-#: woocommerce/myaccount/orders.php:63 woocommerce/myaccount/orders.php:85
+#: woocommerce/myaccount/orders.php:63
 #, php-format
 msgid "View order number %s"
 msgstr ""
@@ -3326,11 +3326,16 @@ msgid_plural "%1$s for %2$s items"
 msgstr[0] ""
 msgstr[1] ""
 
-#: woocommerce/myaccount/orders.php:119
+#: woocommerce/myaccount/orders.php:88
+#, php-format
+msgid "%1$s order number %2$s"
+msgstr ""
+
+#: woocommerce/myaccount/orders.php:127
 msgid "No order has been made yet."
 msgstr ""
 
-#: woocommerce/myaccount/orders.php:119
+#: woocommerce/myaccount/orders.php:127
 msgid "Browse products"
 msgstr ""
 

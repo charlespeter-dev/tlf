@@ -1,5 +1,5 @@
 <?php
-global $product;
+global $product, $is_cb;
 
 $output = $el_id = $el_class = $css = $border_color = $border_style = $text_lead = $el_style = $css_animation = $animation_delay = $animation_speed = $auto_text = $custom_inline_css = '';
 
@@ -109,7 +109,7 @@ if ( $auto_text === 'excerpt' && $post_type != 'uncodeblock' ) {
 		$the_excerpt = apply_filters( 'woocommerce_short_description', $the_excerpt );
 	}
 	$content = wpautop( $the_excerpt );
-} elseif ( $auto_text === 'content' && $post_type != 'uncodeblock' && $content_cb ) {
+} elseif ( $auto_text === 'content' && $post_type != 'uncodeblock' && ($content_cb || $is_cb) ) {
 	$_content = get_the_content();
 	$content_is_empty = false;
 

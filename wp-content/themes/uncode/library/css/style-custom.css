@@ -518,6 +518,16 @@ body {
 .font-size-small {
   font-size: 13px;
 }
+/* #Font-size-large */
+.font-size-large,
+.form-large input,
+.form-large textarea,
+.form-large select,
+.form-large .seldiv,
+.form-large .select2-choice,
+.form-large .select2-selection--single {
+  font-size: 18px;
+}
 /* #Font-ui-fixed */
 .font-ui-fixed,
 .post-info,

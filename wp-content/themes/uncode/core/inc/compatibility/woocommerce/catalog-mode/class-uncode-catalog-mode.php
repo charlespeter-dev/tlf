@@ -133,7 +133,11 @@ class Uncode_Catalog_Mode {
 
 		if ( is_array( $excluded_pages ) && count( $excluded_pages ) > 0 ) {
 			foreach ( $pages as $key => $page ) {
-				$page_id = ( in_array( current_filter(), array( 'wp_get_nav_menu_items', 'wp_nav_menu_objects' ), true ) ? $page->object_id : $page->ID );
+				if ( in_array( current_filter(), array( 'wp_get_nav_menu_items', 'wp_nav_menu_objects' ), true ) ) {
+					$page_id = isset( $page->object_id ) ? $page->object_id : 0;
+				} else {
+					$page_id = $page->ID;
+				}
 
 				if ( in_array( (int) $page_id, $excluded_pages, true ) ) {
 					unset( $pages[ $key ] );

@@ -223,7 +223,9 @@ if ( $back_image_auto === 'yes' && is_singular() && $is_cb ) {
 	}
 }
 
-$back_image = apply_filters( 'wpml_object_id', $back_image, 'attachment' );
+if ( class_exists( 'SitePress' ) ) {
+	$back_image = apply_filters( 'wpml_object_id', $back_image, 'attachment' );
+}
 
 /** BEGIN - background construction **/
 if (!empty($back_image) || $overlay_color !== '' || $overlay_animated === 'yes') {

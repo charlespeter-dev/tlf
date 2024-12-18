@@ -12,7 +12,7 @@
  * @see 	http://docs.woothemes.com/document/template-structure/
  * @author  WooThemes
  * @package WooCommerce/Templates
- * @version 6.1.0
+ * @version 9.5.0
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -68,6 +68,7 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 		        <?php endforeach;?>
 			</tbody>
 		</table>
+		<div class="reset_variations_alert screen-reader-text" role="alert" aria-live="polite" aria-relevant="all"></div>
 
 		<div class="single_variation_wrap">
 			<?php

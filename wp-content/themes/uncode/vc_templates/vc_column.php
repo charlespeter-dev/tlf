@@ -271,7 +271,9 @@ if ( $back_image_auto === 'yes' && $featured_image !== "yes" && is_singular() &&
 	}
 }
 
-$back_image = apply_filters( 'wpml_object_id', $back_image, 'attachment' );
+if ( class_exists( 'SitePress' ) ) {
+	$back_image = apply_filters( 'wpml_object_id', $back_image, 'attachment' );
+}
 
 if ($override_padding === 'yes') {
 	switch ($column_padding) {

@@ -518,6 +518,7 @@
 
 			var filter_items = function(){
 				if (filterValue !== undefined) {
+					container.addClass('grid-filtering');
 					$.each($('> .tmb-iso > .t-inside', container), function(index, val) {
 						var parent = $(val).parent(),
 							objTimeout = parent.data('objTimeout');
@@ -580,6 +581,7 @@
 						}
 						requestTimeout(function() {
 							Waypoint.refreshAll();
+							container.removeClass('grid-filtering');
 						}, 2000);
 					});
 					/** once filtered - end **/

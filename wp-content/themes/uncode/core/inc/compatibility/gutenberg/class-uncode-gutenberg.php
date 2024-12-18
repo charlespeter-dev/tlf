@@ -440,7 +440,7 @@ class Uncode_Gutenberg {
 			}
 
 			.block-editor .edit-post-visual-editor a {
-				color: <?php echo sanitize_text_field( $dark_text_color ); ?>;
+				color: <?php echo sanitize_text_field( ot_get_option('_uncode_body_link_color') === 'accent' ? $accent_color : $dark_text_color ); ?>;
 				text-decoration: none;
 				transition: color 200ms cubic-bezier(0.785, 0.135, 0.15, 0.86);
 			}

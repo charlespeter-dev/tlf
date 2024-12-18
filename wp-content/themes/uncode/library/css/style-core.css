@@ -3561,8 +3561,7 @@ body.compose-mode .main-container .uncode-scroll-visible.add-zoomout .t-backgrou
   }
 }
 .main-container .unequal-flex > .row-inner > div > .uncol {
-  display: flex;
-  flex-direction: column;
+  display: table;
   height: 100%;
 }
 .main-container .unequal-flex > .row-inner > div > .uncol > div > div > .uncont {
@@ -3579,7 +3578,7 @@ body.compose-mode .main-container .uncode-scroll-visible.add-zoomout .t-backgrou
 }
 .main-container .unequal-flex [class*=col-md-] .row-child .row-inner .column_child,
 .main-container .unequal-flex [class*=col-sm-] .row-child .row-inner .column_child {
-  display: inline-flex;
+  display: table-cell;
   height: 100%;
 }
 @media (min-width: 570px) and (max-width: 959px) {
@@ -11244,6 +11243,7 @@ body:not(.single-product) .header-wrapper .owl-stage-outer {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+  height: auto !important;
 }
 @media (max-width: 569px) {
   .tmb-content-lateral-responsive.tmb-content-lateral.tmb > .t-inside {
@@ -13627,6 +13627,9 @@ html:not(.no-cssanimations) .animate_when_parent_almost_visible {
   opacity: 0;
   animation-duration: 0.6s;
   backface-visibility: hidden;
+}
+html:not(.no-cssanimations) .animate_when_almost_visible:not(.start_animation) {
+  pointer-events: none !important;
 }
 html:not(.no-cssanimations) .uncode-pricing.animate_when_almost_visible {
   transform: none;

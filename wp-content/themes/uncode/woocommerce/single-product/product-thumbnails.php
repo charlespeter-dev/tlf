@@ -13,7 +13,7 @@
  * @see 	    https://docs.woocommerce.com/document/template-structure/
  * @author 		WooThemes
  * @package 	WooCommerce/Templates
- * @version     3.5.1
+ * @version     9.5.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -162,7 +162,7 @@ if ( $attachment_ids ) {
 
 			$data_lbox = isset( $vc_lightbox ) && $vc_lightbox === 'yes' ? '' : ' data-lbox="ilightbox_gallery-' . $gallery_id . '" data-lb-index="' . ($at_key + 1) . '"';
 			$data_lbox .= isset( $vc_lbox_skin ) && $vc_lbox_skin !== '' ? ' data-skin="' . $vc_lbox_skin . '"' : '';
-	
+
 			$image_class .= $data_lbox == '' ? ' lb-disabled' : '';
 
 			$th_animation = $th_delay = $th_speed = '';

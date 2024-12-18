@@ -64,9 +64,9 @@ if ( SiteParameters.smoothScroll === 'on' && ! SiteParameters.is_frontend_editor
 				document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight );
 			
 			if ( UNCODE.hDoc !== newHdoc ) {
-				console.log(UNCODE.hDoc, newHdoc);
 				UNCODE.hDoc = newHdoc;
 				window.lenis.resize();
+				//window.dispatchEvent(new CustomEvent('boxResized'));
 			}
 		}
 	}

@@ -9,7 +9,7 @@
  * Truncate text
  */
 function uncode_truncate($text, $length) {
-	$text = strip_tags($text, '<img>');
+	$text = apply_filters( 'uncode_truncate_strip_all_tags', false ) ? wp_strip_all_tags( $text ) : strip_tags( $text, '<img>' );
 	$length = abs((int)$length);
 	if(strlen($text) > $length) {
 	    if ( preg_match( '/^utf\-?8$/i', get_option( 'blog_charset' ) ) && function_exists('mb_substr') ) {
@@ -2335,11 +2335,11 @@ function uncode_no_ctrl_videos( $item_thumb_id, $consent_id, $single_width, $sin
 			if (isset($oembed_params['dummy_padding']) && $oembed_params['dummy_padding'] !== '') {
 				$dummy_padding = $oembed_params['dummy_padding'];
 				$_media_oembed_dummy = $dummy_padding;
-			} 
+			}
 			if (isset($oembed_params['ratio']) && $oembed_params['ratio'] !== '') {
 				$dummy_ratio = $oembed_params['ratio'];
 				$dummy_ratio = 'aspect-ratio:' . $dummy_ratio . '; ';
-			} 
+			}
 			$_dummy_oembed .= ' style="' . $dummy_ratio . 'padding-top: ' . $_media_oembed_dummy . '%"';
 		}
 
@@ -2363,11 +2363,11 @@ function uncode_no_ctrl_videos( $item_thumb_id, $consent_id, $single_width, $sin
 				if (isset($oembed_params['dummy_padding']) && $oembed_params['dummy_padding'] !== '') {
 					$dummy_padding = $oembed_params['dummy_padding'];
 					$_media_oembed_dummy = $dummy_padding;
-				} 
+				}
 				if (isset($oembed_params['ratio']) && $oembed_params['ratio'] !== '') {
 					$dummy_ratio = $oembed_params['ratio'];
 					$dummy_ratio = 'aspect-ratio:' . $dummy_ratio . '; ';
-				} 
+				}
 				$_dummy_oembed .= ' style="' . $dummy_ratio . 'padding-top: ' . $_media_oembed_dummy . '%"';
 			}
 			$_title_classes = $title_classes;

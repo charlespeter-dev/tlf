@@ -3611,8 +3611,7 @@ body.compose-mode .main-container .uncode-scroll-visible.add-zoomout .t-backgrou
   }
 }
 .main-container .unequal-flex > .row-inner > div > .uncol {
-  display: flex;
-  flex-direction: column;
+  display: table;
   height: 100%;
 }
 .main-container .unequal-flex > .row-inner > div > .uncol > div > div > .uncont {
@@ -3629,7 +3628,7 @@ body.compose-mode .main-container .uncode-scroll-visible.add-zoomout .t-backgrou
 }
 .main-container .unequal-flex [class*=col-md-] .row-child .row-inner .column_child,
 .main-container .unequal-flex [class*=col-sm-] .row-child .row-inner .column_child {
-  display: inline-flex;
+  display: table-cell;
   height: 100%;
 }
 @media (min-width: 570px) and (max-width: 959px) {
@@ -14816,36 +14815,36 @@ body.rtl .grid-filters .menu-smart--filter-cats_mobile-toggle-trigger:after {
     margin-top: -36px !important;
   }
 }
-.ajax-filter-wrapper .isotope-wrapper {
+.ajax-filter-wrapper .grid-wrapper.isotope-wrapper {
   margin-top: 0 !important;
 }
-.ajax-filter-wrapper .isotope-wrapper.half-gutter .isotope-container {
+.ajax-filter-wrapper .grid-wrapper.isotope-wrapper.half-gutter .isotope-container {
   margin-top: -18px !important;
 }
-.ajax-filter-wrapper .isotope-wrapper.single-gutter .isotope-container {
+.ajax-filter-wrapper .grid-wrapper.isotope-wrapper.single-gutter .isotope-container {
   margin-top: -36px !important;
 }
-.ajax-filter-wrapper .isotope-wrapper.double-gutter .isotope-container {
+.ajax-filter-wrapper .grid-wrapper.isotope-wrapper.double-gutter .isotope-container {
   margin-top: -72px !important;
 }
 @media (max-width: 959px) {
-  .ajax-filter-wrapper .isotope-wrapper.double-gutter .isotope-container {
+  .ajax-filter-wrapper .grid-wrapper.isotope-wrapper.double-gutter .isotope-container {
     margin-top: -36px !important;
   }
 }
-.ajax-filter-wrapper .isotope-wrapper.triple-gutter .isotope-container {
+.ajax-filter-wrapper .grid-wrapper.isotope-wrapper.triple-gutter .isotope-container {
   margin-top: -108px !important;
 }
 @media (max-width: 959px) {
-  .ajax-filter-wrapper .isotope-wrapper.triple-gutter .isotope-container {
+  .ajax-filter-wrapper .grid-wrapper.isotope-wrapper.triple-gutter .isotope-container {
     margin-top: -36px !important;
   }
 }
-.ajax-filter-wrapper .isotope-wrapper.quad-gutter .isotope-container {
+.ajax-filter-wrapper .grid-wrapper.isotope-wrapper.quad-gutter .isotope-container {
   margin-top: -144px !important;
 }
 @media (max-width: 959px) {
-  .ajax-filter-wrapper .isotope-wrapper.quad-gutter .isotope-container {
+  .ajax-filter-wrapper .grid-wrapper.isotope-wrapper.quad-gutter .isotope-container {
     margin-top: -36px !important;
   }
 }
@@ -14969,10 +14968,8 @@ body.rtl .grid-filters .menu-smart--filter-cats_mobile-toggle-trigger:after {
 .no-touch .isotope-container > .tmb > .t-inside:not(.no-anim) {
   opacity: 0;
 }
-@media (hover: none) and (pointer: coarse) {
-  .isotope-container > .tmb > .t-inside:not(.no-anim).parallax-el[style*=translate] {
-    opacity: 1 !important;
-  }
+.isotope-container > .tmb > .t-inside:not(.no-anim).parallax-el[style*=translate] {
+  opacity: 1 !important;
 }
 .px-gutter:not(.owl-carousel-container):not(.uncode-post-table):not(.justified-wrapper):not(.post-titles-inner):not(.index-scroll-wrapper):not(.pin-wrap) .tmb > .t-inside {
   margin-top: 1px;
@@ -16408,7 +16405,7 @@ body:not(.lg-from-hash) .lg-outer.lg-start-opacity .lg-item:not(.lg-zoomable).lg
   background-color: #fff;
 }
 .lg-backdrop.in {
-  opacity: 0.9;
+  opacity: 0.9 !important;
 }
 .lg-container.lg-opaque .lg-backdrop.in {
   opacity: 1;
@@ -21498,6 +21495,7 @@ body:not(.single-product) .header-wrapper .owl-stage-outer {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+  height: auto !important;
 }
 @media (max-width: 569px) {
   .tmb-content-lateral-responsive.tmb-content-lateral.tmb > .t-inside {
@@ -30957,6 +30955,9 @@ html:not(.no-cssanimations) .animate_when_parent_almost_visible {
   opacity: 0;
   animation-duration: 0.6s;
   backface-visibility: hidden;
+}
+html:not(.no-cssanimations) .animate_when_almost_visible:not(.start_animation) {
+  pointer-events: none !important;
 }
 html:not(.no-cssanimations) .uncode-pricing.animate_when_almost_visible {
   transform: none;

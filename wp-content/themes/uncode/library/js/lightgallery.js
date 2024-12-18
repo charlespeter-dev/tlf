@@ -21,7 +21,7 @@
 		nested_a = $('a[data-lbox]:not(.lb-disabled):not([data-lbox-init]):not([data-album])').filter(function( index ) {
 			return !$(this).closest('.nested-carousel').length;
 		}),
-		$_galleries = $('.isotope-container:not([data-lbox-init]), .owl-carousel:not([data-lbox-init]), .custom-grid-container:not([data-lbox-init]), .index-scroll-wrapper:not([data-lbox-init]), .justified-gallery:not([data-lbox-init]), .linear-container:not([data-lbox-init]), .uncode-single-media-wrapper:not([data-lbox-init]), .woocommerce-product-gallery:not([data-lbox-init]), .icon-box:not([data-lbox-init]), .grid-container:not([data-lbox-init]), .btn-container' + SiteParameters.uncode_lb_add_galleries).has('.lbox-trigger-item').not('.isotope-container *, .owl-carousel *, .index-scroll-wrapper *, .justified-gallery *, .woocommerce-product-gallery *, .grid-container *, .linear-container *'), 
+		$_galleries = $('.isotope-container:not([data-lbox-init]), .owl-carousel:not([data-lbox-init]), .custom-grid-container:not([data-lbox-init]), .index-scroll-wrapper:not([data-lbox-init]), .justified-gallery:not([data-lbox-init]), .linear-container:not([data-lbox-init]), .uncode-single-media-wrapper:not([data-lbox-init]), .woocommerce-product-gallery:not([data-lbox-init]), .icon-box .icon-box-icon:not([data-lbox-init]), .icon-box .icon-box-content:not([data-lbox-init]), .grid-container:not([data-lbox-init]), .btn-container:not([data-lbox-init])' + SiteParameters.uncode_lb_add_galleries).has('.lbox-trigger-item').not('.isotope-container *, .owl-carousel *, .index-scroll-wrapper *, .justified-gallery *, .woocommerce-product-gallery *, .grid-container *, .linear-container *'), 
 		$galleries = $_galleries.filter(function( index ) {
 			return !$(this).closest('.owl-carousel').length || $(this).is('.owl-carousel');
 		}),
@@ -189,6 +189,10 @@
 			connect = $_first.attr('data-connect'),
 			lgPlugins = [lgVideo],
 			itemsLoadedTimeOut;
+
+		if ( typeof galleryID === 'undefined' ) {
+			galleryID = $gallery.attr('id');
+		}
 
 		containerClass += $_first.attr('data-transparency') === 'opaque' ? ' lg-opaque' : '';
 		containerClass += controls && $_first.attr('data-arrows-bg') === 'semi-transparent' ? ' lg-semi-transparent-arrows' : '';
