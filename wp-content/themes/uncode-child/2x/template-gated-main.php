@@ -84,6 +84,41 @@ get_header() ?>
                         <div class="content">
                             <?= $main_content ?>
                         </div>
+
+                        <?php if (isset($speaker_groups) && $speaker_groups): ?>
+                            <div class="speakers">
+                                <div class="speakers-heading mt-3 mb-4">
+                                    <h3>
+                                        <?= __('Speakers:') ?>
+                                    </h3>
+                                </div>
+
+                                <?php foreach ($speaker_groups as $speaker_group): ?>
+
+                                    <div class="row speakers-content mb-4">
+
+                                        <div class="col-lg-4">
+                                            <div class="speaker-image">
+                                                <img src="<?= $speaker_group['speaker']['headshot']['url'] ?>" alt=""
+                                                    loading="lazy">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-8">
+                                            <div class="speaker-info my-4 my-lg-0">
+                                                <div class="speaker-name">
+                                                    <?= $speaker_group['speaker']['name'] ?>
+                                                </div>
+                                                <div class="speaker-title">
+                                                    <?= $speaker_group['speaker']['title'] ?>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                <?php endforeach ?>
+                            </div>
+                        <?php endif ?>
                     </div>
 
                     <div class="col-lg-5">

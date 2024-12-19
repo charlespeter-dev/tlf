@@ -7,7 +7,7 @@
 
 h1:not([class*="fontsize-"]),
 .h1:not([class*="fontsize-"]) {
-    font-size: 35px !important;
+    font-size: 34px !important;
     /* overrides uncode custom style */
 }
 
@@ -179,11 +179,20 @@ h1:not([class*="fontsize-"]),
 
         &.single-webinar {
 
-            video {
-                width: 100%;
-                height: auto;
-                border-radius: 15px;
-                border-color: #003375;
+            .wp-video {
+
+                border: 1px solid #003375;
+
+                video {
+                    width: 100%;
+                    height: auto;
+                }
+            }
+
+            .main-content {
+                ul {
+                    padding-left: 3rem;
+                }
             }
 
             .related-webinars {

@@ -26,6 +26,9 @@
 .bootstrap-container .main-contents a {
   color: #009BDC !important;
 }
+.bootstrap-container .main-contents ul {
+  padding-left: 3rem;
+}
 .bootstrap-container .main-contents ul > li {
   list-style-type: disc;
 }
@@ -36,6 +39,22 @@
 .bootstrap-container .main-contents li.tick span {
   vertical-align: 0.3em;
   transform: translate(-0.1em, 0.2em);
+}
+.bootstrap-container .speakers-content {
+  align-items: center;
+}
+.bootstrap-container .speakers-content .speaker-name {
+  color: #003375;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 30px;
+  margin-bottom: 1rem;
+}
+.bootstrap-container .speakers-content .speaker-title {
+  color: #E30613;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 30px;
 }
 
 /*# sourceMappingURL=template-gated-main.css.map */

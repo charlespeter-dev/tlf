@@ -1,6 +1,6 @@
 h1:not([class*=fontsize-]),
 .h1:not([class*=fontsize-]) {
-  font-size: 35px !important;
+  font-size: 34px !important;
   /* overrides uncode custom style */
 }
 
@@ -143,11 +143,15 @@ h1:not([class*=fontsize-]),
 .bootstrap-container.resources.single-brochure.resources a:hover {
   color: #E30613 !important;
 }
-.bootstrap-container.resources.single-webinar video {
+.bootstrap-container.resources.single-webinar .wp-video {
+  border: 1px solid #003375;
+}
+.bootstrap-container.resources.single-webinar .wp-video video {
   width: 100%;
   height: auto;
-  border-radius: 15px;
-  border-color: #003375;
+}
+.bootstrap-container.resources.single-webinar .main-content ul {
+  padding-left: 3rem;
 }
 .bootstrap-container.resources.single-webinar .related-webinars-post {
   display: flex;
