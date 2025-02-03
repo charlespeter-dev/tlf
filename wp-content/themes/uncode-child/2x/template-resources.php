@@ -33,7 +33,7 @@ $args = [
     'post_type' => 'resources',
     'order' => 'DESC',
     'orderby' => 'date',
-    'status' => 'publish',
+    'post_status' => 'publish',
     'fields' => 'ids',
     'posts_per_page' => -1,
 ];
@@ -133,7 +133,7 @@ if ($_sf_s) {
         'post_type' => 'resources',
         'order' => 'DESC',
         'orderby' => 'date',
-        'status' => 'publish',
+        'post_status' => 'publish',
         'fields' => 'ids',
         'posts_per_page' => -1,
         'search_title' => $_sf_s,
@@ -327,8 +327,8 @@ get_header() ?>
 
     </section>
 
-    <?php if (isset($cards_ids)): ?>
-        <section class="cards-overview faces-of-tlf mt-4 mb-5">
+    <?php if (isset($cards_ids) && $cards_ids): ?>
+        <section class="cards-overview mt-4 mb-5">
             <div class="row-container">
                 <div class="single-h-padding limit-width">
 

@@ -51,5 +51,10 @@
 .bootstrap-container .searchandfilter [name="_sf_search[]"] {
   width: 300px;
 }
+.bootstrap-container .cards-overview .card.h-100 > img {
+  width: 352px;
+  height: 271px;
+  object-fit: cover;
+}
 
 /*# sourceMappingURL=template-resources.css.map */

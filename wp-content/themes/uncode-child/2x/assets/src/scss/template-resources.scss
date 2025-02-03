@@ -81,4 +81,12 @@
             width: 300px;
         }
     }
+
+    .cards-overview {
+        .card.h-100>img {
+            width: 352px;
+            height: 271px;
+            object-fit: cover;
+        }
+    }
 }
