@@ -31,9 +31,21 @@ $industries_query = new WP_Query([
 
 wp_reset_query();
 
-$industries_ids = $industries_query->posts;
+$cards_ids = [];
 
-$cards_ids = $industries_ids;
+foreach ($industries_query->posts as $industry_id) {
+
+    // ------------------------------
+    // skip children
+    // ------------------------------
+
+    $parent_id = wp_get_post_parent_id($industry_id);
+
+    if ($parent_id)
+        continue;
+
+    $cards_ids = array_merge($cards_ids, [$industry_id]);
+}
 
 /**
  * specific css

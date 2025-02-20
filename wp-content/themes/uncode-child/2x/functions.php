@@ -27,10 +27,22 @@ add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('_2x-css-bootstrap', sprintf('%s/2x/assets/css/bootstrap-container.css', get_stylesheet_directory_uri()), ['uncode-style'], time());
 
     /**
+     * aos css
+     */
+
+    wp_enqueue_style('_2x-css-aos', 'https://unpkg.com/aos@next/dist/aos.css', ['_2x-css-single-industry-poultry'], time(), 'screen');
+
+    /**
      * enqueue bootstrap js
      */
 
     wp_enqueue_script('_2x-js-bootstrap', sprintf('%s/2x/assets/js/bootstrap.min.js', get_stylesheet_directory_uri()), [], false, true);
+
+    /**
+     * aos
+     */
+
+    wp_enqueue_script('_2x-js-aos', 'https://unpkg.com/aos@next/dist/aos.js', ['_2x-js-bootstrap'], time(), false);
 });
 
 /**
