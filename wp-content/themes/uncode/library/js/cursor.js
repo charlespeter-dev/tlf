@@ -101,8 +101,8 @@
 			tooltip_class = '',
 			cursorBg = false;
 
-		$href.filter(':not(.cursor-init)').on('mouseenter.cursor',function(e) {
-			var $this = $(this).addClass('cursor-init'),
+		$wrap.filter(":not(.cursor-init)").on("mouseenter.cursor", href, function (e) {
+			var $this = $(this).addClass("cursor-init"),
 				$tmb = $this.closest('.tmb'),
 				data_cursor = $this.closest('[data-cursor]').attr('data-cursor') || $this.attr('data-cursor'),
 				cursor_bg = $this.closest('[data-cursor]').attr('data-cursor-transparent') || $this.attr('data-cursor-transparent'),
@@ -162,7 +162,7 @@
 			}
 
 			delayChangeCursor(cursorType, cursorTitle, cursorBg, 0, data_title, tooltip_class);
-		}).on('mouseleave.cursor', function(){
+		}).on("mouseleave.cursor", href, function(e) {
 			var outTime = 150;
 			if ( currentBg !== false && cursorBg === false ) {
 				outTime = 0;

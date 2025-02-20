@@ -46,6 +46,15 @@ window.clearRequestTimeout = function(handle) {
 	}
 };
 
+function uncodeVisibilityChange() {
+	if (document.hidden) {
+		window.dispatchEvent(new CustomEvent('is-blur'));
+	} else {
+		window.dispatchEvent(new CustomEvent('is-focus'));
+	}
+  }
+document.addEventListener('visibilitychange', uncodeVisibilityChange, false);
+
 if ( SiteParameters.smoothScroll === 'on' && ! SiteParameters.is_frontend_editor ) {
 	window.lenis = new Lenis({
 		duration: 1
@@ -568,12 +577,15 @@ UNCODE.lettering = function() {
 
 		Waypoint.refreshAll();
 		$( document.body ).trigger('uncode_waypoints');
+		if ( typeof ScrollTrigger !== 'undefined' && ScrollTrigger !== null ) {
+			ScrollTrigger.refresh();
+		}
 
 	}
 
 	requestTimeout(function(){
 		highlightStill();
-		$(window).on( 'resize', function(){
+		$(window).on( 'wwResize', function(){
 			clearRequestTimeout(setCTA);
 			setCTA = requestTimeout( highlightStill, 100 );
 		});
@@ -609,7 +621,7 @@ var manageVideoSize = function(){
 					});
 				};
 				resizeiFrame();
-				$(window).on( 'resize load', function(){
+				$(window).on( 'wwResize load', function(){
 					clearRequestTimeout(setResizeiFto);
 					setResizeiFto = requestTimeout( function() {
 						resizeiFrame();

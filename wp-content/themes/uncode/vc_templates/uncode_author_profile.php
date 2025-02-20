@@ -254,6 +254,8 @@ if ($text_transform !== '') {
 	$content_classes[] = 'text-' . $text_transform;
 }
 
+$heading_semantic = uncode_sanitize_html_tag( $heading_semantic, 'heading' );
+
 $content_out .= '<' . $heading_semantic . ' class="' . esc_attr(trim(implode( ' ', $content_classes ))) . '">';
 if ( $author_name_linked === 'yes' ) {
 	$title = ($a_title !== '') ? ' title="' . esc_attr( $a_title ) . '"' : '';

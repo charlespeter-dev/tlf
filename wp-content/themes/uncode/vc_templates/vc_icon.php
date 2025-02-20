@@ -87,6 +87,8 @@ $inline_style_css = uncode_get_dynamic_colors_css_from_shortcode( array(
 	)
 ) );
 
+$heading_semantic = uncode_sanitize_html_tag( $heading_semantic, 'heading' );
+
 $icon_color = uncode_get_shortcode_color_attribute_value( 'icon_color', $uncode_shortcode_id, $icon_color_type, $icon_color, $icon_color_solid, $icon_color_gradient );
 
 // Prepare icon classes

@@ -21,6 +21,8 @@
 /wp-content/themes/twentytwentyone
 /wp-content/themes/twentytwentytwo
 /wp-content/themes/twentytwentythree
+/wp-content/themes/twentytwentyfour
+/wp-content/themes/twentytwentyfive
 node_modules
 package-lock.json
 *.zip

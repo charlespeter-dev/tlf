@@ -620,7 +620,7 @@
 					 document.documentElement.style.paddingTop = bodyBorder + 'px';
 				 }
 				 wheight = (uaInfo.getIpadApp() == 'ipad_app' ? document.documentElement.clientWidth : window.innerHeight || document.documentElement.clientHeight) - (bodyBorder * 2);
-			 }
+				}
 			 if (!isMobile && !scrollbarWidth) {
 				 // Create the measurement node
 				 var scrollDiv = document.createElement("div");
@@ -877,7 +877,7 @@
 			 UNCODE.adaptive();
 
 			 parallaxHeaders = document.querySelectorAll('.header-parallax > .header-bg-wrapper');
-			 header = document.querySelectorAll('.header-wrapper.header-uncode-block, .header-wrapper.header-revslider, .header-wrapper.header-layerslider, .header-basic .header-wrapper, .header-uncode-block > .row-container:first-child > .row > .row-inner > .col-lg-12 > .uncol, .header-uncode-block .uncode-slider .owl-carousel > .row-container:first-child .column_child .uncoltable');
+			 header = document.querySelectorAll('.header-wrapper.header-uncode-block, .header-wrapper.header-revslider, .header-wrapper.header-layerslider, .header-basic .header-wrapper, .header-uncode-block > .row-container:first-child > .row > .row-inner > .col-lg-12 > .uncol, .header-uncode-block > div[data-sticky] > .row-container:first-child > .row > .row-inner > .col-lg-12 > .uncol, .header-uncode-block .uncode-slider .owl-carousel > .row-container:first-child .column_child .uncoltable, .header-uncode-block > section > .row > .row-container:first-child > .row > .row-inner > .col-lg-12 > .uncol, .header-uncode-block > section > .row > div[data-sticky] > .row-container:first-child > .row > .row-inner > .col-lg-12 > .uncol');
 			 headerWithOpacity = document.querySelectorAll('.header-scroll-opacity');
 			 if (typeof pageHeader === 'object' && pageHeader !== null) {
 				 headerVideo = pageHeader.querySelectorAll('.uncode-video-container:not(.t-entry-drop)');
@@ -1124,8 +1124,6 @@
 
 			 shapeDivider();
 
-			 var wrapLinesWw = wwidth;
-
 			 //Text animation, automatic lines and highlights
 			 var setWrap;
 
@@ -1218,22 +1216,29 @@
 
 			 heading_inline_images();
 
+			var evtWordLines = new CustomEvent('uncodeWordLines')
 
 			 function word_for_lines(event, $parent_el) {
+				var iPhone = /iPhone/.test(navigator.userAgent) && !window.MSStream,
+				android = /Android/.test(navigator.userAgent) && !window.MSStream;		
 
-				 if (typeof $parent_el === 'undefined' || $parent_el === null) {
+				if ( event === 'resize' && ( iPhone || (android && Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) < 750) ) ) {
+					return;
+				}
+
+				if (typeof $parent_el === 'undefined' || $parent_el === null) {
 					 $parent_el = document.body;
 				 }
 
 				 var $headings = $parent_el.querySelectorAll('.heading-text');
 
 				 for (var head_k = 0; head_k < $headings.length; head_k++) {
-					 var $heading = $headings[head_k],
-						 heading_cont = $heading.innerHTML,
-						 $row = $heading.closest('.row-parent'),
-						 $owl_carousel = $heading.closest('.owl-carousel-wrapper'),
-						 $owl_item = $heading.closest('.owl-item'),
-						 $words = $heading.querySelectorAll('.split-word');
+					var $heading = $headings[head_k],
+						heading_cont = $heading.innerHTML,
+						$row = $heading.closest('.row-parent'),
+						$owl_carousel = $heading.closest('.owl-carousel-wrapper'),
+						$owl_item = $heading.closest('.owl-item'),
+						$words = $heading.querySelectorAll('.split-word');
 
 					 if (!$words.length) {
 						 if ($owl_item !== null)
@@ -1258,32 +1263,36 @@
 
 					 $heading.innerHTML = heading_cont;
 					 $words = $heading.querySelectorAll('.split-word, .heading-foreword');
-					 var lineArray = [],
-						 lineIndex = 0,
-						 lineStart = true,
-						 lineEnd = false,
-						 $text_highlight = $heading.querySelectorAll('.heading-text-highlight'),
-						 $line_wraps = $heading.querySelectorAll('.heading-line-wrap');
-
-					 if ($line_wraps.length && typeof event === 'undefined') {
-						 continue;
-					 }
-
-					 var lettering = function () {
-						 var $wraps = $parent_el.querySelectorAll('.animate_inner_when_almost_visible.curtain, .animate_inner_when_almost_visible.curtain-words, .animate_inner_when_almost_visible.typewriter, .animate_inner_when_almost_visible.single-curtain, .animate_inner_when_almost_visible.single-slide, .animate_inner_when_almost_visible.single-slide-opposite');
-
-						 for (var i = 0; i < $wraps.length; i++) {
-							 var $wrap = $wraps[i],
-								 $lines = $wrap.querySelectorAll('.heading-line-wrap'),
-								 $words = $wrap.querySelectorAll('.split-word:not(.uncode-rotating-span)'),
-								 containerDelay = $wrap.getAttribute('data-delay'),
-								 containerSpeed = $wrap.getAttribute('data-speed'),
-								 containerSpeed_val = typeof containerSpeed !== 'undefined' && containerSpeed !== null ? parseFloat(containerSpeed) : 400,
-								 containerInterval = typeof $wrap.getAttribute('data-interval') !== 'undefined' && $wrap.getAttribute('data-interval') !== null ? $wrap.getAttribute('data-interval') : 0,
-								 $cloned = $wrap.closest('.cloned'),
-								 delayAttr = (containerDelay != undefined) ? containerDelay : 0;
-
-							 if (classie.hasClass($wrap, 'already-animated')) {
+					  var lineArray = [],
+						  lineIndex = 0,
+						  lineStart = true,
+						  lineEnd = false,
+						  $text_highlight = $heading.querySelectorAll('.heading-text-highlight'),
+						  $line_wraps = $heading.querySelectorAll('.heading-line-wrap');
+  
+					  if ( $line_wraps.length && typeof event === 'undefined' ) {
+						  continue;
+					  }
+  
+					  var lettering = function(){
+						  var $wraps = $parent_el.querySelectorAll('.animate_inner_when_almost_visible.curtain, .animate_inner_when_almost_visible.perspective, .animate_inner_when_almost_visible.perspective-words, .animate_inner_when_almost_visible.curtain-words, .animate_inner_when_almost_visible.typewriter, .animate_inner_when_almost_visible.single-curtain, .animate_inner_when_almost_visible.single-slide, .animate_inner_when_almost_visible.single-slide-opposite, .text-reveal');
+  
+						  for (var i = 0; i < $wraps.length; i++) {
+							  var $wrap = $wraps[i],
+								  $lines = $wrap.querySelectorAll('.heading-line-wrap'),
+								  $words =  $wrap.querySelectorAll('.split-word:not(.uncode-rotating-span)'),
+								  containerDelay = $wrap.getAttribute('data-delay'),
+								  containerSpeed = $wrap.getAttribute('data-speed'),
+								  containerSpeed_val = typeof containerSpeed !== 'undefined' && containerSpeed !== null ? parseFloat(containerSpeed) : 400,
+								  containerInterval = typeof $wrap.getAttribute('data-interval') !== 'undefined' && $wrap.getAttribute('data-interval') !== null ? $wrap.getAttribute('data-interval') : 0,
+								  $cloned = $wrap.closest('.cloned'),
+								  delayAttr = (containerDelay != undefined) ? containerDelay : 0;
+  
+							 if ( classie.hasClass($wrap, 'already-animated') ) {
+								  continue;
+							 }
+  
+							 if ( $cloned !== null ) {
 								 continue;
 							 }
 
@@ -1293,31 +1302,57 @@
 
 							 if (classie.hasClass($wrap, 'curtain')) {
 
-								 for (var il = 0; il < $lines.length; il++) {
-									 var $line = $lines[il],
-										 $spans = $line.querySelectorAll('.split-word-inner');
+								for (var il = 0; il < $lines.length; il++) {
+									var $line = $lines[il],
+										$spans = $line.querySelectorAll('.split-word-inner');
 
-									 for (var is = 0; is < $spans.length; is++) {
+									for (var is = 0; is < $spans.length; is++) {
 
-										 var $span = $spans[is];
+										var $span = $spans[is];
 
-										 $span.setAttribute('data-delay', (parseFloat(delayAttr) + ((parseFloat(containerInterval) + 100) * il)));
+										$span.setAttribute('data-delay', (parseFloat(delayAttr) + ((parseFloat(containerInterval) + 100) * il)));
 
-										 if (typeof containerSpeed_val !== 'undefined') {
-											 $span.setAttribute('data-speed', containerSpeed_val);
-										 }
+										if (typeof containerSpeed_val !== 'undefined') {
+											$span.setAttribute('data-speed', containerSpeed_val);
+										}
 
-										 classie.addClass($span, 'animate_when_parent_almost_visible');
-										 classie.addClass($span, 'text-bottom-t-top');
+										classie.addClass($span, 'animate_when_parent_almost_visible');
+										classie.addClass($span, 'text-bottom-t-top');
 
-										 if (is + 1 === $spans.length && il + 1 === $lines.length) {
-											 classie.addClass($span, 'anim-tot-checker');
-										 }
-									 }
+										if (is + 1 === $spans.length && il + 1 === $lines.length) {
+											classie.addClass($span, 'anim-tot-checker');
+										}
+									}
 
-								 }
+								}
 
-							 } else if (classie.hasClass($wrap, 'single-curtain')) {
+							} else if (classie.hasClass($wrap, 'perspective')) {
+
+								for (var il = 0; il < $lines.length; il++) {
+									var $line = $lines[il],
+										$spans = $line.querySelectorAll('.split-word');
+
+									for (var is = 0; is < $spans.length; is++) {
+
+										var $span = $spans[is];
+
+										$span.setAttribute('data-delay', (parseFloat(delayAttr) + ((parseFloat(containerInterval) + 100) * il)));
+
+										if (typeof containerSpeed_val !== 'undefined') {
+											$span.setAttribute('data-speed', containerSpeed_val);
+										}
+
+										classie.addClass($span, 'animate_when_parent_almost_visible');
+										classie.addClass($span, 'perspective-bottom-t-top');
+
+										if (is + 1 === $spans.length && il + 1 === $lines.length) {
+											classie.addClass($span, 'anim-tot-checker');
+										}
+									}
+
+								}
+
+							} else if (classie.hasClass($wrap, 'single-curtain')) {
 
 								 var $spans = $wrap.querySelectorAll('.split-char');
 
@@ -1414,31 +1449,53 @@
 
 							 } else if (classie.hasClass($wrap, 'curtain-words')) {
 
-								 var $spans = $wrap.querySelectorAll('.split-word-inner');
+								var $spans = $wrap.querySelectorAll('.split-word-inner');
 
-								 for (var is = 0; is < $spans.length; is++) {
-									 var $span = $spans[is];
+								for (var is = 0; is < $spans.length; is++) {
+									var $span = $spans[is];
 
-									 $span.setAttribute('data-delay', (parseFloat(delayAttr) + ((parseFloat(containerInterval) + 50) * is)));
+									$span.setAttribute('data-delay', (parseFloat(delayAttr) + ((parseFloat(containerInterval) + 50) * is)));
 
-									 if (typeof containerSpeed_val !== 'undefined') {
-										 $span.setAttribute('data-speed', containerSpeed_val);
-									 }
+									if (typeof containerSpeed_val !== 'undefined') {
+										$span.setAttribute('data-speed', containerSpeed_val);
+									}
 
-									 classie.addClass($span, 'animate_when_parent_almost_visible');
-									 classie.addClass($span, 'text-bottom-t-top');
+									classie.addClass($span, 'animate_when_parent_almost_visible');
+									classie.addClass($span, 'text-bottom-t-top');
 
-									 if (is + 1 == $spans.length) {
-										 classie.addClass($span, 'anim-tot-checker');
-									 }
-								 }
-							 }
+									if (is + 1 == $spans.length) {
+										classie.addClass($span, 'anim-tot-checker');
+									}
+								}
+
+							} else if (classie.hasClass($wrap, 'perspective-words')) {
+
+								var $spans = $wrap.querySelectorAll('.split-word');
+
+								for (var is = 0; is < $spans.length; is++) {
+									var $span = $spans[is];
+
+									$span.setAttribute('data-delay', (parseFloat(delayAttr) + ((parseFloat(containerInterval) + 50) * is)));
+
+									if (typeof containerSpeed_val !== 'undefined') {
+										$span.setAttribute('data-speed', containerSpeed_val);
+									}
+
+									classie.addClass($span, 'animate_when_parent_almost_visible');
+									classie.addClass($span, 'perspective-bottom-t-top');
+
+									if (is + 1 == $spans.length) {
+										classie.addClass($span, 'anim-tot-checker');
+									}
+								}
+
+							}
 
 						 }
 					 }
 
 					 var removeOldLines = function () {
-						 for (var wrap_k = 0; wrap_k < $line_wraps.length; wrap_k++) {
+						for (var wrap_k = 0; wrap_k < $line_wraps.length; wrap_k++) {
 							 var $line_wrap = $line_wraps[wrap_k];
 							 var $parent_wrap = $line_wrap.parentNode;
 							 if ($parent_wrap !== null) {
@@ -1532,8 +1589,9 @@
 					 }
 
 					 var createNewLines = function () {
-						 for (var word_k = 0; word_k < $words.length; word_k++) {
-							 var $word = $words[word_k],
+						var wordsL = $words.length;
+						 for (var word_k = 0; word_k < wordsL; word_k++) {
+							var $word = $words[word_k],
 								 top = $word.offsetTop,
 								 elH = $word.offsetHeight,
 								 $next = typeof $words[(word_k + 1)] !== 'undefined' ? $words[(word_k + 1)] : null,
@@ -1587,6 +1645,7 @@
 
 							 if ((i + 1) == lineArray.length) {
 								 classie.addClass($row, 'loaded-split-word');
+								 rowParent.dispatchEvent(evtWordLines);
 							 }
 
 							 classie.addClass($heading, 'heading-lined');
@@ -1595,7 +1654,7 @@
 
 					 }
 
-					 removeOldLines();
+					removeOldLines();
 					 createHighlightSpans();
 					 createNewLines();
 
@@ -1610,7 +1669,8 @@
 					 }
 
 				 }
-			 }
+
+			}
 
 			 var $h_markup = document.body.querySelectorAll('.font-obs'),
 				 fontArr = new Array();
@@ -1674,16 +1734,17 @@
 				 word_for_lines(false, el);
 			 });
 
-			 window.addEventListener("resize", function () {
-				 if (wwidth != wrapLinesWw) {
-					 clearRequestTimeout(setWrap);
-					 setWrap = requestTimeout(function () {
-						 wrapLinesWw = wwidth;
-						 word_for_lines('resize');
-					 }, 100);
-				 }
-				 heading_inline_images();
+			window.addEventListener("resize", function () {
+				clearRequestTimeout(setWrap);
+				setWrap = requestTimeout(function () {
+					word_for_lines('resize', el);
+				}, 100);
+				heading_inline_images();
 			 });
+
+			 window.addEventListener("uncode-sticky-trigger-observe", function(){
+				word_for_lines('resize', el);
+			});
 
 			 window.addEventListener("load", function () {
 				 if (!UNCODE.isFrontEndEditor && wwidth <= mediaQuery) {
@@ -1876,18 +1937,22 @@
 					  isFirst = false;
 				  $row.oversized = false;
 				  percentHeight = el.getAttribute("data-height-ratio");
+				  var dataScrolltrigger = $rowParent.getAttribute("data-anim-inner-rows-options");
+				  if ( dataScrolltrigger === 'parent-sticky') {
+					continue;
+				  }
 				  minHeight = el.getAttribute("data-minheight");
 				  // child = (el.firstElementChild || el.firstChild);
 				  child = (el.lastElementChild || el.lastChild);
+				  child.style.height = false;
 				  var childHeight = outerHeight(child);
 				  /** window height without header **/
 				  if (!!percentHeight || !!minHeight || forced || (isIE && classie.hasClass(el, 'unequal')) ) {
-					  child.style.height = '';
 					  if (!!percentHeight) {
 						  if (percentHeight == 'full') {
-							  currentTallest = parseInt(UNCODE.wheight);
+							  currentTallest = parseInt(wheight);
 						  } else {
-							  currentTallest = parseInt((UNCODE.wheight * percentHeight) / 100);
+							  currentTallest = parseInt((wheight * percentHeight) / 100);
 						  }
 					  } else {
 						  currentTallest = el.clientHeight;
@@ -1914,9 +1979,9 @@
 						  percentHeight = el.getAttribute("data-height-ratio");
 						  minHeight = el.getAttribute("data-minheight");
 						  if (percentHeight == 'full') {
-							  currentTallest = parseInt(UNCODE.wheight);
+							  currentTallest = parseInt(wheight);
 						  } else {
-							  currentTallest = parseInt((UNCODE.wheight * percentHeight) / 100);
+							  currentTallest = parseInt((wheight * percentHeight) / 100);
 						  }
 
 						  var computedStyleRow = getComputedStyle(el),
@@ -2023,7 +2088,7 @@
 					  }
 
 					  if ( wwidth < mediaQuery && classie.hasClass(child, 'auto-height-device') ) {
-						  child.style.height = 'auto';
+						child.style.height = 'auto';
 					  }
 
 				  } else {
@@ -2215,7 +2280,7 @@
 							 });
 							 getDivChildren(el, '.row-parent > .row-inner', function(obj, k, total) {
 								 if (obj.style.height != '') {
-									 var getStyle = (window.getComputedStyle((obj.parentNode), null)),
+									var getStyle = (window.getComputedStyle((obj.parentNode), null)),
 									 getInnerHeight = (parseInt(obj.parentNode.clientHeight) - parseInt(getStyle.paddingTop) - parseInt(getStyle.paddingBottom)),
 									 getTempHeight = parseInt(obj.style.height);
 									 if (getInnerHeight > getTempHeight && ( obj.parentNode.parentNode == null || ! classie.hasClass(obj.parentNode.parentNode, 'pin-trigger') ) ) {
@@ -2283,6 +2348,7 @@
 							 for (var mDi = 0; mDi < $colMds.length; mDi++) {
 								 $colMds[mDi].style.height = maxMd + 'px';
 							 }
+
 						 } else {
 							 for (var colI = 0; colI < $cols.length; colI++) {
 								 $cols[colI].style.height = '';
@@ -2295,7 +2361,7 @@
 			  if ( resized || UNCODE.isFrontEndEditor ) {
 				  window.scroll(0, scrollRowHeight_fix);
 			  }
-		  },
+		},
 		  headerHeight = function(container) {
 			  menuMobileTransparent = document.querySelector('.menu-absolute.menu-transparent');
 			  forEachElement(container, function(el, i) {
@@ -3426,6 +3492,7 @@
 						  el.style.height = '';
 						  el.style.marginBottom = '';
 					  });
+
 					  setRowHeight(document.querySelectorAll('.page-wrapper .row-parent, footer .row-parent'), false, true);
 				  }
 				  initVideoComponent(document.body, '.uncode-video-container.video:not(.drop-move):not(.fluid-object), .uncode-video-container.self-video:not(.drop-move)');

@@ -5,8 +5,8 @@
 	$('.linear-wrapper').each(function(){
 		var $wrap = $(this),
 			$system = $wrap.closest('.linear-system'),
+			$dragger = $('[data-dragger]', $system),
 			$row = $wrap.closest('.vc_row[data-parent]'),
-			row_id = $row.attr('id'),
 			_row = $row[0],
 			$cont = $('.linear-container.cont-leader:not(.cont-appended)', $wrap),
 			vertical = $cont.hasClass('linear-or-vertical'),
@@ -16,6 +16,7 @@
 			dataSpeed = parseFloat( $wrap.attr('data-speed') ),
 			isInViewport = false,
 			isHover = false,
+			init = false,
 			stableHeight = UNCODE.wheight,
 			wCont, hCont, docH, marqueeTL;
 
@@ -121,7 +122,7 @@
 				direction = $wrap.attr('data-animation').indexOf('opposite') > 0 ? -1 : 1,
 				speed = (xEnd + xStrt) / (dataSpeed*dataSpeed*dataSpeed) / 5*dataSpeed,
 				speedSlow = (xEnd + xStrt) / 45,
-				freezed = freezedDesktop && UNCODE.wwidth >= UNCODE.mediaQuery || freezedMobile && UNCODE.wwidth < UNCODE.mediaQuery
+				freezed = freezedDesktop && UNCODE.wwidth >= UNCODE.mediaQuery || freezedMobile && UNCODE.wwidth < UNCODE.mediaQuery;
 
 			marqueeTL = new TimelineMax({paused:true, reversed:true});
 
@@ -293,7 +294,7 @@
 				return;
 			}
 			var matrix, _x, _y;
-			Draggable.create($system[0], {
+			Draggable.create($dragger[0], {
 				type: vertical ? "y" : "x",
 				bounds: document.getElementById("container"),
 				inertia: false,
@@ -305,7 +306,7 @@
 					$wrap.addClass('linear-dragging');
 				},
 				onDragEnd: function (e) {
-					matrix = $system.css('transform').replace(/[^0-9\-.,]/g, '').split(',');
+					matrix = $dragger.css('transform').replace(/[^0-9\-.,]/g, '').split(',');
 					_x = matrix[12] || matrix[4];
 					_y = matrix[13] || matrix[5];
 					wCont = $cont.outerWidth();
@@ -317,7 +318,7 @@
 							} else {
 								_y = parseFloat( _y ) - hCont;
 							}
-							gsap.to( $system[0], {
+							gsap.to( $dragger[0], {
 								duration: 0,
 								y: _y,
 							});
@@ -329,7 +330,7 @@
 							} else {
 								_x = parseFloat( _x ) - wCont;
 							}
-							gsap.to( $system[0], {
+							gsap.to( $dragger[0], {
 								duration: 0,
 								x: _x,
 							});
@@ -363,19 +364,24 @@
 						
 					entries.forEach(function(entry){
 						if ( entry.isIntersecting ) {
-						isInViewport = true;
-						if ( typeof marqueeTL !== 'undefined' ) {
-							marqueeTL.play();
+							isInViewport = true;
+							if ( !init ) {
+								init = true;
+								continuousLinearMarquee();
+							} else {
+								if ( typeof marqueeTL !== 'undefined' ) {
+									marqueeTL.play();
+								}
+							}
+							if ( $wrap.attr('data-animation') === 'marquee-scroll' ||  $wrap.attr('data-animation') === 'marquee-scroll-opposite' ) {
+								requestAnimFrame(runScrollLinear);
+							}
+						} else {
+							isInViewport = false;
+							if ( typeof marqueeTL !== 'undefined' ) {
+								marqueeTL.pause();
+							}
 						}
-						if ( $wrap.attr('data-animation') === 'marquee-scroll' ||  $wrap.attr('data-animation') === 'marquee-scroll-opposite' ) {
-							requestAnimFrame(runScrollLinear);
-						}
-					} else {
-						isInViewport = false;
-						if ( typeof marqueeTL !== 'undefined' ) {
-							marqueeTL.pause();
-						}
-					}
 					});
 				}, { 
 					root: document,

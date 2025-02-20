@@ -42,6 +42,8 @@ require_once get_template_directory() . '/core/inc/helpers/assets/tests/revslide
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/layerslider.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/shortpixel.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/sticky-trigger.php';
+require_once get_template_directory() . '/core/inc/helpers/assets/tests/area-text-reveal.php';
+require_once get_template_directory() . '/core/inc/helpers/assets/tests/thumbs-reveal.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/unmodal.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/livesearch.php';
 require_once get_template_directory() . '/core/inc/helpers/assets/tests/vivus.php';

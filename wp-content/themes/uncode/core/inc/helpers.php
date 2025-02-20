@@ -1281,6 +1281,9 @@ function uncode_get_general_header_data($metabox_data, $post_type, $media = '', 
 		if ($media !== '') {
 			if (isset($metabox_data['_uncode_header_background'][0])) {
 				$metabox_data['_uncode_header_background'] = array(unserialize($metabox_data['_uncode_header_background'][0]));
+				if ( $metabox_data['_uncode_header_background'][0] === false ) {
+					$metabox_data['_uncode_header_background'][0] = array();
+				}
 			}
 			$metabox_data['_uncode_header_background'][0]['background-image'] = $media;
 			$media = '';
@@ -1919,12 +1922,20 @@ function uncode_get_header_from_content($output = 'header', $post_id = false) {
 	$post_id = $post->ID;
 	$content = $post->post_content;
 
-	if ( $output == 'content' ) {
-		$trimmed = preg_replace('#\[vc_row(.*?)\/vc_row]#s', '', $content, 1);
-		$return = $trimmed;
+	preg_match('#^\[vc_section(.*?)\/vc_section]#s', $content, $matches_section);
+	preg_match('#\[vc_row(.*?)\/vc_row]#s', $content, $matches_row);
+	if ( isset($matches_section[0]) && $matches_section[0] !== '' ) {
+		if ( $output == 'content' ) {
+			$return = preg_replace('#^\[vc_section(.*?)\/vc_section]#s', '', $content, 1);
+		} else {
+			$return = isset($matches_section[0]) && $matches_section[0] !== '' ? $matches_section[0] : '';
+		}
 	} else {
-		$first_row = preg_match('#\[vc_row(.*?)\/vc_row]#s', $content, $matches);
-		$return = isset($matches[0]) && $matches[0] !== '' ? $matches[0] : '';
+		if ( $output == 'content' ) {
+			$return = preg_replace('#\[vc_row(.*?)\/vc_row]#s', '', $content, 1);
+		} else {
+			$return = isset($matches_row[0]) && $matches_row[0] !== '' ? $matches_row[0] : '';
+		}
 	}
 
 	return $return;
@@ -1977,7 +1988,12 @@ function uncode_get_the_content($content = false, $check = false, $post_id = fal
 		$header_type = get_post_meta( $post_id, '_uncode_header_type', true );
 
 		if ( $header_type === 'first_row' && ( ! function_exists('vc_is_page_editable') || ! vc_is_page_editable() ) ) {
-			$content = preg_replace('#\[vc_row(.*?)\/vc_row]#s', '', $content, 1);
+			preg_match('#^\[vc_section(.*?)\/vc_section]#s', $content, $matches_section);
+			if ( isset($matches_section[0]) && $matches_section[0] !== '' ) {
+				$content = preg_replace('#^\[vc_section(.*?)\/vc_section]#s', '', $content, 1);
+			} else {
+				$content = preg_replace('#\[vc_row(.*?)\/vc_row]#s', '', $content, 1);
+			}
 		}
 	}
 
@@ -2008,7 +2024,12 @@ function uncode_filter_cpt_content_header($content) {
 
 	if ( is_singular() && !in_array( $post_type, $post_types ) && $header_type === 'first_row' && ( ! function_exists('vc_is_page_editable') || ! vc_is_page_editable() ) ) {
 		$content = get_the_content();
-		$content = preg_replace('#\[vc_row(.*?)\/vc_row]#s', '', $content, 1);
+		preg_match('#^\[vc_section(.*?)\/vc_section]#s', $content, $matches_section);
+		if ( isset($matches_section[0]) && $matches_section[0] !== '' ) {
+			$content = preg_replace('#^\[vc_section(.*?)\/vc_section]#s', '', $content, 1);
+		} else {
+			$content = preg_replace('#\[vc_row(.*?)\/vc_row]#s', '', $content, 1);
+		}
 	}
 
 	return $content;
@@ -2195,19 +2216,6 @@ function uncode_get_attachment_image_src( $id, $size ) {
 	return false;
 }
 endif;//uncode_get_attachment_image_src
-
-if ( ! function_exists( 'uncode_wp_nav_menu_filter' ) ) :
-/**
- * Menu item counter
- * @since Uncode 2.4.0
- */
-function uncode_wp_nav_menu_filter( $nav_menu, $args ) {
-	global $el_counter;
-	$el_counter = 0;
-	return $nav_menu;
-}
-endif;//uncode_wp_nav_menu_filter
-add_filter( 'wp_nav_menu', 'uncode_wp_nav_menu_filter', 10, 2 );
 
 if ( ! function_exists( 'uncode_get_button_proportions' ) ) :
 /**
@@ -2486,5 +2494,77 @@ function uncode_multi_bg_out($medias){
 		$out .= '</div><!-- .uncode-multi-bgs -->';
 		}
 	}
+	return $out;
+}
+
+function uncode_sanitize_html_tag( $tag, $type ) {
+	if ( $type === 'heading' ) {
+		$allowed_tags = array(
+			'h1',
+			'h2',
+			'h3',
+			'h4',
+			'h5',
+			'h6',
+			'p',
+			'div',
+		);
+
+		if ( ! in_array( $tag, $allowed_tags ) ) {
+			$tag = 'h2';
+		}
+	}
+
+	return $tag;
+}
+
+function uncode_blur_edges(){
+	$out = '';
+
+	if ( function_exists('vc_is_page_editable') && vc_is_page_editable() ) {
+		return $out;
+	}
+
+	$uncode_progressive_blur = apply_filters( 'uncode_progressive_blur', ot_get_option('_uncode_progressive_blur'));
+	$uncode_progressive_blur_h = apply_filters( 'uncode_progressive_blur_h', ot_get_option('_uncode_progressive_blur_h'));
+	$uncode_progressive_blur_val = apply_filters( 'uncode_progressive_blur_val', ot_get_option('_uncode_progressive_blur_val'));
+	
+	if ( $uncode_progressive_blur !== '' ) {
+		if ( !isset($uncode_progressive_blur_val) || $uncode_progressive_blur_val === '' ) {
+			$uncode_progressive_blur_val = 20;
+		}
+
+		if ( !isset($uncode_progressive_blur_h) || $uncode_progressive_blur_h === '' ) {
+			$uncode_progressive_blur_h = '25vh';
+		} elseif ( is_numeric($uncode_progressive_blur_h) ) {
+			$uncode_progressive_blur_h .= 'px';
+		}
+
+		if ($uncode_progressive_blur === 'both' ) {
+			$gradient = 2;
+			$add_class = '';
+		} else {
+			$gradient = 1;
+			$add_class = ' uncode-progressive-blur-' . esc_attr( $uncode_progressive_blur );
+		}
+		while ($gradient > 0) {
+			$out .= '<div class="uncode-progressive-blur' . $add_class . '" style="--progressive-blur-h:' . $uncode_progressive_blur_h . '">';
+			$divs = apply_filters('uncode_nav_blur_gradient_divs', 8);
+			$i = $divs - 1;
+			$blur = esc_attr($uncode_progressive_blur_val);
+			while ($i >= 0) {
+				$out .= '<div style="
+				backdrop-filter: blur(' . $blur/2**$i . 'px);
+					-webkit-backdrop-filter: blur(' . $blur/2**$i . 'px);
+					mask-image: linear-gradient(to top, rgba(0, 0, 0, 0) ' . 100/$divs*($divs-1-$i) . '%, rgba(0, 0, 0, 1) ' . 100/$divs*($divs-$i) . '%);
+					-webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0) ' . 100/$divs*($divs-1-$i) . '%, rgba(0, 0, 0, 1) ' . 100/$divs*($divs-$i) . '%);
+				"></div>';
+				$i--;
+			}
+			$out .= '</div>';
+			$gradient--;
+		}
+	}
+
 	return $out;
 }

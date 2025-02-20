@@ -85,6 +85,16 @@ class Uncode_RankMath_Support {
 
 
 		foreach ( $image_ids as $image_id ) { //Populate an array with URLs taken from featured image IDs
+			$metadata = get_post_meta($image_id, "_wp_attachment_metadata", true);
+
+			if ( ! isset( $metadata['width'] ) || ! isset( $metadata['height'] ) ) {
+				continue;
+			}
+
+			if ( ! $metadata['width'] || ! $metadata['height'] ) {
+				continue;
+			}
+
 			$image_url = wp_get_attachment_image_src($image_id, 'large');
 			if ( $image_url && is_array( $image_url ) && isset( $image_url[0] ) ) {
 				$image_title = get_the_title($image_id);

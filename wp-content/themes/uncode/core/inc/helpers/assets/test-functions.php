@@ -128,13 +128,6 @@ function uncode_get_page_assets() {
 
 	// Check Sticky Trigger
 	if ( uncode_page_require_asset_sticky_trigger( $content_array ) ) {
-		$assets['sticky-trigger'] = array(
-			'handle'    => 'sticky-trigger',
-			'path'      => get_template_directory_uri() . '/library/js/stickyTrigger' . $suffix . '.js',
-			'deps'      => array( 'jquery' ),
-			'type'      => 'js',
-			'in_footer' => true,
-		);
 		$assets['gsap'] = array(
 			'handle'    => 'gsap',
 			'path'      => get_template_directory_uri() . '/library/js/lib/gsap' . $suffix . '.js',
@@ -149,7 +142,67 @@ function uncode_get_page_assets() {
 			'type'      => 'js',
 			'in_footer' => true,
 		);
+		$assets['sticky-trigger'] = array(
+			'handle'    => 'sticky-trigger',
+			'path'      => get_template_directory_uri() . '/library/js/stickyTrigger' . $suffix . '.js',
+			'deps'      => array( 'jquery', 'gsap', 'scrollTrigger' ),
+			'type'      => 'js',
+			'in_footer' => true,
+		);
+	}
 
+	// Check Area-Text Reveal
+	if ( uncode_page_require_asset_area_text_reveal( $content_array ) ) {
+		$assets['gsap'] = array(
+			'handle'    => 'gsap',
+			'path'      => get_template_directory_uri() . '/library/js/lib/gsap' . $suffix . '.js',
+			'deps'      => array(),
+			'type'      => 'js',
+			'in_footer' => true,
+		);
+		
+		$assets['scrollTrigger'] = array(
+			'handle'    => 'scrollTrigger',
+			'path'      => get_template_directory_uri() . '/library/js/lib/ScrollTrigger' . $suffix . '.js',
+			'deps'      => array( 'gsap' ),
+			'type'      => 'js',
+			'in_footer' => true,
+		);
+
+		$assets['area-text-reveal'] = array(
+			'handle'    => 'area-text-reveal',
+			'path'      => get_template_directory_uri() . '/library/js/areaTextReveal' . $suffix . '.js',
+			'deps'      => array( 'jquery', 'gsap', 'scrollTrigger' ),
+			'type'      => 'js',
+			'in_footer' => true,
+		);
+	}
+
+	// Check Thumbs Reveal
+	if ( uncode_page_require_asset_thumbs_reveal( $content_array ) ) {
+		$assets['gsap'] = array(
+			'handle'    => 'gsap',
+			'path'      => get_template_directory_uri() . '/library/js/lib/gsap' . $suffix . '.js',
+			'deps'      => array(),
+			'type'      => 'js',
+			'in_footer' => true,
+		);
+		
+		$assets['scrollTrigger'] = array(
+			'handle'    => 'scrollTrigger',
+			'path'      => get_template_directory_uri() . '/library/js/lib/ScrollTrigger' . $suffix . '.js',
+			'deps'      => array( 'gsap' ),
+			'type'      => 'js',
+			'in_footer' => true,
+		);
+
+		$assets['thumbs-reveal'] = array(
+			'handle'    => 'thumbs-reveal',
+			'path'      => get_template_directory_uri() . '/library/js/thumbsReveal' . $suffix . '.js',
+			'deps'      => array( 'jquery', 'gsap', 'scrollTrigger' ),
+			'type'      => 'js',
+			'in_footer' => true,
+		);
 	}
 
 	// Check Lenis Scroll

@@ -305,7 +305,6 @@
 
 			appendCTA = function(){
 				if (UNCODE.wwidth < UNCODE.mediaQuery) {
-
 					$ul.after($ulCta);
 				} else {
 					$cta.append($ulCta);
@@ -554,7 +553,7 @@
 		}
 		appendSplit();
 
-		$(window).on( 'resize', function(){
+		$(window).on( 'wwresize', function(){
 			clearRequestTimeout(setCTA);
 			setCTA = requestTimeout( function() {
 				appendCTA();
@@ -598,7 +597,7 @@
 	stickyDropdownSearch();
 
 	var setMenuOverlay;
-	$(window).on( 'resize', function(){
+	$(window).on( 'wwResize', function(){
 		if ( $('.overlay').length && $(window).width() > 1024 ) {
 			$('.overlay').addClass('hidden');
 		}

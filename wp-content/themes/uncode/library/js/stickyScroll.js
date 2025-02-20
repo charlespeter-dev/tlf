@@ -283,8 +283,7 @@
 				var checkForAnimations = function(){
 					animationIncrease = 0
 					$('.animate_when_almost_visible:not(.start_animation)', $pinTrigger).each(function(){
-						var _this = this,
-							isScrolling;
+						var _this = this;
 						if ( ScrollTrigger.isInViewport($pinTrigger[0]) && ScrollTrigger.isInViewport(_this, 0.5, true) ) {
 							var delayAttr = parseFloat( $(_this).attr('data-delay') );
 							if (delayAttr == undefined || isNaN(delayAttr)) delayAttr = 0;
@@ -294,6 +293,59 @@
 							animationIncrease += 150;
 						}
 					});
+
+					var batchTime = 0;
+
+					var resetBatch = function(){
+						batchTime = 0;
+					}
+
+					if (ScrollTrigger.isScrolling()) {
+						resetBatch();
+					}
+					
+					$('.tmb-mask-reveal', $pinTrigger).each(function(){
+						var _this = this,
+							$this = $(_this),
+							$inside = $('.t-inside', $this),
+							delay = parseFloat( $inside.attr('data-delay') ),
+							speed = parseFloat( $inside.attr('data-speed') ),
+							easing = $inside.attr('data-easing'),
+							bgDelay = parseFloat( $inside.attr('data-bg-delay') );
+
+						delay = (isNaN(delay) || delay == null || typeof delay === 'undefined') ? 0 : delay/1000;
+						speed = (isNaN(speed) || speed == null || typeof speed === 'undefined') ? 0.4 : speed/1000;
+						easing = (easing === '' || easing == null || typeof easing === 'undefined') ? CustomEase.create("custom", "0.76, 0, 0.24, 1") : easing;
+						bgDelay = (isNaN(bgDelay) || bgDelay == null || typeof bgDelay === 'undefined') ? '' : bgDelay;
+
+						if ( ScrollTrigger.isInViewport($pinTrigger[0]) && ScrollTrigger.isInViewport(_this, 0.1, true) && !$this.hasClass('tmb-mask-init') ) {
+							$this.addClass('tmb-mask-init');
+							if ( $this.hasClass('tmb-has-hex') && bgDelay !== '' ) {
+								gsap.to($('.t-entry-visual-tc', $this), speed, {
+									clipPath: 'inset(0% 0% 0% 0%)',
+									delay: delay + batchTime,
+									ease: easing,
+								});
+								gsap.to($('.t-entry-visual-cont', $this), speed, {
+									clipPath: 'inset(0% 0% 0% 0%)',
+									scale: 1,
+									delay: delay + batchTime + (speed*bgDelay),
+									ease: easing,
+									onComplete: resetBatch,
+								});
+							} else {
+								gsap.to($('.t-entry-visual-cont', $this), speed, {
+									clipPath: 'inset(0% 0% 0% 0%)',
+									scale: 1,
+									delay: delay + batchTime,
+									ease: easing,
+									onComplete: resetBatch,
+								});
+							}
+							batchTime += 0.1;
+						}
+					});
+				
 				};
 				checkForAnimations();
 
@@ -386,9 +438,7 @@
 		});
 		var setResize,
 			setReLayout,
-			doubleResize = true,
-			oldW = UNCODE.wwidth,
-			isResized = true;
+			doubleResize = true;
 		$(window).on( 'load', function(){
 			if ( $('.body-borders .top-border').outerHeight() > 0 ) {
 				var $row_inners = document.querySelectorAll('.pin-spacer .row-inner');
@@ -398,7 +448,9 @@
 				});
 				setItemsRelHeight();
 				horScrollSizes();
-				ScrollTrigger.refresh();
+				if ( typeof ScrollTrigger !== 'undefined' && ScrollTrigger !== null ) {
+					ScrollTrigger.refresh();
+				}
 			}
 			var carousel = document.querySelector(".owl-carousel"),
 				grid = document.querySelector(".isotope-container"),
@@ -419,19 +471,20 @@
 
 				if ( carousel_position === 2 || grid_position === 2 ) {
 					setTimeout(function(){
-						ScrollTrigger.refresh();
+						if ( typeof ScrollTrigger !== 'undefined' && ScrollTrigger !== null ) {
+							ScrollTrigger.refresh();
+						}
 					}, 500);
 				}
 
 			}
 			
 		});
-		$(window).on( 'resize orientationchange', function(){
-			isResized = (oldW !== UNCODE.wwidth);
-			if ( 'onorientationchange' in window && oldW === UNCODE.wwidth ) {
+        var iPhone = /iPhone/.test(navigator.userAgent) && !window.MSStream,
+            android = /Android/.test(navigator.userAgent) && !window.MSStream;
+		$(window).on( 'resize orientationchange', function(e){
+			if ( e.type === 'resize' && ( iPhone || (android && Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) < 750) ) ) {
 				return;
-			} else {
-				oldW = UNCODE.wwidth;
 			}
 			setItemsRelHeight(true);
 			var $row_inners = document.querySelectorAll('.pin-spacer .row-inner');
@@ -443,14 +496,16 @@
 			setResize = requestTimeout( function(){
 				setItemsRelHeight();
 				horScrollSizes();
-				ScrollTrigger.refresh();
+				if ( typeof ScrollTrigger !== 'undefined' && ScrollTrigger !== null ) {
+					ScrollTrigger.refresh();
+				}
 				if ( doubleResize === true ) {
 					window.dispatchEvent(new Event('resize'));
 					doubleResize = false;
 				} else {
 					doubleResize = true;
 				}
-				UNCODE.setRowHeight(document.querySelectorAll('.page-wrapper .row-parent'), false, isResized);
+				UNCODE.setRowHeight(document.querySelectorAll('.page-wrapper .row-parent'), false, true);
 			}, 100 );
 		});
 
@@ -468,7 +523,9 @@
 					'overflow': 'hidden'
 				});
 			});
-			ScrollTrigger.refresh(true);
+			if ( typeof ScrollTrigger !== 'undefined' && ScrollTrigger !== null ) {
+				ScrollTrigger.refresh(true);
+			}
 			clearRequestTimeout(setReLayout);
 			setReLayout = requestTimeout( function(){
 				$('.row-container').each(function(){

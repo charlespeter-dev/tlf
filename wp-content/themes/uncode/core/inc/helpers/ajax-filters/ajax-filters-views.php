@@ -116,9 +116,9 @@ if ( ! function_exists( "uncode_ajax_term_filter_list_html" ) ) {
 					?>
 					<li class="term-filter">
 						<?php if ( $is_checkbox ) : ?>
-							<label for="<?php echo esc_attr( $filter_id ); ?>"><input type="checkbox" name="<?php echo esc_attr( $filter_id ); ?>" id="<?php echo esc_attr( $filter_id ); ?>" value="<?php echo esc_attr( $term_slug ); ?>" <?php checked( $checked, true ); ?>><a href="<?php echo esc_url( $filter_url ); ?>" class="term-filter-link" title="<?php echo esc_attr( strip_tags( $term_description ) ); ?>"><?php echo uncode_switch_stock_string( $display_value ); ?></a></label>
+							<label for="<?php echo esc_attr( $filter_id ); ?>"><input type="checkbox" name="<?php echo esc_attr( $filter_id ); ?>" id="<?php echo esc_attr( $filter_id ); ?>" value="<?php echo esc_attr( $term_slug ); ?>" <?php checked( $checked, true ); ?>><a href="<?php echo esc_url( $filter_url ); ?>" class="term-filter-link" <?php echo uncode_filters_add_now_follow(); ?> title="<?php echo esc_attr( strip_tags( $term_description ) ); ?>"><?php echo uncode_switch_stock_string( $display_value ); ?></a></label>
 						<?php else : ?>
-							<a href="<?php echo esc_url( $filter_url ); ?>" class="term-filter-link <?php echo esc_attr( $checked ? 'term-filter-link--active' : '' );  ?>" title="<?php echo esc_attr( strip_tags( $term_description ) ); ?>"><?php echo uncode_switch_stock_string( $display_value ); ?></a>
+							<a href="<?php echo esc_url( $filter_url ); ?>" class="term-filter-link <?php echo esc_attr( $checked ? 'term-filter-link--active' : '' );  ?>" <?php echo uncode_filters_add_now_follow(); ?> title="<?php echo esc_attr( strip_tags( $term_description ) ); ?>"><?php echo uncode_switch_stock_string( $display_value ); ?></a>
 						<?php endif; ?>
 
 						<?php if ( $show_count ) : ?>
@@ -270,7 +270,7 @@ function uncode_ajax_term_filter_label_html( $key_to_query, $filter_terms, $quer
 			}
 			?>
 			<li class="term-filter">
-				<a href="<?php echo esc_url( $filter_url ); ?>" class="term-filter-link <?php echo esc_attr( $checked ? 'term-filter-link--active' : '' );  ?>" title="<?php echo esc_attr( strip_tags( $term_description ) ); ?>">
+				<a href="<?php echo esc_url( $filter_url ); ?>" class="term-filter-link <?php echo esc_attr( $checked ? 'term-filter-link--active' : '' );  ?>" <?php echo uncode_filters_add_now_follow(); ?> title="<?php echo esc_attr( strip_tags( $term_description ) ); ?>">
 					<div class="<?php echo esc_attr( implode( ' ', $swatch_classes ) ); ?>">
 						<?php echo uncode_switch_stock_string( $term_name ); ?>
 
@@ -349,7 +349,7 @@ function uncode_ajax_term_filter_color_html( $key_to_query, $filter_terms, $quer
 			}
 			?>
 			<li class="term-filter">
-				<a href="<?php echo esc_url( $filter_url ); ?>" class="term-filter-link <?php echo esc_attr( $checked ? 'term-filter-link--active' : '' );  ?>" title="<?php echo esc_attr( strip_tags( $term_description ) ); ?>">
+				<a href="<?php echo esc_url( $filter_url ); ?>" class="term-filter-link <?php echo esc_attr( $checked ? 'term-filter-link--active' : '' );  ?>" <?php echo uncode_filters_add_now_follow(); ?> title="<?php echo esc_attr( strip_tags( $term_description ) ); ?>">
 					<div class="<?php echo esc_attr( implode( ' ', $swatch_classes ) ); ?>" style="background-color:<?php echo  esc_attr( $color ); ?>">
 						<?php echo uncode_switch_stock_string( $term_name ); ?>
 					</div>
@@ -436,7 +436,7 @@ function uncode_ajax_term_filter_image_html( $key_to_query, $filter_terms, $quer
 
 			?>
 			<li class="term-filter">
-				<a href="<?php echo esc_url( $filter_url ); ?>" class="term-filter-link <?php echo esc_attr( $checked ? 'term-filter-link--active' : '' );  ?>" title="<?php echo esc_attr( strip_tags( $term_description ) ); ?>">
+				<a href="<?php echo esc_url( $filter_url ); ?>" class="term-filter-link <?php echo esc_attr( $checked ? 'term-filter-link--active' : '' );  ?>" <?php echo uncode_filters_add_now_follow(); ?> title="<?php echo esc_attr( strip_tags( $term_description ) ); ?>">
 					<div class="<?php echo esc_attr( implode( ' ', $swatch_classes ) ); ?>" style="background-image:url(<?php echo  esc_url( $image ); ?>)">
 						<?php echo esc_html( $term_name ); ?>
 					</div>
@@ -492,7 +492,7 @@ function uncode_show_active_ajax_filters( $align = 'left', $clear = '', $class =
 		<ul>';
 			if ( $clear ) {
 				$clear_class = 'filter-list__clear ' . $clear . '-hidden';
-				$out .= '<li class="' . esc_attr( $clear_class ) . '"><a href="' . esc_url( uncode_filters_get_clear_all_url() ) . '" class="filter-list__link">' . esc_html__( 'Clear all', 'uncode' ) . '</a></li>';
+				$out .= '<li class="' . esc_attr( $clear_class ) . '"><a href="' . esc_url( uncode_filters_get_clear_all_url() ) . '" class="filter-list__link" ' . uncode_filters_add_now_follow() . '>' . esc_html__( 'Clear all', 'uncode' ) . '</a></li>';
 			}
 			foreach ( $active_filters as $key => $data ) {
 				$prefix_pa = 'pa_';
@@ -544,7 +544,7 @@ function uncode_show_active_ajax_filters( $align = 'left', $clear = '', $class =
 									$query_args[$key_with_prefix] = $taxonomy_values;
 									$link = uncode_build_filter_link( uncode_get_current_url(), $query_args );
 
-									$out .= '<li class="filter-list__item"><a href="' . esc_url( $link ) . '" class="filter-list__link">' . esc_html( $term_name ) . '</a></li>';
+									$out .= '<li class="filter-list__item"><a href="' . esc_url( $link ) . '" class="filter-list__link" ' . uncode_filters_add_now_follow() . '>' . esc_html( $term_name ) . '</a></li>';
 								}
 							}
 						}
@@ -553,8 +553,8 @@ function uncode_show_active_ajax_filters( $align = 'left', $clear = '', $class =
 			}
 
 			if ( function_exists('vc_is_page_editable') && vc_is_page_editable() ) {
-				$out .= '<li class="filter-list__item"><a href="#" class="filter-list__link">' . esc_html__( 'Active filter 1', 'uncode' ) . '</a></li>';
-				$out .= '<li class="filter-list__item"><a href="#" class="filter-list__link">' . esc_html__( 'Active filter 2', 'uncode' ) . '</a></li>';
+				$out .= '<li class="filter-list__item"><a href="#" class="filter-list__link" ' . uncode_filters_add_now_follow() . '>' . esc_html__( 'Active filter 1', 'uncode' ) . '</a></li>';
+				$out .= '<li class="filter-list__item"><a href="#" class="filter-list__link" ' . uncode_filters_add_now_follow() . '>' . esc_html__( 'Active filter 2', 'uncode' ) . '</a></li>';
 			}
 
 			if ( isset( $original_query_args['min_price'] ) && isset( $original_query_args['max_price'] ) ) {
@@ -564,22 +564,22 @@ function uncode_show_active_ajax_filters( $align = 'left', $clear = '', $class =
 				$link = uncode_build_filter_link( uncode_get_current_url(), $query_args );
 
 				if ( $original_query_args['min_price'] === $original_query_args['max_price'] ) {
-					$out .= '<li class="filter-list__item"><a href="' . esc_url( $link ) . '" class="filter-list__link">' . wc_price( $original_query_args['min_price'] ) . '</a></li>';
+					$out .= '<li class="filter-list__item"><a href="' . esc_url( $link ) . '" class="filter-list__link" ' . uncode_filters_add_now_follow() . '>' . wc_price( $original_query_args['min_price'] ) . '</a></li>';
 				} else {
-					$out .= '<li class="filter-list__item"><a href="' . esc_url( $link ) . '" class="filter-list__link">' . wc_price( $original_query_args['min_price'] ) . ' - ' . wc_price( $original_query_args['max_price'] ) . '</a></li>';
+					$out .= '<li class="filter-list__item"><a href="' . esc_url( $link ) . '" class="filter-list__link" ' . uncode_filters_add_now_follow() . '>' . wc_price( $original_query_args['min_price'] ) . ' - ' . wc_price( $original_query_args['max_price'] ) . '</a></li>';
 				}
 			} else if ( isset( $original_query_args['min_price'] ) ) {
 				$query_args = $original_query_args;
 				unset( $query_args['min_price'] );
 				$link = uncode_build_filter_link( uncode_get_current_url(), $query_args );
 
-				$out .= '<li class="filter-list__item"><a href="' . esc_url( $link ) . '" class="filter-list__link">' . sprintf( _x( 'Over %s', 'ajax_price_filter', 'uncode' ), wc_price( $original_query_args['min_price'] ) ) . '</a></li>';
+				$out .= '<li class="filter-list__item"><a href="' . esc_url( $link ) . '" class="filter-list__link" ' . uncode_filters_add_now_follow() . '>' . sprintf( _x( 'Over %s', 'ajax_price_filter', 'uncode' ), wc_price( $original_query_args['min_price'] ) ) . '</a></li>';
 			} else if ( isset( $original_query_args['max_price'] ) ) {
 				$query_args = $original_query_args;
 				unset( $query_args['max_price'] );
 				$link = uncode_build_filter_link( uncode_get_current_url(), $query_args );
 
-				$out .= '<li class="filter-list__item"><a href="' . esc_url( $link ) . '" class="filter-list__link">' . sprintf( _x( 'Under %s', 'ajax_price_filter', 'uncode' ), wc_price( $original_query_args['max_price'] ) ) . '</a></li>';
+				$out .= '<li class="filter-list__item"><a href="' . esc_url( $link ) . '" class="filter-list__link" ' . uncode_filters_add_now_follow() . '>' . sprintf( _x( 'Under %s', 'ajax_price_filter', 'uncode' ), wc_price( $original_query_args['max_price'] ) ) . '</a></li>';
 			}
 		$out .= '</ul>
 	</div>';

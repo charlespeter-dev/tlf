@@ -159,7 +159,7 @@ if ( $gdpr_consent_id !== '' && uncode_privacy_check_needed($gdpr_consent_id) ) 
 	}
 }
 
-global $row_cols_md_counter_inner, $row_cols_sm_counter_inner, $inner_column_style, $front_background_colors, $uncode_colors_flat_array, $previous_blend, $is_cb, $changer_back_color_column, $changer_back_color_row_inner, $changer_back_color_column_inner, $bento;
+global $row_cols_md_counter_inner, $row_cols_sm_counter_inner, $inner_column_style, $front_background_colors, $uncode_colors_flat_array, $previous_blend, $is_cb, $changer_back_color_column, $changer_back_color_row_inner, $changer_back_color_column_inner, $bento, $scrollTriggerInnerRows;
 $row_cols_md_counter_inner = $row_cols_sm_counter_inner = 0;
 
 $row_classes = array(
@@ -1260,6 +1260,12 @@ if ($z_index !== '0' && $z_index !== '') {
 	$row_style .= 'z-index: '.$z_index.';';
 }
 
+if ( isset( $scrollTriggerInnerRows['style'] ) && $scrollTriggerInnerRows['style'] !== '' ) {
+	if ( $scrollTriggerInnerRows['no-anim-last'] !== 'yes' || $scrollTriggerInnerRows['counter'] > 0 ) {
+		$row_style .= $scrollTriggerInnerRows['style'];
+	}
+}
+
 if ($row_style !== '') {
 	$row_style = ' style="' . esc_attr( $row_style ) . '"';
 }
@@ -1312,6 +1318,10 @@ if ( $skew === 'yes' ) {
 	$row_cont_classes[] = 'uncode-skew';
 }
 
+if ( isset($scrollTriggerInnerRows['set']) ) {
+	$output .= '<div data-sticky>';
+	$row_cont_classes[] = 'row-inner-sticky';
+}
 $css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $row_cont_classes ) ), $this->settings['base'], $atts ) );
 $output.= '<div class="' . esc_attr(trim($css_class)) . '"' . $row_name . $row_style . $el_id . '>';
 if ($unlock_row === 'yes') {
@@ -1341,6 +1351,20 @@ if ( isset($divider_bottom_svg) && $divider_bottom_svg !== '' && $shape_bottom_s
 }
 $output .= uncode_print_dynamic_inline_style( $inline_style_css );
 $output.= '</div>';
+if ( isset( $scrollTriggerInnerRows['set'] ) ) {
+	$output.= '</div>';
+
+	if ( isset( $scrollTriggerInnerRows['inner-space'] ) && $scrollTriggerInnerRows['inner-space'] !== '' ) {
+		if ( !($scrollTriggerInnerRows['no-anim-last'] === 'yes' && isset($scrollTriggerInnerRows['anticipate']) && $scrollTriggerInnerRows['anticipate'] > 0) || $scrollTriggerInnerRows['counter'] > 0 ) {
+			$output .= '<div class="uncode-scroll-trigger-space" style="--stacking-cards-space:' . (floatval($scrollTriggerInnerRows['inner-space'])). 'vh;"></div>';
+		} else {
+			$output .= '<div class="uncode-scroll-trigger-anticipate" style="--stacking-cards-anticipate:' . (floatval($scrollTriggerInnerRows['anticipate']) * -1). 'vh;"></div>';
+		}
+	}
+}
+if ( isset($scrollTriggerInnerRows['counter']) ) {
+	$scrollTriggerInnerRows['counter']++;
+}
 echo uncode_remove_p_tag($output);
 
 $changer_back_color_row_inner = false;

@@ -25,6 +25,7 @@
 				$drop_row_parents = $('.drop-parent.drop-parent-row', $list),
 				$col_parent = $list.closest('.uncell'),
 				$drop_col_parents = $('.drop-parent.drop-parent-column', $list),
+				stoppedScrolling = true,
 				setCTA;
 
 			timing *= 0.001;
@@ -356,6 +357,7 @@
 
 				if ( $drop_move.length && UNCODE.wwidth >= UNCODE.mediaQuery ) {
 					$trgr.on('mouseenter',function(e){
+
 						$list.addClass('drop-hover');
 						$tmbs.removeClass('drop-active');
 						$tmb.addClass('drop-active');
@@ -397,18 +399,20 @@
 
 					document.addEventListener('scroll', function(){
 						window.clearRequestTimeout( stopBounding );
-
-						if ( $drop_move.hasClass('active') ) {
-							$list.removeClass('drop-hover');
-							$tmbs.removeClass('drop-active');
-							$drop_move.removeClass('active');
-							$drop_move.on('transitionend', function(e){
-								$drop_move.off('transitionend');
-								$drop_move.css({
-									'transition-duration': timing + 's'
+						if ( stoppedScrolling ) {
+							stoppedScrolling = false;
+							if ( $drop_move.hasClass('active') ) {
+								$list.removeClass('drop-hover');
+								$tmbs.removeClass('drop-active');
+								$drop_move.removeClass('active');
+								$drop_move.on('transitionend', function(e){
+									$drop_move.off('transitionend');
+									$drop_move.css({
+										'transition-duration': timing + 's'
+									});
+									manageVideos($drop_move,false);
 								});
-								manageVideos($drop_move,false);
-							});
+							}
 						}
 
 						stopBounding = requestTimeout(function() {
@@ -419,8 +423,8 @@
 									top: bound.y * -1,
 								});
 							}
-						}, 200);
-
+							stoppedScrolling = true;
+						}, 500);
 					});
 				}
 

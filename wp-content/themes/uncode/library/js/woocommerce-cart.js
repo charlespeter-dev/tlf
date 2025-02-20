@@ -48,37 +48,41 @@
 	 * Resize thumbs on mobile when we have the compact layout
 	 ************************************************************/
 
-	var cart_tables_compact = $('.uncode-wc-cart').find('table.cart.compact-layout');
 	var needed_padding = 27;
 
-	cart_tables_compact.each(function() {
-		var _this = $(this),
-			setCTA;
+	var setCTA;
 
-		calculate_els_height(_this);
+	calculate_els_height();
 
-		$(window).on( 'resize', function(){
-			clearRequestTimeout(setCTA);
-			setCTA = requestTimeout( function(){
-				calculate_els_height(_this);
-			}, 100 );
-		});
+	$(window).on( 'wwResize', function(){
+		clearRequestTimeout(setCTA);
+		setCTA = requestTimeout( function(){
+			calculate_els_height();
+		}, 100 );
+	});
+	$( document.body ).on("wc_fragments_refreshed", function(e){
+		calculate_els_height();
 	});
 
 	function calculate_els_height(table) {
-		var rows = table.find('tr.cart_item');
+		var cart_tables_compact = $('.uncode-wc-cart').find('table.cart.compact-layout');
+		cart_tables_compact.each(function() {
+			var table = $(this),
+				rows = table.find('tr.cart_item');
 
-		rows.each(function() {
-			var _this = $(this);
-			var row_height = _this.outerHeight();
-			var img_height = _this.find('td.product-thumbnail').find('img').outerHeight();
-			var min_height = row_height - (needed_padding * 2);
+			rows.each(function() {
+				var _this = $(this);
+				_this.find('td.product-subtotal').css('padding-bottom', '');
+				var row_height = _this.outerHeight();
+				var img_height = _this.find('td.product-thumbnail').find('img').outerHeight();
+				var min_height = row_height - (needed_padding * 2);
 
-			if (img_height > min_height) {
-				var diff = img_height - min_height;
+				if (img_height > min_height) {
+					var diff = img_height - min_height;
 
-				_this.find('td.product-subtotal').css('padding-bottom', diff + needed_padding);
-			}
+					_this.find('td.product-subtotal').css('padding-bottom', diff + needed_padding);
+				}
+			});
 		});
 	}
 })(jQuery);

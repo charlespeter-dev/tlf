@@ -170,6 +170,7 @@ if ($sub_lead === 'yes') {
 	$sub_lead = ' text-small';
 }
 
+$heading_semantic = uncode_sanitize_html_tag( $heading_semantic, 'heading' );
 
 $entry_class[] = 'v-align-' . esc_attr( $v_align );
 
@@ -186,7 +187,7 @@ foreach ( $graph_lines_data as $key => $line ) {
 			$div_data['data-speed'] = $animation_speed;
 		}
 	}
-	
+
 	$div_data_attributes = array_map(function ($v, $k) { return $k . '="' . $v . '"'; }, $div_data, array_keys($div_data));
 
     $disabled_class = isset( $line['disabled'] ) && $line['disabled'] === 'yes' ? ' disabled' : '';
@@ -210,14 +211,14 @@ foreach ( $graph_lines_data as $key => $line ) {
 			$block_classes[] = $shape;
 			if ( $img_radius !== ''  && $shape === 'img-round' ) {
 				$block_classes[] = 'img-round-' . $img_radius;
-			} 
+			}
 		}
 		$block_data['classes'] = $block_classes;
 
 		$media_code = uncode_create_single_block($block_data, rand(), 'inline-image', array('media' => array()), array(), '');
 
 		$media_alt = (isset($media_code['alt'])) ? $media_code['alt'] : '';
-		
+
 		$output_media = $media_code;
 
 		if ( $media_width_use_pixel == 'yes' ) {
@@ -262,7 +263,7 @@ foreach ( $graph_lines_data as $key => $line ) {
 	if ( $border_color !== '' ) {
 			$border_class = ' border-' . $border_color . '-color';
 	}
-	
+
 	$output .= '<div class="uncode-pricing-entry-separator' . esc_attr($border_class) . '" style="border-bottom-style:' . esc_attr($border_style) . '"></div>';
     $output .= '<div class="uncode-pricing-entry-value headings-style headings-color '.esc_attr(trim(implode(' ', $head_classes_in))) . $head_classes_color_dis . '">' . $line['value'] . '</div>';
 	$output .= '</div>';

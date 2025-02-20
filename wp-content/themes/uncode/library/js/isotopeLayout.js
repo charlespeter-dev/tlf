@@ -321,6 +321,9 @@
 									$isotope.trigger('more-items-loaded');
 									$(window).trigger('more-items-loaded');
 									window.dispatchEvent(new CustomEvent('uncode-more-items-loaded'));
+									if ( typeof ScrollTrigger !== 'undefined' && ScrollTrigger !== null ) {
+										ScrollTrigger.refresh();
+									}
 								}, 1000);
 
 							});
@@ -581,6 +584,9 @@
 						}
 						requestTimeout(function() {
 							Waypoint.refreshAll();
+							if ( typeof ScrollTrigger !== 'undefined' && ScrollTrigger !== null ) {
+								ScrollTrigger.refresh();
+							}
 							container.removeClass('grid-filtering');
 						}, 2000);
 					});

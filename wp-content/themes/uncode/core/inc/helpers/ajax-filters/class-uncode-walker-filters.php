@@ -198,12 +198,12 @@ class Uncode_Walker_Filters extends Walker_Category {
 		if ( $this->is_checkbox ) {
 			$link = '<label for="' . esc_attr( $filter_id ) . '">';
 			$link .= '<input type="checkbox" name="' . esc_attr( $filter_id ) . '" id="' . esc_attr( $filter_id ) . '" value="' . esc_attr( $category->slug ) . '" ' . esc_attr( $checked ) . '>';
-			$link .= '<a' . $attributes . '>';
+			$link .= '<a' . $attributes . ' ' . uncode_filters_add_now_follow() . '>';
 			$link .= $cat_name;
 			$link .= '</a>';
 			$link .= '</label>';
 		} else {
-			$link = '<a' . $attributes . '>';
+			$link = '<a' . $attributes . ' ' . uncode_filters_add_now_follow() . '>';
 			$link .= $cat_name;
 			$link .= '</a>';
 		}

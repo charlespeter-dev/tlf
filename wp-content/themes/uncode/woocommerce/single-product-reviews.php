@@ -3,7 +3,7 @@
  * Display single product reviews (comments)
  *
  * @package 	WooCommerce/Templates
- * @version	 4.3.0
+ * @version	 9.6.0
  */
 global $product, $wp_query;
 $old_query = $wp_query;
@@ -114,9 +114,9 @@ if ( $post_type === 'uncodeblock' ) { //It removes nonce check on Product Builde
 						'comment_notes_after'  => '',
 						'fields'			   => array(
 							'author' => '<p class="comment-form-author">' . '<label for="author">' . esc_html__( 'Name', 'woocommerce' ) . ' <span class="required">*</span></label> ' .
-										'<input id="author" name="author" type="text" value="' . esc_attr( $commenter['comment_author'] ) . '" size="30" required /></p>',
+										'<input id="author" name="author" type="text" value="' . esc_attr( $commenter['comment_author'] ) . '" size="30" required autocomplete="name" /></p>',
 							'email'  => '<p class="comment-form-email"><label for="email">' . esc_html__( 'Email', 'woocommerce' ) . ' <span class="required">*</span></label> ' .
-										'<input id="email" name="email" type="email" value="' . esc_attr( $commenter['comment_author_email'] ) . '" size="30" required /></p>',
+										'<input id="email" name="email" type="email" value="' . esc_attr( $commenter['comment_author_email'] ) . '" size="30" required autocomplete="email" /></p>',
 						),
 						'label_submit'  => esc_html__( 'Submit', 'woocommerce' ),
 						'logged_in_as'  => '',

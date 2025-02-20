@@ -5154,6 +5154,10 @@ body.rtl .order-table-with-thumbs .woocommerce-checkout-review-order-table .prod
 .uncode-woocommerce-form-submission .style-light .style-dark .checkout-button:after {
   background-image: url(../img/oval-anim-light.svg);
 }
+.wc-blocks-components-select .wc-blocks-components-select__select {
+  background-image: none !important;
+  margin-top: 0px;
+}
 .woocommerce-MyAccount-navigation ul {
   list-style-type: none !important;
   padding: 0 !important;

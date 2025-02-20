@@ -1,6 +1,6 @@
 <?php
 
-$el_width = $el_height = $type = $sep_color = $icon = $icon_position = $border_width = $scroll_top = $link = $css_animation = $animation_delay = $animation_speed = $el_id = $el_class = $align = $inline_css = $desktop_visibility = $medium_visibility = $mobile_visibility = '';
+$full_width = $el_width = $el_height = $type = $sep_color = $icon = $icon_position = $border_width = $scroll_top = $link = $css_animation = $animation_delay = $animation_speed = $el_id = $el_class = $align = $inline_css = $desktop_visibility = $medium_visibility = $mobile_visibility = '';
 
 extract(shortcode_atts(array(
 	'uncode_shortcode_id' => '',
@@ -21,6 +21,7 @@ extract(shortcode_atts(array(
 	'css_animation' => '',
 	'animation_delay' => '',
 	'animation_speed' => '',
+	'full_width' => '',
 	'el_id' => '',
 	'el_class' => '',
 	'align' => 'align_center',
@@ -59,8 +60,12 @@ if ($css_animation !== '' && uncode_animations_enabled()) {
 	}
 }
 
-if ($el_width !== '') {
-	$el_width = 'width: ' . $el_width .';';
+if ( $full_width !== 'yes' ) {
+	if ($el_width !== '') {
+		$el_width = 'width: ' . $el_width .';';
+	}
+} else {
+	$classes[] = 'full-width-separator';
 }
 if ($el_height !== '') {
 	$el_height = 'border-top-width: ' . $el_height .';';

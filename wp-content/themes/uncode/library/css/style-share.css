@@ -197,6 +197,14 @@ div[class*=sharer-].share-button .social ul li:before {
 .share-button.only-icon .social ul li[class*=paper-plane]:focus:before {
   color: #999;
 }
+.share-button.only-icon .social ul li[class*=threads]:hover:before,
+.share-button.only-icon .social ul li[class*=threads]:focus:before {
+  color: #ff3040;
+}
+.share-button.only-icon .social ul li[class*=bluesky]:hover:before,
+.share-button.only-icon .social ul li[class*=bluesky]:focus:before {
+  color: #1083fe;
+}
 .share-button.only-icon .social ul li:first-child {
   margin-left: -9px;
 }
@@ -218,6 +226,13 @@ div[class*=sharer-].share-button .social ul li:before {
 .social-twitter:before {
   content: "\e942" !important;
   font-weight: bold;
+}
+.social-threads:before {
+  content: "\e94b" !important;
+  font-size: 0.98em;
+}
+.social-bluesky:before {
+  content: "\e949" !important;
 }
 .social-gplus:before {
   content: "\f0d5" !important;

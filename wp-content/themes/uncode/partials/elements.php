@@ -464,7 +464,8 @@ if (!function_exists('uncode_get_back_html')) {
 		}
 
 		if ($type === 'row') {
-			$back_html = '<div class="row-background background-element' . $wrap_bg_class . '"'.(($back_mime_css === '' && $header_background_video === '' && $back_image === '' && $header_background_selfvideo === '' && $content_html === '') ? ' style="opacity: 1;"' : '').'>
+			$row_bg_animated = isset($background['row-bg-animated']) ? 'style="' . $background['row-bg-animated'] . '"' : '';
+			$back_html = '<div class="row-background background-element' . $wrap_bg_class . '"'.(($back_mime_css === '' && $header_background_video === '' && $back_image === '' && $header_background_selfvideo === '' && $content_html === '') ? ' style="opacity: 1;"' : $row_bg_animated).'>
 											<div class="background-wrapper">
 												<div class="background-inner' . $back_mime_css . $adaptive_async_class . '"' . $header_background_video . $back_image . $adaptive_async_data . '>' . $header_background_selfvideo . $content_html . '</div>
 												'.$overlay_html.'
@@ -586,7 +587,7 @@ if (!function_exists('uncode_create_single_block')) {
 	{
 		global $adaptive_images, $adaptive_images_async, $dynamic_srcset_active, $dynamic_srcset_sizes, $post, $activate_webp, $enable_adaptive_dynamic_img, $enable_adaptive_dynamic_bg, $dynamic_srcset_bg_mobile_size;
 
-		$image_orig_w = $image_orig_h = $crop = $item_media = $media_code = $media_mime = $create_link = $title_link = $media_attributes = $big_image = $lightbox_data = $single_height = $single_fixed = $single_title = $nested = $media_poster = $dummy_oembed = $images_size = $single_family = $object_class = $single_back_color = $single_animation = $is_product = $single_icon = $icon_size = $single_text = $single_image_size = $single_style = $single_elements_click = $single_secondary = $overlay_color = $overlay_opacity = $overlay_blend = $adaptive_async_class = $adaptive_async_data = $sep_extra = $but_media_poster = $data_lb = '';
+		$image_orig_w = $image_orig_h = $crop = $item_media = $media_code = $media_mime = $create_link = $title_link = $media_attributes = $big_image = $lightbox_data = $single_height = $single_fixed = $single_title = $nested = $media_poster = $dummy_oembed = $images_size = $single_family = $object_class = $single_back_color = $single_animation = $is_product = $single_icon = $icon_size = $single_text = $single_image_size = $single_style = $single_elements_click = $single_secondary = $overlay_color = $overlay_opacity = $overlay_blend = $adaptive_async_class = $adaptive_async_data = $sep_extra = $but_media_poster = $data_lb = $visual_style = '';
 		$tmb_data_parent = $tmb_data = array();
 		$media_type = 'image';
 		$multiple_items = $lightbox_code = false;
@@ -744,6 +745,10 @@ if (!function_exists('uncode_create_single_block')) {
 		if (isset($block_data['link'])) {
 			$create_link = is_array($block_data['link']) ? $block_data['link']['url'] : $block_data['link'];
 			$title_link = $read_more_link = $create_link;
+		}
+
+		if (isset($block_data['hex'])) {
+			$visual_style .= '--visual-mask-bg: #' . preg_replace('/[^a-zA-Z0-9\']/', '', $block_data['hex']) . ';';
 		}
 
 		$a_classes = array();
@@ -1091,6 +1096,7 @@ if (!function_exists('uncode_create_single_block')) {
 
 								$data_values = (isset($block_data['link']['target']) && !empty($block_data['link']['target']) && is_array($block_data['link'])) ? ' target="'.trim($block_data['link']['target']).'"' : '';
 								$data_values .= (isset($block_data['link']['rel']) && !empty($block_data['link']['rel']) && is_array($block_data['link'])) ? ' rel="'.trim($block_data['link']['rel']).'"' : '';
+								$title_link = apply_filters( 'uncode_posts_module_title_link', $title_link, $block_data );
 								if ($title_link === '') {
 									$inner_entry .= '<' . $title_tag . ' class="t-entry-title '. trim(implode(' ', $title_classes)) . '"' . $title_style . '>'.$print_title.'</' . $title_tag . '>';
 								} else {
@@ -1434,6 +1440,14 @@ if (!function_exists('uncode_create_single_block')) {
 								$inner_entry .= $meta_inner;
 								$inner_entry .= '</p>';
 							}
+						}
+
+						ob_start();
+						do_action( 'uncode_inner_entry_after_meta', $block_data, $layout );
+						$custom_inner_entry_after_meta = ob_get_clean();
+
+						if ( $custom_inner_entry_after_meta !== '' ) {
+							$inner_entry .= $custom_inner_entry_after_meta;
 						}
 
 					break;
@@ -3027,7 +3041,8 @@ if (!function_exists('uncode_create_single_block')) {
 			$media_output = '';
 
 			if ( !$is_titles && $block_data['template'] !== 'inline-image' ) {
-				$media_output .= 		'<div class="t-entry-visual"><div class="t-entry-visual-tc"><div class="t-entry-visual-cont">';
+				$visual_style = $visual_style !== '' ? ' style="' . $visual_style . '"' : '';
+				$media_output .= 		'<div class="t-entry-visual"><div class="t-entry-visual-tc"' . $visual_style . '><div class="t-entry-visual-cont">';
 
 				//Over image categories
 				if ( isset($cat_over) && $cat_over !== '' ) {

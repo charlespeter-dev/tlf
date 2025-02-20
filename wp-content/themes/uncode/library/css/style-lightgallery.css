@@ -585,7 +585,7 @@ body:not(.lg-from-hash) .lg-outer.lg-start-opacity .lg-item:not(.lg-zoomable).lg
   background-color: #fff;
 }
 .lg-backdrop.in {
-  opacity: 0.9 !important;
+  opacity: 0.9;
 }
 .lg-container.lg-opaque .lg-backdrop.in {
   opacity: 1;

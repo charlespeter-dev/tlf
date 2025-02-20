@@ -145,6 +145,12 @@
 		if (typeof UNCODE.stickyTrigger !== 'undefined') {
 			UNCODE.stickyTrigger();
 		}
+		if (typeof UNCODE.areaTextReveal !== 'undefined') {
+			UNCODE.areaTextReveal();
+		}
+		if (typeof UNCODE.thumbsReveal !== 'undefined') {
+			UNCODE.thumbsReveal();
+		}
 		if (typeof UNCODE.verticalText !== 'undefined') {
 			UNCODE.verticalText();
 		}

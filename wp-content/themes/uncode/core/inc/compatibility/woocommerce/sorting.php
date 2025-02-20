@@ -82,10 +82,34 @@ function uncode_woocommerce_print_sorting_dropdown( $sorting_default_text, $echo
  * Print result count
  */
 function uncode_woocommerce_print_result_count( $total, $per_page, $current_page, $echo = true ) {
+	$default_orderby = apply_filters( 'woocommerce_default_catalog_orderby', get_option( 'woocommerce_default_catalog_orderby', '' ) );
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	$orderby = isset( $_GET['orderby'] ) ? wc_clean( wp_unslash( $_GET['orderby'] ) ) : $default_orderby;
+
+	// If products follow the default order this doesn't need to be informed.
+	$orderby = 'menu_order' === $orderby ? '' : $orderby;
+
+	$orderby = is_string( $orderby ) ? $orderby : '';
+
+	$catalog_orderedby_options = apply_filters(
+		'woocommerce_catalog_orderedby',
+		array(
+			'menu_order' => __( 'Default sorting', 'woocommerce' ),
+			'popularity' => __( 'Sorted by popularity', 'woocommerce' ),
+			'rating'     => __( 'Sorted by average rating', 'woocommerce' ),
+			'date'       => __( 'Sorted by latest', 'woocommerce' ),
+			'price'      => __( 'Sorted by price: low to high', 'woocommerce' ),
+			'price-desc' => __( 'Sorted by price: high to low', 'woocommerce' ),
+		)
+	);
+	$orderedby                 = isset( $catalog_orderedby_options[ $orderby ] ) ? $catalog_orderedby_options[ $orderby ] : '';
+	$orderedby                 = is_string( $orderedby ) ? $orderedby : '';
+
 	$args = array(
 		'total'    => absint( $total ),
 		'per_page' => $per_page,
 		'current'  => $current_page ? $current_page : 1,
+		'orderedby' => $orderedby,
 	);
 
 	ob_start();

@@ -98,6 +98,9 @@ class Uncode_Install {
 				'_uncode_main_align' => 'center',
 				'_uncode_boxed' => 'off',
 				'_uncode_body_border' => '0',
+				'_uncode_progressive_blur' => '',
+				'_uncode_progressive_blur_h' => '25vh',
+				'_uncode_progressive_blur_val' => 20,
 				'_uncode_body_border_color' => '',
 				'_uncode_header_full' => 'on',
 				'_uncode_body_full' => 'off',
@@ -1046,6 +1049,7 @@ class Uncode_Install {
 				'_uncode_product_index_sidebar_fill' => 'off',
 				'_uncode_product_index_footer_block' => '',
 				'_uncode_product_index_footer_width' => '',
+				'_uncode_smooth_scroll' => 'on',
 			);
 
 			update_option( ot_options_id(), $default_theme_options );

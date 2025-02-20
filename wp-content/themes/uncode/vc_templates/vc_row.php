@@ -1,6 +1,6 @@
 <?php
 
-$el_id = $el_class = $row_name = $back_image = $back_image_auto = $back_image_option = $back_repeat = $back_attachment = $back_position = $back_size = $back_color = $overlay_color = $overlay_color_blend = $overlay_alpha = $unlock_row = $unlock_row_content = $limit_content = $row_height_percent = $row_inner_height_percent = $row_height_pixel = $inner_height = $kburns = $parallax = $changer_back_color = $equal_height = $top_padding = $bottom_padding = $h_padding = $gutter_size = $override_padding = $force_width_grid = $shift_y = $shift_y_fixed = $z_index = $css = $border_color = $border_style = $output = $row_style = $background_div = $row_inline_style = $desktop_visibility = $medium_visibility = $mobile_visibility = $sticky = $skew = $column_width_use_pixel = $column_width_percent = $column_width_pixel = $enable_bottom_divider = $shape_bottom_invert = $bottom_divider = $bottom_divider_inv = $shape_bottom_color = $shape_bottom_opacity = $shape_bottom_custom = $shape_bottom_index = $shape_bottom_h_use_pixel = $shape_bottom_height = $shape_bottom_height_percent = $shape_bottom_ratio = $shape_bottom_safe = $shape_bottom_responsive = $shape_bottom_tablet_hide = $shape_bottom_mobile_hide = $enable_top_divider = $shape_top_invert = $top_divider = $top_divider_inv = $shape_top_color = $shape_top_opacity = $shape_top_index = $shape_top_h_use_pixel = $shape_top_height = $shape_top_height_percent = $shape_top_ratio = $shape_top_safe = $shape_top_responsive = $shape_top_tablet_hide = $shape_top_mobile_hide = $gdpr_consent_id = $gdpr_consent_logic = $row_custom_slug_check = $row_custom_slug = $inverted_device_order = $preserve_border = $preserve_border_tablet = $preserve_border_mobile = $custom_inline_css = $auto_height_device = $featured_image = $multi_bg_out = $bg_transition = $bg_transition_time = $bg_carousel_time = $mobile_slideshow = $bg_carousel_time_mobile = $multi_scroll_manually = $bg_transition_pace = $bg_transition_pace_mouse = $bg_transition_threshold = $bg_transition_threshold_mobile = $multi_random = $content_parallax = $content_parallax_safe = '';
+$el_id = $el_class = $row_name = $back_image = $back_image_auto = $back_image_option = $back_repeat = $back_attachment = $back_position = $back_size = $back_color = $overlay_color = $overlay_color_blend = $overlay_alpha = $unlock_row = $unlock_row_content = $limit_content = $row_height_percent = $row_inner_height_percent = $row_height_pixel = $inner_height = $kburns = $parallax = $changer_back_color = $equal_height = $top_padding = $bottom_padding = $h_padding = $gutter_size = $override_padding = $force_width_grid = $shift_y = $shift_y_fixed = $z_index = $css = $border_color = $border_style = $output = $row_style = $row_anim_style = $row_custom_style = $background_div = $row_inline_style = $desktop_visibility = $medium_visibility = $mobile_visibility = $sticky = $skew = $column_width_use_pixel = $column_width_percent = $column_width_pixel = $enable_bottom_divider = $shape_bottom_invert = $bottom_divider = $bottom_divider_inv = $shape_bottom_color = $shape_bottom_opacity = $shape_bottom_custom = $shape_bottom_index = $shape_bottom_h_use_pixel = $shape_bottom_height = $shape_bottom_height_percent = $shape_bottom_ratio = $shape_bottom_safe = $shape_bottom_responsive = $shape_bottom_tablet_hide = $shape_bottom_mobile_hide = $enable_top_divider = $shape_top_invert = $top_divider = $top_divider_inv = $shape_top_color = $shape_top_opacity = $shape_top_index = $shape_top_h_use_pixel = $shape_top_height = $shape_top_height_percent = $shape_top_ratio = $shape_top_safe = $shape_top_responsive = $shape_top_tablet_hide = $shape_top_mobile_hide = $gdpr_consent_id = $gdpr_consent_logic = $row_custom_slug_check = $row_custom_slug = $inverted_device_order = $preserve_border = $preserve_border_tablet = $preserve_border_mobile = $custom_inline_css = $auto_height_device = $featured_image = $multi_bg_out = $bg_transition = $bg_transition_time = $bg_carousel_time = $mobile_slideshow = $bg_carousel_time_mobile = $multi_scroll_manually = $bg_transition_pace = $bg_transition_pace_mouse = $bg_transition_threshold = $bg_transition_threshold_mobile = $multi_random = $content_parallax = $content_parallax_safe = $css_animation = $sticky_scroll = $sticky_no_space = $animate_el = $animation_state = $animation_target = $animation_scale = $animation_scale_val = $animation_mask = $animation_mask_val = $animation_opacity = $animation_x = $animation_x_alt = $animation_y = $animation_blur = $animation_perspective = $animation_rotate = $animation_rotate_alt = $animation_radius = $animation_top_bottom = $animation_offset_top = $animation_offset_bottom = $animation_ease_out = $animation_origin = $animation_safe = $animation_scroll_options = $no_animation_last = $animation_start_point = $animation_rows_offset = $animation_scale_step = $animation_inner_space = $animation_last_sticky = $animation_bottom_space = $animation_anticipate = $disable_mobile = $disable_tablet = '';
 
 extract(shortcode_atts(array(
 	'uncode_shortcode_id' => '',
@@ -131,6 +131,42 @@ extract(shortcode_atts(array(
 	'featured_image' => '',
 	'content_parallax' => '',
 	'content_parallax_safe' => '',
+	'css_animation' => '',
+	'sticky_scroll' => '',
+	'sticky_no_space' => '',
+	'animate_el' => '',
+	'animation_state' => '',
+	'animation_target' => '',
+	'animation_scale' => '',
+	'animation_scale_val' => 50,
+	'animation_mask' => '',
+	'animation_mask_val' => 50,
+	'animation_opacity' => 100,
+	'animation_x' => 0,
+	'animation_x_alt' => '',
+	'animation_y' => 0,
+	'animation_blur' => 0,
+	'animation_perspective' => 0,
+	'animation_rotate' => 0,
+	'animation_rotate_alt' => '',
+	'animation_radius' => '',
+	'animation_top_bottom' => '',
+	'animation_offset_top' => 100,
+	'animation_offset_bottom' => '',
+	'animation_origin' => 'top center',
+	'animation_safe' => '',
+	'animation_ease_out' => 'none',
+	'animation_scroll_options' => '',
+	'no_animation_last' => '',
+	'animation_start_point' => '',
+	'animation_rows_offset' => 0,
+	'animation_scale_step' => '',
+	'animation_inner_space' => 0,
+	'animation_last_sticky' => '',
+	'animation_bottom_space' => 0,
+	'animation_anticipate' => 0,
+	'disable_mobile' => '',
+	'disable_tablet' => '',
 ) , $atts));
 
 if ( $el_id === '' ) {
@@ -228,8 +264,10 @@ if ( strpos( $el_class, 'ajax-filters' ) !== false ) {
 }
 
 $row_cont_classes[] = $this->getExtraClass($el_class);
-if ($sticky === 'yes' && !(function_exists('vc_is_page_editable') && vc_is_page_editable())) {
-	$row_cont_classes[] = 'sticky-element';
+if (!(function_exists('vc_is_page_editable') && vc_is_page_editable())) {
+	if ( $sticky === 'yes' && $css_animation !== 'scroll-trigger' ) {
+		$row_cont_classes[] = 'sticky-element';
+	}
 }
 if ( $skew === 'yes' ) {
 	$row_cont_classes[] = 'uncode-skew';
@@ -239,6 +277,208 @@ if ( $inverted_device_order === 'yes' ) {
 }
 if ( $auto_height_device === 'yes' ) {
 	$row_inner_classes[] = 'auto-height-device';
+}
+
+$back_array = array();
+
+$scrollTrigger = false;
+global $scrollTriggerInnerRows;
+
+if ( !(function_exists('vc_is_page_editable') && vc_is_page_editable()) && $css_animation !== '' ) {
+	$row_cont_classes[] = 'scroll-trigger-el';
+	if ( $css_animation !== 'inner-rows' ) {
+		$scrollTrigger = true;
+	} else {
+		$scrollTriggerInnerRows = array('set' => true);
+		$scrollTriggerInnerRows['counter'] = 0;
+		$scrollTriggerInnerRows['anticipate'] = $animation_anticipate;
+		$div_data['data-anim-inner-rows-options'] = $animation_scroll_options;
+		$div_data['data-no-anim-last'] = $no_animation_last;
+		$scrollTriggerInnerRows['no-anim-last'] = $no_animation_last;
+		//$div_data['data-anim-sticky-last'] = $animation_last_sticky;
+		if ($animation_inner_space !== 0 ) {
+			$scrollTriggerInnerRows['inner-space'] = $animation_inner_space;
+		}
+	}
+	if ( $disable_mobile === 'yes' ) {
+		$div_data['data-sticky-no-mobile'] = $disable_mobile;
+		if ( $disable_tablet === 'yes' ) {
+			$div_data['data-sticky-no-tablet'] = $disable_tablet;
+		}
+	} else {
+		$row_cont_classes[] = 'scroll-trigger-el-mobile';
+		if ( $disable_tablet !== 'yes' ) {
+			$row_cont_classes[] = 'scroll-trigger-el-tablet';
+		}
+	}
+	$div_data['data-sticky-trigger'] = $css_animation;
+	$div_data['data-sticky-trigger'] = $css_animation;
+	$div_data['data-anim-state'] = $animation_state;
+	$div_data['data-anim-sticky'] = $sticky_scroll;
+	$div_data['data-anim-els'] = $animate_el;
+	$div_data['data-anim-x'] = $animation_x;
+	$div_data['data-anim-y'] = $animation_y;
+	$div_data['data-anim-blur'] = $animation_blur;
+	$div_data['data-anim-perspective'] = $animation_perspective;
+	$div_data['data-anim-rotate'] = $animation_rotate;
+	if ( $css_animation === 'inner-rows' ) {
+		$div_data['data-anim-x-alt'] = $animation_x_alt;
+		$div_data['data-anim-rotate-alt'] = $animation_rotate_alt;
+		$div_data['data-anim-start-point'] = $animation_start_point;
+		$div_data['data-anim-rows-offset'] = (is_numeric( $animation_rows_offset ) ? $animation_rows_offset . 'px' : esc_html($animation_rows_offset));
+	}
+	if ( $sticky_scroll === 'yes' ) {
+		$div_data['data-anim-no-space'] = $sticky_no_space;
+	} 
+	if ( $animation_target === '' ) {
+		if ( $animation_state === '' ) {
+			$row_anim_style_transform = '';
+			$row_anim_style .= '--row-anim-transform-origin: ' . $animation_origin . ';';
+			if ( $animation_perspective !== 0 && $animation_rotate === 0 ) {
+				$row_anim_style_transform .= ' perspective(' . (200 - floatval($animation_perspective)) . 'vw) rotateX(' . floatval($animation_rotate) . 'deg)';
+			}
+			if ( $animation_rotate !== 0 ) {
+				$row_anim_style_transform .= ' rotate(' . floatval($animation_rotate) . 'deg)';
+			}
+			if ( $animation_x !== 0 ) {
+				$row_anim_style_transform .= ' translateX(' . floatval($animation_x) . 'vw)';
+			}
+			if ( $animation_y !== 0 ) {
+				$row_anim_style_transform .= ' translateX(' . floatval($animation_y) . 'vh)';
+			}
+			if ( $animation_blur !== 0 ) {
+				$row_anim_style .= '--row-anim-filter: blur(' . floatval($animation_blur) . 'px);';
+			}
+			if ( $animation_scale === 'auto' ) {
+				$row_anim_style .= '--row-anim-visibility: hidden;';
+			} else {
+				$row_anim_style_transform .= ' scale('.(floatval($animation_scale_val)/100).')';
+			}
+			if ( $row_anim_style_transform !== '' ) {
+				$row_anim_style .= '--row-anim-transform:' . $row_anim_style_transform . ';';
+			}
+			if ( $animation_radius !== '' ) {
+				$row_anim_style .= '--row-anim-border-radius: ' . (is_numeric( $animation_radius ) ? $animation_radius . 'px' : esc_html($animation_radius)) . ';';
+			}
+			$row_anim_style .= '--row-anim-opacity: ' . (floatval($animation_opacity)/100) . ';';
+		}
+	} else {
+		//mask
+		$mask_radius = '';
+		$animation_mask_val = 100 - floatval($animation_mask_val);
+		if ( $animation_radius !== '' ) {
+			$mask_radius = ' round ' . (is_numeric( $animation_radius ) ? $animation_radius . 'px' : esc_html($animation_radius));
+		}
+		switch ($animation_origin) {
+			case 'top left':
+				$mask_top = $mask_left = 0;
+				$mask_right = floatval($animation_mask_val);
+				$mask_bottom = $animation_mask === 'both' ? floatval($animation_mask_val) : 0;
+				break;
+			
+			case 'top right':
+				$mask_top = $mask_right = 0;
+				$mask_left = floatval($animation_mask_val);
+				$mask_bottom = $animation_mask === 'both' ? floatval($animation_mask_val) : 0;
+				break;
+			
+			case 'center':
+				$mask_right = $mask_left = floatval($animation_mask_val)/2;
+				$mask_top = $mask_bottom = $animation_mask === 'both' ? floatval($animation_mask_val)/2 : 0;
+				break;
+			
+			case 'center left':
+				$mask_top = $mask_bottom = $animation_mask === 'both' ? floatval($animation_mask_val)/2 : 0;
+				$mask_right = floatval($animation_mask_val);
+				$mask_left = 0;
+				break;
+			
+			case 'center right':
+				$mask_top = $mask_bottom = $animation_mask === 'both' ? floatval($animation_mask_val)/2 : 0;
+				$mask_left = floatval($animation_mask_val);
+				$mask_right = 0;
+				break;
+			
+			case 'bottom center':
+				$mask_top = $animation_mask === 'both' ? floatval($animation_mask_val) : 0;
+				$mask_bottom = 0;
+				$mask_left = $mask_right = floatval($animation_mask_val)/2;
+				break;
+			
+			case 'bottom left':
+				$mask_right = floatval($animation_mask_val);
+				$mask_top = $animation_mask === 'both' ? floatval($animation_mask_val) : 0;
+				$mask_bottom = $mask_left = 0;
+				break;
+			
+			case 'bottom right':
+				$mask_left = floatval($animation_mask_val);
+				$mask_top = $animation_mask === 'both' ? floatval($animation_mask_val) : 0;
+				$mask_bottom = $mask_right = 0;
+				break;
+			
+			default:
+				$mask_top = 0;
+				$mask_bottom = $animation_mask === 'both' ? floatval($animation_mask_val) : 0;
+				$mask_right = $mask_left = floatval($animation_mask_val)/2;
+				break;
+		}
+		$div_data['data-clip-path'] = 'inset(' . $mask_top . '% ' . $mask_right . '% ' . $mask_bottom . '% ' . $mask_left . '%' . $mask_radius . ')';
+
+		if ( $animation_state === '' ) {
+			if ( $animation_mask === 'auto' ) {
+				$row_anim_style .= '--row-anim-visibility: hidden;';
+			} else {
+				$row_anim_style .= '--row-anim-clip-path: inset(' . $mask_top . '% ' . $mask_right . '% ' . $mask_bottom . '% ' . $mask_left . '%' . $mask_radius . ');';
+			}
+			$row_anim_style .= '--row-anim-opacity: ' . (floatval($animation_opacity)/100) . ';';
+		}
+
+	}
+	
+	if ( $animation_state === '' ) {
+
+		if ( $animate_el === 'content' ) {
+			$row_cont_classes[] = 'scroll-trigger-content';
+			$row_custom_style .= $row_anim_style;
+		} elseif ( $animate_el === 'bg' ) {
+			$row_cont_classes[] = 'scroll-trigger-bg';
+			$back_array['row-bg-animated'] = $row_anim_style;
+		} else {
+			if ( $css_animation === 'inner-rows' ) {
+				$row_cont_classes[] = 'scroll-trigger-content-inner';
+				$scrollTriggerInnerRows['style'] = $row_anim_style;
+			} else {
+				$row_cont_classes[] = 'scroll-trigger-parent';
+				$row_style .= $row_anim_style;
+			}
+		}
+	}
+
+	$div_data['data-anim-origin'] = $animation_origin;
+	if ( $animation_target === '' ) {
+		$div_data['data-anim-target'] = 'el';
+		if ( $animation_scale === '' ) {
+			$div_data['data-anim-scale'] = $animation_scale_val;
+			$div_data['data-anim-scale-step'] = $animation_scale_step;
+		} else {
+			$div_data['data-anim-scale'] = $animation_scale;
+		}
+	} else {
+		$div_data['data-anim-target'] = $animation_target;
+		$div_data['data-anim-mask'] = $animation_mask === '' ? 'hor' : $animation_mask;
+		if ( $animation_mask !== 'auto' ) {
+			$div_data['data-anim-mask-val'] = $animation_mask_val;
+		}
+	}
+	$div_data['data-anim-opacity'] = $animation_opacity;
+	$div_data['data-anim-radius'] = preg_replace('/[^0-9\-]/', '', $animation_radius);
+	$div_data['data-anim-radius-unit'] = is_numeric( $animation_radius ) ? 'px' : preg_replace('/[0-9]+/', '', $animation_radius);
+	$div_data['data-anim-start'] = $animation_top_bottom;
+	$div_data['data-anim-top'] = $animation_offset_top;
+	$div_data['data-anim-bottom'] = $animation_offset_bottom;
+	$div_data['data-anim-safe'] = $animation_safe;
+	$div_data['data-anim-ease'] = $animation_ease_out;
 }
 
 $data_label = $data_name = '';
@@ -327,19 +567,15 @@ if (!empty($back_image) || $overlay_color !== '' || $overlay_animated === 'yes')
 	}
 
 	if ( !empty($back_image) ) {
-		$back_array = array(
-			'background-image' => $back_image,
-			'background-repeat' => $back_repeat,
-			'background-position' => $back_position,
-			'background-size' => $back_size,
-			'background-attachment' => $back_attachment,
-		);
+		$back_array['background-image'] = $back_image;
+		$back_array['background-repeat'] = $back_repeat;
+		$back_array['background-position'] = $back_position;
+		$back_array['background-size'] = $back_size;
+		$back_array['background-attachment'] = $back_attachment;
 
 		if ( $changer_back_color !== 'yes' ) {
 			$back_array['background-color'] = $back_color;
 		}
-	} else {
-		$back_array = array();
 	}
 
 	if ( $overlay_color_blend !== '' ) {
@@ -1209,11 +1445,10 @@ if ($shift_y != '0' && $shift_y != '') {
 }
 /** END - shift construction **/
 
-$row_custom_style = '';
 if ($column_width_use_pixel === 'yes' && $column_width_pixel !== '') {
 	$column_width_pixel = preg_replace("/[^0-9,.]/", "", $column_width_pixel);
 	$column_width_pixel = 12 * round(($column_width_pixel) / 12);
-	$row_custom_style = 'max-width:' . $column_width_pixel . 'px; margin-left:auto; margin-right:auto;';
+	$row_custom_style .= 'max-width:' . $column_width_pixel . 'px; margin-left:auto; margin-right:auto;';
 } else {
 	if (!empty($column_width_percent) && $column_width_percent !== '100') {
 		$inner_column_style = 'max-width:' . $column_width_percent . '%; margin-left:auto; margin-right:auto;';
@@ -1459,6 +1694,9 @@ if (!$uncodeblock_found) :
 	$uncode_row_parent = 12;
 	$css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $row_cont_classes ) ), $this->settings['base'], $atts ) );
 	$div_data_attributes = array_map(function ($v, $k) { return $k . '="' . $v . '"'; }, $div_data, array_keys($div_data));
+	if ( $scrollTrigger || isset($scrollTriggerInnerRows['set'] ) ) {
+		$output.= '<div data-sticky>';
+	}
 	$output.= '<div data-parent="true" class="' . esc_attr(trim($css_class)) . '"' . implode(' ', $div_data_attributes) . $row_name . $row_style . $attr_id . '>';
 	$output .= $multi_bg_out; //multi bg
 	if ($unlock_row === 'yes') {
@@ -1478,6 +1716,7 @@ if (!$uncodeblock_found) :
 		$output.= '<div class="' . esc_attr(trim(implode(' ', $row_inner_classes))) . '">';
 	}
 	$output.= $content;
+
 	echo uncode_remove_p_tag($output);
 	if ( function_exists( 'uncode_is_quick_view' ) && uncode_is_quick_view() ) {
 		echo '<script type="text/javascript">UNCODE.isQuickView = true;</script>';
@@ -1495,8 +1734,12 @@ if (!$uncodeblock_found) :
 		$output.= $divider_bottom_svg;
 	}
 	$output .= uncode_print_dynamic_inline_style( $inline_style_css );
+	
 	$output.= '</div>';
+	if ( $scrollTrigger || isset($scrollTriggerInnerRows['set'] ) ) {
+		$output.= '</div>';
+	}
 endif;
 
 echo uncode_remove_p_tag($output);
-$changer_back_color_row = $changer_back_color_row_inner = $changer_back_color_column_inner = $bento = false;
+$changer_back_color_row = $changer_back_color_row_inner = $changer_back_color_column_inner = $bento = $scrollTriggerInnerRows = false;

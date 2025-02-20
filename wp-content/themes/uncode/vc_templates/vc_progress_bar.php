@@ -1,5 +1,5 @@
 <?php
-$output = $title = $values = $units = $options = $el_id = $el_class = $css_animation = $animation_delay = $animation_speed = '';
+$output = $title = $values = $units = $options = $style = $el_id = $el_class = $css_animation = $animation_delay = $animation_speed = '';
 extract( shortcode_atts( array(
 	'title' => '',
 	'values' => '%5B%7B%22label%22%3A%22Development%22%2C%22value%22%3A%2290%22%7D%2C%7B%22label%22%3A%22Design%22%2C%22value%22%3A%2280%22%7D%2C%7B%22label%22%3A%22Marketing%22%2C%22value%22%3A%2270%22%7D%5D',
@@ -9,6 +9,7 @@ extract( shortcode_atts( array(
 	'css_animation' => '',
 	'animation_delay' => '',
 	'animation_speed' => '',
+	'style' => '',
 	'el_id' => '',
 	'el_class' => ''
 ), $atts ) );
@@ -20,9 +21,10 @@ if ( $el_id !== '' ) {
 }
 
 $container_class = array('vc_progress_label');
+$wrap_class = array('vc_progress_bar wpb_content_element');
 $div_data = array();
 
-$el_class = $this->getExtraClass( $el_class );
+$wrap_class[] = $this->getExtraClass( $el_class );
 
 if ($css_animation !== '' && uncode_animations_enabled()) {
 	$container_class[] = 'animate_when_almost_visible ' . $css_animation;
@@ -34,6 +36,10 @@ if ($css_animation !== '' && uncode_animations_enabled()) {
 	}
 }
 
+if ( $style !== '' ) {
+	$wrap_class[] = 'bar-' . $style;
+}
+
 $bar_options = '';
 $options = explode( ",", $options );
 if ( in_array( "animated", $options ) ) {
@@ -43,7 +49,7 @@ if ( in_array( "striped", $options ) ) {
 	$bar_options .= " striped";
 }
 
-$css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'vc_progress_bar wpb_content_element' . $el_class, $this->settings['base'], $atts );
+$css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, esc_attr(trim(implode(' ', $wrap_class))) , $this->settings['base'], $atts );
 $output = '<div class="' . esc_attr($css_class) . '" '  . $el_id . '>';
 $output .= wpb_widget_title( array( 'title' => $title, 'extraclass' => 'wpb_progress_bar_heading' ) );
 

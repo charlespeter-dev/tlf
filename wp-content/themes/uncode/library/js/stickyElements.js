@@ -7,9 +7,10 @@
 
 		var $pageHeader = $('#page-header'),
 			$headerRow = $('.vc_row', $pageHeader),
+			$headerSection = $headerRow.closest('section[data-parent]'),
 			startSticky = false;
 
-		if ( $headerRow.hasClass('sticky-element') ) {
+		if ( $headerRow.hasClass('sticky-element') && !$headerSection.length ) {
 			$headerRow.removeClass('sticky-element');
 			$pageHeader.addClass('sticky-element');
 			startSticky = true;

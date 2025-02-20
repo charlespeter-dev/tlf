@@ -1283,6 +1283,12 @@ body:not(.compose-mode) footer#colophon {
   display: table-row;
   height: 1px;
 }
+body.sticky-footer footer#colophon {
+  display: block;
+  height: auto;
+  overflow: hidden;
+  z-index: 0;
+}
 body.compose-mode footer.has_content_block {
   position: relative;
 }

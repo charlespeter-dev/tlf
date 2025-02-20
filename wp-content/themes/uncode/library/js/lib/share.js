@@ -180,6 +180,18 @@ Share = (function(_super) {
           description: null,
           image: null
         },
+        threads: {
+          enabled: true,
+          url: null,
+          title: null,
+          description: null
+        },
+        bluesky: {
+          enabled: true,
+          url: null,
+          title: null,
+          description: null
+        },
         pinterest: {
           enabled: true,
           url: null,
@@ -342,6 +354,19 @@ Share = (function(_super) {
     }
   };
 
+  Share.prototype.network_threads = function() {
+    return this.popup('https://threads.net/intent/post', {
+      text: this.config.networks.threads.title,
+      url: this.config.networks.threads.url
+    });
+  };
+
+  Share.prototype.network_bluesky = function() {
+    return this.popup('https://bsky.app/intent/compose', {
+      text: this.config.networks.bluesky.title + ' ' + this.config.networks.bluesky.url
+    });
+  };
+
   Share.prototype.network_twitter = function() {
     return this.popup('https://twitter.com/intent/tweet', {
       text: this.config.networks.twitter.title,
@@ -428,7 +453,7 @@ Share = (function(_super) {
 
   Share.prototype.inject_html = function(instance) {
     //return instance.innerHTML = "<label class='social-export'><span>" + this.config.ui.button_text + "</span></label><div class='social load " + this.config.ui.flyout + "'><ul><li class='social-facebook' data-network='facebook' tabindex='0'></li><li class='social-twitter' data-network='twitter' tabindex='0'></li><li class='social-gplus' data-network='google_plus' tabindex='0'></li><li class='social-pinterest' data-network='pinterest' tabindex='0'></li><li class='social-linkedin' data-network='linkedin' tabindex='0'></li><li class='social-xing' data-network='xing' tabindex='0'></li><li class='social-paper-plane' data-network='email' tabindex='0'></li></ul></div>";
-    return instance.innerHTML = "<label class='social-export'><span>" + this.config.ui.button_text + "</span></label><div class='social load " + this.config.ui.flyout + "'><ul><li class='social-facebook' data-network='facebook' tabindex='0'></li><li class='social-twitter' data-network='twitter' tabindex='0'></li><li class='social-pinterest' data-network='pinterest' tabindex='0'></li><li class='social-linkedin' data-network='linkedin' tabindex='0'></li><li class='social-whatsapp' data-network='whatsapp' tabindex='0'></li><li class='social-xing' data-network='xing' tabindex='0'></li><li class='social-paper-plane' data-network='email' tabindex='0'></li></ul></div>";
+    return instance.innerHTML = "<label class='social-export'><span>" + this.config.ui.button_text + "</span></label><div class='social load " + this.config.ui.flyout + "'><ul><li class='social-facebook' data-network='facebook' tabindex='0'></li><li class='social-twitter' data-network='twitter' tabindex='0'></li><li class='social-threads' data-network='threads' tabindex='0'></li><li class='social-pinterest' data-network='pinterest' tabindex='0'></li><li class='social-linkedin' data-network='linkedin' tabindex='0'></li><li class='social-whatsapp' data-network='whatsapp' tabindex='0'></li><li class='social-bluesky' data-network='bluesky' tabindex='0'></li><li class='social-xing' data-network='xing' tabindex='0'></li><li class='social-paper-plane' data-network='email' tabindex='0'></li></ul></div>";
   };
 
   Share.prototype.inject_facebook_sdk = function() {

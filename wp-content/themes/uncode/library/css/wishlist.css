@@ -397,6 +397,9 @@ ul.wishlist_table {
   content: none;
   display: none;
 }
+.tmb .yith-wcwl-add-to-wishlist {
+  margin-top: 0 !important;
+}
 /* Wishlist Menu Icon */
 .mobile-wishlist-icon .badge {
   display: block;

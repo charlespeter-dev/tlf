@@ -756,6 +756,10 @@
 					$(document).trigger('uncode-ajax-filtered');
 					$(document.body).trigger('init_price_filter');
 					window.dispatchEvent(new CustomEvent('uncode-ajax-filtered'));
+					window.document.dispatchEvent(new Event("DOMContentLoaded", {
+						bubbles: true,
+						cancelable: true
+					}));
 
 					isAjaxing = false;
 				}

@@ -23,7 +23,7 @@ function uncode_recordMedia(){
 
 	$date = date("Y-m-d G:i:s");
 
-	if (isset($_POST['mle-code']) && $_POST['mle-code'] != '') {
+	if (isset($_POST['mle-code']) && $_POST['mle-code'] != '' && $mime !== 'image/url') {
 
 		$post_name = sanitize_title($title);
 
@@ -66,8 +66,6 @@ function uncode_recordMedia(){
 				preg_match("|\d+|", $svg_size[2][1], $height);
 				$height = $height[0];
 			}
-		} else if ($mime === 'image/url') {
-			list($width, $height) = @getimagesize( $code );
 		}
 
 		$attr = Array('width' => $width, 'height' => $height);

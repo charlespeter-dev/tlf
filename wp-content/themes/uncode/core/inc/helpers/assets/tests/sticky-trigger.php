@@ -16,6 +16,9 @@ function uncode_page_require_asset_sticky_trigger( $content_array ) {
 		if ( strpos( $content, ' sticky_trigger="yes"' ) !== false || $matches ) {
 			return true;
 		}
+		if ( strpos( $content, 'css_animation="text-reveal"' ) !== false || strpos( $content, 'css_animation="scroll-trigger"' ) !== false ) {
+			return true;
+		}
 	}
 
 	return false;

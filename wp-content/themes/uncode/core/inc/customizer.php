@@ -46,17 +46,28 @@ function uncode_the_content($the_content) {
 	return apply_filters('uncode_the_content', $the_content );
 }
 
+function uncode_remove_p_tag_regex( $content ) {
+	$content = preg_replace('/<p[^>]*>\[vc_row(.*?)\/vc_row]<\/p>/', '[vc_row$1/vc_row]', $content);
+	$content = preg_replace('/<p[^>]*>\[vc_section/', '[vc_section', $content);
+	$content = preg_replace('/\/vc_section]<\/p>/', '/vc_section]', $content);
+	$content = preg_replace('/<p[^>]*><div/', '<div', $content);
+	$content = preg_replace('/<p[^>]*><section/', '<section', $content);
+	$content = preg_replace('/\/div><\/p>/', '/div>', $content);
+	$content = preg_replace('/\/section><\/p>/', '/section>', $content);
+	$content = preg_replace('|<p><!--(.*?)--></p>|', '<!--$1-->', $content);
+	$content = preg_replace('/<p><\/p>/', '', $content);
+
+	return $content;
+
+}
+
 function uncode_remove_p_tag( $content, $autop = false ) {
 
 	if ( $autop ) {
 		$content = wpautop( preg_replace( '/<\/?p\>/', "\n", $content ) . "\n" );
 	}
 	$content = do_shortcode( shortcode_unautop( $content ) );
-	$content = preg_replace('/<p[^>]*>\[vc_row(.*?)\/vc_row]<\/p>/', '[vc_row$1/vc_row]', $content);
-	$content = preg_replace('/<p[^>]*><div/', '<div', $content);
-	$content = preg_replace('/\/div><\/p>/', '/div>', $content);
-	$content = preg_replace('|<p><!--(.*?)--></p>|', '<!--$1-->', $content);
-	$content = preg_replace('/<p><\/p>/', '', $content);
+	$content = uncode_remove_p_tag_regex( $content );
 
 	if ( function_exists( 'wp_filter_content_tags' ) ) {
 		$content = wp_filter_content_tags( $content );
@@ -84,6 +95,8 @@ function uncode_wp_insert_post_data( $data, $postarr ) {
 	$content = preg_replace('/\[vc_icon([^]]+)\]<\/p>/', '[vc_icon$1]', $content);
 	$content = preg_replace('/\[vc_message([^]]+)\]<\/p>/', '[vc_message$1]', $content);
 	$content = preg_replace('/<p[^>]*>\[vc_row(.*?)\/vc_row]<\/p>/', '[vc_row$1/vc_row]', $content);
+	$content = preg_replace('/<p[^>]*>\[vc_section/', '[vc_section', $content);
+	$content = preg_replace('/\/vc_section]<\/p>/', '/vc_section]', $content);
 	$data['post_content'] = $content;
 
 	return $data;

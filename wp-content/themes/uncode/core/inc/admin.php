@@ -264,6 +264,7 @@ function uncode_add_additional_fields($form_fields, $post)
 	$social_original = (bool) get_post_meta($post->ID, "_uncode_social_original", true);
 	$animated_svg = (bool) get_post_meta($post->ID, "_uncode_animated_svg", true);
 	$animated_svg_time = get_post_meta($post->ID, "_uncode_animated_svg_time", true);
+	$hex_val = get_post_meta($post->ID, "_uncode_hex_val", true);
 	$start_rating_val = get_post_meta($post->ID, "_uncode_start_rating_val", true);
 	$team_social = get_post_meta($post->ID, "_uncode_team_member_social", true);
 	$poster = get_post_meta($post->ID, "_uncode_poster_image", true);
@@ -379,6 +380,18 @@ function uncode_add_additional_fields($form_fields, $post)
 		);
 	}
 
+	if (strpos($post->post_mime_type, 'image') !== false 
+		|| strpos($post->post_mime_type, 'video') !== false
+		|| strpos($post->post_mime_type, 'youtube') !== false
+		|| strpos($post->post_mime_type, 'vimeo') !== false
+	) {
+		$form_fields["hex_val"] = array(
+			"label" => esc_html__("HEX Color", 'uncode') ,
+			"input" => 'html',
+			"html" => "<input type='text' value='". $hex_val . "' name='attachments[{$post->ID}][hex_val]' id='attachments[{$post->ID}][hex_val]' /><br />"
+		);
+	}
+
 	if ($post->post_mime_type === 'oembed/twitter') {
 		$form_fields["social_original"] = array(
 			"label" => esc_html__("Twitter original", 'uncode') ,
@@ -429,10 +442,9 @@ function uncode_add_additional_fields($form_fields, $post)
 	return $form_fields;
 }
 
-function uncode_save_additional_fields($attachment_id)
-{
+function uncode_save_additional_fields($attachment_id) {
 
-	if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'save-attachment-compat') {
+	if (isset($_REQUEST['action']) && ($_REQUEST['action'] == 'save-attachment-compat' || ($_REQUEST['action'] == 'editpost') && $_REQUEST['post_type'] == 'attachment')) {
 
 		if (isset($_REQUEST['attachments'][$attachment_id]['svg_alt'])) {
 			$alt_text = $_REQUEST['attachments'][$attachment_id]['svg_alt'];
@@ -465,6 +477,13 @@ function uncode_save_additional_fields($attachment_id)
 			update_post_meta($attachment_id, '_uncode_animated_svg_time', $animated_svg_time);
 		} else {
 			delete_post_meta($attachment_id, '_uncode_animated_svg_time');
+		}
+
+		if (isset($_REQUEST['attachments'][$attachment_id]['hex_val'])) {
+			$hex_val = $_REQUEST['attachments'][$attachment_id]['hex_val'];
+			update_post_meta($attachment_id, '_uncode_hex_val', $hex_val);
+		} else {
+			delete_post_meta($attachment_id, '_uncode_hex_val');
 		}
 
 		if (isset($_REQUEST['attachments'][$attachment_id]['start_rating_val'])) {
@@ -1046,11 +1065,11 @@ function uncode_admin_get_oembed()
 	{
 		if (preg_match('/(\.jpg|\.jpeg|\.png|\.bmp|\.webp)$/i', $urlEnterd) || preg_match('/(\.jpg?|\.jpeg?|\.png?|\.bmp?)/i', $urlEnterd) || strpos($urlEnterd, 'imgix') !== false)
 		{
-			$code = '<img src="' . $urlEnterd . '" />';
+			$code = '<img src="' . esc_url( $urlEnterd ) . '" />';
 			$mime = 'image/url';
 			if ($onlycode == 'false')
 			{
-				if ($getsize = @getimagesize($urlEnterd))
+				if ($getsize = @getimagesize(sanitize_url($urlEnterd)))
 				{
 					if (isset($getsize[0])) {
 						$width = $getsize[0];

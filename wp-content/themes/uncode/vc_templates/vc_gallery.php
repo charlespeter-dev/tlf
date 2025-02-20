@@ -2,7 +2,7 @@
 global $uncode_vc_gallery;
 $uncode_vc_gallery = true;
 
-$el_id = $isotope_mode = $gallery_back_color = $items = $random = $medias = $explode_albums = $filtering = $filter_style = $filter_background = $filter_back_color = $filtering_full_width = $filtering_position = $filtering_uppercase = $filter_all_opposite = $filter_all_text = $filter_mobile = $filter_mobile_align = $filter_mobile_dropdown = $filter_mobile_dropdown_text = $filter_scroll = $filter_sticky = $style_preset = $images_size = $thumb_size = $gutter_size = $stage_padding = $carousel_overflow = $carousel_half_opacity = $carousel_scaled = $carousel_pointer_events = $inner_padding = $single_width = $single_height = $single_back_color = $single_shape = $radius = $single_elements_click = $single_text = $single_text_visible = $single_text_visible = $single_text_anim = $single_text_anim_type = $single_overlay_visible = $single_overlay_anim = $single_image_coloration = $single_image_color_anim = $single_image_anim = $single_image_magnetic = $single_reduced = $single_reduced_mobile = $single_padding = $single_text_reduced = $single_h_align = $single_v_position = $single_h_position = $single_style = $single_overlay_color = $single_overlay_coloration = $single_overlay_blend = $single_overlay_opacity = $single_link = $single_shadow = $shadow_weight = $shadow_darker = $single_border = $single_icon = $single_title_transform = $single_animation_first = $single_title_family = $single_title_dimension = $single_title_weight = $single_title_semantic = $single_title_height = $single_title_space = $single_text_lead = $single_css_animation = $single_animation_delay = $single_animation_speed = $carousel_fluid = $carousel_type = $carousel_interval = $carousel_navspeed = $carousel_loop = $carousel_nav = $carousel_dots = $carousel_dots_space = $carousel_nav_mobile = $carousel_nav_skin = $carousel_dots_mobile = $carousel_dots_inside = $carousel_dot_position = $carousel_dot_padding = $carousel_autoh = $carousel_lg = $carousel_md = $carousel_sm = $carousel_textual = $hide_quotes = $carousel_height = $carousel_v_align = $off_grid = $off_grid_element = $off_grid_val = $off_grid_all = $screen_lg = $screen_md = $screen_sm = $lbox_skin = $lbox_transparency = $lbox_dir = $lbox_title = $lbox_caption = $lbox_social = $lbox_deep = $lbox_no_tmb = $lbox_no_arrows = $lbox_gallery_arrows = $lbox_gallery_arrows_bg = $lbox_zoom_origin = $lbox_counter = $lbox_actual_size = $lbox_full = $lbox_download = $lbox_transition = $no_double_tap = $nested = $media_items = $output = $title = $type = $el_class = $justify_row_height = $justify_max_row_height = $justify_last_row = $sticky_dir = $sticky_wrap = $sticky_th_size = $sticky_th_vh_lg = $sticky_th_vh_md = $sticky_th_vh_sm = $sticky_th_grid_lg = $sticky_th_grid_md = $sticky_th_grid_sm = $dynamic = $dynamic_source = $filter_typography = $custom_cursor = $skew = $container_style = $sticky_scroll_v_align = $sticky_thumb_size = $no_sticky_scroll_tablet = $no_sticky_scroll_mobile = $sticky_th_vh_minus = $sticky_scroll_mobile_safe_height = $oembed_params = $advanced_videos = $play_hover = $play_pause = $mobile_videos = $lb_video_advanced = $lb_autoplay = $lb_muted = $heading_custom_size = $linear_orientation = $linear_animation = $linear_speed = $linear_hover = $draggable = $marquee_clone = $linear_width = $linear_height = $linear_v_alingment = $linear_h_alingment = $marquee_freeze = $marquee_freeze_desktop = $marquee_freeze_mobile = $marquee_blur = '';
+$el_id = $isotope_mode = $gallery_back_color = $items = $random = $medias = $explode_albums = $filtering = $filter_style = $filter_background = $filter_back_color = $filtering_full_width = $filtering_position = $filtering_uppercase = $filter_all_opposite = $filter_all_text = $filter_mobile = $filter_mobile_align = $filter_mobile_dropdown = $filter_mobile_dropdown_text = $filter_scroll = $filter_sticky = $style_preset = $images_size = $thumb_size = $gutter_size = $stage_padding = $carousel_overflow = $carousel_half_opacity = $carousel_scaled = $carousel_pointer_events = $inner_padding = $single_width = $single_height = $single_back_color = $single_shape = $radius = $single_elements_click = $single_text = $single_text_visible = $single_text_visible = $single_text_anim = $single_text_anim_type = $single_overlay_visible = $single_overlay_anim = $single_image_coloration = $single_image_color_anim = $single_image_anim = $single_image_magnetic = $single_reduced = $single_reduced_mobile = $single_image_scroll = $single_image_scroll_val = $single_padding = $single_text_reduced = $single_h_align = $single_v_position = $single_h_position = $single_style = $single_overlay_color = $single_overlay_coloration = $single_overlay_blend = $single_overlay_opacity = $single_link = $single_shadow = $shadow_weight = $shadow_darker = $single_border = $single_icon = $single_title_transform = $single_animation_first = $single_title_family = $single_title_dimension = $single_title_weight = $single_title_semantic = $single_title_height = $single_title_space = $single_text_lead = $single_css_animation = $single_animation_delay = $single_animation_speed = $single_animation_easing = $single_mask_direction = $single_bg_delay = $carousel_fluid = $carousel_type = $carousel_interval = $carousel_navspeed = $carousel_loop = $carousel_nav = $carousel_dots = $carousel_dots_space = $carousel_nav_mobile = $carousel_nav_skin = $carousel_dots_mobile = $carousel_dots_inside = $carousel_dot_position = $carousel_dot_padding = $carousel_autoh = $carousel_lg = $carousel_md = $carousel_sm = $carousel_textual = $hide_quotes = $carousel_height = $carousel_v_align = $off_grid = $off_grid_element = $off_grid_val = $off_grid_all = $screen_lg = $screen_md = $screen_sm = $lbox_skin = $lbox_transparency = $lbox_dir = $lbox_title = $lbox_caption = $lbox_social = $lbox_deep = $lbox_no_tmb = $lbox_no_arrows = $lbox_gallery_arrows = $lbox_gallery_arrows_bg = $lbox_zoom_origin = $lbox_counter = $lbox_actual_size = $lbox_full = $lbox_download = $lbox_transition = $no_double_tap = $nested = $media_items = $output = $title = $type = $el_class = $justify_row_height = $justify_max_row_height = $justify_last_row = $sticky_dir = $sticky_wrap = $sticky_th_size = $sticky_th_vh_lg = $sticky_th_vh_md = $sticky_th_vh_sm = $sticky_th_grid_lg = $sticky_th_grid_md = $sticky_th_grid_sm = $dynamic = $dynamic_source = $filter_typography = $custom_cursor = $skew = $container_style = $sticky_scroll_v_align = $sticky_thumb_size = $no_sticky_scroll_tablet = $no_sticky_scroll_mobile = $sticky_th_vh_minus = $sticky_scroll_mobile_safe_height = $oembed_params = $advanced_videos = $play_hover = $play_pause = $mobile_videos = $lb_video_advanced = $lb_autoplay = $lb_muted = $heading_custom_size = $linear_orientation = $linear_animation = $linear_speed = $linear_hover = $draggable = $marquee_clone = $linear_width = $linear_height = $linear_v_alingment = $linear_h_alingment = $marquee_freeze = $marquee_freeze_desktop = $marquee_freeze_mobile = $marquee_blur = '';
 
 extract( shortcode_atts( array(
 		'uncode_shortcode_id' => '',
@@ -73,6 +73,8 @@ extract( shortcode_atts( array(
 		'single_image_magnetic' => '',
 		'single_reduced' => '',
 		'single_reduced_mobile' => '',
+		'single_image_scroll' => 'parallax',
+		'single_image_scroll_val' => 5,
 		'single_padding' => '',
 		'single_text_reduced' => '',
 		'single_h_align' => 'left',
@@ -91,6 +93,9 @@ extract( shortcode_atts( array(
 		'single_border' => '',
 		'single_icon' => '',
 		'single_title_transform' => '',
+		'single_animation_easing' => '',
+		'single_mask_direction' => '',
+		'single_bg_delay' => '',
 		'single_animation_first' => '',
 		'single_title_family' => '',
 		'single_title_dimension' => '',
@@ -377,6 +382,9 @@ $general_meta_transform = $single_meta_transform;
 $general_css_animation = $single_css_animation;
 $general_animation_delay = $single_animation_delay;
 $general_animation_speed = $single_animation_speed;
+$general_animation_easing = $single_animation_easing;
+$general_mask_direction = $single_mask_direction;
+$general_bg_delay = $single_bg_delay;
 $general_parallax_intensity = $single_parallax_intensity;
 $general_parallax_centered = $single_parallax_centered;
 
@@ -990,6 +998,10 @@ if ( $lb_video_advanced === 'yes' ) {
 	<?php endif; ?>
 	<?php $div_data_cont_attributes = array_map(function ($v, $k) { return $k . '="' . $v . '"'; }, $div_data_cont, array_keys($div_data_cont)); ?>
 
+	<?php if ($type === 'linear' && $draggable === 'yes' ) { ?>
+		<div data-dragger>
+	<?php } ?>
+
 	<div class="<?php echo esc_attr(trim(implode(' ', $parent_container_classes))); ?>" <?php echo implode(' ', $div_data_cont_attributes); ?>>
 		<?php if ($type == 'justified') { ?><div class="<?php echo esc_attr(trim(implode(' ', $fixer_classes))); ?>"><?php } ?>
 		<?php
@@ -1324,6 +1336,7 @@ if (count($medias) > 0) {
 		}
 
 		$single_title_semantic = (isset($item_prop['single_title_semantic'])) ? $item_prop['single_title_semantic'] : $general_title_semantic;
+		$single_title_semantic = uncode_sanitize_html_tag( $single_title_semantic, 'heading' );
 		if ($single_title_semantic !== '') {
 			$block_data['tag'] = $single_title_semantic;
 		}
@@ -1439,7 +1452,7 @@ if (count($medias) > 0) {
 				$single_parallax_centered = ( isset( $item_prop['single_parallax_centered'] ) ) ? $item_prop['single_parallax_centered'] : $general_parallax_centered;
 				$block_data['parallax'] = $single_parallax_intensity;
 				$block_data = array_merge( $block_data, uncode_get_parallax_div_data( $single_parallax_intensity, $single_parallax_centered ) );
-			} else {
+			} elseif ( $single_css_animation !== '' && $single_css_animation !== 'mask' ) {
 				$block_data['animation'] = ' animate_when_almost_visible ' . $single_css_animation;
 				if ($single_animation_delay !== '') {
 					$tmb_data['data-delay'] = $single_animation_delay;
@@ -1477,6 +1490,44 @@ if (count($medias) > 0) {
 				}
 			}
 		}
+
+		if ( $single_css_animation === 'mask' || $single_image_anim === 'scroll' ) {
+			$block_classes[] = 'tmb-mask';
+		
+			if ( $single_css_animation === 'mask' ) {
+				$block_classes[] = 'tmb-mask-reveal';
+				if ($single_animation_delay !== '') {
+					$tmb_data['data-delay'] = $single_animation_delay;
+				}
+				if ($single_animation_speed !== '') {
+					$tmb_data['data-speed'] = $single_animation_speed;
+				}
+				if ($single_animation_easing !== '') {
+					$tmb_data['data-easing'] = $single_animation_easing;
+				}
+				if ($single_mask_direction !== '') {
+					$block_classes[] = 'tmb-mask-reveal-' . $single_mask_direction;
+				}
+				if ($single_bg_delay !== '') {
+					$tmb_data['data-bg-delay'] = $single_bg_delay;
+				}
+			}
+		
+			if ( $single_image_anim === 'scroll' ) {
+				$block_classes[] = 'tmb-mask-scroll';
+				$block_classes[] = 'tmb-mask-scroll-' . esc_attr($single_image_scroll);
+				$tmb_data['data-scroll-val'] = intval( $single_image_scroll_val );
+			}
+
+			if ( $single_css_animation === 'mask' ) {
+				$hex_color = get_post_meta($item_thumb_id, '_uncode_hex_val', true);
+				if ( $hex_color ) {
+					$block_classes[] = 'tmb-has-hex';
+					$block_data['hex'] = $hex_color;
+				}		
+			}
+		}
+		
 
 		$block_classes[] = 'tmb-id-' . $item_thumb_id;
 
@@ -1724,6 +1775,10 @@ if (count($medias) > 0) {
 			<?php endif; ?>
 		</div>
 	<?php endif; ?>
+
+	<?php if ($type === 'linear' && $draggable === 'yes' ) { ?>
+		</div> <?php //data-dragger
+	} ?>
 
 	<?php echo uncode_print_dynamic_inline_style( $inline_style_css ); ?>
 

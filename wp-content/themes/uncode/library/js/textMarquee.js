@@ -27,12 +27,14 @@ UNCODE.textMarquee = function( $titles ) {
 				dataSpeed = parseFloat( $title.closest('.heading-text').attr('data-marquee-speed') ),
 				dataSpace = parseFloat( $title.closest('.heading-text').attr('data-marquee-space') ),
 				dataTrigger = $title.closest('.heading-text').attr('data-marquee-trigger'),
+				hasSticky = false,
 				dataNavBar = $title.closest('.heading-text').attr('data-marquee-navbar'),
 				dataNavBarMobile = $title.closest('.heading-text').attr('data-marquee-navbar-mobile'),
 				newW = UNCODE.wwidth,
 				marqueeTL, inview;
 
 			if ( $title.closest('.sticky-trigger').length || $title.closest('.sticky-element').length || $title.closest('.pin-spacer').length ) {
+				hasSticky = true;
 				dataTrigger = 'row';
 			}
 
@@ -92,7 +94,7 @@ UNCODE.textMarquee = function( $titles ) {
 				marqueeTL = new TimelineMax({ paused: true, reversed: true });
 
 				var inViewElement =
-						dataTrigger === "row" ? $title.closest('.sticky-trigger, .sticky-element').parent()[0] : $title[0],
+						dataTrigger === "row" ? ( hasSticky ? $title.closest('.sticky-trigger, .sticky-element').parent()[0] : $title.closest(".vc_row")[0] ) : $title[0],
 					wayOff =
 						dataTrigger === "row" && dataNavBar === "yes"
 							? UNCODE.menuHeight
@@ -161,8 +163,11 @@ UNCODE.textMarquee = function( $titles ) {
 				var time = Date.now();
 
 				var textMarqueeScroll = function(){
-					var $row = $title.closest('.sticky-trigger, .sticky-element').parent(),
-						$bound = (dataTrigger === 'row' || dataTrigger === 'row-middle') ? $row : $title;
+					var $row = $title.closest('.vc_row');
+					if ( hasSticky ) {
+						$row = $title.closest('.sticky-trigger, .sticky-element').parent();
+					}					
+					var $bound = (dataTrigger === 'row' || dataTrigger === 'row-middle') ? $row : $title;
 
 					if ( !$bound.length ) {
 						return;
@@ -303,7 +308,7 @@ UNCODE.textMarquee = function( $titles ) {
 		initTextMarquee();
 	});
 
-	$(window).on('focus',function(){
+	$(window).on('focus load',function(){
 		setTimeout(function(){
 			initTextMarquee();
 		},500);

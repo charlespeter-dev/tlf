@@ -174,6 +174,7 @@ if (is_admin_bar_showing()) {
 			}
 			?>
 			<script type="text/javascript" id="fixMenuHeight">UNCODE.fixMenuHeight();</script>
+			<?php echo uncode_blur_edges(); ?>
 			<div class="main-wrapper">
 				<div class="main-container<?php echo esc_attr( $page_skew_class ); ?>">
 					<div class="page-wrapper<?php if ($onepage) { echo ' main-onepage'; } ?>">

@@ -74,7 +74,7 @@
 				if (data != '') {
 					try {
 						var parsedData = JSON.parse(data);
-						if (parsedData.code == 'null') {
+						if (parsedData.code == 'null' || parsedData.mime == 'image/url') {
 							$this.html('<b>oEmbed not supported.</b>');
 							$this.closest('.uploader-uncode-media').find('.spinner').removeClass('visible');
 						} else $this.html(parsedData.code);
@@ -108,26 +108,52 @@
 			});
 		}
 	}
-	$(document).ready(function() {
+	$(function() {
 		if (SiteParameters.disable_oembed_preview) {
-			return false;
+		  	return false;
 		}
-		$(document).on('DOMNodeInserted', function(e) {
-			try {
-				if ($(e.target).closest('.media-modal').length || $(e.target).closest('.wpb_el_type_media_element').length || $(e.target).closest('.attachments').length) {
-					if ($(e.target).is('.attachment')) {
-						if ($(e.target).find(".oembed").length > 0) $(e.target).find('.oembed:not(.rendered)').get_oembed(null, true);
+		function handleOembed(target) {
+		  	try {
+				if (
+					$(target).find(".media-modal").length ||
+					$(target).closest(".media-modal").length ||
+					$(target).closest(".wpb_el_type_media_element").length ||
+					$(target).closest(".attachments").length
+				) {
+					if ($(target).is(".attachment")) {
+						if ($(target).find(".oembed").length > 0) {
+						$(target).find(".oembed:not(.rendered)").get_oembed(null, true);
+						}
 					}
-					if ($(e.target).find('.attachment-media-view').length > 0) {
-						if ($(e.target).find(".oembed").length > 0) $(e.target).find('.oembed:not(.rendered)').get_oembed(null, true);
+					if ($(target).find(".attachment-media-view").length > 0) {
+						if ($(target).find(".oembed").length > 0) {
+							$(target).find(".oembed:not(.rendered)").get_oembed(null, true);
+						}
 					}
-					if ($(e.target).is('.format-settings')) {
-						$.each($(".oembed:not(.rendered)", e.target), function(index, val) {
-							$(this).get_oembed(null, true);
+			  		if ($(target).is(".format-settings")) {
+						$(".oembed:not(.rendered)", target).each(function () {
+				  			$(this).get_oembed(null, true);
 						});
-					}
+			  		}
 				}
-			} catch (e) {}
+		  	} catch (e) {
+				console.error("Error in handleOembed:", e);
+		  	}
+		}
+
+		var observer = new MutationObserver(function (mutations) {
+		  	mutations.forEach(function (mutation) {
+				Array.prototype.forEach.call(mutation.addedNodes, function (node) {
+			  		if (node.nodeType === 1) {
+						handleOembed(node);
+			  		}
+				});
+		  	});
+		});
+
+		observer.observe(document.body, {
+		  	childList: true,
+		  	subtree: true,
 		});
 	});
 	$('.vc_welcome-header').add('.vc_welcome-brand').add('#vc_no-content-add-text-block').remove();

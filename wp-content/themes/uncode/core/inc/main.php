@@ -542,8 +542,6 @@ function uncode_equeue() {
 
 	wp_enqueue_script('uncode-init', get_template_directory_uri() . '/library/js/init' . $suffix . '.js', array() , $resources_version, false);
 
-	wp_localize_script( 'uncode-init', 'SiteParameters', $site_parameters );
-
 	if ( $native_media_player === true && function_exists( 'uncode_deregister_script' ) ) {
 		uncode_deregister_script('mediaelement');
 		uncode_deregister_script('wp-mediaelement');
@@ -656,7 +654,6 @@ function uncode_equeue() {
 			} else {
 				$output_width = $main_width[0];
 				$output_unit = '%';
-				$output_css .= "\n@media (min-width: 960px) { .limit-width { max-width: " . $main_width[0] . "%; " . $main_align_css . "}}";
 			}
 		} else {
 			if (strpos($main_width, 'px') !== false) {
@@ -668,8 +665,11 @@ function uncode_equeue() {
 			}
 		}
 
+		$site_parameters['uncode_limit_width'] = $output_width . $output_unit;
 		$output_css .= "\n@media (min-width: 960px) { .limit-width { max-width: " . $output_width . $output_unit . "; " . $main_align_css . "}}";
 	}
+
+	wp_localize_script( 'uncode-init', 'SiteParameters', $site_parameters );
 
 	$body_border = ot_get_option('_uncode_body_border');
 	$body_border = ($body_border !== '' && $body_border !== 0) ? $body_border : 0;
@@ -819,7 +819,7 @@ function uncode_body_classes($classes){
 	$boxed = ot_get_option('_uncode_boxed');
 	$main_align = ot_get_option('_uncode_main_align');
 
-	if ($menutype === '') {
+	if (!$menutype) {
 		$menutype = 'hmenu-right';
 	}
 	if (strpos($menutype, 'vmenu') !== false) {

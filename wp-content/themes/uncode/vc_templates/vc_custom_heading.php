@@ -1,5 +1,5 @@
 <?php
-$subheading = $subtext_one = $subtext_two = $heading_semantic = $text_size = $text_height = $text_space = $text_font = $text_weight = $text_transform = $text_italic = $text_color = $back_color = $separator = $separator_color = $separator_double = $sub_text = $sub_lead = $sub_reduced = $desktop_visibility = $medium_visibility = $mobile_visibility = $css_animation = $marquee_clone = $animation_delay = $animation_speed = $css_alt_animation = $marquee_clone_alt = $css_alt_animation_speed = $css_alt_animation_delay = $interval_animation = $output = $el_id = $el_class = $skew = $sticky_trigger = $sticky_trigger_option = $sub_class = $is_header = $auto_text = $medias = $media_ratio = $shape = $img_radius = $inline_media_anim = $inline_media_anim_speed = $inline_media_anim_delay = $marquee_speed = $marquee_speed_alt = $marquee_hover = $marquee_hover_alt = $media_height = $media_space = $inline_media = $marquee_space = $marquee_space_alt = $marquee_trigger = $marquee_trigger_alt = $marquee_navbar_alt = $marquee_navbar = $marquee_navbar_mobile = $marquee_navbar_mobile_alt = $heading_custom_size = $text_stroke = $foreword = $text_indent = $color_blend = $marquee_blur = $marquee_blur_alt = '';
+$subheading = $subtext_one = $subtext_two = $heading_semantic = $text_size = $text_height = $text_space = $text_font = $text_weight = $text_transform = $text_italic = $text_color = $back_color = $separator = $separator_color = $separator_double = $sub_text = $sub_lead = $sub_reduced = $desktop_visibility = $medium_visibility = $mobile_visibility = $css_animation = $marquee_clone = $animation_delay = $animation_speed = $css_alt_animation = $marquee_clone_alt = $css_alt_animation_speed = $css_alt_animation_delay = $interval_animation = $output = $el_id = $el_class = $skew = $sticky_trigger = $sticky_trigger_option = $sub_class = $is_header = $auto_text = $medias = $media_ratio = $shape = $img_radius = $inline_media_anim = $inline_media_anim_speed = $inline_media_anim_delay = $marquee_speed = $marquee_speed_alt = $marquee_hover = $marquee_hover_alt = $media_height = $media_space = $inline_media = $marquee_space = $marquee_space_alt = $marquee_trigger = $marquee_trigger_alt = $marquee_navbar_alt = $marquee_navbar = $marquee_navbar_mobile = $marquee_navbar_mobile_alt = $heading_custom_size = $text_stroke = $foreword = $text_indent = $color_blend = $marquee_blur = $marquee_blur_alt = $text_reveal_target = $text_reveal_opacity = $heading_style = $text_reveal_speed = $text_reveal_top = '';
 extract( shortcode_atts( array(
 	'uncode_shortcode_id' => '',
 	'subheading' => '',
@@ -79,7 +79,11 @@ extract( shortcode_atts( array(
 	'text_indent' => '',
 	'color_blend' => '',
 	'marquee_blur' => '',
-	'marquee_blur_alt' => ''
+	'marquee_blur_alt' => '',
+	'text_reveal_target' => 'words',
+	'text_reveal_opacity' => '20',
+	'text_reveal_speed' => 50,
+	'text_reveal_top' => 50,
 ), $atts ) );
 
 if ( $el_id !== '' ) {
@@ -96,6 +100,7 @@ $separator_classes = array();
 $div_data = array();
 $data_size = array();
 
+$heading_semantic = uncode_sanitize_html_tag( $heading_semantic, 'heading' );
 
 $inline_style_css = uncode_get_dynamic_colors_css_from_shortcode( array(
 	'type'       => 'vc_custom_heading',
@@ -227,7 +232,7 @@ if ( $inline_media !== '' ) {
 	$marquee_navbar = $marquee_navbar_alt;
 	$marquee_navbar_mobile = $marquee_navbar_mobile_alt;
 	$marquee_blur = $marquee_blur_alt;
-	
+
 	if ( strpos( $content, 'uncode_inline_image') !== false ) {
 		$content = preg_replace("/\[uncode_hl_text(.*?)\]/", '', $content);
 		$content = preg_replace("/\[\/uncode_hl_text\]/", '', $content);
@@ -239,8 +244,18 @@ if ( $inline_media !== '' ) {
 }
 
 if ($css_animation !== '' && uncode_animations_enabled() && strpos( $css_animation, 'marquee') === false) {
-	if ( $css_animation === 'curtain' || $css_animation === 'curtain-words' || $css_animation === 'single-slide' ||  $css_animation === 'single-slide-opposite' || $css_animation === 'typewriter' || $css_animation === 'single-curtain' ) {
-		$cont_classes[] = $css_animation . ' animate_inner_when_almost_visible el-text-split';
+	if ( $css_animation === 'curtain' || $css_animation === 'perspective' || $css_animation === 'curtain-words' || $css_animation === 'perspective-words' || $css_animation === 'single-slide' ||  $css_animation === 'single-slide-opposite' || $css_animation === 'typewriter' || $css_animation === 'single-curtain' || $css_animation === 'text-reveal' ) {
+		if ( $css_animation === 'text-reveal' && !(function_exists('vc_is_page_editable') && vc_is_page_editable()) ) {
+			$cont_classes[] = $css_animation . ' el-text-split';
+			$data_size['data-reveal'] = esc_attr($text_reveal_target);
+			$data_size['data-reveal-top'] = floatval($text_reveal_top);
+			$data_size['data-reveal-opacity'] = floatval((floatval($text_reveal_opacity)/100));
+		
+			$heading_style = '--text-reveal-opacity:' . (floatval($text_reveal_opacity)/100). ';';
+			$heading_style .= '--text-reveal-opacity-duration:' . (floatval($text_reveal_speed)/100). 's;';
+		} else {
+			$cont_classes[] = $css_animation . ' animate_inner_when_almost_visible el-text-split';
+		}
 		$classes[] = 'font-obs';
 		if ($text_italic !== '') {
 			$data_size['data-style'] = 'italic';
@@ -265,7 +280,7 @@ if ($css_animation !== '' && uncode_animations_enabled() && strpos( $css_animati
 	} else if ( $css_animation === 'parallax' ) {
 		$cont_classes[] = 'parallax-el';
 		$div_data = array_merge( $div_data, uncode_get_parallax_div_data( $parallax_intensity, $parallax_centered ) );
-	} else {
+	}else {
 		$cont_classes[] = $css_animation . ' animate_when_almost_visible';
 	}
 	if ($animation_delay !== '') {
@@ -293,7 +308,7 @@ if ( strpos( $css_animation, 'marquee') !== false) {
 	if ( $marquee_hover === 'yes' ) {
 		$classes[] = 'un-marquee-hover';
 	}
-	
+
 	if ( strpos( $css_animation, 'marquee-scroll') !== false) {
 		$div_data['data-marquee-trigger'] = $marquee_trigger;
 		$div_data['data-marquee-navbar'] = $marquee_navbar;
@@ -399,7 +414,7 @@ if ( strpos( $content, '[uncode_hl_text') !== false ) {
 
 $inline_link_rgx = "/(\<a ([^\<]+)>\[uncode_inline_image(.*?)\]<\/a>|\[\<a ([^\<]+)>uncode_inline_image<\/a>(.*?)\]|\[\<a ([^\<]+)>uncode_inline_image(.*?)<\/a>\])/";
 $content = preg_replace_callback(
-    $inline_link_rgx, 
+    $inline_link_rgx,
     function ($matches) {
 		preg_match( "/<a (.*?)>/", $matches[0], $match_link );
 		$match_str = str_replace('</a>', '', $matches[0]);
@@ -419,12 +434,13 @@ if ($content !== '') {
 	$div_data_attributes = array_map(function ($v, $k) { return $k . '="' . $v . '"'; }, $data_size, array_keys($data_size));
 
 	if ( !$content_tags ) {
-		$output .= '<' . $heading_semantic . ' class="' . esc_attr(trim(implode( ' ', $classes ))) . '" '.implode(' ', $div_data_attributes) . '>';
+		$heading_style = $heading_style !== '' ? ' style="' . $heading_style . '"' : '';
+		$output .= '<' . $heading_semantic . ' class="' . esc_attr(trim(implode( ' ', $classes ))) . '" '.implode(' ', $div_data_attributes) . $heading_style . '>';
 
 		if ($text_italic === 'yes') {
 			$output .= '<i>';
 		}
-		if ( strpos($content, '[uncode_hl_text') !== false || ( uncode_animations_enabled() && ( $css_animation === 'curtain' || $css_animation === 'curtain-words' || $css_animation === 'single-slide' ||  $css_animation === 'single-slide-opposite' || $css_animation === 'typewriter' || $css_animation === 'single-curtain' ) ) ) {
+		if ( strpos($content, '[uncode_hl_text') !== false || ( uncode_animations_enabled() && ( $css_animation === 'curtain' || $css_animation === 'perspective' || $css_animation === 'perspective-words' || $css_animation === 'curtain-words' || $css_animation === 'single-slide' ||  $css_animation === 'single-slide-opposite' || $css_animation === 'typewriter' || $css_animation === 'single-curtain' || $css_animation === 'text-reveal' ) ) ) {
 			$breaks = array("<br />","<br>","<br/>");
 			$content = str_ireplace( $breaks, "\r\n", $content );
 			$content = strip_tags( $content, array('span') );
@@ -468,7 +484,7 @@ if ($content !== '') {
 					}
 				}
 			}
-			if ( $css_animation === 'single-curtain' || $css_animation === 'typewriter' ) {
+			if ( $css_animation === 'single-curtain' || $css_animation === 'typewriter' || $css_animation === 'text-reveal' ) {
 				$content = preg_replace( '/<span class="split-char(.*?)>(.*?)<\/span>/', '$2', do_shortcode( $content ) );
 				$split_content = preg_split('/(?<!^)(?!$)(?!&(?!(amp|gt|lt|quot))[^\s]*)/u', $content );
 			}
@@ -590,7 +606,7 @@ if ( $inline_media !== '' ) {
 		$media_key = 0;
 
 		$output = preg_replace_callback(
-			$inline_img_rgx, 
+			$inline_img_rgx,
 			function ($matches) use(&$media_key, $medias, $inline_media_anim, $inline_media_anim_delay, $inline_media_anim_speed, $media_ratio, $img_radius, $shape, $media_height, $media_space) {
 				if ( !isset($medias[$media_key]) ) {
 					return;
@@ -634,12 +650,12 @@ if ( $inline_media !== '' ) {
 				}
 				if ( $img_radius !== '' && $shape === 'img-round' ) {
 					$block_classes[] = 'img-round-' . $img_radius;
-				} 
-						
+				}
+
 				if ( $media_space !== '' ) {
 					$block_classes[] = 'un-inline-space-' . $media_space;
-				} 
-						
+				}
+
 				$block_data['classes'] = $block_classes;
 				if ( isset( $matches[1] ) && strpos( $matches[1], 'href=') !== false ) {
 					preg_match_all( "/(.*?)=[\"|'](.*?)[\"|']/", $matches[1], $match_atts );

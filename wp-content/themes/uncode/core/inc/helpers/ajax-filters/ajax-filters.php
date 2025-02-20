@@ -2206,3 +2206,20 @@ function uncode_filters_validate_date( $date, $format = 'Y-m-d' ) {
     $d = DateTime::createFromFormat( $format, $date );
     return $d && $d->format( $format ) == $date;
 }
+
+/**
+ * Add nofollow attribute to filter links
+ */
+function uncode_filters_add_now_follow() {
+    return apply_filters( 'uncode_filters_add_now_follow', true ) ? 'rel="nofollow"' : '';
+}
+
+/**
+ * Add noindex meta tag to AJAX filtered pages
+ */
+function uncode_filters_add_noindex() {
+	if ( apply_filters( 'uncode_filters_add_noindex', true ) && uncode_is_filtering() ) {
+		echo '<meta name="robots" content="noindex">';
+	}
+}
+add_action( 'wp_head', 'uncode_filters_add_noindex', 0 );

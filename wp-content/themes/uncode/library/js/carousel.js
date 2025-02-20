@@ -369,6 +369,9 @@
 					UNCODE.lightgallery( $galleries );
 				}
 
+				if ( typeof ScrollTrigger !== 'undefined' && ScrollTrigger !== null ) {
+					ScrollTrigger.refresh();
+				}
 			});
 
 			$elSelector.on('resized.owl.carousel', function(event) {
@@ -404,6 +407,9 @@
 					setTimeout(function(){
 						window.lenis.resize();
 					}, 1000);
+				}
+				if ( typeof ScrollTrigger !== 'undefined' && ScrollTrigger !== null ) {
+					ScrollTrigger.refresh();
 				}
 			});
 

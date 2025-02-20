@@ -26,7 +26,7 @@ function uncode_center_nav_menu_items($items, $args) {
 			$new_item->logo = true;
 			$new_item->classes = array('mobile-hidden','tablet-hidden');
 			$new_item_array[] = $new_item;
-			$get_position = apply_filters( 'uncode_split_menu_logo_position' , floor(count($menu_items) / 2) - 1 );
+			$get_position = apply_filters( 'uncode_split_menu_logo_position', floor(count($menu_items) / 2) - 1, $menu_items);
 			array_splice($items, $menu_items[$get_position], 0, $new_item_array);
 		}
 	}
