@@ -221,9 +221,10 @@ get_header() ?>
                     </div>
                     <div class="col-lg-6 right">
                         <div class="icon-groups">
-                            <?php foreach ($journey_supply_push['icon_groups'] as $icon_group): ?>
+                            <?php foreach ($journey_supply_push['icon_groups'] as $k => $icon_group): ?>
                                 <div class="icon-group">
-                                    <img class="img-fluid" src="<?= $icon_group['icon']['url'] ?>" alt="">
+                                    <img class="img-fluid <?= ($k > 0) ? 'd-none d-lg-block' : '' ?>"
+                                        src="<?= $icon_group['icon']['url'] ?>" alt="">
                                 </div>
                             <?php endforeach ?>
                         </div>
@@ -244,6 +245,23 @@ get_header() ?>
                         </div>
                     <?php endif ?>
 
+                    <div class="row d-block d-lg-none">
+                        <div class="col">
+
+                            <?php foreach ($journey_demand_pull['icon_groups'] as $k => $icon_group):
+
+                                if ($k > 0)
+                                    continue;
+
+                                ?>
+                                <div class="my-4">
+                                    <img class="img-fluid" src="<?= $icon_group['icon']['url'] ?>" alt="">
+                                </div>
+                            <?php endforeach ?>
+
+                        </div>
+                    </div>
+
                     <div class="col-lg-6 left">
 
                         <div class="vertical-line"></div>
@@ -262,7 +280,7 @@ get_header() ?>
                             <?php endforeach ?>
                         </div>
                     </div>
-                    <div class="col-lg-6 right">
+                    <div class="col-lg-6 right d-none d-lg-flex">
                         <div class="icon-groups">
                             <?php foreach ($journey_demand_pull['icon_groups'] as $icon_group): ?>
                                 <div class="icon-group">
