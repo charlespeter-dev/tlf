@@ -1,3 +1,6 @@
+.bootstrap-container.single.industry.poultry .sub-heading {
+  text-wrap: pretty;
+}
 .bootstrap-container.single.industry.poultry .parent-breadcrumb {
   color: #009BDC;
   font-size: 20px;
@@ -112,7 +115,10 @@
 }
 .bootstrap-container.single.industry.poultry .journey-supply-push .card,
 .bootstrap-container.single.industry.poultry .journey-demand-pull .card {
-  padding-block-end: 4rem;
+  margin-block-end: 4rem;
+  border-radius: 30px;
+  box-shadow: 30px 37px 13px 0px rgba(0, 0, 0, 0), 19px 24px 12px 0px rgba(0, 0, 0, 0.01), 11px 13px 10px 0px rgba(0, 0, 0, 0.05), 5px 6px 8px 0px rgba(0, 0, 0, 0.09), 1px 1px 4px 0px rgba(0, 0, 0, 0.1);
+  background-color: transparent;
 }
 .bootstrap-container.single.industry.poultry .journey-supply-push .card-header,
 .bootstrap-container.single.industry.poultry .journey-demand-pull .card-header {
