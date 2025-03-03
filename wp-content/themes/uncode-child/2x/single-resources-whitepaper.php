@@ -60,7 +60,11 @@ get_header() ?>
 
                             <div class="mb-3">
                                 <h1 class="mb-0">
-                                    <?= get_the_title($post->ID) ?>
+                                    <?php if (isset($main_heading) && $main_heading): ?>
+                                        <?= $main_heading ?>
+                                    <?php else: ?>
+                                        <?= get_the_title($post->ID) ?>
+                                    <?php endif ?>
                                 </h1>
                             </div>
                         </div>

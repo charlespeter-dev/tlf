@@ -3,6 +3,26 @@
     "title": "v2 \/ Resources \/ Single Whitepaper",
     "fields": [
         {
+            "key": "field_67c50c1989fa1",
+            "label": "Main Heading",
+            "name": "main_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_67205b0f3be6c",
             "label": "Background Image",
             "name": "background_image",
@@ -165,5 +185,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1730173739
+    "modified": 1740966947
 }

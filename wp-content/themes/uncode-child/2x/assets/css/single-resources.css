@@ -295,5 +295,9 @@ h1:not([class*=fontsize-]),
     position: absolute;
   }
 }
+.bootstrap-container .related-resources .card > img {
+  height: 270px;
+  object-fit: cover;
+}
 
 /*# sourceMappingURL=single-resources.css.map */

@@ -340,4 +340,13 @@ h1:not([class*="fontsize-"]),
 
         }
     }
+
+    .related-resources {
+        .card {
+            >img {
+                height: 270px;
+                object-fit: cover;
+            }
+        }
+    }
 }
