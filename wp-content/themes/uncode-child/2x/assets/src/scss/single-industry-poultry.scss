@@ -283,6 +283,7 @@
                 font-size: 33px;
                 line-height: 55px;
                 text-transform: uppercase;
+                text-wrap: pretty;
 
                 strong {
                     font-family: gotham_boldregular, sans-serif;
@@ -424,6 +425,19 @@
         a {
             color: #E30613;
             text-decoration: none;
+        }
+    }
+
+    li {
+
+        &.tick {
+            list-style-image: url('https://thelogicfactory.com/wp-content/uploads/2023/09/Icon-Tick.svg');
+            margin-bottom: .1em;
+
+            span {
+                vertical-align: 0.3em;
+                transform: translate(-0.1em, 0.2em);
+            }
         }
     }
 }

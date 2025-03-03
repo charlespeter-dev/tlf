@@ -319,21 +319,21 @@ get_header() ?>
                 <div class="row">
                     <div class="col">
 
-                        <?php if (isset($callout['main_heading']) && $callout['main_heading']): ?>
+                        <?php foreach ($callout['content_groups'] as $idx => $content_group): ?>
+
                             <div class="mb-4">
                                 <h2 class="main-heading mb-4">
-                                    <?= $callout['main_heading'] ?>
+                                    <?= $content_group['main_heading'] ?>
                                 </h2>
                             </div>
-                        <?php endif ?>
 
-                        <?php if (isset($callout['content']) && $callout['content']): ?>
                             <div class="mb-4">
                                 <div class="content">
-                                    <?= $callout['content'] ?>
+                                    <?= $content_group['content'] ?>
                                 </div>
                             </div>
-                        <?php endif ?>
+
+                        <?php endforeach ?>
 
                         <div class="row row-cols-1 row-cols-lg-3 g-5">
                             <?php foreach ($callout['card_groups'] as $idx => $card_group): ?>
