@@ -531,6 +531,49 @@ get_header() ?>
         </section>
     <?php endif ?>
 
+    <?php if (isset($subpages) && $subpages): ?>
+        <section class="subpages">
+            <div class="row-container">
+                <div class="single-h-padding limit-width position-relative">
+
+                    <div class="row">
+                        <div class="col">
+                            <h2 class="mb-4 blue text-center">
+                                <?= $subpages['main_heading'] ?>
+                            </h2>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="sub-heading">
+                                <?= $subpages['sub_heading'] ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 gy-5 mt-4">
+                        <?php foreach ($subpages['subpage_groups'] as $subpage): ?>
+                            <div class="col">
+                                <a href="<?= $subpage['subpage_link']['url'] ?>"
+                                    target="<?= $subpage['subpage_link']['target'] ?>">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <div class="subpage">
+                                                <img class="img-fluid icon" src="<?= $subpage['icon']['url'] ?>" alt="">
+                                                <div class="title"><?= $subpage['title'] ?></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        <?php endforeach ?>
+                    </div>
+                </div>
+            </div>
+        </section>
+    <?php endif ?>
+
     <?php if (isset($fresource['excerpt']) && $fresource['excerpt']): ?>
         <section class="featured-resource">
             <div class="row-container">
