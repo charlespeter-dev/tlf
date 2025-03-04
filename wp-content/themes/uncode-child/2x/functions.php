@@ -217,6 +217,19 @@ function _2x_related_industries($exclude_post_id = 0, $post__in = [])
 
         foreach ($industries_query->posts as $post_id) {
 
+            // ------------------------------
+            // skip children
+            // ------------------------------
+
+            $parent_id = wp_get_post_parent_id($post_id);
+
+            if ($parent_id)
+                continue;
+
+            // ------------------------------
+            // skip excluded post
+            // ------------------------------
+
             if ($post_id == $exclude_post_id)
                 continue;
 
