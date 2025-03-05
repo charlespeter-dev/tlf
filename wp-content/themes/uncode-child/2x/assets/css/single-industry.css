@@ -7,6 +7,23 @@
   background-position: 60% 0;
   position: relative;
 }
+.bootstrap-container.industry.single .hero-carousels .swiper {
+  width: 100%;
+  height: 100%;
+}
+.bootstrap-container.industry.single .hero-carousels .swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bootstrap-container.industry.single .hero-carousels .swiper-pagination-bullet {
+  width: 20px;
+  height: 20px;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+.bootstrap-container.industry.single .hero-carousels .swiper-pagination-bullet-active {
+  background-color: #FFF;
+}
 .bootstrap-container.industry.single .hero-carousels .stage {
   position: relative;
   width: 100%;

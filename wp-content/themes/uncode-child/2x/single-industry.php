@@ -134,7 +134,114 @@ get_header() ?>
 
 <div class="bootstrap-container industry single">
 
-    <?php if (isset($banner['background_image']) && $banner['background_image']): ?>
+    <?php if (isset($banner_groups[0]['background_image']) && $banner_groups[0]['background_image']): ?>
+
+        <section class="hero-carousels">
+            <div class="swiper _2x-swiper-single-industry">
+                <div class="swiper-wrapper">
+
+                    <?php foreach ($banner_groups as $banner): ?>
+
+                        <div class="swiper-slide">
+
+                            <div class="container stage"
+                                style="--tlf-bg-image: url('<?= $banner['background_image']['sizes']['_2x-carousel-hero'] ?>');">
+
+                                <img src="<?= $banner['background_image']['sizes']['_2x-carousel-hero'] ?>" class="full-width"
+                                    alt="" loading="lazy">
+
+                                <div class="_2x-hero-content">
+
+                                    <div class="row">
+                                        <div class="col-lg-7">
+                                            <?php if (isset($banner['main_heading']) && $banner['main_heading']): ?>
+                                                <div class="mb-3">
+                                                    <h1 class="mb-0">
+                                                        <?= $banner['main_heading'] ?>
+                                                    </h1>
+                                                </div>
+                                            <?php endif ?>
+
+                                            <?php if (isset($banner['sub_heading']) && $banner['sub_heading']): ?>
+                                                <div>
+                                                    <div class="sub-heading mb-4">
+                                                        <?= $banner['sub_heading'] ?>
+                                                    </div>
+                                                </div>
+                                            <?php endif ?>
+
+                                            <?php if (isset($banner['cta']) && $banner['cta']): ?>
+                                                <div>
+                                                    <a class="btn btn-primary" href="<?= $banner['cta']['url'] ?>">
+                                                        <?= $banner['cta']['title'] ?>
+                                                    </a>
+                                                </div>
+                                            <?php endif ?>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    <?php endforeach ?>
+
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>
+
+        <script>
+            window.addEventListener('load', function () {
+
+                (function () {
+                    const isMobile = document.body.classList.contains('is-mobile');
+
+                    if (!isMobile)
+                        return;
+
+                    const heroCarouselSwiper = document.querySelector('.hero-carousels .swiper');
+
+                    if (!heroCarouselSwiper)
+                        return;
+
+                    const swiperSlides = heroCarouselSwiper.querySelectorAll('.swiper-slide');
+                    let maxHeight = 0;
+
+                    swiperSlides.forEach(function (el) {
+                        el.style.height = `100%`;
+                    });
+
+                    swiperSlides.forEach(function (el) {
+                        const elHeight = el.getBoundingClientRect().height;
+                        if (maxHeight < elHeight)
+                            maxHeight = elHeight;
+                    });
+
+                    swiperSlides.forEach(function (el) {
+                        el.style.height = `${maxHeight}px`;
+                    });
+                })();
+
+                const swiperSingleIndustry = new Swiper("._2x-swiper-single-industry", {
+                    autoplay: {
+                        delay: 6000,
+                        pauseOnMouseEnter: false,
+                        disableOnInteraction: false
+                    },
+                    speed: 1200,
+                    freeMode: true,
+                    loop: true,
+                    pagination: {
+                        el: "._2x-swiper-single-industry .swiper-pagination",
+                        clickable: true,
+                    },
+                });
+            });
+        </script>
+
+    <?php else: ?>
 
         <section class="hero-carousels">
             <div class="row-container">
@@ -270,12 +377,12 @@ get_header() ?>
                                         rows: 1
                                     },
                                     pagination: {
-                                        el: '.swiper-pagination',
+                                        el: '._2x-swiper-testimonials .swiper-pagination',
                                         clickable: true,
                                     },
                                     navigation: {
-                                        nextEl: ".swiper-button-next",
-                                        prevEl: ".swiper-button-prev",
+                                        nextEl: "._2x-swiper-testimonials .swiper-button-next",
+                                        prevEl: "._2x-swiper-testimonials .swiper-button-prev",
                                     },
                                 });
                             });

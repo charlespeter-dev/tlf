@@ -17,6 +17,27 @@
             background-position: 60% 0;
             position: relative;
 
+            .swiper {
+                width: 100%;
+                height: 100%;
+            }
+
+            .swiper-slide {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .swiper-pagination-bullet {
+                width: 20px;
+                height: 20px;
+                background-color: rgba(#fff, .9);
+            }
+
+            .swiper-pagination-bullet-active {
+                background-color: #FFF;
+            }
+
             .stage {
 
                 position: relative;
