@@ -38,6 +38,15 @@
                 background-color: #FFF;
             }
 
+            .container {
+                max-width: 1200px;
+                padding-inline: 15px;
+
+                @media (min-width: 1400px) {
+                    padding-inline: 36px;
+                }
+            }
+
             .stage {
 
                 position: relative;

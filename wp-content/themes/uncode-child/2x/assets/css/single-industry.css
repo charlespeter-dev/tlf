@@ -24,6 +24,15 @@
 .bootstrap-container.industry.single .hero-carousels .swiper-pagination-bullet-active {
   background-color: #FFF;
 }
+.bootstrap-container.industry.single .hero-carousels .container {
+  max-width: 1200px;
+  padding-inline: 15px;
+}
+@media (min-width: 1400px) {
+  .bootstrap-container.industry.single .hero-carousels .container {
+    padding-inline: 36px;
+  }
+}
 .bootstrap-container.industry.single .hero-carousels .stage {
   position: relative;
   width: 100%;
