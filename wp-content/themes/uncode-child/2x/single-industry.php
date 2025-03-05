@@ -679,6 +679,25 @@ get_header() ?>
                 </div>
             </div>
         </section>
+        <script>
+            window.addEventListener('DOMContentLoaded', function () {
+
+                const subpages = document.querySelector('.subpages');
+                if (!subpages)
+                    return;
+
+                const anchors = subpages.querySelectorAll('.col > a[href="#"]');
+                if (!anchors)
+                    return;
+
+                anchors.forEach(function (el) {
+                    el.addEventListener('click', function (event) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    });
+                });
+            });
+        </script>
     <?php endif ?>
 
     <?php if (isset($fresource['excerpt']) && $fresource['excerpt']): ?>
