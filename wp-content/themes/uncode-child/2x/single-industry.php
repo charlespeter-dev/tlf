@@ -110,7 +110,7 @@ $_2x_related_resources = _2x_related_industries($post->ID, [29812, 29835]);
 
 wp_enqueue_style('_2x-css-single-industry', sprintf('%s/2x/assets/css/single-industry.css', get_stylesheet_directory_uri()), ['_2x-css-bootstrap'], time());
 wp_enqueue_style('_2x-css-swiper-bundle', sprintf('https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css'), ['_2x-css-single-industry'], time());
-wp_enqueue_script('_2x-js-swiper-bundle', sprintf('https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js'), [], false, true);
+wp_enqueue_script('_2x-js-swiper-bundle', sprintf('https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js'), [], time(), true);
 
 get_header() ?>
 
@@ -132,58 +132,58 @@ get_header() ?>
     });
 </script>
 
-<style>
-    .bootstrap-container {
-        .hero-carousels {
-            background-image: url('<?= wp_get_attachment_image_url($banner['background_image'], '_2x-carousel-hero') ?>');
-        }
-    }
-</style>
-
 <div class="bootstrap-container industry single">
 
-    <section class="hero-carousels">
-        <div class="row-container">
-            <div class="single-h-padding limit-width position-relative">
+    <?php if (isset($banner['background_image']) && $banner['background_image']): ?>
 
-                <img src="<?= wp_get_attachment_image_url($banner['background_image'], '_2x-carousel-hero') ?>"
-                    class="full-width" alt="" loading="lazy">
+        <section class="hero-carousels">
+            <div class="row-container">
+                <div class="single-h-padding limit-width position-relative">
 
-                <div class="_2x-hero-content">
+                    <div class="stage"
+                        style="--tlf-bg-image: url('<?= wp_get_attachment_image_url($banner['background_image'], '_2x-carousel-hero') ?>');">
 
-                    <div class="row">
-                        <div class="col-lg-7">
-                            <?php if (isset($banner['main_heading']) && $banner['main_heading']): ?>
-                                <div class="mb-3">
-                                    <h1 class="mb-0">
-                                        <?= $banner['main_heading'] ?>
-                                    </h1>
+                        <img src="<?= wp_get_attachment_image_url($banner['background_image'], '_2x-carousel-hero') ?>"
+                            class="full-width" alt="" loading="lazy">
+
+                        <div class="_2x-hero-content">
+
+                            <div class="row">
+                                <div class="col-lg-7">
+                                    <?php if (isset($banner['main_heading']) && $banner['main_heading']): ?>
+                                        <div class="mb-3">
+                                            <h1 class="mb-0">
+                                                <?= $banner['main_heading'] ?>
+                                            </h1>
+                                        </div>
+                                    <?php endif ?>
+
+                                    <?php if (isset($banner['sub_heading']) && $banner['sub_heading']): ?>
+                                        <div>
+                                            <div class="sub-heading mb-4">
+                                                <?= $banner['sub_heading'] ?>
+                                            </div>
+                                        </div>
+                                    <?php endif ?>
+
+                                    <?php if (isset($banner['cta']) && $banner['cta']): ?>
+                                        <div>
+                                            <a class="btn btn-primary" href="<?= $banner['cta']['url'] ?>">
+                                                <?= $banner['cta']['title'] ?>
+                                            </a>
+                                        </div>
+                                    <?php endif ?>
                                 </div>
-                            <?php endif ?>
+                            </div>
 
-                            <?php if (isset($banner['sub_heading']) && $banner['sub_heading']): ?>
-                                <div>
-                                    <div class="sub-heading mb-4">
-                                        <?= $banner['sub_heading'] ?>
-                                    </div>
-                                </div>
-                            <?php endif ?>
-
-                            <?php if (isset($banner['cta']) && $banner['cta']): ?>
-                                <div>
-                                    <a class="btn btn-primary" href="<?= $banner['cta']['url'] ?>">
-                                        <?= $banner['cta']['title'] ?>
-                                    </a>
-                                </div>
-                            <?php endif ?>
                         </div>
                     </div>
 
                 </div>
-
             </div>
-        </div>
-    </section>
+        </section>
+
+    <?php endif ?>
 
     <?php if (isset($featured_testimonials['testimonials']) && $featured_testimonials['testimonials']): ?>
         <section class="featured-testimonials <?= count($ft_collections) > 1 ? 'my-5' : 'mt-5' ?>">

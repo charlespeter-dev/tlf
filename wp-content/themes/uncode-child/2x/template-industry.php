@@ -63,9 +63,9 @@ get_header() ?>
     }
 </style>
 
-<div class="bootstrap-container">
+<div class="bootstrap-container industry">
 
-    <section class="hero-carousels single industry">
+    <section class="hero-carousels">
         <div class="row-container">
             <div class="single-h-padding limit-width position-relative">
 

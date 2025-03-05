@@ -93,13 +93,13 @@ get_header() ?>
                 <?php if (isset($infographic_summary) && $infographic_summary): ?>
 
                     <div class="row align-items-center my-5">
-                        <div class="col-lg-6 d-lg-flex justify-content-lg-end">
+                        <div class="col-lg-4 d-lg-flex justify-content-lg-end">
                             <img src="<?= $infographic_summary['left_thumbnail_image'] ?>" class="img-fluid" alt="">
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-8">
                             <?= $infographic_summary['right_content'] ?>
 
-                            <div class="my-5">
+                            <div class="mt-4">
                                 <a href="<?= $pdf['url'] ?>" target="_blank" class="btn btn-primary">
                                     <?= $pdf['title'] ?>
                                 </a>
