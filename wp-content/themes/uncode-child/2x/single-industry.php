@@ -659,8 +659,13 @@ get_header() ?>
                         </div>
                     </div>
 
-                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 gy-5 mt-4">
-                        <?php foreach ($subpages['subpage_groups'] as $subpage): ?>
+                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 gy-5 mt-4 justify-content-center">
+                        <?php foreach ($subpages['subpage_groups'] as $k => $subpage):
+
+                            if ($k > 0)
+                                continue;
+                            ?>
+
                             <div class="col">
                                 <a href="<?= $subpage['subpage_link']['url'] ?>"
                                     target="<?= $subpage['subpage_link']['target'] ?>">
