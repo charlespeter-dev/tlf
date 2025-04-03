@@ -449,7 +449,7 @@
 				setItemsRelHeight();
 				horScrollSizes();
 				if ( typeof ScrollTrigger !== 'undefined' && ScrollTrigger !== null ) {
-					ScrollTrigger.refresh();
+					$(document).trigger('uncode-scrolltrigger-refresh');
 				}
 			}
 			var carousel = document.querySelector(".owl-carousel"),
@@ -472,7 +472,7 @@
 				if ( carousel_position === 2 || grid_position === 2 ) {
 					setTimeout(function(){
 						if ( typeof ScrollTrigger !== 'undefined' && ScrollTrigger !== null ) {
-							ScrollTrigger.refresh();
+							$(document).trigger('uncode-scrolltrigger-refresh');
 						}
 					}, 500);
 				}
@@ -497,7 +497,7 @@
 				setItemsRelHeight();
 				horScrollSizes();
 				if ( typeof ScrollTrigger !== 'undefined' && ScrollTrigger !== null ) {
-					ScrollTrigger.refresh();
+					$(document).trigger('uncode-scrolltrigger-refresh');
 				}
 				if ( doubleResize === true ) {
 					window.dispatchEvent(new Event('resize'));

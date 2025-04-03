@@ -1,5 +1,5 @@
 <?php
-$style = $is_header = $slider_type = $slider_interval = $slider_navspeed = $slider_loop = $slider_hide_arrows = $slider_hide_dots = $slider_dots_space = $slider_dot_position = $slider_dot_width = $column_width_use_pixel = $slider_width_percent = $silder_width_pixel = $el_id = $el_class = $limit_content = $top_padding = $bottom_padding = $h_padding = $slider_height = $output = $internal_width = $dots_class = '';
+$style = $is_header = $slider_type = $slider_interval = $slider_navspeed = $slider_loop = $slider_hide_arrows = $slider_hide_dots = $slider_dots_space = $slider_dot_position = $slider_dot_width = $column_width_use_pixel = $slider_width_percent = $silder_width_pixel = $el_id = $el_class = $limit_content = $top_padding = $bottom_padding = $h_padding = $or_h_padding = $slider_height = $output = $internal_width = $dots_class = '';
 
 extract(shortcode_atts(array(
 	'style' => '',
@@ -18,6 +18,7 @@ extract(shortcode_atts(array(
 	'slider_width_percent' => '',
 	'silder_width_pixel' => '',
 	'h_padding' => 2,
+	'or_h_padding' => 2,
 	'el_id' => '',
 	'el_class' => '',
 	'limit_content' => '',
@@ -34,9 +35,13 @@ if ( $el_id !== '' ) {
 
 /** send variable to inner columns **/
 if ($limit_content === 'yes') {
+	$content = preg_replace('/\[vc_row_inner ([^\]]+)limit_content=""/','[vc_row_inner $1', $content);
 	$content = str_replace('[vc_row_inner','[vc_row_inner limit_content="yes" override_padding="yes" top_padding="'.$top_padding.'" bottom_padding="'.$bottom_padding.'" ', $content);
 } else {
 	$content = str_replace('[vc_row_inner','[vc_row_inner override_padding="yes" top_padding="'.$top_padding.'" bottom_padding="'.$bottom_padding.'" h_padding="'.$h_padding.'" ', $content);
+	$content = preg_replace('/\[vc_row_inner ([^\]]+)limit_content="yes"/','[vc_row_inner $1', $content);
+	//Possible fix separated padding from dots and rows
+	//$content = str_replace('[vc_row_inner','[vc_row_inner override_padding="yes" top_padding="'.$top_padding.'" bottom_padding="'.$bottom_padding.'" h_padding="'.$or_h_padding.'" ', $content);
 }
 
 if ($slider_type === 'fade') {

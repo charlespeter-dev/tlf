@@ -160,8 +160,12 @@
 				}
 				var charachters = word[w].split('');
 				worsSpan += '<span class="split-word"><span class="split-word-flow"><span class="split-word-inner">';
-				for (var c = 0; c < charachters.length; c++) {
-					worsSpan += '<span class="split-char">' + charachters[c] + '</span>';
+				if ( ! SiteParameters.uncode_has_ligatures ) {
+					for (var c = 0; c < charachters.length; c++) {
+						worsSpan += '<span class="split-char">' + charachters[c] + '</span>';
+					}
+				} else {
+					worsSpan += word[w];
 				}
 				worsSpan += '</span>' + highl + '</span></span>';
 			}

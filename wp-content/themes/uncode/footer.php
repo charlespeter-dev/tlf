@@ -243,7 +243,7 @@ if ( ! function_exists( 'uncode_get_current_post_type' ) || uncode_get_current_p
 				}
 			}
 			$footer_uparrow_class = ot_get_option('_uncode_footer_uparrow_style') === 'circle' ? ' footer-scroll-circle' : '';
-			echo '<div class="style-light footer-scroll-top'.$scroll_higher.$footer_uparrow_class.'"><a href="#" class="scroll-top"><i class="fa fa-angle-up fa-stack btn-default btn-hover-nobg"></i></a></div>';
+			echo '<div class="style-light footer-scroll-top'.$scroll_higher.$footer_uparrow_class.'"><a href="#" class="scroll-top" aria-label="' . esc_html__('Scroll to top','uncode') . '"><i class="fa fa-angle-up fa-stack btn-default btn-hover-nobg"></i></a></div>';
 		}
 		//$vertical = (strpos($menutype, 'vmenu') !== false || $menutype === 'menu-overlay') ? true : false;
 		//if (!$vertical) {

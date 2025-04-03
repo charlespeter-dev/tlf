@@ -122,7 +122,7 @@ if ( ! function_exists( "uncode_ajax_term_filter_list_html" ) ) {
 						<?php endif; ?>
 
 						<?php if ( $show_count ) : ?>
-							<span class="term-filter-count">(<?php echo number_format_i18n( $filter_term_value['count'] ); ?>)</span>
+							<span class="term-filter-count" role="presentation" tabindex="0">(<?php echo number_format_i18n( $filter_term_value['count'] ); ?>)</span>
 						<?php endif; ?>
 					</li>
 				<?php endforeach; ?>
@@ -192,7 +192,7 @@ function uncode_ajax_term_filter_select_html( $key_to_query, $filter_terms, $que
 			<option value="<?php echo esc_attr( $term_slug ); ?>" data-term-filter-url="<?php echo esc_url( $filter_url ); ?>" <?php selected( $checked, true ); ?>>
 				<?php echo uncode_switch_stock_string( $term_name ); ?>
 				<?php if ( $show_count ) : ?>
-					<span class="term-filter-count">(<?php echo number_format_i18n( $filter_term_value['count'] ); ?>)</span>
+					<span class="term-filter-count" role="presentation" tabindex="0">(<?php echo number_format_i18n( $filter_term_value['count'] ); ?>)</span>
 				<?php endif; ?>
 			</option>
 		<?php endforeach; ?>
@@ -275,7 +275,7 @@ function uncode_ajax_term_filter_label_html( $key_to_query, $filter_terms, $quer
 						<?php echo uncode_switch_stock_string( $term_name ); ?>
 
 						<?php if ( $show_count ) : ?>
-							<span class="term-filter-count">(<?php echo number_format_i18n( $filter_term_value['count'] ); ?>)</span>
+							<span class="term-filter-count" role="presentation" tabindex="0">(<?php echo number_format_i18n( $filter_term_value['count'] ); ?>)</span>
 						<?php endif; ?>
 					</div>
 				</a>
@@ -360,7 +360,7 @@ function uncode_ajax_term_filter_color_html( $key_to_query, $filter_terms, $quer
 				</a>
 
 				<?php if ( $show_count ) : ?>
-					<span class="term-filter-count">(<?php echo number_format_i18n( $filter_term_value['count'] ); ?>)</span>
+					<span class="term-filter-count" role="presentation" tabindex="0">(<?php echo number_format_i18n( $filter_term_value['count'] ); ?>)</span>
 				<?php endif; ?>
 			</li>
 		<?php endforeach; ?>
@@ -447,7 +447,7 @@ function uncode_ajax_term_filter_image_html( $key_to_query, $filter_terms, $quer
 				</a>
 
 				<?php if ( $show_count ) : ?>
-					<span class="term-filter-count">(<?php echo number_format_i18n( $filter_term_value['count'] ); ?>)</span>
+					<span class="term-filter-count" role="presentation" tabindex="0">(<?php echo number_format_i18n( $filter_term_value['count'] ); ?>)</span>
 				<?php endif; ?>
 			</li>
 		<?php endforeach; ?>
@@ -468,8 +468,8 @@ function uncode_ajax_term_filter_search_html( $key_to_query, $filter_terms, $que
 	}
 	?>
 	<div class="term-filters-search search-container-inner">
-		<input type="search" name="term-filters-search-input" class="term-filters-search-input form-fluid" value="<?php echo esc_attr( $search_value ); ?>" placeholder="<?php echo esc_html( $search_placeholder ); ?>">
-		<i class="fa fa-search3"></i>
+		<input type="search" name="term-filters-search-input" class="term-filters-search-input form-fluid" value="<?php echo esc_attr( $search_value ); ?>" placeholder="<?php echo esc_html( $search_placeholder ); ?>" aria-label="<?php echo esc_html( $search_placeholder ); ?>">
+		<i class="fa fa-search3" role="button"></i>
 	</div>
 	<?php
 }

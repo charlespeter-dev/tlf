@@ -260,7 +260,7 @@ function uncode_wc_print_single_swatch( $swatches, $key, $term, $selected, $attr
 					$swatch_classes[] = 'hidden';
 				}
 
-				echo '<div class="' . esc_attr( implode( ' ', $swatch_classes ) ) . '" data-swatch-value="' . esc_attr( $term->slug ) . '" data-swatch-title="' . esc_attr( $term->name ) . '" style="background-color:'. esc_attr( $color ) . '" ' . $data_variation . '><span>' . esc_html( $term->name ) . $swatch_description. '</span></div>';
+				echo '<div class="' . esc_attr( implode( ' ', $swatch_classes ) ) . '" role="button"  tabindex="' . $key . '" data-swatch-value="' . esc_attr( $term->slug ) . '" data-swatch-title="' . esc_attr( $term->name ) . '" style="background-color:'. esc_attr( $color ) . '" ' . $data_variation . '><span>' . esc_html( $term->name ) . $swatch_description. '</span></div>';
 				break;
 
 			case 'image':
@@ -275,7 +275,7 @@ function uncode_wc_print_single_swatch( $swatches, $key, $term, $selected, $attr
 					$swatch_classes[] = 'hidden';
 				}
 
-				echo '<div class="' . esc_attr( implode( ' ', $swatch_classes ) ) . '" data-swatch-value="' . esc_attr( $term->slug ) . '" data-swatch-title="' . esc_attr( $term->name ) . '" style="background-image:url('. esc_url( $image ) . ')" ' . $data_variation . '><span>' . esc_html( $term->name ) . $swatch_description . '</span></div>';
+				echo '<div class="' . esc_attr( implode( ' ', $swatch_classes ) ) . '" role="button"  tabindex="' . $key . '"  data-swatch-value="' . esc_attr( $term->slug ) . '" data-swatch-title="' . esc_attr( $term->name ) . '" style="background-image:url('. esc_url( $image ) . ')" ' . $data_variation . '><span>' . esc_html( $term->name ) . $swatch_description . '</span></div>';
 				break;
 
 			case 'featured':
@@ -287,7 +287,7 @@ function uncode_wc_print_single_swatch( $swatches, $key, $term, $selected, $attr
 					$swatch_classes[] = 'hidden';
 				}
 
-				echo '<div class="' . esc_attr( implode( ' ', $swatch_classes ) ) . '" data-swatch-value="' . esc_attr( $term->slug ) . '" data-swatch-title="' . esc_attr( $term->name ) . '" ' . $data_variation . '><span>' . $image . $swatch_description . '</span></div>';
+				echo '<div class="' . esc_attr( implode( ' ', $swatch_classes ) ) . '" role="button"  tabindex="' . $key . '"  data-swatch-value="' . esc_attr( $term->slug ) . '" data-swatch-title="' . esc_attr( $term->name ) . '" ' . $data_variation . '><span>' . $image . $swatch_description . '</span></div>';
 				break;
 
 			case 'label':
@@ -295,7 +295,7 @@ function uncode_wc_print_single_swatch( $swatches, $key, $term, $selected, $attr
 					$swatch_classes[] = 'hidden';
 				}
 
-				echo '<div class="' . esc_attr( implode( ' ', $swatch_classes ) ) . '" data-swatch-value="' . esc_attr( $term->slug ) . '" data-swatch-title="' . esc_attr( $term->name ) . '" ' . $data_variation . '><span>' . esc_html( $term->name ) . $swatch_description . '</span></div>';
+				echo '<div class="' . esc_attr( implode( ' ', $swatch_classes ) ) . '" role="button"  tabindex="' . $key . '"  data-swatch-value="' . esc_attr( $term->slug ) . '" data-swatch-title="' . esc_attr( $term->name ) . '" ' . $data_variation . '><span>' . esc_html( $term->name ) . $swatch_description . '</span></div>';
 				break;
 		}
 	}

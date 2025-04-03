@@ -84,9 +84,13 @@ switch ($column_padding) {
 	break;
 }
 
+$tab_tag = 'p';
 $panel_title_class = array();
 if ( is_array($tab_titles_typography)) {
 	extract($tab_titles_typography);
+	if ( isset($titles_tag) ) {
+		$tab_tag = $titles_tag;
+	}
 	if ( isset($titles_font) ) {
 		$panel_title_class[] = $titles_font;
 	}
@@ -129,7 +133,7 @@ $panel_a_class_str = '';
 if ( $panel_a_class !== '' ) {
 	$panel_a_class_str = ' class="' . $panel_a_class . '"';
 }
-$output .= '<p class="panel-title'.($active ? ' active' : '').' ' . esc_attr(trim(implode(' ', $panel_title_class))) . '"><a data-toggle="collapse" data-parent="#'.$id.'" href="#'.$hash.'"' . $history_rend . $panel_a_class_str . '>' . $icon_left . '<span>' . $title . '</span>' . $icon_right . '</a></p>';
+$output .= '<' . $tab_tag . ' class="panel-title'.($active ? ' active' : '').' ' . esc_attr(trim(implode(' ', $panel_title_class))) . '"><a data-toggle="collapse" data-parent="#'.$id.'" href="#'.$hash.'"' . $history_rend . $panel_a_class_str . '>' . $icon_left . '<span>' . $title . '</span>' . $icon_right . '</a></' . $tab_tag . '>';
 $output .= '</div>';
 $output .= '<div ' . esc_attr( $history_tag ) . '="' . esc_attr( $hash ) . '" class="panel-collapse collapse'.($active ? ' in' : '').'" role="tabpanel">';
 $output .= '<div class="panel-body wpb_accordion_content ui-accordion-content' .  $body_class . '">';

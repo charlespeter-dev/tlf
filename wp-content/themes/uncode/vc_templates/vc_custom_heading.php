@@ -488,7 +488,7 @@ if ($content !== '') {
 				$content = preg_replace( '/<span class="split-char(.*?)>(.*?)<\/span>/', '$2', do_shortcode( $content ) );
 				$split_content = preg_split('/(?<!^)(?!$)(?!&(?!(amp|gt|lt|quot))[^\s]*)/u', $content );
 			}
-			if ( isset($split_content) ) {
+			if ( isset($split_content) && ! apply_filters( 'uncode_has_ligatures', false ) ) {
 				$content = '';
 				$skip_split = false;
 				$skip_tag = false;

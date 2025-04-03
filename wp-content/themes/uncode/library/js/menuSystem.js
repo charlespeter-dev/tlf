@@ -626,6 +626,10 @@ UNCODE.menuSmartInit = function() {
 		$(this).data('hover', false);
 	});
 
+	$('> li.menu-item-has-children', $menusmart).each(function(){
+		var $a = $('> a', this).attr('aria-haspopup', 'true').attr('aria-expanded', 'false')
+	});
+
 	$('> li.menu-item a[href="#"]', $menusmart).on('click', function(e){
 		e.preventDefault();
 	});

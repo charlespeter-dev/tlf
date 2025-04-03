@@ -1634,9 +1634,9 @@ if ($with_slider) {
 	}
 
 	if ($override_padding === 'yes') {
-		$content = str_replace('[uncode_slider','[uncode_slider' . $limit_content_inner . ' slider_height="'.(($row_height_percent !== '' || $is_header === 'yes') ? 'forced' : 'auto' ).'"'.($is_header === 'yes' ? ' is_header="true"' : '').' top_padding="' . esc_attr( $top_padding ) . '" bottom_padding="' . esc_attr( $bottom_padding ) . '" h_padding="' . esc_attr( $h_padding ) . '" ', $content);
+		$content = str_replace('[uncode_slider','[uncode_slider' . $limit_content_inner . ' slider_height="'.(($row_height_percent !== '' || $is_header === 'yes') ? 'forced' : 'auto' ).'"'.($is_header === 'yes' ? ' is_header="true"' : '').' top_padding="' . esc_attr( $top_padding ) . '" bottom_padding="' . esc_attr( $bottom_padding ) . '" h_padding="' . esc_attr( $h_padding ) . '" or_h_padding="' . esc_attr( $h_padding ) . '" ', $content);
 	} else {
-		$content = str_replace('[uncode_slider','[uncode_slider' . $limit_content_inner . ' slider_height="'.(($row_height_percent !== '' || $is_header === 'yes') ? 'forced' : 'auto' ).'"'.($is_header === 'yes' ? ' is_header="true"' : '').' top_padding="2" bottom_padding="2" h_padding="2" ', $content);
+		$content = str_replace('[uncode_slider','[uncode_slider' . $limit_content_inner . ' slider_height="'.(($row_height_percent !== '' || $is_header === 'yes') ? 'forced' : 'auto' ).'"'.($is_header === 'yes' ? ' is_header="true"' : '').' top_padding="2" bottom_padding="2" or_h_padding="2" h_padding="2" ', $content);
 	}
 	$row_classes[] = 'row-slider';
 }

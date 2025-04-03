@@ -803,7 +803,7 @@ if ( class_exists( 'WooCommerce' ) && $dynamic === 'add-to-cart' && is_a( $produ
 	}
 
 	$tag = function_exists('vc_is_page_editable') && vc_is_page_editable() ? 'div' : 'span';
-	echo '<' . $tag . ' class="' . esc_attr(trim(implode(' ', $wrapper_class))) . '" '.implode(' ', $div_data_attributes).'><a' . $href_att . ' class="custom-link ' . esc_attr(trim($css_class)) . '"' . $title . $target . $onclick . $rel . $lightbox_data . $width . $el_id . '>' . $span_before . $bigtext_start . do_shortcode( apply_filters( 'uncode_get_vc_button_content', $content ) ) . $bigtext_end . $span_after . '</a>' . uncode_print_dynamic_inline_style($inline_style_css) . '</' . $tag . '>';
+	echo '<' . $tag . ' class="' . esc_attr(trim(implode(' ', $wrapper_class))) . '" '.implode(' ', $div_data_attributes).'><a role="button" ' . $href_att . ' class="custom-link ' . esc_attr(trim($css_class)) . '"' . $title . $target . $onclick . $rel . $lightbox_data . $width . $el_id . '>' . $span_before . $bigtext_start . do_shortcode( apply_filters( 'uncode_get_vc_button_content', $content ) ) . $bigtext_end . $span_after . '</a>' . uncode_print_dynamic_inline_style($inline_style_css) . '</' . $tag . '>';
 }
 
 if ( class_exists( 'WooCommerce' ) && function_exists('is_product') && is_product() && $dynamic == 'add-to-cart' ) {

@@ -425,6 +425,7 @@
 				}
 
 				window.addEventListener("scroll", checkVisibility);
+				checkVisibility();
 
 			}
 		}

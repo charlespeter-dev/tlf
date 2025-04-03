@@ -437,6 +437,9 @@
 	 }
 
 	 window.wrap = function(wrapper, elms) {
+		if ( elms === undefined ) {
+			return;
+		}
 		 if (!elms.length) {
 			 elms = [elms];
 		 }
@@ -1352,7 +1355,7 @@
 
 								}
 
-							} else if (classie.hasClass($wrap, 'single-curtain')) {
+							} else if (classie.hasClass($wrap, 'single-curtain') && !SiteParameters.uncode_has_ligatures ) {
 
 								 var $spans = $wrap.querySelectorAll('.split-char');
 
@@ -1375,7 +1378,7 @@
 									 }
 								 };
 
-							 } else if (classie.hasClass($wrap, 'typewriter')) {
+							 } else if (classie.hasClass($wrap, 'typewriter') && ! SiteParameters.uncode_has_ligatures) {
 
 								 var $spans = $wrap.querySelectorAll('.split-char');
 
@@ -1900,7 +1903,7 @@
 			 waitForSrcSetMedia();
 			 window.addEventListener("uncode-ajax-filtered", waitForSrcSetMedia, {
 				 passive: true,
-				 once: true,
+				 once: false,
 			 });
 			 window.addEventListener("uncode-more-items-loaded", waitForSrcSetMedia, {
 				 passive: true,
@@ -1950,9 +1953,9 @@
 				  if (!!percentHeight || !!minHeight || forced || (isIE && classie.hasClass(el, 'unequal')) ) {
 					  if (!!percentHeight) {
 						  if (percentHeight == 'full') {
-							  currentTallest = parseInt(wheight);
+							  currentTallest = parseInt(UNCODE.wheight);
 						  } else {
-							  currentTallest = parseInt((wheight * percentHeight) / 100);
+							  currentTallest = parseInt((UNCODE.wheight * percentHeight) / 100);
 						  }
 					  } else {
 						  currentTallest = el.clientHeight;
@@ -1979,9 +1982,9 @@
 						  percentHeight = el.getAttribute("data-height-ratio");
 						  minHeight = el.getAttribute("data-minheight");
 						  if (percentHeight == 'full') {
-							  currentTallest = parseInt(wheight);
+							  currentTallest = parseInt(UNCODE.wheight);
 						  } else {
-							  currentTallest = parseInt((wheight * percentHeight) / 100);
+							  currentTallest = parseInt((UNCODE.wheight * percentHeight) / 100);
 						  }
 
 						  var computedStyleRow = getComputedStyle(el),
@@ -2500,11 +2503,11 @@
 							  classie.add(document.body, 'menu-dd-search-closing');
 							  requestTimeout(function(){
 								  if ( classie.has( masthead, 'style-dark-stop' ) ) {
-									  classie.remove( masthead, 'style-dark-stop' );
+									classie.remove( masthead, 'style-dark-stop' );
 									  classie.remove( masthead, 'style-light-override' );
 									  classie.add( masthead, 'style-dark-override' );
 								  } else if ( classie.has( masthead, 'style-light-stop' ) ) {
-									  classie.remove( masthead, 'style-light-stop' );
+									classie.remove( masthead, 'style-light-stop' );
 									  classie.remove( masthead, 'style-dark-override' );
 									  classie.add( masthead, 'style-light-override' );
 								  }

@@ -758,7 +758,7 @@ if (!class_exists('unmenu')) {
 					$social_rel_html = $social_rel !== '' ? ' rel="' . esc_attr( $social_rel ) . '"' : '';
 					$social_responsive = $menu_sticky_mobile !== 'on' ? 'tablet-hidden mobile-hidden ' : '';
 					$social_aria = isset($social['_uncode_aria']) && $social['_uncode_aria'] !== '' ? ' aria-label="' . wp_kses_post( $social['_uncode_aria'] ) . '"' : '';
-					$social_html_inner .= '<li class="menu-item-link social-icon ' . $social_responsive . $social['_uncode_social_unique_id'].'"><a href="'.$social['_uncode_link'].'" class="social-menu-link" target="_blank"' . $social_rel_html . $social_aria . '><i class="'.$social['_uncode_social'].'"></i></a></li>';
+					$social_html_inner .= '<li role="menuitem" class="menu-item-link social-icon ' . $social_responsive . $social['_uncode_social_unique_id'].'"><a href="'.$social['_uncode_link'].'" class="social-menu-link" role="button" target="_blank"' . $social_rel_html . $social_aria . '><i class="'.$social['_uncode_social'].'" role="presentation"></i></a></li>';
 
 					$social_to_append = ' navbar-social';
 
@@ -772,7 +772,7 @@ if (!class_exists('unmenu')) {
 				$social_html_inner_top_class .= ot_get_option( '_uncode_menu_socials_top_bar_tablet_hide' ) === 'on' ? ' tablet-hidden' : '';
 				$social_html_inner_top_class .= ot_get_option( '_uncode_menu_socials_top_bar_mobile_hide' ) === 'on' ? ' mobile-hidden' : '';
 				$social_html_inner_top_class .= ' top-enhanced-inner top-enhanced-' .  $menu_socials_top_bar;
-				$social_html_inner_top = '<ul class="' . $social_html_inner_top_class . '">' . $social_html_inner . '</ul>';
+				$social_html_inner_top = '<ul class="' . $social_html_inner_top_class . '" role="menu">' . $social_html_inner . '</ul>';
 				$social_html_inner = '';
 			}
 
@@ -827,8 +827,8 @@ if (!class_exists('unmenu')) {
 
 					if ( !( $type == 'offcanvas_head' && $param === 'menu-overlay-center' && $search_desktop !== 'on' ) ) {
 
-						$search_inner .= '<li class="menu-item-link search-icon style-'.$stylemain.' dropdown ' . $search_icon_class . '">';
-						$search_inner .= 	'<a href="#"'.(!$vertical ? ' class="trigger-overlay search-icon" data-area="search" data-container="box-container"' : '').' aria-label="' . apply_filters( 'uncode_search_aria_label', esc_html__('Search','uncode') ) . '">
+						$search_inner .= '<li role="menuitem" class="menu-item-link search-icon style-'.$stylemain.' dropdown ' . $search_icon_class . '">';
+						$search_inner .= 	'<a href="#"'.(!$vertical ? ' class="trigger-overlay search-icon" role="button" data-area="search" data-container="box-container"' : '').' aria-label="' . apply_filters( 'uncode_search_aria_label', esc_html__('Search','uncode') ) . '">
 													<i class="fa fa-search3"></i>';
 						if (!$vertical) {
 							$search_inner .= 		'<span class="desktop-hidden">';
@@ -843,7 +843,7 @@ if (!class_exists('unmenu')) {
 						if ( $show_search_dropdown ) {
 							$search_placeholder = $search_type === 'products' ? esc_html__('Search products…','uncode') : esc_html__('Search…','uncode');
 							$search_inner .=        '<ul role="menu" class="drop-menu'.(!$vertical ? ' desktop-hidden' : '').'">
-														<li>
+														<li role="menuitem">
 															<form class="search" method="get" action="'. get_home_url(get_current_blog_id(),'/') .'">
 																<input type="search" class="search-field no-livesearch" placeholder="'.$search_placeholder.'" value="" name="s" title="' . $search_placeholder . '" />';
 
@@ -883,7 +883,7 @@ if (!class_exists('unmenu')) {
 						if ($vertical) {
 							$search .= '<div class="menu-accordion menu-accordion-extra-icons">';
 						}
-						$search .= '<ul class="menu-smart'.(is_rtl() ? ' sm-rtl' : '').' sm'.($vertical ? ' sm-vertical' : ' menu-icons').($social_html_inner !== '' ? ' menu-smart-social' : '').'">';
+						$search .= '<ul class="menu-smart'.(is_rtl() ? ' sm-rtl' : '').' sm'.($vertical ? ' sm-vertical' : ' menu-icons').($social_html_inner !== '' ? ' menu-smart-social' : '').'" role="menu">';
 						$search .= $search_inner;
 						$search .= '</ul>';
 						if ($vertical) {
@@ -897,7 +897,7 @@ if (!class_exists('unmenu')) {
 
 			if (!empty($socials) && strpos($type, 'vmenu') !== false && $socials_active === 'on') {
 				$social_html_responsive = $menu_sticky_mobile !== 'on' ? ' mobile-hidden tablet-hidden' : '';
-				$social_html .= '<div class="nav navbar-nav navbar-social"><ul class="menu-smart'.(is_rtl() ? ' sm-rtl' : '').' sm menu-social' . $social_html_responsive . '">';
+				$social_html .= '<div class="nav navbar-nav navbar-social"><ul class="menu-smart'.(is_rtl() ? ' sm-rtl' : '').' sm menu-social' . $social_html_responsive . '" role="menu">';
 				$social_html .= $social_html_inner;
 				$social_html .= '</ul></div>';
 			}
@@ -948,6 +948,7 @@ if (!class_exists('unmenu')) {
 																	"container"         => "false",
 																	"walker"            => new wp_bootstrap_navwalker(),
 																	'fallback_cb'    => false,
+																	'items_wrap'        => '<ul id="%1$s" class="%2$s" role="menu">%3$s</ul>',
 																	//"container_class"   => "navbar-topmenu navbar-nav-last",
 																	"menu_class"        => "menu-smart".(is_rtl() ? ' sm-rtl' : '') . " menu-mini sm" . $top_smart_menu_class,
 																	"echo"            => 0
@@ -1088,6 +1089,7 @@ if (!class_exists('unmenu')) {
 																					"theme_location"    => "primary",
 																					"container"         => "div",
 																					"container_class"   => "nav navbar-nav navbar-main " . (($search !== '' || $type === 'hmenu-justify' || $cta_menu) ? 'navbar-nav-first' : 'navbar-nav-last') ,
+																					'items_wrap'        => '<ul id="%1$s" class="%2$s" role="menu">%3$s</ul>',
 																					"menu_class"        => "menu-primary-inner menu-smart".(is_rtl() ? ' sm-rtl' : '')." sm",
 																					"fallback_cb"       => false,
 																					"walker"            => new wp_bootstrap_navwalker(),
@@ -1101,6 +1103,7 @@ if (!class_exists('unmenu')) {
 																						"container"         => "div",
 																						"container_class"   => "nav navbar-nav navbar-cta" . ( ( $search === '' ) ? ' navbar-nav-last' : '' ),
 																						"menu_class"        => "menu-cta-inner menu-smart".(is_rtl() ? ' sm-rtl' : '')." sm",
+																						'items_wrap'        => '<ul id="%1$s" class="%2$s" role="menu">%3$s</ul>',
 																						"fallback_cb"       => "wp_bootstrap_navwalker::fallback",
 																						"walker"            => new wp_bootstrap_navwalker(),
 																						"echo"            => 0)
@@ -1116,6 +1119,7 @@ if (!class_exists('unmenu')) {
 															 							"container"         => "div",
 																						"container_class"   => "menu-accordion menu-accordion-2",
 															 							"menu_class"        => "menu-smart".(is_rtl() ? ' sm-rtl' : '')." sm sm-vertical mobile-secondary-menu",
+																						'items_wrap'        => '<ul id="%1$s" class="%2$s" role="menu">%3$s</ul>',
 															 							'fallback_cb'    => false,
 															 							"walker"            => new wp_bootstrap_navwalker(),
 															 							"echo"            => 0)
@@ -1165,6 +1169,7 @@ if (!class_exists('unmenu')) {
 																					"theme_location"    => "primary",
 																					"container"         => "div",
 																					"container_class"   => "nav navbar-nav navbar-main " . (($search !== '' || $cta_menu) ? 'navbar-nav-first' : 'navbar-nav-last') ,
+																					'items_wrap'        => '<ul id="%1$s" class="%2$s" role="menu">%3$s</ul>',
 																					"menu_class"        => "menu-primary-inner menu-smart".(is_rtl() ? ' sm-rtl' : '')." sm",
 																					"fallback_cb"       => false,
 																					"walker"            => new wp_bootstrap_navwalker(),
@@ -1178,6 +1183,7 @@ if (!class_exists('unmenu')) {
 																						"container"         => "div",
 																						"container_class"   => "nav navbar-nav navbar-cta" . ( ( $search === '' ) ? ' navbar-nav-last' : '' ),
 																						"menu_class"        => "menu-cta-inner menu-smart".(is_rtl() ? ' sm-rtl' : '')." sm",
+																						'items_wrap'        => '<ul id="%1$s" class="%2$s" role="menu">%3$s</ul>',
 																						"fallback_cb"       => "wp_bootstrap_navwalker::fallback",
 																						"walker"            => new wp_bootstrap_navwalker(),
 																						"echo"            => 0)
@@ -1193,6 +1199,7 @@ if (!class_exists('unmenu')) {
 															 							"container"         => "div",
 																						"container_class"   => "menu-accordion menu-accordion-3",
 															 							"menu_class"        => "menu-smart".(is_rtl() ? ' sm-rtl' : '')." sm sm-vertical mobile-secondary-menu",
+																						 'items_wrap'        => '<ul id="%1$s" class="%2$s" role="menu">%3$s</ul>',
 															 							'fallback_cb'    => false,
 															 							"walker"            => new wp_bootstrap_navwalker(),
 															 							"echo"            => 0)
@@ -1236,7 +1243,7 @@ if (!class_exists('unmenu')) {
 																			<div class="menu-horizontal-inner">';
 						if ($social_html_inner !== '' && $socials_active === 'on') {
 							$this->html .=						'<div class="nav navbar-nav navbar-social navbar-nav-first">
-																	<ul class="menu-smart'.(is_rtl() ? ' sm-rtl' : '').' sm menu-icons">
+																	<ul class="menu-smart'.(is_rtl() ? ' sm-rtl' : '').' sm menu-icons" role="menu">
 																		'.$social_html_inner.'
 																	</ul>
 																</div>';
@@ -1248,6 +1255,7 @@ if (!class_exists('unmenu')) {
 																		"theme_location"    => "cta",
 																		"container"         => "div",
 																		"container_class"   => "nav navbar-nav navbar-cta hmenu-center-split-child" . ( ( $social_html_inner === '' ) ? ' navbar-nav-first' : '' ),
+																		'items_wrap'        => '<ul id="%1$s" class="%2$s" role="menu">%3$s</ul>',
 																		"menu_class"        => "menu-primary-inner menu-smart".(is_rtl() ? ' sm-rtl' : '')." sm",
 																		"fallback_cb"       => "wp_bootstrap_navwalker::fallback",
 																		"walker"            => new wp_bootstrap_navwalker(),
@@ -1260,6 +1268,7 @@ if (!class_exists('unmenu')) {
 																	"theme_location"    => "primary",
 																	"container"         => "div",
 																	"container_class"   => "nav navbar-nav navbar-main",
+																	'items_wrap'        => '<ul id="%1$s" class="%2$s" role="menu">%3$s</ul>',
 																	"menu_class"        => "menu-primary-inner menu-smart".(is_rtl() ? ' sm-rtl' : '')." sm",
 																	"fallback_cb"       => false,
 																	"walker"            => new wp_bootstrap_navwalker(),
@@ -1268,7 +1277,7 @@ if (!class_exists('unmenu')) {
 							if ( $ceter_split_nav_menu != '' ) {
 								$this->html .= $ceter_split_nav_menu;
 							} else {
-								$this->html .= '<div class="nav navbar-nav navbar-main"><ul id="menu-main-menu" class="menu-primary-inner menu-smart'.(is_rtl() ? ' sm-rtl' : '').' sm"><li id="menu-item-0">' . $logo_html . '</li></ul></div>';
+								$this->html .= '<div class="nav navbar-nav navbar-main"><ul id="menu-main-menu" class="menu-primary-inner menu-smart'.(is_rtl() ? ' sm-rtl' : '').' sm" role="menu"><li role="menuitem" id="menu-item-0">' . $logo_html . '</li></ul></div>';
 							}
 
 							$this->html .= apply_filters( 'uncode_menu_before_socials', false );
@@ -1283,7 +1292,8 @@ if (!class_exists('unmenu')) {
 															 							"theme_location"    => "secondary",
 															 							"container"         => "div",
 																						"container_class"   => "menu-accordion menu-accordion-4",
-															 							"menu_class"        => "menu-smart".(is_rtl() ? ' sm-rtl' : '')." sm sm-vertical mobile-secondary-menu",
+																						'items_wrap'        => '<ul id="%1$s" class="%2$s" role="menu">%3$s</ul>',
+																						"menu_class"        => "menu-smart".(is_rtl() ? ' sm-rtl' : '')." sm sm-vertical mobile-secondary-menu",
 															 							'fallback_cb'    => false,
 															 							"walker"            => new wp_bootstrap_navwalker(),
 															 							"echo"            => 0)
@@ -1306,6 +1316,7 @@ if (!class_exists('unmenu')) {
 						"menu"              => $primary_menu,
 						"theme_location"    => "primary",
 						"container"         => "div",
+						'items_wrap'        => '<ul id="%1$s" class="%2$s" role="menu">%3$s</ul>',
 						"container_class"   => "menu-accordion menu-accordion-9",
 						"menu_class"        => "menu-primary-inner menu-smart".(is_rtl() ? ' sm-rtl' : '')." sm sm-vertical",
 						"fallback_cb"       => false,
@@ -1316,7 +1327,7 @@ if (!class_exists('unmenu')) {
 						"menu"              => $secondary_menu,
 						"theme_location"    => "secondary",
 						"container"         => "div",
-						"items_wrap"      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+						"items_wrap"      => '<ul id="%1$s" class="%2$s" role="menu">%3$s</ul>',
 						"container_class"   => "menu-accordion menu-accordion-5",
 						"menu_class"        => "menu-smart".(is_rtl() ? ' sm-rtl' : '')." sm sm-vertical",
 						'fallback_cb'    => false,
@@ -1353,6 +1364,7 @@ if (!class_exists('unmenu')) {
 																					"theme_location"    => "cta",
 																					"container"         => "div",
 																					"container_class"   => "nav navbar-nav navbar-cta",
+																					'items_wrap'        => '<ul id="%1$s" class="%2$s" role="menu">%3$s</ul>',
 																					"menu_class"        => "menu-cta-inner menu-smart".(is_rtl() ? ' sm-rtl' : '')." sm",
 																					"fallback_cb"       => "wp_bootstrap_navwalker::fallback",
 																					"walker"            => new wp_bootstrap_navwalker(),
@@ -1389,21 +1401,22 @@ if (!class_exists('unmenu')) {
 						"theme_location"    => "primary",
 						"container"         => "div",
 						"container_class"   => "menu-accordion menu-accordion-primary",
+						'items_wrap'        => '<ul id="%1$s" class="%2$s" role="menu">%3$s</ul>',
 						"menu_class"        => "menu-primary-inner menu-smart".(is_rtl() ? ' sm-rtl' : '')." sm sm-vertical",
 						"fallback_cb"       => false,
 						"walker"            => new wp_bootstrap_navwalker(),
-						"echo"            => 0)
+						"echo"              => 0)
 					);
 					$secondary_menu_out = wp_nav_menu( array(
 						"menu"              => $secondary_menu,
 						"theme_location"    => "secondary",
 						"container"         => "div",
-						"items_wrap"      => '<ul id="%1$s" class="%2$s mobile-secondary-menu">%3$s</ul>',
+						"items_wrap"        => '<ul id="%1$s" class="%2$s mobile-secondary-menu" role="menu">%3$s</ul>',
 						"container_class"   => "menu-accordion menu-accordion-secondary",
 						"menu_class"        => "menu-smart".(is_rtl() ? ' sm-rtl' : '')." sm sm-vertical",
-						'fallback_cb'    => false,
+						'fallback_cb'       => false,
 						"walker"            => new wp_bootstrap_navwalker(),
-						"echo"            => 0)
+						"echo"              => 0)
 					);
 
 					$limit_width = ot_get_option('_uncode_vmenu_align') === 'right' || ot_get_option('_uncode_vmenu_align') === 'left' ? ' limit-width' : '';
@@ -1459,6 +1472,7 @@ if (!class_exists('unmenu')) {
 																					"menu"              => $primary_menu,
 																					"theme_location"    => "primary",
 																					"container"         => "div",
+																					'items_wrap'        => '<ul id="%1$s" class="%2$s" role="menu">%3$s</ul>',
 																					"container_class"   => "nav navbar-nav navbar-main " . (($search !== '' || $type === 'hmenu-justify' || $cta_menu) ? 'navbar-nav-first' : 'navbar-nav-last') ,
 																					"menu_class"        => "menu-primary-inner menu-smart".(is_rtl() ? ' sm-rtl' : '')." sm",
 																					"fallback_cb"       => false,
@@ -1486,6 +1500,7 @@ if (!class_exists('unmenu')) {
 																						"theme_location"    => "cta",
 																						"container"         => "div",
 																						"container_class"   => "nav navbar-nav navbar-cta" . ( ( $search === '' ) ? ' navbar-nav-last' : '' ),
+																						'items_wrap'        => '<ul id="%1$s" class="%2$s" role="menu">%3$s</ul>',
 																						"menu_class"        => "menu-cta-inner menu-smart".(is_rtl() ? ' sm-rtl' : '')." sm",
 																						"fallback_cb"       => "wp_bootstrap_navwalker::fallback",
 																						"walker"            => new wp_bootstrap_navwalker(),
@@ -1503,7 +1518,8 @@ if (!class_exists('unmenu')) {
 															 							"theme_location"    => "secondary",
 															 							"container"         => "div",
 																						"container_class"   => "menu-accordion menu-accordion-7",
-															 							"menu_class"        => "menu-smart".(is_rtl() ? ' sm-rtl' : '')." sm sm-vertical mobile-secondary-menu",
+																						'items_wrap'        => '<ul id="%1$s" class="%2$s" role="menu">%3$s</ul>',
+																						"menu_class"        => "menu-smart".(is_rtl() ? ' sm-rtl' : '')." sm sm-vertical mobile-secondary-menu",
 															 							'fallback_cb'    => false,
 															 							"walker"            => new wp_bootstrap_navwalker(),
 															 							"echo"            => 0)
@@ -1566,6 +1582,7 @@ if (!class_exists('unmenu')) {
 																	 							"theme_location"    => "primary",
 																	 							"container"         => "div",
 																								"container_class"   => "menu-accordion menu-accordion-primary",
+																								'items_wrap'        => '<ul id="%1$s" class="%2$s" role="menu">%3$s</ul>',
 																	 							"menu_class"        => "menu-primary-inner menu-smart".(is_rtl() ? ' sm-rtl' : '')." sm sm-vertical",
 																	 							"fallback_cb"       => false,
 																	 							"walker"            => new wp_bootstrap_navwalker(),
@@ -1578,6 +1595,7 @@ if (!class_exists('unmenu')) {
 																									"container"         => "div",
 																									"container_class"   => "menu-accordion navbar-accordion-cta",
 																									"menu_class"        => "menu-cta-inner menu-smart".(is_rtl() ? ' sm-rtl' : '')." sm",
+																									'items_wrap'        => '<ul id="%1$s" class="%2$s" role="menu">%3$s</ul>',
 																									"fallback_cb"       => "wp_bootstrap_navwalker::fallback",
 																									"walker"            => new wp_bootstrap_navwalker(),
 																									"echo"            => 0)
@@ -1595,7 +1613,7 @@ if (!class_exists('unmenu')) {
 														 							"menu"              => $secondary_menu,
 														 							"theme_location"    => "secondary",
 														 							"container"         => "div",
-														 							"items_wrap"      	=> '<ul id="%1$s" class="%2$s mobile-secondary-menu">%3$s</ul>',
+														 							"items_wrap"      	=> '<ul id="%1$s" class="%2$s mobile-secondary-menu" role="menu">%3$s</ul>',
 																					"container_class"   => "menu-accordion menu-accordion-secondary",
 														 							"menu_class"        => "menu-smart".(is_rtl() ? ' sm-rtl' : '').($social_html !== '' ? '' : '')." sm sm-vertical",
 														 							'fallback_cb'    		=> false,

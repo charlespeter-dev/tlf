@@ -382,7 +382,7 @@
 							$(window).trigger('more-items-loaded');
 							window.dispatchEvent(new CustomEvent('uncode-more-items-loaded'));
 							if ( typeof ScrollTrigger !== 'undefined' && ScrollTrigger !== null ) {
-								ScrollTrigger.refresh();
+								$(document).trigger('uncode-scrolltrigger-refresh');
 							}
 						}, 2000);
 

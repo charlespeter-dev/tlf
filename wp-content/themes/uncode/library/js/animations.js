@@ -330,6 +330,7 @@
 	});
 	if ( $('body').hasClass('compose-mode') && typeof window.parent.vc !== 'undefined' ) {
 		window.parent.vc.events.on( 'shortcodeView:updated', runWaypoints );
+		window.parent.vc.events.on( 'shortcodeView:ready', runWaypoints );
 	}
 };
 

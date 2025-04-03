@@ -146,7 +146,8 @@ if (!function_exists('uncode_get_back_html')) {
 
 					$header_background_selfvideo = do_shortcode('[video' . $video_src . ' class="background-video-shortcode"]');
 					$header_background_selfvideo = str_replace('controls="controls"','', $header_background_selfvideo);
-					$header_background_selfvideo = str_replace('<video','<video onloadeddata="this.play();" loop '. $background_mobile_attr . 'muted', $header_background_selfvideo);
+					$header_background_selfvideo = str_replace('<video','<video onloadeddata="this.play();" loop '. $background_mobile_attr . 'muted aria-hidden="true" role="presentation"', $header_background_selfvideo);
+					$header_background_selfvideo = preg_replace('#<a (.*?)</a>#', '', $header_background_selfvideo);
 
 					$get_video_meta = unserialize($back_attributes->metadata);
 					$get_video_meta = unserialize($back_attributes->metadata);
@@ -1418,9 +1419,9 @@ if (!function_exists('uncode_create_single_block')) {
 										$tag_break = true;
 									}
 								}
-								$meta_inner .= '<span class="' . $cat_classes . '">' . $category . '</span>' . $block_after;
+								$meta_inner .= '<span class="' . $cat_classes . '" role="heading">' . $category . '</span>' . $block_after;
 							} else {
-								$cat_over .= '<span class="' . $cat_classes . ' t-cat-over-inner">' . $category . '</span>';
+								$cat_over .= '<span class="' . $cat_classes . ' t-cat-over-inner" role="heading">' . $category . '</span>';
 							}
 
 							$cat_counter++;
@@ -2394,6 +2395,10 @@ if (!function_exists('uncode_create_single_block')) {
 					if ( isset($lightbox_classes['data-title']) && $lightbox_classes['data-title'] === true && isset($media_attributes->post_title) ) {
 						$lightbox_classes['data-title'] = apply_filters( 'uncode_media_attribute_title', $media_attributes->post_title, $items_thumb_id[0]);
 
+						if ( isset($media_attributes->alt) ) {
+							$lightbox_classes['data-alt'] = apply_filters( 'uncode_media_attribute_alt', $media_attributes->alt, $items_thumb_id[0]);
+						}
+
 						if ( isset($block_data['id']) ) {
 							$lbox_permalink = get_permalink($block_data['id']);
 
@@ -3308,6 +3313,15 @@ if (!function_exists('uncode_create_single_block')) {
 						$media_output .= $inline_hidden;
 					}
 
+					if ( uncode_is_accessible() && isset($block_data['media_link']) ) {
+						$create_link_params = parse_url($create_link, PHP_URL_QUERY);
+						if ($create_link_params) {
+							$create_link .= '&media_link=1';
+						} else {
+							$create_link .= '?media_link=1';
+						}
+					}
+
 					if ( $lbox_enhance && $lightbox_classes ) {
 						if ( strpos($media_attributes->post_mime_type, 'video/') === false && $media_attributes->post_mime_type !== 'oembed/spotify' && ( ! isset($block_data['album_id']) || $block_data['album_id'] === '' ) ) {
 							$href_att = ' href="'. ( ($media_type === 'image' || ( $media_mime === 'image/svg+xml' && apply_filters( 'uncode_use_svgs_for_links', false ) ) ) ? $create_link : '').'"';
@@ -3318,8 +3332,12 @@ if (!function_exists('uncode_create_single_block')) {
 						$href_att = ' href="'. ( ($media_type === 'image' || ( $media_mime === 'image/svg+xml' && apply_filters( 'uncode_use_svgs_for_links', false ) ) ) ? $create_link : '').'"';
 					}
 
+					if ( isset($block_data['no_href']) ) {
+						$href_att = '';
+					}
+
 					if ( $block_data['template'] !== 'inline-image' ) {
-						$media_output .= '<a tabindex="-1"' . $href_att .((count($a_classes) > 0 ) ? ' class="'.trim(implode(' ', $a_classes)).'"' : '').$lightbox_data.$data_values.$data_lb.'>';
+						$media_output .= '<a role="button" tabindex="-1"' . $href_att .((count($a_classes) > 0 ) ? ' class="'.trim(implode(' ', $a_classes)).'"' : '').$lightbox_data.$data_values.$data_lb.'>';
 					}
 
 				}
@@ -3463,7 +3481,7 @@ if (!function_exists('uncode_create_single_block')) {
 						$data_values = !empty($block_data['link']['target']) ? ' target="'.trim($block_data['link']['target']).'"' : '';
 						$data_values .= !empty($block_data['link']['rel']) ? ' rel="'.trim($block_data['link']['rel']).'"' : '';
 
-						$media_output .= 			'<a href="' . $create_link . '"'.((count($a_classes) > 0 ) ? ' class="'.trim(implode(' ', $a_classes)).'"' : '').$lightbox_data.$data_values.'>
+						$media_output .= 			'<a role="button" href="' . $create_link . '"'.((count($a_classes) > 0 ) ? ' class="'.trim(implode(' ', $a_classes)).'"' : '').$lightbox_data.$data_values.'>
 												' . $bg_cover . '
 											</a>';
 

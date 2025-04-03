@@ -1392,7 +1392,7 @@ function uncode_get_allowed_contact_methods( $user='' ) {
 
 			$icon = $method == 'googleplus' ? 'google-plus' : $method;
 			if ( $href !== '' ) {
-				$out .= '<li class="contact-method-' . esc_attr($method) . '"><a href="' . esc_url( $href ) . '" target="_blank"><i class="fa fa-' . esc_attr( $icon ) . '"></i></a></li>';
+				$out .= '<li class="contact-method-' . esc_attr($method) . '"><a role="button" href="' . esc_url( $href ) . '" target="_blank"><i class="fa fa-' . esc_attr( $icon ) . '"></i></a></li>';
 			}
 
 		}
@@ -2568,3 +2568,39 @@ function uncode_blur_edges(){
 
 	return $out;
 }
+
+function uncode_is_accessible(){
+	$is_accessible = ot_get_option( '_uncode_accessibility' ) === 'on';
+	return ( apply_filters( 'uncode_is_accessible', $is_accessible ) );
+}
+
+function uncode_accessibility_js(){
+	if ( uncode_is_accessible() ) {
+	?>
+<script type="text/javascript">
+(function($) {
+    "use strict";
+    $(function () {
+		var $inputs = $('input[placeholder], textarea[placeholder]');
+		$inputs.each(function(key, val){
+       		var placeholder = $(val).attr('placeholder');
+       		$(val).attr('aria-label', placeholder);
+    	});
+		var $akismetFlds = $('.akismet-fields-container');
+		$akismetFlds.each(function(key, val){
+       		var prefix = $(val).attr('data-prefix'),
+				$akismetLbls = $('label', val);
+			$akismetLbls.each(function(key2, val2){
+				var forAtt = $(val2).attr('for');
+				if ( forAtt === '' || typeof forAtt === 'undefined' ) {
+					$(val2).attr('for', 'akis_' + prefix);
+					$('input, textarea', val2).attr('id', 'akis_' + prefix);
+				}
+			});
+    	});
+    });
+})(jQuery);
+</script>
+	<?php }
+}
+add_action('wp_footer', 'uncode_accessibility_js', 100);

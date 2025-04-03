@@ -1,11 +1,12 @@
 <?php
-$title = $el_id = $el_class = $value = $font = $weight = $height = $transform = $size = $prefix = $suffix = $separator = $text = $icon = $output = $css_animation = $animation_delay = $animation_speed = $counter_color = $text_italic = $text_space = '';
+$title = $el_id = $el_class = $value = $font = $weight = $height = $transform = $size = $prefix = $suffix = $separator = $text = $icon = $output = $css_animation = $animation_delay = $animation_speed = $counter_color = $text_italic = $text_space = $semantic = '';
 extract(shortcode_atts(array(
 	'uncode_shortcode_id' => '',
 	'title' => '',
 	'el_id' => '',
 	'el_class' => '',
 	'value' => '1000',
+	'semantic' => 'p',
 	'font' => '',
 	'weight' => '',
 	'height' => '',
@@ -104,7 +105,7 @@ if ($css_animation !== '' && uncode_animations_enabled()) {
 $div_data_attributes = array_map(function ($v, $k) { return $k . '="' . $v . '"'; }, $div_data, array_keys($div_data));
 
 $output .= '<div class="uncode-wrapper ' . esc_attr( trim( implode( ' ', $classes ) ) ) . '" '.implode(' ', $div_data_attributes). $el_id . '>';
-$output .= '<p class="' . esc_attr(trim(implode(' ', $counter_class))) . '">';
+$output .= '<' . $semantic .'  class="' . esc_attr(trim(implode(' ', $counter_class))) . '">';
 if ($prefix !== '') {
 	$output .= '<span class="counter-prefix'.$counter_color.'">'.$prefix.'</span>';
 }
@@ -113,7 +114,7 @@ $output .= '<span class="uncode-counter counter' . esc_attr( $counter_color ) . 
 if ($suffix !== '') {
 	$output .= '<span class="counter-suffix' . esc_attr( $counter_color ) . '">'.$suffix.'</span>';
 }
-$output .= '</p>';
+$output .= '</' . $semantic .'>';
 if ($separator === 'yes') {
 	$output .= '<hr class="separator-break separator-accent" />';
 }

@@ -434,7 +434,7 @@ foreach ($nav_new as $_new_k => $_nav_new) {
 			$arrow_anim_class = ' anim-' . ( $arrows_animation === '' ? 'alpha-anim' : $arrows_animation );
 		}
 
-		$arrow_left_output = '<span class="uncode-nav-prev' . $arrow_anim_class . ( $magnetic_arrows !== '' ? ' un-magnetic-zone' : '' ) . ( $arrow_left_order !== '' && $arrow_left_order !== $arrow_right_order ? ' nav-ordered order-' . $arrow_left_order : '' ) . '"><span class="uncode-nav-container-wrap"><span class="' . esc_attr(trim(implode( ' ', $arrow_class ))) . '"><span>';
+		$arrow_left_output = '<span class="uncode-nav-prev' . $arrow_anim_class . ( $magnetic_arrows !== '' ? ' un-magnetic-zone' : '' ) . ( $arrow_left_order !== '' && $arrow_left_order !== $arrow_right_order ? ' nav-ordered order-' . $arrow_left_order : '' ) . '"><span class="uncode-nav-container-wrap"><span class="' . esc_attr(trim(implode( ' ', $arrow_class ))) . '" tabindex="0" role="button" aria-label="' . esc_html__( 'Previous', 'uncode' ) . '"><span>';
 		$icon_inside = $icon_outside = '';
 		if ( $icon_position === '' ) {
 			$icon_outside = '<i class="' . esc_html( $icon ) . esc_html($arrow_size) . '"></i>';
@@ -502,7 +502,7 @@ foreach ($nav_new as $_new_k => $_nav_new) {
 			$output .= $arrow_left_output;
 		}
 
-		$output .= '<span class="uncode-nav-next' . $arrow_anim_class . ( $magnetic_arrows !== '' ? ' un-magnetic-zone' : '' ) . ( $arrow_right_order !== '' && $arrow_right_order !== $arrow_left_order ? ' nav-ordered order-' . $arrow_right_order : '' ) . '"><span class="uncode-nav-container-wrap"><span class="' . esc_attr(trim(implode( ' ', $arrow_class ))) . '"><span>';
+		$output .= '<span class="uncode-nav-next' . $arrow_anim_class . ( $magnetic_arrows !== '' ? ' un-magnetic-zone' : '' ) . ( $arrow_right_order !== '' && $arrow_right_order !== $arrow_left_order ? ' nav-ordered order-' . $arrow_right_order : '' ) . '"><span class="uncode-nav-container-wrap"><span class="' . esc_attr(trim(implode( ' ', $arrow_class ))) . '" tabindex="0" role="button" aria-label="' . esc_html__( 'Next', 'uncode' ) . '"><span>';
 		$output .= $icon_inside;
 		if ( $next_label !== '' ) {
 			$output .= '<span class="uncode-nav-label">' . wp_kses_post( $next_label ) . '</span>';

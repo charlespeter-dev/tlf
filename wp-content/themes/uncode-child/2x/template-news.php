@@ -110,7 +110,7 @@ get_header() ?>
                             <div class="col">
 
                                 <div class="card-news">
-                                    <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($card_id), '_2x-card-news') ?>"
+                                    <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($card_id), '_2x-carousel-news') ?>"
                                         class="img-fluid" alt="" loading="lazy">
                                     <div class="card-news-body position-relative wpk-box-brand">
                                         <div>

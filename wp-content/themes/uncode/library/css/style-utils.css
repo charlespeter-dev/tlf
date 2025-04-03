@@ -209,8 +209,12 @@ html.ie11 select {
 input:focus,
 textarea:focus,
 select:focus {
-  outline: 0;
   border-style: solid;
+}
+body:not(.uncode-accessible) input:focus,
+body:not(.uncode-accessible) textarea:focus,
+body:not(.uncode-accessible) select:focus {
+  outline: 0;
 }
 .input-underline .wpcf7-inline-wrapper.wpcf7-input-group .wpcf7-inline-field-text {
   padding-right: 3px;
@@ -326,13 +330,18 @@ button[type="submit"] {
   text-align: center !important;
   vertical-align: middle;
   border-radius: 2px;
-  outline: none;
   white-space: nowrap;
   -webkit-text-stroke: 0px;
   width: auto;
   box-shadow: none;
   cursor: pointer;
   -webkit-font-smoothing: antialiased;
+}
+body:not(.uncode-accessible) input[type="submit"],
+body:not(.uncode-accessible) input[type="reset"],
+body:not(.uncode-accessible) input[type="button"],
+body:not(.uncode-accessible) button[type="submit"] {
+  outline: 0;
 }
 input[type="submit"],
 input[type="reset"],
@@ -476,16 +485,18 @@ select {
   border-style: solid;
   border-color: transparent;
   -moz-appearance: none;
-  outline: none;
   background-position: 100% center;
   background-repeat: no-repeat;
   box-shadow: none !important;
 }
+body:not(.uncode-accessible) select {
+  outline: 0;
+}
 .rtl select {
   background-position: 0% center;
 }
-select:focus {
-  outline: none;
+body:not(.uncode-accessible) select:focus {
+  outline: 0;
 }
 select::-ms-expand {
   display: none;

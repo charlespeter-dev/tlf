@@ -126,6 +126,25 @@
             @include rfs(2.1875rem, line-height);
         }
 
+        li {
+            text-align: left;
+
+            &.tick {
+                list-style-image: url('https://thelogicfactory.com/wp-content/uploads/2023/09/Icon-Tick.svg');
+                margin-bottom: .1em;
+
+                span {
+                    vertical-align: 0.3em;
+                    transform: translate(-0.1em, 0.2em);
+                }
+            }
+        }
+
+        ul>li {
+            text-align: left;
+            list-style-type: disc;
+        }
+
         .featured-testimonials {
 
             text-align: center;
@@ -292,6 +311,12 @@
 
             .sub-heading {
                 text-align: center;
+
+                ul {
+                    @include media-breakpoint-up(lg) {
+                        padding-left: 4rem;
+                    }
+                }
             }
         }
 

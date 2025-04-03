@@ -9,6 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Get default breakpoints.
+ *
+ * @see uncode_core_unclean_url()
  */
 function uncode_get_default_breakpoint_sizes() {
 	return '258,516,720,1032,1440,2064,2880';

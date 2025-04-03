@@ -97,6 +97,15 @@ hr.separator-break {
 hr.separator-break.separator-accent {
   border-color: <?php echo sanitize_text_field($color_primary); ?> !important;
 }
+body.uncode-accessible a,
+body.uncode-accessible button,
+body.uncode-accessible input,
+body.uncode-accessible textarea,
+body.uncode-accessible select,
+body.uncode-accessible .btn,
+body.uncode-accessible .btn-link {
+  outline-color: <?php echo sanitize_text_field($color_primary); ?> !important;
+}
 /* #Paragraph-color */
 .style-dark .body-color,
 .style-light .style-dark .body-color,
@@ -2255,6 +2264,7 @@ button[type="submit"] {
 .menu-light .menu-smart > li.active > a,
 .menu-light .menu-smart > li a.active,
 .menu-light .menu-smart > li.current-menu-ancestor > a,
+.menu-light .menu-smart > li.wpml-ls-current-language > a,
 .menu-light .menu-smart > li.current-menu-item:not(.menu-item-type-custom) > a,
 .menu-light .menu-smart > li.current-menu-parent > a {
   color: <?php echo sanitize_text_field($color_menu_text_hover); ?>;
@@ -2262,6 +2272,7 @@ button[type="submit"] {
 .isotope-filters .menu-light .menu-smart > li.active > a,
 .isotope-filters .menu-light .menu-smart > li a.active,
 .isotope-filters .menu-light .menu-smart > li.current-menu-ancestor > a,
+.isotope-filters .menu-light .menu-smart > li.wpml-ls-current-language > a,
 .isotope-filters .menu-light .menu-smart > li.current-menu-item:not(.menu-item-type-custom) > a,
 .isotope-filters .menu-light .menu-smart > li.current-menu-parent > a {
   color: <?php echo sanitize_text_field($color_menu_text_hover_static); ?>;
@@ -2269,6 +2280,7 @@ button[type="submit"] {
 .menu-dark .menu-smart > li.active > a,
 .menu-dark .menu-smart > li a.active,
 .menu-dark .menu-smart > li.current-menu-ancestor > a,
+.menu-dark .menu-smart > li.wpml-ls-current-language > a,
 .menu-dark .menu-smart > li.current-menu-item:not(.menu-item-type-custom) > a,
 .menu-dark .menu-smart > li.current-menu-parent > a {
   color: <?php echo sanitize_text_field($color_menu_text_inverted_hover); ?>;
@@ -2276,6 +2288,7 @@ button[type="submit"] {
 .isotope-filters .menu-dark .menu-smart > li.active > a,
 .isotope-filters .menu-dark .menu-smart > li a.active,
 .isotope-filters .menu-dark .menu-smart > li.current-menu-ancestor > a,
+.isotope-filters .menu-dark .menu-smart > li.wpml-ls-current-language > a,
 .isotope-filters .menu-dark .menu-smart > li.current-menu-item:not(.menu-item-type-custom) > a,
 .isotope-filters .menu-dark .menu-smart > li.current-menu-parent > a {
   color: <?php echo sanitize_text_field($color_menu_text_inverted_hover_static); ?>;
@@ -2284,6 +2297,7 @@ body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_s
 body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .menu-horizontal-inner > .nav > .menu-smart > li a.active,
 body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .menu-horizontal-inner > .nav > .menu-smart > li.current-menu-parent > a,
 body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .menu-horizontal-inner > .nav > .menu-smart > li.current-menu-ancestor > a,
+body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .menu-horizontal-inner > .nav > .menu-smart > li.wpml-ls-current-language > a,
 body:not(.menu-force-opacity):not(.navbar-hover) .style-light-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .menu-horizontal-inner > .nav > .menu-smart > li.current-menu-item:not(.menu-item-type-custom) > a {
   color: <?php echo sanitize_text_field($color_menu_text_hover); ?> !important;
 }
@@ -2291,6 +2305,7 @@ body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_st
 body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .menu-horizontal-inner > .nav > .menu-smart > li a.active,
 body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .menu-horizontal-inner > .nav > .menu-smart > li.current-menu-parent > a,
 body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .menu-horizontal-inner > .nav > .menu-smart > li.current-menu-ancestor > a,
+body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .menu-horizontal-inner > .nav > .menu-smart > li.wpml-ls-current-language > a,
 body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_stuck:not(.menu-desktop-transparent)):not(.is_mobile_open).menu-transparent .menu-horizontal-inner > .nav > .menu-smart > li.current-menu-item:not(.menu-item-type-custom) > a {
   color: <?php echo sanitize_text_field($color_menu_text_inverted_hover); ?> !important;
 }
@@ -2464,11 +2479,13 @@ body:not(.menu-force-opacity):not(.navbar-hover) .style-dark-override:not(.is_st
 @media (max-width: 959px) {
   .submenu-light .menu-smart li.active > a,
   .submenu-light .menu-smart li.current-menu-ancestor > a,
+  .submenu-light .menu-smart li.wpml-ls-current-language > a,
   .submenu-light .menu-smart li.current-menu-item:not(.menu-item-type-custom) > a {
     color: <?php echo sanitize_text_field($color_menu_text_hover); ?>;
   }
   .submenu-dark .menu-smart li.active > a,
   .submenu-dark .menu-smart li.current-menu-ancestor > a,
+  .submenu-dark .menu-smart li.wpml-ls-current-language > a,
   .submenu-dark .menu-smart li.current-menu-item:not(.menu-item-type-custom) > a {
     color: <?php echo sanitize_text_field($color_menu_text_inverted_hover); ?>;
   }

@@ -627,7 +627,7 @@ if ( ! function_exists( 'uncode_get_recommended_max_input_vars' ) ) {
 if ( ! function_exists( 'uncode_get_scripts_production_conf' ) ) {
 	function uncode_get_scripts_production_conf() {
 		$production_mode   = ot_get_option('_uncode_production');
-		$resources_version = $production_mode === 'on' ? null : rand();
+		$resources_version = $production_mode === 'on' ? UNCODE_PARENT_VERSION : rand();
 		$suffix            = $production_mode === 'on' ? '.min' : '';
 
 		return array(

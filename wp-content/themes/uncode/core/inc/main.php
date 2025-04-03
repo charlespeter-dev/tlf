@@ -517,6 +517,12 @@ function uncode_equeue() {
 		'uncode_smooth_scroll_safe'  => apply_filters( 'uncode_smooth_scroll_safe', ot_get_option( '_uncode_smooth_scroll_safe' ) === 'on' ),
 		'uncode_lb_add_galleries'    => apply_filters( 'uncode_lb_add_galleries', ', .gallery' ),
 		'uncode_lb_add_items' 	     => apply_filters( 'uncode_lb_add_items', ', .gallery .gallery-item a' ),
+		'uncode_prev_label'          => apply_filters( 'uncode_prev_label', esc_html__( 'Previous', 'uncode' ) ),
+		'uncode_next_label' 	     => apply_filters( 'uncode_next_label', esc_html__( 'Next', 'uncode' ) ),
+		'uncode_slide_label' 	     => apply_filters( 'uncode_slide_label', esc_html__( 'Slide', 'uncode' ) ),
+		'uncode_share_label' 	     => apply_filters( 'uncode_share_label', esc_html__( 'Share on %', 'uncode' ) ),
+		'uncode_has_ligatures' 	     => apply_filters( 'uncode_has_ligatures', false ),
+		'uncode_is_accessible'		 => uncode_is_accessible(),
 	);
 
 	/** JS */
@@ -1223,6 +1229,10 @@ function uncode_body_classes($classes){
 		if ( $blur_menu !== '' ) {
 			$classes[] = 'blur-menu-' . $blur_menu;
 		}
+	}
+
+	if ( uncode_is_accessible() ) {
+		$classes[] = 'uncode-accessible';
 	}
 
 	return $classes;

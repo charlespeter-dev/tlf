@@ -452,6 +452,7 @@ function uncode_wc_print_attribute_image_element( $product, $options, $single_te
 		$output .= '<div class="t-entry-attribute-image'. $t_entry_class . '">';
 
 		foreach ( $att_terms as $term ) {
+			$image_output    = '';
 			$thumbnail_id    = absint( get_term_meta( $term->term_id, 'uncode_pa_thumbnail_id', true ) );
 			$thumbnail_id    = $thumbnail_id ? $thumbnail_id : false;
 			$image_size      = uncode_wc_get_image_swatch_size( $product_att );
@@ -465,7 +466,7 @@ function uncode_wc_print_attribute_image_element( $product, $options, $single_te
 				$output .= '<a href="' . $image_url . '" class="t-entry-attribute-image__link">';
 			}
 
-			$output .= $image;
+			$output .= apply_filters( 'uncode_wc_attribute_image_post_element_output', $image, $term, $product_att, $product );
 
 			if ( $link_enabled && $has_archive && ! $no_link_allowed ) {
 				$output .= '</a>';

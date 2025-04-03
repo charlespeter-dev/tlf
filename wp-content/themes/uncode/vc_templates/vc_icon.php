@@ -2,7 +2,7 @@
 
 global $adaptive_images, $dynamic_srcset_active, $enable_adaptive_dynamic_img;
 
-$title = $heading_semantic = $text_font = $text_size = $text_weight = $text_height = $text_space = $text_lead = $icon = $icon_image = $icon_automatic = $position = $space_reduced = $icon_color = $background_style = $size = $outline = $display = $shadow = $add_margin = $text_reduced = $el_id = $el_class = $link = $link_text = $media_lightbox = $css_animation = $animation_delay = $animation_speed = $background_color = $a_title = $a_target = $a_rel = $lightbox_data = $lightbox_data_title = $title_aligned_icon = $linked_title = $media_size = $lbox_skin = $lbox_transparency = $lbox_dir = $lbox_title = $lbox_caption = $lbox_social = $lbox_deep = $lbox_deep_id = $lbox_no_tmb = $lbox_no_arrows = $lbox_gallery_arrows = $lbox_gallery_arrows_bg = $lbox_zoom_origin = $lbox_connected = $lbox_actual_size = $lbox_full = $lbox_download = $lbox_counter = $lbox_transition = $lb_video_advanced = $lb_autoplay = $lb_muted = '';
+$title = $heading_semantic = $text_font = $text_size = $text_weight = $text_height = $text_space = $text_lead = $icon = $icon_image = $icon_automatic = $position = $space_reduced = $icon_color = $background_style = $size = $outline = $display = $shadow = $add_margin = $text_reduced = $el_id = $el_class = $link = $link_text = $media_lightbox = $css_animation = $animation_delay = $animation_speed = $background_color = $a_title = $a_target = $a_rel = $lightbox_data = $lightbox_data_title = $title_aligned_icon = $linked_title = $media_size = $lbox_skin = $lbox_transparency = $lbox_dir = $lbox_title = $lbox_caption = $lbox_social = $lbox_deep = $lbox_deep_id = $lbox_no_tmb = $lbox_no_arrows = $lbox_gallery_arrows = $lbox_gallery_arrows_bg = $lbox_zoom_origin = $lbox_connected = $lbox_actual_size = $lbox_full = $lbox_download = $lbox_counter = $lbox_transition = $lb_video_advanced = $lb_autoplay = $lb_muted = $aria_label = '';
 
 $defaults = array(
 	'uncode_shortcode_id' => '',
@@ -34,6 +34,7 @@ $defaults = array(
 	'link' => '',
 	'link_text' => '',
 	'media_lightbox' => '',
+	'aria_label' => '',
 	'css_animation' => '',
 	'animation_delay' => '',
 	'animation_speed' => '',
@@ -192,6 +193,9 @@ $link = vc_build_link( $link );
 $a_href = $link['url'];
 if ($link['title'] !== '') {
 	$a_title = ' title="' . esc_attr( $link['title'] ) . '" aria-label="' . esc_attr( $link['title'] ) . '"';
+}
+if ( $aria_label !== '' ) {
+	$a_title .= ' aria-label="' . esc_html( $aria_label ) . '"';
 }
 if ($link['target'] !== '') {
 	$a_target = ' target="' . esc_attr( trim($link['target']) ) . '"';
@@ -535,6 +539,7 @@ if ($media_lightbox !== '') {
 
 		if ( $lbox_enhance ) {
 			if ( isset( $media_attributes->post_mime_type ) ) {
+				$a_href = apply_filters( 'uncode_self_video_src', $a_href );
 				if ( $media_attributes->post_mime_type !== 'oembed/flickr' && isset( $data_options_th[0] ) ) {
 					$lightbox_data .= ' data-external-thumb-image="'. $data_options_th[0] .'"';
 				}
@@ -574,7 +579,7 @@ $icon_box_size = ' icon-box-'.$size.((strlen( $background_style ) > 0) ? '-back'
 $icon_box_size = $title_aligned_icon == '' ? $icon_box_size : '';
 if ($title !== '') {
 	if ( $a_href !== '' && $linked_title !== '' ) {
-		$title = '<a href="'. $a_href.'"'.$a_title.$a_target.$a_rel.$lightbox_data_title.'>' . $title . '</a>';
+		$title = '<a role="button" href="'. $a_href.'"'.$a_title.$a_target.$a_rel.$lightbox_data_title.'>' . $title . '</a>';
 	}
 	$output_text .= '<div class="icon-box-heading' . esc_attr( $icon_box_size ) . '"><' . esc_attr( $heading_semantic ) . ' class="' . esc_attr(trim(implode(' ', $title_class))) . '">' . $title . '</' . esc_attr( $heading_semantic ) . '></div>';
 }
@@ -585,13 +590,12 @@ $text_classes = ( $text_reduced === 'yes' ) ? 'text-top-reduced ' : '';
 $text_classes .= ( $text_lead === 'yes' ) ? 'text-lead ' : '';
 $text_classes .= ( $text_lead === 'small' ) ? 'text-small ' : '';
 
+$add_margin_class = '';
 if ( $content_stripped === $content ) {
 	if ( trim( $content ) !== '' && $content_stripped === $content ) {
 		$content = trim( nl2br( $content ) );
 		if ($add_margin === 'yes') {
-			$add_margin = ' add-margin';
-		} else {
-			$add_margin = '';
+			$add_margin_class = ' add-margin';
 		}
 
 		if (strpos($content,'<p') !== false) {
@@ -634,7 +638,7 @@ if ($link_text !== '' && $a_href !== '') {
 }
 
 if ($output_text !== '') {
-	$output_text = '<div class="icon-box-content' . esc_attr( $add_margin ) . '">' . $output_text . '</div>';
+	$output_text = '<div class="icon-box-content' . esc_attr( $add_margin_class ) . '">' . $output_text . '</div>';
 }
 
 // Prepare icon area
@@ -656,7 +660,7 @@ if ( $lbox_enhance ) {
 	}
 }
 
-$tag_start = ($a_href !== '') ? 'a'. $href_att . $a_title . $a_target . $a_rel . $lightbox_data : 'span';
+$tag_start = ($a_href !== '') ? 'a role="button"'. $href_att . $a_title . $a_target . $a_rel . $lightbox_data : 'span';
 $tag_end = ($a_href !== '') ? 'a' : 'span';
 $output_icon = '';
 $output_icon = '<div class="'.esc_attr(trim(implode(' ', $icon_container_class))).'"' . $icon_container_style . $el_id . '>';

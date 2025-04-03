@@ -27,11 +27,14 @@ a[data-lbox] {
   position: absolute;
   top: 50%;
   z-index: 13080;
-  outline: none;
   border: none;
   width: 51px;
   height: 120px;
   text-align: center;
+}
+body:not(.uncode-accessible) .lg-next,
+body:not(.uncode-accessible) .lg-prev {
+  outline: 0;
 }
 .lg-light-skin .lg-next,
 .lg-light-skin .lg-prev {
@@ -211,7 +214,6 @@ a[data-lbox] {
   text-align: center;
   width: 35px;
   text-decoration: none !important;
-  outline: medium none;
   will-change: color;
   -webkit-transition: color 0.2s linear;
   -o-transition: color 0.2s linear;
@@ -219,6 +221,9 @@ a[data-lbox] {
   background: none;
   border: none;
   box-shadow: none;
+}
+body:not(.uncode-accessible) .lg-toolbar .lg-icon {
+  outline: 0;
 }
 .lg-light-skin .lg-toolbar .lg-icon {
   color: #000000;
@@ -353,7 +358,9 @@ body:not(.lg-from-hash) .lg-outer.lg-start-opacity .lg-item:not(.lg-zoomable).lg
 }
 .lg-container {
   display: none;
-  outline: none;
+}
+body:not(.uncode-accessible) .lg-container {
+  outline: 0;
 }
 .lg-container.lg-show {
   display: block;
@@ -410,12 +417,14 @@ body:not(.lg-from-hash) .lg-outer.lg-start-opacity .lg-item:not(.lg-zoomable).lg
   z-index: 13050;
   text-align: left;
   opacity: 0.001;
-  outline: none;
   will-change: auto;
   overflow: hidden;
   -webkit-transition: opacity 0.15s ease 0s;
   -o-transition: opacity 0.15s ease 0s;
   transition: opacity 0.15s ease 0s;
+}
+body:not(.uncode-accessible) .lg-outer {
+  outline: 0;
 }
 @media screen and (max-width: 782px) {
   body.logged-in.admin-bar .lg-outer {

@@ -3,7 +3,8 @@
 
 	var marqueeAttempts = 0,
 	marqueeTO,
-	marqueeCheckResize;
+	marqueeCheckResize,
+	initMarquee;
 
 UNCODE.textMarquee = function( $titles ) {
 
@@ -282,8 +283,10 @@ UNCODE.textMarquee = function( $titles ) {
 				}, 1000);
 			};
 
-			$(window).off('resize uncode.re-layout', marqueeResize)
-			.on( 'resize uncode.re-layout', marqueeResize);
+			$(window).off('resize', marqueeResize)
+			.on( 'resize', marqueeResize);
+			$(window).off('uncode.re-layout', marqueeResize)
+			.on( 'uncode.re-layout', marqueeResize);
 
 			cloneSpan($title, txt);
 
@@ -308,10 +311,11 @@ UNCODE.textMarquee = function( $titles ) {
 		initTextMarquee();
 	});
 
-	$(window).on('focus load',function(){
-		setTimeout(function(){
+	$(window).on('focus load resize',function(){
+		clearTimeout(initMarquee);
+		initMarquee = setTimeout(function(){
 			initTextMarquee();
-		},500);
+		}, 500);
 	});
 	
 	$(document).on('pumAfterOpen pumAfterClose', function(args){
@@ -319,6 +323,6 @@ UNCODE.textMarquee = function( $titles ) {
 	});
 
 };
-
+	
 
 })(jQuery);

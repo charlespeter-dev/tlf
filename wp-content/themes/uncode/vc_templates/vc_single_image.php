@@ -1,6 +1,6 @@
 <?php
 
-$title = $media = $col_width = $mobile_width = $medium_width = $media_width_use_pixel = $media_width_percent = $media_width_pixel = $media_ratio = $media_lightbox = $media_poster = $media_link = $advanced = $media_items = $media_text = $media_style = $media_back_color = $media_overlay_color = $media_overlay_coloration = $media_overlay_color_blend = $media_overlay_opacity = $media_text_visible = $media_text_anim = $media_text_anim_type = $media_overlay_visible = $media_overlay_anim = $media_image_coloration = $media_image_color_anim = $media_image_anim = $media_image_magnetic = $media_h_align = $media_v_position = $media_image_scroll = $media_image_scroll_val = $media_reduced = $media_h_position = $media_padding = $media_text_reduced = $media_title_custom = $media_caption_custom = $media_title_transform = $media_title_dimension = $media_title_family = $media_title_weight = $media_title_height = $media_title_space = $media_subtitle_custom = $media_icon = $media_elements_click = $lbox_skin = $lbox_transparency = $lbox_dir = $lbox_title = $lbox_caption = $lbox_social = $lbox_deep = $lbox_deep_id = $lbox_no_tmb = $lbox_no_arrows = $lbox_gallery_arrows = $lbox_gallery_arrows_bg = $lbox_zoom_origin = $lbox_connected = $lbox_actual_size = $lbox_full = $lbox_download = $lbox_counter = $lbox_transition = $link = $alignment = $el_id = $el_class = $css_animation = $animation_delay = $animation_speed = $skew = $rotating = $shape = $radius = $caption = $border = $shadow = $shadow_weight = $shadow_darker = $output = $single_width = $single_height = $single_fixed = $style_preset = $css = $div_data = $lightbox_classes = $dummy_oembed = $carousel_textual = $media_code = $text_lead = $dynamic = $dynamic_source = $custom_cursor = $advanced_videos = $play_hover = $play_pause = $mobile_videos = $lb_video_advanced = $lb_autoplay = $lb_muted = $heading_custom_size = $media_image_scroll = $media_image_scroll_val = $animation_easing = $media_mask_direction = $bg_delay = '';
+$title = $media = $col_width = $mobile_width = $medium_width = $media_width_use_pixel = $media_width_percent = $media_width_pixel = $media_ratio = $media_lightbox = $media_poster = $media_link = $advanced = $media_items = $media_text = $media_style = $media_back_color = $media_overlay_color = $media_overlay_coloration = $media_overlay_color_blend = $media_overlay_opacity = $media_text_visible = $media_text_anim = $media_text_anim_type = $media_overlay_visible = $media_overlay_anim = $media_image_coloration = $media_image_color_anim = $media_image_anim = $media_image_magnetic = $media_h_align = $media_v_position = $media_image_scroll = $media_image_scroll_val = $media_reduced = $media_h_position = $media_padding = $media_text_reduced = $media_title_custom = $media_caption_custom = $media_title_transform = $media_title_dimension = $media_title_family = $media_title_weight = $media_title_height = $media_title_space = $media_subtitle_custom = $media_icon = $media_elements_click = $lbox_skin = $lbox_transparency = $lbox_dir = $lbox_title = $lbox_caption = $lbox_social = $lbox_deep = $lbox_deep_id = $lbox_no_tmb = $lbox_no_arrows = $lbox_gallery_arrows = $lbox_gallery_arrows_bg = $lbox_zoom_origin = $lbox_connected = $lbox_actual_size = $lbox_full = $lbox_download = $lbox_counter = $lbox_transition = $link = $alignment = $el_id = $el_class = $css_animation = $animation_delay = $animation_speed = $skew = $rotating = $shape = $radius = $caption = $border = $shadow = $shadow_weight = $shadow_darker = $output = $single_width = $single_height = $single_fixed = $style_preset = $css = $div_data = $lightbox_classes = $dummy_oembed = $carousel_textual = $media_code = $text_lead = $dynamic = $dynamic_source = $custom_cursor = $advanced_videos = $play_hover = $play_pause = $mobile_videos = $lb_video_advanced = $lb_autoplay = $lb_muted = $heading_custom_size = $media_image_scroll = $media_image_scroll_val = $animation_easing = $media_mask_direction = $bg_delay = $no_lazy = '';
 
 extract(shortcode_atts(array(
 	'uncode_shortcode_id' => '',
@@ -129,6 +129,7 @@ extract(shortcode_atts(array(
 	'desktop_visibility' => '',
 	'medium_visibility' => '',
 	'mobile_visibility' => '',
+	'no_lazy' => ''
 ) , $atts));
 
 if ( $el_id !== '' ) {
@@ -163,6 +164,11 @@ $stylesArray = array(
 );
 
 global $lightbox_id, $previous_blend;
+
+$lazy = uncode_dynamic_srcset_lazy_loading_enabled();
+if ( $no_lazy === 'yes' && $lazy === true ) {
+	add_filter( 'uncode_dynamic_srcset_lazy_loading_enabled', '__return_false' );
+}
 
 if ($desktop_visibility === 'yes') {
 	$resp_classes[] = 'desktop-hidden';
@@ -642,6 +648,7 @@ if ($advanced === 'yes') {
 		$lightbox_classes = array();
 		if (!isset($media_link['url']) || $media_link['url'] === '') {
 			$block_data['link_class'] = 'inactive-link';
+			$block_data['no_href'] = true;
 			$block_data['link'] = '#';
 		} else {
 			if ($media_link !== '') {
@@ -764,3 +771,6 @@ $output .= uncode_print_dynamic_inline_style( $inline_style_css );
 $output.= '</div>';
 
 echo uncode_remove_p_tag($output);
+if ( $no_lazy === 'yes' && $lazy === true ) {
+	add_filter( 'uncode_dynamic_srcset_lazy_loading_enabled', '__return_true' );
+}

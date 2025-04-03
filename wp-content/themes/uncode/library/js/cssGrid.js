@@ -154,7 +154,12 @@
 
 				if (SiteParameters.index_pagination_disable_scroll !== '1') {
 					var container = $(this).closest('.cssgrid-system'),
-					calc_scroll = SiteParameters.index_pagination_scroll_to != false ? eval(SiteParameters.index_pagination_scroll_to) : container.closest('.row-parent').offset().top;
+						pagination_disable_scroll = container.attr('data-pagination-scroll'),
+						calc_scroll = SiteParameters.index_pagination_scroll_to != false ? eval(SiteParameters.index_pagination_scroll_to) : container.closest('.row-parent').offset().top;
+
+					if ( pagination_disable_scroll === 'disabled' ) {
+						return;
+					}
 
 					calc_scroll -= UNCODE.get_scroll_offset();
 
@@ -338,7 +343,7 @@
 
 			UNCODE.lastURL = window.location.href;
 
-			if (UNCODE.hasEqualURLParams(params, old_params) || ($.isEmptyObject(params) && $.isEmptyObject(old_params))) {
+			if (UNCODE.hasEqualURLParams(params, old_params) || ($.isEmptyObject(params) && $.isEmptyObject(old_params)) || params.form !== undefined) {
 				return;
 			}
 

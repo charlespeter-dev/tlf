@@ -12,7 +12,7 @@
  *
  * @see 	    https://docs.woocommerce.com/document/template-structure/
  * @package 	WooCommerce/Templates
- * @version     9.0.0
+ * @version     9.7.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -192,7 +192,7 @@ $wrapper_classes = apply_filters( 'woocommerce_single_product_image_gallery_clas
 			if ( $_uncode_thumb_layout == 'grid' ) {
 				$html = '<div class="woocommerce-product-gallery__image-wrap">';
 			}
-			$html .= '<div class="woocommerce-product-gallery__image woocommerce-product-gallery__image-first' . $_uncode_product_thumb_margin . $th_animation . '"' . $th_delay . $th_speed . '><span class="zoom-overlay"></span><a href="' . esc_url( $image_link ) . '" itemprop="image" class="woocommerce-main-image' . $lb_disabled . '" data-transparency="transparent" data-counter="on" data-caption="' . get_post_field( 'post_excerpt', $post_thumbnail_id ) . '" data-options="thumbnail: \''.$small_image_resized['url'].'\'"' . $data_lbox . '>';
+			$html .= '<div class="woocommerce-product-gallery__image woocommerce-product-gallery__image-first' . $_uncode_product_thumb_margin . $th_animation . '"' . $th_delay . $th_speed . '><span class="zoom-overlay"></span><a  role="button" href="' . esc_url( $image_link ) . '" itemprop="image" class="woocommerce-main-image' . $lb_disabled . '" data-transparency="transparent" data-counter="on" data-caption="' . get_post_field( 'post_excerpt', $post_thumbnail_id ) . '" data-options="thumbnail: \''.$small_image_resized['url'].'\'"' . $data_lbox . '>';
 			$html .= get_the_post_thumbnail( $product_id, 'full', $attributes );
 			$html .= '</a></div>';
 			if ( $_uncode_thumb_layout == 'grid' ) {
@@ -357,13 +357,13 @@ $product_gallery_data      = function_exists( 'wc_esc_json' ) ? wc_esc_json( $pr
 				global $gallery_id;
 				$gallery_id = uncode_big_rand();
 
-				$html = '<li class="woocommerce-product-gallery__thumb woocommerce-product-gallery__first-thumb">';
+				$html = '<li class="woocommerce-product-gallery__thumb woocommerce-product-gallery__first-thumb" role="button" tab-index="0">';
 				$html .= wp_get_attachment_image( $post_thumbnail_id, $attach_size, false, $attributes );
 				$html .= '</li>';
 
 			} else {
 
-				$html  = '<li class="woocommerce-product-gallery__thumb">';
+				$html  = '<li class="woocommerce-product-gallery__thumb" role="button" tab-index="0">';
 				$html .= sprintf( '<img src="%s" alt="%s">', esc_url( wc_placeholder_img_src() ), esc_html__( 'Awaiting product image', 'woocommerce' ) );
 				$html .= '</li>';
 

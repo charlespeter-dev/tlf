@@ -638,7 +638,7 @@ get_header() ?>
         </section>
     <?php endif ?>
 
-    <?php if (isset($subpages) && $subpages): ?>
+    <?php if (isset($subpages['subpage_groups']) && $subpages['subpage_groups']): ?>
         <section class="subpages">
             <div class="row-container">
                 <div class="single-h-padding limit-width position-relative">

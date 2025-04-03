@@ -16,7 +16,6 @@
   background-image: none;
   border-style: solid;
   border-radius: 2px;
-  outline: none;
   -webkit-text-stroke: 0px;
   transition: color 200ms ease-in-out, background-color 200ms ease-in-out, border-color 200ms ease-in-out;
   -moz-user-select: none;
@@ -32,6 +31,9 @@
   .menu-accordion .wc-backward {
     transform: none;
   }
+}
+body:not(.uncode-accessible) .wc-backward {
+  outline: 0;
 }
 .wc-stripe-error .wc-backward,
 .wc-notice .wc-backward {

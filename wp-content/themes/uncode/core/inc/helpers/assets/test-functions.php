@@ -845,6 +845,17 @@ function uncode_get_page_assets() {
 	}
 
 	// Collapse
+	if ( uncode_is_accessible() ) {
+		$assets['uncode-accessibility'] = array(
+			'handle'    => 'uncode-accessibility',
+			'path'      => get_template_directory_uri() . '/library/js/accessibility' . $suffix . '.js',
+			'deps'      => array( 'jquery' ),
+			'type'      => 'js',
+			'in_footer' => true,
+		);
+	}
+
+	// Collapse
 	if ( uncode_page_require_asset_collapse( $content_array ) ) {
 		$assets['collapse'] = array(
 			'handle'    => 'collapse',

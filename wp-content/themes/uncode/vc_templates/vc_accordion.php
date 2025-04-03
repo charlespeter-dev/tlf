@@ -1,5 +1,5 @@
 <?php
-$output = $title = $interval = $history = $target = $el_id = $el_class = $collapsible = $active_tab = $history = $sign = $history_tab = $typography = $titles_font = $titles_size = $titles_weight = $titles_transform = $titles_height = $titles_space = $active_bg_color = $active_bg_color_type = $active_bg_color_solid = $active_bg_color_gradient = $active_txt_color = $active_txt_color_type = $active_txt_color_solid = $active_txt_color_gradient = $radius = $shadow = $shadow_darker = $panel_event = $gutter_simple = $content_border = $title_padding = $no_lazy = $no_toggle = '';
+$output = $title = $interval = $history = $target = $el_id = $el_class = $collapsible = $active_tab = $history = $sign = $history_tab = $typography = $heading_semantic = $titles_font = $titles_size = $titles_weight = $titles_transform = $titles_height = $titles_space = $active_bg_color = $active_bg_color_type = $active_bg_color_solid = $active_bg_color_gradient = $active_txt_color = $active_txt_color_type = $active_txt_color_solid = $active_txt_color_gradient = $radius = $shadow = $shadow_darker = $panel_event = $gutter_simple = $content_border = $title_padding = $no_lazy = $no_toggle = '';
 
 global $history_tab;
 
@@ -24,6 +24,7 @@ extract(shortcode_atts(array(
 	'label_border' => '',
 	'content_border' => '',
 	'title_padding' => '',
+	'heading_semantic' => 'p',
 	'titles_font' => '',
 	'titles_size' => '',
 	'heading_custom_size' => '',
@@ -56,6 +57,7 @@ $history_tab = $history;
 global $tab_titles_typography;
 $tab_titles_typography = array(
 	'uncode_shortcode_id' => $uncode_shortcode_id,
+	'titles_tag' => $heading_semantic,
 	'titles_font' => $titles_font,
 	'titles_size' => $titles_size,
 	'heading_custom_size' => $heading_custom_size,

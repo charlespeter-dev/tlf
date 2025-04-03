@@ -106,7 +106,7 @@ if ( $show_downloads ) { // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Pr
 			<?php if ( $order->get_customer_note() ) : ?>
 				<tr>
 					<th><?php _e( 'Note:', 'woocommerce' ); ?></th>
-					<td><?php echo wp_kses( nl2br( wptexturize( $order->get_customer_note() ) ), array() ); ?></td>
+					<td><?php echo wp_kses( nl2br( wptexturize( $order->get_customer_note() ) ), array( 'br' => array() ) ); ?></td>
 				</tr>
 			<?php endif; ?>
 		</tfoot>

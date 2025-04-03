@@ -3,7 +3,7 @@
  * Display single product reviews (comments)
  *
  * @package 	WooCommerce/Templates
- * @version	 9.6.0
+ * @version	 9.7.0
  */
 global $product, $wp_query;
 $old_query = $wp_query;
@@ -128,7 +128,7 @@ if ( $post_type === 'uncodeblock' ) { //It removes nonce check on Product Builde
 					}
 
 					if ( get_option( 'woocommerce_enable_review_rating' ) === 'yes' ) {
-						$comment_form['comment_field'] = '<p class="comment-form-rating"><label for="rating" class="hidden">' . esc_html__( 'Your rating', 'woocommerce' ) . ( wc_review_ratings_required() ? '&nbsp;<span class="required">*</span>' : '' ) . '</label><select name="rating" id="rating">
+						$comment_form['comment_field'] = '<p class="comment-form-rating"><label for="rating" class="hidden" id="comment-form-rating-label">' . esc_html__( 'Your rating', 'woocommerce' ) . ( wc_review_ratings_required() ? '&nbsp;<span class="required">*</span>' : '' ) . '</label><select name="rating" id="rating">
 							<option value="">' . esc_html__( 'Rate&hellip;', 'woocommerce' ) . '</option>
 							<option value="5">' . esc_html__( 'Perfect', 'woocommerce' ) . '</option>
 							<option value="4">' . esc_html__( 'Good', 'woocommerce' ) . '</option>

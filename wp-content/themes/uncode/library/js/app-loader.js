@@ -11,6 +11,9 @@
 		UNCODE.betterResize();
 		UNCODE.utils();
 		UNCODE.magnetic();
+		if (typeof UNCODE.accessibility !== 'undefined') {
+			UNCODE.accessibility();
+		}
 		if (typeof UNCODE.rowParallax !== 'undefined') {
 			UNCODE.rowParallax();
 		}

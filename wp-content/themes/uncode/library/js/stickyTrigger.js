@@ -59,7 +59,7 @@
 
             if ( carousel_position === 2 || grid_position === 2 ) {
                 setTimeout(function(){
-                    ScrollTrigger.refresh();
+                    $(document).trigger('uncode-scrolltrigger-refresh');
                 }, 500);
             }
 
@@ -76,7 +76,7 @@
         }
         setResizeSticky = requestTimeout( function(){
             stickyTrigger();
-            ScrollTrigger.refresh();
+            $(document).trigger('uncode-scrolltrigger-refresh');
         }, 1000 );
     });
 

@@ -2,6 +2,9 @@
 	"use strict";
 
 	UNCODE.areaTextReveal = function() {
+    if ( ! $('.text-reveal, .scroll-trigger-el').length ) {
+        return;
+    }
 	if ( ! SiteParameters.is_frontend_editor ) {
         var iPhone = /iPhone/.test(navigator.userAgent) && !window.MSStream,
             android = /Android/.test(navigator.userAgent) && !window.MSStream,
@@ -781,11 +784,13 @@
                     var __width = Math.max( document.body.scrollWidth, document.body.offsetWidth, document.documentElement.clientWidth, document.documentElement.scrollWidth, document.documentElement.offsetWidth );
                     $('.pin-spacer, [data-sticky]', $scrollTrgrEl).css({height: false, maxHeight: false});
                     //$('.tmb, .row-inner[style*=height]', $scrollTrgrEl).removeAttr('style');
-                    $('.tmb', $scrollTrgrEl).removeAttr('style');
+                    if ( stickyCards ) {
+                        $('.tmb', $scrollTrgrEl).removeAttr('style');
+                    }
                     var scrollnow = document.body.scrollTop || document.documentElement.scrollTop;
                     clearRequestTimeout(setTxtReveal);
                     setTxtReveal = requestTimeout( function(){
-                        ScrollTrigger.refresh();
+                        $(document).trigger('uncode-scrolltrigger-refresh');
                         if ( isMobileUsing ) {
                             if ( typeof tl !== 'undefined' ) {
                                 tl.scrollTrigger.refresh();
@@ -835,8 +840,10 @@
                         }
                         _height = ___height;
                     }
+
                     
-                    ScrollTrigger.refresh();
+                    
+                    $(document).trigger('uncode-scrolltrigger-refresh');
 
                 });
 

@@ -23,7 +23,6 @@
   margin: 0;
   padding: 0;
   border: 0;
-  outline: 0;
   font-size: 100%;
   line-height: 100%;
   vertical-align: baseline;
@@ -34,6 +33,22 @@
   -khtml-user-select: none;
   -o-user-select: none;
   user-select: none;
+}
+body:not(.uncode-accessible) .ilightbox-overlay,
+body:not(.uncode-accessible) .ilightbox-loader,
+body:not(.uncode-accessible) .ilightbox-loader *,
+body:not(.uncode-accessible) .ilightbox-holder,
+body:not(.uncode-accessible) .ilightbox-holder .ilightbox-container,
+body:not(.uncode-accessible) .ilightbox-holder .ilightbox-container img.ilightbox-image,
+body:not(.uncode-accessible) .ilightbox-holder .ilightbox-container iframe,
+body:not(.uncode-accessible) .ilightbox-holder .ilightbox-container .ilightbox-caption,
+body:not(.uncode-accessible) .ilightbox-toolbar,
+body:not(.uncode-accessible) .ilightbox-toolbar *,
+body:not(.uncode-accessible) .ilightbox-thumbnails,
+body:not(.uncode-accessible) .ilightbox-thumbnails *,
+body:not(.uncode-accessible) .ilightbox-holder .ilightbox-container .ilightbox-social,
+body:not(.uncode-accessible) .ilightbox-holder .ilightbox-container .ilightbox-social * {
+  outline: 0;
 }
 .ilightbox-closedhand * {
   cursor: url('../img/ilightbox/css/closedhand.cur'), default !important;

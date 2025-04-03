@@ -67,7 +67,7 @@ $div_data_attributes = array_map(function ($v, $k) { return $k . '="' . $v . '"'
 if ( $wc_breadcrumbs === 'yes' && function_exists('woocommerce_breadcrumb') ) {
 	$bc_args = array(
 		'delimiter'   => false,
-		'wrap_before' => '<div class="' . esc_attr(trim(implode( ' ', $classes ))) . '" '.implode(' ', $div_data_attributes). $el_id . '><ol class="breadcrumb breadcrumb-module">',
+		'wrap_before' => '<div class="' . esc_attr(trim(implode( ' ', $classes ))) . '" '.implode(' ', $div_data_attributes). $el_id . '><ol class="breadcrumb breadcrumb-module" role="navigation" aria-label="' . esc_html__('Breadcrumbs', 'uncode') . '">',
 		'wrap_after'  => '</ol></div>',
 		'before'      => '<li>',
 		'after'       => '</li>',

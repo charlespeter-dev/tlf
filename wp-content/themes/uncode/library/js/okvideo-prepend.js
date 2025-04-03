@@ -310,5 +310,8 @@
 
 };
 
+$(document).on('uncode-ajax-filtered.videos', function(){
+	UNCODE.okvideo("uncode-more-items-loaded");
+});
 
 })(jQuery);

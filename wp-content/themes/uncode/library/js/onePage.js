@@ -64,7 +64,7 @@
 				if (label != '') {
 					isOnePage = true;
 					label = '<span class="cd-label style-accent-bg border-accent-color">' + label + '</span>';
-					$('ul.onepage-pagination').append("<li><a class='one-dot-link' data-index='" + (index) + "' href='#" + (getName) + "'><span class='cd-dot-cont'><span class='cd-dot'></span></span>"+label+"</a></li>");
+					$('ul.onepage-pagination').append("<li><a class='one-dot-link' aria-label='" + label + "' data-index='" + (index) + "' href='#" + (getName) + "'><span class='cd-dot-cont'><span class='cd-dot'></span></span>"+label+"</a></li>");
 				}
 			}
 		});
@@ -74,7 +74,7 @@
 				var $this = $(val),
 					$a = ('a', $this);
 				$a.on('click', function(evt) {
-					if ( $('.is-selected', $this).length ) {
+					if ( $('.is-selected', $this).length || UNCODE.scrolling ) {
 						return false;
 					}
 					if ( $('body').hasClass('uncode-scroll-no-history') ) {

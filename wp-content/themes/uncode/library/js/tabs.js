@@ -12,7 +12,7 @@
 				vertical = $navs.closest('.vertical-tab-menu').length;
 			
 			if ( ! $('.switcher-cursor', $navs).length && ! vertical ) {
-				$navs.append('<span class="switcher-cursor" />');
+				$navs.append('<span class="switcher-cursor" aria-hidden="true" tabindex="-1" />');
 			}
 
 			var $cursor = $('.switcher-cursor', $navs),

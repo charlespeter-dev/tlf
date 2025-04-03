@@ -12,7 +12,7 @@
  *
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce/Templates
- * @version 7.0.1
+ * @version 9.7.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -27,7 +27,7 @@ $form_button_classes = implode( ' ', $form_classes[ 'button' ] );
 
 <h2 class="<?php echo esc_attr( $form_title_classes ); ?>"><?php esc_html_e( 'Login', 'woocommerce' ); ?></h2>
 
-<form class="woocommerce-form woocommerce-form-login login" method="post">
+<form class="woocommerce-form woocommerce-form-login login" method="post" novalidate>
 
 	<?php do_action( 'woocommerce_login_form_start' ); ?>
 

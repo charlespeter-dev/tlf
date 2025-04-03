@@ -400,7 +400,6 @@
 
 			$plus.on('click', function () {
 				if (UncodeWCParameters.activate_input_check_on_click) {
-					console.log('click');
 					step = parseFloat( $input.attr('step') );
 					min = parseFloat( $input.attr('min') );
 					max = parseFloat( $input.attr('max') );
@@ -454,6 +453,7 @@
 			mainL = $main.find('.woocommerce-product-gallery__image').length,
 			$thumbs = $('.woocommerce-product-gallery__wrapper-nav:not(.lateral-nav)', $parent),
 			$thumbs_nav = $('.woocommerce-product-gallery__wrapper-nav', $parent),
+			$navTh = $('.woocommerce-product-gallery__thumb', $thumbs_nav).attr('role', 'button').attr('tabindex', 0),
 			thumbsL = $thumbs.find('li').length;
 
 		if ($.fn.owlCarousel) {
@@ -514,6 +514,13 @@
 							$thumbs.owlCarousel( 'to', 0, 300, true );
 						}
 					}
+
+					$('.owl-dot', $main).each(function(key, val){
+						$(val).attr('aria-label', SiteParameters.uncode_slide_label + ' ' + (key+1));
+					});
+					$('.owl-dot', $thumbs).each(function(key, val){
+						$(val).attr('aria-label', SiteParameters.uncode_slide_label + ' ' + (key+1));
+					});
 				});
 			}
 		}

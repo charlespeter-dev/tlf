@@ -150,7 +150,7 @@ if ( $attachment_ids ) {
 
 		if ( isset( $slider_nav ) && $slider_nav === true ) {
 
-			$html  = '<li class="' . esc_attr( $image_class ) . ' woocommerce-product-gallery__thumb">';
+			$html  = '<li class="' . esc_attr( $image_class ) . ' woocommerce-product-gallery__thumb" role="button" tab-index="' . ($at_key + 1) . '">';
 			$html .= wp_get_attachment_image( $attachment_id, $attach_size, false, $thumb_carousel_atts );
 	 		$html .= '</li>';
 
@@ -181,7 +181,7 @@ if ( $attachment_ids ) {
 			if ( $_uncode_thumb_layout == 'grid' ) {
 				$html = '<div class="woocommerce-product-gallery__image-wrap">';
 			}
-			$html .= '<div class="woocommerce-product-gallery__image' . $_uncode_product_thumb_margin . $th_animation . '"' . $th_delay . $th_speed . '"><span class="zoom-overlay"></span><a href="' . esc_url( $image_link ) . '" class="' . esc_attr( $image_class ) . '" data-options="thumbnail: \''.$small_image_resized['url'].'\'"' . $data_lbox . ' data-caption="' . get_post_field( 'post_excerpt', $attachment_id ) . '">';
+			$html .= '<div class="woocommerce-product-gallery__image' . $_uncode_product_thumb_margin . $th_animation . '"' . $th_delay . $th_speed . '"><span class="zoom-overlay"></span><a role="button" href="' . esc_url( $image_link ) . '" class="' . esc_attr( $image_class ) . '" data-options="thumbnail: \''.$small_image_resized['url'].'\'"' . $data_lbox . ' data-caption="' . get_post_field( 'post_excerpt', $attachment_id ) . '">';
 			$html .= wp_get_attachment_image( $attachment_id, 'full', false, $attributes );
 	 		$html .= '</a></div>';
 			if ( $_uncode_thumb_layout == 'grid' ) {

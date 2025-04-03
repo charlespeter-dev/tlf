@@ -115,9 +115,9 @@
 
 		if (label != '' ) {
 			label = '<span class="cd-label style-accent-bg border-accent-color">' + label + '</span>';
-			$('ul.onepage-pagination').append("<li><a class='one-dot-link' data-index='" + (index) + "' href='#" + (getName) + "'><span class='cd-dot-cont'><span class='cd-dot'></span></span>"+label+"</a></li>");
+			$('ul.onepage-pagination').append("<li><a class='one-dot-link' aria-label='" + label + "' data-index='" + (index) + "' href='#" + (getName) + "'><span class='cd-dot-cont'><span class='cd-dot'></span></span>"+label+"</a></li>");
 		} else if ( label == '' && $('body').hasClass('uncode-empty-dots') ) {
-			$('ul.onepage-pagination').append("<li><a class='one-dot-link' data-index='" + (index) + "' href='#" + (getName) + "'><span class='cd-dot-cont'><span class='cd-dot'></span></span></a></li>");
+			$('ul.onepage-pagination').append("<li><a class='one-dot-link' aria-label='" + SiteParameters.uncode_one_dot_label + " " + index + "' data-index='" + (index) + "' href='#" + (getName) + "'><span class='cd-dot-cont'><span class='cd-dot'></span></span></a></li>");
 		}
 	});
 
@@ -391,7 +391,7 @@
 
 	var anchorLink = function(){
 
-		$container.add('.menu-item').find('a[href*="#"]').click(function(e) {
+		$container.add('.menu-item').find('a[href*="#"]').on('click', function(e) {
 			var $this = $(e.currentTarget),
 				hash = e.currentTarget.href.split('#'),
 				current = window.location.href.split('#'),

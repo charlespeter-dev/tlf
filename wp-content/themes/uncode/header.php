@@ -128,6 +128,10 @@ if (is_admin_bar_showing()) {
 
 ?>
 <body <?php body_class($background_color_css); echo wp_kses_post( $body_attr ); ?>>
+
+	<?php if ( uncode_is_accessible() && !(function_exists('vc_is_page_editable') && vc_is_page_editable()) ) { ?>
+	<a href="<?php echo esc_attr( apply_filters( 'uncode_screen_reader_skip_section', '#sections-container' ) ); ?>" class="screen-reader-shortcut btn btn-hover-nobg btn-accent btn-shadow btn-shadow-lg"><?php esc_html_e( 'Skip to main content', 'uncode' ); ?></a>
+	<?php } ?>
 	<?php echo uncode_remove_p_tag( $background_div ) ; ?>
 	<?php do_action( 'before' );
 
@@ -178,4 +182,4 @@ if (is_admin_bar_showing()) {
 			<div class="main-wrapper">
 				<div class="main-container<?php echo esc_attr( $page_skew_class ); ?>">
 					<div class="page-wrapper<?php if ($onepage) { echo ' main-onepage'; } ?>">
-						<div class="sections-container">
+						<div class="sections-container" id="sections-container">

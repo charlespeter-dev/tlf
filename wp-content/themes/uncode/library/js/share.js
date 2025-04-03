@@ -20,6 +20,13 @@
 		}
 
 		var share_button_top = new Share('.share-button', share_button_config);
+
+		$('li[data-network]', share_button_element).each(function(){
+			var label = SiteParameters.uncode_share_label,
+				network = $(this).attr('data-network');
+			label = label.replace("%", network);
+			$(this).attr('aria-label', label);
+		});
 	}
 };
 

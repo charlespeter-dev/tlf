@@ -122,6 +122,21 @@
     line-height: 2.1875rem;
   }
 }
+.bootstrap-container.industry.single li {
+  text-align: left;
+}
+.bootstrap-container.industry.single li.tick {
+  list-style-image: url("https://thelogicfactory.com/wp-content/uploads/2023/09/Icon-Tick.svg");
+  margin-bottom: 0.1em;
+}
+.bootstrap-container.industry.single li.tick span {
+  vertical-align: 0.3em;
+  transform: translate(-0.1em, 0.2em);
+}
+.bootstrap-container.industry.single ul > li {
+  text-align: left;
+  list-style-type: disc;
+}
 .bootstrap-container.industry.single .featured-testimonials {
   text-align: center;
   position: relative;
@@ -255,6 +270,11 @@
 }
 .bootstrap-container.industry.single .tabbed .sub-heading {
   text-align: center;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.industry.single .tabbed .sub-heading ul {
+    padding-left: 4rem;
+  }
 }
 .bootstrap-container.industry.single .callout .sub-heading {
   text-align: center;

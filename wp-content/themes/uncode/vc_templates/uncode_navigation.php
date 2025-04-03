@@ -383,7 +383,7 @@ if ( ! $current_post_type ) {
 						<?php if ( $prev_post_obj || $skip_prev ) : ?>
 							<li class="uncode-custom-navigation__item uncode-custom-navigation__item--prev">
 								<?php if ( ! $skip_prev ) : ?>
-									<a href="<?php echo esc_url( $prev_post_obj->link ); ?>" class="uncode-custom-navigation__link uncode-custom-navigation__link--prev btn-text-skin">
+									<a href="<?php echo esc_url( $prev_post_obj->link ); ?>" aria-label="<?php echo esc_html( $previous_label ); ?>" class="uncode-custom-navigation__link uncode-custom-navigation__link--prev btn-text-skin">
 										<?php if ( $prev_icon ) : ?>
 											<i class="uncode-custom-navigation__icon uncode-custom-navigation__icon--prev <?php echo esc_attr( trim( implode( ' ', $icon_classes ) ) ); ?> <?php echo esc_attr( $prev_icon ); ?>"></i>
 										<?php endif; ?>
@@ -419,7 +419,7 @@ if ( ! $current_post_type ) {
 
 					<?php if ( $show_nav_index ) : ?>
 						<li class="uncode-custom-navigation__item uncode-custom-navigation__item--parent <?php echo esc_attr( trim( implode( ' ', $parent_responsive_classes ) ) ); ?>">
-							<a href="<?php echo esc_url( $navigation_index_link ); ?>" class="uncode-custom-navigation__link uncode-custom-navigation__link--parent btn-text-skin">
+							<a href="<?php echo esc_url( $navigation_index_link ); ?>" aria-label="<?php echo esc_html( $parent_label ); ?>" class="uncode-custom-navigation__link uncode-custom-navigation__link--parent btn-text-skin">
 								<?php if ( $parent_type === 'icon' && $parent_icon ) : ?>
 									<i class="uncode-custom-navigation__title uncode-custom-navigation__title--parent uncode-custom-navigation__title--parent-icon <?php echo esc_attr( $parent_icon_size ); ?> <?php echo esc_attr( $parent_icon ); ?>"></i>
 								<?php else : ?>
@@ -457,7 +457,7 @@ if ( ! $current_post_type ) {
 						<?php if ( $next_post_obj || $skip_next ) : ?>
 							<li class="uncode-custom-navigation__item uncode-custom-navigation__item--next">
 								<?php if ( ! $skip_next ) : ?>
-									<a href="<?php echo esc_url( $next_post_obj->link ); ?>" class="uncode-custom-navigation__link uncode-custom-navigation__link--next btn-text-skin">
+									<a href="<?php echo esc_url( $next_post_obj->link ); ?>" aria-label="<?php echo esc_html( $next_label ); ?>" class="uncode-custom-navigation__link uncode-custom-navigation__link--next btn-text-skin">
 										<?php if ( $hide_label !== 'yes' || $hide_title !== 'yes' ) : ?>
 											<div class="uncode-custom-navigation__text uncode-custom-navigation__text--next">
 												<?php if ( $label_position !== 'after' && $hide_label !== 'yes' ) : ?>

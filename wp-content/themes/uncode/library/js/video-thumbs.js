@@ -164,6 +164,9 @@
 	$(window).off('more-items-loaded.videos', checkForVideos)
 	.on('more-items-loaded.videos', checkForVideos);
 
+	$(document).off('uncode-ajax-filtered.videos', checkForVideos)
+	.on('uncode-ajax-filtered.videos', checkForVideos);
+
 };
 
 })(jQuery);

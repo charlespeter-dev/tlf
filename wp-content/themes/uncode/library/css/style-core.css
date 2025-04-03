@@ -81,8 +81,8 @@ template {
 a {
   background: transparent;
 }
-a:active,
-a:hover {
+body:not(.uncode-accessible) a:active,
+body:not(.uncode-accessible) a:hover {
   outline: 0;
 }
 abbr[title] {
@@ -376,21 +376,25 @@ textarea {
   line-height: inherit;
 }
 a {
-  outline: 0;
   border: 0;
   text-decoration: none;
+}
+body:not(.uncode-accessible) a {
+  outline: 0;
 }
 a:hover,
 a:focus,
 a.active {
   text-decoration: none;
 }
-*:focus {
-  outline: none;
+body:not(.uncode-accessible) *:focus {
+  outline: 0;
 }
 button {
-  outline: 0;
   border: 0;
+}
+body:not(.uncode-accessible) button {
+  outline: 0;
 }
 figure {
   margin: 0;
@@ -1795,6 +1799,13 @@ html.android4 .page-wrapper .row.row-parent {
 }
 .row .limit-width-inner {
   margin: auto !important;
+}
+@media (max-width: 959px) {
+  .main-container .mobile-flex-bottom .row-inner {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
 }
 .parallax-move {
   overflow: hidden;
@@ -4854,7 +4865,6 @@ body.customer-area-active .cuar-css-wrapper .row {
   background-image: none;
   border-style: solid;
   border-radius: 2px;
-  outline: none;
   white-space: pre-wrap;
   -webkit-text-stroke: 0px;
   transition: color 200ms ease-in-out, background-color 200ms ease-in-out, border-color 200ms ease-in-out;
@@ -4874,6 +4884,10 @@ body.customer-area-active .cuar-css-wrapper .row {
   .menu-accordion .btn-link:not(input):not(.checkout-button):not(.btn-no-scale) {
     transform: none;
   }
+}
+body:not(.uncode-accessible) .btn,
+body:not(.uncode-accessible) .btn-link {
+  outline: 0;
 }
 .btn.btn-top-margin,
 .btn-link.btn-top-margin {
@@ -5885,6 +5899,18 @@ html:not(.video-not-supported):not(.edge):not(.ie) .for-ie {
 }
 .rotate-minus-beta {
   transform: rotate(-3deg);
+}
+.uncode-accessible .screen-reader-shortcut {
+  position: absolute;
+  top: -1000em;
+  left: 6px;
+  height: auto !important;
+  display: block;
+  z-index: 100000;
+  outline: 0 !important;
+}
+.uncode-accessible .screen-reader-shortcut:focus {
+  top: 15px;
 }
 /*
 ----------------------------------------------------------

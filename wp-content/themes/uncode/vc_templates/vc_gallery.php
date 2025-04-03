@@ -967,7 +967,7 @@ if ( $lb_video_advanced === 'yes' ) {
 								<a href="#" class="menu-smart--filter-cats_mobile-toggle-trigger mobile-toggle-trigger no-isotope-filter no-grid-filter menu-smart-toggle"><?php echo esc_html( $filter_mobile_dropdown_text !== '' ? esc_html( $filter_mobile_dropdown_text ) : $filter_all_text ); ?></a>
 							</div>
 						<?php } ?>
-						<ul class="menu-smart sm<?php echo esc_attr( ($filtering_uppercase === 'yes') ? ' text-uppercase' : ' no-text-uppercase' ); ?> menu-smart--filter-cats <?php echo esc_attr( $filter_mobile_dropdown === 'yes' ? 'menu-smart--filter-cats-mobile-dropdown ul-mobile-dropdown' : '' ); ?>">
+						<ul role="menu" class="menu-smart sm<?php echo esc_attr( ($filtering_uppercase === 'yes') ? ' text-uppercase' : ' no-text-uppercase' ); ?> menu-smart--filter-cats <?php echo esc_attr( $filter_mobile_dropdown === 'yes' ? 'menu-smart--filter-cats-mobile-dropdown ul-mobile-dropdown' : '' ); ?>">
 							<?php
 								$show_all_class = 'filter-show-all';
 								if ($filter_all_opposite === 'yes') {
@@ -978,7 +978,7 @@ if ( $lb_video_advanced === 'yes' ) {
 										$show_all_class = ' float-left';
 									}
 								} ?>
-							<li class="<?php echo esc_attr($show_all_class); ?>">
+							<li role="menuitem" class="<?php echo esc_attr($show_all_class); ?>">
 								<span>
 									<a href="#" data-filter="*" class="active<?php if ($filtering_uppercase !== 'yes') echo ' no-letterspace'; ?> isotope-nav-link grid-nav-link"><?php
 										echo esc_html( $filter_all_text === '' ? __('Show all' , 'uncode') : $filter_all_text );
@@ -988,7 +988,7 @@ if ( $lb_video_advanced === 'yes' ) {
 							</li>
 							<?php
 							foreach ( $categories as $key => $cat ): ?>
-								<li class="filter-cat-<?php echo esc_attr($key); ?> filter-cat"><span><a href="#" data-filter="grid-cat-<?php echo esc_attr($key); ?>" class="<?php if (isset($_GET['ucat']) && $_GET['ucat'] == $key) { echo 'active'; if ($filtering_uppercase !== 'yes') echo ' no-letterspace'; } ?> isotope-nav-link grid-nav-link"><?php echo esc_attr( key($cat) ) ?></a></span></li>
+								<li role="menuitem" class="filter-cat-<?php echo esc_attr($key); ?> filter-cat"><span><a href="#" data-filter="grid-cat-<?php echo esc_attr($key); ?>" class="<?php if (isset($_GET['ucat']) && $_GET['ucat'] == $key) { echo 'active'; if ($filtering_uppercase !== 'yes') echo ' no-letterspace'; } ?> isotope-nav-link grid-nav-link"><?php echo esc_attr( key($cat) ) ?></a></span></li>
 							<?php endforeach; ?>
 						</ul>
 					</div>
@@ -1594,6 +1594,7 @@ if (count($medias) > 0) {
 		}
 		elseif (isset($typeLayout['media'][0]) && $typeLayout['media'][0] === 'nolink') {
 			$block_data['link_class'] = 'inactive-link';
+			$block_data['no_href'] = true;
 			$block_data['link'] = '#';
 		} else {
 			if ($lbox_skin !== '') {

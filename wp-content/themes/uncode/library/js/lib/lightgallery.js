@@ -771,7 +771,7 @@
 					}
 				}
 				var currentItem = $LG(item);
-				var alt = currentItem.find('img').first().attr('alt');
+				var alt = currentItem.find('img').first().attr('alt') || currentItem.attr('data-alt');
 				var title = currentItem.attr('title');
 				//Uncode edit ##START##
 				// var thumb = exThumbImage
@@ -786,7 +786,7 @@
 					dynamicEl.subHtml = title || '';
 				}
 				// dynamicEl.alt = alt || title || '';
-				dynamicEl.alt = title || '';
+				dynamicEl.alt = alt || title;
 				var inlineType = currentItem.attr('data-type');
 				dynamicEl.type = inlineType;
 				//Uncode edit ##END##

@@ -18690,7 +18690,7 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 					}
 				}
 				var currentItem = $LG(item);
-				var alt = currentItem.find('img').first().attr('alt');
+				var alt = currentItem.find('img').first().attr('alt') || currentItem.attr('data-alt');
 				var title = currentItem.attr('title');
 				//Uncode edit ##START##
 				// var thumb = exThumbImage
@@ -18705,7 +18705,7 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 					dynamicEl.subHtml = title || '';
 				}
 				// dynamicEl.alt = alt || title || '';
-				dynamicEl.alt = title || '';
+				dynamicEl.alt = alt || title;
 				var inlineType = currentItem.attr('data-type');
 				dynamicEl.type = inlineType;
 				//Uncode edit ##END##
@@ -22732,7 +22732,9 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 		};
 		Thumbnail.prototype.getThumbHtml = function (thumb, index) {
 			var slideVideoInfo = this.core.galleryItems[index].__slideVideoInfo || {};
-			var thumbImg;
+			var thumbImg,
+				altTh = this.core.galleryItems[index].subHtml,
+				altApp = '';
 			if (slideVideoInfo.youtube) {
 				if (this.settings.loadYouTubeThumbnail) {
 					thumbImg =
@@ -22749,7 +22751,17 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 			else {
 				thumbImg = thumb;
 			}
-			return "<div data-lg-item-id=\"" + index + "\" class=\"lg-thumb-item " + (index === this.core.index ? ' active' : '') + "\" \n        style=\"width:" + this.settings.thumbWidth + "px; height: " + this.settings.thumbHeight + ";\n            margin-right: " + this.settings.thumbMargin + "px;\">\n            <img data-lg-item-id=\"" + index + "\" src=\"" + thumbImg + "\" />\n        </div>";
+
+			if ( altTh ) {
+				altTh = altTh.replace(/<\/?[^>]+(>|$)/g, "");
+				altApp = 'alt=\"' + altTh + ' \" ';
+			}
+
+			if ( thumbImg ) {
+				return "<div data-lg-item-id=\"" + index + "\" class=\"lg-thumb-item " + (index === this.core.index ? ' active' : '') + "\" \n        style=\"width:" + this.settings.thumbWidth + "px; height: " + this.settings.thumbHeight + ";\n            margin-right: " + this.settings.thumbMargin + "px;\">\n            <img data-lg-item-id=\"" + index + "\" " + altApp + "src=\"" + thumbImg + "\" />\n        </div>";
+			} else {
+				return "<div data-lg-item-id=\"" + index + "\" class=\"lg-thumb-item " + (index === this.core.index ? ' active' : '') + "\" \n        style=\"width:" + this.settings.thumbWidth + "px; height: " + this.settings.thumbHeight + ";\n            margin-right: " + this.settings.thumbMargin + "px;\">\n        </div>";
+			}
 		};
 		Thumbnail.prototype.getThumbItemHtml = function (items) {
 			var thumbList = '';
@@ -26181,7 +26193,7 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 		nav: false,
 		navText: [ 'prev', 'next' ],
 		navSpeed: false,
-		navElement: 'div',
+		navElement: 'button type="button" role="presentation"',
 		navContainer: false,
 		navContainerClass: 'owl-nav',
 		navClass: [ 'owl-prev', 'owl-next' ],
@@ -26207,14 +26219,14 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 		this._controls.$relative = (settings.navContainer ? $(settings.navContainer)
 			: $('<div>').addClass(settings.navContainerClass).appendTo(this.$element)).addClass('disabled');
 
-		this._controls.$previous = $('<' + settings.navElement + '>')
+		this._controls.$previous = $('<' + settings.navElement[0] + '>')
 			.addClass(settings.navClass[0])
 			.html(settings.navText[0])
 			.prependTo(this._controls.$relative)
 			.on('click', $.proxy(function(e) {
 				this.prev(settings.navSpeed);
 			}, this));
-		this._controls.$next = $('<' + settings.navElement + '>')
+		this._controls.$next = $('<' + settings.navElement[1] + '>')
 			.addClass(settings.navClass[1])
 			.html(settings.navText[1])
 			.appendTo(this._controls.$relative)
@@ -26224,7 +26236,7 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 
 		// create DOM structure for absolute navigation
 		if (!settings.dotsData) {
-			this._templates = [ $('<div>')
+			this._templates = [ $('<button role="button">')
 				.addClass(settings.dotClass)
 				.append($('<span>'))
 				.prop('outerHTML') ];
@@ -27947,7 +27959,7 @@ Share = (function(_super) {
 
   Share.prototype.inject_html = function(instance) {
     //return instance.innerHTML = "<label class='social-export'><span>" + this.config.ui.button_text + "</span></label><div class='social load " + this.config.ui.flyout + "'><ul><li class='social-facebook' data-network='facebook' tabindex='0'></li><li class='social-twitter' data-network='twitter' tabindex='0'></li><li class='social-gplus' data-network='google_plus' tabindex='0'></li><li class='social-pinterest' data-network='pinterest' tabindex='0'></li><li class='social-linkedin' data-network='linkedin' tabindex='0'></li><li class='social-xing' data-network='xing' tabindex='0'></li><li class='social-paper-plane' data-network='email' tabindex='0'></li></ul></div>";
-    return instance.innerHTML = "<label class='social-export'><span>" + this.config.ui.button_text + "</span></label><div class='social load " + this.config.ui.flyout + "'><ul><li class='social-facebook' data-network='facebook' tabindex='0'></li><li class='social-twitter' data-network='twitter' tabindex='0'></li><li class='social-threads' data-network='threads' tabindex='0'></li><li class='social-pinterest' data-network='pinterest' tabindex='0'></li><li class='social-linkedin' data-network='linkedin' tabindex='0'></li><li class='social-whatsapp' data-network='whatsapp' tabindex='0'></li><li class='social-bluesky' data-network='bluesky' tabindex='0'></li><li class='social-xing' data-network='xing' tabindex='0'></li><li class='social-paper-plane' data-network='email' tabindex='0'></li></ul></div>";
+    return instance.innerHTML = "<label class='social-export'><span>" + this.config.ui.button_text + "</span></label><div class='social load " + this.config.ui.flyout + "'><ul><li class='social-facebook' data-network='facebook' tabindex='0' role='button'></li><li class='social-twitter' data-network='twitter' tabindex='0' role='button'></li><li class='social-threads' data-network='threads' tabindex='0' role='button'></li><li class='social-pinterest' data-network='pinterest' tabindex='0' role='button'></li><li class='social-linkedin' data-network='linkedin' tabindex='0' role='button'></li><li class='social-whatsapp' data-network='whatsapp' tabindex='0' role='button'></li><li class='social-bluesky' data-network='bluesky' tabindex='0' role='button'></li><li class='social-xing' data-network='xing' tabindex='0' role='button'></li><li class='social-paper-plane' data-network='email' tabindex='0' role='button'></li></ul></div>";
   };
 
   Share.prototype.inject_facebook_sdk = function() {
