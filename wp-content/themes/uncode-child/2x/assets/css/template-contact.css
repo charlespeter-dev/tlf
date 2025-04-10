@@ -27,6 +27,22 @@
   .bootstrap-container .hero-carousels {
     background-image: none;
   }
+  .bootstrap-container .hero-carousels .medium-height {
+    height: 400px;
+  }
+  .bootstrap-container .hero-carousels ._2x-hero-content {
+    height: 400px;
+  }
+}
+.bootstrap-container .offices-wrapper .office-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem;
+  min-height: unset;
+}
+.bootstrap-container .offices-wrapper .office-loc {
+  text-wrap: pretty;
 }
 
 /*# sourceMappingURL=template-contact.css.map */

@@ -14,7 +14,8 @@ $options = get_fields('options');
 
 $fields = get_fields($post->ID);
 
-extract($fields);
+if ($fields)
+    extract($fields);
 
 $offices = get_field('offices_list');
 
@@ -80,7 +81,7 @@ get_header() ?>
 
 
 
-    <?php if (isset($offices_list)): ?>
+    <?php if (isset($offices_list) && $offices_list): ?>
         <section class="offices-wrapper py-lg-5 py-4">
             <div class="row-container">
                 <div class="single-h-padding limit-width">
@@ -96,30 +97,48 @@ get_header() ?>
                                 $office_phone = $office['office_phone'];
                                 $office_email = $office['office_email']; ?>
                                 <div class="col">
-                                    <div class="office-card">
+                                    <div class="office-card card h-100">
                                         <figure class="office-img">
                                             <img src="<?= wp_get_attachment_image_url($office_img['id'], '_2x-office-image'); ?>"
                                                 class="img-fluid" alt="<?= $office_img['title'] ?>" loading="lazy">
                                         </figure>
 
-                                        <div class="office-details">
-                                            <p class="office-name">
-                                                <?= $office_name ?>
-                                            </p>
-                                            <p class="office-loc">
-                                                <?= $office_loc ?>
-                                            </p>
-                                            <p class="office-email">
-                                                <a href="mailto:<?= $office_email ?>" class="office-email">
-                                                    <?= $office_email ?>
-                                                </a>
-                                            </p>
-                                            <p class="office-phone">
-                                                <a href="tel:<?= $office_phone ?>" class="office-phone">
-                                                    <?= $office_phone ?>
-                                                </a>
-                                            </p>
+                                        <div class="office-details card-body">
+                                            
+                                            <div>
+                                                <p class="office-name">
+                                                    <?= $office_name ?>
+                                                </p>
+
+                                                <p class="office-loc mb-3">
+                                                    <?= $office_loc ?>
+                                                </p>
+                                            </div>
+
+                                            <div>
+                                                <p class="office-email mb-3">
+                                                    <a href="mailto:<?= $office_email ?>" class="office-email">
+                                                        <?= $office_email ?>
+                                                    </a>
+                                                </p>
+                                                <p class="office-phone">
+                                                    <a href="tel:<?= $office_phone ?>" class="office-phone">
+                                                        <?= $office_phone ?>
+                                                    </a>
+                                                </p>
+
+                                                <?php if (isset($office['support_numbers'][0]) && $office['support_numbers'][0]): ?>
+                                                    <?php foreach ($office['support_numbers'] as $support_number): ?>
+                                                        <p class="office-phone mb-0">
+                                                            <a href="tel:<?= $support_number['phone_number'] ?>" class="office-phone">
+                                                                <?= $support_number['phone_number'] ?>
+                                                            </a>
+                                                        </p>
+                                                    <?php endforeach ?>
+                                                <?php endif ?>
+                                            </div>
                                         </div>
+
                                     </div>
                                 </div>
                             <?php endforeach ?>

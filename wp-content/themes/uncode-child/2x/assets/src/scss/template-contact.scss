@@ -38,8 +38,35 @@
     }
 
     @include media-breakpoint-up(md) {
+
         .hero-carousels {
+
             background-image: none;
+
+
+            .medium-height {
+                height: 400px;
+            }
+
+            ._2x-hero-content {
+                height: 400px;
+            }
+        }
+    }
+
+    .offices-wrapper {
+
+        .office-details {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            padding: 1.5rem;
+            min-height: unset;
+        }
+
+        .office-loc {
+            text-wrap: pretty;
         }
     }
 }

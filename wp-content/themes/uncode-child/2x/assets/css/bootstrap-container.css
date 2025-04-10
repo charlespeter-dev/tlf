@@ -11997,10 +11997,6 @@ a > .bootstrap-container code {
   height: 100%;
   object-fit: cover;
 }
-.bootstrap-container .offices-wrapper .offices-list .col .office-card .office-details {
-  padding: 40px 20px 0 20px;
-  min-height: 225px;
-}
 .bootstrap-container .offices-wrapper .offices-list .col .office-card .office-details .office-name {
   font-size: 1.2rem;
   font-weight: 700;
