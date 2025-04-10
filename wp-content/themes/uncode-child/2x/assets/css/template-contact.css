@@ -44,5 +44,11 @@
 .bootstrap-container .offices-wrapper .office-loc {
   text-wrap: pretty;
 }
+.bootstrap-container .offices-wrapper .office-email {
+  font-size: 15px;
+}
+.bootstrap-container .offices-wrapper .office-phone {
+  font-size: 15px;
+}
 
 /*# sourceMappingURL=template-contact.css.map */

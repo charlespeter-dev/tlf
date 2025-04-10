@@ -104,7 +104,7 @@ get_header() ?>
                                         </figure>
 
                                         <div class="office-details card-body">
-                                            
+
                                             <div>
                                                 <p class="office-name">
                                                     <?= $office_name ?>
@@ -117,11 +117,13 @@ get_header() ?>
 
                                             <div>
                                                 <p class="office-email mb-3">
+                                                    <?= __('Email: ') ?>
                                                     <a href="mailto:<?= $office_email ?>" class="office-email">
                                                         <?= $office_email ?>
                                                     </a>
                                                 </p>
                                                 <p class="office-phone">
+                                                    <?= __('Office: ') ?>
                                                     <a href="tel:<?= $office_phone ?>" class="office-phone">
                                                         <?= $office_phone ?>
                                                     </a>
@@ -130,6 +132,7 @@ get_header() ?>
                                                 <?php if (isset($office['support_numbers'][0]) && $office['support_numbers'][0]): ?>
                                                     <?php foreach ($office['support_numbers'] as $support_number): ?>
                                                         <p class="office-phone mb-0">
+                                                            <?= __('For support: ') ?>
                                                             <a href="tel:<?= $support_number['phone_number'] ?>" class="office-phone">
                                                                 <?= $support_number['phone_number'] ?>
                                                             </a>
