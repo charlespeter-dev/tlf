@@ -12583,6 +12583,12 @@ h1:not([class*=fontsize-]),
     line-height: 2.1875rem;
   }
 }
+.bootstrap-container.resources p {
+  text-wrap: pretty;
+}
+.bootstrap-container.resources li {
+  text-wrap: pretty;
+}
 .bootstrap-container.resources li.tick {
   list-style-image: url("https://thelogicfactory.com/wp-content/uploads/2023/09/Icon-Tick.svg");
   margin-bottom: 0.1em;
@@ -12593,6 +12599,7 @@ h1:not([class*=fontsize-]),
 }
 .bootstrap-container.resources ul > li {
   list-style-type: disc;
+  text-wrap: pretty;
 }
 .bootstrap-container.resources.single-brochure iframe {
   width: 100%;

@@ -137,7 +137,13 @@ h1:not([class*="fontsize-"]),
             @include rfs(2.1875rem, line-height);
         }
 
+        p {
+            text-wrap: pretty;
+        }
+
         li {
+
+            text-wrap: pretty;
 
             &.tick {
                 list-style-image: url('https://thelogicfactory.com/wp-content/uploads/2023/09/Icon-Tick.svg');
@@ -152,6 +158,7 @@ h1:not([class*="fontsize-"]),
 
         ul>li {
             list-style-type: disc;
+            text-wrap: pretty;
         }
 
         &.single-brochure {
