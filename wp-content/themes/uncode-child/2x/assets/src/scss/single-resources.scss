@@ -127,14 +127,20 @@ h1:not([class*="fontsize-"]),
             border: 1px solid;
         }
 
+        h1 {
+            text-wrap: pretty;
+        }
+
         h2 {
             @include rfs(2.1875rem, font-size);
             @include rfs(2.8125rem, line-height);
+            text-wrap: pretty;
         }
 
         h3 {
             @include rfs(1.5625rem, font-size);
             @include rfs(2.1875rem, line-height);
+            text-wrap: pretty;
         }
 
         p {

@@ -93,9 +93,13 @@ h1:not([class*=fontsize-]),
 .bootstrap-container.resources hr {
   border: 1px solid;
 }
+.bootstrap-container.resources h1 {
+  text-wrap: pretty;
+}
 .bootstrap-container.resources h2 {
   font-size: calc(1.34375rem + 1.125vw);
   line-height: calc(1.40625rem + 1.875vw);
+  text-wrap: pretty;
 }
 @media (min-width: 1200px) {
   .bootstrap-container.resources h2 {
@@ -110,6 +114,7 @@ h1:not([class*=fontsize-]),
 .bootstrap-container.resources h3 {
   font-size: calc(1.28125rem + 0.375vw);
   line-height: calc(1.34375rem + 1.125vw);
+  text-wrap: pretty;
 }
 @media (min-width: 1200px) {
   .bootstrap-container.resources h3 {
