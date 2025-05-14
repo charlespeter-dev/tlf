@@ -515,6 +515,8 @@ if ($posts_counter) {
 	}
 }
 
+$categories = apply_filters( 'uncode_vc_gallery_media_categories', $categories );
+
 /*** init classes ***/
 
 // if ($posts_counter === 1) {
@@ -1015,7 +1017,7 @@ if ( $lb_video_advanced === 'yes' ) {
 	<?php $linear_count = 0;
 	$linear_class = '';
 	$or_id = $el_id;
-	if ( $type === 'linear' && ( $marquee_clone === 'yes' || $linear_animation === 'marquee' || $linear_animation === 'marquee-opposite' ) && ( !function_exists('vc_is_page_editable') || !vc_is_page_editable() ) ) { 
+	if ( $type === 'linear' && ( $marquee_clone === 'yes' || $linear_animation === 'marquee' || $linear_animation === 'marquee-opposite' ) && ( !function_exists('vc_is_page_editable') || !vc_is_page_editable() ) ) {
 		$linear_count = 2;
 	}
 	for ($x = 0; $x <= $linear_count; $x++) { ?>
@@ -1029,7 +1031,7 @@ if ( $lb_video_advanced === 'yes' ) {
 			} else {
 				$linear_class = ' cont-leader';
 				$el_id = $or_id;
-			}  
+			}
 		} ?>
 		<div<?php if ($type === 'carousel') { echo ' id="' . esc_attr($el_id) .'"'; } ?> class="<?php echo esc_attr(trim(implode(' ', $container_classes)) . $linear_class ); ?>" <?php echo implode(' ', $div_data_attributes); ?><?php echo uncode_switch_stock_string( $container_style ); ?>>
 <?php
@@ -1493,7 +1495,7 @@ if (count($medias) > 0) {
 
 		if ( $single_css_animation === 'mask' || $single_image_anim === 'scroll' ) {
 			$block_classes[] = 'tmb-mask';
-		
+
 			if ( $single_css_animation === 'mask' ) {
 				$block_classes[] = 'tmb-mask-reveal';
 				if ($single_animation_delay !== '') {
@@ -1512,7 +1514,7 @@ if (count($medias) > 0) {
 					$tmb_data['data-bg-delay'] = $single_bg_delay;
 				}
 			}
-		
+
 			if ( $single_image_anim === 'scroll' ) {
 				$block_classes[] = 'tmb-mask-scroll';
 				$block_classes[] = 'tmb-mask-scroll-' . esc_attr($single_image_scroll);
@@ -1524,10 +1526,10 @@ if (count($medias) > 0) {
 				if ( $hex_color ) {
 					$block_classes[] = 'tmb-has-hex';
 					$block_data['hex'] = $hex_color;
-				}		
+				}
 			}
 		}
-		
+
 
 		$block_classes[] = 'tmb-id-' . $item_thumb_id;
 

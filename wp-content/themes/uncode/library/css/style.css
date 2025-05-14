@@ -16420,6 +16420,12 @@ body:not(.uncode-accessible) .lg-container {
   -o-transition: opacity 0.15s ease 0s;
   transition: opacity 0.15s ease 0s;
 }
+@media (max-width: 959px) {
+  .lg-outer {
+    right: auto;
+    width: 100vw;
+  }
+}
 body:not(.uncode-accessible) .lg-outer {
   outline: 0;
 }
@@ -16586,6 +16592,12 @@ body:not(.uncode-accessible) .lg-outer {
   -webkit-transition: opacity 333ms ease-in 0s;
   -o-transition: opacity 333ms ease-in 0s;
   transition: opacity 333ms ease-in 0s;
+}
+@media (max-width: 959px) {
+  .lg-backdrop {
+    right: auto;
+    width: 100vw;
+  }
 }
 .lg-light-skin .lg-backdrop {
   background-color: #fff;
@@ -17889,6 +17901,7 @@ body:not(.uncode-accessible) .lg-outer {
   zoom: 1;
   vertical-align: middle;
   pointer-events: auto;
+  padding: 0;
 }
 .owl-dots-align-left .owl-dots .owl-dot:first-child span {
   margin-left: 0;

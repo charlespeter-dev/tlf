@@ -944,7 +944,7 @@ function uncode_get_oembed($id, $url, $mime, $with_poster = false, $excerpt = nu
 						}
 					}
 				} else {
-					$media_oembed = '<img src="https://via.placeholder.com/500x500.png?text=media+not+available&amp;w=500&amp;h=500" />';
+					$media_oembed = '<img class="uncode-missing-media" src="https://via.placeholder.com/500x500.png?text=media+not+available&amp;w=500&amp;h=500" />';
 				}
 			}
 			$media_oembed = uncode_replace_disallowed_videos( 'soundcloud', $id, $media_oembed, $single_width, $single_height, $single_fixed, $is_metro );
@@ -1982,7 +1982,7 @@ function uncode_get_the_content($content = false, $check = false, $post_id = fal
 				$content = $object_cb->post_content;
 				$is_cb = $old_cb;
 			} else {
-				$content = get_the_content();
+				$content = get_the_content( null, false, $post );
 			}
 		}
 		$header_type = get_post_meta( $post_id, '_uncode_header_type', true );
@@ -2528,7 +2528,7 @@ function uncode_blur_edges(){
 	$uncode_progressive_blur = apply_filters( 'uncode_progressive_blur', ot_get_option('_uncode_progressive_blur'));
 	$uncode_progressive_blur_h = apply_filters( 'uncode_progressive_blur_h', ot_get_option('_uncode_progressive_blur_h'));
 	$uncode_progressive_blur_val = apply_filters( 'uncode_progressive_blur_val', ot_get_option('_uncode_progressive_blur_val'));
-	
+
 	if ( $uncode_progressive_blur !== '' ) {
 		if ( !isset($uncode_progressive_blur_val) || $uncode_progressive_blur_val === '' ) {
 			$uncode_progressive_blur_val = 20;

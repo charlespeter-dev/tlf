@@ -150,13 +150,55 @@ if (!function_exists('uncode_breadcrumbs')) {
 
 						$parent_title = $post_type->labels->name;
 					}
-					$html .= sprintf($link, $parent_link, $parent_title);
+
+					if ( apply_filters( 'uncode_breadcrumbs_show_custom_post_type_categories', false ) ) {
+						$html .= sprintf($link, $parent_link, $parent_title);
+					}
 
 					if ( apply_filters( 'uncode_breadcrumbs_nested_enabled', false ) && $parent_id ) {
 						$parent_ids = array_reverse( uncode_breadcrumbs_get_parents( $post ) );
 
 						foreach ( $parent_ids as $_parent_id ) {
 							$html .= uncode_breadcrumbs_parent_item( $_parent_id, $link );
+						}
+					}
+
+					if ( apply_filters( 'uncode_breadcrumbs_show_custom_post_type_categories', false ) ) {
+						// Get the custom taxonomy terms (categories) for this post
+						$post_id = get_the_ID();
+						$post_type = get_post_type();
+
+						// Get associated taxonomies for this post type
+						$taxonomies = get_object_taxonomies( $post_type, 'objects' );
+
+						foreach ( $taxonomies as $taxonomy ) {
+							// Only use hierarchical taxonomies (like categories)
+							if ( $taxonomy->hierarchical ) {
+								$terms = get_the_terms( $post_id, $taxonomy->name );
+
+								if ( $terms && ! is_wp_error( $terms ) ) {
+									// Get the first term (like the default category behavior)
+									$term = reset( $terms );
+
+									// Get the term ancestors (parent categories)
+									$ancestors = get_ancestors( $term->term_id, $taxonomy->name, 'taxonomy' );
+									$ancestors = array_reverse( $ancestors );
+
+									// Add ancestor categories to breadcrumbs
+									foreach ( $ancestors as $ancestor_id ) {
+										$ancestor = get_term( $ancestor_id, $taxonomy->name );
+										$ancestor_link = get_term_link( $ancestor );
+										$html .= $delimiter . sprintf( $link, $ancestor_link, $ancestor->name );
+									}
+
+									// Add the current term
+									$term_link = get_term_link( $term );
+									$html .= $delimiter . sprintf( $link, $term_link, $term->name );
+								}
+
+								// Only process the first hierarchical taxonomy
+								break;
+							}
 						}
 					}
 

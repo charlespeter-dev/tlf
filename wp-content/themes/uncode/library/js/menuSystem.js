@@ -473,7 +473,7 @@
 								$('.navbar-nav.navbar-main', $menuCont).after('<div class="nav navbar-main-after" />');
 							}
 							$primary_after = $('.nav.navbar-main-after', $menuCont);
-							$primary_after.append('<ul class="menu-smart sm menu-smart-social" />');
+							$primary_after.append('<ul class="menu-smart sm menu-smart-social" role="menu" />');
 						}
 						var tablet_hidden = true,
 							mobile_hidden = true;

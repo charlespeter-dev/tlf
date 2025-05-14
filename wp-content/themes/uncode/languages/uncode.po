@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Uncode\n"
 "Report-Msgid-Bugs-To: info@undsgn.com\n"
-"POT-Creation-Date: 2025-04-01 11:09+0200\n"
-"PO-Revision-Date: 2025-04-01 11:09+0200\n"
+"POT-Creation-Date: 2025-04-17 18:24+0200\n"
+"PO-Revision-Date: 2025-04-17 18:24+0200\n"
 "Last-Translator: Undsgn <info@undsgn.com>\n"
 "Language-Team: Undsgn <info@undsgn.com>\n"
 "Language: en_US\n"
@@ -540,7 +540,7 @@ msgid ""
 msgstr ""
 
 #: core/inc/compatibility/wishlist/class-uncode-wishlist.php:344
-#: woocommerce/order/order-details.php:75 woocommerce/wishlist-view.php:233
+#: woocommerce/order/order-details.php:76 woocommerce/wishlist-view.php:233
 msgid "Actions"
 msgstr ""
 
@@ -604,7 +604,7 @@ msgid "seconds"
 msgstr ""
 
 #: core/inc/main.php:480 vc_templates/uncode_index.php:3150
-#: vc_templates/vc_gallery.php:1729
+#: vc_templates/vc_gallery.php:1731
 msgid "Loading…"
 msgstr ""
 
@@ -2206,7 +2206,7 @@ msgstr ""
 msgid "Error 404"
 msgstr ""
 
-#: core/inc/helpers/breadcrumbs/breadcrumbs-functions.php:262
+#: core/inc/helpers/breadcrumbs/breadcrumbs-functions.php:304
 msgid "Page"
 msgstr ""
 
@@ -2226,7 +2226,7 @@ msgstr ""
 
 #: core/inc/helpers/taxonomies/taxonomies-functions.php:49
 #: core/inc/helpers/taxonomies/taxonomies-functions.php:58
-#: woocommerce/order/order-details.php:49 woocommerce/wishlist-view.php:170
+#: woocommerce/order/order-details.php:50 woocommerce/wishlist-view.php:170
 #: woocommerce/single-product-reviews.php:50
 #: woocommerce/checkout/uncode-form-pay-table.php:26
 #: woocommerce/cart/uncode-cart-table-compact.php:21
@@ -2871,34 +2871,34 @@ msgstr ""
 msgid "by"
 msgstr ""
 
-#: partials/elements.php:1849 partials/elements.php:4130
+#: partials/elements.php:1849 partials/elements.php:4134
 msgctxt "comments"
 msgid "Comment"
 msgid_plural "Comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: partials/elements.php:3415
+#: partials/elements.php:3419
 #: vc_templates/uncode_single_product_gallery.php:243
 msgid "Sale!"
 msgstr ""
 
-#: partials/elements.php:3417 woocommerce/wishlist-view.php:226
+#: partials/elements.php:3421 woocommerce/wishlist-view.php:226
 msgid "Out of stock"
 msgstr ""
 
-#: partials/elements.php:4061 partials/elements.php:4085
-#: partials/elements.php:4161
+#: partials/elements.php:4065 partials/elements.php:4089
+#: partials/elements.php:4165
 #, php-format
 msgid "View all posts in %s"
 msgstr ""
 
-#: partials/elements.php:4063 partials/elements.php:4087
-#: partials/elements.php:4167
+#: partials/elements.php:4067 partials/elements.php:4091
+#: partials/elements.php:4171
 msgid "In"
 msgstr ""
 
-#: partials/elements.php:4066 partials/elements.php:4114
+#: partials/elements.php:4070 partials/elements.php:4118
 msgid "By"
 msgstr ""
 
@@ -2939,7 +2939,7 @@ msgstr ""
 msgid "Categories"
 msgstr ""
 
-#: vc_templates/uncode_index.php:1544 vc_templates/vc_gallery.php:984
+#: vc_templates/uncode_index.php:1544 vc_templates/vc_gallery.php:986
 msgid "Show all"
 msgstr ""
 
@@ -2964,7 +2964,7 @@ msgstr ""
 msgid "The Post Table layout must start with a 'Column' element."
 msgstr ""
 
-#: vc_templates/uncode_index.php:3150 vc_templates/vc_gallery.php:1729
+#: vc_templates/uncode_index.php:3150 vc_templates/vc_gallery.php:1731
 msgid "Load more"
 msgstr ""
 
@@ -3187,20 +3187,20 @@ msgstr ""
 msgid "Track"
 msgstr ""
 
-#: woocommerce/order/order-details.php:45
+#: woocommerce/order/order-details.php:46
 msgid "Order details"
 msgstr ""
 
-#: woocommerce/order/order-details.php:50
+#: woocommerce/order/order-details.php:51
 msgid "Total"
 msgstr ""
 
-#: woocommerce/order/order-details.php:83 woocommerce/myaccount/orders.php:88
+#: woocommerce/order/order-details.php:84 woocommerce/myaccount/orders.php:88
 #, php-format
 msgid "%1$s order number %2$s"
 msgstr ""
 
-#: woocommerce/order/order-details.php:108
+#: woocommerce/order/order-details.php:109
 msgid "Note:"
 msgstr ""
 
@@ -3634,6 +3634,16 @@ msgstr ""
 
 #: woocommerce/single-product/add-to-cart/variable.php:63
 msgid "Clear"
+msgstr ""
+
+#: woocommerce/single-product/add-to-cart/grouped.php:76
+#, php-format
+msgid "Buy one of %1$s on sale for %2$s, original price was %3$s"
+msgstr ""
+
+#: woocommerce/single-product/add-to-cart/grouped.php:84
+#, php-format
+msgid "Buy one of %1$s for %2$s"
 msgstr ""
 
 #: woocommerce/single-product/related.php:19

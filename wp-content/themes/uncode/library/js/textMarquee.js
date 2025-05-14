@@ -8,6 +8,8 @@
 
 UNCODE.textMarquee = function( $titles ) {
 
+	var isInitMarque = false;
+
 	var initTextMarquee = function( $titles ){
 
 		if ( typeof $titles == 'undefined' ) {
@@ -17,6 +19,8 @@ UNCODE.textMarquee = function( $titles ) {
 		if ( ! $titles.length ) {
 			return;
 		}
+
+		isInitMarque = true;
 
 		var stableHeight = UNCODE.wheight;
 
@@ -93,6 +97,7 @@ UNCODE.textMarquee = function( $titles ) {
 					translX;
 
 				marqueeTL = new TimelineMax({ paused: true, reversed: true });
+				marqueeTL.play();
 
 				var inViewElement =
 						dataTrigger === "row" ? ( hasSticky ? $title.closest('.sticky-trigger, .sticky-element').parent()[0] : $title.closest(".vc_row")[0] ) : $title[0],
@@ -154,6 +159,12 @@ UNCODE.textMarquee = function( $titles ) {
 					onComplete: function(){
 						first = false;
 						continuousTextMarquee();
+					},
+					onUpdate: function(){
+						if ( ! $title[0].isConnected ) {
+							marqueeTL.kill();
+							initTextMarquee();
+						}
 					},
 					ease: ease
 				});
@@ -308,13 +319,17 @@ UNCODE.textMarquee = function( $titles ) {
 	};
 
 	document.addEventListener("DOMContentLoaded", function() {
-		initTextMarquee();
+		if ( isInitMarque !== true ) {
+			initTextMarquee();
+		}
 	});
 
 	$(window).on('focus load resize',function(){
 		clearTimeout(initMarquee);
 		initMarquee = setTimeout(function(){
-			initTextMarquee();
+			if ( isInitMarque !== true ) {
+				initTextMarquee();
+			}
 		}, 500);
 	});
 	

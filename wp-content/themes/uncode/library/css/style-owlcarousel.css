@@ -419,6 +419,7 @@
   zoom: 1;
   vertical-align: middle;
   pointer-events: auto;
+  padding: 0;
 }
 .owl-dots-align-left .owl-dots .owl-dot:first-child span {
   margin-left: 0;

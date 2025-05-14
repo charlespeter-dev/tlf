@@ -169,7 +169,7 @@ function uncode_wc_body_classes( $classes ) {
 	}
 
 	if ( is_checkout() ) {
-		if ( WC()->cart->needs_payment() ) {
+		if ( WC()->cart && WC()->cart->needs_payment() ) {
 			ob_start();
 			$available_gateways = WC()->payment_gateways()->get_available_payment_gateways();
 			ob_end_clean();

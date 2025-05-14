@@ -6448,7 +6448,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     BigText = {
       DEBUG_MODE: false,
       DEFAULT_MIN_FONT_SIZE_PX: null,
-      DEFAULT_MAX_FONT_SIZE_PX: 528,
+      DEFAULT_MAX_FONT_SIZE_PX: 1056,
       GLOBAL_STYLE_ID: 'bigtext-style',
       STYLE_ID: 'bigtext-id',
       LINE_CLASS_PREFIX: 'bigtext-line',
@@ -26245,7 +26245,7 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 		this._controls.$absolute = (settings.dotsContainer ? $(settings.dotsContainer)
 			: $('<div>').addClass(settings.dotsClass).appendTo(this.$element)).addClass('disabled');
 
-		this._controls.$absolute.on('click', 'div', $.proxy(function(e) {
+		this._controls.$absolute.on('click', 'div, button', $.proxy(function(e) {
 			var index = $(e.target).parent().is(this._controls.$absolute)
 				? $(e.target).index() : $(e.target).parent().index();
 

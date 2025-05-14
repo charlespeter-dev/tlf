@@ -435,7 +435,7 @@ if ( $css_animation === 'mask' || ($advanced === 'yes' && $media_image_anim === 
 		if ( $hex_color ) {
 			$block_classes[] = 'tmb-has-hex';
 			$block_data['hex'] = $hex_color;
-		}		
+		}
 	}
 }
 
@@ -668,7 +668,7 @@ if ($advanced === 'yes') {
 
 	if (empty($media) || FALSE === get_post_mime_type( $media )) {
 		if ( !function_exists('vc_is_page_editable') || !vc_is_page_editable() ) {
-			$media_html = '<img src="https://via.placeholder.com/500x500.png?text=media+not+available&amp;w=500&amp;h=500" />';
+			$media_html = '<img class="uncode-missing-media" src="https://via.placeholder.com/500x500.png?text=media+not+available&amp;w=500&amp;h=500" />';
 		} else {
 			$media_html = '';
 		}
@@ -698,7 +698,7 @@ if ($advanced === 'yes') {
 
 	if (empty($media) || FALSE === get_post_mime_type( $media )) {
 		if ( !function_exists('vc_is_page_editable') || !vc_is_page_editable() ) {
-			$media_html = '<div class="t-entry-visual-cont"><img src="https://via.placeholder.com/500x500.png?text=media+not+available&amp;w=500&amp;h=500" /></div>';
+			$media_html = '<div class="t-entry-visual-cont"><img class="uncode-missing-media" src="https://via.placeholder.com/500x500.png?text=media+not+available&amp;w=500&amp;h=500" /></div>';
 		} else {
 			$media_html = '';
 		}

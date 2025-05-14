@@ -3337,7 +3337,11 @@ if (!function_exists('uncode_create_single_block')) {
 					}
 
 					if ( $block_data['template'] !== 'inline-image' ) {
-						$media_output .= '<a role="button" tabindex="-1"' . $href_att .((count($a_classes) > 0 ) ? ' class="'.trim(implode(' ', $a_classes)).'"' : '').$lightbox_data.$data_values.$data_lb.'>';
+						if ( isset($single_text) && $single_text === 'overlay' ) {
+							$media_output .= '<a' . $href_att .((count($a_classes) > 0 ) ? '  class="'.trim(implode(' ', $a_classes)).'"' : '').$lightbox_data.$data_values.$data_lb.'>';
+						} else {
+							$media_output .= '<a role="button" tabindex="-1"' . $href_att .((count($a_classes) > 0 ) ? ' class="'.trim(implode(' ', $a_classes)).'"' : '').$lightbox_data.$data_values.$data_lb.'>';
+						}
 					}
 
 				}

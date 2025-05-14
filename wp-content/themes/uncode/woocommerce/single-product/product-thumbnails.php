@@ -13,7 +13,7 @@
  * @see 	    https://docs.woocommerce.com/document/template-structure/
  * @author 		WooThemes
  * @package 	WooCommerce/Templates
- * @version     9.5.0
+ * @version     9.8.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -24,6 +24,10 @@ global $post, $product, $woocommerce, $gallery_id, $vc_column_inner_width;
 
 if ( ! $product ) {
 	$product = uncode_populate_post_object();
+}
+
+if ( ! $product || ! $product instanceof WC_Product ) {
+	return '';
 }
 
 $product_id = $product->get_id();
