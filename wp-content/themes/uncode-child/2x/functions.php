@@ -30,7 +30,7 @@ add_action('wp_enqueue_scripts', function () {
      * aos css
      */
 
-    wp_enqueue_style('_2x-css-aos', 'https://unpkg.com/aos@next/dist/aos.css', ['_2x-css-single-industry-poultry'], time(), 'screen');
+    wp_enqueue_style('_2x-css-aos', 'https://unpkg.com/aos@next/dist/aos.css', ['_2x-css-bootstrap'], time(), 'screen');
 
     /**
      * enqueue bootstrap js
