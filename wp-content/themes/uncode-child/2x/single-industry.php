@@ -662,7 +662,7 @@ get_header() ?>
                     <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 gy-5 mt-4 justify-content-center">
                         <?php foreach ($subpages['subpage_groups'] as $k => $subpage):
 
-                            if ($k > 0)
+                            if ($k > 1)
                                 continue;
                             ?>
 
