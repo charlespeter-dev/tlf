@@ -62,7 +62,7 @@
 @media (min-width: 992px) {
   .bootstrap-container.industry.single .hero-carousels .full-width {
     display: block;
-    height: 400px;
+    height: 450px;
   }
 }
 .bootstrap-container.industry.single .hero-carousels .single-h-padding.limit-width {
@@ -89,7 +89,7 @@
   margin-top: 0 !important;
 }
 .bootstrap-container.industry.single .full-width {
-  height: 400px;
+  height: 450px;
 }
 .bootstrap-container.industry.single .blue {
   color: #003375;
