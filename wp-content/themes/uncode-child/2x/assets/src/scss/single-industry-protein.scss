@@ -576,6 +576,42 @@
         }
     }
 
+    .cta-container {
+
+        padding-block-end: 2rem;
+        text-align: center !important;
+        display: block !important;
+
+        @include media-breakpoint-up(lg) {
+            padding-block-end: 3rem;
+            padding-block-end: 3rem;
+        }
+
+        .cta-inner {
+
+            display: flex;
+            justify-content: center;
+
+            .btn.btn-primary {
+                white-space: unset;
+                background-color: #E30613 !important;
+                border: none !important;
+                border-radius: 10px !important;
+                padding: 10px 20px !important;
+                text-transform: capitalize !important;
+                font-size: 16px !important;
+                font-family: "Open Sans", sans-serif !important;
+                font-weight: 400 !important;
+                letter-spacing: normal !important;
+
+                &:hover {
+                    background-color: #d60006 !important;
+                    color: #fff !important;
+                }
+            }
+        }
+    }
+
     .related-resources {
 
         position: relative;
