@@ -1241,7 +1241,7 @@
                     }
 
                     .office-details {
-                        
+
 
                         .office-name {
                             font-size: 1.2rem;
@@ -1793,6 +1793,11 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
             box-shadow: 0 4px 10px -10px rgba(0, 0, 0, 0.6);
         }
     }
+}
+
+
+.single-portfolio .main-container .row-container .single-bottom-padding {
+    padding-bottom: 0;
 }
 
 //----- end: override uncode specific styles
