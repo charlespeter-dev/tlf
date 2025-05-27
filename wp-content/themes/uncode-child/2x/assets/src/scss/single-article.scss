@@ -109,8 +109,8 @@
         }
 
         h2 {
-            @include rfs(2.1875rem, font-size);
-            @include rfs(2.8125rem, line-height);
+            @include rfs(2rem, font-size);
+            @include rfs(2.4rem, line-height);
         }
 
         h3 {

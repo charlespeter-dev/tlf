@@ -77,17 +77,17 @@
   border: 1px solid;
 }
 .bootstrap-container.post.single-article h2 {
-  font-size: calc(1.34375rem + 1.125vw);
-  line-height: calc(1.40625rem + 1.875vw);
+  font-size: calc(1.325rem + 0.9vw);
+  line-height: calc(1.365rem + 1.38vw);
 }
 @media (min-width: 1200px) {
   .bootstrap-container.post.single-article h2 {
-    font-size: 2.1875rem;
+    font-size: 2rem;
   }
 }
 @media (min-width: 1200px) {
   .bootstrap-container.post.single-article h2 {
-    line-height: 2.8125rem;
+    line-height: 2.4rem;
   }
 }
 .bootstrap-container.post.single-article h3 {

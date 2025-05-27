@@ -132,8 +132,8 @@ h1:not([class*="fontsize-"]),
         }
 
         h2 {
-            @include rfs(2.1875rem, font-size);
-            @include rfs(2.8125rem, line-height);
+            @include rfs(2rem, font-size);
+            @include rfs(2.5rem, line-height);
             text-wrap: pretty;
         }
 
