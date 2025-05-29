@@ -80,7 +80,7 @@ get_header() ?>
                                                 <?= $partner_name ?>
                                             </p>
                                             <p class="partner-desc">
-                                                <?= $partner_desc ?>
+                                                <?= nl2br($partner_desc) ?>
                                             </p>
                                         </div>
                                     </div>
