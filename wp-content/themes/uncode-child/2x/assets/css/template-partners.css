@@ -30,5 +30,28 @@
 .bootstrap-container .partners-wrapper a {
   text-decoration: none;
 }
+.bootstrap-container .partners-wrapper .partner-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+@media (min-width: 992px) {
+  .bootstrap-container .partners-wrapper .partner-card {
+    padding: 2.5rem;
+  }
+}
+@media (min-width: 992px) {
+  .bootstrap-container .partners-wrapper .partner-card .card-header {
+    min-height: 172px;
+  }
+}
+.bootstrap-container .partners-wrapper .partner-card .card-body .partner-name {
+  font-size: 1.8rem;
+}
+@media (min-width: 992px) {
+  .bootstrap-container .partners-wrapper .partner-card .card-body .partner-name {
+    font-size: 2rem;
+  }
+}
 
 /*# sourceMappingURL=template-partners.css.map */

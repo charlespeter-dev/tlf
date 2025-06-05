@@ -71,17 +71,21 @@ get_header() ?>
                             <div class="col">
                                 <a href="<?= $partner_link ?>" target="_blank">
                                     <div class="partner-card h-100">
-                                        <figure class="partner-img">
-                                            <img src="<?= wp_get_attachment_image_url($partner_img['id'], '_2x-partner-logo'); ?>"
-                                                class="img-fluid" alt="<?= $partner_img['title'] ?>" loading="lazy">
-                                        </figure>
-                                        <div class="partner-details">
-                                            <p class="partner-name">
-                                                <?= $partner_name ?>
-                                            </p>
-                                            <p class="partner-desc">
-                                                <?= nl2br($partner_desc) ?>
-                                            </p>
+                                        <div class="card-header">
+                                            <figure class="partner-img">
+                                                <img src="<?= wp_get_attachment_image_url($partner_img['id'], 'full'); ?>"
+                                                    class="img-fluid" alt="<?= $partner_img['title'] ?>" loading="lazy">
+                                            </figure>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="partner-details">
+                                                <p class="partner-name">
+                                                    <?= $partner_name ?>
+                                                </p>
+                                                <p class="partner-desc">
+                                                    <?= nl2br($partner_desc) ?>
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </a>
