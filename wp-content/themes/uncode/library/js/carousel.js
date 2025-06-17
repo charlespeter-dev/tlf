@@ -130,6 +130,12 @@
 			});
 
 			/** Initialized */
+			$elSelector.on('initialized.owl.navigation', function(event) {
+				$('.owl-dot', event.currentTarget).each(function(key, val){
+					$(val).attr('aria-label', SiteParameters.uncode_slide_label + ' ' + (key+1));
+				});
+			});
+
 			$elSelector.on('initialized.owl.carousel', function(event) {
 
 				if ( $('.isotope-container', event.currentTarget).length ) {
@@ -214,11 +220,7 @@
 							window.lenis.resize();
 						}, 1000);
 					}
-			  
-					$('.owl-dot', event.currentTarget).each(function(key, val){
-						$(val).attr('aria-label', SiteParameters.uncode_slide_label + ' ' + (key+1));
-					});
-	
+			  	
 				});
 				//}
 
@@ -380,6 +382,12 @@
 				if ( typeof ScrollTrigger !== 'undefined' && ScrollTrigger !== null ) {
 					$(document).trigger('uncode-scrolltrigger-refresh');
 				}
+			});
+
+			$elSelector.on('resized.owl.carousel', function(event) {
+				$('.owl-dot', event.currentTarget).each(function(key, val){
+					$(val).attr('aria-label', SiteParameters.uncode_slide_label + ' ' + (key+1));
+				});
 			});
 
 			$elSelector.on('resized.owl.carousel', function(event) {
@@ -555,11 +563,12 @@
 				autoplaySpeed: values['navspeed'],
 				autoplayHoverPause: $(this).closest('.uncode-slider').length ? false : true,
 				autoHeight: ( $(this).hasClass('owl-height-equal') ? false : values['autoheight'] ),
+				itemSelector: SiteParameters.uncode_carousel_itemSelector,
 				rtl: $('body').hasClass('rtl') ? true : false,
 				fluidSpeed: true,
 				navSpeed: values['navspeed'],
 				dotsSpeed: values['navspeed'] / values['items'],
-				navElement: ['button type="button" role="presentation" aria-label="' + SiteParameters.uncode_prev_label + '"', 'button type="button" role="presentation" aria-label="' + SiteParameters.uncode_next_label + '"'],
+				navElement: ['button type="button" aria-label="' + SiteParameters.uncode_prev_label + '"', 'button type="button" aria-label="' + SiteParameters.uncode_next_label + '"'],
 				navClass: [ 'owl-prev'+values['navskin'], 'owl-next'+values['navskin'] ],
 				navText: ['<div class="owl-nav-container btn-default btn-hover-nobg" tabindex="0"><i class="fa fa-fw fa-angle-left"></i></div>', '<div class="owl-nav-container btn-default btn-hover-nobg" aria-label="' + SiteParameters.uncode_next_label + '" tabindex="0"><i class="fa fa-fw fa-angle-right"></i></div>'],
 				navContainer: values['nav'] && ! SiteParameters.is_frontend_editor ? $elSelector : false,

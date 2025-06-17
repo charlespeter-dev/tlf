@@ -1622,10 +1622,14 @@ function uncode_get_page_assets() {
 
 	// Lottie
 	if ( uncode_page_require_asset_lottie( $content_array ) ) {
+		$lottie_deps = array( 'jquery' );
+		if ( uncode_page_require_asset_lottie_interactivity( $content_array ) ) {
+			$lottie_deps = array( 'jquery', 'uncode-lottie-interactivity' );
+		}
 		$assets['uncode-lottie'] = array(
 			'handle'    => 'uncode-lottie',
 			'path'      => get_template_directory_uri() . '/library/js/uncode-lottie' . $suffix . '.js',
-			'deps'      => array( 'jquery', 'uncode-lottie-interactivity' ),
+			'deps'      => $lottie_deps,
 			'type'      => 'js',
 			'in_footer' => true,
 		);

@@ -599,6 +599,7 @@ if (!function_exists('uncode_create_single_block')) {
 
 		$is_titles = isset( $block_data['is_titles'] ) && $block_data['is_titles'] === true;
 		$is_table = isset( $block_data['is_table'] ) && $block_data['is_table'] === true;
+		$is_hidden = isset( $block_data['hidden'] ) && $block_data['hidden'] === true;
 
 		$lbox_enhance = get_option( 'uncode_core_settings_opt_lightbox_enhance' ) === 'on';
 
@@ -1046,6 +1047,10 @@ if (!function_exists('uncode_create_single_block')) {
 
 								$print_title .= $title_extra_after;
 
+								if ( isset( $value[0] ) && $value[0] ) {
+									$title_classes[] = $value[0];
+								}
+
 								$inner_entry .= '<' . $title_tag . ' class="t-entry-title '. trim(implode(' ', $title_classes)) . '"' . $title_style . '>'.$print_title.'</' . $title_tag . '>';
 							}
 						} else {
@@ -1098,6 +1103,11 @@ if (!function_exists('uncode_create_single_block')) {
 								$data_values = (isset($block_data['link']['target']) && !empty($block_data['link']['target']) && is_array($block_data['link'])) ? ' target="'.trim($block_data['link']['target']).'"' : '';
 								$data_values .= (isset($block_data['link']['rel']) && !empty($block_data['link']['rel']) && is_array($block_data['link'])) ? ' rel="'.trim($block_data['link']['rel']).'"' : '';
 								$title_link = apply_filters( 'uncode_posts_module_title_link', $title_link, $block_data );
+
+								if ( isset( $value[0] ) && $value[0] ) {
+									$title_classes[] = $value[0];
+								}
+
 								if ($title_link === '') {
 									$inner_entry .= '<' . $title_tag . ' class="t-entry-title '. trim(implode(' ', $title_classes)) . '"' . $title_style . '>'.$print_title.'</' . $title_tag . '>';
 								} else {
@@ -1419,9 +1429,9 @@ if (!function_exists('uncode_create_single_block')) {
 										$tag_break = true;
 									}
 								}
-								$meta_inner .= '<span class="' . $cat_classes . '" role="heading">' . $category . '</span>' . $block_after;
+								$meta_inner .= '<span class="' . $cat_classes . '">' . $category . '</span>' . $block_after;
 							} else {
-								$cat_over .= '<span class="' . $cat_classes . ' t-cat-over-inner" role="heading">' . $category . '</span>';
+								$cat_over .= '<span class="' . $cat_classes . ' t-cat-over-inner">' . $category . '</span>';
 							}
 
 							$cat_counter++;
@@ -2118,12 +2128,8 @@ if (!function_exists('uncode_create_single_block')) {
 					default:
 						if ($key !== 'media' && isset($block_data['id'])) {
 							$get_cf_value = get_post_meta($block_data['id'], $key, true);
-							if (isset($get_cf_value) && $get_cf_value !== '') {
-								$inner_entry.= '<div class="t-entry-cf-'.$key;
-								if ( isset( $block_data['table_heading'] ) ) {
-									$inner_entry .= ' ' . trim(implode(' ', $meta_class));
-								}
-								$inner_entry.= '">' . apply_filters( 'uncode_get_layout_cf_val', $get_cf_value, $key, $value, $block_data, $layout ) . '</div>';
+							if ( ( isset( $get_cf_value ) && $get_cf_value !== '' ) || $key === 'custom_fields_group' ) {
+								$inner_entry.= uncode_print_custom_field_entry( $block_data, $get_cf_value, $key, $value, $meta_class, $layout );
 							}
 						}
 
@@ -3006,6 +3012,7 @@ if (!function_exists('uncode_create_single_block')) {
 		if ( $is_titles ) {
 			$data_values = (isset($block_data['link']['target']) && !empty($block_data['link']['target']) && is_array($block_data['link'])) ? ' target="'.trim($block_data['link']['target']).'"' : '';
 			$data_values .= (isset($block_data['link']['rel']) && !empty($block_data['link']['rel']) && is_array($block_data['link'])) ? ' rel="'.trim($block_data['link']['rel']).'"' : '';
+			$data_values .= ' aria-label="' . ($single_title ? $single_title : $get_title) . '"';			
 			$output .= 	'<a href="' . esc_url( $title_link ) . '" class="drop-hover-link"' . $data_values . '></a>';
 		}
 
@@ -3017,6 +3024,7 @@ if (!function_exists('uncode_create_single_block')) {
 		if ( isset( $block_data['table_click_row'] ) ) {
 			$data_values = (isset($block_data['link']['target']) && !empty($block_data['link']['target']) && is_array($block_data['link'])) ? ' target="'.trim($block_data['link']['target']).'"' : '';
 			$data_values .= (isset($block_data['link']['rel']) && !empty($block_data['link']['rel']) && is_array($block_data['link'])) ? ' rel="'.trim($block_data['link']['rel']).'"' : '';
+			$data_values .= ' aria-label="' . ($single_title ? $single_title : $get_title) . '"';			
 			$output .= 	'<a href="' . esc_url( $title_link ) . '" class="table-click-row"' . $data_values . '></a>';
 		}
 
@@ -3815,7 +3823,7 @@ if (!function_exists('uncode_create_single_block')) {
 						}
 
 						//here
-						if ( $item_media !== '' && !( strpos($media_mime, 'image/') === false && $block_data['template'] === 'inline-image' ) ) {
+						if ( !$is_hidden && $item_media !== '' && !( strpos($media_mime, 'image/') === false && $block_data['template'] === 'inline-image' ) ) {
 							$media_output .= apply_filters( 'post_thumbnail_html', '<img' . ( $adaptive_async_class !== '' ? ' class="' . trim( $adaptive_async_class ) . '"' : '' ) . ' src="' . $item_media . '" width="' . $image_orig_w . '" height="' . $image_orig_h . '" alt="' . $media_alt . '"' . ( $adaptive_async_data !== '' ? $adaptive_async_data : '' ) . ' />', $media_post_id, $item_thumb_id, array($image_orig_w, $image_orig_h), '');
 						}
 

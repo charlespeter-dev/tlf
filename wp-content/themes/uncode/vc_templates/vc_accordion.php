@@ -178,7 +178,7 @@ if ( $no_lazy === 'yes' ) {
 $css_class = apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'uncode-accordion wpb_accordion wpb_content_element ' . $el_class, $this->settings['base'], $atts);
 
 $output = '<div class="' . esc_attr(trim($css_class)) . '" data-collapsible="' . esc_attr( $collapsible ) . '" data-target="' . esc_attr( $target ) . '" data-active-tab="' . esc_attr( $active_tab ) . '"' . $data_classes_str . ' ' . $el_id . '>
-		<div class="panel-group wpb_wrapper wpb_accordion_wrapper" id="' . esc_attr( $el_unique_id ) . '" role="tablist" aria-multiselectable="true" data-no-toggle="' . esc_attr( $no_toggle === 'yes' ) . '">
+		<div class="panel-group wpb_wrapper wpb_accordion_wrapper" id="' . esc_attr( $el_unique_id ) . '" data-no-toggle="' . esc_attr( $no_toggle === 'yes' ) . '">
 ' . wpb_widget_title( array(
 	'title' => $title,
 	'extraclass' => 'wpb_accordion_heading',

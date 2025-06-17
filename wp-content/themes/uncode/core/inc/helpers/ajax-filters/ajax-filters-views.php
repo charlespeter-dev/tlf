@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Output term filter in list/checkbox mode
  */
 if ( ! function_exists( "uncode_ajax_term_filter_list_html" ) ) {
-	function uncode_ajax_term_filter_list_html( $key_to_query, $filter_terms, $query_args, $args = array(), $is_checkbox = false ) {
+	function uncode_ajax_term_filter_list_html( $key_to_query, $filter_terms, $is_custom_field, $query_args, $args = array(), $is_checkbox = false ) {
 		$multiple    = isset( $args['multiple'] ) ? $args['multiple'] : false;
 		$show_count  = isset( $args['show_count'] ) ? $args['show_count'] : false;
 		$hierarchy   = isset( $args['hierarchy'] ) ? $args['hierarchy'] : false;
@@ -81,11 +81,11 @@ if ( ! function_exists( "uncode_ajax_term_filter_list_html" ) ) {
 						$term_name        = $term->name;
 						$term_slug        = $term->slug;
 						$term_description = $term->description;
-						$is_taxonomy      = true;
+						$is_taxonomy      = $is_custom_field ? false : true;
 					}
 
 					$filter_id           = 'filter_' . rand() . '_' . $term_id;
-					$current_filter_atts = uncode_get_filter_link_attributes( $term, $key_to_query, $query_args, $args, $filter_terms );
+					$current_filter_atts = uncode_get_filter_link_attributes( $term, $key_to_query, $is_custom_field, $query_args, $args, $filter_terms );
 
 					list( $filter_url, $filter_atts ) = $current_filter_atts;
 					$checked = $filter_atts['checked'];
@@ -116,7 +116,7 @@ if ( ! function_exists( "uncode_ajax_term_filter_list_html" ) ) {
 					?>
 					<li class="term-filter">
 						<?php if ( $is_checkbox ) : ?>
-							<label for="<?php echo esc_attr( $filter_id ); ?>"><input type="checkbox" name="<?php echo esc_attr( $filter_id ); ?>" id="<?php echo esc_attr( $filter_id ); ?>" value="<?php echo esc_attr( $term_slug ); ?>" <?php checked( $checked, true ); ?>><a href="<?php echo esc_url( $filter_url ); ?>" class="term-filter-link" <?php echo uncode_filters_add_now_follow(); ?> title="<?php echo esc_attr( strip_tags( $term_description ) ); ?>"><?php echo uncode_switch_stock_string( $display_value ); ?></a></label>
+							<label for="<?php echo esc_attr( $filter_id ); ?>"><input type="checkbox" name="<?php echo esc_attr( $filter_id ); ?>" id="<?php echo esc_attr( $filter_id ); ?>" value="<?php echo esc_attr( $term_slug ); ?>" <?php checked( $checked, true ); ?>><a href="<?php echo esc_url( $filter_url ); ?>" class="term-filter-link <?php echo esc_attr( $checked ? 'term-filter-link--active' : '' );  ?>" <?php echo uncode_filters_add_now_follow(); ?> title="<?php echo esc_attr( strip_tags( $term_description ) ); ?>"><?php echo uncode_switch_stock_string( $display_value ); ?></a></label>
 						<?php else : ?>
 							<a href="<?php echo esc_url( $filter_url ); ?>" class="term-filter-link <?php echo esc_attr( $checked ? 'term-filter-link--active' : '' );  ?>" <?php echo uncode_filters_add_now_follow(); ?> title="<?php echo esc_attr( strip_tags( $term_description ) ); ?>"><?php echo uncode_switch_stock_string( $display_value ); ?></a>
 						<?php endif; ?>
@@ -135,7 +135,7 @@ if ( ! function_exists( "uncode_ajax_term_filter_list_html" ) ) {
 /**
  * Output term filter in select mode
  */
-function uncode_ajax_term_filter_select_html( $key_to_query, $filter_terms, $query_args, $args = array() ) {
+function uncode_ajax_term_filter_select_html( $key_to_query, $filter_terms, $is_custom_field, $query_args, $args = array() ) {
 	$show_count   = isset( $args['show_count'] ) ? $args['show_count']: false;
 	$display      = isset( $args['display'] ) ? $args['display']      : false;
 	$filter_id    = 'filter_' . rand() . '_' . $key_to_query;
@@ -148,7 +148,7 @@ function uncode_ajax_term_filter_select_html( $key_to_query, $filter_terms, $que
 		?>
 
 		<?php if ( $first_option ) : ?>
-			<option data-term-filter-url="<?php echo esc_url( uncode_clear_key_filters( $key_to_query, uncode_get_current_url(), $query_args ) ); ?>"><?php echo esc_html( $first_option ); ?></option>
+			<option data-term-filter-url="<?php echo esc_url( uncode_clear_key_filters( $key_to_query, uncode_get_current_url(), $query_args, $is_custom_field ) ); ?>" value=""><?php echo esc_html( $first_option ); ?></option>
 		<?php endif; ?>
 
 		<?php foreach ( $filter_terms as $filter_term_key => $filter_term_value ) : ?>
@@ -169,7 +169,7 @@ function uncode_ajax_term_filter_select_html( $key_to_query, $filter_terms, $que
 				$is_taxonomy      = true;
 			}
 
-			$current_filter_atts = uncode_get_filter_link_attributes( $term, $key_to_query, $query_args, $args, $filter_terms );
+			$current_filter_atts = uncode_get_filter_link_attributes( $term, $key_to_query, $is_custom_field, $query_args, $args, $filter_terms );
 			$filter_id           = 'filter_' . rand() . '_' . $term_id;
 
 			list( $filter_url, $filter_atts ) = $current_filter_atts;
@@ -203,7 +203,7 @@ function uncode_ajax_term_filter_select_html( $key_to_query, $filter_terms, $que
 /**
  * Output term filter in label mode
  */
-function uncode_ajax_term_filter_label_html( $key_to_query, $filter_terms, $query_args, $args = array() ) {
+function uncode_ajax_term_filter_label_html( $key_to_query, $filter_terms, $is_custom_field, $query_args, $args = array() ) {
 	$multiple    = isset( $args['multiple'] ) ? $args['multiple'] : false;
 	$show_count  = isset( $args['show_count'] ) ? $args['show_count'] : false;
 	$display     = isset( $args['display'] ) ? $args['display'] : false;
@@ -241,7 +241,7 @@ function uncode_ajax_term_filter_label_html( $key_to_query, $filter_terms, $quer
 				$is_taxonomy      = true;
 			}
 
-			$current_filter_atts = uncode_get_filter_link_attributes( $term, $key_to_query, $query_args, $args, $filter_terms );
+			$current_filter_atts = uncode_get_filter_link_attributes( $term, $key_to_query, $is_custom_field, $query_args, $args, $filter_terms );
 			$filter_id           = 'filter_' . rand() . '_' . $term_id;
 
 			list( $filter_url, $filter_atts ) = $current_filter_atts;
@@ -317,7 +317,7 @@ function uncode_ajax_term_filter_color_html( $key_to_query, $filter_terms, $quer
 			$term_slug           = $term->slug;
 			$term_description    = $term->description;
 			$filter_id           = 'filter_' . rand() . '_' . $term_id;
-			$current_filter_atts = uncode_get_filter_link_attributes( $term, $key_to_query, $query_args, $args, $filter_terms );
+			$current_filter_atts = uncode_get_filter_link_attributes( $term, $key_to_query, false, $query_args, $args, $filter_terms );
 			$color               = get_term_meta( $term->term_id, 'uncode_pa_color', true );
 			$color               = $color ? $color: '#EEEEEF';
 
@@ -396,7 +396,7 @@ function uncode_ajax_term_filter_image_html( $key_to_query, $filter_terms, $quer
 			<?php
 			$term                = $filter_term_value['term'];
 			$filter_id           = 'filter_' . rand() . '_' . $term->term_id;
-			$current_filter_atts = uncode_get_filter_link_attributes( $term, $key_to_query, $query_args, $args, $filter_terms );
+			$current_filter_atts = uncode_get_filter_link_attributes( $term, $key_to_query, false, $query_args, $args, $filter_terms );
 			$thumbnail_id        = absint( get_term_meta( $term->term_id, 'uncode_pa_thumbnail_id', true ) );
 			$thumbnail_id        = $thumbnail_id ? $thumbnail_id : false;
 			$image_size  	     = uncode_wc_get_image_swatch_size( $key_to_query );
@@ -498,7 +498,9 @@ function uncode_show_active_ajax_filters( $align = 'left', $clear = '', $class =
 				$prefix_pa = 'pa_';
 
 				if ( ! in_array( $key, uncode_get_special_filter_keys() ) ) {
-					if ( substr( $key, 0, strlen( $prefix_pa ) ) == $prefix_pa ) {
+					if ( isset( $data['is_custom_field'] ) && $data['is_custom_field'] ) {
+						$key_with_prefix = UNCODE_FILTER_PREFIX_CUSTOM_FIELD . $key;
+					} else if ( substr( $key, 0, strlen( $prefix_pa ) ) == $prefix_pa ) {
 						$key_with_prefix = UNCODE_FILTER_PREFIX_PA . substr( $key, strlen( $prefix_pa ) );
 					} else {
 						$key_with_prefix = UNCODE_FILTER_PREFIX_TAX . $key;

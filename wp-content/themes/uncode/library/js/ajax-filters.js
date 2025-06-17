@@ -311,8 +311,11 @@
 	 			});
  			});
  		});
- 	}
-	if (SiteParameters.disable_hover_hack !== '1') {
+	  }
+
+	var ajax_filters_button_mode = $('body').hasClass('ajax-filters-button-mode');
+
+	if (!ajax_filters_button_mode && SiteParameters.disable_hover_hack !== '1') {
 		widget_hover_hack();
 		$(document).on('uncode-ajax-filtered', widget_hover_hack);
 	}
@@ -348,9 +351,11 @@
 					}
 				}
 
-				var url = _this.attr('href');
+				if (!ajax_filters_button_mode) {
+					var url = _this.attr('href');
 
-				reload_items(container, url, true);
+					reload_items(container, url, true);
+				}
 			}
 		});
 
@@ -361,7 +366,7 @@
 			var url = link.attr('href');
 			var container = get_filters_container();
 
-			if (widget.hasClass('widget-ajax-filters--no-ajax')) {
+			if (!ajax_filters_button_mode && widget.hasClass('widget-ajax-filters--no-ajax')) {
 				window.location = url;
 				return;
 			}
@@ -381,7 +386,9 @@
 				link.removeClass('term-filter-link--active');
 			}
 
-			reload_items(container, url, true);
+			if (!ajax_filters_button_mode) {
+				reload_items(container, url, true);
+			}
 		});
 
 		$(document).on('change', 'select.select--term-filters', function(e) {
@@ -392,10 +399,12 @@
 			var container = get_filters_container();
 			var widget = _this.closest('.uncode_widget');
 
-			if (widget.hasClass('widget-ajax-filters--no-ajax')) {
-				window.location = url;
-			} else {
-				reload_items(container, url, true);
+			if (!ajax_filters_button_mode) {
+				if (widget.hasClass('widget-ajax-filters--no-ajax')) {
+					window.location = url;
+				} else {
+					reload_items(container, url, true);
+				}
 			}
 		});
 
@@ -461,18 +470,95 @@
 
 		var search_timer;
 
-		$(document).on('keyup', '.term-filters-search-input', function(e) {
-			var _this = $(this);
+		if (!ajax_filters_button_mode) {
+			$(document).on('keyup', '.term-filters-search-input', function (e) {
+				var _this = $(this);
+				var container = get_filters_container();
+				var value = _this.val();
+
+				if (search_timer) {
+					clearTimeout(search_timer);
+				}
+
+				search_timer = setTimeout(function () {
+					update_search_url(container, value);
+				}, 500);
+			});
+		}
+
+		$(document).on('click', '.btn-ajax-filters-trigger', function (e) {
 			var container = get_filters_container();
-			var value = _this.val();
 
-			if (search_timer) {
-				clearTimeout(search_timer);
+			if (container.length) {
+				e.preventDefault();
+				var paramMap = {};
+
+				$('.term-filter-link--active').each(function () {
+					collect_from_query(paramMap, this.href.split('?')[1] || '');
+				});
+
+				$('.select--term-filters').each(function () {
+					var select = $(this);
+					var val = select.val();
+
+					if (!val) {
+						return
+					};
+
+					var selected_option = select.find('option:selected');
+					var qUrl = selected_option.data('term-filter-url') || '';
+
+					collect_from_query(paramMap, qUrl.split('?')[1] || '');
+				});
+
+				var search = $('.term-filters-search-input');
+
+				if (search.length > 0) {
+					var search_value = search.val().trim();
+					if (search_value) {
+						paramMap[SiteParameters.ajax_filter_key_search] = {};
+						paramMap[SiteParameters.ajax_filter_key_search][search_value] = 1;
+					}
+				}
+
+				var qsParts = [];
+				$.each(paramMap, function (key, valSet) {
+					var vals = Object.keys(valSet);
+					qsParts.push(key + '=' + vals.join(','));
+				});
+
+				var final_url = window.location.origin + window.location.pathname;
+
+				if (qsParts.length > 0) {
+					qsParts.push('unfilter=1');
+
+					var qs = qsParts.join('&');
+					final_url = '?' + qs;
+				}
+
+				reload_items(container, final_url, true);
 			}
+		});
+	}
 
-			search_timer = setTimeout(function() {
-				update_search_url(container, value);
-			}, 500);
+	function collect_from_query(paramMap, query) {
+		$.each(query.split('&'), function (_, pair) {
+			if (!pair) {
+				return
+			};
+
+			var kv  = pair.split('=');
+			var key = kv[0];
+			var val = kv[1] || '';
+
+			if (key === 'unfilter') {
+				return;
+			}
+			if (!paramMap[key]) {
+				paramMap[key] = {}
+			};
+
+			paramMap[key][val] = 1;
 		});
 	}
 
@@ -514,6 +600,10 @@
 			container = $('.ajax-filters');
 		}
 
+		if (container.length == 0) {
+			container = $('.ajax-filters-target');
+		}
+
 		return container;
 	}
 
@@ -541,6 +631,11 @@
 		}
 	}
 
+	// Find filters container
+	function find_filters_container(context) {
+		return context.find('.widget-ajax-filters').closest('.row-parent').find('.uncol').first();
+	}
+
 	// Reload items via AJAX
 	function reload_items(container, url, push) {
 		if (isAjaxing) {
@@ -562,11 +657,23 @@
 
 				var container_id = container.attr('id');
 				var pagination = $('.row-navigation');
+				var filters_container;
+
+				var isTargetFilterMode = container.hasClass('ajax-filters-target');
+
+				if (isTargetFilterMode) {
+					filters_container = find_filters_container($(document));
+				}
 
 				if (container_id) {
 					var container_to_append = $(response).find('#' + container_id);
 					var pagination_to_append = $(response).find('.row-navigation');
+					var filters_to_append;
 					var offcanvas_sidebar_wrapper = $('.ajax-filter-sidebar--offcanvas');
+
+					if (isTargetFilterMode) {
+						filters_to_append = find_filters_container($(response));
+					}
 
 					// Remember open/closed widgets
 					var widgets = $('.uncode_widget');
@@ -603,8 +710,8 @@
 						widgets_states.push(state);
 					});
 
-					// Update widgets state
-					if (offcanvas_sidebar_wrapper.length === 0) {
+					// Update widgets state when it is not in target mode
+					if (! isTargetFilterMode && offcanvas_sidebar_wrapper.length === 0) {
 						update_widgets_state(widgets_states, container_to_append);
 					}
 
@@ -650,6 +757,16 @@
 						if (pagination_to_append.length > 0) {
 							$('.post-wrapper').append(pagination_to_append);
 						}
+					}
+
+					// Append filters
+					if (isTargetFilterMode && filters_container.length > 0) {
+						filters_container.html(filters_to_append.html());
+					}
+
+					// Update widgets state when it is in target mode
+					if (isTargetFilterMode && filters_container.length > 0) {
+						update_widgets_state(widgets_states, filters_container);
 					}
 
 					// Update off canvas sidebar (mobile and overlay)

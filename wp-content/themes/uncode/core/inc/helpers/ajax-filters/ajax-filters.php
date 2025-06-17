@@ -19,6 +19,10 @@ if ( ! defined( 'UNCODE_FILTER_PREFIX_PA' ) ) {
 	define( 'UNCODE_FILTER_PREFIX_PA', 'filter_' );
 }
 
+if ( ! defined( 'UNCODE_FILTER_PREFIX_CUSTOM_FIELD' ) ) {
+	define( 'UNCODE_FILTER_PREFIX_CUSTOM_FIELD', 'meta_' );
+}
+
 if ( ! defined( 'UNCODE_FILTER_KEY_STATUS' ) ) {
 	define( 'UNCODE_FILTER_KEY_STATUS', 'status' );
 }
@@ -55,15 +59,33 @@ if ( ! defined( 'UNCODE_FILTER_PREFIX_QUERY_TYPE_PA' ) ) {
 	define( 'UNCODE_FILTER_PREFIX_QUERY_TYPE_PA', UNCODE_FILTER_PREFIX_RELATION . UNCODE_FILTER_PREFIX_PA );
 }
 
+if ( ! defined( 'UNCODE_FILTER_PREFIX_QUERY_TYPE_CUSTOM_FIELD' ) ) {
+	define( 'UNCODE_FILTER_PREFIX_QUERY_TYPE_CUSTOM_FIELD', UNCODE_FILTER_PREFIX_RELATION . UNCODE_FILTER_PREFIX_CUSTOM_FIELD );
+}
+
 if ( ! defined( 'UNCODE_FILTER_PREFIX_QUERY_TYPE_STATUS' ) ) {
 	define( 'UNCODE_FILTER_PREFIX_QUERY_TYPE_STATUS', UNCODE_FILTER_PREFIX_RELATION . UNCODE_FILTER_KEY_STATUS );
+}
+
+/**
+ * Function that checks if the current content has Ajax Filters
+ * with the trigger button
+ */
+function uncode_has_filters_with_button() {
+	global $uncode_has_ajax_filters_with_button;
+
+	if ( isset( $uncode_has_ajax_filters_with_button ) && $uncode_has_ajax_filters_with_button === true ) {
+		return true;
+	}
+
+	return false;
 }
 
 /**
  * Function that manually calls the Posts Module shortcode
  * so that the query is populated before calling Ajax Filter modules
  */
-function uncode_check_for_row_with_custom_ajax_filters( $content ) {
+function uncode_check_for_row_with_custom_ajax_filters( $content, $check_target = false ) {
 	if ( strpos( $content, '[uncode_index' ) !== false ) {
 		$regex = '/\[uncode_index(.*?)\](.*?)/';
 		$regex_attr = '/(.*?)=\"(.*?)\"/';
@@ -77,10 +99,24 @@ function uncode_check_for_row_with_custom_ajax_filters( $content ) {
 				if ( $post_module_shortcode ) {
 					global $has_ajax_filters;
 
-					$has_ajax_filters = true;
+					if ( ! $check_target ) {
+						$has_ajax_filters = true;
+					}
 
 					preg_match_all( $regex_attr, trim( $post_module_shortcode ), $matches_attr, PREG_SET_ORDER );
 					foreach ( $matches_attr as $key_attr => $value_attr ) {
+						// Check if this is a filterable posts module
+						if ( $check_target ) {
+							if ( trim( $value_attr[1] ) === 'filtering' ) {
+								$filtering_value = trim( $value_attr[2] );
+
+								if ( $filtering_value === 'target' ) {
+									$has_ajax_filters = true;
+								}
+							}
+						}
+
+						// Get loop value
 						if ( trim( $value_attr[1] ) === 'loop' ) {
 							$loop_string = trim( $value_attr[0] );
 							$loop = $value_attr[2];
@@ -93,14 +129,55 @@ function uncode_check_for_row_with_custom_ajax_filters( $content ) {
 						}
 					}
 
-					ob_start();
-					do_shortcode( $post_module_shortcode );
-					ob_end_clean();
+					if ( $check_target && $has_ajax_filters ) {
+						ob_start();
+						do_shortcode( $post_module_shortcode );
+						ob_end_clean();
+
+						return true;
+					}
 				}
 			}
 		}
 	}
+
+	return false;
 }
+
+/**
+ * Function that searches for a button for Ajax Filters in the content
+ */
+function uncode_check_for_button_for_ajax_filters( $content ) {
+	global $uncode_has_ajax_filters_with_button;
+
+	if ( strpos( $content, 'dynamic="ajax_filters"' ) !== false ) {
+		$uncode_has_ajax_filters_with_button = true;
+	}
+}
+
+/**
+ * Function that checks if there is a button for Ajax Filters in the content
+ * and/or if the content is a Posts Module with Ajax Filters in target mode
+ */
+function uncode_check_for_content_with_custom_ajax_filters() {
+	global $uncode_has_ajax_filters_with_button;
+
+	$uncode_has_ajax_filters_with_button = false;
+
+	$content_array = uncode_get_post_data_content_array();
+	$has_run_shortcode = false;
+
+	foreach ( $content_array as $key => $content ) {
+		if ( ! $has_run_shortcode ) {
+			$has_run_shortcode = uncode_check_for_row_with_custom_ajax_filters( $content, true );
+		}
+
+		if ( ! $uncode_has_ajax_filters_with_button ) {
+			uncode_check_for_button_for_ajax_filters( $content );
+		}
+	}
+}
+add_action( 'wp_head', 'uncode_check_for_content_with_custom_ajax_filters' );
 
 /**
  * Function that populates the module with tax terms
@@ -151,7 +228,7 @@ function uncode_filters_populate_tax_terms( $tax_source, $tax_to_query, $query_a
 
 		$fixed = apply_filters( 'uncode_make_multiple_ajax_filter_fixed', false );
 
-		if ( is_tax( $tax_to_query ) || ( $fixed && $multiple ) || ( ( ! $multiple || uncode_get_filters_query_relation( $tax_to_query, $query_args, $tax_source ) === 'or' ) && uncode_is_only_current_filter( $tax_to_query, $query_args, $tax_source ) ) ) {
+		if ( uncode_has_filters_with_button() || is_tax( $tax_to_query ) || ( $fixed && $multiple ) || ( ( ! $multiple || uncode_get_filters_query_relation( $tax_to_query, $query_args, $tax_source ) === 'or' ) && uncode_is_only_current_filter( $tax_to_query, $query_args, $tax_source ) ) ) {
 			if ( ! is_null( $uncode_ajax_filter_query_unfiltered ) ) {
 				$posts_query = $uncode_ajax_filter_query_unfiltered;
 			}
@@ -371,7 +448,7 @@ function uncode_filters_populate_author_terms( $query_args, $sort_by ) {
 
 		$posts_query = null;
 
-		if ( is_author() || ( uncode_is_only_current_filter( UNCODE_FILTER_KEY_AUTHOR, $query_args ) ) ) {
+		if ( uncode_has_filters_with_button() || is_author() || ( uncode_is_only_current_filter( UNCODE_FILTER_KEY_AUTHOR, $query_args ) ) ) {
 			if ( ! is_null( $uncode_ajax_filter_query_unfiltered ) ) {
 				$posts_query = $uncode_ajax_filter_query_unfiltered;
 			}
@@ -482,6 +559,210 @@ function uncode_filters_populate_author_terms( $query_args, $sort_by ) {
 }
 
 /**
+ * Function that populates the module with custom field terms
+ */
+function uncode_filters_populate_custom_field_terms( $custom_field_to_query, $query_args, $multiple, $sort_type, $sort_by ) {
+	// Populate terms
+	$custom_field_terms = array();
+
+	$current_post_type = uncode_get_current_post_type();
+
+	if ( ( function_exists('vc_is_page_editable') && vc_is_page_editable() ) || $current_post_type == 'uncodeblock' ) {
+		// Add fake terms for the editor
+		$custom_field_terms = array(
+			'custom_field_1' => array(
+				'term'  => (object) array(
+					'term_id'     => 'custom_field_1',
+					'slug'        => 'custom_field_1',
+					'name'        => __( 'Custom field 1', 'uncode' ),
+					'description' => '',
+				),
+				'count' => 2,
+			),
+			'custom_field_2' => array(
+				'term'  => (object) array(
+					'term_id'     => 'custom_field_2',
+					'slug'        => 'custom_field_2',
+					'name'        => __( 'Custom field 2', 'uncode' ),
+					'description' => '',
+				),
+				'count' => 3,
+			),
+			'custom_field_3' => array(
+				'term'  => (object) array(
+					'term_id'     => 'custom_field_3',
+					'slug'        => 'custom_field_3',
+					'name'        => __( 'Custom field 3', 'uncode' ),
+					'description' => '',
+				),
+				'count' => 1,
+			),
+			'custom_field_4' => array(
+				'term'  => (object) array(
+					'term_id'     => 'custom_field_4',
+					'slug'        => 'custom_field_4',
+					'name'        => __( 'Custom field 4', 'uncode' ),
+					'description' => '',
+				),
+				'count' => 1,
+			),
+			'custom_field_5' => array(
+				'term'  => (object) array(
+					'term_id'     => 'custom_field_5',
+					'slug'        => 'custom_field_5',
+					'name'        => __( 'Custom field 5', 'uncode' ),
+					'description' => '',
+				),
+				'count' => 2,
+			),
+		);
+	} else {
+		global $uncode_ajax_filter_query;
+		global $uncode_ajax_filter_query_unfiltered;
+
+		$posts_query = null;
+
+		$fixed = apply_filters( 'uncode_make_multiple_ajax_filter_fixed', false );
+
+		if ( uncode_has_filters_with_button() || ( $fixed && $multiple ) || ( ( ! $multiple || uncode_get_filters_query_relation( $custom_field_to_query, $query_args, 'custom_field' ) === 'or' ) && uncode_is_only_current_filter( $custom_field_to_query, $query_args, 'custom_field', true ) ) ) {
+			if ( ! is_null( $uncode_ajax_filter_query_unfiltered ) ) {
+				$posts_query = $uncode_ajax_filter_query_unfiltered;
+			}
+		} else {
+			// We have filters, so use terms attached to posts we found
+			if ( ! is_null( $uncode_ajax_filter_query ) ) {
+				$posts_query = $uncode_ajax_filter_query;
+			}
+		}
+
+		if ( ! is_null( $posts_query ) ) {
+			if ( ! count( $posts_query ) > 0 ) {
+				$no_results = false;
+
+				if ( ! is_null( $uncode_ajax_filter_query ) ) {
+					if ( ! count( $uncode_ajax_filter_query ) > 0 ) {
+						$no_results = true;
+					}
+				}
+
+				if ( $no_results ) {
+					$cf_to_query_values = uncode_filters_get_query_string_value( $custom_field_to_query );
+
+					if ( is_array( $cf_to_query_values ) ) {
+						$known_values   = 0;
+
+						foreach ( $cf_to_query_values as $cf_to_query_value ) {
+							$term_slug         = sanitize_title($cf_to_query_value);
+							$term              = new stdClass();
+							$term->term_id     = $term_slug;
+							$term->slug        = $term_slug;
+							$term->name        = $cf_to_query_value;
+							$term->description = '';
+
+							$custom_field_terms[$term_slug] = array(
+								'term'  => $term,
+								'count' => 0,
+							);
+							$known_values++;
+						}
+
+						if ( ! $known_values ) {
+							if ( ! is_null( $uncode_ajax_filter_query_unfiltered ) ) {
+								$unfiltered_posts_query = $uncode_ajax_filter_query_unfiltered;
+							}
+
+							if ( isset($unfiltered_posts_query) && $unfiltered_posts_query ) {
+								foreach ( $unfiltered_posts_query as $post_id ) {
+									$cf_value  = get_post_meta( $post_id, $custom_field_to_query, true );
+									$cf_values = uncode_filters_get_custom_field_values( $cf_value );
+
+									foreach ( $cf_values as $cf_value ) {
+										if ( $cf_value ) {
+											if ( isset( $custom_field_terms[$cf_value] ) ) {
+												$custom_field_terms[$cf_value]['count']++;
+											} else {
+												$term_slug         = sanitize_title($cf_value);
+												$term              = new stdClass();
+												$term->term_id     = $term_slug;
+												$term->slug        = $term_slug;
+												$term->name        = $cf_value;
+												$term->description = '';
+
+												$custom_field_terms[$term_slug] = array(
+													'term'  => $term,
+													'count' => 1,
+												);
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			} else {
+				if ( uncode_ajax_filters_cache_enabled() ) {
+					$post_objects_data  = get_transient( 'uncode_ajax_filters_post_objects_data' );
+					$cache_needs_update = false;
+				}
+
+				foreach ( $posts_query as $post_id ) {
+					if ( uncode_ajax_filters_cache_enabled() ) {
+						// Load from cache
+						$new_post_objects_data = uncode_ajax_filters_get_custom_field_data_from_cache( $post_objects_data, $post_id, $custom_field_to_query );
+
+						$post_objects_data = $new_post_objects_data['data'];
+
+						if ( $new_post_objects_data['from_cache'] === false ) {
+							$cache_needs_update = true;
+						}
+
+						$cf_value = isset( $post_objects_data[$post_id] ) && isset( $post_objects_data[ $post_id ]['custom_field_data'] ) && isset( $post_objects_data[ $post_id ]['custom_field_data'][ $custom_field_to_query ] ) ? $post_objects_data[ $post_id ]['custom_field_data'][ $custom_field_to_query ] : array();
+					} else {
+						// Rebuild each time, no cache
+						$cf_value  = get_post_meta( $post_id, $custom_field_to_query, true );
+
+					}
+
+					$cf_values = uncode_filters_get_custom_field_values( $cf_value );
+					foreach ( $cf_values as $cf_value ) {
+						if ( $cf_value ) {
+							$term_slug = sanitize_title($cf_value);
+
+							if ( isset( $custom_field_terms[$term_slug] ) ) {
+								$custom_field_terms[$term_slug]['count']++;
+							} else {
+								$term              = new stdClass();
+								$term->term_id     = $term_slug;
+								$term->slug        = $term_slug;
+								$term->name        = $cf_value;
+								$term->description = '';
+
+								$custom_field_terms[$term_slug] = array(
+									'term'  => $term,
+									'count' => 1,
+								);
+							}
+						}
+					}
+				}
+
+				if ( uncode_ajax_filters_cache_enabled() && $cache_needs_update ) {
+					// set_transient( 'uncode_ajax_filters_post_objects_data', $post_objects_data, uncode_ajax_filters_get_transient_lifespan() );
+				}
+			}
+		}
+	}
+
+	// Order terms
+	$custom_field_terms = uncode_sort_filters_by_custom_field_name( $custom_field_terms, $sort_by, $sort_type );
+
+	$custom_field_terms = apply_filters( 'uncode_filters_get_custom_field_terms', $custom_field_terms, $custom_field_to_query, $query_args, $multiple, $sort_type, $sort_by );
+
+	return $custom_field_terms;
+}
+
+/**
  * Function that populates the module with date terms
  */
 function uncode_filters_populate_date_terms( $query_args, $date_type, $date_sort ) {
@@ -543,7 +824,7 @@ function uncode_filters_populate_date_terms( $query_args, $date_type, $date_sort
 		global $uncode_ajax_filter_query;
 		global $uncode_ajax_filter_query_unfiltered;
 
-		if ( is_date() || ( uncode_is_only_current_filter( UNCODE_FILTER_KEY_DATE, $query_args ) ) ) {
+		if ( uncode_has_filters_with_button() || is_date() || ( uncode_is_only_current_filter( UNCODE_FILTER_KEY_DATE, $query_args ) ) ) {
 			if ( ! is_null( $uncode_ajax_filter_query_unfiltered ) ) {
 				$posts_query = $uncode_ajax_filter_query_unfiltered;
 			}
@@ -729,7 +1010,7 @@ function uncode_filters_populate_product_status_terms( $query_args, $multiple ) 
 
 		$posts_query = null;
 
-		if ( ( ! $multiple || uncode_get_filters_query_relation( UNCODE_FILTER_KEY_STATUS, $query_args ) === 'or' ) && uncode_is_only_current_filter( UNCODE_FILTER_KEY_STATUS, $query_args ) ) {
+		if ( uncode_has_filters_with_button() || ( ! $multiple || uncode_get_filters_query_relation( UNCODE_FILTER_KEY_STATUS, $query_args ) === 'or' ) && uncode_is_only_current_filter( UNCODE_FILTER_KEY_STATUS, $query_args ) ) {
 			if ( ! is_null( $uncode_ajax_filter_query_unfiltered ) ) {
 				$posts_query = $uncode_ajax_filter_query_unfiltered;
 			}
@@ -967,7 +1248,7 @@ function uncode_filters_populate_product_price_terms( $lines, $query_args ) {
 
 		$posts_query = null;
 
-		if ( uncode_is_only_current_filter( 'custom_price', $query_args ) ) {
+		if ( uncode_has_filters_with_button() || uncode_is_only_current_filter( 'custom_price', $query_args ) ) {
 			if ( ! is_null( $uncode_ajax_filter_query_unfiltered ) ) {
 				$posts_query = $uncode_ajax_filter_query_unfiltered;
 			}
@@ -1156,7 +1437,7 @@ function uncode_filters_populate_product_ratings_terms( $query_args, $multiple )
 
 		$posts_query = null;
 
-		if ( ( ! $multiple || uncode_get_filters_query_relation( UNCODE_FILTER_KEY_RATING, $query_args ) === 'or' ) && uncode_is_only_current_filter( UNCODE_FILTER_KEY_RATING, $query_args ) ) {
+		if ( uncode_has_filters_with_button() || ( ! $multiple || uncode_get_filters_query_relation( UNCODE_FILTER_KEY_RATING, $query_args ) === 'or' ) && uncode_is_only_current_filter( UNCODE_FILTER_KEY_RATING, $query_args ) ) {
 			if ( ! is_null( $uncode_ajax_filter_query_unfiltered ) ) {
 				$posts_query = $uncode_ajax_filter_query_unfiltered;
 			}
@@ -1416,6 +1697,74 @@ function uncode_sort_filters_by_date( $dates, $date_sort ) {
 }
 
 /**
+ * Sort found custom field values by name
+ */
+function uncode_sort_filters_by_custom_field_name( $terms, $sort_by, $sort_type ) {
+	$sorted_array = array();
+
+	foreach ( $terms as $term_id => $term_data ) {
+		$term = $term_data['term'];
+		$name = $term->name;
+		$sorted_array[$term_id] = $name;
+	}
+
+	if ( $sort_type === 'numeric' ) {
+		// Sort numerically
+		if ( $sort_by === 'desc' ) {
+			arsort( $sorted_array, SORT_NUMERIC );
+		} else {
+			asort( $sorted_array, SORT_NUMERIC );
+		}
+	} elseif ( $sort_type === 'date' ) {
+		// Sort by date using WordPress date format
+		$date_array = array();
+		$wp_date_format = get_option( 'date_format' );
+
+		foreach ( $sorted_array as $term_id => $name ) {
+			$timestamp = 0;
+
+			$date_obj = DateTime::createFromFormat( $wp_date_format, trim( $name ) );
+			if ( $date_obj !== false ) {
+				$timestamp = $date_obj->getTimestamp();
+			} else {
+				$date_obj = DateTime::createFromFormat( 'd/m/Y', trim( $name ) );
+				if ( $date_obj !== false ) {
+					$timestamp = $date_obj->getTimestamp();
+				}
+			}
+
+			$date_array[$term_id] = $timestamp;
+		}
+
+		if ( $sort_by === 'desc' ) {
+			arsort( $date_array, SORT_NUMERIC );
+		} else {
+			asort( $date_array, SORT_NUMERIC );
+		}
+
+		// Rebuild sorted_array with the date-sorted order
+		$sorted_array = array();
+		foreach ( $date_array as $term_id => $timestamp ) {
+			$sorted_array[$term_id] = $terms[$term_id]['term']->name;
+		}
+	} else {
+		// Sort alphabetically
+		if ( $sort_by === 'desc' ) {
+			arsort( $sorted_array, SORT_STRING );
+		} else {
+			asort( $sorted_array, SORT_STRING );
+		}
+	}
+
+	$result = array();
+	foreach ( $sorted_array as $key => $value ) {
+		$result[$key] = $terms[$key];
+	}
+
+	return $result;
+}
+
+/**
  * Ensure to always have parents of child categories (terms array)
  */
 function uncode_add_missing_parent_terms( $terms ) {
@@ -1465,6 +1814,8 @@ function uncode_is_valid_filter_key( $filter_key ) {
 		$is_valid = true;
 	} else if ( substr( $filter_key, 0, strlen( UNCODE_FILTER_PREFIX_RELATION ) ) == UNCODE_FILTER_PREFIX_RELATION ) {
 		$is_valid = true;
+	} else if ( substr( $filter_key, 0, strlen( UNCODE_FILTER_PREFIX_CUSTOM_FIELD ) ) == UNCODE_FILTER_PREFIX_CUSTOM_FIELD ) {
+		$is_valid = true;
 	} else {
 		if ( substr( $filter_key, 0, strlen( UNCODE_FILTER_PREFIX_PA ) ) == UNCODE_FILTER_PREFIX_PA ) {
 			$filter_key = 'pa_' . substr( $filter_key, strlen( UNCODE_FILTER_PREFIX_PA ) );
@@ -1513,6 +1864,11 @@ function uncode_build_filter_link( $link, $query_args ) {
 			if ( ! isset( $query_args[$key_to_search] ) ) {
 				unset( $query_args[$key] );
 			}
+		} else if ( substr( $key, 0, strlen( UNCODE_FILTER_PREFIX_QUERY_TYPE_CUSTOM_FIELD ) ) == UNCODE_FILTER_PREFIX_QUERY_TYPE_CUSTOM_FIELD ) {
+			$key_to_search = UNCODE_FILTER_PREFIX_CUSTOM_FIELD . substr( $key, strlen( UNCODE_FILTER_PREFIX_QUERY_TYPE_CUSTOM_FIELD ) );
+			if ( ! isset( $query_args[$key_to_search] ) ) {
+				unset( $query_args[$key] );
+			}
 		} else if ( $key === UNCODE_FILTER_PREFIX_QUERY_TYPE_STATUS ) {
 			$key_to_search = UNCODE_FILTER_KEY_STATUS;
 			if ( ! isset( $query_args[$key_to_search] ) ) {
@@ -1533,7 +1889,7 @@ function uncode_build_filter_link( $link, $query_args ) {
 /**
  * Remove all filters of a specific key from the URL
  */
-function uncode_clear_key_filters( $current_key, $link, $query_args ) {
+function uncode_clear_key_filters( $current_key, $link, $query_args, $is_custom_field = false ) {
 	unset( $query_args[UNCODE_FILTER_PREFIX] );
 
 	$prefix_pa = 'pa_';
@@ -1541,6 +1897,8 @@ function uncode_clear_key_filters( $current_key, $link, $query_args ) {
 	if ( ! in_array( $current_key, uncode_get_special_filter_keys() ) ) {
 		if ( substr( $current_key, 0, strlen( $prefix_pa ) ) == $prefix_pa ) {
 			$key_with_prefix = UNCODE_FILTER_PREFIX_PA . substr( $current_key, strlen( $prefix_pa ) );
+		} else if ( $is_custom_field ) {
+			$key_with_prefix = UNCODE_FILTER_PREFIX_CUSTOM_FIELD . $current_key;
 		} else {
 			$key_with_prefix = UNCODE_FILTER_PREFIX_TAX . $current_key;
 		}
@@ -1584,6 +1942,11 @@ function uncode_clear_key_filters( $current_key, $link, $query_args ) {
 			if ( ! isset( $query_args[$key_to_search] ) ) {
 				unset( $query_args[$key] );
 			}
+		} else if ( substr( $key, 0, strlen( UNCODE_FILTER_PREFIX_QUERY_TYPE_CUSTOM_FIELD ) ) == UNCODE_FILTER_PREFIX_QUERY_TYPE_CUSTOM_FIELD ) {
+			$key_to_search = UNCODE_FILTER_PREFIX_CUSTOM_FIELD . substr( $key, strlen( UNCODE_FILTER_PREFIX_QUERY_TYPE_CUSTOM_FIELD ) );
+			if ( ! isset( $query_args[$key_to_search] ) ) {
+				unset( $query_args[$key] );
+			}
 		} else if ( $key === UNCODE_FILTER_PREFIX_QUERY_TYPE_STATUS ) {
 			$key_to_search = UNCODE_FILTER_KEY_STATUS;
 			if ( ! isset( $query_args[$key_to_search] ) ) {
@@ -1624,9 +1987,18 @@ function uncode_get_filter_tax_key( $taxonomy ) {
 }
 
 /**
+ * Use 'meta_' prefix for taxonomies
+ */
+function uncode_get_filter_custom_field_key( $field ) {
+	$field = UNCODE_FILTER_PREFIX_CUSTOM_FIELD . $field;
+
+	return $field;
+}
+
+/**
  * Returns attributes (href and class) to be used for filter anchors
  */
-function uncode_get_filter_link_attributes( $term, $key_to_query, $query_args = array(), $args = array(), $filter_terms = array() ) {
+function uncode_get_filter_link_attributes( $term, $key_to_query, $is_custom_field, $query_args = array(), $args = array(), $filter_terms = array() ) {
 	$is_product_att = isset( $args['is_product_att'] ) && $args['is_product_att'] === true ? true : false;
 	$allow_multiple = isset( $args['multiple'] ) && $args['multiple'] === true ? true : false;
 	$link           = isset( $args['current_url'] ) ? $args['current_url'] : uncode_get_current_url();
@@ -1684,6 +2056,24 @@ function uncode_get_filter_link_attributes( $term, $key_to_query, $query_args = 
 				$atts['checked'] = true;
 				unset( $query_args['max_price'] );
 			}
+		}
+
+		if ( uncode_has_filters_with_button() ) {
+			$_query_args = array();
+
+			if ( isset( $query_args['min_price'] ) ) {
+				$_query_args['min_price'] = $query_args['min_price'];
+			}
+
+			if ( isset( $query_args['max_price'] ) ) {
+				$_query_args['max_price'] = $query_args['max_price'];
+			}
+
+			if ( isset( $query_args['orderby'] ) ) {
+				$_query_args['orderby'] = $query_args['orderby'];
+			}
+
+			$query_args = $_query_args;
 		}
 	} else {
 		if ( in_array( $key_to_query, uncode_get_special_filter_keys() ) ) {
@@ -1790,6 +2180,8 @@ function uncode_get_filter_link_attributes( $term, $key_to_query, $query_args = 
 
 			if ( $is_product_att ) {
 				$key_to_query = uncode_get_filter_pa_key( $key_to_query );
+			} else if ( $is_custom_field ) {
+				$key_to_query = uncode_get_filter_custom_field_key( $key_to_query );
 			} else {
 				if ( ! ( substr( $key_to_query, 0, strlen( UNCODE_FILTER_PREFIX_RELATION ) ) == UNCODE_FILTER_PREFIX_RELATION ) ) {
 					$key_to_query = uncode_get_filter_tax_key( $key_to_query );
@@ -1835,6 +2227,26 @@ function uncode_get_filter_link_attributes( $term, $key_to_query, $query_args = 
 		} else {
 			$query_args[$key_to_query] = array( $key_value );
 		}
+
+		if ( uncode_has_filters_with_button() ) {
+			$_query_args = array(
+				$key_to_query => array( $key_value ),
+			);
+
+			if ( isset( $query_args['min_price'] ) ) {
+				$_query_args['min_price'] = $query_args['min_price'];
+			}
+
+			if ( isset( $query_args['max_price'] ) ) {
+				$_query_args['max_price'] = $query_args['max_price'];
+			}
+
+			if ( isset( $query_args['orderby'] ) ) {
+				$_query_args['orderby'] = $query_args['orderby'];
+			}
+
+			$query_args = $_query_args;
+		}
 	}
 
 	if ( $relation === 'and' ) {
@@ -1857,6 +2269,7 @@ function uncode_get_query_args_from_query( $active_filters ) {
 
 	foreach ( $active_filters as $key => $data ) {
 		$prefix_pa = 'pa_';
+		$is_custom_field = isset( $data['is_custom_field'] ) && $data['is_custom_field'] === true ? true : false;
 
 		if ( $key !== UNCODE_FILTER_KEY_RATING && $key !== UNCODE_FILTER_KEY_SEARCH && $key !== UNCODE_FILTER_KEY_AUTHOR && $key !== UNCODE_FILTER_KEY_DATE ) {
 			if ( $key === UNCODE_FILTER_KEY_STATUS ) {
@@ -1870,6 +2283,8 @@ function uncode_get_query_args_from_query( $active_filters ) {
 					$relation = UNCODE_FILTER_PREFIX_RELATION . $key;
 					$query_args[$relation] = $data['relation'];
 				}
+			} else if ( $is_custom_field ) {
+				$key = UNCODE_FILTER_PREFIX_CUSTOM_FIELD . $key;
 			} else {
 				$key = UNCODE_FILTER_PREFIX_TAX . $key;
 
@@ -1942,7 +2357,7 @@ function uncode_get_special_filter_keys() {
 /**
  * Check if a specific taxonomy is the only current filter
  */
-function uncode_is_only_current_filter( $taxonomy, $query_args, $tax_source = false ) {
+function uncode_is_only_current_filter( $taxonomy, $query_args, $tax_source = false, $is_custom_field = false ) {
 	global $uncode_all_taxonomies;
 	global $uncode_all_products_attributes;
 
@@ -1954,13 +2369,17 @@ function uncode_is_only_current_filter( $taxonomy, $query_args, $tax_source = fa
 		$uncode_all_products_attributes = uncode_get_all_product_attributes();
 	}
 
-	if ( ! in_array( $taxonomy, uncode_get_special_filter_keys() ) && $taxonomy !== 'custom_price' ) {
+	if ( ! in_array( $taxonomy, uncode_get_special_filter_keys() ) && $taxonomy !== 'custom_price' && ! $is_custom_field ) {
 		$is_product_att = $tax_source === 'product_att' ? true : false;
 		$taxonomy       = $is_product_att ? uncode_get_filter_pa_key( $taxonomy ) : UNCODE_FILTER_PREFIX_TAX . $taxonomy;
 	}
 
 	$all_taxonomies          = array();
 	$all_products_attributes = array();
+
+	if ( $is_custom_field ) {
+		$taxonomy = UNCODE_FILTER_PREFIX_CUSTOM_FIELD . $taxonomy;
+	}
 
 	foreach ( $uncode_all_taxonomies as $value ) {
 		$all_taxonomies[] = UNCODE_FILTER_PREFIX_TAX . $value;
@@ -1975,13 +2394,21 @@ function uncode_is_only_current_filter( $taxonomy, $query_args, $tax_source = fa
 		unset( $query_args['max_price'] );
 	}
 
+	$count_custom_fields = 0;
+
 	foreach ( $query_args as $query_key => $query_value ) {
+		unset( $query_args['unfilter'] ); // always remove this
+
 		if ( $query_key === $taxonomy ) {
 			unset( $query_args[$query_key] );
 		}
 
+		if ( substr( $query_key, 0, strlen( UNCODE_FILTER_PREFIX_CUSTOM_FIELD ) ) == UNCODE_FILTER_PREFIX_CUSTOM_FIELD ) {
+			$count_custom_fields++;
+		}
+
 		// Remove invalid keys from our test, but keep the special ones (status, reviews, etc)
-		if ( ! in_array( $query_key, $all_taxonomies ) && ! in_array( $query_key, $all_products_attributes ) && ! in_array( $query_key, uncode_get_special_filter_keys() ) ) {
+		if ( !$is_custom_field && ! in_array( $query_key, $all_taxonomies ) && ! in_array( $query_key, $all_products_attributes ) && ! in_array( $query_key, uncode_get_special_filter_keys() )  ) {
 			unset( $query_args[$query_key] );
 		}
 
@@ -1989,6 +2416,10 @@ function uncode_is_only_current_filter( $taxonomy, $query_args, $tax_source = fa
 		if ( $query_key === 'orderby' ) {
 			unset( $query_args[$query_key] );
 		}
+	}
+
+	if ( $count_custom_fields > 1 ) {
+		return false;
 	}
 
 	if ( count( $query_args ) > 0 ) {
@@ -2004,6 +2435,9 @@ function uncode_is_only_current_filter( $taxonomy, $query_args, $tax_source = fa
 function uncode_get_filters_query_relation( $taxonomy, $query_args, $tax_source = false ) {
 	if ( $taxonomy === UNCODE_FILTER_KEY_STATUS ) {
 		$relation = UNCODE_FILTER_PREFIX_QUERY_TYPE_STATUS;
+	} else if ( $tax_source === 'custom_field' ) {
+		$taxonomy       = UNCODE_FILTER_PREFIX_CUSTOM_FIELD . $taxonomy;
+		$relation       = UNCODE_FILTER_PREFIX_RELATION . $taxonomy;
 	} else {
 		$is_product_att = $tax_source === 'product_att' ? true : false;
 		$taxonomy       = $is_product_att ? UNCODE_FILTER_PREFIX_PA . $taxonomy : UNCODE_FILTER_PREFIX_TAX . $taxonomy;
@@ -2083,6 +2517,11 @@ function uncode_filters_get_query_string_value( $tax_to_query ) {
 				return $selected_terms;
 			} else if ( substr( $key, 0, strlen( UNCODE_FILTER_PREFIX_PA ) ) == UNCODE_FILTER_PREFIX_PA ) {
 				$taxonomy = 'pa_' . substr( $key, strlen( UNCODE_FILTER_PREFIX_PA ) );
+				if ( $tax_to_query === $taxonomy ) {
+					return $selected_terms;
+				}
+			} else if ( substr( $key, 0, strlen( UNCODE_FILTER_PREFIX_CUSTOM_FIELD ) ) == UNCODE_FILTER_PREFIX_CUSTOM_FIELD ) {
+				$taxonomy = substr( $key, strlen( UNCODE_FILTER_PREFIX_CUSTOM_FIELD ) );
 				if ( $tax_to_query === $taxonomy ) {
 					return $selected_terms;
 				}
@@ -2223,3 +2662,14 @@ function uncode_filters_add_noindex() {
 	}
 }
 add_action( 'wp_head', 'uncode_filters_add_noindex', 0 );
+
+/**
+ * Split a string into an array if it contains a separator
+ */
+function uncode_filters_get_custom_field_values( $value ) {
+	if ( strpos( $value, '|' ) !== false ) {
+		return explode( '|', $value );
+	}
+
+	return array( $value );
+}

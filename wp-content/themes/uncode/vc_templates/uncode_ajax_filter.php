@@ -11,6 +11,8 @@ extract(shortcode_atts(array(
 	'tax_source' => '',
 	'taxonomy' => '',
 	'product_att' => '',
+	'custom_field' => '',
+	'sort_type' => '',
 	'type' => '',
 	'hierarchy' => '',
 	'multiple' => '',
@@ -41,6 +43,7 @@ extract(shortcode_atts(array(
 	'widget_collapse_icon' => '',
 	'widget_style_no_separator' => '',
 	'widget_style_title_typography' => '',
+	'dropdown_style' => '',
 	'desktop_visibility' => '',
 	'medium_visibility' => '',
 	'mobile_visibility' => '',
@@ -155,6 +158,8 @@ if ( isset( $_GET ) && is_array( $_GET ) ) {
 	}
 }
 
+$is_custom_field = false;
+
 $filter_terms = array();
 
 if ( $filter_type === 'taxonomy' ) {
@@ -167,6 +172,11 @@ if ( $filter_type === 'taxonomy' ) {
 	if ( $disable_ajax ) {
 		$el_class .= ' widget-ajax-filters--no-ajax';
 	}
+} else if ( $filter_type === 'custom_field' ) {
+	$sort_type    = $sort_type === 'numeric' || $sort_type === 'date' ? $sort_type : 'default';
+	$key_to_query = $custom_field;
+	$is_custom_field = true;
+	$filter_terms = uncode_filters_populate_custom_field_terms( $custom_field, $query_args, $multiple, $sort_type, $sort_by );
 } else if ( $filter_type === 'product_status' && class_exists( 'WooCommerce' ) ) {
 	$key_to_query = UNCODE_FILTER_KEY_STATUS;
 	$filter_terms = uncode_filters_populate_product_status_terms( $query_args, $multiple );
@@ -249,6 +259,10 @@ $widget_unique_id = uncode_get_widget_module_id();
 if ( is_search() && $filter_group === 'search' ) {
 	$can_show = false;
 }
+
+if ( $type === 'select' && $dropdown_style === 'large' ) {
+	$el_class .= ' widget-ajax-filters--select-large';
+}
 ?>
 
 <?php if ( $can_show && ( ( is_array( $filter_terms ) && count( $filter_terms ) > 0 ) || $filter_group === 'search' ) ) : ?>
@@ -292,20 +306,20 @@ if ( is_search() && $filter_group === 'search' ) {
 			<?php
 			switch ( $filter_group ) {
 				case 'list':
-					uncode_ajax_term_filter_list_html( $key_to_query, $filter_terms, $query_args, $filter_args );
+					uncode_ajax_term_filter_list_html( $key_to_query, $filter_terms, $is_custom_field, $query_args, $filter_args );
 					break;
 
 				case 'checkbox':
-					uncode_ajax_term_filter_list_html( $key_to_query, $filter_terms, $query_args, $filter_args, true );
+					uncode_ajax_term_filter_list_html( $key_to_query, $filter_terms, $is_custom_field, $query_args, $filter_args, true );
 					break;
 
 				case 'label':
-					uncode_ajax_term_filter_label_html( $key_to_query, $filter_terms, $query_args, $filter_args );
+					uncode_ajax_term_filter_label_html( $key_to_query, $filter_terms, $is_custom_field, $query_args, $filter_args );
 					break;
 
 				case 'select':
 					$filter_args['first_option'] = $select_first_option;
-					uncode_ajax_term_filter_select_html( $key_to_query, $filter_terms, $query_args, $filter_args );
+					uncode_ajax_term_filter_select_html( $key_to_query, $filter_terms, $is_custom_field, $query_args, $filter_args );
 					break;
 
 				case 'color':

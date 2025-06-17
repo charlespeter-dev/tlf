@@ -115,3 +115,8 @@ require_once get_template_directory() . '/core/inc/helpers/ajax-filters/load.php
  * Breadcrumbs functions
  */
 require_once get_template_directory() . '/core/inc/helpers/breadcrumbs/breadcrumbs-functions.php';
+
+/**
+ * Custom fields functions
+ */
+require_once get_template_directory() . '/core/inc/helpers/custom-fields/custom-fields-functions.php';

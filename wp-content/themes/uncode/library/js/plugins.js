@@ -23699,6 +23699,7 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 		info: false,
 
 		nestedItemSelector: false,
+		itemSelector: false,
 		itemElement: 'div',
 		stageElement: 'div',
 
@@ -23961,11 +23962,18 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 		this.$stage = $('<' + this.settings.stageElement + ' class="' + this.settings.stageClass + '"/>')
 			.wrap('<div class="' + this.settings.stageOuterClass + '"/>');
 
-		// append stage
-		this.$element.append(this.$stage.parent());
-
-		// append content
-		this.replace(this.$element.children().not(this.$stage.parent()));
+		//UNCODE edit to exclude hidden items
+		if ( this.settings.itemSelector ) {
+			// append stage
+			this.$element.prepend(this.$stage.parent());
+			// append content
+			this.replace(this.$element.find(' > ' + this.settings.itemSelector).not(this.$stage.parent()));
+		} else {
+			// append stage
+			this.$element.append(this.$stage.parent());
+			// append content
+			this.replace(this.$element.children().not(this.$stage.parent()));
+		}
 
 		// check visibility
 		if (this.$element.is(':visible')) {
@@ -26193,7 +26201,7 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 		nav: false,
 		navText: [ 'prev', 'next' ],
 		navSpeed: false,
-		navElement: 'button type="button" role="presentation"',
+		navElement: 'button type="button"',
 		navContainer: false,
 		navContainerClass: 'owl-nav',
 		navClass: [ 'owl-prev', 'owl-next' ],
@@ -27959,7 +27967,7 @@ Share = (function(_super) {
 
   Share.prototype.inject_html = function(instance) {
     //return instance.innerHTML = "<label class='social-export'><span>" + this.config.ui.button_text + "</span></label><div class='social load " + this.config.ui.flyout + "'><ul><li class='social-facebook' data-network='facebook' tabindex='0'></li><li class='social-twitter' data-network='twitter' tabindex='0'></li><li class='social-gplus' data-network='google_plus' tabindex='0'></li><li class='social-pinterest' data-network='pinterest' tabindex='0'></li><li class='social-linkedin' data-network='linkedin' tabindex='0'></li><li class='social-xing' data-network='xing' tabindex='0'></li><li class='social-paper-plane' data-network='email' tabindex='0'></li></ul></div>";
-    return instance.innerHTML = "<label class='social-export'><span>" + this.config.ui.button_text + "</span></label><div class='social load " + this.config.ui.flyout + "'><ul><li class='social-facebook' data-network='facebook' tabindex='0' role='button'></li><li class='social-twitter' data-network='twitter' tabindex='0' role='button'></li><li class='social-threads' data-network='threads' tabindex='0' role='button'></li><li class='social-pinterest' data-network='pinterest' tabindex='0' role='button'></li><li class='social-linkedin' data-network='linkedin' tabindex='0' role='button'></li><li class='social-whatsapp' data-network='whatsapp' tabindex='0' role='button'></li><li class='social-bluesky' data-network='bluesky' tabindex='0' role='button'></li><li class='social-xing' data-network='xing' tabindex='0' role='button'></li><li class='social-paper-plane' data-network='email' tabindex='0' role='button'></li></ul></div>";
+    return instance.innerHTML = "<label class='social-export'><span>" + this.config.ui.button_text + "</span></label><div class='social load " + this.config.ui.flyout + "'><ul><li class='social-facebook' data-network='facebook' tabindex='0'></li><li class='social-twitter' data-network='twitter' tabindex='0'></li><li class='social-threads' data-network='threads' tabindex='0'></li><li class='social-pinterest' data-network='pinterest' tabindex='0'></li><li class='social-linkedin' data-network='linkedin' tabindex='0'></li><li class='social-whatsapp' data-network='whatsapp' tabindex='0'></li><li class='social-bluesky' data-network='bluesky' tabindex='0'></li><li class='social-xing' data-network='xing' tabindex='0'></li><li class='social-paper-plane' data-network='email' tabindex='0'></li></ul></div>";
   };
 
   Share.prototype.inject_facebook_sdk = function() {

@@ -216,7 +216,8 @@ function uncode_get_modules_with_dynamic_colors() {
 		'uncode_vertical_text',
 		'uncode_woocommerce_cart',
 		'uncode_woocommerce_checkout',
-		'uncode_woocommerce_my_account'
+		'uncode_woocommerce_my_account',
+		'uncode_custom_fields'
 	);
 
 	return $modules;
@@ -463,7 +464,7 @@ function uncode_get_dynamic_css_font_size( $content_array ) {
 	$css = '';
 
 	foreach ( $content_array as $content ) {
-		if ( preg_match( '/\[[vc_custom_heading|uncode_index|vc_gallery|vc_single_image|uncode_carousel_nav][^\]]+heading_custom_size="(.*?)"/', $content ) !== false || preg_match( '/\[uncode_star_rating[^\]]+custom_size="(.*?)"/', $content ) !== false ) {
+		if ( strpos( $content, 'custom_size="' ) !== false ) {
 			$css .= uncode_get_single_dynamic_css_font_size( $content );
 		}
 	}
@@ -477,7 +478,7 @@ function uncode_get_dynamic_css_font_size( $content_array ) {
 function uncode_get_single_dynamic_css_font_size( $content ) {
 	$css = '';
 
-	$regex_index = '/\[[vc_custom_heading|uncode_index|vc_gallery|vc_single_image|uncode_carousel_nav]([^\[]+)heading_custom_size="(.*?)"(.*?)]/m';
+	$regex_index = '/\[(\w+)([^\[]*?)heading_custom_size="(.*?)"(.*?)\]/m';
 	preg_match_all( $regex_index, $content, $indexes, PREG_SET_ORDER, 0 );
 
 	foreach ( $indexes as $index ) {
@@ -493,14 +494,14 @@ function uncode_get_single_dynamic_css_font_size( $content ) {
 		$css .= uncode_get_dynamic_css_font_size_shortcode( $shortcode_data );
 	}
 
-	$regex_index_2 = '/\[uncode_star_rating([^\[]+)custom_size="(.*?)"(.*?)]/m';
+	$regex_index_2 = '/\[(uncode_star_rating|uncode_custom_fields)([^\[]*?)custom_size="(.*?)"(.*?)\]/m';
 	preg_match_all( $regex_index_2, $content, $indexes_2, PREG_SET_ORDER, 0 );
 
 	foreach ( $indexes_2 as $index_2 ) {
 		$params = $index_2[0];
 
-		preg_match('/ uncode_shortcode_id=\"(.*?)\"/', $params, $id); //row ID
-		preg_match('/ custom_size=\"(.*?)\"/', $params, $size);
+		preg_match('/ uncode_shortcode_id=\"(.*?)"/', $params, $id); //row ID
+		preg_match('/ custom_size=\"(.*?)"/', $params, $size);
 
 		$shortcode_data = array(
 			'id'        => $id[1],

@@ -262,6 +262,9 @@ div[class*=sharer-].share-button.share-inline {
   width: auto;
   float: none !important;
 }
+.has-title .share-button.share-inline label + .social.top {
+  margin-top: 9px !important;
+}
 .share-button.share-inline .social.top ul {
   width: auto;
   background: none;

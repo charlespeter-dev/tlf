@@ -25,6 +25,7 @@ class Uncode_Walker_Filters extends Walker_Category {
 		$this->query_args  = $query_args;
 		$this->filter_args = $filter_args;
 		$this->is_checkbox = $is_checkbox;
+		$this->is_checkbox = $is_checkbox;
 	}
 
 	/**
@@ -155,7 +156,7 @@ class Uncode_Walker_Filters extends Walker_Category {
 		$atts = apply_filters( 'category_list_link_attributes', $atts, $category, $depth, $args, $current_object_id );
 
 		$filter_id           = 'filter_' . rand() . '_' . $category->term_id;
-		$current_filter_atts = uncode_get_filter_link_attributes( $category, $category->taxonomy, $this->query_args, $this->filter_args );
+		$current_filter_atts = uncode_get_filter_link_attributes( $category, $category->taxonomy, false, $this->query_args, $this->filter_args );
 
 		list( $filter_url, $filter_atts ) = $current_filter_atts;
 

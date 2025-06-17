@@ -18,7 +18,7 @@ function uncode_page_require_asset_css_grid( $content_array ) {
 		}
 
 		// Check if index has pagination/filtering/load more
-		if ( strpos( $content, 'infinite="yes"' ) !== false || strpos( $content, 'pagination="yes"' ) !== false || strpos( $content, 'filtering="yes"' ) !== false ) {
+		if ( strpos( $content, 'infinite="yes"' ) !== false || strpos( $content, 'pagination="yes"' ) !== false || strpos( $content, 'filtering="yes"' ) !== false || strpos( $content, 'filtering="target"' ) !== false ) {
 			$shortcode_matches = array();
 
 			if ( strpos( $content, '[uncode_index' ) !== false ) {
@@ -49,7 +49,7 @@ function uncode_page_require_asset_css_grid( $content_array ) {
 						$uncode_check_asset['gallery_utils'] = true;
 					}
 
-					if ( strpos( $shortcode_match[0], 'filtering="yes"' ) !== false ) {
+					if ( strpos( $shortcode_match[0], 'filtering="yes"' ) !== false || strpos( $shortcode_match[0], 'filtering="target"' ) !== false ) {
 						$uncode_check_asset['cssgrid_js'] = true;
 						$uncode_check_asset['gallery_utils'] = true;
 					}

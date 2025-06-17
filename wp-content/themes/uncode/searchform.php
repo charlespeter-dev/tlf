@@ -12,7 +12,7 @@
 <form action="<?php echo esc_url(home_url( '/' )); ?>" method="get">
 	<div class="search-container-inner">
 		<label for="s_form_<?php echo esc_attr($search_counter); ?>" aria-label="<?php echo esc_html__('Search','uncode'); ?>"><input type="search" class="search-field form-fluid<?php echo esc_attr($livesearch_class); ?>" placeholder="<?php echo esc_html( $search_placeholder ); ?>" value="" name="s" id="s_form_<?php echo esc_attr($search_counter); ?>">
-		<i class="fa fa-search3" role="button" tabindex="0"></i></label>
+		<i class="fa fa-search3" role="button" tabindex="0" aria-labelledby="s_form_<?php echo esc_attr($search_counter); ?>"></i></label>
 
 		<?php if ( apply_filters( 'uncode_product_search_type', false ) ) : ?>
 			<input type="hidden" name="post_type" value="product" />

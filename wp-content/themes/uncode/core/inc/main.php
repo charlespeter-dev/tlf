@@ -523,6 +523,7 @@ function uncode_equeue() {
 		'uncode_share_label' 	     => apply_filters( 'uncode_share_label', esc_html__( 'Share on %', 'uncode' ) ),
 		'uncode_has_ligatures' 	     => apply_filters( 'uncode_has_ligatures', false ),
 		'uncode_is_accessible'		 => uncode_is_accessible(),
+		'uncode_carousel_itemSelector' => apply_filters( 'uncode_carousel_itemSelector', '*:not(.hidden)' ),
 	);
 
 	/** JS */
@@ -1233,6 +1234,10 @@ function uncode_body_classes($classes){
 
 	if ( uncode_is_accessible() ) {
 		$classes[] = 'uncode-accessible';
+	}
+
+	if ( uncode_has_filters_with_button() ) {
+		$classes[] = 'ajax-filters-button-mode';
 	}
 
 	return $classes;

@@ -36,6 +36,10 @@ if ($css_animation !== '' && uncode_animations_enabled()) {
 $classes = array( $css_class );
 $classes[] = trim( $this->getExtraClass( $el_class ) );
 
+if ( $title !== '' ) {
+	$classes[] = 'has-title';
+}
+
 $div_data_attributes = array_map(function ($v, $k) { return $k . '="' . $v . '"'; }, $div_data, array_keys($div_data));
 
 $output .= '<div class="uncode-wrapper '.esc_attr( trim( implode( ' ', $classes ) ) ).'" '.implode(' ', $div_data_attributes). $el_id . '>';

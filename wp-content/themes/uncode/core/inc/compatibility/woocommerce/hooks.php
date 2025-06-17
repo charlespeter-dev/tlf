@@ -238,3 +238,13 @@ function uncode_single_product_manage_srcset( $attr ) {
 
  }
 add_filter( 'wp_get_attachment_image_attributes', 'uncode_single_product_manage_srcset', 10 );
+
+
+function uncode_remove_wc_brands_meta_action() {
+    global $WC_Brands;
+
+    if ( isset( $WC_Brands ) && is_object( $WC_Brands ) ) {
+        remove_action( 'woocommerce_product_meta_end', array( $WC_Brands, 'show_brand' ) );
+    }
+}
+add_action( 'init', 'uncode_remove_wc_brands_meta_action', 20 );

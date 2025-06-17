@@ -46,3 +46,4 @@ require_once get_template_directory() . '/core/inc/helpers/dynamic-css/modules/u
 require_once get_template_directory() . '/core/inc/helpers/dynamic-css/modules/uncode_woocommerce_cart.php';
 require_once get_template_directory() . '/core/inc/helpers/dynamic-css/modules/uncode_woocommerce_checkout.php';
 require_once get_template_directory() . '/core/inc/helpers/dynamic-css/modules/uncode_woocommerce_my_account.php';
+require_once get_template_directory() . '/core/inc/helpers/dynamic-css/modules/uncode_custom_fields.php';

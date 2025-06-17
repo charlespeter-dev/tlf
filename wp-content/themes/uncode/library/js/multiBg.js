@@ -37,7 +37,9 @@
 			UNCODE.shuffle($multiBgs);
 		}
 
-		imgFirst = $multiBgs.first().find('.background-inner').css('background-image').replace('url(','').replace(')','').replace(/\"/gi, "");
+		$multiBgs.find('.background-inner').attr('data-active','false');
+
+		imgFirst = $multiBgs.first().find('.background-inner').attr('data-active','true').css('background-image').replace('url(','').replace(')','').replace(/\"/gi, "");
 
 		var loadFirst = function(){
 			$multiBgs.first().attr('data-load', 'loaded').stop(true,false).animate({
@@ -98,11 +100,14 @@
 							opacity: 1
 						}, wait, 'easeInQuad').css({
 							zIndex: 1
-						});
+						}).find('.background-inner').attr('data-active','true');
 					} else {
 						$(val).stop(true,false).animate({
 							opacity: 0
-						}, wait, 'easeInQuad').css({
+						}, wait, 'easeInQuad', function(){
+							console.log('check1', $(val));
+							$(val).find('.background-inner').attr('data-active','false');
+						}).css({
 							zIndex: 0
 						});
 					}
@@ -144,11 +149,14 @@
 							opacity: 1
 						}, wait, 'easeInQuad').css({
 							zIndex: 1
-						});
+						}).find('.background-inner').attr('data-active','true');
 					} else {
 						$(val).stop(true,false).animate({
 							opacity: 0
-						}, wait, 'easeInQuad').css({
+						}, wait, 'easeInQuad', function(){
+							console.log('check2', $(val));
+							$(val).find('.background-inner').attr('data-active','false');
+						}).css({
 							zIndex: 0
 						});
 					}
@@ -191,11 +199,14 @@
 							opacity: 1
 						}, wait, 'easeInQuad').css({
 							zIndex: 1
-						});
+						}).find('.background-inner').attr('data-active','true');
 					} else {
 						$(val).stop(true,false).animate({
 							opacity: 0
-						}, wait, 'easeInQuad').css({
+						}, wait, 'easeInQuad', function(){
+							console.log('check3', $(val));
+							$(val).find('.background-inner').attr('data-active','false');
+						}).css({
 							zIndex: 0
 						});
 					}
@@ -222,11 +233,14 @@
 							opacity: 1
 						}, wait, 'easeInQuad').css({
 							zIndex: 1
-						});
+						}).find('.background-inner').attr('data-active','true');
 					} else {
 						$(val).stop(true,false).animate({
 							opacity: 0
-						}, wait, 'easeInQuad').css({
+						}, wait, 'easeInQuad', function(){
+							console.log('check', $(val));
+							$(val).find('.background-inner').attr('data-active','false');
+						}).css({
 							zIndex: 0
 						});
 					}

@@ -20,6 +20,10 @@
 			stableHeight = UNCODE.wheight,
 			wCont, hCont, docH, marqueeTL;
 
+		if ( ! $('.tmb', $cont).length ) {
+			return;
+		}
+
 		dataSpeed = isNaN(dataSpeed) ? 0 : dataSpeed;
 		var dataX = dataSpeed;
 

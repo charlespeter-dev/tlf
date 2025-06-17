@@ -255,6 +255,10 @@
 			gallery.openGallery(index-1);
 		});
 
+		$gallery.on('uncode-gallery-trigger', function(){
+			gallery.openGallery(0);
+		});
+
 		$triggerGal.on('more-items-loaded', function(e, items) {
 			clearRequestTimeout(itemsLoadedTimeOut);
 			itemsLoadedTimeOut = requestTimeout(function(){
@@ -394,6 +398,27 @@
 			$('.page-wrapper')[0].addEventListener('lgBeforeOpen', beforeOpen);
 		});
 	}
+
+	var galleryButtons = function(){
+		var $buttons = $('.btn-gallery-trigger');
+		$buttons.each(function(key, val){
+			var $button = $(val),
+				target = $button.attr('data-target'),
+				$gallery = $('.un-media-gallery').first(),
+				$row = $button.closest('.vc_row[data-parent]');
+			if ( typeof target !== 'undefined' && target !== '' && $('.un-media-gallery#' + target).length  ) {
+				$gallery = $('.un-media-gallery#' + target);
+			} else if ( $('.un-media-gallery', $row).length ) {
+				$gallery = $('.un-media-gallery', $row).first();
+			}
+			
+			$button.on('click', 'a', function(e){
+				e.preventDefault();
+				$gallery.find('[data-lbox-init]').first().trigger('uncode-gallery-trigger');
+			});
+		});
+	};
+	galleryButtons();
 };
 
 

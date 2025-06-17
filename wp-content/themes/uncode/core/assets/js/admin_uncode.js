@@ -838,7 +838,7 @@
 	}
 
 	/* Save taxonomy */
-	$('html').delegate( '.media-terms input', 'change', function(){
+	$(document).on( 'change', '.media-terms input', function(){
 
 		var obj = $(this),
 			container = obj.parents('.media-terms'),
@@ -859,19 +859,19 @@
 
 		$.post( ajaxurl, data, function( response ){
 			row.removeClass('media-save-terms');
-			container.find('input').removeProp('disabled');
+			container.find('input').prop('disabled', false);
 		});
 
 	});
 
 	// Add new taxonomy
-	$('html').delegate('.toggle-add-media-term', 'click', function(e){
+	$(document).on('click', '.toggle-add-media-term', function(e){
 		e.preventDefault();
 		$(this).parent().find('.add-new-term').toggle();
 	});
 
 	// Save new taxnomy
-	$('html').delegate('.save-media-category', 'click', function(e){
+	$(document).on('click', '.save-media-category', function(e){
 
 		var obj = $(this),
 			termField = obj.parent().find('input'),

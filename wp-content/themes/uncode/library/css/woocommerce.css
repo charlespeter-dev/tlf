@@ -6016,3 +6016,10 @@ body.uncode-sidecart-left .uncode-sidecart-wrapper .close-mini-cart {
     justify-content: center;
   }
 }
+.brands_index,
+.brands,
+.brand-thumbnails,
+.brand-thumbnails-description {
+  list-style: none !important;
+  padding: 0 !important;
+}

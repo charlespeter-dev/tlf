@@ -602,6 +602,7 @@
 		 scrollRowHeight_fix = window.pageYOffset,
 		 isQuickView = false,
 		 menuStickyMobileOverlay = false,
+		 already_init_overlay = false,
 
 		 checkVisible = function (elm) {
 			 var rect = elm.getBoundingClientRect();
@@ -2072,6 +2073,15 @@
 						  if (currentTallest < minHeight || currentTallest == 'auto') currentTallest = parseInt(minHeight);
 					  }
 
+					  if ( $rowParent != null ) {
+						if ( classie.hasClass($rowParent, 'unmargin-top-force') ) {
+							currentTallest -= 18;
+						}
+						if ( classie.hasClass($rowParent, 'unmargin-bottom-force') ) {
+							currentTallest -= 18;
+						}
+					  }
+
 					  if ( UNCODE.isFrontEndEditor && child !== null ) {
 						  var innerWrapper = child.querySelectorAll('.owl-carousel-wrapper.vc_uncode_slider');
 						  if ( innerWrapper.length ) {
@@ -2480,6 +2490,7 @@
 			  sequential = false,
 			  ddCloseBtn = false,
 			  closeButtons = new Array();
+			  already_init_overlay = true;
 			  function toggleOverlay(btn) {
 				  if ( classie.hasClass(triggerButton, 'menu-button-offcanvas') || classie.hasClass(triggerButton, 'opening') || classie.hasClass(triggerButton, 'closing') ) {
 					  return true;
@@ -3418,7 +3429,9 @@
 		  boxWrapper = document.querySelectorAll('.box-wrapper');
 		  docheight = boxWrapper[0] != undefined ? boxWrapper[0].offsetHeight : 0;
 		  // if (!classie.hasClass(document.body, 'vmenu') && !classie.hasClass(document.body, 'menu-offcanvas')) init_overlay();
-		  init_overlay();
+		  if ( already_init_overlay !== true ) {
+		  	init_overlay();
+		  }
 		  kenburnsRows = document.querySelectorAll('.with-kburns > .row-background > .background-wrapper, .with-kburns > .uncode-multi-bgs > .row-background > .background-wrapper, .with-kburns > .fp-tableCell > .row-background > .background-wrapper, .with-kburns > .fp-tableCell > .fp-scrollable > .fp-scroller > .row-background > .background-wrapper');
 		  kenburnsCols = document.querySelectorAll('.with-kburns > .column-background > .background-wrapper, .with-kburns > .uncode-multi-bgs > .column-background > .background-wrapper');
 		  backwashRows = document.querySelectorAll('.with-zoomout > .row-background > .background-wrapper, .with-zoomout > .uncode-multi-bgs > .row-background > .background-wrapper, .with-zoomout > .fp-tableCell > .row-background > .background-wrapper, .with-zoomout > .fp-tableCell > .fp-scrollable > .fp-scroller > .row-background > .background-wrapper');

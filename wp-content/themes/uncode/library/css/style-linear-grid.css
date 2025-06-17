@@ -99,6 +99,7 @@
   }
 }
 .linear-system .linear-wrapper .linear-container .tmb .t-entry-visual .pushed {
+  display: block;
   position: relative;
 }
 .linear-by-w.linear-system .linear-wrapper .linear-container .tmb img,

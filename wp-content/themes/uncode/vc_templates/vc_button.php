@@ -64,6 +64,7 @@ extract(shortcode_atts(array(
 	'el_id' => '',
 	'el_class' => '',
 	'dynamic' => '',
+	'target' => '',
 	'quantity' => '',
 	'lb_video_advanced' => '',
 	'lb_autoplay' => '',
@@ -613,6 +614,20 @@ if ($border_animation !== '') {
 	$classes[] = $border_animation;
 	$classes[] = 'btn-border-animated';
 }
+
+if ( $dynamic === 'gallery' ) {
+	$wrapper_class[] = 'btn-gallery-trigger';
+
+	if ( $target !== '' ) {
+		$target = preg_replace('/\#/i', '', $target);
+		$div_data['data-target'] = esc_attr( $target );
+	}
+}
+
+if ( $dynamic === 'ajax_filters' ) {
+	$wrapper_class[] = 'btn-ajax-filters-trigger';
+}
+
 $el_class = $this->getExtraClass( $el_class );
 $css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, ' ' . implode(' ', $classes), $this->settings['base'], $atts );
 
@@ -645,7 +660,7 @@ if ($width !== '') {
 }
 
 $title = ($a_title !== '') ? ' title="' . esc_attr( $a_title ) . '"' : '';
-$target = (trim($a_target) !== '') ? ' target="' . esc_attr( trim($a_target) ) . '"' : '';
+$_target = (trim($a_target) !== '') ? ' target="' . esc_attr( trim($a_target) ) . '"' : '';
 
 if ( $lb_video_advanced === 'yes' ) {
 	if ( $lb_autoplay !== '' ) {
@@ -803,7 +818,7 @@ if ( class_exists( 'WooCommerce' ) && $dynamic === 'add-to-cart' && is_a( $produ
 	}
 
 	$tag = function_exists('vc_is_page_editable') && vc_is_page_editable() ? 'div' : 'span';
-	echo '<' . $tag . ' class="' . esc_attr(trim(implode(' ', $wrapper_class))) . '" '.implode(' ', $div_data_attributes).'><a role="button" ' . $href_att . ' class="custom-link ' . esc_attr(trim($css_class)) . '"' . $title . $target . $onclick . $rel . $lightbox_data . $width . $el_id . '>' . $span_before . $bigtext_start . do_shortcode( apply_filters( 'uncode_get_vc_button_content', $content ) ) . $bigtext_end . $span_after . '</a>' . uncode_print_dynamic_inline_style($inline_style_css) . '</' . $tag . '>';
+	echo '<' . $tag . ' class="' . esc_attr(trim(implode(' ', $wrapper_class))) . '" '.implode(' ', $div_data_attributes).'><a role="button" ' . $href_att . ' class="custom-link ' . esc_attr(trim($css_class)) . '"' . $title . $_target . $onclick . $rel . $lightbox_data . $width . $el_id . '>' . $span_before . $bigtext_start . do_shortcode( apply_filters( 'uncode_get_vc_button_content', $content ) ) . $bigtext_end . $span_after . '</a>' . uncode_print_dynamic_inline_style($inline_style_css) . '</' . $tag . '>';
 }
 
 if ( class_exists( 'WooCommerce' ) && function_exists('is_product') && is_product() && $dynamic == 'add-to-cart' ) {

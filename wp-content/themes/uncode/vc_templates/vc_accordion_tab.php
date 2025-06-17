@@ -128,14 +128,14 @@ if (!empty($acc_tab_active_txt_color)) {
 
 $css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'panel panel-default wpb_accordion_section group ' . $panel_class . $parent_panel_class . ($active ? ' active-group' : ''), $this->settings['base'], $atts );
 $output .= '<div class="'.esc_attr(trim($css_class)).'">';
-$output .= '<div class="panel-heading wpb_accordion_header ui-accordion-header" role="tab">';
+$output .= '<div class="panel-heading wpb_accordion_header ui-accordion-header">';
 $panel_a_class_str = '';
 if ( $panel_a_class !== '' ) {
 	$panel_a_class_str = ' class="' . $panel_a_class . '"';
 }
 $output .= '<' . $tab_tag . ' class="panel-title'.($active ? ' active' : '').' ' . esc_attr(trim(implode(' ', $panel_title_class))) . '"><a data-toggle="collapse" data-parent="#'.$id.'" href="#'.$hash.'"' . $history_rend . $panel_a_class_str . '>' . $icon_left . '<span>' . $title . '</span>' . $icon_right . '</a></' . $tab_tag . '>';
 $output .= '</div>';
-$output .= '<div ' . esc_attr( $history_tag ) . '="' . esc_attr( $hash ) . '" class="panel-collapse collapse'.($active ? ' in' : '').'" role="tabpanel">';
+$output .= '<div ' . esc_attr( $history_tag ) . '="' . esc_attr( $hash ) . '" class="panel-collapse collapse'.($active ? ' in' : '').'">';
 $output .= '<div class="panel-body wpb_accordion_content ui-accordion-content' .  $body_class . '">';
 $output .= ($content=='' || $content==' ') ? esc_html__("Empty section. Edit page to add content here.", "uncode") : "\n\t\t\t\t\t\t" . $content;
 $output .= '</div>';

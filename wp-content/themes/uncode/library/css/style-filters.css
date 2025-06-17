@@ -584,6 +584,9 @@ body.rtl .uncode-woocommerce-toggle-widgetized-cb__link:after {
 .ajax-filter-wrapper .ajax-filter-sidebar-wrapper {
   overflow: hidden;
 }
+.ajax-filter-wrapper .ajax-filter-sidebar-wrapper .uncont {
+  padding-top: 0 !important;
+}
 @media (min-width: 960px) {
   .ajax-filter-wrapper {
     display: flex;
@@ -900,6 +903,10 @@ body:not(.ajax-hide-filters) .ajax-filter-sidebar-overlay .ajax-filter-sidebar {
 }
 .ajax-filter-position-left .ajax-filter-sidebar {
   float: left;
+}
+.uncode-woocommerce-sorting .scroll-up,
+.uncode-woocommerce-sorting .scroll-down {
+  display: none !important;
 }
 .term-filters-list--inline {
   font-size: 0;

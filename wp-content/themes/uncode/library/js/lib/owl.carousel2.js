@@ -211,6 +211,7 @@
 		info: false,
 
 		nestedItemSelector: false,
+		itemSelector: false,
 		itemElement: 'div',
 		stageElement: 'div',
 
@@ -473,11 +474,18 @@
 		this.$stage = $('<' + this.settings.stageElement + ' class="' + this.settings.stageClass + '"/>')
 			.wrap('<div class="' + this.settings.stageOuterClass + '"/>');
 
-		// append stage
-		this.$element.append(this.$stage.parent());
-
-		// append content
-		this.replace(this.$element.children().not(this.$stage.parent()));
+		//UNCODE edit to exclude hidden items
+		if ( this.settings.itemSelector ) {
+			// append stage
+			this.$element.prepend(this.$stage.parent());
+			// append content
+			this.replace(this.$element.find(' > ' + this.settings.itemSelector).not(this.$stage.parent()));
+		} else {
+			// append stage
+			this.$element.append(this.$stage.parent());
+			// append content
+			this.replace(this.$element.children().not(this.$stage.parent()));
+		}
 
 		// check visibility
 		if (this.$element.is(':visible')) {
@@ -2705,7 +2713,7 @@
 		nav: false,
 		navText: [ 'prev', 'next' ],
 		navSpeed: false,
-		navElement: 'button type="button" role="presentation"',
+		navElement: 'button type="button"',
 		navContainer: false,
 		navContainerClass: 'owl-nav',
 		navClass: [ 'owl-prev', 'owl-next' ],

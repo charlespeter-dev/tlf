@@ -15,5 +15,12 @@ function uncode_page_require_asset_custom_fields( $content_array ) {
 		}
 	}
 
+	// Required by the Posts module
+	foreach ( $content_array as $content ) {
+		if ( strpos( $content, '[uncode_index' ) !== false ) {
+			return true;
+		}
+	}
+
 	return false;
 }

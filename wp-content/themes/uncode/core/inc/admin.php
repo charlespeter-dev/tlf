@@ -672,7 +672,11 @@ function uncode_save_media_terms() {
 	if ( !current_user_can( 'edit_post', $post_id ) ) {
 		die();
 	}
-	$term_ids = array_map( 'intval', $_REQUEST['term_ids'] );
+	if ( isset($_REQUEST['term_ids']) && is_array($_REQUEST['term_ids']) ) {
+		$term_ids = array_map( 'intval', $_REQUEST['term_ids'] );
+	} else {
+		$term_ids = array('');
+	}
 	$response = wp_set_post_terms( $post_id, $term_ids, sanitize_text_field( $_REQUEST['taxonomy'] ) );
 	wp_update_term_count_now( $term_ids, sanitize_text_field( $_REQUEST['taxonomy'] ) );
 }

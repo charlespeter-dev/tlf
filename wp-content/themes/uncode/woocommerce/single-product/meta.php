@@ -50,6 +50,14 @@ $text_size = isset ( $vc_text_lead ) ? ' ' . $vc_text_lead : '';
 		echo wp_kses_post($product_tags);
 	?>
 
+	<?php
+		$terms       = get_the_terms( $product->get_id(), 'product_brand' );
+		$brand_count = is_array( $terms ) ? count( $terms ) : 0;
+
+		$brands = wc_get_brands( $product->get_id(), ', ', '<span class="branded_as detail-container">' . _n( '<span class="detail-label">' . esc_html__('Brand','uncode') . esc_html( $inline ) . '</span><span class="detail-value">', '<span class="detail-label">' . esc_html__('Brands','woocommerce') . esc_html( $inline ) . '</span><span class="detail-value">', $brand_count, 'woocommerce' ) . ' ', '</span></span>' );
+		echo wp_kses_post($brands);
+	?>
+
 	<?php do_action( 'woocommerce_product_meta_end' ); ?>
 	</p>
 </div>

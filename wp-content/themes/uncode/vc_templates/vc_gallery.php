@@ -23,6 +23,7 @@ extract( shortcode_atts( array(
 		'random' => '',
 		'medias' => '',
 		'explode_albums' => '',
+		'gallery_visible' => '',
 		'filtering' => '',
 		'filter_style' => 'light',
 		'filter_typography' => 'light',
@@ -313,7 +314,7 @@ switch ($gutter_size) {
 			$gutter_size = 'quad-gutter';
 			break;
 }
-$main_container_classes = array();
+$main_container_classes = array('un-media-gallery');
 $parent_container_classes = array();
 $container_classes = array();
 $fixer_classes = array();
@@ -1532,6 +1533,14 @@ if (count($medias) > 0) {
 
 
 		$block_classes[] = 'tmb-id-' . $item_thumb_id;
+
+		if ( $gallery_visible !== '' ) {
+			$gallery_visible = floatval( $gallery_visible );
+			if ( $i_matrix >= $gallery_visible ) {
+				$block_classes[] = 'hidden';
+				$block_data['hidden'] = true;
+			}
+		}
 
 		$block_classes[] = $categories_css;
 		$block_data['classes'] = $block_classes;

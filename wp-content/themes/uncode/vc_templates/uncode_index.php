@@ -62,6 +62,7 @@ $attributes_first = array(
 	'footer_back_color_solid' => '',
 	'footer_back_color_gradient' => '',
 	'footer_full_width' => '',
+	'hidden_pagination' => '',
 	'pagination' => '',
 	'infinite' => '',
 	'infinite_hover_fx' => '',
@@ -416,6 +417,12 @@ $attributes = array_merge($attributes_first, $attributes_second);
 $attributes = apply_filters( 'uncode_index_shortcode_atts', $attributes );
 
 extract( shortcode_atts($attributes , $atts ) );
+
+$hidden_pagination = $hidden_pagination === 'yes' ? 'yes' : 'no';
+
+if ( uncode_is_filtering() ) {
+	$hidden_pagination = 'no';
+}
 
 if ( $index_type === 'custom_grid' && $custom_grid_content_block_id ) {
 	$custom_matrix_objects = array();
@@ -1348,6 +1355,10 @@ if ( $filtering === 'ajax' && ! $is_tax_query ) {
 
 $main_container_classes[] = trim($this->getExtraClass( $el_class ));
 
+if ( $filtering === 'target' ) {
+	$main_container_classes[] = 'ajax-filters-target';
+}
+
 $main_data_attributes = array_map(function ($v, $k) { return $k . '="' . $v . '"'; }, $main_data, array_keys($main_data));
 
 $filtering_menu_out = $min_w_ajax_filters_style = '';
@@ -1983,7 +1994,7 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 		<?php $linear_count = 0;
 			$linear_class = '';
 			$or_id = $el_id;
-			if ( $index_type === 'linear' && ( $marquee_clone === 'yes' || $linear_animation === 'marquee' || $linear_animation === 'marquee-opposite' ) && ( !function_exists('vc_is_page_editable') || !vc_is_page_editable() ) ) { 
+			if ( $index_type === 'linear' && ( $marquee_clone === 'yes' || $linear_animation === 'marquee' || $linear_animation === 'marquee-opposite' ) && ( !function_exists('vc_is_page_editable') || !vc_is_page_editable() ) ) {
 				$linear_count = 2;
 			}
 			for ($x = 0; $x <= $linear_count; $x++) { ?>
@@ -1997,7 +2008,7 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 					} else {
 						$linear_class = ' cont-leader';
 						$el_id = $or_id;
-					}  
+					}
 				} ?>
 			<?php if ( !empty( $container_classes ) ) { ?><div<?php if ($index_type === 'carousel') { echo ' id="' . esc_attr($el_id) .'"'; } ?> class="<?php if ($posts_counter > 0) { echo esc_attr(trim(implode(' ', $container_classes)) . $linear_class ); } ?>" <?php echo implode(' ', $div_data_attributes); ?>><?php } ?>
 			<?php
@@ -2677,7 +2688,7 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 
 					if ( $single_css_animation === 'mask' || $single_image_anim === 'scroll' ) {
 						$block_classes[] = 'tmb-mask';
-					
+
 						if ( $single_css_animation === 'mask' ) {
 							$block_classes[] = 'tmb-mask-reveal';
 							if ($single_animation_delay !== '') {
@@ -2696,7 +2707,7 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 								$tmb_data['data-bg-delay'] = $single_bg_delay;
 							}
 						}
-					
+
 						if ( $single_image_anim === 'scroll' ) {
 							$block_classes[] = 'tmb-mask-scroll';
 							$block_classes[] = 'tmb-mask-scroll-' . esc_attr($single_image_scroll);
@@ -2708,10 +2719,10 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 							if ( $hex_color ) {
 								$block_classes[] = 'tmb-has-hex';
 								$block_data['hex'] = $hex_color;
-							}		
+							}
 						}
 					}
-					
+
 					$block_data['id'] = $post->id;
 					$block_data['content'] = uncode_get_the_content($post->content, false, $post->id);
 					$block_data['classes'] = $block_classes;
@@ -3130,7 +3141,7 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 
 
 	<?php if ( !empty( $parent_container_classes && ! ( $filtering === 'ajax' && ! $is_tax_query ) ) ) { ?></div><?php } ?>
-	<?php if (!$is_tax_query && ($infinite === 'yes' || $pagination === 'yes') && $index_type !== 'carousel'):
+	<?php if ($hidden_pagination !== 'yes' && !$is_tax_query && ($infinite === 'yes' || $pagination === 'yes') && $index_type !== 'carousel'):
 		$page_url = explode("?", get_pagenum_link(1, false));
 		$footer_classes = '';
 		$footer_background = ' style-' . $footer_style;
@@ -3267,7 +3278,7 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 						<div class="<?php echo esc_attr( $index_type === 'css_grid' ? 'cssgrid' : $index_type ); ?>-footer-inner grid-footer-inner<?php if ($footer_full_width !== 'yes') { echo ' limit-width'; ?> menu-<?php echo esc_attr($footer_style); } ?> text-center">
 							<ul class='pagination'>
 								<?php if ( $paged > 1 ) : ?>
-									<li class="page-prev"><a class="<?php echo esc_attr( $btn_class ); ?> text-default-color" href="<?php echo esc_url( $prev_link ); ?>" aria-label="<?php esc_html_e( 'Previous', 'uncode' ); ?>><i class="fa fa-angle-left"></i></a></li>
+									<li class="page-prev"><a class="<?php echo esc_attr( $btn_class ); ?> text-default-color" href="<?php echo esc_url( $prev_link ); ?>" aria-label="<?php esc_html_e( 'Previous', 'uncode' ); ?>"><i class="fa fa-angle-left"></i></a></li>
 								<?php else : ?>
 									<li class="page-prev"><span class="<?php echo esc_attr( $btn_class ); ?> btn-disable-hover"><i class="fa fa-angle-left"></i></a></li>
 								<?php endif; ?>
@@ -3277,7 +3288,7 @@ $filtering_menu_out = $min_w_ajax_filters_style = '';
 								<?php endforeach; ?>
 
 								<?php if ( $paged < $uncode_index_query->max_num_pages ) : ?>
-									<li class="page-next"><a class="<?php echo esc_attr( $btn_class ); ?> text-default-color" href="<?php echo esc_url( $next_link ); ?>" aria-label="<?php esc_html_e( 'Next', 'uncode' ); ?>><i class="fa fa-angle-right"></i></a></li>
+									<li class="page-next"><a class="<?php echo esc_attr( $btn_class ); ?> text-default-color" href="<?php echo esc_url( $next_link ); ?>" aria-label="<?php esc_html_e( 'Next', 'uncode' ); ?>"><i class="fa fa-angle-right"></i></a></li>
 
 								<?php else : ?>
 									<li class="page-next"><span class="<?php echo esc_attr( $btn_class ); ?> btn-disable-hover"><i class="fa fa-angle-right"></i></a></li>
@@ -3318,7 +3329,7 @@ if ( $index_type === 'custom_grid' && $custom_grid_content_block_id ) {
 
 	if ( $skew === 'yes' ) {
 		$custom_grid_wrapper_class[] = 'uncode-skew';
-	}	
+	}
 
 	$pattern_data_attributes = array_map(function ($v, $k) { return $k . '="' . $v . '"'; }, $div_pattern_data, array_keys($div_pattern_data));
 

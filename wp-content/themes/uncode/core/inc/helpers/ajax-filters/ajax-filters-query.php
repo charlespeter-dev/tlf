@@ -52,6 +52,10 @@ function uncode_index_query_options_add_filters( $query_options = array() ) {
 				// Regular taxonomy relation
 				$taxonomy = substr( $key, strlen( UNCODE_FILTER_PREFIX_QUERY_TYPE_TAX ) );
 				$filters_query[$taxonomy]['relation'] = $value;
+			} else if ( substr( $key, 0, strlen( UNCODE_FILTER_PREFIX_QUERY_TYPE_CUSTOM_FIELD ) ) == UNCODE_FILTER_PREFIX_QUERY_TYPE_CUSTOM_FIELD ) {
+				// Custom field relation
+				$taxonomy = substr( $key, strlen( UNCODE_FILTER_PREFIX_QUERY_TYPE_CUSTOM_FIELD ) );
+				$filters_query[$taxonomy]['relation'] = $value;
 			} else if ( substr( $key, 0, strlen( UNCODE_FILTER_PREFIX_PA ) ) == UNCODE_FILTER_PREFIX_PA ) {
 				// Product attribute
 				$taxonomy = 'pa_' . substr( $key, strlen( UNCODE_FILTER_PREFIX_PA ) );
@@ -66,6 +70,11 @@ function uncode_index_query_options_add_filters( $query_options = array() ) {
 					$selected_terms_values = uncode_get_terms_from_slugs( $taxonomy, $selected_terms );
 					$filters_query = uncode_add_terms_to_filters_query( $filters_query, $selected_terms_values, $taxonomy );
 				}
+			} else if ( substr( $key, 0, strlen( UNCODE_FILTER_PREFIX_CUSTOM_FIELD ) ) == UNCODE_FILTER_PREFIX_CUSTOM_FIELD ) {
+				// Custom field
+				$custom_field = substr( $key, strlen( UNCODE_FILTER_PREFIX_CUSTOM_FIELD ) );
+				$selected_terms_values = uncode_get_custom_fields_from_slugs( $custom_field, $selected_terms );
+				$filters_query = uncode_add_terms_to_filters_query( $filters_query, $selected_terms_values, $custom_field, true );
 			}
 		}
 	}
@@ -81,12 +90,18 @@ add_filter( 'uncode_index_query_options', 'uncode_index_query_options_add_filter
 /**
  * Add terms to the filters query
  */
-function uncode_add_terms_to_filters_query( $filters_query, $selected_terms, $key ) {
+function uncode_add_terms_to_filters_query( $filters_query, $selected_terms, $key, $is_custom_field = false ) {
 	if ( is_array( $selected_terms ) && count( $selected_terms ) > 0 ) {
 		if ( is_array( $filters_query ) && isset( $filters_query[$key] ) && isset( $filters_query[$key]['terms'] ) ) {
 			$filters_query[$key]['terms'] = array_merge( $selected_terms, $filters_query[$key]['terms'] );
+			if ( $is_custom_field ) {
+				$filters_query[$key]['is_custom_field'] = true;
+			}
 		} else {
 			$filters_query[$key]['terms'] = $selected_terms;
+			if ( $is_custom_field ) {
+				$filters_query[$key]['is_custom_field'] = true;
+			}
 		}
 	}
 
@@ -104,6 +119,62 @@ function uncode_get_terms_from_slugs( $taxonomy, $slugs ) {
 
 		if ( ! is_wp_error( $term ) && $term ) {
 			$terms[$term->term_id] = $term;
+		}
+	}
+
+	return $terms;
+}
+
+/**
+ * Get custom field from slugs
+ */
+function uncode_get_custom_fields_from_slugs( $meta_key, $slugs ) {
+	$terms = array();
+
+	if ( apply_filters( 'uncode_filters_use_optimistic_slugs_for_custom_fields', false ) ) {
+		$slugs = array_map( 'sanitize_text_field', $slugs );
+
+		foreach ( $slugs as $slug ) {
+			$term              = new stdClass();
+			$term->term_id     = $slug;
+			$term->slug        = $slug;
+			$term->name        = ucwords( str_replace( '-', ' ', $slug ) );
+			$term->description = '';
+
+			$terms[$slug] = $term;
+		}
+
+		return $terms;
+	}
+
+	global $wpdb;
+
+    // Get all unique values for this meta key
+    $meta_values = $wpdb->get_col($wpdb->prepare(
+        "SELECT DISTINCT meta_value FROM $wpdb->postmeta WHERE meta_key = %s",
+        $meta_key
+    ));
+
+	$single_values = array();
+	foreach ( $meta_values as $key => $value ) {
+		$single_values = array_merge( $single_values, uncode_filters_get_custom_field_values( $value ) );
+	}
+
+	$single_values = array_unique( $single_values );
+
+	foreach ( $slugs as $slug ) {
+		foreach ( $single_values as $value ) {
+			if ( sanitize_title( $value ) === $slug ) {
+				$term              = new stdClass();
+				$term->term_id     = $slug;
+				$term->slug        = $slug;
+				$term->name        = $value;
+				$term->description = '';
+
+				$terms[$slug] = $term;
+
+				break;
+			}
 		}
 	}
 
@@ -217,6 +288,23 @@ function uncode_filter_uncode_index_args( $args, $query_options ) {
 						$args['monthnum'] = $month;
 					}
 				}
+			} else if ( isset( $filter_args['is_custom_field'] ) && $filter_args['is_custom_field']) {
+				$values = isset( $filter_args['terms'] ) && is_array( $filter_args['terms'] ) ? $filter_args['terms'] : array();
+				$operator = isset( $filter_args['relation'] ) && $filter_args['relation'] === 'and' ? 'AND' : 'OR';
+
+				$custom_field_query = array(
+					'relation' => $operator
+				);
+
+				foreach ( $values as $value ) {
+					$custom_field_query[] = array(
+						'key'     => $key,
+    					'value'   => count( $values ) > 0 ? '(^|\\|)' . preg_quote( $value->name, '/' ) . '(\\||$)' : $value->name,
+						'compare' => count( $values ) > 0 ? 'REGEXP' : '='
+					);
+				}
+
+				$args['meta_query'][] = $custom_field_query;
 			} else if ( taxonomy_exists( $key ) ) {
 				$terms    = isset( $filter_args['terms'] ) && is_array( $filter_args['terms'] ) ? array_keys( $filter_args['terms'] ) : array();
 				$operator = isset( $filter_args['relation'] ) && $filter_args['relation'] === 'and' ? 'AND' : 'IN';

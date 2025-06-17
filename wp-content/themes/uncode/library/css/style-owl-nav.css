@@ -4,6 +4,10 @@
   pointer-events: none;
   width: 100%;
 }
+.uncode-owl-nav button {
+  background: transparent;
+  padding: 0;
+}
 .uncode-owl-nav.pos-abs {
   position: absolute;
   z-index: 1;

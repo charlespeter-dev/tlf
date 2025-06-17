@@ -12,7 +12,7 @@
  *
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce/Templates
- * @version 9.6.0
+ * @version 9.8.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -44,7 +44,7 @@ if ( ! empty( $product_tabs ) ) :
 		<ul class="nav nav-tabs<?php echo esc_attr($limit_content_width); ?> single-h-padding text-center" <?php echo wp_kses_post( $page_custom_width ); ?>>
 			<?php foreach ( $product_tabs as $key => $product_tab ) : ?>
 
-				<li class="<?php echo esc_attr( $key ); ?>_tab<?php if ($index === 0) { echo ' active'; } ?>" id="tab-title-<?php echo esc_attr( $key ); ?>">
+				<li role="presentation" class="<?php echo esc_attr( $key ); ?>_tab<?php if ($index === 0) { echo ' active'; } ?>" id="tab-title-<?php echo esc_attr( $key ); ?>">
 					<a href="#tab-<?php echo esc_attr($key); ?>-<?php echo esc_attr(get_the_id()); ?>" data-toggle="tab" role="tab" aria-controls="tab-<?php echo esc_attr( $key ); ?>"><span><?php echo apply_filters( 'woocommerce_product_' . $key . '_tab_title', wp_kses_post($product_tab['title']), $key ) ?></span></a>
 				</li>
 

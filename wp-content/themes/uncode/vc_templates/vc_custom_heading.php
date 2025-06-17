@@ -243,7 +243,7 @@ if ( $inline_media !== '' ) {
 	}
 }
 
-if ($css_animation !== '' && uncode_animations_enabled() && strpos( $css_animation, 'marquee') === false) {
+if (($css_animation !== '' && uncode_animations_enabled() && strpos( $css_animation, 'marquee') === false) || ( apply_filters( 'uncode_text_reveal_mobile', false ) && $css_animation === 'text-reveal')) {
 	if ( $css_animation === 'curtain' || $css_animation === 'perspective' || $css_animation === 'curtain-words' || $css_animation === 'perspective-words' || $css_animation === 'single-slide' ||  $css_animation === 'single-slide-opposite' || $css_animation === 'typewriter' || $css_animation === 'single-curtain' || $css_animation === 'text-reveal' ) {
 		if ( $css_animation === 'text-reveal' && !(function_exists('vc_is_page_editable') && vc_is_page_editable()) ) {
 			$cont_classes[] = $css_animation . ' el-text-split';
@@ -440,7 +440,7 @@ if ($content !== '') {
 		if ($text_italic === 'yes') {
 			$output .= '<i>';
 		}
-		if ( strpos($content, '[uncode_hl_text') !== false || ( uncode_animations_enabled() && ( $css_animation === 'curtain' || $css_animation === 'perspective' || $css_animation === 'perspective-words' || $css_animation === 'curtain-words' || $css_animation === 'single-slide' ||  $css_animation === 'single-slide-opposite' || $css_animation === 'typewriter' || $css_animation === 'single-curtain' || $css_animation === 'text-reveal' ) ) ) {
+		if ( strpos($content, '[uncode_hl_text') !== false || ( uncode_animations_enabled() && ( $css_animation === 'curtain' || $css_animation === 'perspective' || $css_animation === 'perspective-words' || $css_animation === 'curtain-words' || $css_animation === 'single-slide' ||  $css_animation === 'single-slide-opposite' || $css_animation === 'typewriter' || $css_animation === 'single-curtain' || $css_animation === 'text-reveal' ) ) || ( apply_filters( 'uncode_text_reveal_mobile', false ) && $css_animation === 'text-reveal') ) {
 			$breaks = array("<br />","<br>","<br/>");
 			$content = str_ireplace( $breaks, "\r\n", $content );
 			$content = strip_tags( $content, array('span') );

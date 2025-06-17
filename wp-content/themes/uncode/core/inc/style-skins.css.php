@@ -445,6 +445,8 @@ ul.dwls_search_results .daves-wordpress-live-search_title .search-title {
 .style-light .style-dark .counter-prefix,
 .style-dark .countdown,
 .style-light .style-dark .countdown,
+.style-dark .data-field--has-label .data-field-value,
+.style-light .style-dark .data-field--has-label .data-field-value,
 .style-dark ul.dwls_search_results .daves-wordpress-live-search_title .search-title,
 .style-light .style-dark ul.dwls_search_results .daves-wordpress-live-search_title .search-title,
 .style-dark ul.dwls_search_results .daves-wordpress-live-search_author,
@@ -533,6 +535,8 @@ ul.dwls_search_results .daves-wordpress-live-search_title .search-title {
 .style-dark .style-light .counter-prefix,
 .style-light .countdown,
 .style-dark .style-light .countdown,
+.style-light .data-field--has-label .data-field-value,
+.style-dark .style-light .data-field--has-label .data-field-value,
 .style-light ul.dwls_search_results .daves-wordpress-live-search_title .search-title,
 .style-dark .style-light ul.dwls_search_results .daves-wordpress-live-search_title .search-title,
 .style-light ul.dwls_search_results .daves-wordpress-live-search_author,
@@ -1091,13 +1095,17 @@ button[type="submit"] {
 .style-dark .ui-bg-alpha-progress-bar,
 .style-light .style-dark .ui-bg-alpha-progress-bar,
 .style-dark .vc_progress_bar .vc_single_bar:not(.style-override),
-.style-light .style-dark .vc_progress_bar .vc_single_bar:not(.style-override) {
+.style-light .style-dark .vc_progress_bar .vc_single_bar:not(.style-override),
+.style-dark .data-field-icon--rounded,
+.style-light .style-dark .data-field-icon--rounded {
   background-color: rgba(255, 255, 255, 0.2);
 }
 .style-light .ui-bg-alpha-progress-bar,
 .style-dark .style-light .ui-bg-alpha-progress-bar,
 .style-light .vc_progress_bar .vc_single_bar:not(.style-override),
-.style-dark .style-light .vc_progress_bar .vc_single_bar:not(.style-override) {
+.style-dark .style-light .vc_progress_bar .vc_single_bar:not(.style-override),
+.style-light .data-field-icon--rounded,
+.style-dark .style-light .data-field-icon--rounded {
   background-color: rgba(119, 119, 119, 0.1);
 }
 .style-dark .ui-text-alpha-progress-bar,

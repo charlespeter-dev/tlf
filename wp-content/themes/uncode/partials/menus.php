@@ -1072,7 +1072,7 @@ if (!class_exists('unmenu')) {
 					$this->html = '<div class="menu-wrapper'.$menu_shrink.$menu_sticky.$menu_no_arrow.'">
 													'.($no_secondary !== 'on' ? $secondary_menu_html : '').'
 													<header id="masthead" class="navbar'.$stylemaincombo.$main_absolute.$menu_sub_animation.' menu-with-logo' . $menu_mobile_off_cavas . '">
-														<div class="menu-container'.$effects.$stylemainbackfull.$needs_after.'">
+														<div class="menu-container'.$effects.$stylemainbackfull.$needs_after.'" role="navigation">
 															<div class="row-menu'.$main_width.'">
 																<div class="row-menu-inner'.$stylemainback.'">
 																	<div id="logo-container-mobile" class="col-lg-0 logo-container middle">
@@ -1158,7 +1158,7 @@ if (!class_exists('unmenu')) {
 														</div>
 													</div>
 													<header id="masthead" class="navbar'.str_replace(' menu-transparent', '', $stylemaincombo).'">
-														<div class="menu-container'.$effects.$stylemainbackfull.$needs_after.'">
+														<div class="menu-container'.$effects.$stylemainbackfull.$needs_after.'" role="navigation">
 															<div class="row-menu'.$main_width.'">
 																<div class="row-menu-inner'.$stylemainback.'">
 																	<div class="col-lg-12 main-menu-container middle">
@@ -1229,7 +1229,7 @@ if (!class_exists('unmenu')) {
 												$this->html = '<div class="menu-wrapper'.$menu_shrink.$menu_sticky.$menu_no_arrow.$menu_sub_animation.'">
 													'.($no_secondary !== 'on' ? $secondary_menu_html : '').'
 													<header id="masthead" class="navbar'.$stylemaincombo.$main_absolute.' menu-with-logo' . $menu_mobile_off_cavas . '">
-														<div class="menu-container'.$effects.$stylemainbackfull.$needs_after.'">
+														<div class="menu-container'.$effects.$stylemainbackfull.$needs_after.'" role="navigation">
 															<div class="row-menu'.$main_width.'">
 																<div class="row-menu-inner'.$stylemainback.'">
 																	<div id="logo-container-mobile" class="col-lg-0 logo-container megamenu-diff desktop-hidden">
@@ -1338,7 +1338,7 @@ if (!class_exists('unmenu')) {
 					$this->html = '<div class="menu-wrapper'.$menu_shrink.$menu_sticky.'">
 													<span class="menu-container-ghost-bg'.$stylemainbackfull.'"></span>
 													<div id="masthead" class="navbar'.$stylemaincombo_overlay.$main_absolute.' menu-with-logo' . $menu_mobile_off_cavas . '">
-														<div class="menu-container'.$effects.$stylemainbackfull.'">
+														<div class="menu-container'.$effects.$stylemainbackfull.'" role="navigation">
 															<div class="row-menu row-offcanvas'.$main_width.'">
 																<div class="row-menu-inner row-brand menu-horizontal-inner'.$stylemainback.'">';
 
@@ -1425,7 +1425,7 @@ if (!class_exists('unmenu')) {
 						$this->html =	'<div class="overlay overlay-'.$overlay_animation.' overlay-menu" data-area="menu" data-container="main-container">
 														<div class="overlay-bg ' . $bgoverlay . '"></div>
 														<div class="main-header">
-															<div class="vmenu-container menu-container style-'.$styleoverlay.$menu_no_arrow.$stylemaincombo.'" data-lenis-prevent>
+															<div class="vmenu-container menu-container style-'.$styleoverlay.$menu_no_arrow.$stylemaincombo.'" data-lenis-prevent role="navigation">
 																<div class="row row-parent">
 																	<div class="row-inner">
 																		<div class="menu-sidebar main-menu-container">
@@ -1462,7 +1462,7 @@ if (!class_exists('unmenu')) {
 					$this->html = '<div class="menu-wrapper'.$menu_shrink.$menu_sticky.$menu_no_arrow.'">
 													'.($no_secondary !== 'on' ? $secondary_menu_html : '').'
 													<header id="masthead" class="navbar'.$stylemaincombo.$main_absolute.$menu_sub_animation.' menu-with-logo' . $menu_mobile_off_cavas . '">
-														<div class="menu-container'.$effects.$stylemainbackfull.$needs_after.'">
+														<div class="menu-container'.$effects.$stylemainbackfull.$needs_after.'" role="navigation">
 															<div class="row-menu'.$main_width.'">
 																<div class="row-menu-inner'.$stylemainback.'">
 																	<div class="col-lg-5 main-menu-container middle">
@@ -1553,7 +1553,7 @@ if (!class_exists('unmenu')) {
 					}
 					$this->html = '<div class="main-header">
 													<div id="masthead" class="masthead-vertical'.$menu_sticky.'">
-														<div class="vmenu-container menu-container '.str_replace(' menu-transparent', '', $stylemaincombo).$stylemainbackfull.$menu_no_arrow.$menu_hide.'" data-lenis-prevent>
+														<div class="vmenu-container menu-container '.str_replace(' menu-transparent', '', $stylemaincombo).$stylemainbackfull.$menu_no_arrow.$menu_hide.'" data-lenis-prevent role="navigation">
 															<div class="row row-parent'.$stylemainback.'">';
 					$offcanvas_overlay = ot_get_option('_uncode_offcanvas_overlay');
 					if ($menutype === 'vmenu-offcanvas' && $offcanvas_overlay === 'on' ) {

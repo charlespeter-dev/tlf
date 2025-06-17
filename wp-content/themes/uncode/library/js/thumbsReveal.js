@@ -2,7 +2,8 @@
 	"use strict";
 
 	UNCODE.thumbsReveal = function() {
-    var revealThumbs = function( $el ){
+    var recalc = false,
+    revealThumbs = function( $el ){
         if ( typeof $el === 'undefined' || $el === null || !$el.length ) {
             $el = $('body');
         }
@@ -14,9 +15,14 @@
             if ( !$('body').hasClass('compose-mode') || typeof window.parent.vc === 'undefined' ) {
                 $stickys.each(function(){
                     var $sticky = $(this).addClass('tmb-mask-init'),
+                        $rellax = $sticky.closest('.parallax-el'),
                         $inside = $('.t-inside', $sticky),
-                        $media = $('img, video, .fluid-object', $sticky),
+                        $media = $('img, video, .fluid-object', $sticky).attr('loading', ''),
                         val = parseFloat( $inside.attr('data-scroll-val') );
+
+                    if ( $rellax.length ) {
+                        recalc = true;
+                    }
 
                     val = (isNaN(val) || val == null || val == 0 || typeof val === 'undefined') ? 5 : val;
                     
@@ -43,6 +49,14 @@
                             scale: 1 + extra,
                             ease: "none",
                         });
+
+                        if ( recalc ) {
+                            $(window).on('uncode-thumbsreveal-refresh', function(){
+                                if ( tl !== null && tl !== 'undefined' && tl.scrollTrigger !== null ) {
+                                    tl.scrollTrigger.refresh();
+                                }
+                            });
+                        }
                     }
                 });
             }
@@ -120,8 +134,21 @@
 
         });
 
+        function raf(time) {
+            requestAnimationFrame(raf)
+            $(window).trigger('uncode-thumbsreveal-refresh');
+        }
+
+        if ( recalc ) {
+            requestAnimationFrame(raf)
+        }
+
     };
     $(window).on( 'load more-items-loaded', function(){
+        revealThumbs();
+    });
+
+    $(document).on('uncode-ajax-filtered', function(){
         revealThumbs();
     });
 

@@ -79,7 +79,7 @@
                     if ( digit && digit > 1 ) {
                         padN = String(padN).padStart(digit, '0');
                     }
-                    nav_html += '<span class="uncode-nav-index" data-key="' + Math.floor(sl_ind*page.size) + '"><span>' + padN + '</span></span>';
+                    nav_html += '<button class="uncode-nav-index" data-key="' + Math.floor(sl_ind*page.size) + '" tabindex="0"><span>' + padN + '</span></button>';
                 }
                 $navDots.html(nav_html);
 

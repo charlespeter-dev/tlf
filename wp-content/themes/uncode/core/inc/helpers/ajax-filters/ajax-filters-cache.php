@@ -494,3 +494,33 @@ function uncode_ajax_filters_get_date_data_from_cache( $post_objects_data, $post
 		'data'       => $post_objects_data
 	);
 }
+
+/**
+ * Get custom field data from cache
+ */
+function uncode_ajax_filters_get_custom_field_data_from_cache( $post_objects_data, $post_id, $custom_field_key ) {
+	// Valid cache found
+	if ( is_array( $post_objects_data ) && isset( $post_objects_data[ $post_id ] ) && isset( $post_objects_data[ $post_id ]['custom_field_data'] ) && isset( $post_objects_data[ $post_id ]['custom_field_data'][ $custom_field_key ] ) ) {
+		return array(
+			'from_cache' => true,
+			'data'       => $post_objects_data
+		);
+	}
+
+	$post_objects_data = is_array( $post_objects_data ) ? $post_objects_data : array();
+
+	if ( ! isset( $post_objects_data[ $post_id ] ) ) {
+		$post_objects_data[ $post_id ] = array();
+	}
+
+	if ( ! isset( $post_objects_data[ $post_id ]['custom_field_data'] ) ) {
+		$post_objects_data[ $post_id ]['custom_field_data'] = array();
+	}
+
+	$post_objects_data[ $post_id ]['custom_field_data'][ $custom_field_key ] = get_post_meta( $post_id, $custom_field_key, true );
+
+	return array(
+		'from_cache' => false,
+		'data'       => $post_objects_data
+	);
+}
