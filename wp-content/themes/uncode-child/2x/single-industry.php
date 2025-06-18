@@ -633,6 +633,27 @@ get_header() ?>
                         <?php endforeach ?>
                     </div>
 
+                    <!-- promo iamge -->
+
+                    <div class="row">
+                        <div class="col">
+                            <a class="promo-image-container"
+                                href="<?= $callout['promo_image']['banner_image_link']['url'] ?>" target="_blank"
+                                style="--tlf-banner-image-mobile: url('<?= $callout['promo_image']['banner_image_mobile']['url'] ?>');">
+                                <img class="img-fluid promo-img"
+                                    src="<?= $callout['promo_image']['banner_image']['url'] ?>">
+                                <div class="headings">
+                                    <div class="main-heading">
+                                        <?= $callout['promo_image']['main_heading'] ?>
+                                    </div>
+                                    <div class="subheading">
+                                        <?= $callout['promo_image']['subheading'] ?>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
