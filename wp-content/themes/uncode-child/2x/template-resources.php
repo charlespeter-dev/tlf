@@ -352,9 +352,26 @@ get_header() ?>
 
                     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-5">
 
-                        <?php foreach ($cards_ids as $card_id): ?>
+                        <?php foreach ($cards_ids as $card_id):
+
+                            // ---------------------------------------------
+                            // handle UTM parameters in the URL
+                            // ---------------------------------------------
+                    
+                            if ($card_id == 33217) {
+                                $utm_params = [
+                                    'utm_source' => 'linkedin',
+                                    'utm_medium' => 'paid',
+                                ];
+
+                                $card_url = get_the_permalink($card_id) . '?' . http_build_query($utm_params);
+                            } else {
+                                $card_url = get_the_permalink($card_id);
+                            }
+
+                            ?>
                             <div class="col">
-                                <a href="<?= get_the_permalink($card_id) ?>">
+                                <a href="<?= $card_url ?>">
                                     <div class="card h-100">
                                         <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($card_id), '_2x-card-faces-of-tlf-left-top') ?>"
                                             class="img-fluid" alt="" loading="lazy">
