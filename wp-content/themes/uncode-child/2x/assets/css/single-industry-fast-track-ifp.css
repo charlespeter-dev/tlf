@@ -19,7 +19,8 @@
   text-decoration: none;
 }
 .bootstrap-container.single.industry.fast-track-ifp .general_info_1.content {
-  padding-block: 3rem;
+  padding-block-start: 48px;
+  padding-block-end: 16px;
 }
 .bootstrap-container.single.industry.fast-track-ifp .general_info_1.content p {
   color: #000000;
@@ -45,7 +46,8 @@
   text-align: center;
 }
 .bootstrap-container.single.industry.fast-track-ifp .general_info_2 {
-  padding-block: 4rem;
+  padding-block-start: 32px;
+  padding-block-end: 0;
   position: relative;
 }
 .bootstrap-container.single.industry.fast-track-ifp .general_info_2::before {
@@ -72,14 +74,14 @@
 @media (min-width: 992px) {
   .bootstrap-container.single.industry.fast-track-ifp .general_info_2 .main-heading {
     font-size: 40px;
-    line-height: 55px;
+    line-height: 50px;
   }
 }
 .bootstrap-container.single.industry.fast-track-ifp .general_info_2 .__lists {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding: 1rem;
+  gap: 16px;
+  padding: 16px;
 }
 .bootstrap-container.single.industry.fast-track-ifp .general_info_2 .__lists li {
   border-block-end: 1px solid #D0D0D0;
@@ -107,8 +109,13 @@
   text-wrap: pretty;
   padding-block-end: 16px;
 }
+.bootstrap-container.single.industry.fast-track-ifp .general_info_2 .right-image {
+  display: flex;
+  align-items: center;
+}
 .bootstrap-container.single.industry.fast-track-ifp .general_info_3 {
-  padding-block: 4rem;
+  padding-block-start: 32px;
+  padding-block-end: 16px;
 }
 .bootstrap-container.single.industry.fast-track-ifp .general_info_3 .main-heading {
   color: #003375;
@@ -123,7 +130,7 @@
 @media (min-width: 992px) {
   .bootstrap-container.single.industry.fast-track-ifp .general_info_3 .main-heading {
     font-size: 40px;
-    line-height: 55px;
+    line-height: 50px;
   }
 }
 .bootstrap-container.single.industry.fast-track-ifp .general_info_3 .subheading {
@@ -151,7 +158,8 @@
   text-align: center;
 }
 .bootstrap-container.single.industry.fast-track-ifp .general_info_4 {
-  padding-block: 4rem;
+  padding-block-start: 32px;
+  padding-block-end: 0;
   position: relative;
 }
 .bootstrap-container.single.industry.fast-track-ifp .general_info_4::before {
@@ -178,7 +186,7 @@
 @media (min-width: 992px) {
   .bootstrap-container.single.industry.fast-track-ifp .general_info_4 .main-heading {
     font-size: 40px;
-    line-height: 55px;
+    line-height: 50px;
   }
 }
 .bootstrap-container.single.industry.fast-track-ifp .general_info_4 .subheading {
@@ -192,8 +200,8 @@
 .bootstrap-container.single.industry.fast-track-ifp .general_info_4 .__lists {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding: 1rem;
+  gap: 16px;
+  padding: 16px;
 }
 .bootstrap-container.single.industry.fast-track-ifp .general_info_4 .__lists li {
   border-block-end: 1px solid #D0D0D0;
@@ -212,6 +220,10 @@
   display: flex;
   align-items: flex-start;
   gap: 10px;
+}
+.bootstrap-container.single.industry.fast-track-ifp .general_info_4 .table-container {
+  display: flex;
+  align-items: center;
 }
 .bootstrap-container.single.industry.fast-track-ifp .general_info_4 .table {
   --bs-border-width: 1px;
@@ -234,7 +246,7 @@
   gap: 16px;
 }
 .bootstrap-container.single.industry.fast-track-ifp .general_info_5 {
-  padding-block: 4rem;
+  padding-block: 32px;
 }
 .bootstrap-container.single.industry.fast-track-ifp .general_info_5 .main-heading {
   color: #E30613;
@@ -249,7 +261,7 @@
 @media (min-width: 992px) {
   .bootstrap-container.single.industry.fast-track-ifp .general_info_5 .main-heading {
     font-size: 40px;
-    line-height: 55px;
+    line-height: 50px;
   }
 }
 .bootstrap-container.single.industry.fast-track-ifp .general_info_5 .accordion-button {

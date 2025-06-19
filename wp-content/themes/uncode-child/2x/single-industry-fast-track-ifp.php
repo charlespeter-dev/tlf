@@ -156,7 +156,7 @@ get_header() ?>
 
                     <div class="row">
                         <div class="col">
-                            <h2 class="main-heading mb-5">
+                            <h2 class="main-heading mb-2">
                                 <?= $general_info_2['main_heading'] ?>
                             </h2>
                         </div>
@@ -192,7 +192,7 @@ get_header() ?>
                                 <?php endforeach ?>
                             </ul>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 right-image">
                             <img class="img-fluid" src="<?= $general_info_2['right_image']['url'] ?>" alt="">
                         </div>
                     </div>
@@ -208,7 +208,7 @@ get_header() ?>
 
                     <div class="row">
                         <div class="col">
-                            <h2 class="main-heading mb-4">
+                            <h2 class="main-heading mb-3">
                                 <?= $general_info_3['main_heading'] ?>
                             </h2>
                         </div>
@@ -216,13 +216,13 @@ get_header() ?>
 
                     <div class="row">
                         <div class="col">
-                            <p class="subheading mb-4">
+                            <p class="subheading mb-3">
                                 <?= $general_info_3['subheading'] ?>
                             </p>
                         </div>
                     </div>
 
-                    <div class="row row-cols-1 row-cols-lg-2 g-5 __cards">
+                    <div class="row row-cols-1 row-cols-lg-2 g-4 __cards">
                         <?php foreach ($general_info_3['cards'] as $card): ?>
                             <div class="col">
                                 <div class="__card">
@@ -248,7 +248,7 @@ get_header() ?>
 
                     <div class="row">
                         <div class="col">
-                            <h2 class="main-heading mb-5">
+                            <h2 class="main-heading mb-2">
                                 <?= $general_info_4['main_heading'] ?>
                             </h2>
                         </div>
@@ -281,7 +281,7 @@ get_header() ?>
                                 <?php endforeach ?>
                             </ul>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 table-container">
                             <table class="table table-bordered">
                                 <tbody>
                                     <tr>
@@ -323,7 +323,7 @@ get_header() ?>
 
                     <div class="row">
                         <div class="col">
-                            <h2 class="main-heading mb-5">
+                            <h2 class="main-heading mb-4">
                                 <?= $general_info_5['main_heading'] ?>
                             </h2>
                         </div>
