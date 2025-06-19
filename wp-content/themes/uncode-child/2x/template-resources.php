@@ -356,9 +356,11 @@ get_header() ?>
 
                             // ---------------------------------------------
                             // handle UTM parameters in the URL
+                            // 33217 - https://thelogicfactory.com/resources/supercharge-your-poultry-supply-chain-with-smarter-planning/
+                            // 33695 - https://thelogicfactory.com/resources/intelligent-food-planner-designed-for-the-demands-of-modern-food-production/
                             // ---------------------------------------------
                     
-                            if ($card_id == 33217) {
+                            if (in_array($card_id, ['33695', '33217'])) {
                                 $utm_params = [
                                     'utm_source' => 'linkedin',
                                     'utm_medium' => 'paid',
