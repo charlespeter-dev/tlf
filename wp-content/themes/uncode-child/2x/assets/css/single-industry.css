@@ -305,6 +305,7 @@
   margin-bottom: 0;
 }
 .bootstrap-container.industry.single .callout .promo-image-container {
+  --tlf-height-desktop: 300px;
   position: relative;
   background-image: var(--tlf-banner-image-mobile);
   background-repeat: no-repeat;
@@ -324,7 +325,7 @@
     display: block;
     background: none;
     width: 100%;
-    height: 200px;
+    height: var(--tlf-height-desktop);
   }
 }
 .bootstrap-container.industry.single .callout .promo-image-container .promo-img {
@@ -336,13 +337,17 @@
   .bootstrap-container.industry.single .callout .promo-image-container .promo-img {
     display: block;
     width: 100%;
-    height: 200px;
+    height: var(--tlf-height-desktop);
     object-fit: cover;
   }
 }
 .bootstrap-container.industry.single .callout .promo-image-container .headings {
   text-align: center;
   padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
 }
 @media (min-width: 992px) {
   .bootstrap-container.industry.single .callout .promo-image-container .headings {
@@ -351,9 +356,8 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 200px;
+    height: var(--tlf-height-desktop);
     padding: 0;
-    padding-block-start: 16px;
     padding-inline-start: 32px;
   }
 }
@@ -363,7 +367,6 @@
   line-height: 45px;
   font-family: "gotham_boldregular", sans-serif;
   font-weight: 700;
-  margin-block-end: 16px;
 }
 @media (min-width: 992px) {
   .bootstrap-container.industry.single .callout .promo-image-container .headings .main-heading {
@@ -374,10 +377,33 @@
 .bootstrap-container.industry.single .callout .promo-image-container .headings .subheading {
   color: #FFFFFF;
   font-size: 20px;
-  line-height: 28px;
+  line-height: 25px;
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
   text-wrap: pretty;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.industry.single .callout .promo-image-container .headings .subheading {
+    font-size: 20px;
+    line-height: 25px;
+  }
+}
+.bootstrap-container.industry.single .callout .promo-image-container .headings .__cta {
+  white-space: unset;
+  background-color: #E30613;
+  border: 1px solid #E30613;
+  border-radius: 10px;
+  text-shadow: 0px 3px 10px rgba(0, 0, 0, 0.7);
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.7);
+  padding: 7px 17px;
+  text-decoration: none;
+  color: #FFFFFF;
+  font-size: 18px;
+  line-height: 26px;
+  display: inline-block;
+}
+.bootstrap-container.industry.single .callout .promo-image-container .headings .__cta:hover {
+  background-color: transparent;
 }
 .bootstrap-container.industry.single .subpages {
   padding-block-start: 4rem;
