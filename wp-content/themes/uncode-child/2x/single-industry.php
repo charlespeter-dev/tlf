@@ -635,27 +635,31 @@ get_header() ?>
 
                     <!-- promo iamge -->
 
-                    <div class="row">
-                        <div class="col">
-                            <div class="promo-image-container"
-                                style="--tlf-banner-image-mobile: url('<?= $callout['promo_image']['banner_image_mobile']['url'] ?>');">
-                                <img class="img-fluid promo-img"
-                                    src="<?= $callout['promo_image']['banner_image']['url'] ?>">
-                                <div class="headings">
-                                    <div class="main-heading">
-                                        <?= $callout['promo_image']['main_heading'] ?>
-                                    </div>
-                                    <div class="subheading">
-                                        <?= $callout['promo_image']['subheading'] ?>
-                                    </div>
-                                    <div class="__cta-container mt-2">
-                                        <a class="__cta" href="<?= $callout['promo_image']['banner_image_link']['url'] ?>"
-                                            target="_blank">Learn More</a>
+                    <?php if ($post->ID == 29812): ?>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="promo-image-container"
+                                    style="--tlf-banner-image-mobile: url('<?= $callout['promo_image']['banner_image_mobile']['url'] ?>');">
+                                    <img class="img-fluid promo-img"
+                                        src="<?= $callout['promo_image']['banner_image']['url'] ?>">
+                                    <div class="headings">
+                                        <div class="main-heading">
+                                            <?= $callout['promo_image']['main_heading'] ?>
+                                        </div>
+                                        <div class="subheading">
+                                            <?= $callout['promo_image']['subheading'] ?>
+                                        </div>
+                                        <div class="__cta-container mt-2">
+                                            <a class="__cta" href="<?= $callout['promo_image']['banner_image_link']['url'] ?>"
+                                                target="_blank">Learn More</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+
+                    <?php endif ?>
 
                 </div>
             </div>
