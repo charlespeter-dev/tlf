@@ -362,6 +362,7 @@
 
                 display: flex;
                 justify-content: center;
+                gap: 1rem;
 
                 .btn.btn-primary {
                     white-space: unset;
@@ -379,6 +380,20 @@
                         background-color: #d60006 !important;
                         color: #fff !important;
                     }
+                }
+
+                .btn.btn-blue {
+                    white-space: unset;
+                    background-color: #003375 !important;
+                    border: none !important;
+                    border-radius: 10px !important;
+                    padding: 10px 20px !important;
+                    text-transform: capitalize !important;
+                    font-size: 16px !important;
+                    font-family: "Open Sans", sans-serif !important;
+                    font-weight: 400 !important;
+                    letter-spacing: normal !important;
+                    color: #fff !important;
                 }
             }
         }

@@ -308,6 +308,7 @@
 .bootstrap-container.single.industry.fast-track-ifp .cta-container .cta-inner {
   display: flex;
   justify-content: center;
+  gap: 1rem;
 }
 .bootstrap-container.single.industry.fast-track-ifp .cta-container .cta-inner .btn.btn-primary {
   white-space: unset;
@@ -323,6 +324,19 @@
 }
 .bootstrap-container.single.industry.fast-track-ifp .cta-container .cta-inner .btn.btn-primary:hover {
   background-color: #d60006 !important;
+  color: #fff !important;
+}
+.bootstrap-container.single.industry.fast-track-ifp .cta-container .cta-inner .btn.btn-blue {
+  white-space: unset;
+  background-color: #003375 !important;
+  border: none !important;
+  border-radius: 10px !important;
+  padding: 10px 20px !important;
+  text-transform: capitalize !important;
+  font-size: 16px !important;
+  font-family: "Open Sans", sans-serif !important;
+  font-weight: 400 !important;
+  letter-spacing: normal !important;
   color: #fff !important;
 }
 .bootstrap-container.single.industry.fast-track-ifp .related-resources {
