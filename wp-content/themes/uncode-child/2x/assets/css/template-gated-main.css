@@ -26,11 +26,9 @@
 .bootstrap-container .main-contents a {
   color: #009BDC !important;
 }
-.bootstrap-container .main-contents ul {
-  padding-left: 3rem;
-}
 .bootstrap-container .main-contents ul > li {
   list-style-type: disc;
+  text-wrap: pretty;
 }
 .bootstrap-container .main-contents li.tick {
   list-style-image: url("https://thelogicfactory.com/wp-content/uploads/2023/09/Icon-Tick.svg");

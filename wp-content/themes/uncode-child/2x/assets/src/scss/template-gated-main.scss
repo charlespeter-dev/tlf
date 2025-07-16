@@ -42,12 +42,9 @@
             color: #009BDC !important;
         }
 
-        ul {
-            padding-left: 3rem;
-        }
-
         ul>li {
             list-style-type: disc;
+            text-wrap: pretty;
         }
 
         li {
