@@ -89,6 +89,16 @@
   margin-left: -50vw;
   margin-right: -50vw;
 }
+.bootstrap-container .callout-with-cards-footer {
+  font-size: 1.25rem;
+  line-height: calc(1.3125rem + 0.75vw);
+  text-align: center;
+}
+@media (min-width: 1200px) {
+  .bootstrap-container .callout-with-cards-footer {
+    line-height: 1.875rem;
+  }
+}
 .bootstrap-container .cards-overview {
   position: relative;
 }

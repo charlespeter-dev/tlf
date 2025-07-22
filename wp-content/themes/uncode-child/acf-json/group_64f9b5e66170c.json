@@ -227,6 +227,26 @@
                             "parent_repeater": "field_64f9b5e6ac428"
                         }
                     ]
+                },
+                {
+                    "key": "field_687f24a5e706a",
+                    "label": "Footer",
+                    "name": "footer",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
                 }
             ]
         },
@@ -629,5 +649,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1694093947
+    "modified": 1753162926
 }

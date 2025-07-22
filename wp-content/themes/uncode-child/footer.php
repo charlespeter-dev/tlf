@@ -357,6 +357,14 @@ if ($footer): ?>
 											<?php endforeach ?>
 										</ul>
 
+										<?php if ($pagename == 'services'): ?>
+											<div>
+												<img src="https://thelogicfactory.com/wp-content/uploads/2025/07/ISO-logo_inverted.png"
+													alt="ISO 27001 Certified Information Security Management - The Logic Factory"
+													class="img-fluid" style="width: 100px;">
+											</div>
+										<?php endif ?>
+
 									</div>
 
 								<?php endif ?>

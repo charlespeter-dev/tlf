@@ -95,6 +95,12 @@
                 margin-right: -50vw;
             }
         }
+
+        &-footer {
+            @include rfs(1.25rem, font-size);
+            @include rfs(1.875rem, line-height);
+            text-align: center;
+        }
     }
 
     .cards-overview {

@@ -116,6 +116,16 @@ get_header() ?>
                             </div>
                         <?php endforeach ?>
                     </div>
+
+                    <?php if (isset($callout_cards['footer']) && $callout_cards['footer']): ?>
+                        <div class="row mt-4 mt-xl-5">
+                            <div class="col">
+                                <p class="callout-with-cards-footer">
+                                    <?= $callout_cards['footer'] ?>
+                                </p>
+                            </div>
+                        </div>
+                    <?php endif ?>
                 </div>
             </div>
         </section>
