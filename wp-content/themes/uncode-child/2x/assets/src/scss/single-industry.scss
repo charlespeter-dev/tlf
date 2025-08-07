@@ -698,6 +698,10 @@
 
 // industrial equipment webinars
 
+.callout:has(+.industrial-equipment-webinars) {
+    padding-bottom: 0 !important;
+}
+
 .industrial-equipment-webinars {
 
     hr {
@@ -715,6 +719,10 @@
                 }
             }
         }
+    }
+
+    h2 {
+        text-wrap: pretty;
     }
 
     .card {

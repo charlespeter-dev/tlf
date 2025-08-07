@@ -680,7 +680,7 @@ get_header() ?>
             <div class="row-container">
                 <div class="single-h-padding limit-width position-relative">
 
-                    <div class="row mb-5">
+                    <div class="row mb-4">
                         <div class="col">
                             <hr>
                         </div>

@@ -586,6 +586,10 @@
   border-left: 1px solid #C9C9C9;
 }
 
+.callout:has(+ .industrial-equipment-webinars) {
+  padding-bottom: 0 !important;
+}
+
 .industrial-equipment-webinars hr {
   border-block-start: 2px solid #ccc;
 }
@@ -594,6 +598,9 @@
 }
 .industrial-equipment-webinars a:hover .card-cta svg {
   transform: translateX(0.5rem);
+}
+.industrial-equipment-webinars h2 {
+  text-wrap: pretty;
 }
 .industrial-equipment-webinars .card img {
   width: 352px;
