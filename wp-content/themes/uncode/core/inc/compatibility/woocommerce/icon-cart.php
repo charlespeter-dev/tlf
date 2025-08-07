@@ -125,7 +125,7 @@ function uncode_add_cart_in_menu($woo_icon, $woo_cart_class) {
 	$vertical = (strpos($menutype, 'vmenu') !== false || $menutype === 'menu-overlay' || $menutype === 'menu-overlay-center') ? true : false;
 
 	ob_start();
-	?><li class="<?php echo esc_attr( $woo_cart_class ); ?> uncode-cart menu-item-link menu-item menu-item-has-children dropdown">
+	?><li role="menuitem" class="<?php echo esc_attr( $woo_cart_class ); ?> uncode-cart menu-item-link menu-item menu-item-has-children dropdown" role="menuitem" aria-label="<?php echo esc_html( apply_filters( 'uncode_woocommerce_cart_table_title', __( 'Cart', 'woocommerce' ) ) ); ?>">
 		<a href="<?php echo esc_url( wc_get_cart_url() ); ?>" data-toggle="dropdown" class="dropdown-toggle" data-type="title" title="cart">
 			<span class="cart-icon-container">
 				<?php if ( $horizontal_menu ) : ?>

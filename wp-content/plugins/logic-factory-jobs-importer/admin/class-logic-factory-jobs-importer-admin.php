@@ -73,12 +73,7 @@ class Logic_Factory_Jobs_Importer_Admin {
 	}
 	
 	function my_cf7_mail_components( $components ){
-		
-		//$components['additional_headers'] .= "\r\nCc:hello@haatchmedia.com";
-		//$components['additional_headers'] .= "\r\nFrom: Developer <hello@developer.com>";
-	
-		return $components;
-		
+		return $components;	
 	}
 
 	function nv_sent_job_submission( $contact_form, &$abort, $submission )
@@ -394,6 +389,16 @@ class Logic_Factory_Jobs_Importer_Admin {
 			foreach($job->jobDescriptions->jobDescription as $jobDesc)
 			{
 				$str .= "<h4>$jobDesc->name</h4><p>$jobDesc->value</p></br>";
+
+				if($jobDesc->name == "Your profile")
+				{
+					$job_mission_profile = $jobDesc->value;
+				}
+
+				if($jobDesc->name == "Why us?")
+				{
+					$job_benefits = $jobDesc->value;
+				}
 			}
 
 			$my_post = array(
@@ -408,7 +413,14 @@ class Logic_Factory_Jobs_Importer_Admin {
 			update_post_meta($post_id, 'job_data',$job);
 			update_post_meta($post_id, 'job_data_synced', time());
 									
-			$this->set_job_location($recruitingCategory, $post_id);
+			$this->set_job_location($recruitingCategory, $post_id, 'category');
+			$this->set_job_location($recruitingCategory, $post_id, 'career-category');
+
+			update_post_meta($post_id, 'job_country',				$job->office);
+			update_post_meta($post_id, 'job_city',					$job->office);
+			update_post_meta($post_id, 'job_type',					$jobschedule);
+			update_post_meta($post_id, 'job_mission_profile',		$job_mission_profile);
+			update_post_meta($post_id, 'job_benefits',				$job_benefits);
 
 			echo "<br/>";
 			echo $job->name. " <strong>exists and updated successfully</strong>";
@@ -422,6 +434,16 @@ class Logic_Factory_Jobs_Importer_Admin {
 			foreach($job->jobDescriptions->jobDescription as $jobDesc)
 			{
 				$str .= "<h4>$jobDesc->name</h4><p>$jobDesc->value</p></br>";
+
+				if($jobDesc->name == "Your profile")
+				{
+					$job_mission_profile = $jobDesc->value;
+				}
+
+				if($jobDesc->name == "Why us?")
+				{
+					$job_benefits = $jobDesc->value;
+				}
 			}
 
 			$post_id = wp_insert_post(
@@ -442,10 +464,18 @@ class Logic_Factory_Jobs_Importer_Admin {
 				$alljobs[] = $job->name;
 				
 				update_post_meta($post_id, 'job_data',$job);
+				
+				update_post_meta($post_id, 'job_country',				$job->office);
+				update_post_meta($post_id, 'job_city',					$job->office);
+				update_post_meta($post_id, 'job_type',					$jobschedule);
+				update_post_meta($post_id, 'job_mission_profile',		$job_mission_profile);
+				update_post_meta($post_id, 'job_benefits',				$job_benefits);
 
-				$this->set_job_location($recruitingCategory, $post_id);
+				$this->set_job_location($recruitingCategory, $post_id, 'category');
+				$this->set_job_location($recruitingCategory, $post_id, 'career-category');
+
 				update_post_meta($post_id, 'job_data_synced', time());
-					
+
 				echo "<br/>";
 				echo $job->name. " <strong>imported successfully</strong>";
 				echo "<br/>";
@@ -453,15 +483,15 @@ class Logic_Factory_Jobs_Importer_Admin {
 		}
 	}
 
-	public function set_job_location($jobterm, $post_id)
+	public function set_job_location($jobterm, $post_id, $taxonomy)
 	{
 		
-		$term = term_exists( $jobterm, 'career-category');
+		$term = term_exists( $jobterm, $taxonomy);
 		if(!$term['term_id'])
 		{
-			$term = wp_insert_term($jobterm,'career-category',[]);
+			$term = wp_insert_term($jobterm, $taxonomy, []);
 		}
-		wp_set_post_terms( $post_id, $term['term_id'], 'career-category' );
+		wp_set_post_terms( $post_id, $term['term_id'], $taxonomy );
 		
 	}
 

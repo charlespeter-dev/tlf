@@ -666,6 +666,72 @@ get_header() ?>
         </section>
     <?php endif ?>
 
+    <?php
+
+    /**
+     * 33313
+     * Industrial Equipment Webinars
+     */
+
+
+    if ($post->ID == 33313 && ($industrial_equipment_webinars['cards'] ?? false)): ?>
+
+        <section class="industrial-equipment-webinars mb-5 pb-5">
+            <div class="row-container">
+                <div class="single-h-padding limit-width position-relative">
+
+                    <div class="row mb-5">
+                        <div class="col">
+                            <hr>
+                        </div>
+                    </div>
+
+                    <?php if ($industrial_equipment_webinars['main_heading'] ?? false): ?>
+                        <div class="row">
+                            <div class="col">
+                                <h2 class="mb-4 blue text-center mb-5">
+                                    <?= $industrial_equipment_webinars['main_heading'] ?>
+                                </h2>
+                            </div>
+                        </div>
+                    <?php endif ?>
+
+                    <?php if ($industrial_equipment_webinars['cards'] ?? false): ?>
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-5 justify-content-center">
+                            <?php foreach ($industrial_equipment_webinars['cards'] as $card): ?>
+                                <div class="col">
+                                    <a href="<?= $card['cta']['url'] ?>" target="<?= $card['cta']['target'] ?>">
+                                        <div class="card">
+                                            <img class="img-fluid" src="<?= $card['thumbnail']['sizes']['_2x-card-faces-of-tlf-left-top'] ?>" alt="">
+                                            <div class="card-body">
+                                                <h5 class="card-title">
+                                                    <?= __('Webinar') ?>
+                                                </h5>
+                                                <p class="card-text">
+                                                    <?= $card['title'] ?>
+                                                </p>
+                                                <p class="card-cta mb-0">
+                                                    <span><?= $card['cta']['title'] ?></span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                                        <path fill-rule="evenodd"
+                                                            d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                                                    </svg>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            <?php endforeach ?>
+                        </div>
+                    <?php endif ?>
+
+                </div>
+            </div>
+        </section>
+
+    <?php endif ?>
+
     <?php if (isset($subpages['subpage_groups']) && $subpages['subpage_groups']): ?>
         <section class="subpages">
             <div class="row-container">

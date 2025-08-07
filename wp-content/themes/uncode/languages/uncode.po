@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Uncode\n"
 "Report-Msgid-Bugs-To: info@undsgn.com\n"
-"POT-Creation-Date: 2025-06-16 09:18+0200\n"
-"PO-Revision-Date: 2025-06-16 09:18+0200\n"
+"POT-Creation-Date: 2025-07-03 10:50+0200\n"
+"PO-Revision-Date: 2025-07-03 10:50+0200\n"
 "Last-Translator: Undsgn <info@undsgn.com>\n"
 "Language-Team: Undsgn <info@undsgn.com>\n"
 "Language: en_US\n"
@@ -17,6 +17,18 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+
+#: 404.php:71
+msgid "Oops! Something went wrong…"
+msgstr ""
+
+#: 404.php:72
+msgid "Page not found. Please continue to our"
+msgstr ""
+
+#: 404.php:72
+msgid "home page"
+msgstr ""
 
 #: comments.php:28
 #, php-format
@@ -53,37 +65,6 @@ msgstr ""
 
 #: comments.php:84
 msgid "Add comment"
-msgstr ""
-
-#: 404.php:71
-msgid "Oops! Something went wrong…"
-msgstr ""
-
-#: 404.php:72
-msgid "Page not found. Please continue to our"
-msgstr ""
-
-#: 404.php:72
-msgid "home page"
-msgstr ""
-
-#: footer.php:126 partials/menus.php:1547 vc_templates/uncode_copyright.php:48
-msgid "All rights reserved"
-msgstr ""
-
-#: footer.php:191 page.php:447 partials/headers.php:473 single.php:544
-#: single.php:772 single-portfolio.php:450 single-portfolio.php:761
-#: woocommerce/single-product.php:235 woocommerce/single-product.php:335
-#: woocommerce/content-single-product.php:80
-msgid "Edit Content Block"
-msgstr ""
-
-#: footer.php:191
-msgid "Footer Content Block"
-msgstr ""
-
-#: footer.php:246
-msgid "Scroll to top"
 msgstr ""
 
 #: content-block-none.php:13
@@ -353,6 +334,7 @@ msgstr ""
 msgid "Your cart is currently empty."
 msgstr ""
 
+#: core/inc/compatibility/woocommerce/icon-cart.php:128
 #: core/inc/compatibility/woocommerce/icon-cart.php:132
 #: core/inc/compatibility/woocommerce/icon-cart.php:134
 #: vc_templates/uncode_woocommerce_widget_cart.php:102
@@ -1105,8 +1087,8 @@ msgstr ""
 msgid "seconds"
 msgstr ""
 
-#: core/inc/main.php:480 vc_templates/uncode_index.php:3161
-#: vc_templates/vc_gallery.php:1740
+#: core/inc/main.php:480 vc_templates/uncode_index.php:3165
+#: vc_templates/vc_gallery.php:1744
 msgid "Loading…"
 msgstr ""
 
@@ -1118,7 +1100,7 @@ msgstr ""
 msgid "footer"
 msgstr ""
 
-#: core/inc/main.php:520 vc_templates/uncode_index.php:3281
+#: core/inc/main.php:520 vc_templates/uncode_index.php:3285
 #: vc_templates/uncode_navigation.php:130
 #: vc_templates/uncode_carousel_nav.php:437
 #: woocommerce/myaccount/orders.php:116
@@ -1126,7 +1108,7 @@ msgid "Previous"
 msgstr ""
 
 #: core/inc/main.php:521 core/inc/template-tags.php:91
-#: vc_templates/uncode_index.php:3291 vc_templates/uncode_navigation.php:131
+#: vc_templates/uncode_index.php:3295 vc_templates/uncode_navigation.php:131
 #: vc_templates/uncode_carousel_nav.php:505
 #: woocommerce/myaccount/orders.php:120
 msgid "Next"
@@ -2090,18 +2072,18 @@ msgstr ""
 msgid "Please add at least one 'Placeholder' to your design."
 msgstr ""
 
-#: core/inc/helpers/ajax-filters/ajax-filters-views.php:463 searchform.php:10
-#: partials/menus.php:844
+#: core/inc/helpers/ajax-filters/ajax-filters-views.php:463
+#: partials/menus.php:844 searchform.php:10
 msgid "Search products…"
 msgstr ""
 
-#: core/inc/helpers/ajax-filters/ajax-filters-views.php:463 searchform.php:10
-#: partials/menus.php:844
+#: core/inc/helpers/ajax-filters/ajax-filters-views.php:463
+#: partials/menus.php:844 searchform.php:10
 msgid "Search…"
 msgstr ""
 
 #: core/inc/helpers/ajax-filters/ajax-filters-views.php:495
-#: vc_templates/uncode_index.php:1791
+#: vc_templates/uncode_index.php:1792
 msgid "Clear all"
 msgstr ""
 
@@ -2819,13 +2801,23 @@ msgstr ""
 msgid "Installing Plugin %1$s (%2$d/%3$d)"
 msgstr ""
 
-#: header.php:133
-msgid "Skip to main content"
+#: footer.php:126 partials/menus.php:1547 vc_templates/uncode_copyright.php:48
+msgid "All rights reserved"
 msgstr ""
 
-#: searchform.php:14 partials/menus.php:739 partials/menus.php:831
-#: partials/menus.php:836 vc_templates/vc_wp_search.php:111
-msgid "Search"
+#: footer.php:191 page.php:447 partials/headers.php:473
+#: single-portfolio.php:450 single-portfolio.php:761 single.php:544
+#: single.php:772 woocommerce/single-product.php:235
+#: woocommerce/single-product.php:335 woocommerce/content-single-product.php:80
+msgid "Edit Content Block"
+msgstr ""
+
+#: footer.php:191
+msgid "Footer Content Block"
+msgstr ""
+
+#: footer.php:246
+msgid "Scroll to top"
 msgstr ""
 
 #: functions.php:17
@@ -2836,11 +2828,15 @@ msgstr ""
 msgid "Ooops, obsolete PHP version"
 msgstr ""
 
-#: page.php:414 partials/elements.php:1541 single.php:406
+#: header.php:133
+msgid "Skip to main content"
+msgstr ""
+
+#: page.php:414 partials/elements.php:1549 single.php:406
 msgid "Pages:"
 msgstr ""
 
-#: page.php:447 single.php:544 single-portfolio.php:450
+#: page.php:447 single-portfolio.php:450 single.php:544
 #: woocommerce/single-product.php:235
 msgid "Post After Content Block"
 msgstr ""
@@ -2879,46 +2875,64 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
-#: partials/elements.php:1194
+#: partials/menus.php:739 partials/menus.php:831 partials/menus.php:836
+#: searchform.php:14 vc_templates/vc_wp_search.php:111
+msgid "Search"
+msgstr ""
+
+#: partials/menus.php:1082 partials/menus.php:1156 partials/menus.php:1226
+#: partials/menus.php:1239 partials/menus.php:1490 partials/menus.php:1568
+msgid "Toggle menu"
+msgstr ""
+
+#: partials/menus.php:1355
+msgid "Open menu"
+msgstr ""
+
+#: partials/menus.php:1560
+msgid "Close menu"
+msgstr ""
+
+#: partials/elements.php:1202
 msgid "Sticky"
 msgstr ""
 
-#: partials/elements.php:1663
+#: partials/elements.php:1671
 msgid "Read More"
 msgstr ""
 
-#: partials/elements.php:1812
+#: partials/elements.php:1820
 msgid "by"
 msgstr ""
 
-#: partials/elements.php:1859 partials/elements.php:4142
+#: partials/elements.php:1867 partials/elements.php:4158
 msgctxt "comments"
 msgid "Comment"
 msgid_plural "Comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: partials/elements.php:3427
+#: partials/elements.php:3441
 #: vc_templates/uncode_single_product_gallery.php:243
 msgid "Sale!"
 msgstr ""
 
-#: partials/elements.php:3429 woocommerce/wishlist-view.php:226
+#: partials/elements.php:3445 woocommerce/wishlist-view.php:226
 msgid "Out of stock"
 msgstr ""
 
-#: partials/elements.php:4073 partials/elements.php:4097
-#: partials/elements.php:4173
+#: partials/elements.php:4089 partials/elements.php:4113
+#: partials/elements.php:4189
 #, php-format
 msgid "View all posts in %s"
 msgstr ""
 
-#: partials/elements.php:4075 partials/elements.php:4099
-#: partials/elements.php:4179
+#: partials/elements.php:4091 partials/elements.php:4115
+#: partials/elements.php:4195
 msgid "In"
 msgstr ""
 
-#: partials/elements.php:4078 partials/elements.php:4126
+#: partials/elements.php:4094 partials/elements.php:4142
 msgid "By"
 msgstr ""
 
@@ -2926,12 +2940,12 @@ msgstr ""
 msgid "Results for:"
 msgstr ""
 
-#: single.php:772 single-portfolio.php:761 woocommerce/single-product.php:335
-msgid "Navigation Content Block"
-msgstr ""
-
 #: single-portfolio.php:522 woocommerce/single-product/share.php:35
 msgid "Share"
+msgstr ""
+
+#: single-portfolio.php:761 single.php:772 woocommerce/single-product.php:335
+msgid "Navigation Content Block"
 msgstr ""
 
 #: vc_templates/vc_column.php:91 vc_templates/vc_column_inner.php:90
@@ -2959,32 +2973,32 @@ msgstr ""
 msgid "Categories"
 msgstr ""
 
-#: vc_templates/uncode_index.php:1555 vc_templates/vc_gallery.php:987
+#: vc_templates/uncode_index.php:1556 vc_templates/vc_gallery.php:991
 msgid "Show all"
 msgstr ""
 
-#: vc_templates/uncode_index.php:1606
+#: vc_templates/uncode_index.php:1607
 msgid "Options"
 msgstr ""
 
-#: vc_templates/uncode_index.php:1731
+#: vc_templates/uncode_index.php:1732
 #, php-format
 msgid "%s items"
 msgstr ""
 
-#: vc_templates/uncode_index.php:1779
+#: vc_templates/uncode_index.php:1780
 msgid "<span>&times;</span> Close"
 msgstr ""
 
-#: vc_templates/uncode_index.php:1792
+#: vc_templates/uncode_index.php:1793
 msgid "Apply"
 msgstr ""
 
-#: vc_templates/uncode_index.php:3108
+#: vc_templates/uncode_index.php:3112
 msgid "The Post Table layout must start with a 'Column' element."
 msgstr ""
 
-#: vc_templates/uncode_index.php:3161 vc_templates/vc_gallery.php:1740
+#: vc_templates/uncode_index.php:3165 vc_templates/vc_gallery.php:1744
 msgid "Load more"
 msgstr ""
 

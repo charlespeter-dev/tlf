@@ -1047,17 +1047,23 @@ if (!function_exists('uncode_create_single_block')) {
 
 								$print_title .= $title_extra_after;
 
-								if ( isset( $value[0] ) && $value[0] ) {
-									$title_classes[] = $value[0];
+								$custom_title_classes = array();
+
+								if ( isset( $value[0] ) && $value[0] && $value[0] !== '-' ) {
+									$custom_title_classes[] = $value[0];
 								}
 
-								$inner_entry .= '<' . $title_tag . ' class="t-entry-title '. trim(implode(' ', $title_classes)) . '"' . $title_style . '>'.$print_title.'</' . $title_tag . '>';
+								$inner_entry .= '<' . $title_tag . ' class="t-entry-title '. trim(implode(' ', $title_classes)) . ' '. trim(implode(' ', $custom_title_classes)) . '"' . $title_style . '>'.$print_title.'</' . $title_tag . '>';
 							}
 						} else {
 							$print_title = $single_title ? $single_title : $get_title;
 
 							if ( isset($block_data['album_id']) && $block_data['album_id']!='' ) { //is Grouped Album
 								$print_title = get_the_title( $block_data['album_id'] );
+							}
+
+							if ( isset($block_data['media_title_custom']) && $block_data['media_title_custom']!=='' ) {
+								$print_title = esc_attr( $block_data['media_title_custom'] );
 							}
 
 							if ($print_title !== '') {
@@ -1104,14 +1110,16 @@ if (!function_exists('uncode_create_single_block')) {
 								$data_values .= (isset($block_data['link']['rel']) && !empty($block_data['link']['rel']) && is_array($block_data['link'])) ? ' rel="'.trim($block_data['link']['rel']).'"' : '';
 								$title_link = apply_filters( 'uncode_posts_module_title_link', $title_link, $block_data );
 
-								if ( isset( $value[0] ) && $value[0] ) {
-									$title_classes[] = $value[0];
+								$custom_title_classes = array();
+
+								if ( isset( $value[0] ) && $value[0] && $value[0] !== '-' ) {
+									$custom_title_classes[] = $value[0];
 								}
 
 								if ($title_link === '') {
-									$inner_entry .= '<' . $title_tag . ' class="t-entry-title '. trim(implode(' ', $title_classes)) . '"' . $title_style . '>'.$print_title.'</' . $title_tag . '>';
+									$inner_entry .= '<' . $title_tag . ' class="t-entry-title '. trim(implode(' ', $title_classes)) . ' '. trim(implode(' ', $custom_title_classes)) . '"' . $title_style . '>'.$print_title.'</' . $title_tag . '>';
 								} else {
-									$inner_entry .= '<' . $title_tag . ' class="t-entry-title '. trim(implode(' ', $title_classes)) . '"' . $title_style . '><a href="'.$title_link.'"'.$data_values.'>'.$print_title.'</a></' . $title_tag . '>';
+									$inner_entry .= '<' . $title_tag . ' class="t-entry-title '. trim(implode(' ', $title_classes)) . ' '. trim(implode(' ', $custom_title_classes)) . '"' . $title_style . '><a href="'.$title_link.'"'.$data_values.'>'.$print_title.'</a></' . $title_tag . '>';
 								}
 							}
 						}
@@ -1883,10 +1891,16 @@ if (!function_exists('uncode_create_single_block')) {
 								$price_html = $product->get_price_html();
 							}
 
+							$custom_price_classes = array();
+
+							if ( isset( $value[1] ) && $value[1] && $value[1] !== '-' ) {
+								$custom_price_classes[] = $value[1];
+							}
+
 							if ( $is_titles && isset( $block_data['drop_image_extra'] ) ) {
 								$drop_image_extra = preg_replace( "/<ins .*?>(.*?)<\/ins>/", "<ins>$1</ins>", $price_html );
 							} else {
-								$inner_entry .= '<span class="price '.trim(implode(' ', $title_classes)).'"' . $title_style . '>'.$price_html.'</span>';
+								$inner_entry .= '<span class="price '.trim(implode(' ', $title_classes)).' '.trim(implode(' ', $custom_price_classes)).'"' . $title_style . '>'.$price_html.'</span>';
 							}
 						}
 					break;
@@ -3348,7 +3362,7 @@ if (!function_exists('uncode_create_single_block')) {
 						if ( isset($single_text) && $single_text === 'overlay' ) {
 							$media_output .= '<a' . $href_att .((count($a_classes) > 0 ) ? '  class="'.trim(implode(' ', $a_classes)).'"' : '').$lightbox_data.$data_values.$data_lb.'>';
 						} else {
-							$media_output .= '<a role="button" tabindex="-1"' . $href_att .((count($a_classes) > 0 ) ? ' class="'.trim(implode(' ', $a_classes)).'"' : '').$lightbox_data.$data_values.$data_lb.'>';
+							$media_output .= '<a role="button" tabindex="-1"' . $href_att .((count($a_classes) > 0 ) ? ' class="'.trim(implode(' ', $a_classes)).'"' : '').(isset($media_alt) && $media_alt!==''  ? ' aria-label="' . esc_html($media_alt) . '" ' : '').$lightbox_data.$data_values.$data_lb.'>';
 						}
 					}
 
@@ -3425,7 +3439,9 @@ if (!function_exists('uncode_create_single_block')) {
 							if ( is_object($product) ) {
 								if ( $product->is_on_sale() ) {
 									$media_output .= apply_filters( 'woocommerce_sale_flash', '<div class="woocommerce"><span class="onsale">' . esc_html__( 'Sale!', 'woocommerce' ) . '</span></div>', $post, $product );
-								} elseif ( ! $product->is_in_stock() ) {
+								}
+
+								if ( ! $product->is_in_stock() ) {
 									$media_output .= apply_filters( 'uncode_woocommerce_out_of_stock', '<div class="font-ui"><div class="woocommerce"><span class="soldout">' . esc_html__( 'Out of stock', 'woocommerce' ) . '</span></div></div>', $post, $product );
 								}
 							}

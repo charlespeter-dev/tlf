@@ -47,7 +47,7 @@ if ( ! class_exists( 'uncode_walker_comment' ) ) :
 			<article <?php comment_class(empty( $args['has_children'] ) ? '' :'parent') ?> id="comment-<?php comment_ID() ?>">
 				<div class="comment-content post-content">
 					<figure class="gravatar"><?php echo get_avatar( $comment, 256, '', '', array( 'loading' => 'lazy' ) ); ?></figure>
-					<div class="comment-meta post-meta" role="complementary">
+					<div class="comment-meta post-meta">
 						<div class="comment-author headings-style">
 							<?php
 							if ( get_comment_author_url() != '' ) {

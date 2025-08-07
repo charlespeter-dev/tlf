@@ -579,6 +579,12 @@ hr.separator-break {
 .skin-links > .style-dark a:active {
   opacity: 0.75;
 }
+body.textual-accent-color .post-content .skin-links ul:not(.menu-smart):not(.nav-tabs):not(.pagination) a:not(.btn):not(.btn-text-skin),
+body.textual-accent-color .post-content .skin-links ul:not(.menu-smart):not(.nav-tabs):not(.pagination) a:not(.btn):not(.btn-text-skin):hover,
+body.textual-accent-color .post-content .skin-links ul:not(.menu-smart):not(.nav-tabs):not(.pagination) a:not(.btn):not(.btn-text-skin):focus,
+body.textual-accent-color .post-content .skin-links ul:not(.menu-smart):not(.nav-tabs):not(.pagination) a:not(.btn):not(.btn-text-skin):active {
+  color: inherit !important;
+}
 .inline-meta .detail-container {
   display: inline-block;
   table-layout: auto;
@@ -8358,7 +8364,7 @@ body.rtl .nav-tabs > li > a i.fa.icon-position-right {
 .main-container .row-navigation .row-parent {
   padding-bottom: 18px;
 }
-.main-container .row-navigation .row-parent nav.post-navigation {
+.main-container .row-navigation .row-parent .post-navigation {
   padding-bottom: 18px;
 }
 .page-links > *:first-child {
@@ -9801,6 +9807,7 @@ html:not(.firefox) .portfolio-wrapper {
 }
 .display-inline-block {
   display: inline-block;
+  width: auto !important;
 }
 .display-inline-block + .display-inline-block {
   padding-left: 9px;
@@ -9808,6 +9815,7 @@ html:not(.firefox) .portfolio-wrapper {
 @media (min-width: 1500px) {
   .desktop-display-inline-block {
     display: inline-block;
+    width: auto !important;
   }
   .desktop-display-inline-block + .desktop-display-inline-block {
     padding-left: 9px;
@@ -20969,6 +20977,22 @@ body[data-border="36"] .pin-trigger {
 .uncode-multi-bgs .multi-background {
   opacity: 0;
   z-index: 0;
+}
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
 }
 /*
 ----------------------------------------------------------

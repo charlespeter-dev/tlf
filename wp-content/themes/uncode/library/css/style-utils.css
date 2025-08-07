@@ -894,7 +894,7 @@ body.rtl .comment-form-cookies-consent label {
 .main-container .row-navigation .row-parent {
   padding-bottom: 18px;
 }
-.main-container .row-navigation .row-parent nav.post-navigation {
+.main-container .row-navigation .row-parent .post-navigation {
   padding-bottom: 18px;
 }
 .page-links > *:first-child {

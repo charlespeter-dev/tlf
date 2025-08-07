@@ -406,7 +406,7 @@
 			}
 			return thumbDragUtils;
 		};
-		Thumbnail.prototype.getThumbHtml = function (thumb, index) {
+		Thumbnail.prototype.getThumbHtml = function (thumb, index, alt) {
 			var slideVideoInfo = this.core.galleryItems[index].__slideVideoInfo || {};
 			var thumbImg,
 				altTh = this.core.galleryItems[index].subHtml,
@@ -431,6 +431,8 @@
 			if ( altTh ) {
 				altTh = altTh.replace(/<\/?[^>]+(>|$)/g, "");
 				altApp = 'alt=\"' + altTh + ' \" ';
+			} else if ( typeof alt !== 'undefined' ) {
+				altApp = 'alt=\"' + alt + ' \" ';
 			}
 
 			if ( thumbImg ) {
@@ -442,7 +444,7 @@
 		Thumbnail.prototype.getThumbItemHtml = function (items) {
 			var thumbList = '';
 			for (var i = 0; i < items.length; i++) {
-				thumbList += this.getThumbHtml(items[i].thumb, i);
+				thumbList += this.getThumbHtml(items[i].thumb, i, items[i].alt);
 			}
 			return thumbList;
 		};

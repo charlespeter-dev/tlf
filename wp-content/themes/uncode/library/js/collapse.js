@@ -49,6 +49,9 @@
 			});
 
 		}, 500);
+
+		$group.find('.panel-title:not(.active) > a').trigger('blur');
+
 	});
 
 	$('.uncode-accordion.tabs-no-lazy').each(function(){

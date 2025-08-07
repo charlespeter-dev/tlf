@@ -82,8 +82,12 @@ if ( SiteParameters.smoothScroll === 'on' && ! SiteParameters.is_frontend_editor
 
 	requestAnimationFrame(raf)
 
-	$(window).on('unmodal-open', function(){
+	$(window).on('unmodal-open uncode-sidecart-open', function(){
 		window.lenis.stop();
+	});
+
+	$(window).on('uncode-sidecart-closed', function(){
+		window.lenis.start();
 	});
 
 	$(document).on('unmodal-close', function(){

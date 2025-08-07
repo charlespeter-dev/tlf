@@ -561,7 +561,7 @@
 				autoplay: false,
 				autoplayTimeout: values['timeout'],
 				autoplaySpeed: values['navspeed'],
-				autoplayHoverPause: $(this).closest('.uncode-slider').length ? false : true,
+				autoplayHoverPause: $(this).closest('.uncode-slider').length || $(this).closest('.carousel-no-hover').length ? false : true,
 				autoHeight: ( $(this).hasClass('owl-height-equal') ? false : values['autoheight'] ),
 				itemSelector: SiteParameters.uncode_carousel_itemSelector,
 				rtl: $('body').hasClass('rtl') ? true : false,

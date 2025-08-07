@@ -586,6 +586,59 @@
   border-left: 1px solid #C9C9C9;
 }
 
+.industrial-equipment-webinars hr {
+  border-block-start: 2px solid #ccc;
+}
+.industrial-equipment-webinars a {
+  text-decoration: none;
+}
+.industrial-equipment-webinars a:hover .card-cta svg {
+  transform: translateX(0.5rem);
+}
+.industrial-equipment-webinars .card img {
+  width: 352px;
+  height: 271px;
+  object-fit: cover;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.industrial-equipment-webinars .card .card-body {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background: rgb(3, 72, 162);
+  background: linear-gradient(180deg, rgb(3, 72, 162) 0%, rgb(0, 26, 59) 100%);
+}
+.industrial-equipment-webinars .card .card-body .card-title {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.25rem;
+  line-height: calc(1.3rem + 0.6vw);
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0px 3px 10px rgba(0, 0, 0, 0.7);
+}
+.industrial-equipment-webinars .card .card-body .card-text {
+  font-size: 1rem;
+  line-height: calc(1.275rem + 0.3vw);
+  color: #fff;
+  text-shadow: 0px 3px 10px rgba(0, 0, 0, 0.7);
+  text-wrap: pretty;
+}
+.industrial-equipment-webinars .card .card-body .card-cta {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.25rem;
+  line-height: calc(1.3rem + 0.6vw);
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0px 3px 10px rgba(0, 0, 0, 0.7);
+  text-transform: uppercase;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.industrial-equipment-webinars .card .card-body .card-cta svg {
+  transition: all 0.2s ease-in-out;
+}
+
 .related-resources {
   position: relative;
 }

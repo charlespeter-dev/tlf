@@ -357,13 +357,13 @@ $product_gallery_data      = function_exists( 'wc_esc_json' ) ? wc_esc_json( $pr
 				global $gallery_id;
 				$gallery_id = uncode_big_rand();
 
-				$html = '<li class="woocommerce-product-gallery__thumb woocommerce-product-gallery__first-thumb" role="button" tab-index="0">';
+				$html = '<li class="woocommerce-product-gallery__thumb woocommerce-product-gallery__first-thumb">';
 				$html .= wp_get_attachment_image( $post_thumbnail_id, $attach_size, false, $attributes );
 				$html .= '</li>';
 
 			} else {
 
-				$html  = '<li class="woocommerce-product-gallery__thumb" role="button" tab-index="0">';
+				$html  = '<li class="woocommerce-product-gallery__thumb">';
 				$html .= sprintf( '<img src="%s" alt="%s">', esc_url( wc_placeholder_img_src() ), esc_html__( 'Awaiting product image', 'woocommerce' ) );
 				$html .= '</li>';
 

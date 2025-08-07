@@ -154,7 +154,7 @@ if ( $attachment_ids ) {
 
 		if ( isset( $slider_nav ) && $slider_nav === true ) {
 
-			$html  = '<li class="' . esc_attr( $image_class ) . ' woocommerce-product-gallery__thumb" role="button" tab-index="' . ($at_key + 1) . '">';
+			$html  = '<li class="' . esc_attr( $image_class ) . ' woocommerce-product-gallery__thumb">';
 			$html .= wp_get_attachment_image( $attachment_id, $attach_size, false, $thumb_carousel_atts );
 	 		$html .= '</li>';
 

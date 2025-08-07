@@ -90,7 +90,7 @@ if ( ! function_exists( 'uncode_post_navigation' ) ) :
 		$prev_label = ($nextprev_title === 'on') ? (isset($previous->post_title) ? $previous->post_title : '') : esc_html__('Prev','uncode');
 		$next_label = ($nextprev_title === 'on') ? (isset($next->post_title) ? $next->post_title : '') : esc_html__('Next','uncode');
 
-		$output =	'<nav class="post-navigation">
+		$output =	'<div class="post-navigation">
 									<ul class="navigation">';
 
 		$prev = get_previous_post_link( '<li class="page-prev"><span class="btn-container">%link</span></li>', '<i class="fa fa-angle-left"></i><span>'. esc_html($prev_label) . '</span>');
@@ -110,7 +110,7 @@ if ( ! function_exists( 'uncode_post_navigation' ) ) :
 		}
 
 		$output .=	'</ul><!-- .navigation -->
-							</nav><!-- .post-navigation -->';
+							</div><!-- .post-navigation -->';
 
 		if ($navigation_index !== '' && !$generic) {
 			if ( function_exists( 'uncode_core_unhook' ) ) {

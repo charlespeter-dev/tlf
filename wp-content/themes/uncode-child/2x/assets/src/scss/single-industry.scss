@@ -696,6 +696,84 @@
     }
 }
 
+// industrial equipment webinars
+
+.industrial-equipment-webinars {
+
+    hr {
+        border-block-start: 2px solid #ccc;
+    }
+
+    a {
+        text-decoration: none;
+
+        &:hover {
+
+            .card-cta {
+                svg {
+                    transform: translateX(0.5rem);
+                }
+            }
+        }
+    }
+
+    .card {
+        img {
+            width: 352px;
+            height: 271px;
+            object-fit: cover;
+
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .card-body {
+
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+
+            background: rgb(3, 72, 162);
+            background: linear-gradient(180deg, rgba(3, 72, 162, 1) 0%, rgba(0, 26, 59, 1) 100%);
+
+            .card-title {
+                font-family: 'Open Sans', sans-serif;
+                font-size: rfs-fluid-value(1.25rem);
+                line-height: rfs-fluid-value(1.75rem);
+                font-weight: 700;
+                color: #fff;
+                text-shadow: 0px 3px 10px rgba(0, 0, 0, 0.7);
+            }
+
+            .card-text {
+                font-size: rfs-fluid-value(1rem);
+                line-height: rfs-fluid-value(1.5rem);
+                color: #fff;
+                text-shadow: 0px 3px 10px rgba(0, 0, 0, 0.7);
+                text-wrap: pretty;
+            }
+
+            .card-cta {
+                font-family: 'Open Sans', sans-serif;
+                font-size: rfs-fluid-value(1.25rem);
+                line-height: rfs-fluid-value(1.75rem);
+                font-weight: 700;
+                color: #fff;
+                text-shadow: 0px 3px 10px rgba(0, 0, 0, 0.7);
+                text-transform: uppercase;
+
+                display: flex;
+                gap: .5rem;
+                align-items: center;
+
+                svg {
+                    transition: all .2s ease-in-out;
+                }
+            }
+        }
+
+    }
+}
+
 .related-resources {
 
     position: relative;

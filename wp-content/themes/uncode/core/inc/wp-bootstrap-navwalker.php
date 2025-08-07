@@ -400,7 +400,7 @@ if ( ! function_exists( 'uncode_mobile_menu_additional_elems' ) ) {
 		}
 
 		if ( $additional_textarea !== '' || $additional_mobile_textarea !== '' ) {
-			$nav_menu .= '<div class="uncode-menu-additional-text navbar-mobile-el ' . esc_attr($additional_text_visibility) . ' ">';
+			$nav_menu .= '<div class="uncode-menu-additional-text navbar-mobile-el ' . esc_attr($additional_text_visibility) . '">';
 			if ( $additional_textarea !== '' ) {
 				$nav_menu .= '<div class="mobile-hidden tablet-hidden">' . $additional_textarea . '</div>';
 			}

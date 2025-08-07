@@ -1079,7 +1079,7 @@ if (!class_exists('unmenu')) {
 																		<div id="main-logo" class="navbar-header style-'.$stylemain.'">
 																			'.$logoDiv.'
 																		</div>
-																		<div class="mmb-container"><div class="mobile-additional-icons">'.$search_icon_mobile.$login_account_icon_mobile.$woo_wishlist_icon_mobile.$woo_icon_mobile.'</div>' . apply_filters( 'uncode_mobile_extra_menu_elements', false) . '<div class="mobile-menu-button '.$buttonstyle_primary.' lines-button"><span class="lines"><span></span></span></div></div>
+																		<div class="mmb-container"><div class="mobile-additional-icons">'.$search_icon_mobile.$login_account_icon_mobile.$woo_wishlist_icon_mobile.$woo_icon_mobile.'</div>' . apply_filters( 'uncode_mobile_extra_menu_elements', false) . '<div class="mobile-menu-button '.$buttonstyle_primary.' lines-button" aria-label="' . apply_filters( 'uncode_burger_toggle_aria', esc_html__( 'Toggle menu', 'uncode' ) ) . '" role="button" tabindex="0"><span class="lines"><span></span></span></div></div>
 																	</div>
 																	<div class="col-lg-12 main-menu-container middle">
 																		<div class="menu-horizontal' . $sub_extra_classes . '">
@@ -1153,7 +1153,7 @@ if (!class_exists('unmenu')) {
 																		</div>
 																	</div>
 																</div>
-																<div class="mmb-container"><div class="mobile-additional-icons">'.$search_icon_mobile.$login_account_icon_mobile.$woo_wishlist_icon_mobile.$woo_icon_mobile.'</div>' . apply_filters( 'uncode_mobile_extra_menu_elements', false) . '<div class="mobile-menu-button '.$buttonstyle_primary.' lines-button"><span class="lines"><span></span></span></div></div>
+																<div class="mmb-container"><div class="mobile-additional-icons">'.$search_icon_mobile.$login_account_icon_mobile.$woo_wishlist_icon_mobile.$woo_icon_mobile.'</div>' . apply_filters( 'uncode_mobile_extra_menu_elements', false) . '<div class="mobile-menu-button '.$buttonstyle_primary.' lines-button" aria-label="' . apply_filters( 'uncode_burger_toggle_aria', esc_html__( 'Toggle menu', 'uncode' ) ) . '" role="button" tabindex="0"><span class="lines"><span></span></span></div></div>
 															</div>
 														</div>
 													</div>
@@ -1223,7 +1223,7 @@ if (!class_exists('unmenu')) {
 													<div id="main-logo" class="navbar-header style-'.$stylemain.'">
 														'.$logoDiv.'
 													</div>
-													<div class="mmb-container"><div class="mobile-menu-button '.$buttonstyle_primary.' lines-button"><span class="lines"><span></span></span></div></div>
+													<div class="mmb-container"><div class="mobile-menu-button '.$buttonstyle_primary.' lines-button" aria-label="' . apply_filters( 'uncode_burger_toggle_aria', esc_html__( 'Toggle menu', 'uncode' ) ) . '" role="button" tabindex="0"><span class="lines"><span></span></span></div></div>
 												</div>';
 												add_filter('wp_nav_menu_objects', 'uncode_center_nav_menu_items', apply_filters( 'uncode_center_nav_menu_items_priority', 10 ), 2);
 												$this->html = '<div class="menu-wrapper'.$menu_shrink.$menu_sticky.$menu_no_arrow.$menu_sub_animation.'">
@@ -1236,7 +1236,7 @@ if (!class_exists('unmenu')) {
 																		<div class="navbar-header style-'.$stylemain.'">
 																			'.$logoDiv.'
 																		</div>
-																		<div class="mmb-container"><div class="mobile-additional-icons">'.$search_icon_mobile.$login_account_icon_mobile.$woo_wishlist_icon_mobile.$woo_icon_mobile.'</div>' . apply_filters( 'uncode_mobile_extra_menu_elements', false) . '<div class="mobile-menu-button '.$buttonstyle_primary.' lines-button"><span class="lines"><span></span></span></div></div>
+																		<div class="mmb-container"><div class="mobile-additional-icons">'.$search_icon_mobile.$login_account_icon_mobile.$woo_wishlist_icon_mobile.$woo_icon_mobile.'</div>' . apply_filters( 'uncode_mobile_extra_menu_elements', false) . '<div class="mobile-menu-button '.$buttonstyle_primary.' lines-button" aria-label="' . apply_filters( 'uncode_burger_toggle_aria', esc_html__( 'Toggle menu', 'uncode' ) ) . '" role="button" tabindex="0"><span class="lines"><span></span></span></div></div>
 																	</div>
 																	<div class="col-lg-12 main-menu-container middle">
 																		<div class="menu-horizontal' . $sub_extra_classes . '">
@@ -1338,7 +1338,7 @@ if (!class_exists('unmenu')) {
 					$this->html = '<div class="menu-wrapper'.$menu_shrink.$menu_sticky.'">
 													<span class="menu-container-ghost-bg'.$stylemainbackfull.'"></span>
 													<div id="masthead" class="navbar'.$stylemaincombo_overlay.$main_absolute.' menu-with-logo' . $menu_mobile_off_cavas . '">
-														<div class="menu-container'.$effects.$stylemainbackfull.'" role="navigation">
+														<div class="menu-container'.$effects.$stylemainbackfull.'" role="banner">
 															<div class="row-menu row-offcanvas'.$main_width.'">
 																<div class="row-menu-inner row-brand menu-horizontal-inner'.$stylemainback.'">';
 
@@ -1352,7 +1352,7 @@ if (!class_exists('unmenu')) {
 																			'.$logoDiv.'
 																		</div>
 																	</div>
-																	<div class="mmb-container"><div class="mobile-additional-icons">'.$search_icon_mobile.$login_account_icon_mobile.$woo_wishlist_icon_mobile.$woo_icon_mobile.'</div>' . apply_filters( 'uncode_mobile_extra_menu_elements', false) . '<div class="'.(($param == 'menu-overlay' || $param == 'menu-overlay-center') ? 'mobile-menu-button menu-button-overlay no-toggle' : 'mobile-menu-button menu-button-offcanvas').' '.$buttonstyle_primary.' lines-button trigger-overlay" '.(($param == 'menu-overlay' || $param == 'menu-overlay-center') ? 'data-area="menu" data-container="main-container"' : '').'>' . $burger_label_span . '<span class="lines"><span></span></span></div></div>';
+																	<div class="mmb-container"><div class="mobile-additional-icons">'.$search_icon_mobile.$login_account_icon_mobile.$woo_wishlist_icon_mobile.$woo_icon_mobile.'</div>' . apply_filters( 'uncode_mobile_extra_menu_elements', false) . '<div class="'.(($param == 'menu-overlay' || $param == 'menu-overlay-center') ? 'mobile-menu-button menu-button-overlay no-toggle' : 'mobile-menu-button menu-button-offcanvas').' '.$buttonstyle_primary.' lines-button trigger-overlay" '.(($param == 'menu-overlay' || $param == 'menu-overlay-center') ? 'data-area="menu" data-container="main-container"' : '').' aria-label="' . apply_filters( 'uncode_burger_open_aria', esc_html__( 'Open menu', 'uncode' ) ) . '" role="button" tabindex="0">' . $burger_label_span . '<span class="lines"><span></span></span></div></div>';
 
 
 																if ( $cta_menu ) {
@@ -1425,7 +1425,7 @@ if (!class_exists('unmenu')) {
 						$this->html =	'<div class="overlay overlay-'.$overlay_animation.' overlay-menu" data-area="menu" data-container="main-container">
 														<div class="overlay-bg ' . $bgoverlay . '"></div>
 														<div class="main-header">
-															<div class="vmenu-container menu-container style-'.$styleoverlay.$menu_no_arrow.$stylemaincombo.'" data-lenis-prevent role="navigation">
+															<div class="vmenu-container menu-container style-'.$styleoverlay.$menu_no_arrow.$stylemaincombo.'" role="navigation" data-lenis-prevent>
 																<div class="row row-parent">
 																	<div class="row-inner">
 																		<div class="menu-sidebar main-menu-container">
@@ -1487,7 +1487,7 @@ if (!class_exists('unmenu')) {
 																		<div id="main-logo" class="navbar-header style-'.$stylemain.'">
 																			'.$logoDiv.'
 																		</div>
-																		<div class="mmb-container"><div class="mobile-additional-icons">'.$search_icon_mobile.$login_account_icon_mobile.$woo_wishlist_icon_mobile.$woo_icon_mobile.'</div>' . apply_filters( 'uncode_mobile_extra_menu_elements', false) . '<div class="mobile-menu-button '.$buttonstyle_primary.' lines-button"><span class="lines"><span></span></span></div></div>
+																		<div class="mmb-container"><div class="mobile-additional-icons">'.$search_icon_mobile.$login_account_icon_mobile.$woo_wishlist_icon_mobile.$woo_icon_mobile.'</div>' . apply_filters( 'uncode_mobile_extra_menu_elements', false) . '<div class="mobile-menu-button '.$buttonstyle_primary.' lines-button" aria-label="' . apply_filters( 'uncode_burger_toggle_aria', esc_html__( 'Toggle menu', 'uncode' ) ) . '" role="button" tabindex="0"><span class="lines"><span></span></span></div></div>
 																	</div>
 																	<div class="col-lg-5 main-menu-container middle">
 																		<div class="menu-horizontal' . $sub_extra_classes . '">
@@ -1553,11 +1553,11 @@ if (!class_exists('unmenu')) {
 					}
 					$this->html = '<div class="main-header">
 													<div id="masthead" class="masthead-vertical'.$menu_sticky.'">
-														<div class="vmenu-container menu-container '.str_replace(' menu-transparent', '', $stylemaincombo).$stylemainbackfull.$menu_no_arrow.$menu_hide.'" data-lenis-prevent role="navigation">
+														<div class="vmenu-container menu-container '.str_replace(' menu-transparent', '', $stylemaincombo).$stylemainbackfull.$menu_no_arrow.$menu_hide.'" role="navigation" data-lenis-prevent>
 															<div class="row row-parent'.$stylemainback.'">';
 					$offcanvas_overlay = ot_get_option('_uncode_offcanvas_overlay');
 					if ($menutype === 'vmenu-offcanvas' && $offcanvas_overlay === 'on' ) {
-						$this->html .= '<div class="uncode-close-offcanvas-overlay lines-button close"><span class="lines"></span></div>';
+						$this->html .= '<div class="uncode-close-offcanvas-overlay lines-button close" aria-label="' . apply_filters( 'uncode_burger_close_aria', esc_html__( 'Close menu', 'uncode' ) ) . '" role="button" tabindex="0"><span class="lines"></span></div>';
 					}
 					if ($menutype !== 'vmenu-offcanvas') {
 						$this->html .= 			'<div class="row-inner restrict row-brand">
@@ -1565,7 +1565,7 @@ if (!class_exists('unmenu')) {
 																		<div class="style-'.$stylemain.'">
 																			'.$logoDiv.'
 																		</div>
-																		<div class="mmb-container"><div class="mobile-additional-icons">'.$search_icon_mobile.$login_account_icon_mobile.$woo_wishlist_icon_mobile.$woo_icon_mobile.'</div>' . apply_filters( 'uncode_mobile_extra_menu_elements', false) . '<div class="mobile-menu-button '.$buttonstyle_primary.' lines-button"><span class="lines"><span></span></span></div></div>
+																		<div class="mmb-container"><div class="mobile-additional-icons">'.$search_icon_mobile.$login_account_icon_mobile.$woo_wishlist_icon_mobile.$woo_icon_mobile.'</div>' . apply_filters( 'uncode_mobile_extra_menu_elements', false) . '<div class="mobile-menu-button '.$buttonstyle_primary.' lines-button" aria-label="' . apply_filters( 'uncode_burger_toggle_aria', esc_html__( 'Toggle menu', 'uncode' ) ) . '" role="button" tabindex="0"><span class="lines"><span></span></span></div></div>
 																	</div>
 																</div>';
 					}

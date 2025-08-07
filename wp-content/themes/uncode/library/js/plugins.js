@@ -22730,7 +22730,7 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 			}
 			return thumbDragUtils;
 		};
-		Thumbnail.prototype.getThumbHtml = function (thumb, index) {
+		Thumbnail.prototype.getThumbHtml = function (thumb, index, alt) {
 			var slideVideoInfo = this.core.galleryItems[index].__slideVideoInfo || {};
 			var thumbImg,
 				altTh = this.core.galleryItems[index].subHtml,
@@ -22755,6 +22755,8 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 			if ( altTh ) {
 				altTh = altTh.replace(/<\/?[^>]+(>|$)/g, "");
 				altApp = 'alt=\"' + altTh + ' \" ';
+			} else if ( typeof alt !== 'undefined' ) {
+				altApp = 'alt=\"' + alt + ' \" ';
 			}
 
 			if ( thumbImg ) {
@@ -22766,7 +22768,7 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 		Thumbnail.prototype.getThumbItemHtml = function (items) {
 			var thumbList = '';
 			for (var i = 0; i < items.length; i++) {
-				thumbList += this.getThumbHtml(items[i].thumb, i);
+				thumbList += this.getThumbHtml(items[i].thumb, i, items[i].alt);
 			}
 			return thumbList;
 		};
@@ -26244,7 +26246,7 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 
 		// create DOM structure for absolute navigation
 		if (!settings.dotsData) {
-			this._templates = [ $('<button role="button">')
+			this._templates = [ $('<button>')
 				.addClass(settings.dotClass)
 				.append($('<span>'))
 				.prop('outerHTML') ];
@@ -27966,7 +27968,7 @@ Share = (function(_super) {
   };
 
   Share.prototype.inject_html = function(instance) {
-    //return instance.innerHTML = "<label class='social-export'><span>" + this.config.ui.button_text + "</span></label><div class='social load " + this.config.ui.flyout + "'><ul><li class='social-facebook' data-network='facebook' tabindex='0'></li><li class='social-twitter' data-network='twitter' tabindex='0'></li><li class='social-gplus' data-network='google_plus' tabindex='0'></li><li class='social-pinterest' data-network='pinterest' tabindex='0'></li><li class='social-linkedin' data-network='linkedin' tabindex='0'></li><li class='social-xing' data-network='xing' tabindex='0'></li><li class='social-paper-plane' data-network='email' tabindex='0'></li></ul></div>";
+    // return instance.innerHTML = "<label class='social-export'><span>" + this.config.ui.button_text + "</span></label><div class='social load " + this.config.ui.flyout + "'><ul><li class='social-facebook' data-network='facebook' tabindex='0'></li><li class='social-twitter' data-network='twitter' tabindex='0'></li><li class='social-gplus' data-network='google_plus' tabindex='0'></li><li class='social-pinterest' data-network='pinterest' tabindex='0'></li><li class='social-linkedin' data-network='linkedin' tabindex='0'></li><li class='social-xing' data-network='xing' tabindex='0'></li><li class='social-paper-plane' data-network='email' tabindex='0'></li></ul></div>";
     return instance.innerHTML = "<label class='social-export'><span>" + this.config.ui.button_text + "</span></label><div class='social load " + this.config.ui.flyout + "'><ul><li class='social-facebook' data-network='facebook' tabindex='0'></li><li class='social-twitter' data-network='twitter' tabindex='0'></li><li class='social-threads' data-network='threads' tabindex='0'></li><li class='social-pinterest' data-network='pinterest' tabindex='0'></li><li class='social-linkedin' data-network='linkedin' tabindex='0'></li><li class='social-whatsapp' data-network='whatsapp' tabindex='0'></li><li class='social-bluesky' data-network='bluesky' tabindex='0'></li><li class='social-xing' data-network='xing' tabindex='0'></li><li class='social-paper-plane' data-network='email' tabindex='0'></li></ul></div>";
   };
 

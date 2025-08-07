@@ -1246,6 +1246,9 @@ ul.wc-notice {
 .woocommerce span.soldout {
   background-color: #F73B3B;
 }
+.font-ui + .font-ui .soldout {
+  margin-top: 25px;
+}
 .woocommerce .product-badge {
   left: 0;
   position: absolute;
@@ -5907,6 +5910,9 @@ body.uncode-sidecart-right .uncode-sidecart-wrapper .close-mini-cart {
 }
 body.uncode-sidecart-left .uncode-sidecart-wrapper .close-mini-cart {
   float: left;
+}
+body.uncode-sidecart-open .widget_shopping_cart_live_region {
+  margin: -1px;
 }
 .checkout-steps {
   list-style: none !important;

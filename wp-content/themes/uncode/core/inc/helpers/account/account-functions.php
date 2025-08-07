@@ -35,7 +35,7 @@ function uncode_add_account_in_menu( $login_account_icon, $login_account_class )
 	$account_text = is_user_logged_in() ? __( 'My Account', 'uncode' ) : __( 'Login / Register', 'uncode' );
 
 	ob_start();
-	?><li class="<?php echo esc_attr( $login_account_class ); ?> uncode-account menu-item-link menu-item">
+	?><li role="menuitem" class="<?php echo esc_attr( $login_account_class ); ?> uncode-account menu-item-link menu-item">
 		<a href="<?php echo esc_url( $account_url ); ?>" data-type="title" title="account">
 			<span class="account-icon-container">
 				<?php if ( $horizontal_menu ) : ?>

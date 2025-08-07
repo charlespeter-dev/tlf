@@ -27,7 +27,7 @@ function uncode_print_sidecart() {
 	$skin_bg = $skin == 'light' ? 'dark' : 'light';
 	?>
 
-	<div id="uncode_sidecart" class="uncode-cart woocommerce style-<?php echo esc_attr($skin); ?>">
+	<div id="uncode_sidecart" class="uncode-cart woocommerce style-<?php echo esc_attr($skin); ?>" role="status">
 		<div class="uncode-sidecart-wrapper">
 			<?php the_widget( 'WC_Widget_Cart', 'title=' ); ?>
 		</div>

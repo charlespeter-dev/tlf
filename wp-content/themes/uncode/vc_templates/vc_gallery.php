@@ -120,6 +120,7 @@ extract( shortcode_atts( array(
 		'carousel_fluid' => '',
 		'carousel_type' => '',
 		'carousel_interval' => 3000,
+		'carousel_hover' => '',
 		'carousel_navspeed' => 400,
 		'carousel_loop' => '',
 		'carousel_nav' => '',
@@ -874,6 +875,9 @@ switch ($type) {
 			} else {
 				$div_data['data-autoplay'] = 'true';
 				$div_data['data-timeout'] = $carousel_interval;
+				if ( $carousel_hover === 'yes' ) {
+					$parent_container_classes[] = 'carousel-no-hover';
+				}
 			}
 			if ($carousel_autoh === 'yes') {
 				$div_data['data-autoheight'] = 'true';
