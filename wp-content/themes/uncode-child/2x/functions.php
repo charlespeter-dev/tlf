@@ -257,6 +257,7 @@ add_action('wp_head', function () {
     ?>
     <link rel="preload" href="<?= sprintf("%s/gotham-bold-webfont.woff2", get_stylesheet_directory_uri()) ?>" as="font"
         type="font/woff2" crossorigin>
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js-eu1.hs-scripts.com/146285782.js"></script>
     <?php
 });
 
