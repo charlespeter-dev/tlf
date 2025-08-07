@@ -43,11 +43,11 @@
             "new_lines": ""
         },
         {
-            "key": "field_6507090341499",
-            "label": "CTA Button Text",
-            "name": "cta_button_text",
+            "key": "field_6893fff3b4fbd",
+            "label": "CTAs",
+            "name": "ctas",
             "aria-label": "",
-            "type": "text",
+            "type": "repeater",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -56,31 +56,32 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "SCHEDULE A MEETING",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_6507091c4149a",
-            "label": "CTA Button Link",
-            "name": "cta_button_link",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "#contact-form",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
+            "layout": "row",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add Row",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_6893fffdb4fbe",
+                    "label": "CTA",
+                    "name": "cta",
+                    "aria-label": "",
+                    "type": "link",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "parent_repeater": "field_6893fff3b4fbd"
+                }
+            ]
         },
         {
             "key": "field_65070a2f4149d",
@@ -254,6 +255,7 @@
                     "collapsed": "",
                     "button_label": "Add Row",
                     "rows_per_page": 20,
+                    "parent_repeater": "field_650708cc0d799",
                     "sub_fields": [
                         {
                             "key": "field_67f726cfa9a65",
@@ -276,8 +278,7 @@
                             "append": "",
                             "parent_repeater": "field_67f726aba9a64"
                         }
-                    ],
-                    "parent_repeater": "field_650708cc0d799"
+                    ]
                 }
             ]
         },
@@ -360,5 +361,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1744250617
+    "modified": 1754529810
 }

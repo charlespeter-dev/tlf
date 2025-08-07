@@ -7,6 +7,43 @@
 
 .bootstrap-container {
 
+    .cta-container {
+        display: flex !important;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+
+        @include media-breakpoint-up(lg) {
+            flex-direction: row;
+            justify-content: left;
+        }
+
+        .btn-white {
+            background-color: #ffffff;
+            border: 1px solid #ffffff;
+            color: #E30613;
+
+            padding: 1rem 1.5rem !important;
+            margin: 0 !important;
+            white-space: unset;
+            border-radius: 5px;
+            width: fit-content;
+
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+
+            transform: unset !important;
+            transform-origin: unset !important;
+
+            &:hover {
+                background-color: transparent;
+                border: 1px solid #ffffff;
+                color: #ffffff;
+            }
+        }
+    }
+
     @include media-breakpoint-down(md) {
 
         .hero-carousels {

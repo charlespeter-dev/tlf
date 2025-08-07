@@ -58,18 +58,36 @@ get_header() ?>
                             <?php endif ?>
 
                             <?php if (isset($sub_heading)): ?>
-                                <div class="mb-4">
+                                <div class="mb-5">
                                     <div class="sub-heading">
                                         <?= $sub_heading ?>
                                     </div>
                                 </div>
                             <?php endif ?>
 
-                            <?php if (isset($cta_button_text)): ?>
-                                <div>
-                                    <a class="btn btn-primary" href="<?= $cta_button_link ?>" target="_blank">
-                                        <?= $cta_button_text ?>
-                                    </a>
+                            <?php if ($ctas[0] ?? false): ?>
+                                <div class="cta-container">
+                                    <?php foreach ($ctas as $i => $cta): ?>
+
+                                        <a class="btn btn-white" href="<?= $cta['cta']['url'] ?>"
+                                            target="<?= $cta['cta']['target'] ?>">
+                                            <?php if ($i == 0): ?>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                                    class="bi bi-globe-europe-africa-fill" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd"
+                                                        d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0m0 1a6.97 6.97 0 0 0-4.335 1.505l-.285.641a.847.847 0 0 0 1.48.816l.244-.368a.81.81 0 0 1 1.035-.275.81.81 0 0 0 .722 0l.262-.13a1 1 0 0 1 .775-.05l.984.34q.118.04.243.054c.784.093.855.377.694.801a.84.84 0 0 1-1.035.487l-.01-.003C8.273 4.663 7.747 4.5 6 4.5 4.8 4.5 3.5 5.62 3.5 7c0 3 1.935 1.89 3 3 1.146 1.194-1 4 2 4 1.75 0 3-3.5 3-4.5 0-.704 1.5-1 1-2.5-.097-.291-.396-.568-.642-.756-.173-.133-.206-.396-.051-.55a.334.334 0 0 1 .42-.043l1.085.724a.276.276 0 0 0 .348-.035c.15-.15.414-.083.488.117.16.428.445 1.046.847 1.354A7 7 0 0 0 8 1" />
+                                                </svg>
+                                            <?php else: ?>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                                    class="bi bi-globe-americas-fill" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd"
+                                                        d="m8 0 .412.01A7.97 7.97 0 0 1 13.29 2a8.04 8.04 0 0 1 2.548 4.382 8 8 0 1 1-15.674 0 8 8 0 0 1 1.361-3.078A8 8 0 0 1 2.711 2 7.96 7.96 0 0 1 8 0m0 1a7 7 0 0 0-5.958 3.324C2.497 6.192 6.669 7.827 6.5 8c-.5.5-1.034.884-1 1.5.07 1.248 2.259.774 2.5 2 .202 1.032-1.051 3 0 3 1.5-.5 3.798-3.186 4-5 .138-1.242-2-2-3.5-2.5-.828-.276-1.055.648-1.5.5S4.5 5.5 5.5 5s1 0 1.5.5c1 .5.5-1 1-1.5.838-.838 3.16-1.394 3.605-2.001A6.97 6.97 0 0 0 8 1" />
+                                                </svg>
+                                            <?php endif ?>
+                                            <?= $cta['cta']['title'] ?>
+                                        </a>
+
+                                    <?php endforeach; ?>
                                 </div>
                             <?php endif ?>
                         </div>
