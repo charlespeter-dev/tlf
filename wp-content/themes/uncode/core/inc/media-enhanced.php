@@ -324,8 +324,8 @@ function uncode_addOtherMedia() {
 									<div class="inside">
 										<div id="edit-slug-box" class="hide-if-no-js">
 										<strong><?php esc_html_e('Permalink:','uncode'); ?></strong>
-										<span id="sample-permalink" tabindex="-1"><?php echo get_site_url().'/?attachment_id='.$_REQUEST['postid']; ?></span>
-										<span id="view-post-btn"><a href="<?php echo get_site_url().'/?attachment_id='.$_REQUEST['postid']; ?>" class="button button-small"><?php esc_html_e('View Post','uncode'); ?></a></span>
+										<span id="sample-permalink" tabindex="-1"><?php echo get_site_url().'/?attachment_id='.esc_attr($_REQUEST['postid']); ?></span>
+										<span id="view-post-btn"><a href="<?php echo get_site_url().'/?attachment_id='.esc_attr($_REQUEST['postid']); ?>" class="button button-small"><?php esc_html_e('View Post','uncode'); ?></a></span>
 										</div>
 									</div>
 									<?php } ?>
@@ -379,7 +379,7 @@ function uncode_addOtherMedia() {
 										<?php } ?>
 										<?php
 										if (isset($_REQUEST['postid'])) { ?>
-										<input name="save" type="submit" class="button button-primary button-large" id="publish" data-url="<?php echo get_site_url().'/wp-admin/upload.php?page=add-other&postid='.$_REQUEST['postid'].'&updated=1'; ?>" value="<?php esc_html_e('Update','uncode'); ?>">
+										<input name="save" type="submit" class="button button-primary button-large" id="publish" data-url="<?php echo get_site_url().'/wp-admin/upload.php?page=add-other&postid='.esc_attr($_REQUEST['postid']).'&updated=1'; ?>" value="<?php esc_html_e('Update','uncode'); ?>">
 										<?php } ?>
 									</div>
 									<div class="clear"></div>

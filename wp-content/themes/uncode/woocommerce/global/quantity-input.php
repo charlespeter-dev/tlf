@@ -12,7 +12,7 @@
  *
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce/Templates
- * @version 9.4.0
+ * @version 10.1.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -39,7 +39,7 @@ $classes[] = $quantity_wide;
 		?>
 		<label class="screen-reader-text" for="<?php echo esc_attr( $input_id ); ?>"><?php echo esc_attr( $label ); ?></label><?php
 				if ( $quantity_controller === true ) {
-				?><span class="qty-minus" aria-label="<?php esc_html_e( 'Decrease product quantity', 'uncode' ); ?>"><i class="fa fa-minus2"></i></span><?php
+				?><span class="qty-minus" role="button" aria-label="<?php esc_html_e( 'Decrease product quantity', 'uncode' ); ?>"><i class="fa fa-minus2"></i></span><?php
 				}
 				?><input
 			type="<?php echo uncode_switch_stock_string( $quantity_controller === true ? 'text' : 'number' ); ?>"
@@ -51,7 +51,9 @@ $classes[] = $quantity_wide;
 			aria-label="<?php esc_attr_e( 'Product quantity', 'woocommerce' ); ?>"
 			size="4"
 			min="<?php echo esc_attr( $min_value ); ?>"
-			max="<?php echo esc_attr( 0 < $max_value ? $max_value : '' ); ?>"
+			<?php if ( 0 < $max_value ) : ?>
+				max="<?php echo esc_attr( $max_value ); ?>"
+			<?php endif; ?>
 			<?php if ( ! $readonly ): ?>
 				step="<?php echo esc_attr( $step ); ?>"
 				placeholder="<?php echo esc_attr( $placeholder ); ?>"
@@ -60,7 +62,7 @@ $classes[] = $quantity_wide;
 			<?php endif; ?>
 		/><?php
 		if ( $quantity_controller === true ) {
-		?><span class="qty-plus" aria-label="<?php esc_html_e( 'Increase product quantity', 'uncode' ); ?>"><i class="fa fa-plus2"></i></span><?php
+		?><span class="qty-plus" role="button" aria-label="<?php esc_html_e( 'Increase product quantity', 'uncode' ); ?>"><i class="fa fa-plus2"></i></span><?php
 		}
 		?>
 	<?php if ( $quantity_controller === true ) { ?>

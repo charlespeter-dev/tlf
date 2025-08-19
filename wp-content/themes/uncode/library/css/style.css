@@ -1688,6 +1688,7 @@ html.android4 .page-wrapper .row.row-parent {
 }
 .row div[class*=col-lg-].pos-right > .uncol > .uncoltable > .uncell > .uncont {
   margin-left: auto;
+  margin-right: 0;
 }
 .row div[class*=col-lg-].pos-top,
 .row div[class*=col-lg-].pos-top .uncell {
@@ -4868,6 +4869,9 @@ body.customer-area-active .cuar-css-wrapper .row {
     clip-path: var(--row-anim-clip-path);
   }
 }
+.scroll-trigger-el.scroll-trigger-parent .uncode-scroll-trigger-space:not(:last-child) {
+  height: var(--stacking-cards-space);
+}
 @media (min-width: 960px) {
   .scroll-trigger-el.scroll-trigger-content-inner .uncode-scroll-trigger-anticipate {
     margin-top: var(--stacking-cards-anticipate) !important;
@@ -5117,6 +5121,7 @@ body.customer-area-active .cuar-css-wrapper .row {
 }
 .linear-system .linear-wrapper .linear-container.linear-or-vertical {
   flex-direction: column;
+  width: 100%;
 }
 .linear-system .linear-wrapper .linear-container.linear-or-vertical.cont-appended {
   top: 0;
@@ -9924,21 +9929,45 @@ html:not(.video-not-supported):not(.edge):not(.ie) .for-ie {
 .unradius-hg-top-bottom {
   border-radius: 27px !important;
 }
+.unradius-hg-top-bottom > .row:first-child {
+  border-radius: inherit;
+  overflow: hidden;
+}
 .unradius-hg-top {
   border-radius: 27px 27px 0 0 !important;
 }
+.unradius-hg-top > .row:first-child {
+  border-radius: inherit;
+  overflow: hidden;
+}
 .unradius-hg-bottom {
   border-radius: 0 0 27px 27px !important;
+}
+.unradius-hg-bottom > .row:first-child {
+  border-radius: inherit;
+  overflow: hidden;
 }
 .unmargin-h-force {
   margin-left: 18px !important;
   margin-right: 18px !important;
 }
+.unmargin-h-force > .row:first-child {
+  border-radius: inherit;
+  overflow: hidden;
+}
 .unmargin-top-force {
   margin-top: 18px !important;
 }
+.unmargin-top-force > .row:first-child {
+  border-radius: inherit;
+  overflow: hidden;
+}
 .unmargin-bottom-force {
   margin-bottom: 18px !important;
+}
+.unmargin-bottom-force > .row:first-child {
+  border-radius: inherit;
+  overflow: hidden;
 }
 /*
 ----------------------------------------------------------
@@ -20639,6 +20668,9 @@ body.rtl .wpcf7-acceptance .wpcf7-list-item-label {
 .index-scroll {
   display: flex;
 }
+.index-scroll .tmb {
+  visibility: hidden;
+}
 @media (max-width: 959px) and (min-width: 570px) {
   .row-scroll-no-md.index-scroll .index-wrapper,
   .row-scroll-no-md.index-scroll .index-row {
@@ -20710,7 +20742,7 @@ body[data-border="36"] .pin-trigger {
   }
 }
 @media (max-width: 959px) {
-  .unscroll-horizontal .row .uncoltable {
+  .unscroll-horizontal .row .uncoltable:not(.row-internal *) {
     min-height: 100vh;
   }
 }

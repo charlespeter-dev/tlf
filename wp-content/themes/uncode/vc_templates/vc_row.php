@@ -436,22 +436,19 @@ if ( !(function_exists('vc_is_page_editable') && vc_is_page_editable()) && $css_
 
 	}
 	
-	if ( $animation_state === '' ) {
-
-		if ( $animate_el === 'content' ) {
-			$row_cont_classes[] = 'scroll-trigger-content';
-			$row_custom_style .= $row_anim_style;
-		} elseif ( $animate_el === 'bg' ) {
-			$row_cont_classes[] = 'scroll-trigger-bg';
-			$back_array['row-bg-animated'] = $row_anim_style;
+	if ( $animate_el === 'content' ) {
+		$row_cont_classes[] = 'scroll-trigger-content';
+		$row_custom_style .= $row_anim_style;
+	} elseif ( $animate_el === 'bg' ) {
+		$row_cont_classes[] = 'scroll-trigger-bg';
+		$back_array['row-bg-animated'] = $row_anim_style;
+	} else {
+		if ( $css_animation === 'inner-rows' ) {
+			$row_cont_classes[] = 'scroll-trigger-content-inner';
+			$scrollTriggerInnerRows['style'] = $row_anim_style;
 		} else {
-			if ( $css_animation === 'inner-rows' ) {
-				$row_cont_classes[] = 'scroll-trigger-content-inner';
-				$scrollTriggerInnerRows['style'] = $row_anim_style;
-			} else {
-				$row_cont_classes[] = 'scroll-trigger-parent';
-				$row_style .= $row_anim_style;
-			}
+			$row_cont_classes[] = 'scroll-trigger-parent';
+			$row_style .= $row_anim_style;
 		}
 	}
 

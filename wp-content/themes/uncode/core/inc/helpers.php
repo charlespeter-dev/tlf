@@ -132,7 +132,7 @@ function uncode_getClosest($search, $arr)
 if ( ! function_exists( 'uncode_video_data_ignore' ) ):
 add_filter( 'wp_video_shortcode', 'uncode_video_data_ignore', 10, 5 );
 function uncode_video_data_ignore($output, $atts, $video, $post_id, $library){
-	return str_ireplace( '<video ', '<video data-keepplaying ', $output );
+	return str_ireplace( '<video ', '<video playsinline data-keepplaying ', $output );
 }
 endif;
 

@@ -1043,7 +1043,7 @@ if ( $lb_video_advanced === 'yes' ) {
 /**
  * init loop
  */
-
+$medias = array_filter($medias);
 if (count($medias) > 0) {
 
 	$no_album_counter = 0;

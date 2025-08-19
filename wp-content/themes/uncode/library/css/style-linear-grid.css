@@ -29,6 +29,7 @@
 }
 .linear-system .linear-wrapper .linear-container.linear-or-vertical {
   flex-direction: column;
+  width: 100%;
 }
 .linear-system .linear-wrapper .linear-container.linear-or-vertical.cont-appended {
   top: 0;

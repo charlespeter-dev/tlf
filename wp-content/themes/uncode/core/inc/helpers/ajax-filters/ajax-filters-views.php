@@ -114,7 +114,7 @@ if ( ! function_exists( "uncode_ajax_term_filter_list_html" ) ) {
 						$display_value .= '<span class="term-filter-description">' . $term_description . '</span>';
 					}
 					?>
-					<li class="term-filter">
+					<li class="term-filter<?php echo esc_attr( $is_taxonomy ? ' term-' . $term_id : '' ); ?>">
 						<?php if ( $is_checkbox ) : ?>
 							<label for="<?php echo esc_attr( $filter_id ); ?>"><input type="checkbox" name="<?php echo esc_attr( $filter_id ); ?>" id="<?php echo esc_attr( $filter_id ); ?>" value="<?php echo esc_attr( $term_slug ); ?>" <?php checked( $checked, true ); ?>><a href="<?php echo esc_url( $filter_url ); ?>" class="term-filter-link <?php echo esc_attr( $checked ? 'term-filter-link--active' : '' );  ?>" <?php echo uncode_filters_add_now_follow(); ?> title="<?php echo esc_attr( strip_tags( $term_description ) ); ?>"><?php echo uncode_switch_stock_string( $display_value ); ?></a></label>
 						<?php else : ?>
@@ -269,7 +269,7 @@ function uncode_ajax_term_filter_label_html( $key_to_query, $filter_terms, $is_c
 				$term_name .= '<span class="term-filter-description">' . $term_description . '</span>';
 			}
 			?>
-			<li class="term-filter">
+			<li class="term-filter<?php echo esc_attr( $is_taxonomy ? ' term-' . $term_id : '' ); ?>">
 				<a href="<?php echo esc_url( $filter_url ); ?>" class="term-filter-link <?php echo esc_attr( $checked ? 'term-filter-link--active' : '' );  ?>" <?php echo uncode_filters_add_now_follow(); ?> title="<?php echo esc_attr( strip_tags( $term_description ) ); ?>">
 					<div class="<?php echo esc_attr( implode( ' ', $swatch_classes ) ); ?>">
 						<?php echo uncode_switch_stock_string( $term_name ); ?>
@@ -348,7 +348,7 @@ function uncode_ajax_term_filter_color_html( $key_to_query, $filter_terms, $quer
 				$term_name .= '<span class="term-filter-description">' . $term_description . '</span>';
 			}
 			?>
-			<li class="term-filter">
+			<li class="term-filter<?php echo esc_attr( ' term-' . $term_id ); ?>">
 				<a href="<?php echo esc_url( $filter_url ); ?>" class="term-filter-link <?php echo esc_attr( $checked ? 'term-filter-link--active' : '' );  ?>" <?php echo uncode_filters_add_now_follow(); ?> title="<?php echo esc_attr( strip_tags( $term_description ) ); ?>">
 					<div class="<?php echo esc_attr( implode( ' ', $swatch_classes ) ); ?>" style="background-color:<?php echo  esc_attr( $color ); ?>">
 						<?php echo uncode_switch_stock_string( $term_name ); ?>
@@ -465,6 +465,10 @@ function uncode_ajax_term_filter_search_html( $key_to_query, $filter_terms, $que
 
 	if ( isset( $query_args[$key_to_query] ) && is_array( $query_args[$key_to_query] ) && isset( $query_args[$key_to_query][0] ) ) {
 		$search_value = $query_args[$key_to_query][0];
+	}
+
+	if ( ! apply_filters( 'uncode_filters_sanitize_value', true ) ) {
+		$search_value = wp_unslash( $search_value );
 	}
 	?>
 	<div class="term-filters-search search-container-inner">

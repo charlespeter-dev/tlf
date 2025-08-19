@@ -34,15 +34,15 @@
 		if ( $el.is('.index-scroll') ) {
 			var $_el = $el.closest('.uncont');
 		}
-		$('.index-scroll:not(.hor-scroll-vh) .index-row', $_el).each(function(i, item){
-			$.each($('.tmb', item), function(index, val) {
-				if ( reset === true ) {
-					$(val).css( 'visibility', 'hidden' );
-				} else {
-					$(val).css( 'visibility', 'visible' );
-				}
-			});
-		});
+		// $('.index-scroll:not(.hor-scroll-vh) .index-row', $_el).each(function(i, item){
+		// 	$.each($('.tmb', item), function(index, val) {
+		// 		if ( reset === true ) {
+		// 			$(val).css( 'visibility', 'hidden' );
+		// 		} else {
+		// 			$(val).css( 'visibility', 'visible' );
+		// 		}
+		// 	});
+		// });
 		$('.index-scroll.hor-scroll-vh .index-row', $_el).each(function(i, item){
 			$.each($('.tmb', item), function(index, val) {
 				if ( reset === true ) {
@@ -133,6 +133,11 @@
 		dir = typeof dir === 'undefined' ? 'right' : dir;
 
 		$parent_row.addClass('unscroll-horizontal').attr('data-direction', dir);
+
+		if ( $('.animate_when_almost_visible', $index).length ) {
+			$index.addClass('opacity_0').addClass('scroll-refresh-hidden');
+		}
+
 	});
 
 	var $horScrolls = $('.unscroll-horizontal', $el);
@@ -292,6 +297,15 @@
 							}, delayAttr + animationIncrease);
 							animationIncrease += 150;
 						}
+						$(_this).on([
+							'webkitAnimationEnd',
+							'mozAnimationEnd',
+							'MSAnimationEnd',
+							'oanimationend',
+							'animationend'
+						].join(' '), function(e) {
+							$(e.currentTarget).removeClass('animate_when_almost_visible');
+						});
 					});
 
 					var batchTime = 0;

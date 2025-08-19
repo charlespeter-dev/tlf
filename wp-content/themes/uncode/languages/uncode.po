@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Uncode\n"
 "Report-Msgid-Bugs-To: info@undsgn.com\n"
-"POT-Creation-Date: 2025-07-03 10:50+0200\n"
-"PO-Revision-Date: 2025-07-03 10:50+0200\n"
+"POT-Creation-Date: 2025-08-13 10:00+0200\n"
+"PO-Revision-Date: 2025-08-13 10:00+0200\n"
 "Last-Translator: Undsgn <info@undsgn.com>\n"
 "Language-Team: Undsgn <info@undsgn.com>\n"
 "Language: en_US\n"
@@ -18,6 +18,784 @@ msgstr ""
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 
+#: functions.php:17
+msgid "PHP version obsolete"
+msgstr ""
+
+#: functions.php:18
+msgid "Ooops, obsolete PHP version"
+msgstr ""
+
+#: woocommerce/order/uncode-form-tracking.php:25
+msgid "Order Tracking"
+msgstr ""
+
+#: woocommerce/order/uncode-form-tracking.php:38
+msgid ""
+"To track your order please enter your Order ID in the box below and press "
+"the \"Track\" button. This was given to you on your receipt and in the "
+"confirmation email you should have received."
+msgstr ""
+
+#: woocommerce/order/uncode-form-tracking.php:40
+msgid "Order ID"
+msgstr ""
+
+#: woocommerce/order/uncode-form-tracking.php:40
+msgid "Found in your order confirmation email."
+msgstr ""
+
+#: woocommerce/order/uncode-form-tracking.php:41
+msgid "Billing email"
+msgstr ""
+
+#: woocommerce/order/uncode-form-tracking.php:41
+msgid "Email you used during checkout."
+msgstr ""
+
+#: woocommerce/order/uncode-form-tracking.php:53
+msgid "Track"
+msgstr ""
+
+#: woocommerce/order/order-details.php:46
+msgid "Order details"
+msgstr ""
+
+#: woocommerce/order/order-details.php:50 woocommerce/wishlist-view.php:170
+#: woocommerce/single-product-reviews.php:50
+#: woocommerce/checkout/uncode-form-pay-table.php:26
+#: woocommerce/cart/uncode-cart-table-compact.php:21
+#: woocommerce/cart/uncode-cart-table.php:22
+#: woocommerce/cart/uncode-cart-table.php:77
+#: core/inc/helpers/taxonomies/taxonomies-functions.php:49
+#: core/inc/helpers/taxonomies/taxonomies-functions.php:58
+msgid "Product"
+msgstr ""
+
+#: woocommerce/order/order-details.php:51
+msgid "Total"
+msgstr ""
+
+#: woocommerce/order/order-details.php:76 woocommerce/wishlist-view.php:233
+#: core/inc/compatibility/wishlist/class-uncode-wishlist.php:344
+msgid "Actions"
+msgstr ""
+
+#: woocommerce/order/order-details.php:84 woocommerce/myaccount/orders.php:88
+#, php-format
+msgid "%1$s order number %2$s"
+msgstr ""
+
+#: woocommerce/order/order-details.php:109
+msgid "Note:"
+msgstr ""
+
+#: woocommerce/order/order-details-customer.php:33
+msgid "Billing address"
+msgstr ""
+
+#: woocommerce/order/order-details-customer.php:36
+#: woocommerce/order/order-details-customer.php:64
+#: woocommerce/single-product/meta.php:39
+msgid "N/A"
+msgstr ""
+
+#: woocommerce/order/order-details-customer.php:61
+msgid "Shipping address"
+msgstr ""
+
+#: woocommerce/myaccount/form-edit-account.php:37
+#: core/inc/compatibility/woocommerce/filters.php:588
+msgid "First name"
+msgstr ""
+
+#: woocommerce/myaccount/form-edit-account.php:41
+#: core/inc/compatibility/woocommerce/filters.php:592
+msgid "Last name"
+msgstr ""
+
+#: woocommerce/myaccount/form-edit-account.php:47
+#: core/inc/compatibility/woocommerce/filters.php:596
+msgid "Display name"
+msgstr ""
+
+#: woocommerce/myaccount/form-edit-account.php:48
+msgid ""
+"This will be how your name will be displayed in the account section and in "
+"reviews"
+msgstr ""
+
+#: woocommerce/myaccount/form-edit-account.php:53
+#: woocommerce/myaccount/form-login.php:90
+#: woocommerce/myaccount/uncode-my-account-form-register.php:43
+#: core/inc/compatibility/woocommerce/filters.php:576
+msgid "Email address"
+msgstr ""
+
+#: woocommerce/myaccount/form-edit-account.php:67
+msgid "Password change"
+msgstr ""
+
+#: woocommerce/myaccount/form-edit-account.php:70
+#: core/inc/compatibility/woocommerce/filters.php:600
+msgid "Current password (leave blank to leave unchanged)"
+msgstr ""
+
+#: woocommerce/myaccount/form-edit-account.php:74
+#: core/inc/compatibility/woocommerce/filters.php:604
+msgid "New password (leave blank to leave unchanged)"
+msgstr ""
+
+#: woocommerce/myaccount/form-edit-account.php:78
+#: core/inc/compatibility/woocommerce/filters.php:608
+msgid "Confirm new password"
+msgstr ""
+
+#: woocommerce/myaccount/form-edit-account.php:95
+msgid "Save changes"
+msgstr ""
+
+#: woocommerce/myaccount/form-lost-password.php:29
+msgid ""
+"Lost your password? Please enter your username or email address. You will "
+"receive a link to create a new password via email."
+msgstr ""
+
+#: woocommerce/myaccount/form-lost-password.php:32
+#: woocommerce/global/form-login.php:42
+#: core/inc/compatibility/woocommerce/filters.php:568
+msgid "Username or email"
+msgstr ""
+
+#: woocommerce/myaccount/form-lost-password.php:32
+#: woocommerce/myaccount/form-login.php:43
+#: woocommerce/myaccount/form-login.php:47
+#: woocommerce/myaccount/form-login.php:83
+#: woocommerce/myaccount/form-login.php:90
+#: woocommerce/myaccount/form-login.php:97
+#: woocommerce/myaccount/uncode-my-account-form-login.php:35
+#: woocommerce/myaccount/uncode-my-account-form-login.php:39
+#: woocommerce/myaccount/form-reset-password.php:32
+#: woocommerce/myaccount/form-reset-password.php:36
+#: woocommerce/myaccount/uncode-my-account-form-register.php:36
+#: woocommerce/myaccount/uncode-my-account-form-register.php:43
+#: woocommerce/myaccount/uncode-my-account-form-register.php:50
+#: woocommerce/global/form-login.php:42 woocommerce/global/form-login.php:46
+#: core/plugins_activation/class-tgm-plugin-activation.php:2414
+msgid "Required"
+msgstr ""
+
+#: woocommerce/myaccount/form-lost-password.php:42
+msgid "Reset password"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:36
+#: woocommerce/myaccount/uncode-my-account-form-login.php:28
+#: woocommerce/global/form-login.php:59 partials/menus.php:646
+msgid "Login"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:43
+#: woocommerce/myaccount/uncode-my-account-form-login.php:35
+msgid "Username or email address"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:47
+#: woocommerce/myaccount/form-login.php:97
+#: woocommerce/myaccount/uncode-my-account-form-login.php:39
+#: woocommerce/myaccount/uncode-my-account-form-register.php:50
+#: woocommerce/global/form-login.php:46
+#: core/inc/compatibility/woocommerce/filters.php:572
+msgid "Password"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:55
+#: woocommerce/myaccount/uncode-my-account-form-login.php:47
+#: woocommerce/global/form-login.php:55
+msgid "Remember me"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:58
+#: woocommerce/myaccount/uncode-my-account-form-login.php:50
+msgid "Log in"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:61
+#: woocommerce/myaccount/uncode-my-account-form-login.php:53
+#: woocommerce/global/form-login.php:62
+msgid "Lost your password?"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:74
+#: woocommerce/myaccount/form-login.php:111
+#: woocommerce/myaccount/uncode-my-account-form-register.php:27
+#: woocommerce/myaccount/uncode-my-account-form-register.php:64
+msgid "Register"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:83
+#: woocommerce/myaccount/uncode-my-account-form-register.php:36
+#: core/inc/compatibility/woocommerce/filters.php:564
+msgid "Username"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:103
+#: woocommerce/myaccount/uncode-my-account-form-register.php:56
+msgid "A link to set a new password will be sent to your email address."
+msgstr ""
+
+#: woocommerce/myaccount/form-reset-password.php:29
+msgid "Enter a new password below."
+msgstr ""
+
+#: woocommerce/myaccount/form-reset-password.php:32
+#: core/inc/compatibility/woocommerce/filters.php:580
+msgid "New password"
+msgstr ""
+
+#: woocommerce/myaccount/form-reset-password.php:36
+#: core/inc/compatibility/woocommerce/filters.php:584
+msgid "Re-enter new password"
+msgstr ""
+
+#: woocommerce/myaccount/form-reset-password.php:49
+#: woocommerce/wishlist-view-header.php:46 core/inc/media-enhanced.php:378
+msgid "Save"
+msgstr ""
+
+#: woocommerce/myaccount/orders.php:63
+#, php-format
+msgid "View order number %s"
+msgstr ""
+
+#: woocommerce/myaccount/orders.php:64
+msgctxt "hash before order number"
+msgid "#"
+msgstr ""
+
+#: woocommerce/myaccount/orders.php:76
+#, php-format
+msgid "%1$s for %2$s item"
+msgid_plural "%1$s for %2$s items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: woocommerce/myaccount/orders.php:116 core/inc/main.php:520
+#: vc_templates/uncode_index.php:3285 vc_templates/uncode_navigation.php:130
+#: vc_templates/uncode_carousel_nav.php:437
+msgid "Previous"
+msgstr ""
+
+#: woocommerce/myaccount/orders.php:120 core/inc/main.php:521
+#: core/inc/template-tags.php:91 vc_templates/uncode_index.php:3295
+#: vc_templates/uncode_navigation.php:131
+#: vc_templates/uncode_carousel_nav.php:505
+msgid "Next"
+msgstr ""
+
+#: woocommerce/myaccount/orders.php:127
+msgid "No order has been made yet."
+msgstr ""
+
+#: woocommerce/myaccount/orders.php:127
+msgid "Browse products"
+msgstr ""
+
+#: woocommerce/wishlist-view-header.php:47 core/inc/edit_custom_walker.php:268
+msgid "Cancel"
+msgstr ""
+
+#: woocommerce/wishlist-view.php:78
+msgid "Product name"
+msgstr ""
+
+#: woocommerce/wishlist-view.php:86
+msgid "Unit price"
+msgstr ""
+
+#: woocommerce/wishlist-view.php:95 woocommerce/wishlist-view.php:207
+#: woocommerce/cart/uncode-cart-table-compact.php:22
+#: woocommerce/cart/uncode-cart-table-compact.php:97
+#: woocommerce/cart/uncode-cart-table.php:24
+#: woocommerce/cart/uncode-cart-table.php:109
+#: woocommerce/global/quantity-input.php:21
+msgid "Quantity"
+msgstr ""
+
+#: woocommerce/wishlist-view.php:104 woocommerce/wishlist-view.php:223
+msgid "Stock status"
+msgstr ""
+
+#: woocommerce/wishlist-view.php:122
+msgid "Arrange"
+msgstr ""
+
+#: woocommerce/wishlist-view.php:155 woocommerce/wishlist-view.php:289
+msgid "Remove this product"
+msgstr ""
+
+#: woocommerce/wishlist-view.php:189 woocommerce/cart/uncode-cart-table.php:23
+#: woocommerce/cart/uncode-cart-table.php:103
+msgid "Price"
+msgstr ""
+
+#: woocommerce/wishlist-view.php:226 partials/elements.php:3445
+msgid "Out of stock"
+msgstr ""
+
+#: woocommerce/wishlist-view.php:226
+msgid "In Stock"
+msgstr ""
+
+#: woocommerce/wishlist-view.php:240
+#, php-format
+msgid "Added on: %s"
+msgstr ""
+
+#: woocommerce/wishlist-view.php:259 core/inc/edit_custom_walker.php:242
+msgid "Move"
+msgstr ""
+
+#: woocommerce/wishlist-view.php:279
+msgid "Move to another list &rsaquo;"
+msgstr ""
+
+#: woocommerce/wishlist-view.php:289
+#: woocommerce/cart/uncode-cart-table-compact.php:89
+#: core/inc/edit_custom_walker.php:267
+msgid "Remove"
+msgstr ""
+
+#: woocommerce/wishlist-view.php:309
+msgid "No products added to the wishlist"
+msgstr ""
+
+#: woocommerce/single-product.php:235 woocommerce/single-product.php:335
+#: woocommerce/content-single-product.php:80 single-portfolio.php:450
+#: single-portfolio.php:761 footer.php:191 single.php:544 single.php:772
+#: page.php:447 partials/headers.php:473
+msgid "Edit Content Block"
+msgstr ""
+
+#: woocommerce/single-product.php:235 single-portfolio.php:450 single.php:544
+#: page.php:447
+msgid "Post After Content Block"
+msgstr ""
+
+#: woocommerce/single-product.php:335 single-portfolio.php:761 single.php:772
+msgid "Navigation Content Block"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:50
+#, php-format
+msgid "%s review"
+msgid_plural "%s reviews"
+msgstr[0] ""
+msgstr[1] ""
+
+#: woocommerce/single-product-reviews.php:52
+#: core/inc/compatibility/woocommerce/filters.php:746
+msgid "Reviews"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:97
+msgid "There are no reviews yet."
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:109
+msgid "Add a review"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:109
+#, php-format
+msgid "Be the first to review &ldquo;%s&rdquo;"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:110
+#, php-format
+msgid "Leave a Reply to %s"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:116
+msgid "Name"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:118
+msgid "Email"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:121
+msgid "Submit"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:127
+#, php-format
+msgid "You must be %1$slogged in%2$s to post a review."
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:131
+msgid "Your rating"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:132
+msgid "Rate&hellip;"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:133
+msgid "Perfect"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:134
+msgid "Good"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:135
+msgid "Average"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:136
+msgid "Not that bad"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:137
+msgid "Very Poor"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:141
+msgid "Your review"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:150
+msgid ""
+"Only logged in customers who have purchased this product may leave a review."
+msgstr ""
+
+#: woocommerce/wishlist-create.php:18
+msgid "Name your list"
+msgstr ""
+
+#: woocommerce/wishlist-create.php:35
+msgid "Create wishlist"
+msgstr ""
+
+#: woocommerce/checkout/uncode-open-checkout-form.php:24
+#: woocommerce/cart/mini-cart.php:114
+#: core/inc/compatibility/woocommerce/icon-cart.php:66
+#: vc_templates/uncode_woocommerce_steps.php:129
+msgid "Checkout"
+msgstr ""
+
+#: woocommerce/checkout/uncode-checkout-order-payment.php:14
+msgid "Your order"
+msgstr ""
+
+#: woocommerce/checkout/uncode-form-pay.php:42
+msgid ""
+"Sorry, it seems that there are no available payment methods for your "
+"location. Please contact us if you require assistance or wish to make "
+"alternate arrangements."
+msgstr ""
+
+#: woocommerce/checkout/order-received.php:35
+msgid "Thank you. Your order has been received."
+msgstr ""
+
+#: woocommerce/checkout/uncode-form-pay-table.php:27
+msgid "Qty"
+msgstr ""
+
+#: woocommerce/checkout/uncode-form-pay-table.php:28
+msgid "Totals"
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:38
+msgid ""
+"Unfortunately your order cannot be processed as the originating bank/"
+"merchant has declined your transaction. Please attempt your purchase again."
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:41
+msgid "Pay"
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:43
+msgid "My account"
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:54
+msgid "Order number:"
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:59
+msgid "Date:"
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:65
+msgid "Email:"
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:71
+msgid "Total:"
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:77
+msgid "Payment method:"
+msgstr ""
+
+#: woocommerce/wishlist-manage.php:36
+msgid "Wishlists"
+msgstr ""
+
+#: woocommerce/wishlist-manage.php:42
+msgid "Privacy"
+msgstr ""
+
+#: woocommerce/wishlist-manage.php:52
+msgid "Count of items"
+msgstr ""
+
+#: woocommerce/wishlist-manage.php:63
+msgid "Created on"
+msgstr ""
+
+#: woocommerce/wishlist-manage.php:74
+msgid "Download"
+msgstr ""
+
+#: woocommerce/wishlist-manage.php:85 woocommerce/wishlist-manage.php:154
+msgid "Delete"
+msgstr ""
+
+#: woocommerce/wishlist-manage.php:134
+#, php-format
+msgid "%d items"
+msgstr ""
+
+#: woocommerce/wishlist-manage.php:154
+msgid "Are you sure you want to delete this wishlist?"
+msgstr ""
+
+#: woocommerce/archive-product.php:151 search.php:93
+msgid "Results for:"
+msgstr ""
+
+#: woocommerce/cart/uncode-cart-table-compact.php:15
+#: woocommerce/cart/uncode-cart-table.php:15
+#: core/inc/compatibility/woocommerce/icon-cart.php:128
+#: core/inc/compatibility/woocommerce/icon-cart.php:132
+#: core/inc/compatibility/woocommerce/icon-cart.php:134
+#: vc_templates/uncode_woocommerce_widget_cart.php:102
+#: vc_templates/uncode_woocommerce_steps.php:117
+msgid "Cart"
+msgstr ""
+
+#: woocommerce/cart/uncode-cart-table-compact.php:23
+#: woocommerce/cart/uncode-cart-table-compact.php:123
+#: woocommerce/cart/uncode-cart-table.php:25
+#: woocommerce/cart/uncode-cart-table.php:135
+msgid "Subtotal"
+msgstr ""
+
+#: woocommerce/cart/uncode-cart-table-compact.php:70
+#: woocommerce/cart/uncode-cart-table.php:98
+msgid "Available on backorder"
+msgstr ""
+
+#: woocommerce/cart/uncode-cart-table-compact.php:141
+#: woocommerce/cart/uncode-cart-table.php:153
+msgid "Coupon:"
+msgstr ""
+
+#: woocommerce/cart/uncode-cart-table-compact.php:141
+#: woocommerce/cart/uncode-cart-table.php:153
+msgid "Coupon code"
+msgstr ""
+
+#: woocommerce/cart/uncode-cart-table-compact.php:141
+#: woocommerce/cart/uncode-cart-table.php:153
+msgid "Apply coupon"
+msgstr ""
+
+#: woocommerce/cart/uncode-cart-table-compact.php:146
+#: woocommerce/cart/uncode-cart-table.php:158
+msgid "Update cart"
+msgstr ""
+
+#: woocommerce/cart/uncode-cart-table.php:20
+msgid "Remove item"
+msgstr ""
+
+#: woocommerce/cart/uncode-cart-table.php:21
+msgid "Thumbnail image"
+msgstr ""
+
+#: woocommerce/cart/uncode-cart-table.php:56 woocommerce/cart/mini-cart.php:61
+#: core/inc/compatibility/woocommerce/icon-cart.php:44
+#, php-format
+msgid "Remove %s from cart"
+msgstr ""
+
+#: woocommerce/cart/mini-cart.php:27
+msgid ""
+"<span class=\"cart-close-icon\">&times;</span><span class=\"cart-close-"
+"label\">Close</span>"
+msgstr ""
+
+#: woocommerce/cart/mini-cart.php:66
+#, php-format
+msgid "&ldquo;%s&rdquo; has been removed from your cart"
+msgstr ""
+
+#: woocommerce/cart/mini-cart.php:89
+msgid "No products in the cart."
+msgstr ""
+
+#: woocommerce/cart/mini-cart.php:113
+#: core/inc/compatibility/woocommerce/icon-cart.php:65
+msgid "View cart"
+msgstr ""
+
+#: woocommerce/single-product/tabs/description.php:22
+#: core/inc/edit_custom_walker.php:190 core/inc/media-enhanced.php:344
+msgid "Description"
+msgstr ""
+
+#: woocommerce/single-product/tabs/additional-information.php:24
+msgid "Additional information"
+msgstr ""
+
+#: woocommerce/single-product/review.php:59
+msgid "Your comment is awaiting approval"
+msgstr ""
+
+#: woocommerce/single-product/review.php:70
+msgid "verified owner"
+msgstr ""
+
+#: woocommerce/single-product/meta.php:39
+msgid "SKU"
+msgstr ""
+
+#: woocommerce/single-product/meta.php:44
+msgid "Category"
+msgstr ""
+
+#: woocommerce/single-product/meta.php:44 vc_templates/uncode_index.php:56
+#: vc_templates/vc_wp_categories.php:112 vc_templates/vc_gallery.php:42
+msgid "Categories"
+msgstr ""
+
+#: woocommerce/single-product/meta.php:44
+#: woocommerce/single-product/meta.php:49
+#: woocommerce/single-product/meta.php:57
+msgid "<span class=\"detail-label\">"
+msgid_plural "<span class=\"detail-label\">"
+msgstr[0] ""
+msgstr[1] ""
+
+#: woocommerce/single-product/meta.php:49
+msgid "Tag"
+msgstr ""
+
+#: woocommerce/single-product/meta.php:49 vc_templates/vc_wp_tagcloud.php:108
+msgid "Tags"
+msgstr ""
+
+#: woocommerce/single-product/meta.php:57
+msgid "Brand"
+msgstr ""
+
+#: woocommerce/single-product/meta.php:57
+msgid "Brands"
+msgstr ""
+
+#: woocommerce/single-product/product-image.php:208
+#: woocommerce/single-product/product-image.php:367
+msgid "Awaiting product image"
+msgstr ""
+
+#: woocommerce/single-product/up-sells.php:28
+msgid "You may also like&hellip;"
+msgstr ""
+
+#: woocommerce/single-product/add-to-cart/variable.php:37
+msgid "This product is currently out of stock and unavailable."
+msgstr ""
+
+#: woocommerce/single-product/add-to-cart/variable.php:63
+msgid "Clear"
+msgstr ""
+
+#: woocommerce/single-product/add-to-cart/grouped.php:76
+#, php-format
+msgid "Buy one of %1$s on sale for %2$s, original price was %3$s"
+msgstr ""
+
+#: woocommerce/single-product/add-to-cart/grouped.php:84
+#, php-format
+msgid "Buy one of %1$s for %2$s"
+msgstr ""
+
+#: woocommerce/single-product/add-to-cart/simple.php:70
+#: woocommerce/loop/add-to-cart.php:35 core/inc/main.php:1327
+#: core/inc/admin.php:94
+msgid "Read more"
+msgstr ""
+
+#: woocommerce/single-product/related.php:19
+msgid "Related products"
+msgstr ""
+
+#: woocommerce/single-product/share.php:35 single-portfolio.php:522
+msgid "Share"
+msgstr ""
+
+#: woocommerce/single-product/rating.php:60
+#, php-format
+msgid "%s customer review"
+msgid_plural "%s customer reviews"
+msgstr[0] ""
+msgstr[1] ""
+
+#: woocommerce/content-single-product.php:80
+msgid "Product Content Block"
+msgstr ""
+
+#: woocommerce/product-searchform.php:28
+msgid "Search for:"
+msgstr ""
+
+#: woocommerce/product-searchform.php:29
+msgid "Search products&hellip;"
+msgstr ""
+
+#: woocommerce/product-searchform.php:29
+msgctxt "submit button"
+msgid "Search"
+msgstr ""
+
+#: woocommerce/global/quantity-input.php:21
+#, php-format
+msgid "%s quantity"
+msgstr ""
+
+#: woocommerce/global/quantity-input.php:42
+msgid "Decrease product quantity"
+msgstr ""
+
+#: woocommerce/global/quantity-input.php:51
+msgid "Product quantity"
+msgstr ""
+
+#: woocommerce/global/quantity-input.php:65
+msgid "Increase product quantity"
+msgstr ""
+
+#: woocommerce/loop/add-to-cart.php:31
+#: core/inc/compatibility/woocommerce/core-functions.php:65
+msgid "Select options"
+msgstr ""
+
 #: 404.php:71
 msgid "Oops! Something went wrong…"
 msgstr ""
@@ -30,148 +808,8 @@ msgstr ""
 msgid "home page"
 msgstr ""
 
-#: comments.php:28
-#, php-format
-msgctxt "comments"
-msgid "%1$s Comment"
-msgid_plural "%1$s Comments"
-msgstr[0] ""
-msgstr[1] ""
-
-#: comments.php:35 comments.php:55
-msgid "Comment navigation"
-msgstr ""
-
-#: comments.php:37 comments.php:57
-msgid "Older Comments"
-msgstr ""
-
-#: comments.php:38 comments.php:58
-msgid "Newer Comments"
-msgstr ""
-
-#: comments.php:69
-msgid "Comments are closed."
-msgstr ""
-
-#: comments.php:75
-msgid "Log out"
-msgstr ""
-
-#: comments.php:77
-msgctxt "noun"
-msgid "Comment"
-msgstr ""
-
-#: comments.php:84
-msgid "Add comment"
-msgstr ""
-
-#: content-block-none.php:13
-msgid "Nothing came up. Try adjusting your filters."
-msgstr ""
-
-#: content-block-none.php:15
-#: core/inc/helpers/grids/custom-grid-functions.php:14
-msgid "Nothing found."
-msgstr ""
-
-#: content-none.php:15
-msgid "Nothing Found"
-msgstr ""
-
-#: content-none.php:21
-#, php-format
-msgid ""
-"Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
-msgstr ""
-
-#: content-none.php:25
-msgid ""
-"Sorry, but nothing matched your search terms. Please try again with some "
-"different keywords."
-msgstr ""
-
-#: content-none.php:30
-msgid ""
-"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
-"searching can help."
-msgstr ""
-
-#: content.php:50
-msgid "Please activate Uncode Core plugin"
-msgstr ""
-
 #: core/inc/compatibility/popup-maker/class-uncode-popup-maker.php:96
 msgid "Uncode Theme"
-msgstr ""
-
-#: core/inc/compatibility/woocommerce/filters.php:564
-#: woocommerce/myaccount/form-login.php:83
-#: woocommerce/myaccount/uncode-my-account-form-register.php:36
-msgid "Username"
-msgstr ""
-
-#: core/inc/compatibility/woocommerce/filters.php:568
-#: woocommerce/myaccount/form-lost-password.php:32
-#: woocommerce/global/form-login.php:42
-msgid "Username or email"
-msgstr ""
-
-#: core/inc/compatibility/woocommerce/filters.php:572
-#: woocommerce/myaccount/form-login.php:47
-#: woocommerce/myaccount/form-login.php:97
-#: woocommerce/myaccount/uncode-my-account-form-login.php:39
-#: woocommerce/myaccount/uncode-my-account-form-register.php:50
-#: woocommerce/global/form-login.php:46
-msgid "Password"
-msgstr ""
-
-#: core/inc/compatibility/woocommerce/filters.php:576
-#: woocommerce/myaccount/form-edit-account.php:53
-#: woocommerce/myaccount/form-login.php:90
-#: woocommerce/myaccount/uncode-my-account-form-register.php:43
-msgid "Email address"
-msgstr ""
-
-#: core/inc/compatibility/woocommerce/filters.php:580
-#: woocommerce/myaccount/form-reset-password.php:32
-msgid "New password"
-msgstr ""
-
-#: core/inc/compatibility/woocommerce/filters.php:584
-#: woocommerce/myaccount/form-reset-password.php:36
-msgid "Re-enter new password"
-msgstr ""
-
-#: core/inc/compatibility/woocommerce/filters.php:588
-#: woocommerce/myaccount/form-edit-account.php:37
-msgid "First name"
-msgstr ""
-
-#: core/inc/compatibility/woocommerce/filters.php:592
-#: woocommerce/myaccount/form-edit-account.php:41
-msgid "Last name"
-msgstr ""
-
-#: core/inc/compatibility/woocommerce/filters.php:596
-#: woocommerce/myaccount/form-edit-account.php:47
-msgid "Display name"
-msgstr ""
-
-#: core/inc/compatibility/woocommerce/filters.php:600
-#: woocommerce/myaccount/form-edit-account.php:70
-msgid "Current password (leave blank to leave unchanged)"
-msgstr ""
-
-#: core/inc/compatibility/woocommerce/filters.php:604
-#: woocommerce/myaccount/form-edit-account.php:74
-msgid "New password (leave blank to leave unchanged)"
-msgstr ""
-
-#: core/inc/compatibility/woocommerce/filters.php:608
-#: woocommerce/myaccount/form-edit-account.php:78
-msgid "Confirm new password"
 msgstr ""
 
 #: core/inc/compatibility/woocommerce/filters.php:718
@@ -208,11 +846,6 @@ msgstr ""
 
 #: core/inc/compatibility/woocommerce/filters.php:731
 msgid "Brown, Black"
-msgstr ""
-
-#: core/inc/compatibility/woocommerce/filters.php:746
-#: woocommerce/single-product-reviews.php:52
-msgid "Reviews"
 msgstr ""
 
 #: core/inc/compatibility/woocommerce/variations/variations-admin-settings.php:15
@@ -307,41 +940,13 @@ msgstr ""
 msgid "Sorted by price: high to low"
 msgstr ""
 
-#: core/inc/compatibility/woocommerce/icon-cart.php:44
-#: woocommerce/cart/uncode-cart-table.php:56 woocommerce/cart/mini-cart.php:61
-#, php-format
-msgid "Remove %s from cart"
-msgstr ""
-
 #: core/inc/compatibility/woocommerce/icon-cart.php:62
 msgid "Subtotal:"
-msgstr ""
-
-#: core/inc/compatibility/woocommerce/icon-cart.php:65
-#: woocommerce/cart/mini-cart.php:113
-msgid "View cart"
-msgstr ""
-
-#: core/inc/compatibility/woocommerce/icon-cart.php:66
-#: vc_templates/uncode_woocommerce_steps.php:129
-#: woocommerce/checkout/uncode-open-checkout-form.php:24
-#: woocommerce/cart/mini-cart.php:114
-msgid "Checkout"
 msgstr ""
 
 #: core/inc/compatibility/woocommerce/icon-cart.php:70
 #: core/inc/compatibility/woocommerce/icon-cart.php:159
 msgid "Your cart is currently empty."
-msgstr ""
-
-#: core/inc/compatibility/woocommerce/icon-cart.php:128
-#: core/inc/compatibility/woocommerce/icon-cart.php:132
-#: core/inc/compatibility/woocommerce/icon-cart.php:134
-#: vc_templates/uncode_woocommerce_widget_cart.php:102
-#: vc_templates/uncode_woocommerce_steps.php:117
-#: woocommerce/cart/uncode-cart-table-compact.php:15
-#: woocommerce/cart/uncode-cart-table.php:15
-msgid "Cart"
 msgstr ""
 
 #: core/inc/compatibility/woocommerce/checkout/functions.php:36
@@ -481,11 +1086,6 @@ msgstr ""
 msgid "Add to cart"
 msgstr ""
 
-#: core/inc/compatibility/woocommerce/core-functions.php:65
-#: woocommerce/loop/add-to-cart.php:31
-msgid "Select options"
-msgstr ""
-
 #: core/inc/compatibility/woocommerce/core-functions.php:72
 msgid "Select a category"
 msgstr ""
@@ -521,11 +1121,6 @@ msgid ""
 "the default template"
 msgstr ""
 
-#: core/inc/compatibility/wishlist/class-uncode-wishlist.php:344
-#: woocommerce/order/order-details.php:76 woocommerce/wishlist-view.php:233
-msgid "Actions"
-msgstr ""
-
 #: core/inc/compatibility/wishlist/class-uncode-wishlist.php:420
 #: partials/menus.php:690
 msgid "Wishlist"
@@ -542,6 +1137,484 @@ msgstr ""
 #: core/inc/colors.php:75 core/inc/colors.php:80 core/inc/colors.php:85
 #: core/inc/admin.php:742 core/inc/admin.php:807
 msgid "Select…"
+msgstr ""
+
+#: core/inc/widget-functions.php:58 core/inc/widget-functions.php:94
+#: core/inc/widget-functions.php:112
+msgid "Widget title"
+msgstr ""
+
+#: core/inc/main.php:78
+msgid "Primary Menu"
+msgstr ""
+
+#: core/inc/main.php:79
+msgid "Secondary Menu"
+msgstr ""
+
+#: core/inc/main.php:80
+msgid "Call To Action Menu"
+msgstr ""
+
+#: core/inc/main.php:151 core/inc/main.php:164
+msgid "Add widgets here to appear in your sidebar."
+msgstr ""
+
+#: core/inc/main.php:162
+msgid "Sidebar"
+msgstr ""
+
+#: core/inc/main.php:473 vc_templates/uncode_countdown.php:63
+msgid "days"
+msgstr ""
+
+#: core/inc/main.php:474 vc_templates/uncode_countdown.php:63
+msgid "hours"
+msgstr ""
+
+#: core/inc/main.php:475 vc_templates/uncode_countdown.php:63
+msgid "minutes"
+msgstr ""
+
+#: core/inc/main.php:476 vc_templates/uncode_countdown.php:63
+msgid "seconds"
+msgstr ""
+
+#: core/inc/main.php:480 vc_templates/uncode_index.php:3165
+#: vc_templates/vc_gallery.php:1744
+msgid "Loading…"
+msgstr ""
+
+#: core/inc/main.php:481
+msgid "slide"
+msgstr ""
+
+#: core/inc/main.php:482
+msgid "footer"
+msgstr ""
+
+#: core/inc/main.php:522
+msgid "Slide"
+msgstr ""
+
+#: core/inc/main.php:523
+msgid "Share on %"
+msgstr ""
+
+#: core/inc/edit_custom_walker.php:85
+#, php-format
+msgid "%s (Invalid)"
+msgstr ""
+
+#: core/inc/edit_custom_walker.php:89
+#, php-format
+msgid "%s (Pending)"
+msgstr ""
+
+#: core/inc/edit_custom_walker.php:98
+msgid "MEGAMENU TITLE"
+msgstr ""
+
+#: core/inc/edit_custom_walker.php:100
+msgid "MEGAMENU"
+msgstr ""
+
+#: core/inc/edit_custom_walker.php:100
+msgid "sub item"
+msgstr ""
+
+#: core/inc/edit_custom_walker.php:127
+msgid "Move up"
+msgstr ""
+
+#: core/inc/edit_custom_walker.php:140
+msgid "Move down"
+msgstr ""
+
+#: core/inc/edit_custom_walker.php:142 core/inc/edit_custom_walker.php:144
+msgid "Edit Menu Item"
+msgstr ""
+
+#: core/inc/edit_custom_walker.php:153
+msgid "URL"
+msgstr ""
+
+#: core/inc/edit_custom_walker.php:160
+msgid "Navigation Label"
+msgstr ""
+
+#: core/inc/edit_custom_walker.php:166
+msgid "Title Attribute"
+msgstr ""
+
+#: core/inc/edit_custom_walker.php:173
+msgid "Open link in a new window/tab"
+msgstr ""
+
+#: core/inc/edit_custom_walker.php:178
+msgid "CSS Classes (optional)"
+msgstr ""
+
+#: core/inc/edit_custom_walker.php:184
+msgid "Link Relationship (XFN)"
+msgstr ""
+
+#: core/inc/edit_custom_walker.php:192
+msgid ""
+"The description will be displayed in the menu if the current theme supports "
+"it."
+msgstr ""
+
+#: core/inc/edit_custom_walker.php:202
+msgid "Icon"
+msgstr ""
+
+#: core/inc/edit_custom_walker.php:211
+msgid "Megamenu"
+msgstr ""
+
+#: core/inc/edit_custom_walker.php:219
+msgid "Button style"
+msgstr ""
+
+#: core/inc/edit_custom_walker.php:225
+msgid "Badge"
+msgstr ""
+
+#: core/inc/edit_custom_walker.php:231
+msgid "Badge Color"
+msgstr ""
+
+#: core/inc/edit_custom_walker.php:243
+msgid "Up one"
+msgstr ""
+
+#: core/inc/edit_custom_walker.php:244
+msgid "Down one"
+msgstr ""
+
+#: core/inc/edit_custom_walker.php:247
+msgid "To the top"
+msgstr ""
+
+#: core/inc/edit_custom_walker.php:254
+#, php-format
+msgid "Original: %s"
+msgstr ""
+
+#: core/inc/media-enhanced.php:4 core/inc/media-enhanced.php:300
+msgid "Add Multimedia (oEmbed, SVG code, HTML)"
+msgstr ""
+
+#: core/inc/media-enhanced.php:4
+msgid "Add Multimedia"
+msgstr ""
+
+#: core/inc/media-enhanced.php:300
+msgid "Add New"
+msgstr ""
+
+#: core/inc/media-enhanced.php:304
+msgid "Item added to library."
+msgstr ""
+
+#: core/inc/media-enhanced.php:308
+msgid "Item updated."
+msgstr ""
+
+#: core/inc/media-enhanced.php:310
+msgid "Fill all the required fields."
+msgstr ""
+
+#: core/inc/media-enhanced.php:318
+msgid "Enter title here*"
+msgstr ""
+
+#: core/inc/media-enhanced.php:326
+msgid "Permalink:"
+msgstr ""
+
+#: core/inc/media-enhanced.php:328
+msgid "View Post"
+msgstr ""
+
+#: core/inc/media-enhanced.php:334
+msgid "Insert from URL*"
+msgstr ""
+
+#: core/inc/media-enhanced.php:340
+msgid "Caption"
+msgstr ""
+
+#: core/inc/media-enhanced.php:369 core/inc/media-enhanced.php:375
+msgid "Publish"
+msgstr ""
+
+#: core/inc/media-enhanced.php:382
+#: core/plugins_activation/class-tgm-plugin-activation.php:2878
+msgid "Update"
+msgstr ""
+
+#: core/inc/api/api-functions.php:196
+#, php-format
+msgid ""
+"<span class=\"uncode-premium-plugin-activation-error\">You need to register "
+"Uncode before to install this plugin. <a href=\"%s\">Register Uncode</a></"
+"span>"
+msgstr ""
+
+#: core/inc/api/api-functions.php:207
+msgid ""
+"<span class=\"uncode-premium-plugin-activation-error\">There is an expected "
+"problem related to a possible website migration. Please remove the Purchase "
+"Code and register the product again from the System Status to validate the "
+"Purchase Code again. If the issue persists <a href=\"https://support.undsgn."
+"com/hc/en-us/articles/360000836318\" target=\"_blank\">contact the theme "
+"author.</a> (Error 23)</span>"
+msgstr ""
+
+#: core/inc/api/api-functions.php:210
+#, php-format
+msgid ""
+"<span class=\"uncode-premium-plugin-activation-error\">Purchase code "
+"verification failed. <a href=\"https://support.undsgn.com/hc/en-us/"
+"articles/360000836318\" target=\"_blank\">Please contact the theme author.</"
+"a> (Error %s)</span>"
+msgstr ""
+
+#: core/inc/api/class-theme-registration.php:67
+msgid "Purchase Code saved."
+msgstr ""
+
+#: core/inc/api/class-theme-registration.php:127
+msgid ""
+"Your Envato Purchase Code doesn't seem to be valid. Please double-check it, "
+"and try again."
+msgstr ""
+
+#: core/inc/api/class-theme-registration.php:131
+msgid ""
+"According to the Envato License Terms, you have exceeded the number of "
+"activations permitted for a single Purchase Code. Therefore, please purchase "
+"an additional license. If you think there is an error or you are migrating "
+"the website to a new domain, please follow the dedicated procedure. <a "
+"href=\"https://support.undsgn.com/hc/en-us/articles/360000849998\" "
+"target=\"_blank\">More info</a>"
+msgstr ""
+
+#: core/inc/api/class-theme-registration.php:135
+msgid ""
+"There was a problem contacting the Envato API server for Purchase Code "
+"verification. Please try again later, or contact the theme author."
+msgstr ""
+
+#: core/inc/api/class-theme-registration.php:139
+msgid ""
+"There is a problem contacting the Undsgn server for the Purchase Code "
+"verification. Please disable any firewall service, deactivate any possible "
+"server authentication, verify you have an updated cURL module, verify if "
+"your host is blocking connections to external domains and make sure to "
+"whitelist 'api.undsgn.com'. Please consult <a href=\"https://support.undsgn."
+"com/hc/en-us/articles/115004287985\" target=\"_blank\">this page</a> and if "
+"the problem persists, <a href=\"https://support.undsgn.com/hc/en-us/"
+"articles/360000836318\" target=\"_blank\"> contact the theme author.</a>"
+msgstr ""
+
+#: core/inc/api/class-theme-registration.php:156
+#, php-format
+msgid ""
+"There was an unexpected problem with your Purchase Code verification. <a "
+"href=\"https://support.undsgn.com/hc/en-us/articles/360000836318\" "
+"target=\"_blank\">Please contact the theme author.</a> (Error %s)"
+msgstr ""
+
+#: core/inc/api/class-theme-registration.php:160
+msgid ""
+"The Envato Purchase Code doesn't seem to be properly formatted. Please "
+"double check it and try again."
+msgstr ""
+
+#: core/inc/api/class-theme-registration.php:164
+msgid ""
+"The Envato Purchase Code doesn't seem to be associated with an Uncode Theme "
+"purchase. Please double check it and try again."
+msgstr ""
+
+#: core/inc/api/class-theme-registration.php:250
+msgid ""
+"It looks like your site is using an illegal copy of Uncode Theme or an "
+"invalid Purchase Code"
+msgstr ""
+
+#: core/inc/api/class-theme-registration.php:251
+#, php-format
+msgid ""
+"It looks like your site is using an illegal copy of Uncode Theme or an "
+"invalid Purchase Code that doesn't comply with the Envato License Terms. "
+"Therefore features such as Theme Options and Page Builder are disabled. <a "
+"href=\"%s\" target=\"_blank\">More Info</a>"
+msgstr ""
+
+#: core/inc/api/class-theme-registration.php:252
+msgid "Purchase an Uncode License"
+msgstr ""
+
+#: core/inc/uncode-comment-walker.php:69
+msgid "Edit this comment"
+msgstr ""
+
+#: core/inc/uncode-comment-walker.php:71
+msgid "Your comment is awaiting moderation"
+msgstr ""
+
+#: core/inc/uncode-comment-walker.php:74
+msgid "Reply"
+msgstr ""
+
+#: core/inc/export/uncode_export.php:6
+msgid ""
+"You do not have sufficient permissions to export the content of this site."
+msgstr ""
+
+#: core/inc/export/uncode_export.php:12
+msgid "Export"
+msgstr ""
+
+#: core/inc/export/uncode_export.php:40
+msgid "Overview"
+msgstr ""
+
+#: core/inc/export/uncode_export.php:41
+msgid ""
+"You can export a file of your site&#8217;s content in order to import it "
+"into another installation or platform. The export file will be an XML file "
+"format called WXR. Posts, pages, comments, custom fields, categories, and "
+"tags can be included. You can choose for the WXR file to include only "
+"certain posts or pages by setting the dropdown filters to limit the export "
+"by category, author, date range by month, or publishing status."
+msgstr ""
+
+#: core/inc/export/uncode_export.php:42
+msgid ""
+"Once generated, your WXR file can be imported by another WordPress site or "
+"by another blogging platform able to access this format."
+msgstr ""
+
+#: core/inc/export/uncode_export.php:46
+msgid "For more information:"
+msgstr ""
+
+#: core/inc/export/uncode_export.php:47
+msgid "Documentation on Export"
+msgstr ""
+
+#: core/inc/export/uncode_export.php:48
+msgid "Support Forums"
+msgstr ""
+
+#: core/inc/export/uncode_export.php:86
+msgid ""
+"When you click the button below WordPress will create an XML file for you to "
+"save to your computer."
+msgstr ""
+
+#: core/inc/export/uncode_export.php:87
+msgid ""
+"This format, which we call WordPress eXtended RSS or WXR, will contain your "
+"posts, pages, comments, custom fields, categories, and tags."
+msgstr ""
+
+#: core/inc/export/uncode_export.php:88
+msgid ""
+"Once you&#8217;ve saved the download file, you can use the Import function "
+"in another WordPress installation to import the content from this site."
+msgstr ""
+
+#: core/inc/export/uncode_export.php:90
+msgid "Choose what to export"
+msgstr ""
+
+#: core/inc/export/uncode_export.php:94
+msgid "All content"
+msgstr ""
+
+#: core/inc/export/uncode_export.php:95
+msgid ""
+"This will contain all of your posts, pages, comments, custom fields, terms, "
+"navigation menus and custom posts."
+msgstr ""
+
+#: core/inc/export/uncode_export.php:97
+#: core/inc/helpers/taxonomies/taxonomies-functions.php:40
+msgid "Posts"
+msgstr ""
+
+#: core/inc/export/uncode_export.php:100
+msgid "Categories:"
+msgstr ""
+
+#: core/inc/export/uncode_export.php:101 core/inc/export/uncode_export.php:107
+#: core/inc/export/uncode_export.php:124 core/inc/export/uncode_export.php:139
+#: core/inc/export/uncode_export.php:156
+msgid "All"
+msgstr ""
+
+#: core/inc/export/uncode_export.php:104 core/inc/export/uncode_export.php:136
+msgid "Authors:"
+msgstr ""
+
+#: core/inc/export/uncode_export.php:111 core/inc/export/uncode_export.php:143
+msgid "Date range:"
+msgstr ""
+
+#: core/inc/export/uncode_export.php:113 core/inc/export/uncode_export.php:145
+msgid "Start Date"
+msgstr ""
+
+#: core/inc/export/uncode_export.php:117 core/inc/export/uncode_export.php:149
+msgid "End Date"
+msgstr ""
+
+#: core/inc/export/uncode_export.php:122 core/inc/export/uncode_export.php:154
+msgid "Status:"
+msgstr ""
+
+#: core/inc/export/uncode_export.php:133 vc_templates/vc_wp_pages.php:109
+msgid "Pages"
+msgstr ""
+
+#: core/inc/export/uncode_export.php:177
+msgid "Download Export File"
+msgstr ""
+
+#: core/inc/helpers.php:168
+msgid "Minutes"
+msgstr ""
+
+#: core/inc/helpers.php:170
+msgid "Minute"
+msgstr ""
+
+#: core/inc/helpers.php:528
+msgid "Error when retrieving the image editor."
+msgstr ""
+
+#: core/inc/helpers.php:552
+msgid "Error when resizing the image"
+msgstr ""
+
+#: core/inc/helpers.php:611
+msgid "Error when saving the image"
+msgstr ""
+
+#: core/inc/helpers.php:653
+msgid "Path not correct"
+msgstr ""
+
+#: core/inc/helpers.php:1474 vc_templates/uncode_consent_notice.php:48
+msgid ""
+"This content is blocked. Please review your [uncode_privacy_box]Privacy "
+"Settings[/uncode_privacy_box]."
 msgstr ""
 
 #: core/inc/admin.php:22 core/inc/admin-pages/welcome.php:95
@@ -594,12 +1667,6 @@ msgstr ""
 
 #: core/inc/admin.php:89
 msgid "All Media Categories"
-msgstr ""
-
-#: core/inc/admin.php:94 core/inc/main.php:1327
-#: woocommerce/single-product/add-to-cart/simple.php:70
-#: woocommerce/loop/add-to-cart.php:35
-msgid "Read more"
 msgstr ""
 
 #: core/inc/admin.php:100
@@ -1044,522 +2111,6 @@ msgstr ""
 
 #: core/inc/admin.php:2041 core/inc/admin.php:2049
 msgid "This theme requires the following plugin: <em>Uncode Core</em>."
-msgstr ""
-
-#: core/inc/widget-functions.php:58 core/inc/widget-functions.php:94
-#: core/inc/widget-functions.php:112
-msgid "Widget title"
-msgstr ""
-
-#: core/inc/main.php:78
-msgid "Primary Menu"
-msgstr ""
-
-#: core/inc/main.php:79
-msgid "Secondary Menu"
-msgstr ""
-
-#: core/inc/main.php:80
-msgid "Call To Action Menu"
-msgstr ""
-
-#: core/inc/main.php:151 core/inc/main.php:164
-msgid "Add widgets here to appear in your sidebar."
-msgstr ""
-
-#: core/inc/main.php:162
-msgid "Sidebar"
-msgstr ""
-
-#: core/inc/main.php:473 vc_templates/uncode_countdown.php:63
-msgid "days"
-msgstr ""
-
-#: core/inc/main.php:474 vc_templates/uncode_countdown.php:63
-msgid "hours"
-msgstr ""
-
-#: core/inc/main.php:475 vc_templates/uncode_countdown.php:63
-msgid "minutes"
-msgstr ""
-
-#: core/inc/main.php:476 vc_templates/uncode_countdown.php:63
-msgid "seconds"
-msgstr ""
-
-#: core/inc/main.php:480 vc_templates/uncode_index.php:3165
-#: vc_templates/vc_gallery.php:1744
-msgid "Loading…"
-msgstr ""
-
-#: core/inc/main.php:481
-msgid "slide"
-msgstr ""
-
-#: core/inc/main.php:482
-msgid "footer"
-msgstr ""
-
-#: core/inc/main.php:520 vc_templates/uncode_index.php:3285
-#: vc_templates/uncode_navigation.php:130
-#: vc_templates/uncode_carousel_nav.php:437
-#: woocommerce/myaccount/orders.php:116
-msgid "Previous"
-msgstr ""
-
-#: core/inc/main.php:521 core/inc/template-tags.php:91
-#: vc_templates/uncode_index.php:3295 vc_templates/uncode_navigation.php:131
-#: vc_templates/uncode_carousel_nav.php:505
-#: woocommerce/myaccount/orders.php:120
-msgid "Next"
-msgstr ""
-
-#: core/inc/main.php:522
-msgid "Slide"
-msgstr ""
-
-#: core/inc/main.php:523
-msgid "Share on %"
-msgstr ""
-
-#: core/inc/edit_custom_walker.php:85
-#, php-format
-msgid "%s (Invalid)"
-msgstr ""
-
-#: core/inc/edit_custom_walker.php:89
-#, php-format
-msgid "%s (Pending)"
-msgstr ""
-
-#: core/inc/edit_custom_walker.php:98
-msgid "MEGAMENU TITLE"
-msgstr ""
-
-#: core/inc/edit_custom_walker.php:100
-msgid "MEGAMENU"
-msgstr ""
-
-#: core/inc/edit_custom_walker.php:100
-msgid "sub item"
-msgstr ""
-
-#: core/inc/edit_custom_walker.php:127
-msgid "Move up"
-msgstr ""
-
-#: core/inc/edit_custom_walker.php:140
-msgid "Move down"
-msgstr ""
-
-#: core/inc/edit_custom_walker.php:142 core/inc/edit_custom_walker.php:144
-msgid "Edit Menu Item"
-msgstr ""
-
-#: core/inc/edit_custom_walker.php:153
-msgid "URL"
-msgstr ""
-
-#: core/inc/edit_custom_walker.php:160
-msgid "Navigation Label"
-msgstr ""
-
-#: core/inc/edit_custom_walker.php:166
-msgid "Title Attribute"
-msgstr ""
-
-#: core/inc/edit_custom_walker.php:173
-msgid "Open link in a new window/tab"
-msgstr ""
-
-#: core/inc/edit_custom_walker.php:178
-msgid "CSS Classes (optional)"
-msgstr ""
-
-#: core/inc/edit_custom_walker.php:184
-msgid "Link Relationship (XFN)"
-msgstr ""
-
-#: core/inc/edit_custom_walker.php:190 core/inc/media-enhanced.php:344
-#: woocommerce/single-product/tabs/description.php:22
-msgid "Description"
-msgstr ""
-
-#: core/inc/edit_custom_walker.php:192
-msgid ""
-"The description will be displayed in the menu if the current theme supports "
-"it."
-msgstr ""
-
-#: core/inc/edit_custom_walker.php:202
-msgid "Icon"
-msgstr ""
-
-#: core/inc/edit_custom_walker.php:211
-msgid "Megamenu"
-msgstr ""
-
-#: core/inc/edit_custom_walker.php:219
-msgid "Button style"
-msgstr ""
-
-#: core/inc/edit_custom_walker.php:225
-msgid "Badge"
-msgstr ""
-
-#: core/inc/edit_custom_walker.php:231
-msgid "Badge Color"
-msgstr ""
-
-#: core/inc/edit_custom_walker.php:242 woocommerce/wishlist-view.php:259
-msgid "Move"
-msgstr ""
-
-#: core/inc/edit_custom_walker.php:243
-msgid "Up one"
-msgstr ""
-
-#: core/inc/edit_custom_walker.php:244
-msgid "Down one"
-msgstr ""
-
-#: core/inc/edit_custom_walker.php:247
-msgid "To the top"
-msgstr ""
-
-#: core/inc/edit_custom_walker.php:254
-#, php-format
-msgid "Original: %s"
-msgstr ""
-
-#: core/inc/edit_custom_walker.php:267 woocommerce/wishlist-view.php:289
-#: woocommerce/cart/uncode-cart-table-compact.php:89
-msgid "Remove"
-msgstr ""
-
-#: core/inc/edit_custom_walker.php:268 woocommerce/wishlist-view-header.php:47
-msgid "Cancel"
-msgstr ""
-
-#: core/inc/media-enhanced.php:4 core/inc/media-enhanced.php:300
-msgid "Add Multimedia (oEmbed, SVG code, HTML)"
-msgstr ""
-
-#: core/inc/media-enhanced.php:4
-msgid "Add Multimedia"
-msgstr ""
-
-#: core/inc/media-enhanced.php:300
-msgid "Add New"
-msgstr ""
-
-#: core/inc/media-enhanced.php:304
-msgid "Item added to library."
-msgstr ""
-
-#: core/inc/media-enhanced.php:308
-msgid "Item updated."
-msgstr ""
-
-#: core/inc/media-enhanced.php:310
-msgid "Fill all the required fields."
-msgstr ""
-
-#: core/inc/media-enhanced.php:318
-msgid "Enter title here*"
-msgstr ""
-
-#: core/inc/media-enhanced.php:326
-msgid "Permalink:"
-msgstr ""
-
-#: core/inc/media-enhanced.php:328
-msgid "View Post"
-msgstr ""
-
-#: core/inc/media-enhanced.php:334
-msgid "Insert from URL*"
-msgstr ""
-
-#: core/inc/media-enhanced.php:340
-msgid "Caption"
-msgstr ""
-
-#: core/inc/media-enhanced.php:369 core/inc/media-enhanced.php:375
-msgid "Publish"
-msgstr ""
-
-#: core/inc/media-enhanced.php:378
-#: woocommerce/myaccount/form-reset-password.php:49
-#: woocommerce/wishlist-view-header.php:46
-msgid "Save"
-msgstr ""
-
-#: core/inc/media-enhanced.php:382
-#: core/plugins_activation/class-tgm-plugin-activation.php:2878
-msgid "Update"
-msgstr ""
-
-#: core/inc/api/api-functions.php:196
-#, php-format
-msgid ""
-"<span class=\"uncode-premium-plugin-activation-error\">You need to register "
-"Uncode before to install this plugin. <a href=\"%s\">Register Uncode</a></"
-"span>"
-msgstr ""
-
-#: core/inc/api/api-functions.php:207
-msgid ""
-"<span class=\"uncode-premium-plugin-activation-error\">There is an expected "
-"problem related to a possible website migration. Please remove the Purchase "
-"Code and register the product again from the System Status to validate the "
-"Purchase Code again. If the issue persists <a href=\"https://support.undsgn."
-"com/hc/en-us/articles/360000836318\" target=\"_blank\">contact the theme "
-"author.</a> (Error 23)</span>"
-msgstr ""
-
-#: core/inc/api/api-functions.php:210
-#, php-format
-msgid ""
-"<span class=\"uncode-premium-plugin-activation-error\">Purchase code "
-"verification failed. <a href=\"https://support.undsgn.com/hc/en-us/"
-"articles/360000836318\" target=\"_blank\">Please contact the theme author.</"
-"a> (Error %s)</span>"
-msgstr ""
-
-#: core/inc/api/class-theme-registration.php:67
-msgid "Purchase Code saved."
-msgstr ""
-
-#: core/inc/api/class-theme-registration.php:127
-msgid ""
-"Your Envato Purchase Code doesn't seem to be valid. Please double-check it, "
-"and try again."
-msgstr ""
-
-#: core/inc/api/class-theme-registration.php:131
-msgid ""
-"According to the Envato License Terms, you have exceeded the number of "
-"activations permitted for a single Purchase Code. Therefore, please purchase "
-"an additional license. If you think there is an error or you are migrating "
-"the website to a new domain, please follow the dedicated procedure. <a "
-"href=\"https://support.undsgn.com/hc/en-us/articles/360000849998\" "
-"target=\"_blank\">More info</a>"
-msgstr ""
-
-#: core/inc/api/class-theme-registration.php:135
-msgid ""
-"There was a problem contacting the Envato API server for Purchase Code "
-"verification. Please try again later, or contact the theme author."
-msgstr ""
-
-#: core/inc/api/class-theme-registration.php:139
-msgid ""
-"There is a problem contacting the Undsgn server for the Purchase Code "
-"verification. Please disable any firewall service, deactivate any possible "
-"server authentication, verify you have an updated cURL module, verify if "
-"your host is blocking connections to external domains and make sure to "
-"whitelist 'api.undsgn.com'. Please consult <a href=\"https://support.undsgn."
-"com/hc/en-us/articles/115004287985\" target=\"_blank\">this page</a> and if "
-"the problem persists, <a href=\"https://support.undsgn.com/hc/en-us/"
-"articles/360000836318\" target=\"_blank\"> contact the theme author.</a>"
-msgstr ""
-
-#: core/inc/api/class-theme-registration.php:156
-#, php-format
-msgid ""
-"There was an unexpected problem with your Purchase Code verification. <a "
-"href=\"https://support.undsgn.com/hc/en-us/articles/360000836318\" "
-"target=\"_blank\">Please contact the theme author.</a> (Error %s)"
-msgstr ""
-
-#: core/inc/api/class-theme-registration.php:160
-msgid ""
-"The Envato Purchase Code doesn't seem to be properly formatted. Please "
-"double check it and try again."
-msgstr ""
-
-#: core/inc/api/class-theme-registration.php:164
-msgid ""
-"The Envato Purchase Code doesn't seem to be associated with an Uncode Theme "
-"purchase. Please double check it and try again."
-msgstr ""
-
-#: core/inc/api/class-theme-registration.php:250
-msgid ""
-"It looks like your site is using an illegal copy of Uncode Theme or an "
-"invalid Purchase Code"
-msgstr ""
-
-#: core/inc/api/class-theme-registration.php:251
-#, php-format
-msgid ""
-"It looks like your site is using an illegal copy of Uncode Theme or an "
-"invalid Purchase Code that doesn't comply with the Envato License Terms. "
-"Therefore features such as Theme Options and Page Builder are disabled. <a "
-"href=\"%s\" target=\"_blank\">More Info</a>"
-msgstr ""
-
-#: core/inc/api/class-theme-registration.php:252
-msgid "Purchase an Uncode License"
-msgstr ""
-
-#: core/inc/uncode-comment-walker.php:69
-msgid "Edit this comment"
-msgstr ""
-
-#: core/inc/uncode-comment-walker.php:71
-msgid "Your comment is awaiting moderation"
-msgstr ""
-
-#: core/inc/uncode-comment-walker.php:74
-msgid "Reply"
-msgstr ""
-
-#: core/inc/export/uncode_export.php:6
-msgid ""
-"You do not have sufficient permissions to export the content of this site."
-msgstr ""
-
-#: core/inc/export/uncode_export.php:12
-msgid "Export"
-msgstr ""
-
-#: core/inc/export/uncode_export.php:40
-msgid "Overview"
-msgstr ""
-
-#: core/inc/export/uncode_export.php:41
-msgid ""
-"You can export a file of your site&#8217;s content in order to import it "
-"into another installation or platform. The export file will be an XML file "
-"format called WXR. Posts, pages, comments, custom fields, categories, and "
-"tags can be included. You can choose for the WXR file to include only "
-"certain posts or pages by setting the dropdown filters to limit the export "
-"by category, author, date range by month, or publishing status."
-msgstr ""
-
-#: core/inc/export/uncode_export.php:42
-msgid ""
-"Once generated, your WXR file can be imported by another WordPress site or "
-"by another blogging platform able to access this format."
-msgstr ""
-
-#: core/inc/export/uncode_export.php:46
-msgid "For more information:"
-msgstr ""
-
-#: core/inc/export/uncode_export.php:47
-msgid "Documentation on Export"
-msgstr ""
-
-#: core/inc/export/uncode_export.php:48
-msgid "Support Forums"
-msgstr ""
-
-#: core/inc/export/uncode_export.php:86
-msgid ""
-"When you click the button below WordPress will create an XML file for you to "
-"save to your computer."
-msgstr ""
-
-#: core/inc/export/uncode_export.php:87
-msgid ""
-"This format, which we call WordPress eXtended RSS or WXR, will contain your "
-"posts, pages, comments, custom fields, categories, and tags."
-msgstr ""
-
-#: core/inc/export/uncode_export.php:88
-msgid ""
-"Once you&#8217;ve saved the download file, you can use the Import function "
-"in another WordPress installation to import the content from this site."
-msgstr ""
-
-#: core/inc/export/uncode_export.php:90
-msgid "Choose what to export"
-msgstr ""
-
-#: core/inc/export/uncode_export.php:94
-msgid "All content"
-msgstr ""
-
-#: core/inc/export/uncode_export.php:95
-msgid ""
-"This will contain all of your posts, pages, comments, custom fields, terms, "
-"navigation menus and custom posts."
-msgstr ""
-
-#: core/inc/export/uncode_export.php:97
-#: core/inc/helpers/taxonomies/taxonomies-functions.php:40
-msgid "Posts"
-msgstr ""
-
-#: core/inc/export/uncode_export.php:100
-msgid "Categories:"
-msgstr ""
-
-#: core/inc/export/uncode_export.php:101 core/inc/export/uncode_export.php:107
-#: core/inc/export/uncode_export.php:124 core/inc/export/uncode_export.php:139
-#: core/inc/export/uncode_export.php:156
-msgid "All"
-msgstr ""
-
-#: core/inc/export/uncode_export.php:104 core/inc/export/uncode_export.php:136
-msgid "Authors:"
-msgstr ""
-
-#: core/inc/export/uncode_export.php:111 core/inc/export/uncode_export.php:143
-msgid "Date range:"
-msgstr ""
-
-#: core/inc/export/uncode_export.php:113 core/inc/export/uncode_export.php:145
-msgid "Start Date"
-msgstr ""
-
-#: core/inc/export/uncode_export.php:117 core/inc/export/uncode_export.php:149
-msgid "End Date"
-msgstr ""
-
-#: core/inc/export/uncode_export.php:122 core/inc/export/uncode_export.php:154
-msgid "Status:"
-msgstr ""
-
-#: core/inc/export/uncode_export.php:133 vc_templates/vc_wp_pages.php:109
-msgid "Pages"
-msgstr ""
-
-#: core/inc/export/uncode_export.php:177
-msgid "Download Export File"
-msgstr ""
-
-#: core/inc/helpers.php:168
-msgid "Minutes"
-msgstr ""
-
-#: core/inc/helpers.php:170
-msgid "Minute"
-msgstr ""
-
-#: core/inc/helpers.php:528
-msgid "Error when retrieving the image editor."
-msgstr ""
-
-#: core/inc/helpers.php:552
-msgid "Error when resizing the image"
-msgstr ""
-
-#: core/inc/helpers.php:611
-msgid "Error when saving the image"
-msgstr ""
-
-#: core/inc/helpers.php:653
-msgid "Path not correct"
-msgstr ""
-
-#: core/inc/helpers.php:1474 vc_templates/uncode_consent_notice.php:48
-msgid ""
-"This content is blocked. Please review your [uncode_privacy_box]Privacy "
-"Settings[/uncode_privacy_box]."
 msgstr ""
 
 #: core/inc/admin-pages/support.php:30
@@ -2068,45 +2619,13 @@ msgstr ""
 msgid "Invalid mobile breakpoint size."
 msgstr ""
 
+#: core/inc/helpers/grids/custom-grid-functions.php:14
+#: content-block-none.php:15
+msgid "Nothing found."
+msgstr ""
+
 #: core/inc/helpers/grids/custom-grid-functions.php:24
 msgid "Please add at least one 'Placeholder' to your design."
-msgstr ""
-
-#: core/inc/helpers/ajax-filters/ajax-filters-views.php:463
-#: partials/menus.php:844 searchform.php:10
-msgid "Search products…"
-msgstr ""
-
-#: core/inc/helpers/ajax-filters/ajax-filters-views.php:463
-#: partials/menus.php:844 searchform.php:10
-msgid "Search…"
-msgstr ""
-
-#: core/inc/helpers/ajax-filters/ajax-filters-views.php:495
-#: vc_templates/uncode_index.php:1792
-msgid "Clear all"
-msgstr ""
-
-#: core/inc/helpers/ajax-filters/ajax-filters-views.php:558
-msgid "Active filter 1"
-msgstr ""
-
-#: core/inc/helpers/ajax-filters/ajax-filters-views.php:559
-msgid "Active filter 2"
-msgstr ""
-
-#: core/inc/helpers/ajax-filters/ajax-filters-views.php:578
-#: core/inc/helpers/ajax-filters/ajax-filters.php:1204
-#, php-format
-msgctxt "ajax_price_filter"
-msgid "Over %s"
-msgstr ""
-
-#: core/inc/helpers/ajax-filters/ajax-filters-views.php:584
-#: core/inc/helpers/ajax-filters/ajax-filters.php:1194
-#, php-format
-msgctxt "ajax_price_filter"
-msgid "Under %s"
 msgstr ""
 
 #: core/inc/helpers/ajax-filters/ajax-filters.php:577
@@ -2129,6 +2648,20 @@ msgstr ""
 msgid "Custom field 5"
 msgstr ""
 
+#: core/inc/helpers/ajax-filters/ajax-filters.php:1194
+#: core/inc/helpers/ajax-filters/ajax-filters-views.php:588
+#, php-format
+msgctxt "ajax_price_filter"
+msgid "Under %s"
+msgstr ""
+
+#: core/inc/helpers/ajax-filters/ajax-filters.php:1204
+#: core/inc/helpers/ajax-filters/ajax-filters-views.php:582
+#, php-format
+msgctxt "ajax_price_filter"
+msgid "Over %s"
+msgstr ""
+
 #: core/inc/helpers/ajax-filters/ajax-filters.php:1571
 msgid "On sale"
 msgstr ""
@@ -2143,6 +2676,29 @@ msgid "%s star"
 msgid_plural "%s stars"
 msgstr[0] ""
 msgstr[1] ""
+
+#: core/inc/helpers/ajax-filters/ajax-filters-views.php:463
+#: partials/menus.php:844 searchform.php:10
+msgid "Search products…"
+msgstr ""
+
+#: core/inc/helpers/ajax-filters/ajax-filters-views.php:463
+#: partials/menus.php:844 searchform.php:10
+msgid "Search…"
+msgstr ""
+
+#: core/inc/helpers/ajax-filters/ajax-filters-views.php:499
+#: vc_templates/uncode_index.php:1792
+msgid "Clear all"
+msgstr ""
+
+#: core/inc/helpers/ajax-filters/ajax-filters-views.php:562
+msgid "Active filter 1"
+msgstr ""
+
+#: core/inc/helpers/ajax-filters/ajax-filters-views.php:563
+msgid "Active filter 2"
+msgstr ""
 
 #: core/inc/helpers/ajax-filters/ajax-filters-cache.php:273
 msgid ""
@@ -2224,17 +2780,6 @@ msgstr ""
 #: core/inc/helpers/taxonomies/taxonomies-functions.php:58
 #: vc_templates/uncode_woocommerce_widget_products.php:117
 msgid "Products"
-msgstr ""
-
-#: core/inc/helpers/taxonomies/taxonomies-functions.php:49
-#: core/inc/helpers/taxonomies/taxonomies-functions.php:58
-#: woocommerce/order/order-details.php:50 woocommerce/wishlist-view.php:170
-#: woocommerce/single-product-reviews.php:50
-#: woocommerce/checkout/uncode-form-pay-table.php:26
-#: woocommerce/cart/uncode-cart-table-compact.php:21
-#: woocommerce/cart/uncode-cart-table.php:22
-#: woocommerce/cart/uncode-cart-table.php:77
-msgid "Product"
 msgstr ""
 
 #: core/inc/helpers/taxonomies/taxonomies-functions.php:53
@@ -2551,24 +3096,6 @@ msgstr ""
 msgid "TGMPA v%s"
 msgstr ""
 
-#: core/plugins_activation/class-tgm-plugin-activation.php:2414
-#: woocommerce/myaccount/form-lost-password.php:32
-#: woocommerce/myaccount/form-login.php:43
-#: woocommerce/myaccount/form-login.php:47
-#: woocommerce/myaccount/form-login.php:83
-#: woocommerce/myaccount/form-login.php:90
-#: woocommerce/myaccount/form-login.php:97
-#: woocommerce/myaccount/uncode-my-account-form-login.php:35
-#: woocommerce/myaccount/uncode-my-account-form-login.php:39
-#: woocommerce/myaccount/form-reset-password.php:32
-#: woocommerce/myaccount/form-reset-password.php:36
-#: woocommerce/myaccount/uncode-my-account-form-register.php:36
-#: woocommerce/myaccount/uncode-my-account-form-register.php:43
-#: woocommerce/myaccount/uncode-my-account-form-register.php:50
-#: woocommerce/global/form-login.php:42 woocommerce/global/form-login.php:46
-msgid "Required"
-msgstr ""
-
 #: core/plugins_activation/class-tgm-plugin-activation.php:2417
 msgid "Recommended"
 msgstr ""
@@ -2801,15 +3328,75 @@ msgstr ""
 msgid "Installing Plugin %1$s (%2$d/%3$d)"
 msgstr ""
 
-#: footer.php:126 partials/menus.php:1547 vc_templates/uncode_copyright.php:48
-msgid "All rights reserved"
+#: content-none.php:15
+msgid "Nothing Found"
 msgstr ""
 
-#: footer.php:191 page.php:447 partials/headers.php:473
-#: single-portfolio.php:450 single-portfolio.php:761 single.php:544
-#: single.php:772 woocommerce/single-product.php:235
-#: woocommerce/single-product.php:335 woocommerce/content-single-product.php:80
-msgid "Edit Content Block"
+#: content-none.php:21
+#, php-format
+msgid ""
+"Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr ""
+
+#: content-none.php:25
+msgid ""
+"Sorry, but nothing matched your search terms. Please try again with some "
+"different keywords."
+msgstr ""
+
+#: content-none.php:30
+msgid ""
+"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
+"searching can help."
+msgstr ""
+
+#: comments.php:28
+#, php-format
+msgctxt "comments"
+msgid "%1$s Comment"
+msgid_plural "%1$s Comments"
+msgstr[0] ""
+msgstr[1] ""
+
+#: comments.php:35 comments.php:55
+msgid "Comment navigation"
+msgstr ""
+
+#: comments.php:37 comments.php:57
+msgid "Older Comments"
+msgstr ""
+
+#: comments.php:38 comments.php:58
+msgid "Newer Comments"
+msgstr ""
+
+#: comments.php:69
+msgid "Comments are closed."
+msgstr ""
+
+#: comments.php:75
+msgid "Log out"
+msgstr ""
+
+#: comments.php:77
+msgctxt "noun"
+msgid "Comment"
+msgstr ""
+
+#: comments.php:84
+msgid "Add comment"
+msgstr ""
+
+#: content.php:50
+msgid "Please activate Uncode Core plugin"
+msgstr ""
+
+#: header.php:133
+msgid "Skip to main content"
+msgstr ""
+
+#: footer.php:126 vc_templates/uncode_copyright.php:48 partials/menus.php:1547
+msgid "All rights reserved"
 msgstr ""
 
 #: footer.php:191
@@ -2820,132 +3407,8 @@ msgstr ""
 msgid "Scroll to top"
 msgstr ""
 
-#: functions.php:17
-msgid "PHP version obsolete"
-msgstr ""
-
-#: functions.php:18
-msgid "Ooops, obsolete PHP version"
-msgstr ""
-
-#: header.php:133
-msgid "Skip to main content"
-msgstr ""
-
-#: page.php:414 partials/elements.php:1549 single.php:406
+#: single.php:406 page.php:414 partials/elements.php:1549
 msgid "Pages:"
-msgstr ""
-
-#: page.php:447 single-portfolio.php:450 single.php:544
-#: woocommerce/single-product.php:235
-msgid "Post After Content Block"
-msgstr ""
-
-#: partials/headers.php:272
-msgid "Edit Page Options"
-msgstr ""
-
-#: partials/headers.php:275
-msgid "Edit Theme Options"
-msgstr ""
-
-#: partials/headers.php:473
-msgid "Header Content Block"
-msgstr ""
-
-#: partials/headers.php:501 partials/headers.php:523
-msgid "Edit Slider"
-msgstr ""
-
-#: partials/headers.php:501 partials/headers.php:523
-msgid "Header Slider"
-msgstr ""
-
-#: partials/menus.php:99 partials/menus.php:202
-msgid "logo"
-msgstr ""
-
-#: partials/menus.php:603
-msgid "Shopping cart"
-msgstr ""
-
-#: partials/menus.php:646 woocommerce/myaccount/form-login.php:36
-#: woocommerce/myaccount/uncode-my-account-form-login.php:28
-#: woocommerce/global/form-login.php:59
-msgid "Login"
-msgstr ""
-
-#: partials/menus.php:739 partials/menus.php:831 partials/menus.php:836
-#: searchform.php:14 vc_templates/vc_wp_search.php:111
-msgid "Search"
-msgstr ""
-
-#: partials/menus.php:1082 partials/menus.php:1156 partials/menus.php:1226
-#: partials/menus.php:1239 partials/menus.php:1490 partials/menus.php:1568
-msgid "Toggle menu"
-msgstr ""
-
-#: partials/menus.php:1355
-msgid "Open menu"
-msgstr ""
-
-#: partials/menus.php:1560
-msgid "Close menu"
-msgstr ""
-
-#: partials/elements.php:1202
-msgid "Sticky"
-msgstr ""
-
-#: partials/elements.php:1671
-msgid "Read More"
-msgstr ""
-
-#: partials/elements.php:1820
-msgid "by"
-msgstr ""
-
-#: partials/elements.php:1867 partials/elements.php:4158
-msgctxt "comments"
-msgid "Comment"
-msgid_plural "Comments"
-msgstr[0] ""
-msgstr[1] ""
-
-#: partials/elements.php:3441
-#: vc_templates/uncode_single_product_gallery.php:243
-msgid "Sale!"
-msgstr ""
-
-#: partials/elements.php:3445 woocommerce/wishlist-view.php:226
-msgid "Out of stock"
-msgstr ""
-
-#: partials/elements.php:4089 partials/elements.php:4113
-#: partials/elements.php:4189
-#, php-format
-msgid "View all posts in %s"
-msgstr ""
-
-#: partials/elements.php:4091 partials/elements.php:4115
-#: partials/elements.php:4195
-msgid "In"
-msgstr ""
-
-#: partials/elements.php:4094 partials/elements.php:4142
-msgid "By"
-msgstr ""
-
-#: search.php:93 woocommerce/archive-product.php:151
-msgid "Results for:"
-msgstr ""
-
-#: single-portfolio.php:522 woocommerce/single-product/share.php:35
-msgid "Share"
-msgstr ""
-
-#: single-portfolio.php:761 single.php:772 woocommerce/single-product.php:335
-msgid "Navigation Content Block"
 msgstr ""
 
 #: vc_templates/vc_column.php:91 vc_templates/vc_column_inner.php:90
@@ -2966,11 +3429,6 @@ msgstr ""
 
 #: vc_templates/uncode_index.php:54
 msgid "Filters"
-msgstr ""
-
-#: vc_templates/uncode_index.php:56 vc_templates/vc_gallery.php:42
-#: vc_templates/vc_wp_categories.php:112 woocommerce/single-product/meta.php:44
-msgid "Categories"
 msgstr ""
 
 #: vc_templates/uncode_index.php:1556 vc_templates/vc_gallery.php:991
@@ -3000,6 +3458,11 @@ msgstr ""
 
 #: vc_templates/uncode_index.php:3165 vc_templates/vc_gallery.php:1744
 msgid "Load more"
+msgstr ""
+
+#: vc_templates/vc_wp_search.php:111 partials/menus.php:739
+#: partials/menus.php:831 partials/menus.php:836 searchform.php:15
+msgid "Search"
 msgstr ""
 
 #: vc_templates/uncode_woocommerce_widget_price_filter.php:107
@@ -3058,14 +3521,6 @@ msgid ""
 "Are you sure you want to log out? <a href=\"%s\">Confirm and log out</a>"
 msgstr ""
 
-#: vc_templates/vc_accordion_tab.php:7
-msgid "Section"
-msgstr ""
-
-#: vc_templates/vc_accordion_tab.php:140
-msgid "Empty section. Edit page to add content here."
-msgstr ""
-
 #: vc_templates/uncode_author_profile.php:41
 msgid "All author posts"
 msgstr ""
@@ -3073,6 +3528,25 @@ msgstr ""
 #: vc_templates/uncode_author_profile.php:147
 #, php-format
 msgid "%1$s post page"
+msgstr ""
+
+#: vc_templates/uncode_woocommerce_widget_top_rated_products.php:114
+msgid "Top rated products"
+msgstr ""
+
+#: vc_templates/uncode_woocommerce_widget_top_rated_products.php:124
+#: vc_templates/uncode_woocommerce_widget_recent_reviews.php:124
+#: vc_templates/uncode_woocommerce_widget_top_rating_filter.php:113
+msgid "You need to enable product reviews to use this module."
+msgstr ""
+
+#: vc_templates/uncode_single_product_gallery.php:243
+#: partials/elements.php:3441
+msgid "Sale!"
+msgstr ""
+
+#: vc_templates/uncode_woocommerce_widget_recent_reviews.php:114
+msgid "Recent reviews"
 msgstr ""
 
 #: vc_templates/uncode_custom_fields.php:177
@@ -3088,24 +3562,6 @@ msgstr ""
 
 #: vc_templates/uncode_custom_fields.php:222
 msgid "Field Value Example"
-msgstr ""
-
-#: vc_templates/uncode_woocommerce_widget_top_rated_products.php:114
-msgid "Top rated products"
-msgstr ""
-
-#: vc_templates/uncode_woocommerce_widget_top_rated_products.php:124
-#: vc_templates/uncode_woocommerce_widget_recent_reviews.php:124
-#: vc_templates/uncode_woocommerce_widget_top_rating_filter.php:113
-msgid "You need to enable product reviews to use this module."
-msgstr ""
-
-#: vc_templates/vc_wp_tagcloud.php:108 woocommerce/single-product/meta.php:49
-msgid "Tags"
-msgstr ""
-
-#: vc_templates/uncode_woocommerce_widget_recent_reviews.php:114
-msgid "Recent reviews"
 msgstr ""
 
 #: vc_templates/uncode_woocommerce_widget_layered_nav.php:99
@@ -3159,6 +3615,14 @@ msgstr ""
 msgid "Average rating"
 msgstr ""
 
+#: vc_templates/vc_accordion_tab.php:7
+msgid "Section"
+msgstr ""
+
+#: vc_templates/vc_accordion_tab.php:140
+msgid "Empty section. Edit page to add content here."
+msgstr ""
+
 #: vc_templates/uncode_do_action.php:120
 #, php-format
 msgid "<?php do_action(\"%s\"); ?>"
@@ -3196,546 +3660,81 @@ msgstr ""
 msgid "Recent Posts"
 msgstr ""
 
-#: woocommerce/order/uncode-form-tracking.php:25
-msgid "Order Tracking"
+#: content-block-none.php:13
+msgid "Nothing came up. Try adjusting your filters."
 msgstr ""
 
-#: woocommerce/order/uncode-form-tracking.php:38
-msgid ""
-"To track your order please enter your Order ID in the box below and press "
-"the \"Track\" button. This was given to you on your receipt and in the "
-"confirmation email you should have received."
+#: partials/headers.php:272
+msgid "Edit Page Options"
 msgstr ""
 
-#: woocommerce/order/uncode-form-tracking.php:40
-msgid "Order ID"
+#: partials/headers.php:275
+msgid "Edit Theme Options"
 msgstr ""
 
-#: woocommerce/order/uncode-form-tracking.php:40
-msgid "Found in your order confirmation email."
+#: partials/headers.php:473
+msgid "Header Content Block"
 msgstr ""
 
-#: woocommerce/order/uncode-form-tracking.php:41
-msgid "Billing email"
+#: partials/headers.php:501 partials/headers.php:523
+msgid "Edit Slider"
 msgstr ""
 
-#: woocommerce/order/uncode-form-tracking.php:41
-msgid "Email you used during checkout."
+#: partials/headers.php:501 partials/headers.php:523
+msgid "Header Slider"
 msgstr ""
 
-#: woocommerce/order/uncode-form-tracking.php:53
-msgid "Track"
+#: partials/menus.php:99 partials/menus.php:202
+msgid "logo"
 msgstr ""
 
-#: woocommerce/order/order-details.php:46
-msgid "Order details"
+#: partials/menus.php:603
+msgid "Shopping cart"
 msgstr ""
 
-#: woocommerce/order/order-details.php:51
-msgid "Total"
+#: partials/menus.php:1082 partials/menus.php:1156 partials/menus.php:1226
+#: partials/menus.php:1239 partials/menus.php:1490 partials/menus.php:1568
+msgid "Toggle menu"
 msgstr ""
 
-#: woocommerce/order/order-details.php:84 woocommerce/myaccount/orders.php:88
-#, php-format
-msgid "%1$s order number %2$s"
+#: partials/menus.php:1355
+msgid "Open menu"
 msgstr ""
 
-#: woocommerce/order/order-details.php:109
-msgid "Note:"
+#: partials/menus.php:1560
+msgid "Close menu"
 msgstr ""
 
-#: woocommerce/order/order-details-customer.php:33
-msgid "Billing address"
+#: partials/elements.php:1202
+msgid "Sticky"
 msgstr ""
 
-#: woocommerce/order/order-details-customer.php:36
-#: woocommerce/order/order-details-customer.php:64
-#: woocommerce/single-product/meta.php:39
-msgid "N/A"
+#: partials/elements.php:1671
+msgid "Read More"
 msgstr ""
 
-#: woocommerce/order/order-details-customer.php:61
-msgid "Shipping address"
+#: partials/elements.php:1820
+msgid "by"
 msgstr ""
 
-#: woocommerce/myaccount/form-edit-account.php:48
-msgid ""
-"This will be how your name will be displayed in the account section and in "
-"reviews"
-msgstr ""
-
-#: woocommerce/myaccount/form-edit-account.php:67
-msgid "Password change"
-msgstr ""
-
-#: woocommerce/myaccount/form-edit-account.php:95
-msgid "Save changes"
-msgstr ""
-
-#: woocommerce/myaccount/form-lost-password.php:29
-msgid ""
-"Lost your password? Please enter your username or email address. You will "
-"receive a link to create a new password via email."
-msgstr ""
-
-#: woocommerce/myaccount/form-lost-password.php:42
-msgid "Reset password"
-msgstr ""
-
-#: woocommerce/myaccount/form-login.php:43
-#: woocommerce/myaccount/uncode-my-account-form-login.php:35
-msgid "Username or email address"
-msgstr ""
-
-#: woocommerce/myaccount/form-login.php:55
-#: woocommerce/myaccount/uncode-my-account-form-login.php:47
-#: woocommerce/global/form-login.php:55
-msgid "Remember me"
-msgstr ""
-
-#: woocommerce/myaccount/form-login.php:58
-#: woocommerce/myaccount/uncode-my-account-form-login.php:50
-msgid "Log in"
-msgstr ""
-
-#: woocommerce/myaccount/form-login.php:61
-#: woocommerce/myaccount/uncode-my-account-form-login.php:53
-#: woocommerce/global/form-login.php:62
-msgid "Lost your password?"
-msgstr ""
-
-#: woocommerce/myaccount/form-login.php:74
-#: woocommerce/myaccount/form-login.php:111
-#: woocommerce/myaccount/uncode-my-account-form-register.php:27
-#: woocommerce/myaccount/uncode-my-account-form-register.php:64
-msgid "Register"
-msgstr ""
-
-#: woocommerce/myaccount/form-login.php:103
-#: woocommerce/myaccount/uncode-my-account-form-register.php:56
-msgid "A link to set a new password will be sent to your email address."
-msgstr ""
-
-#: woocommerce/myaccount/form-reset-password.php:29
-msgid "Enter a new password below."
-msgstr ""
-
-#: woocommerce/myaccount/orders.php:63
-#, php-format
-msgid "View order number %s"
-msgstr ""
-
-#: woocommerce/myaccount/orders.php:64
-msgctxt "hash before order number"
-msgid "#"
-msgstr ""
-
-#: woocommerce/myaccount/orders.php:76
-#, php-format
-msgid "%1$s for %2$s item"
-msgid_plural "%1$s for %2$s items"
+#: partials/elements.php:1867 partials/elements.php:4158
+msgctxt "comments"
+msgid "Comment"
+msgid_plural "Comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: woocommerce/myaccount/orders.php:127
-msgid "No order has been made yet."
-msgstr ""
-
-#: woocommerce/myaccount/orders.php:127
-msgid "Browse products"
-msgstr ""
-
-#: woocommerce/wishlist-view.php:78
-msgid "Product name"
-msgstr ""
-
-#: woocommerce/wishlist-view.php:86
-msgid "Unit price"
-msgstr ""
-
-#: woocommerce/wishlist-view.php:95 woocommerce/wishlist-view.php:207
-#: woocommerce/cart/uncode-cart-table-compact.php:22
-#: woocommerce/cart/uncode-cart-table-compact.php:97
-#: woocommerce/cart/uncode-cart-table.php:24
-#: woocommerce/cart/uncode-cart-table.php:109
-#: woocommerce/global/quantity-input.php:21
-msgid "Quantity"
-msgstr ""
-
-#: woocommerce/wishlist-view.php:104 woocommerce/wishlist-view.php:223
-msgid "Stock status"
-msgstr ""
-
-#: woocommerce/wishlist-view.php:122
-msgid "Arrange"
-msgstr ""
-
-#: woocommerce/wishlist-view.php:155 woocommerce/wishlist-view.php:289
-msgid "Remove this product"
-msgstr ""
-
-#: woocommerce/wishlist-view.php:189 woocommerce/cart/uncode-cart-table.php:23
-#: woocommerce/cart/uncode-cart-table.php:103
-msgid "Price"
-msgstr ""
-
-#: woocommerce/wishlist-view.php:226
-msgid "In Stock"
-msgstr ""
-
-#: woocommerce/wishlist-view.php:240
+#: partials/elements.php:4089 partials/elements.php:4113
+#: partials/elements.php:4189
 #, php-format
-msgid "Added on: %s"
+msgid "View all posts in %s"
 msgstr ""
 
-#: woocommerce/wishlist-view.php:279
-msgid "Move to another list &rsaquo;"
+#: partials/elements.php:4091 partials/elements.php:4115
+#: partials/elements.php:4195
+msgid "In"
 msgstr ""
 
-#: woocommerce/wishlist-view.php:309
-msgid "No products added to the wishlist"
-msgstr ""
-
-#: woocommerce/single-product-reviews.php:50
-#, php-format
-msgid "%s review"
-msgid_plural "%s reviews"
-msgstr[0] ""
-msgstr[1] ""
-
-#: woocommerce/single-product-reviews.php:97
-msgid "There are no reviews yet."
-msgstr ""
-
-#: woocommerce/single-product-reviews.php:109
-msgid "Add a review"
-msgstr ""
-
-#: woocommerce/single-product-reviews.php:109
-#, php-format
-msgid "Be the first to review &ldquo;%s&rdquo;"
-msgstr ""
-
-#: woocommerce/single-product-reviews.php:110
-#, php-format
-msgid "Leave a Reply to %s"
-msgstr ""
-
-#: woocommerce/single-product-reviews.php:116
-msgid "Name"
-msgstr ""
-
-#: woocommerce/single-product-reviews.php:118
-msgid "Email"
-msgstr ""
-
-#: woocommerce/single-product-reviews.php:121
-msgid "Submit"
-msgstr ""
-
-#: woocommerce/single-product-reviews.php:127
-#, php-format
-msgid "You must be %1$slogged in%2$s to post a review."
-msgstr ""
-
-#: woocommerce/single-product-reviews.php:131
-msgid "Your rating"
-msgstr ""
-
-#: woocommerce/single-product-reviews.php:132
-msgid "Rate&hellip;"
-msgstr ""
-
-#: woocommerce/single-product-reviews.php:133
-msgid "Perfect"
-msgstr ""
-
-#: woocommerce/single-product-reviews.php:134
-msgid "Good"
-msgstr ""
-
-#: woocommerce/single-product-reviews.php:135
-msgid "Average"
-msgstr ""
-
-#: woocommerce/single-product-reviews.php:136
-msgid "Not that bad"
-msgstr ""
-
-#: woocommerce/single-product-reviews.php:137
-msgid "Very Poor"
-msgstr ""
-
-#: woocommerce/single-product-reviews.php:141
-msgid "Your review"
-msgstr ""
-
-#: woocommerce/single-product-reviews.php:150
-msgid ""
-"Only logged in customers who have purchased this product may leave a review."
-msgstr ""
-
-#: woocommerce/wishlist-create.php:18
-msgid "Name your list"
-msgstr ""
-
-#: woocommerce/wishlist-create.php:35
-msgid "Create wishlist"
-msgstr ""
-
-#: woocommerce/checkout/uncode-checkout-order-payment.php:14
-msgid "Your order"
-msgstr ""
-
-#: woocommerce/checkout/uncode-form-pay.php:42
-msgid ""
-"Sorry, it seems that there are no available payment methods for your "
-"location. Please contact us if you require assistance or wish to make "
-"alternate arrangements."
-msgstr ""
-
-#: woocommerce/checkout/order-received.php:35
-msgid "Thank you. Your order has been received."
-msgstr ""
-
-#: woocommerce/checkout/uncode-form-pay-table.php:27
-msgid "Qty"
-msgstr ""
-
-#: woocommerce/checkout/uncode-form-pay-table.php:28
-msgid "Totals"
-msgstr ""
-
-#: woocommerce/checkout/thankyou.php:38
-msgid ""
-"Unfortunately your order cannot be processed as the originating bank/"
-"merchant has declined your transaction. Please attempt your purchase again."
-msgstr ""
-
-#: woocommerce/checkout/thankyou.php:41
-msgid "Pay"
-msgstr ""
-
-#: woocommerce/checkout/thankyou.php:43
-msgid "My account"
-msgstr ""
-
-#: woocommerce/checkout/thankyou.php:54
-msgid "Order number:"
-msgstr ""
-
-#: woocommerce/checkout/thankyou.php:59
-msgid "Date:"
-msgstr ""
-
-#: woocommerce/checkout/thankyou.php:65
-msgid "Email:"
-msgstr ""
-
-#: woocommerce/checkout/thankyou.php:71
-msgid "Total:"
-msgstr ""
-
-#: woocommerce/checkout/thankyou.php:77
-msgid "Payment method:"
-msgstr ""
-
-#: woocommerce/wishlist-manage.php:36
-msgid "Wishlists"
-msgstr ""
-
-#: woocommerce/wishlist-manage.php:42
-msgid "Privacy"
-msgstr ""
-
-#: woocommerce/wishlist-manage.php:52
-msgid "Count of items"
-msgstr ""
-
-#: woocommerce/wishlist-manage.php:63
-msgid "Created on"
-msgstr ""
-
-#: woocommerce/wishlist-manage.php:74
-msgid "Download"
-msgstr ""
-
-#: woocommerce/wishlist-manage.php:85 woocommerce/wishlist-manage.php:154
-msgid "Delete"
-msgstr ""
-
-#: woocommerce/wishlist-manage.php:134
-#, php-format
-msgid "%d items"
-msgstr ""
-
-#: woocommerce/wishlist-manage.php:154
-msgid "Are you sure you want to delete this wishlist?"
-msgstr ""
-
-#: woocommerce/cart/uncode-cart-table-compact.php:23
-#: woocommerce/cart/uncode-cart-table-compact.php:123
-#: woocommerce/cart/uncode-cart-table.php:25
-#: woocommerce/cart/uncode-cart-table.php:135
-msgid "Subtotal"
-msgstr ""
-
-#: woocommerce/cart/uncode-cart-table-compact.php:70
-#: woocommerce/cart/uncode-cart-table.php:98
-msgid "Available on backorder"
-msgstr ""
-
-#: woocommerce/cart/uncode-cart-table-compact.php:141
-#: woocommerce/cart/uncode-cart-table.php:153
-msgid "Coupon:"
-msgstr ""
-
-#: woocommerce/cart/uncode-cart-table-compact.php:141
-#: woocommerce/cart/uncode-cart-table.php:153
-msgid "Coupon code"
-msgstr ""
-
-#: woocommerce/cart/uncode-cart-table-compact.php:141
-#: woocommerce/cart/uncode-cart-table.php:153
-msgid "Apply coupon"
-msgstr ""
-
-#: woocommerce/cart/uncode-cart-table-compact.php:146
-#: woocommerce/cart/uncode-cart-table.php:158
-msgid "Update cart"
-msgstr ""
-
-#: woocommerce/cart/uncode-cart-table.php:20
-msgid "Remove item"
-msgstr ""
-
-#: woocommerce/cart/uncode-cart-table.php:21
-msgid "Thumbnail image"
-msgstr ""
-
-#: woocommerce/cart/mini-cart.php:27
-msgid ""
-"<span class=\"cart-close-icon\">&times;</span><span class=\"cart-close-"
-"label\">Close</span>"
-msgstr ""
-
-#: woocommerce/cart/mini-cart.php:66
-#, php-format
-msgid "&ldquo;%s&rdquo; has been removed from your cart"
-msgstr ""
-
-#: woocommerce/cart/mini-cart.php:89
-msgid "No products in the cart."
-msgstr ""
-
-#: woocommerce/single-product/tabs/additional-information.php:24
-msgid "Additional information"
-msgstr ""
-
-#: woocommerce/single-product/review.php:59
-msgid "Your comment is awaiting approval"
-msgstr ""
-
-#: woocommerce/single-product/review.php:70
-msgid "verified owner"
-msgstr ""
-
-#: woocommerce/single-product/meta.php:39
-msgid "SKU"
-msgstr ""
-
-#: woocommerce/single-product/meta.php:44
-msgid "Category"
-msgstr ""
-
-#: woocommerce/single-product/meta.php:44
-#: woocommerce/single-product/meta.php:49
-#: woocommerce/single-product/meta.php:57
-msgid "<span class=\"detail-label\">"
-msgid_plural "<span class=\"detail-label\">"
-msgstr[0] ""
-msgstr[1] ""
-
-#: woocommerce/single-product/meta.php:49
-msgid "Tag"
-msgstr ""
-
-#: woocommerce/single-product/meta.php:57
-msgid "Brand"
-msgstr ""
-
-#: woocommerce/single-product/meta.php:57
-msgid "Brands"
-msgstr ""
-
-#: woocommerce/single-product/product-image.php:208
-#: woocommerce/single-product/product-image.php:367
-msgid "Awaiting product image"
-msgstr ""
-
-#: woocommerce/single-product/up-sells.php:28
-msgid "You may also like&hellip;"
-msgstr ""
-
-#: woocommerce/single-product/add-to-cart/variable.php:37
-msgid "This product is currently out of stock and unavailable."
-msgstr ""
-
-#: woocommerce/single-product/add-to-cart/variable.php:63
-msgid "Clear"
-msgstr ""
-
-#: woocommerce/single-product/add-to-cart/grouped.php:76
-#, php-format
-msgid "Buy one of %1$s on sale for %2$s, original price was %3$s"
-msgstr ""
-
-#: woocommerce/single-product/add-to-cart/grouped.php:84
-#, php-format
-msgid "Buy one of %1$s for %2$s"
-msgstr ""
-
-#: woocommerce/single-product/related.php:19
-msgid "Related products"
-msgstr ""
-
-#: woocommerce/single-product/rating.php:60
-#, php-format
-msgid "%s customer review"
-msgid_plural "%s customer reviews"
-msgstr[0] ""
-msgstr[1] ""
-
-#: woocommerce/content-single-product.php:80
-msgid "Product Content Block"
-msgstr ""
-
-#: woocommerce/product-searchform.php:28
-msgid "Search for:"
-msgstr ""
-
-#: woocommerce/product-searchform.php:29
-msgid "Search products&hellip;"
-msgstr ""
-
-#: woocommerce/product-searchform.php:29
-msgctxt "submit button"
-msgid "Search"
-msgstr ""
-
-#: woocommerce/global/quantity-input.php:21
-#, php-format
-msgid "%s quantity"
-msgstr ""
-
-#: woocommerce/global/quantity-input.php:42
-msgid "Decrease product quantity"
-msgstr ""
-
-#: woocommerce/global/quantity-input.php:51
-msgid "Product quantity"
-msgstr ""
-
-#: woocommerce/global/quantity-input.php:63
-msgid "Increase product quantity"
+#: partials/elements.php:4094 partials/elements.php:4142
+msgid "By"
 msgstr ""

@@ -116,6 +116,8 @@ function uncode_register_required_plugins() {
 		'message'      => '',                      // Message to output right before the plugins table.
 	);
 
+	$plugins = apply_filters( 'uncode_required_plugins_conf', $plugins );
+
 	tgmpa( $plugins, $config );
 }
 

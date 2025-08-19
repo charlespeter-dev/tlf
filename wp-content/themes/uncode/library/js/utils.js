@@ -97,11 +97,13 @@ if ( SiteParameters.smoothScroll === 'on' && ! SiteParameters.is_frontend_editor
 }
 
 var checkScrollTriggerRefresh;
+
 $(function(){
 	$(document).on('uncode-scrolltrigger-refresh', function(){
 		clearRequestTimeout(checkScrollTriggerRefresh);
 		checkScrollTriggerRefresh = requestTimeout(function(){
 			ScrollTrigger.refresh();
+			$('.scroll-refresh-hidden').removeClass('opacity_0');
 		}, 500);
 	});
 });

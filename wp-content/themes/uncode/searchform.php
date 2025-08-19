@@ -8,6 +8,7 @@
 	}
 
 	$search_placeholder = apply_filters( 'uncode_product_search_type', false ) ? esc_html__('Search products…','uncode') : esc_html__('Search…','uncode');
+	$search_placeholder = apply_filters( 'uncode_search_placeholder_text', $search_placeholder );
 ?>
 <form action="<?php echo esc_url(home_url( '/' )); ?>" method="get">
 	<div class="search-container-inner">

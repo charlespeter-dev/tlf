@@ -86,6 +86,8 @@ function uncode_has_filters_with_button() {
  * so that the query is populated before calling Ajax Filter modules
  */
 function uncode_check_for_row_with_custom_ajax_filters( $content, $check_target = false ) {
+	$has_ajax = false;
+
 	if ( strpos( $content, '[uncode_index' ) !== false ) {
 		$regex = '/\[uncode_index(.*?)\](.*?)/';
 		$regex_attr = '/(.*?)=\"(.*?)\"/';
@@ -97,10 +99,8 @@ function uncode_check_for_row_with_custom_ajax_filters( $content, $check_target 
 				$post_module_shortcode = $first_match[0];
 
 				if ( $post_module_shortcode ) {
-					global $has_ajax_filters;
-
 					if ( ! $check_target ) {
-						$has_ajax_filters = true;
+						$has_ajax = true;
 					}
 
 					preg_match_all( $regex_attr, trim( $post_module_shortcode ), $matches_attr, PREG_SET_ORDER );
@@ -111,7 +111,7 @@ function uncode_check_for_row_with_custom_ajax_filters( $content, $check_target 
 								$filtering_value = trim( $value_attr[2] );
 
 								if ( $filtering_value === 'target' ) {
-									$has_ajax_filters = true;
+									$has_ajax = true;
 								}
 							}
 						}
@@ -129,7 +129,7 @@ function uncode_check_for_row_with_custom_ajax_filters( $content, $check_target 
 						}
 					}
 
-					if ( $check_target && $has_ajax_filters ) {
+					if ( $check_target && $has_ajax ) {
 						ob_start();
 						do_shortcode( $post_module_shortcode );
 						ob_end_clean();

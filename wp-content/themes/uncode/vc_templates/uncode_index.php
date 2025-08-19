@@ -718,7 +718,7 @@ if ( $pagination !== 'yes' && $infinite !== 'yes' ) {
 
 global $has_ajax_filters;
 
-if ( ( isset( $has_ajax_filters ) && $has_ajax_filters ) || ( $filtering === 'ajax' && $ajax_filters_content_block_id > 0 ) ) {
+if ( ( isset( $has_ajax_filters ) && $has_ajax_filters ) || ( $filtering === 'ajax' && $ajax_filters_content_block_id > 0 ) || ( $filtering === 'target' ) ) {
 	global $uncode_ajax_filter_query, $uncode_ajax_filter_query_post_type, $uncode_ajax_filter_query_unfiltered;
 
 	$uncode_query_options['has_filters'] = true;

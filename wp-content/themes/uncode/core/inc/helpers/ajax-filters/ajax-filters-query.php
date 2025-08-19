@@ -164,11 +164,14 @@ function uncode_get_custom_fields_from_slugs( $meta_key, $slugs ) {
 
 	foreach ( $slugs as $slug ) {
 		foreach ( $single_values as $value ) {
-			if ( sanitize_title( $value ) === $slug ) {
+			$term_name = $value;
+			$value     = apply_filters( 'uncode_filters_sanitize_value', true ) ? sanitize_title( $value ) : $value;
+
+			if ( $value === $slug ) {
 				$term              = new stdClass();
 				$term->term_id     = $slug;
 				$term->slug        = $slug;
-				$term->name        = $value;
+				$term->name        = $term_name;
 				$term->description = '';
 
 				$terms[$slug] = $term;

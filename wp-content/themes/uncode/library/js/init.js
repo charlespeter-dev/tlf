@@ -1948,6 +1948,9 @@
 				  minHeight = el.getAttribute("data-minheight");
 				  // child = (el.firstElementChild || el.firstChild);
 				  child = (el.lastElementChild || el.lastChild);
+				  if ( typeof child.style !== 'object' ) {
+					continue;
+				  }
 				  child.style.height = false;
 				  var childHeight = outerHeight(child);
 				  /** window height without header **/

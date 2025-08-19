@@ -40,6 +40,9 @@
 .index-scroll {
   display: flex;
 }
+.index-scroll .tmb {
+  visibility: hidden;
+}
 @media (max-width: 959px) and (min-width: 570px) {
   .row-scroll-no-md.index-scroll .index-wrapper,
   .row-scroll-no-md.index-scroll .index-row {
@@ -111,7 +114,7 @@ body[data-border="36"] .pin-trigger {
   }
 }
 @media (max-width: 959px) {
-  .unscroll-horizontal .row .uncoltable {
+  .unscroll-horizontal .row .uncoltable:not(.row-internal *) {
     min-height: 100vh;
   }
 }

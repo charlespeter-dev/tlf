@@ -218,6 +218,7 @@ class Uncode_Walker_Filters extends Walker_Category {
 			$output     .= "\t<li";
 			$css_classes = array(
 				'term-filter',
+				'term-' . $category->term_id
 			);
 
 			/**

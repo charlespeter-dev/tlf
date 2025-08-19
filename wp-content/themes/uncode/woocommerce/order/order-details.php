@@ -13,7 +13,7 @@
  * @see 	https://docs.woothemes.com/document/template-structure/
  * @author  WooThemes
  * @package WooCommerce/Templates
- * @version 9.8.0
+ * @version 10.1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -107,7 +107,12 @@ if ( $show_downloads ) { // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Pr
 			<?php if ( $order->get_customer_note() ) : ?>
 				<tr>
 					<th><?php _e( 'Note:', 'woocommerce' ); ?></th>
-					<td><?php echo wp_kses( nl2br( wptexturize( $order->get_customer_note() ) ), array( 'br' => array() ) ); ?></td>
+					<td>
+					<?php
+					$customer_note = wc_wptexturize_order_note( $order->get_customer_note() );
+					echo wp_kses( nl2br( $customer_note ), array( 'br' => array() ) );
+					?>
+					</td>
 				</tr>
 			<?php endif; ?>
 		</tfoot>
