@@ -8,7 +8,7 @@
 if (is_admin())
     return;
 
-global $post;
+global $post, $wpdb;
 
 $options = get_fields('options');
 
@@ -36,6 +36,16 @@ $args = [
     'post_status' => 'publish',
     'fields' => 'ids',
     'posts_per_page' => -1,
+    'tax_query' => [
+        'relation' => 'AND',
+        [
+            'taxonomy' => 'language',
+            'field' => 'slug',
+            'terms' => ['en', 'es', 'fr'],
+            'operator' => 'IN',
+            'include_children' => true
+        ]
+    ]
 ];
 
 $_sf_s = '';
@@ -109,9 +119,9 @@ if (isset($_GET['_sf_s']) && $_GET['_sf_s']) {
 
 $resources_query = new WP_Query($args);
 
-$resources_ids = $resources_query->posts;
-
 wp_reset_query();
+
+$resources_ids = $resources_query->posts;
 
 // ---------------------------------------
 // search by title using 'LIKE' operator
@@ -154,7 +164,14 @@ if ($_sf_s) {
                 'taxonomy' => 'resource_category',
                 'field' => 'slug',
                 'terms' => $_sft_resource_category,
-            ]
+            ],
+            [
+                'taxonomy' => 'language',
+                'field' => 'slug',
+                'terms' => ['en', 'es', 'fr'],
+                'operator' => 'IN',
+                'include_children' => true
+            ],
         ];
     }
 
@@ -185,7 +202,14 @@ if (isset($_GET['_sft_resource_category']) && $_GET['_sft_resource_category'] &&
             'taxonomy' => 'resource_category',
             'field' => 'slug',
             'terms' => $_sft_resource_category,
-        ]
+        ],
+        [
+            'taxonomy' => 'language',
+            'field' => 'slug',
+            'terms' => ['en', 'es', 'fr'],
+            'operator' => 'IN',
+            'include_children' => true
+        ],
     ];
 
     $by_tax_query = new WP_Query($args);
@@ -199,7 +223,31 @@ foreach ($resources_ids as $resource_id) {
     $categories = get_the_terms($resource_id, 'resource_category');
     foreach ($categories as $cats) {
         if (!in_array($cats->slug, ['visible', 'hidden', 'gated'])) {
-            $resource_categories[$resource_id] = $cats->name;
+
+            // ---------------------------------------------------
+            // if slug is 'webinar', check its language
+            // if language is 'fr', append ' -fr'
+            // ---------------------------------------------------
+
+            if ($cats->slug === 'webinar') {
+
+                $is_fr = false;
+                $languages = get_the_terms($resource_id, 'language');
+
+                foreach ($languages as $lang) {
+                    if ($lang->slug === 'fr') {
+                        $resource_categories[$resource_id] = $cats->name . ' - FR';
+                        $is_fr = true;
+                        break;
+                    }
+                }
+
+                if (!$is_fr) {
+                    $resource_categories[$resource_id] = $cats->name;
+                }
+            } else {
+                $resource_categories[$resource_id] = $cats->name;
+            }
         }
     }
 }

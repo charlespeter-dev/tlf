@@ -32,7 +32,17 @@ $query_exclude = new WP_Query([
     'meta_key' => 'thank_you_page',
     'post_status' => 'publish',
     'meta_value' => $post->ID,
-    'fields' => 'ids'
+    'fields' => 'ids',
+    'tax_query' => [
+        'relation' => 'AND',
+        [
+            'taxonomy' => 'language',
+            'field' => 'slug',
+            'terms' => ['en', 'es', 'fr'],
+            'operator' => 'IN',
+            'include_children' => true
+        ]
+    ]
 ]);
 
 wp_reset_postdata();
@@ -44,7 +54,17 @@ $query = new WP_Query([
     'order' => 'DESC',
     'orderby' => 'date',
     'post__not_in' => $query_exclude->posts,
-    'fields' => 'ids'
+    'fields' => 'ids',
+    'tax_query' => [
+        'relation' => 'AND',
+        [
+            'taxonomy' => 'language',
+            'field' => 'slug',
+            'terms' => ['en', 'es', 'fr'],
+            'operator' => 'IN',
+            'include_children' => true
+        ]
+    ]
 ]);
 
 $post_ids = $query->posts;

@@ -21,9 +21,34 @@ extract($fields);
  */
 
 $categories = get_the_terms($post->ID, 'resource_category');
+
 foreach ($categories as $cats) {
-    if ($cats->slug != 'visible' || $cats->slug != 'hidden') {
-        $resource_categories[$post->ID] = $cats->name;
+    if (!in_array($cats->slug, ['visible', 'hidden', 'gated'])) {
+
+        // ---------------------------------------------------
+        // if slug is 'webinar', check its language
+        // if language is 'fr', append ' -fr'
+        // ---------------------------------------------------
+
+        if ($cats->slug === 'webinar') {
+
+            $is_fr = false;
+            $languages = get_the_terms($post->ID, 'language');
+
+            foreach ($languages as $lang) {
+                if ($lang->slug === 'fr') {
+                    $resource_categories[$post->ID] = $cats->name . ' - FR';
+                    $is_fr = true;
+                    break;
+                }
+            }
+
+            if (!$is_fr) {
+                $resource_categories[$post->ID] = $cats->name;
+            }
+        } else {
+            $resource_categories[$post->ID] = $cats->name;
+        }
     }
 }
 

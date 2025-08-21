@@ -149,7 +149,17 @@ function _2x_related_resources($exclude_post_id = 0)
         'order' => 'DESC',
         'fields' => 'ids',
         'post_status' => 'publish',
-        'post__not_in' => [$exclude_post_id]
+        'post__not_in' => [$exclude_post_id],
+        'tax_query' => [
+            'relation' => 'AND',
+            [
+                'taxonomy' => 'language',
+                'field' => 'slug',
+                'terms' => ['en', 'es', 'fr'],
+                'operator' => 'IN',
+                'include_children' => true
+            ]
+        ]
     ]);
 
     wp_reset_query();
@@ -204,7 +214,17 @@ function _2x_related_industries($exclude_post_id = 0, $post__in = [])
         'orderby' => 'rand',
         'fields' => 'ids',
         'post_status' => 'publish',
-        'post__not_in' => $post__not_in
+        'post__not_in' => $post__not_in,
+        'tax_query' => [
+            'relation' => 'AND',
+            [
+                'taxonomy' => 'language',
+                'field' => 'slug',
+                'terms' => ['en', 'es', 'fr'],
+                'operator' => 'IN',
+                'include_children' => true
+            ]
+        ]
     ]);
 
     wp_reset_query();
