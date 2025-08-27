@@ -32,20 +32,26 @@ foreach ($categories as $cats) {
 
         if ($cats->slug === 'webinar') {
 
-            $is_fr = false;
             $languages = get_the_terms($post->ID, 'language');
 
             foreach ($languages as $lang) {
+
+                if ($lang->slug === 'en') {
+                    $resource_categories[$post->ID] = $cats->name;
+                    break;
+                }
+
                 if ($lang->slug === 'fr') {
                     $resource_categories[$post->ID] = $cats->name . ' - FR';
-                    $is_fr = true;
+                    break;
+                }
+
+                if ($lang->slug === 'es') {
+                    $resource_categories[$post->ID] = $cats->name . ' - ES';
                     break;
                 }
             }
 
-            if (!$is_fr) {
-                $resource_categories[$post->ID] = $cats->name;
-            }
         } else {
             $resource_categories[$post->ID] = $cats->name;
         }
@@ -72,7 +78,7 @@ get_header() ?>
                 <div class="_2x-hero-content">
 
                     <div class="row">
-                        <div class="col-lg-9">
+                        <div class="col-lg-7">
 
                             <?php if (isset($resource_categories) && $resource_categories): ?>
                                 <div class="mb-3">

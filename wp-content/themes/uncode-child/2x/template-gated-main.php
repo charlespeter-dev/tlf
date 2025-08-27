@@ -38,7 +38,7 @@ get_header() ?>
                 <div class="_2x-hero-content">
 
                     <div class="row">
-                        <div class="col-lg-8">
+                        <div class="col-lg-7">
 
                             <?php if (isset($headline) && $headline): ?>
                                 <div class="mb-4">

@@ -217,7 +217,7 @@ if (isset($_GET['_sft_resource_category']) && $_GET['_sft_resource_category'] &&
     $resources_ids = $by_tax_query->posts;
 }
 
-$resource_categories = [];
+$resource_categories = $card_text_languages = [];
 
 foreach ($resources_ids as $resource_id) {
     $categories = get_the_terms($resource_id, 'resource_category');
@@ -231,22 +231,32 @@ foreach ($resources_ids as $resource_id) {
 
             if ($cats->slug === 'webinar') {
 
-                $is_fr = false;
                 $languages = get_the_terms($resource_id, 'language');
 
                 foreach ($languages as $lang) {
+
+                    if ($lang->slug === 'en') {
+                        $resource_categories[$resource_id] = $cats->name;
+                        $card_text_languages[$resource_id] = 'en';
+                        break;
+                    }
+
                     if ($lang->slug === 'fr') {
                         $resource_categories[$resource_id] = $cats->name . ' - FR';
-                        $is_fr = true;
+                        $card_text_languages[$resource_id] = 'fr';
+                        break;
+                    }
+
+                    if ($lang->slug === 'es') {
+                        $resource_categories[$resource_id] = $cats->name . ' - ES';
+                        $card_text_languages[$resource_id] = 'es';
                         break;
                     }
                 }
 
-                if (!$is_fr) {
-                    $resource_categories[$resource_id] = $cats->name;
-                }
             } else {
                 $resource_categories[$resource_id] = $cats->name;
+                $card_text_languages[$resource_id] = 'en';
             }
         }
     }
@@ -431,7 +441,7 @@ get_header() ?>
                                             <h5 class="card-title">
                                                 <?= $resource_categories[$card_id] ?>
                                             </h5>
-                                            <p class="card-text">
+                                            <p class="card-text" lang="<?= $card_text_languages[$card_id] ?>">
                                                 <?= ucwords(get_the_title($card_id)) ?>
                                             </p>
                                         </div>
