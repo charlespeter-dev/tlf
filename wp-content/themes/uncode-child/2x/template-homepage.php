@@ -130,7 +130,9 @@ get_header() ?>
             <div id="_2x-carousel-hero" class="carousel carousel-fade" data-bs-pause="false" data-bs-interval="10000"
                 data-bs-ride="carousel">
                 <div class="carousel-inner">
+
                     <?php foreach ($hero_carousels as $k => $item): ?>
+
                         <div class="carousel-item <?= ($k == 0) ? 'active' : '' ?>"
                             style="background-image: url('<?= wp_get_attachment_image_url($item['background_image_mobile'], 'full') ?>');">
 
@@ -170,7 +172,9 @@ get_header() ?>
                                 </div>
                             </div>
                         </div>
+
                     <?php endforeach ?>
+
                 </div>
 
                 <?php if (count($hero_carousels) > 1): ?>

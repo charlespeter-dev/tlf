@@ -33,6 +33,13 @@
   .bootstrap-container .hero-carousels .carousel-item {
     background-image: none;
   }
+  .bootstrap-container .hero-carousels ._2x-hero-content {
+    width: 60%;
+  }
+  .bootstrap-container .hero-carousels ._2x-hero-content h1,
+  .bootstrap-container .hero-carousels ._2x-hero-content h2 {
+    font-size: 34px !important;
+  }
 }
 
 /*# sourceMappingURL=template-homepage.css.map */
