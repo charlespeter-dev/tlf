@@ -203,39 +203,101 @@ h1:not([class*="fontsize-"]),
             }
 
             .main-content {
+
+                h2 {
+
+                    color: #003375;
+                }
+
                 ul {
                     padding-left: 3rem;
                 }
             }
 
-            .related-webinars {
+            .speakers-content {
 
-                &-post {
-
+                .col-lg-6 {
                     display: flex;
                     flex-direction: column;
-                    align-items: flex-start;
-                    gap: 3rem;
-                    padding: 1.5rem;
+                    align-items: center;
+                    text-align: center;
+                    margin-bottom: 2rem;
+                }
 
-                    @include media-breakpoint-up(lg) {
-                        flex-direction: row;
-                        align-items: center;
-                    }
+                .headshot {
+                    border-radius: 20px;
+                    width: 250px;
+                    height: 250px;
+                    object-fit: cover;
+                    margin-bottom: 1rem;
+                }
 
-                    &.grey-bg {
-                        border-radius: 10px;
+                .speaker-name {
+                    color: #003375;
+                    font-size: 24px;
+                    font-weight: 700;
+                    line-height: 30px;
+                    margin-bottom: .5rem;
+                }
+
+                .speaker-title {
+                    color: #E30613;
+                    font-size: 20px;
+                    font-weight: 400;
+                    line-height: 30px;
+                }
+            }
+
+            .related-webinars {
+
+                a {
+                    text-decoration: none;
+
+                    &:hover {
+
+                        .fa-arrow-right2 {
+                            transform: translateX(5px);
+                            transition: transform 0.3s ease;
+                        }
                     }
+                }
+
+                .grey-bg {
+
+                    display: flex;
+                    gap: 1rem;
+                    border-radius: 16px;
+                    background-color: #F5F6F7;
+                    margin-block-end: 1rem;
+                    padding: 1rem;
 
                     img {
                         border-radius: 10px;
+                        width: 150px;
+                        height: 150px;
+                        object-fit: cover;
                     }
 
-                    a {
-                        color: #E30613;
-                        text-decoration: none;
-                        font-weight: bold;
-                        text-transform: uppercase;
+                    .card-body {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+
+                        .title {
+                            color: #000;
+                            margin-block-end: .5rem;
+                            text-wrap: pretty;
+                        }
+
+                        .link {
+                            color: #E30613;
+                            font-weight: bold;
+                            text-transform: uppercase;
+
+                            i {
+                                display: inline-block;
+                            }
+                        }
                     }
                 }
             }

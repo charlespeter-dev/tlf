@@ -110,42 +110,107 @@ get_header() ?>
                     <?= $main_content ?>
                 </div>
 
-            </div>
-        </div>
-    </section>
+                <!-- speakers -->
 
-    <?php if (isset($related_webinars) && $related_webinars): ?>
+                <?php if (isset($speaker_groups) && $speaker_groups): ?>
+                    <div class="speakers">
+                        <div class="speakers-heading mt-3 mb-4">
+                            <h3>
+                                <?= __('Speakers:') ?>
+                            </h3>
+                        </div>
 
-        <section class="related-webinars mb-5">
-            <div class="row-container">
-                <div class="single-h-padding limit-width position-relative">
+                        <div class="row speakers-content mb-4">
 
-                    <div class="row">
-                        <?php foreach ($related_webinars as $post): ?>
-                            <div class="col-lg-6">
-                                <div class="related-webinars-post grey-bg mb-4">
-                                    <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($post['webinar_post']), '_2x-card-news') ?>"
-                                        alt="" loading="lazy">
-                                    <div>
-                                        <div class="mb-4">
-                                            <?= $post['excerpt'] ?>
+                            <?php foreach ($speaker_groups as $speaker_group): ?>
+
+                                <div class="col-lg-6">
+                                    <div class="speaker-image">
+                                        <img class="headshot" src="<?= $speaker_group['speaker']['headshot']['url'] ?>" alt=""
+                                            loading="lazy">
+                                    </div>
+
+                                    <div class="speaker-info my-4 my-lg-0">
+                                        <div class="speaker-name">
+                                            <?= $speaker_group['speaker']['name'] ?>
                                         </div>
-                                        <div>
-                                            <a href="<?= get_the_permalink($post['webinar_post']) ?>">
-                                                <?= $post['cta_label'] ?> <i class="fa fa-arrow-right2 t-icon-size-lg"></i>
-                                            </a>
+                                        <div class="speaker-title">
+                                            <?= $speaker_group['speaker']['title'] ?>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+
+                            <?php endforeach ?>
+
+                        </div>
+                    </div>
+                <?php endif ?>
+
+                <!-- related webinars internal -->
+
+                <?php if (isset($related_webinars[0]['webinar_post']) && $related_webinars[0]['webinar_post']): ?>
+
+                    <div class="speakers-heading mt-3 mb-4">
+                        <h3>
+                            <?= __('Start Watching:') ?>
+                        </h3>
+                    </div>
+
+                    <div class="row related-webinars">
+                        <?php foreach ($related_webinars as $post): ?>
+                            <a class="col-lg-6" href="<?= get_the_permalink($post['webinar_post']) ?>" target="_blank"
+                                rel="noopener">
+                                <div class="grey-bg">
+                                    <img src="<?= wp_get_attachment_image_url(get_post_thumbnail_id($post['webinar_post']), '_2x-card-news') ?>"
+                                        alt="" loading="lazy">
+                                    <div class="card-body">
+                                        <div class="title">
+                                            <?= get_the_title($post['webinar_post']) ?>
+                                        </div>
+                                        <div class="link">
+                                            <?= $post['cta_label'] ?> <i class="fa fa-arrow-right2 t-icon-size-lg"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
                         <?php endforeach ?>
                     </div>
 
-                </div>
-            </div>
-        </section>
+                <?php endif ?>
 
-    <?php endif ?>
+                <!-- related webinars extenal -->
+
+                <?php if ($related_webinars_external[0] ?? false): ?>
+
+                    <div class="speakers-heading mt-3 mb-4">
+                        <h3>
+                            <?= __('Start Watching:') ?>
+                        </h3>
+                    </div>
+
+                    <div class="row related-webinars">
+                        <?php foreach ($related_webinars_external as $link): ?>
+                            <a class="col-lg-6" href="<?= $link['webinar_link']['url'] ?>" target="_blank" rel="noopener">
+                                <div class="grey-bg">
+                                    <img src="<?= $link['webinar_thumbnail']['url'] ?>" alt="" loading="lazy">
+                                    <div class="card-body">
+                                        <div class="title">
+                                            <?= $link['webinar_link']['title'] ?>
+                                        </div>
+                                        <div class="link">
+                                            <?= __('Watch Now') ?> <i class="fa fa-arrow-right2 t-icon-size-lg"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        <?php endforeach ?>
+                    </div>
+
+                <?php endif ?>
+
+            </div>
+        </div>
+    </section>
 
     <?php if (!empty($related_resources)): ?>
         <section class="related-resources pb-5">
