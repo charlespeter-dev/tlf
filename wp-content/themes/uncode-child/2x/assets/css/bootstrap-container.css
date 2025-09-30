@@ -12548,7 +12548,7 @@ body.uncode-loaded:not(.navbar-hover) .menu-hide.menu-container {
 
 h1:not([class*=fontsize-]),
 .h1:not([class*=fontsize-]) {
-  font-size: 34px !important;
+  font-size: 40px !important;
   /* overrides uncode custom style */
 }
 
