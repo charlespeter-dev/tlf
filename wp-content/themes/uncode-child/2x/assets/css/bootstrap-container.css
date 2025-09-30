@@ -11238,13 +11238,13 @@ a > .bootstrap-container code {
 .bootstrap-container .hero-carousels ._2x-hero-content h2,
 .bootstrap-container .hero-carousels ._2x-hero-content .h2 {
   font-family: gotham_boldregular !important;
-  font-size: calc(1.4375rem + 2.25vw);
+  font-size: calc(1.375rem + 1.5vw);
 }
 @media (min-width: 1200px) {
   .bootstrap-container .hero-carousels ._2x-hero-content h1, .bootstrap-container .hero-carousels ._2x-hero-content .h1,
   .bootstrap-container .hero-carousels ._2x-hero-content h2,
   .bootstrap-container .hero-carousels ._2x-hero-content .h2 {
-    font-size: 3.125rem;
+    font-size: 2.5rem;
   }
 }
 .bootstrap-container .hero-carousels ._2x-hero-content h1, .bootstrap-container .hero-carousels ._2x-hero-content .h1,
