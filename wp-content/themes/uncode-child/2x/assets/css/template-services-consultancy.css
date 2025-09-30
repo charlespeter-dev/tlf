@@ -32,13 +32,15 @@
 .bootstrap-container .callout-with-cards-sub-heading {
   font-size: 1.25rem;
   line-height: calc(1.3125rem + 0.75vw);
-  color: #000000;
-  text-align: center;
 }
 @media (min-width: 1200px) {
   .bootstrap-container .callout-with-cards-sub-heading {
     line-height: 1.875rem;
   }
+}
+.bootstrap-container .callout-with-cards-sub-heading {
+  color: #000000;
+  text-align: center;
 }
 .bootstrap-container .callout-with-cards-sub-heading p {
   font-size: 1.25rem;

@@ -1,0 +1,38 @@
+.bootstrap-container.industry .hero-carousels {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 60% 0;
+  position: relative;
+  height: 100%;
+}
+.bootstrap-container.industry .hero-carousels .full-width {
+  display: none;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.industry .hero-carousels .full-width {
+    display: block;
+    height: 400px;
+  }
+}
+.bootstrap-container.industry .hero-carousels .single-h-padding.limit-width {
+  display: flex;
+  height: 100%;
+}
+.bootstrap-container.industry .hero-carousels ._2x-hero-content {
+  position: relative;
+  padding-block: 3rem;
+  margin-left: unset;
+  margin-right: unset;
+  padding-left: unset;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.industry .hero-carousels ._2x-hero-content {
+    position: absolute;
+    padding-block: unset;
+    margin-left: -36px;
+    margin-right: -36px;
+    padding-left: 36px;
+  }
+}
+
+/*# sourceMappingURL=template-industry.css.map */

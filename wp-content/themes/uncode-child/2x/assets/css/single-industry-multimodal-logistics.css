@@ -87,13 +87,6 @@
     gap: unset;
   }
 }
-.bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .__col-0 {
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  min-height: 300px;
-  position: relative;
-}
 @media screen and (max-width: 768px) {
   .bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .__col-0 {
     order: 6;
@@ -102,20 +95,35 @@
     min-height: unset;
   }
 }
-.bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .__col-0 > .card {
-  position: absolute;
-  bottom: -50px;
-  right: -70px;
+.bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .__col-0 {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  min-height: 300px;
+  position: relative;
 }
 @media screen and (max-width: 768px) {
   .bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .__col-0 > .card {
     position: unset;
   }
 }
+.bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .__col-0 > .card {
+  position: absolute;
+  bottom: -50px;
+  right: -70px;
+}
 @media screen and (min-width: 1900px) {
   .bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .__col-0 > .card {
     bottom: -100px;
     right: -100px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .__col-2 {
+    order: 2;
+    align-items: center;
+    justify-content: center;
+    min-height: unset;
   }
 }
 .bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .__col-2 {
@@ -126,11 +134,8 @@
   min-height: 300px;
 }
 @media screen and (max-width: 768px) {
-  .bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .__col-2 {
-    order: 2;
-    align-items: center;
-    justify-content: center;
-    min-height: unset;
+  .bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .__col-2 > .card {
+    position: unset;
   }
 }
 .bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .__col-2 > .card {
@@ -138,15 +143,17 @@
   bottom: -50px;
   left: -100px;
 }
-@media screen and (max-width: 768px) {
-  .bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .__col-2 > .card {
-    position: unset;
-  }
-}
 @media screen and (min-width: 1900px) {
   .bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .__col-2 > .card {
     bottom: -100px;
     left: -150px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .__col-3 {
+    order: 5;
+    align-items: center;
+    justify-content: center;
   }
 }
 .bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .__col-3 {
@@ -155,8 +162,8 @@
   justify-content: flex-end;
 }
 @media screen and (max-width: 768px) {
-  .bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .__col-3 {
-    order: 5;
+  .bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .__col-4 {
+    order: 1;
     align-items: center;
     justify-content: center;
   }
@@ -167,8 +174,8 @@
   justify-content: center;
 }
 @media screen and (max-width: 768px) {
-  .bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .__col-4 {
-    order: 1;
+  .bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .__col-5 {
+    order: 3;
     align-items: center;
     justify-content: center;
   }
@@ -177,21 +184,9 @@
   display: flex;
 }
 @media screen and (max-width: 768px) {
-  .bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .__col-5 {
-    order: 3;
-    align-items: center;
-    justify-content: center;
-  }
-}
-@media screen and (max-width: 768px) {
   .bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .__col-6 {
     display: none;
   }
-}
-.bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .__col-7 {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
 }
 @media screen and (max-width: 768px) {
   .bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .__col-7 {
@@ -199,6 +194,11 @@
     align-items: center;
     justify-content: center;
   }
+}
+.bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .__col-7 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 }
 @media screen and (max-width: 768px) {
   .bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .__col-8 {
@@ -210,6 +210,11 @@
     display: none;
   }
 }
+@media screen and (max-width: 768px) {
+  .bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .card {
+    width: 350px;
+  }
+}
 .bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .card {
   background-color: #FFFFFF;
   border-radius: 8px;
@@ -217,11 +222,6 @@
   padding: 16px;
   width: 300px;
   height: auto;
-}
-@media screen and (max-width: 768px) {
-  .bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .card {
-    width: 350px;
-  }
 }
 .bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .card.__card-none {
   background-color: transparent;
@@ -253,15 +253,17 @@
   line-height: 20px;
   text-wrap: pretty;
   margin-block-end: 16px;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
 }
 @media screen and (min-width: 1900px) {
   .bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .card .__con {
     font-size: 16px;
     line-height: 24px;
   }
+}
+.bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .card .__con {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
 }
 .bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .card .__con svg {
   width: 20px;
@@ -277,15 +279,17 @@
   font-size: 14px;
   line-height: 20px;
   text-wrap: pretty;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
 }
 @media screen and (min-width: 1900px) {
   .bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .card .__pro {
     font-size: 16px;
     line-height: 24px;
   }
+}
+.bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .card .__pro {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
 }
 .bootstrap-container.single-industry-multimodal-logistics .general_info_2 .cards .card .__pro svg {
   width: 20px;
@@ -322,27 +326,27 @@
     line-height: 55px;
   }
 }
-.bootstrap-container.single-industry-multimodal-logistics .general_info_3 .card-desktop {
-  margin-block: 32px;
-  display: flex;
-  justify-content: center;
-}
 @media screen and (max-width: 768px) {
   .bootstrap-container.single-industry-multimodal-logistics .general_info_3 .card-desktop {
     display: none;
   }
 }
+.bootstrap-container.single-industry-multimodal-logistics .general_info_3 .card-desktop {
+  margin-block: 32px;
+  display: flex;
+  justify-content: center;
+}
 .bootstrap-container.single-industry-multimodal-logistics .general_info_3 .card-desktop svg {
   width: 80%;
   height: auto;
-}
-.bootstrap-container.single-industry-multimodal-logistics .general_info_3 .card-mobile {
-  margin-block: 32px;
 }
 @media screen and (min-width: 769px) {
   .bootstrap-container.single-industry-multimodal-logistics .general_info_3 .card-mobile {
     display: none;
   }
+}
+.bootstrap-container.single-industry-multimodal-logistics .general_info_3 .card-mobile {
+  margin-block: 32px;
 }
 .bootstrap-container.single-industry-multimodal-logistics .general_info_3 .card-mobile svg {
   width: 100%;

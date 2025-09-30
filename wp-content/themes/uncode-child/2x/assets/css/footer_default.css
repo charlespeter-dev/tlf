@@ -29,25 +29,29 @@ Optimized for resolution 360px <---> 1920px
 }
 .bootstrap-container .footer_default .footer-callout-banner-content .page-name {
   font-size: calc(1.28125rem + 0.375vw);
-  color: #fff;
-  font-weight: 600;
-  text-transform: uppercase;
 }
 @media (min-width: 1200px) {
   .bootstrap-container .footer_default .footer-callout-banner-content .page-name {
     font-size: 1.5625rem;
   }
 }
+.bootstrap-container .footer_default .footer-callout-banner-content .page-name {
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+}
 .bootstrap-container .footer_default .footer-callout-banner-content .main-heading {
   font-size: calc(1.40625rem + 1.875vw);
-  color: #fff;
-  font-weight: 700;
-  line-height: normal;
 }
 @media (min-width: 1200px) {
   .bootstrap-container .footer_default .footer-callout-banner-content .main-heading {
     font-size: 2.8125rem;
   }
+}
+.bootstrap-container .footer_default .footer-callout-banner-content .main-heading {
+  color: #fff;
+  font-weight: 700;
+  line-height: normal;
 }
 .bootstrap-container .footer_default .footer-callout-banner-content .cta .btn {
   white-space: unset;

@@ -1,28 +1,10 @@
 @charset "UTF-8";
 .bootstrap-container {
   /*!
-   * Bootstrap  v5.3.7 (https://getbootstrap.com/)
+   * Bootstrap  v5.3.8 (https://getbootstrap.com/)
    * Copyright 2011-2025 The Bootstrap Authors
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    */
-  /* rtl:raw:
-  [type="tel"],
-  [type="url"],
-  [type="email"],
-  [type="number"] {
-    direction: ltr;
-  }
-  */
-  /* rtl:begin:ignore */
-  /* rtl:end:ignore */
-  /* rtl:begin:ignore */
-  /* rtl:end:ignore */
-  /* rtl:begin:ignore */
-  /* rtl:end:ignore */
-  /* rtl:begin:ignore */
-  /* rtl:end:ignore */
-  /* rtl:begin:remove */
-  /* rtl:end:remove */
 }
 .bootstrap-container :root,
 .bootstrap-container [data-bs-theme=light] {
@@ -509,6 +491,20 @@ a > .bootstrap-container code {
 .bootstrap-container [type=search] {
   -webkit-appearance: textfield;
   outline-offset: -2px;
+}
+.bootstrap-container [type=search]::-webkit-search-cancel-button {
+  cursor: pointer;
+  filter: grayscale(1);
+}
+.bootstrap-container {
+  /* rtl:raw:
+  [type="tel"],
+  [type="url"],
+  [type="email"],
+  [type="number"] {
+    direction: ltr;
+  }
+  */
 }
 .bootstrap-container ::-webkit-search-decoration {
   -webkit-appearance: none;
@@ -5398,6 +5394,9 @@ a > .bootstrap-container code {
   border-width: var(--bs-tooltip-arrow-height) calc(var(--bs-tooltip-arrow-width) * 0.5) 0;
   border-top-color: var(--bs-tooltip-bg);
 }
+.bootstrap-container {
+  /* rtl:begin:ignore */
+}
 .bootstrap-container .bs-tooltip-end .tooltip-arrow, .bootstrap-container .bs-tooltip-auto[data-popper-placement^=right] .tooltip-arrow {
   left: calc(-1 * var(--bs-tooltip-arrow-height));
   width: var(--bs-tooltip-arrow-height);
@@ -5408,6 +5407,9 @@ a > .bootstrap-container code {
   border-width: calc(var(--bs-tooltip-arrow-width) * 0.5) var(--bs-tooltip-arrow-height) calc(var(--bs-tooltip-arrow-width) * 0.5) 0;
   border-right-color: var(--bs-tooltip-bg);
 }
+.bootstrap-container {
+  /* rtl:end:ignore */
+}
 .bootstrap-container .bs-tooltip-bottom .tooltip-arrow, .bootstrap-container .bs-tooltip-auto[data-popper-placement^=bottom] .tooltip-arrow {
   top: calc(-1 * var(--bs-tooltip-arrow-height));
 }
@@ -5415,6 +5417,9 @@ a > .bootstrap-container code {
   bottom: -1px;
   border-width: 0 calc(var(--bs-tooltip-arrow-width) * 0.5) var(--bs-tooltip-arrow-height);
   border-bottom-color: var(--bs-tooltip-bg);
+}
+.bootstrap-container {
+  /* rtl:begin:ignore */
 }
 .bootstrap-container .bs-tooltip-start .tooltip-arrow, .bootstrap-container .bs-tooltip-auto[data-popper-placement^=left] .tooltip-arrow {
   right: calc(-1 * var(--bs-tooltip-arrow-height));
@@ -5425,6 +5430,9 @@ a > .bootstrap-container code {
   left: -1px;
   border-width: calc(var(--bs-tooltip-arrow-width) * 0.5) 0 calc(var(--bs-tooltip-arrow-width) * 0.5) var(--bs-tooltip-arrow-height);
   border-left-color: var(--bs-tooltip-bg);
+}
+.bootstrap-container {
+  /* rtl:end:ignore */
 }
 .bootstrap-container .tooltip-inner {
   max-width: var(--bs-tooltip-max-width);
@@ -5506,6 +5514,9 @@ a > .bootstrap-container code {
   bottom: var(--bs-popover-border-width);
   border-top-color: var(--bs-popover-bg);
 }
+.bootstrap-container {
+  /* rtl:begin:ignore */
+}
 .bootstrap-container .bs-popover-end > .popover-arrow, .bootstrap-container .bs-popover-auto[data-popper-placement^=right] > .popover-arrow {
   left: calc(-1 * (var(--bs-popover-arrow-height)) - var(--bs-popover-border-width));
   width: var(--bs-popover-arrow-height);
@@ -5521,6 +5532,9 @@ a > .bootstrap-container code {
 .bootstrap-container .bs-popover-end > .popover-arrow::after, .bootstrap-container .bs-popover-auto[data-popper-placement^=right] > .popover-arrow::after {
   left: var(--bs-popover-border-width);
   border-right-color: var(--bs-popover-bg);
+}
+.bootstrap-container {
+  /* rtl:end:ignore */
 }
 .bootstrap-container .bs-popover-bottom > .popover-arrow, .bootstrap-container .bs-popover-auto[data-popper-placement^=bottom] > .popover-arrow {
   top: calc(-1 * (var(--bs-popover-arrow-height)) - var(--bs-popover-border-width));
@@ -5546,6 +5560,9 @@ a > .bootstrap-container code {
   content: "";
   border-bottom: var(--bs-popover-border-width) solid var(--bs-popover-header-bg);
 }
+.bootstrap-container {
+  /* rtl:begin:ignore */
+}
 .bootstrap-container .bs-popover-start > .popover-arrow, .bootstrap-container .bs-popover-auto[data-popper-placement^=left] > .popover-arrow {
   right: calc(-1 * (var(--bs-popover-arrow-height)) - var(--bs-popover-border-width));
   width: var(--bs-popover-arrow-height);
@@ -5561,6 +5578,9 @@ a > .bootstrap-container code {
 .bootstrap-container .bs-popover-start > .popover-arrow::after, .bootstrap-container .bs-popover-auto[data-popper-placement^=left] > .popover-arrow::after {
   right: var(--bs-popover-border-width);
   border-left-color: var(--bs-popover-bg);
+}
+.bootstrap-container {
+  /* rtl:end:ignore */
 }
 .bootstrap-container .popover-header {
   padding: var(--bs-popover-header-padding-y) var(--bs-popover-header-padding-x);
@@ -5767,6 +5787,7 @@ a > .bootstrap-container code {
 .bootstrap-container .spinner-grow,
 .bootstrap-container .spinner-border {
   display: inline-block;
+  flex-shrink: 0;
   width: var(--bs-spinner-width);
   height: var(--bs-spinner-height);
   vertical-align: var(--bs-spinner-vertical-align);
@@ -7621,9 +7642,15 @@ a > .bootstrap-container code {
 .bootstrap-container .text-nowrap {
   white-space: nowrap !important;
 }
+.bootstrap-container {
+  /* rtl:begin:remove */
+}
 .bootstrap-container .text-break {
   word-wrap: break-word !important;
   word-break: break-word !important;
+}
+.bootstrap-container {
+  /* rtl:end:remove */
 }
 .bootstrap-container .text-primary {
   --bs-text-opacity: 1;
@@ -11212,10 +11239,6 @@ a > .bootstrap-container code {
 .bootstrap-container .hero-carousels ._2x-hero-content .h2 {
   font-family: gotham_boldregular !important;
   font-size: calc(1.4375rem + 2.25vw);
-  line-height: normal;
-  font-weight: 100 !important;
-  text-shadow: 0px 3px 10px rgba(0, 0, 0, 0.7);
-  margin-inline-end: 1rem;
 }
 @media (min-width: 1200px) {
   .bootstrap-container .hero-carousels ._2x-hero-content h1, .bootstrap-container .hero-carousels ._2x-hero-content .h1,
@@ -11223,6 +11246,14 @@ a > .bootstrap-container code {
   .bootstrap-container .hero-carousels ._2x-hero-content .h2 {
     font-size: 3.125rem;
   }
+}
+.bootstrap-container .hero-carousels ._2x-hero-content h1, .bootstrap-container .hero-carousels ._2x-hero-content .h1,
+.bootstrap-container .hero-carousels ._2x-hero-content h2,
+.bootstrap-container .hero-carousels ._2x-hero-content .h2 {
+  line-height: normal;
+  font-weight: 100 !important;
+  text-shadow: 0px 3px 10px rgba(0, 0, 0, 0.7);
+  margin-inline-end: 1rem;
 }
 .bootstrap-container .hero-carousels ._2x-hero-content .sub-heading {
   font-size: 1.25rem;
@@ -11271,8 +11302,6 @@ a > .bootstrap-container code {
 }
 .bootstrap-container .customer-logo {
   display: none;
-  /* display 4 */
-  /* display 6 */
 }
 @media (min-width: 992px) {
   .bootstrap-container .customer-logo {
@@ -11281,12 +11310,14 @@ a > .bootstrap-container code {
 }
 .bootstrap-container .customer-logo h2, .bootstrap-container .customer-logo .h2 {
   font-size: calc(1.40625rem + 1.875vw);
-  color: #003375;
 }
 @media (min-width: 1200px) {
   .bootstrap-container .customer-logo h2, .bootstrap-container .customer-logo .h2 {
     font-size: 2.8125rem;
   }
+}
+.bootstrap-container .customer-logo h2, .bootstrap-container .customer-logo .h2 {
+  color: #003375;
 }
 @media (max-width: 992px) {
   .bootstrap-container .customer-logo .carousel-inner .carousel-item > div {
@@ -11301,6 +11332,9 @@ a > .bootstrap-container code {
 .bootstrap-container .customer-logo .carousel-inner .carousel-item-next,
 .bootstrap-container .customer-logo .carousel-inner .carousel-item-prev {
   display: flex;
+}
+.bootstrap-container .customer-logo {
+  /* display 4 */
 }
 @media (min-width: 768px) {
   .bootstrap-container .customer-logo .carousel-inner .carousel-item-right.active,
@@ -11322,6 +11356,9 @@ a > .bootstrap-container code {
   .bootstrap-container .customer-logo .carousel-item-prev:not(.carousel-item-end) {
     transform: translateX(-25%) !important;
   }
+}
+.bootstrap-container .customer-logo {
+  /* display 6 */
 }
 @media (min-width: 992px) {
   .bootstrap-container .customer-logo .carousel-inner .carousel-item-right.active,
@@ -11346,13 +11383,15 @@ a > .bootstrap-container code {
 }
 .bootstrap-container .callout-with-cards {
   /* overrides .col in BS */
-  position: relative;
-  padding-block-end: 5rem !important;
 }
 @media (max-width: 575.98px) {
   .bootstrap-container .callout-with-cards .col {
     flex: unset;
   }
+}
+.bootstrap-container .callout-with-cards {
+  position: relative;
+  padding-block-end: 5rem !important;
 }
 .bootstrap-container .callout-with-cards::before {
   content: "";
@@ -11369,12 +11408,14 @@ a > .bootstrap-container code {
 }
 .bootstrap-container .callout-with-cards h2, .bootstrap-container .callout-with-cards .h2 {
   font-size: calc(1.40625rem + 1.875vw);
-  color: #003375;
 }
 @media (min-width: 1200px) {
   .bootstrap-container .callout-with-cards h2, .bootstrap-container .callout-with-cards .h2 {
     font-size: 2.8125rem;
   }
+}
+.bootstrap-container .callout-with-cards h2, .bootstrap-container .callout-with-cards .h2 {
+  color: #003375;
 }
 .bootstrap-container .callout-with-cards h6, .bootstrap-container .callout-with-cards .h6 {
   font-size: 1.25rem;
@@ -11427,12 +11468,14 @@ a > .bootstrap-container code {
 .bootstrap-container .testimonials ._2x-carousel-testimonials-content > div {
   text-shadow: 0px 3px 10px rgba(0, 0, 0, 0.9);
   font-size: calc(1.28125rem + 0.375vw);
-  color: #fff;
 }
 @media (min-width: 1200px) {
   .bootstrap-container .testimonials ._2x-carousel-testimonials-content > div {
     font-size: 1.5625rem;
   }
+}
+.bootstrap-container .testimonials ._2x-carousel-testimonials-content > div {
+  color: #fff;
 }
 .bootstrap-container .testimonials ._2x-carousel-testimonials-content > div.company-name {
   font-weight: 600;
@@ -11463,13 +11506,15 @@ a > .bootstrap-container code {
 }
 .bootstrap-container .featured-post .main-heading {
   font-size: calc(1.40625rem + 1.875vw);
-  color: #003375;
-  line-height: normal;
 }
 @media (min-width: 1200px) {
   .bootstrap-container .featured-post .main-heading {
     font-size: 2.8125rem;
   }
+}
+.bootstrap-container .featured-post .main-heading {
+  color: #003375;
+  line-height: normal;
 }
 .bootstrap-container .featured-post .sub-heading {
   font-size: 1.25rem;
@@ -11488,11 +11533,6 @@ a > .bootstrap-container code {
 .bootstrap-container .featured-post .cta a .fa-arrow-right2 {
   padding-inline-start: 0.3rem;
 }
-.bootstrap-container .news {
-  position: relative;
-  padding-block-start: 3rem !important;
-  padding-block-end: 3rem !important;
-}
 .bootstrap-container .news .col {
   padding-block-end: 1rem;
 }
@@ -11500,6 +11540,11 @@ a > .bootstrap-container code {
   .bootstrap-container .news .col {
     flex: unset;
   }
+}
+.bootstrap-container .news {
+  position: relative;
+  padding-block-start: 3rem !important;
+  padding-block-end: 3rem !important;
 }
 .bootstrap-container .news::before {
   content: "";
@@ -11516,14 +11561,16 @@ a > .bootstrap-container code {
 }
 .bootstrap-container .news h2, .bootstrap-container .news .h2 {
   font-size: calc(1.34375rem + 1.125vw);
-  display: block;
-  text-align: center;
-  color: #003375;
 }
 @media (min-width: 1200px) {
   .bootstrap-container .news h2, .bootstrap-container .news .h2 {
     font-size: 2.1875rem;
   }
+}
+.bootstrap-container .news h2, .bootstrap-container .news .h2 {
+  display: block;
+  text-align: center;
+  color: #003375;
 }
 .bootstrap-container .news a {
   text-decoration: none !important;
@@ -11578,13 +11625,15 @@ a > .bootstrap-container code {
 }
 .bootstrap-container .resources-callout .main-heading {
   font-size: calc(1.40625rem + 1.875vw);
-  color: #003375;
-  text-align: center;
 }
 @media (min-width: 1200px) {
   .bootstrap-container .resources-callout .main-heading {
     font-size: 2.8125rem;
   }
+}
+.bootstrap-container .resources-callout .main-heading {
+  color: #003375;
+  text-align: center;
 }
 .bootstrap-container .resources-callout .sub-heading {
   font-size: 1.25rem;
@@ -11596,12 +11645,14 @@ a > .bootstrap-container code {
 }
 .bootstrap-container .resources-callout .main-content h3, .bootstrap-container .resources-callout .main-content .h3 {
   font-size: calc(1.34375rem + 1.125vw);
-  color: #003375;
 }
 @media (min-width: 1200px) {
   .bootstrap-container .resources-callout .main-content h3, .bootstrap-container .resources-callout .main-content .h3 {
     font-size: 2.1875rem;
   }
+}
+.bootstrap-container .resources-callout .main-content h3, .bootstrap-container .resources-callout .main-content .h3 {
+  color: #003375;
 }
 .bootstrap-container .resources-callout .main-content li {
   list-style: disc;
@@ -11640,25 +11691,29 @@ a > .bootstrap-container code {
 }
 .bootstrap-container .footer-callout-banner .footer-callout-banner-content .page-name {
   font-size: calc(1.28125rem + 0.375vw);
-  color: #fff;
-  font-weight: 600;
-  text-transform: uppercase;
 }
 @media (min-width: 1200px) {
   .bootstrap-container .footer-callout-banner .footer-callout-banner-content .page-name {
     font-size: 1.5625rem;
   }
 }
+.bootstrap-container .footer-callout-banner .footer-callout-banner-content .page-name {
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+}
 .bootstrap-container .footer-callout-banner .footer-callout-banner-content .main-heading {
   font-size: calc(1.40625rem + 1.875vw);
-  color: #fff;
-  font-weight: 700;
-  line-height: normal;
 }
 @media (min-width: 1200px) {
   .bootstrap-container .footer-callout-banner .footer-callout-banner-content .main-heading {
     font-size: 2.8125rem;
   }
+}
+.bootstrap-container .footer-callout-banner .footer-callout-banner-content .main-heading {
+  color: #fff;
+  font-weight: 700;
+  line-height: normal;
 }
 .bootstrap-container .footer-callout-banner .footer-callout-banner-content .cta .btn {
   white-space: unset;
@@ -11716,28 +11771,34 @@ a > .bootstrap-container code {
 }
 .bootstrap-container .faces-of-tlf-main-heading {
   font-size: calc(1.34375rem + 1.125vw);
-  line-height: calc(1.40625rem + 1.875vw);
-  color: #003375;
 }
 @media (min-width: 1200px) {
   .bootstrap-container .faces-of-tlf-main-heading {
     font-size: 2.1875rem;
   }
 }
+.bootstrap-container .faces-of-tlf-main-heading {
+  line-height: calc(1.40625rem + 1.875vw);
+}
 @media (min-width: 1200px) {
   .bootstrap-container .faces-of-tlf-main-heading {
     line-height: 2.8125rem;
   }
 }
+.bootstrap-container .faces-of-tlf-main-heading {
+  color: #003375;
+}
 .bootstrap-container .faces-of-tlf-sub-heading {
   font-size: 1.25rem;
   line-height: calc(1.3125rem + 0.75vw);
-  color: #000000;
 }
 @media (min-width: 1200px) {
   .bootstrap-container .faces-of-tlf-sub-heading {
     line-height: 1.875rem;
   }
+}
+.bootstrap-container .faces-of-tlf-sub-heading {
+  color: #000000;
 }
 .bootstrap-container .faces-of-tlf-sub-heading p {
   font-size: 1.25rem;
@@ -11781,12 +11842,14 @@ a > .bootstrap-container code {
 }
 .bootstrap-container.services .content-bottom h2, .bootstrap-container.services .content-bottom .h2 {
   font-size: calc(1.40625rem + 1.875vw);
-  color: #003375;
 }
 @media (min-width: 1200px) {
   .bootstrap-container.services .content-bottom h2, .bootstrap-container.services .content-bottom .h2 {
     font-size: 2.8125rem;
   }
+}
+.bootstrap-container.services .content-bottom h2, .bootstrap-container.services .content-bottom .h2 {
+  color: #003375;
 }
 .bootstrap-container.services .content-bottom .contents {
   display: flex;
@@ -11833,12 +11896,14 @@ a > .bootstrap-container code {
 }
 .bootstrap-container.services .quote-container h2, .bootstrap-container.services .quote-container .h2 {
   font-size: calc(1.40625rem + 1.875vw);
-  color: #003375;
 }
 @media (min-width: 1200px) {
   .bootstrap-container.services .quote-container h2, .bootstrap-container.services .quote-container .h2 {
     font-size: 2.8125rem;
   }
+}
+.bootstrap-container.services .quote-container h2, .bootstrap-container.services .quote-container .h2 {
+  color: #003375;
 }
 .bootstrap-container.services .quote-container .quote {
   text-align: center;
@@ -11850,12 +11915,14 @@ a > .bootstrap-container code {
 .bootstrap-container.services .quote-container .quote-text {
   font-size: 1.25rem;
   line-height: calc(1.34375rem + 1.125vw);
-  font-weight: 600;
 }
 @media (min-width: 1200px) {
   .bootstrap-container.services .quote-container .quote-text {
     line-height: 2.1875rem;
   }
+}
+.bootstrap-container.services .quote-container .quote-text {
+  font-weight: 600;
 }
 .bootstrap-container.services .quote-container .quote-by {
   margin-bottom: 0;
@@ -11877,13 +11944,15 @@ a > .bootstrap-container code {
 .bootstrap-container.careers .callout-with-cards-sub-heading {
   font-size: 1.25rem;
   line-height: calc(1.3125rem + 0.75vw);
-  color: #000000;
-  text-align: center;
 }
 @media (min-width: 1200px) {
   .bootstrap-container.careers .callout-with-cards-sub-heading {
     line-height: 1.875rem;
   }
+}
+.bootstrap-container.careers .callout-with-cards-sub-heading {
+  color: #000000;
+  text-align: center;
 }
 .bootstrap-container.careers .callout-with-cards-sub-heading p {
   font-size: 1.25rem;
@@ -12035,28 +12104,34 @@ a > .bootstrap-container code {
 }
 .bootstrap-container .jobs-section .job-heading {
   font-size: calc(1.34375rem + 1.125vw);
-  line-height: calc(1.40625rem + 1.875vw);
-  color: #003375;
 }
 @media (min-width: 1200px) {
   .bootstrap-container .jobs-section .job-heading {
     font-size: 2.1875rem;
   }
 }
+.bootstrap-container .jobs-section .job-heading {
+  line-height: calc(1.40625rem + 1.875vw);
+}
 @media (min-width: 1200px) {
   .bootstrap-container .jobs-section .job-heading {
     line-height: 2.8125rem;
   }
 }
+.bootstrap-container .jobs-section .job-heading {
+  color: #003375;
+}
 .bootstrap-container .jobs-section .job-subheading {
   font-size: 1.25rem;
   line-height: calc(1.3125rem + 0.75vw);
-  color: #000000;
 }
 @media (min-width: 1200px) {
   .bootstrap-container .jobs-section .job-subheading {
     line-height: 1.875rem;
   }
+}
+.bootstrap-container .jobs-section .job-subheading {
+  color: #000000;
 }
 .bootstrap-container .jobs-section .job-subheading p {
   font-size: 1.25rem;
@@ -12571,33 +12646,41 @@ h1:not([class*=fontsize-]),
 }
 .bootstrap-container.resources h2, .bootstrap-container.resources .h2 {
   font-size: calc(1.325rem + 0.9vw);
-  line-height: calc(1.375rem + 1.5vw);
-  text-wrap: pretty;
 }
 @media (min-width: 1200px) {
   .bootstrap-container.resources h2, .bootstrap-container.resources .h2 {
     font-size: 2rem;
   }
 }
+.bootstrap-container.resources h2, .bootstrap-container.resources .h2 {
+  line-height: calc(1.375rem + 1.5vw);
+}
 @media (min-width: 1200px) {
   .bootstrap-container.resources h2, .bootstrap-container.resources .h2 {
     line-height: 2.5rem;
   }
 }
+.bootstrap-container.resources h2, .bootstrap-container.resources .h2 {
+  text-wrap: pretty;
+}
 .bootstrap-container.resources h3, .bootstrap-container.resources .h3 {
   font-size: calc(1.28125rem + 0.375vw);
-  line-height: calc(1.34375rem + 1.125vw);
-  text-wrap: pretty;
 }
 @media (min-width: 1200px) {
   .bootstrap-container.resources h3, .bootstrap-container.resources .h3 {
     font-size: 1.5625rem;
   }
 }
+.bootstrap-container.resources h3, .bootstrap-container.resources .h3 {
+  line-height: calc(1.34375rem + 1.125vw);
+}
 @media (min-width: 1200px) {
   .bootstrap-container.resources h3, .bootstrap-container.resources .h3 {
     line-height: 2.1875rem;
   }
+}
+.bootstrap-container.resources h3, .bootstrap-container.resources .h3 {
+  text-wrap: pretty;
 }
 .bootstrap-container.resources p {
   text-wrap: pretty;
@@ -12724,44 +12807,54 @@ h1:not([class*=fontsize-]),
   list-style-image: none;
   list-style-type: disc;
   font-size: calc(1.3rem + 0.6vw);
-  font-weight: bold;
-  line-height: normal;
 }
 @media (min-width: 1200px) {
   .bootstrap-container.resources.single-article .resources-quote li {
     font-size: 1.75rem;
   }
 }
+.bootstrap-container.resources.single-article .resources-quote li {
+  font-weight: bold;
+  line-height: normal;
+}
 .bootstrap-container.resources.single-article .resources-quote .red {
   font-size: calc(1.3625rem + 1.35vw);
-  line-height: calc(1.40625rem + 1.875vw);
-  font-weight: bold;
-  color: #E30613;
 }
 @media (min-width: 1200px) {
   .bootstrap-container.resources.single-article .resources-quote .red {
     font-size: 2.375rem;
   }
 }
+.bootstrap-container.resources.single-article .resources-quote .red {
+  line-height: calc(1.40625rem + 1.875vw);
+}
 @media (min-width: 1200px) {
   .bootstrap-container.resources.single-article .resources-quote .red {
     line-height: 2.8125rem;
   }
 }
+.bootstrap-container.resources.single-article .resources-quote .red {
+  font-weight: bold;
+  color: #E30613;
+}
 .bootstrap-container.resources.single-article .resources-quote .font-big {
   font-size: calc(1.4875rem + 2.85vw);
-  line-height: calc(1.53125rem + 3.375vw);
-  font-weight: bold;
 }
 @media (min-width: 1200px) {
   .bootstrap-container.resources.single-article .resources-quote .font-big {
     font-size: 3.625rem;
   }
 }
+.bootstrap-container.resources.single-article .resources-quote .font-big {
+  line-height: calc(1.53125rem + 3.375vw);
+}
 @media (min-width: 1200px) {
   .bootstrap-container.resources.single-article .resources-quote .font-big {
     line-height: 4.0625rem;
   }
+}
+.bootstrap-container.resources.single-article .resources-quote .font-big {
+  font-weight: bold;
 }
 .bootstrap-container.resources.single-article .resources-quote .font-source {
   font-size: 1.125rem;

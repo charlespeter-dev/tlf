@@ -1,0 +1,184 @@
+.bootstrap-container.about-us {
+  background-color: #fff;
+}
+.bootstrap-container.about-us .blue {
+  color: #003375;
+}
+.bootstrap-container.about-us h2 {
+  font-size: calc(1.40625rem + 1.875vw);
+  line-height: calc(1.46875rem + 2.625vw);
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.about-us h2 {
+    font-size: 2.8125rem;
+  }
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.about-us h2 {
+    line-height: 3.4375rem;
+  }
+}
+.bootstrap-container.about-us .main-content {
+  text-align: center;
+}
+.bootstrap-container.about-us .main-content p {
+  font-size: 1.25rem;
+  line-height: calc(1.3125rem + 0.75vw);
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.about-us .main-content p {
+    line-height: 1.875rem;
+  }
+}
+.bootstrap-container.about-us .board-name {
+  border-bottom: 1px solid #ccc;
+}
+.bootstrap-container.about-us .cta-container {
+  text-align: center;
+}
+.bootstrap-container.about-us .cta-container a {
+  color: #E30613;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.bootstrap-container.about-us .circle {
+  border-radius: 50%;
+  border: 3px solid #003375;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  width: 20px;
+  position: relative;
+  z-index: 2;
+}
+.bootstrap-container.about-us .circle .circle-inner {
+  border-radius: 50%;
+  border: 1px solid #fff;
+  background-color: #003375;
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+}
+.bootstrap-container.about-us .time-line {
+  position: absolute;
+  top: 47px;
+  left: 0;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+}
+.bootstrap-container.about-us .swiper-button-prev {
+  top: 47px;
+  left: 0;
+}
+.bootstrap-container.about-us .swiper-button-prev::after {
+  content: unset;
+}
+.bootstrap-container.about-us .swiper-button-next {
+  top: 47px;
+  right: 0;
+}
+.bootstrap-container.about-us .swiper-button-next::after {
+  content: unset;
+}
+.bootstrap-container.about-us .swiper-pagination {
+  bottom: 0;
+}
+.bootstrap-container.about-us .our-history {
+  position: relative;
+}
+.bootstrap-container.about-us .our-history::before {
+  content: "";
+  position: absolute;
+  display: block;
+  top: 0;
+  left: calc((100vw - 100%) / -2);
+  width: 100vw;
+  height: 100%;
+  background-color: #EDEFF0;
+}
+.bootstrap-container.about-us .our-history .year {
+  font-weight: 700;
+}
+.bootstrap-container.about-us .our-history .excerpt {
+  font-size: 15px;
+  font-weight: 400;
+  padding-inline: 1rem;
+}
+.bootstrap-container.about-us .our-history .swiper-wrapper {
+  height: 250px;
+}
+.bootstrap-container.about-us .our-history .swiper-slide {
+  text-align: center;
+}
+.bootstrap-container.about-us .our-history .swiper-slide-active .year {
+  color: #E30613;
+  transform: scale(1.5);
+  transition-duration: 0.2s;
+  transition-delay: 0.3s;
+  transition-timing-function: ease-in-out;
+}
+.bootstrap-container.about-us .our-history .swiper-slide-active .circle {
+  transform: scale(1.5);
+  transition-duration: 0.2s;
+  transition-delay: 0.3s;
+  transition-timing-function: ease-in-out;
+  border: 3px solid #003375;
+}
+.bootstrap-container.about-us .our-history .swiper-slide-active .circle .circle-inner {
+  border: 1px solid #fff;
+  background-color: #003375;
+}
+.bootstrap-container.about-us .boards .manager-title {
+  color: #E30613;
+}
+.bootstrap-container.about-us .partner-logo {
+  position: relative;
+}
+.bootstrap-container.about-us .partner-logo::before {
+  content: "";
+  position: absolute;
+  display: block;
+  top: 0;
+  left: calc((100vw - 100%) / -2);
+  width: 100vw;
+  height: 100%;
+  background-color: #EDEFF0;
+}
+.bootstrap-container.about-us .partner-logo .swiper-slide {
+  text-align: center;
+}
+
+@media (max-width: 767.98px) {
+  .bootstrap-container .hero-carousels {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 60% 0;
+    position: relative;
+    height: 100%;
+  }
+  .bootstrap-container .hero-carousels .full-width,
+  .bootstrap-container .hero-carousels .small-height {
+    display: none;
+  }
+  .bootstrap-container .hero-carousels .single-h-padding.limit-width {
+    display: flex;
+    height: 100%;
+  }
+  .bootstrap-container .hero-carousels ._2x-hero-content {
+    position: relative;
+    padding-block: 3rem;
+    margin-left: unset;
+    margin-right: unset;
+    padding-left: unset;
+  }
+}
+@media (min-width: 768px) {
+  .bootstrap-container .hero-carousels {
+    background-image: none;
+  }
+}
+
+/*# sourceMappingURL=template-about-us.css.map */

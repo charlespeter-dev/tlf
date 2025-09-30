@@ -1,0 +1,11 @@
+/*
+make fluid properties
+
+@link https://www.sassmeister.com/gist/7f22e44ace49b5124eec
+Example:
+@include fluid-type(padding-bottom padding-top, 2em, 4em);
+@include fluid-type(font-size, 14px, 18px);
+Optimized for resolution 360px <---> 1920px
+*/
+
+/*# sourceMappingURL=general_section.css.map */

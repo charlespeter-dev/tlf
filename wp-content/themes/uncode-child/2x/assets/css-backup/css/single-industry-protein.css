@@ -1,0 +1,593 @@
+.bootstrap-container.single.industry.protein .full-width {
+  height: 450px;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.single.industry.protein .full-width {
+    height: 450px;
+  }
+}
+.bootstrap-container.single.industry.protein .main-heading,
+.bootstrap-container.single.industry.protein .sub-heading {
+  text-wrap: pretty;
+}
+.bootstrap-container.single.industry.protein .parent-breadcrumb {
+  color: #009BDC;
+  font-size: 20px;
+  line-height: 28px;
+}
+.bootstrap-container.single.industry.protein .parent-breadcrumb a {
+  text-decoration: none;
+}
+.bootstrap-container.single.industry.protein .general_info_1.content {
+  padding-block-start: 4rem;
+  padding-block-end: 3rem;
+}
+.bootstrap-container.single.industry.protein .general_info_2.cards .main-heading {
+  color: #E30613;
+  font-size: 21px;
+  line-height: 28px;
+  font-weight: bold;
+  text-align: center;
+  text-wrap: pretty;
+}
+.bootstrap-container.single.industry.protein .general_info_2.cards .sub-heading {
+  font-family: "Open Sans", sans-serif;
+  color: #000000;
+  font-size: 16px;
+  line-height: 26px;
+  text-align: center;
+  text-wrap: pretty;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.single.industry.protein .general_info_2.cards .__col-index-2 {
+    border-inline: 1px solid #ccc;
+  }
+}
+.bootstrap-container.single.industry.protein .general_info_2.cards .__card {
+  display: flex;
+  gap: 1rem;
+}
+.bootstrap-container.single.industry.protein .general_info_2.cards .__card .__bullet {
+  background-color: #E30613;
+  width: 35px;
+  height: 35px;
+  color: #FFF;
+  font-size: 16px;
+  line-height: 18px;
+  border-radius: 50%;
+  font-weight: bold;
+  padding: 5px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bootstrap-container.single.industry.protein .general_info_2.cards .__card .__description {
+  font-family: "Open Sans", sans-serif;
+  color: #000000;
+  font-size: 16px;
+  line-height: 26px;
+  text-wrap: pretty;
+}
+.bootstrap-container.single.industry.protein .general_info_3.cards {
+  padding-block-start: 2rem;
+}
+.bootstrap-container.single.industry.protein .general_info_3.cards .__card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: #E7E8F5;
+  border-radius: 13px;
+  padding: 1rem;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.single.industry.protein .general_info_3.cards .__card {
+    flex-direction: row;
+  }
+}
+.bootstrap-container.single.industry.protein .general_info_3.cards .__card .__bullet {
+  background-color: #E30613;
+  width: 35px;
+  height: 35px;
+  color: #FFF;
+  font-size: 16px;
+  line-height: 18px;
+  border-radius: 50%;
+  font-weight: bold;
+  padding: 5px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bootstrap-container.single.industry.protein .general_info_3.cards .__card .__title {
+  color: #E30613;
+  font-family: "Open Sans", sans-serif;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: bold;
+  text-wrap: pretty;
+  padding-inline-start: 0.6rem;
+  margin-block-end: 1rem;
+}
+.bootstrap-container.single.industry.protein .general_info_3.cards .__card .__description-container .__description {
+  font-family: "Open Sans", sans-serif;
+  color: #000000;
+  font-size: 16px;
+  line-height: 26px;
+  text-wrap: pretty;
+}
+.bootstrap-container.single.industry.protein .general_info_3.cards .__card .__description-container .__description ul {
+  list-style: disc;
+}
+.bootstrap-container.single.industry.protein .general_info_4.cards {
+  padding-block-start: 6rem;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.single.industry.protein .general_info_4.cards .__row-index-odd {
+    flex-direction: row-reverse;
+  }
+}
+.bootstrap-container.single.industry.protein .general_info_4.cards .__title {
+  color: #003375;
+  font-family: "Open Sans", sans-serif;
+  font-size: 24px;
+  line-height: 29px;
+  font-weight: bold;
+  text-wrap: pretty;
+  margin-block-end: 1rem;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.single.industry.protein .general_info_4.cards .__title {
+    font-size: 30px;
+    line-height: 35px;
+  }
+}
+.bootstrap-container.single.industry.protein .general_info_4.cards .__description p {
+  font-family: "Open Sans", sans-serif;
+  color: #000000;
+  font-size: 16px;
+  line-height: 26px;
+  text-wrap: pretty;
+}
+.bootstrap-container.single.industry.protein .general_info_5.content .main-heading {
+  color: #003375;
+  font-family: "Open Sans", sans-serif;
+  font-size: 24px;
+  line-height: 34px;
+  font-weight: bold;
+  text-wrap: pretty;
+}
+.bootstrap-container.single.industry.protein .general_info_5.content .__content {
+  font-family: "Open Sans", sans-serif;
+  color: #000000;
+  font-size: 16px;
+  line-height: 26px;
+  text-wrap: pretty;
+}
+.bootstrap-container.single.industry.protein .general_info_5.content .__content p {
+  font-family: "Open Sans", sans-serif;
+  color: #000000;
+  font-size: 16px;
+  line-height: 26px;
+  text-wrap: pretty;
+}
+.bootstrap-container.single.industry.protein .general_info_5.content .__content ul {
+  list-style: disc;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.single.industry.protein .general_info_6.content .__col-index-2 {
+    border-inline: 1px solid #ccc;
+  }
+}
+.bootstrap-container.single.industry.protein .general_info_6.content .main-heading {
+  color: #003375;
+  font-family: "Open Sans", sans-serif;
+  font-size: 24px;
+  line-height: 34px;
+  font-weight: bold;
+  text-wrap: pretty;
+}
+.bootstrap-container.single.industry.protein .general_info_6.content .__description {
+  font-family: "Open Sans", sans-serif;
+  color: #000000;
+  font-size: 16px;
+  line-height: 26px;
+  text-wrap: pretty;
+}
+.bootstrap-container.single.industry.protein .general_info_6.content .__content {
+  font-family: "Open Sans", sans-serif;
+  color: #000000;
+  font-size: 12px;
+  line-height: 26px;
+  text-wrap: pretty;
+  background-color: #E7E8F5;
+  border-radius: 13px;
+  padding: 1rem;
+}
+.bootstrap-container.single.industry.protein .general_info_6.content .__content ol {
+  padding-inline-start: 0;
+  margin-block-end: 0;
+}
+.bootstrap-container.single.industry.protein .general_info_6.content .__content p,
+.bootstrap-container.single.industry.protein .general_info_6.content .__content li {
+  font-family: "Open Sans", sans-serif;
+  color: #000000;
+  font-size: 12px;
+  line-height: 26px;
+  text-wrap: pretty;
+  font-style: italic;
+}
+.bootstrap-container.single.industry.protein .general_info_6.content .__content p a,
+.bootstrap-container.single.industry.protein .general_info_6.content .__content li a {
+  text-decoration: none;
+  color: #003375;
+}
+.bootstrap-container.single.industry.protein .journey {
+  padding-block-start: 3rem;
+  background-color: var(--tlf-bg-color);
+}
+.bootstrap-container.single.industry.protein .journey .main-heading {
+  color: #E30613;
+  font-size: 33px;
+  line-height: 55px;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 300;
+  font-family: "Open Sans", sans-serif;
+}
+.bootstrap-container.single.industry.protein .journey .main-heading strong {
+  font-weight: bold;
+}
+.bootstrap-container.single.industry.protein .journey .sub-heading {
+  color: #000000;
+  font-size: 21px;
+  line-height: 28px;
+  text-align: center;
+}
+.bootstrap-container.single.industry.protein .journey-supply-push .main-heading-container,
+.bootstrap-container.single.industry.protein .journey-demand-pull .main-heading-container {
+  position: relative;
+  text-align: center;
+  width: 100%;
+}
+.bootstrap-container.single.industry.protein .journey-supply-push .main-heading-container .dashed-line,
+.bootstrap-container.single.industry.protein .journey-demand-pull .main-heading-container .dashed-line {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: repeating-linear-gradient(to right, #666, #666 8px, transparent 8px, transparent 16px);
+  top: 50%;
+  z-index: 1;
+}
+.bootstrap-container.single.industry.protein .journey-supply-push .main-heading-container .main-heading,
+.bootstrap-container.single.industry.protein .journey-demand-pull .main-heading-container .main-heading {
+  background-color: var(--tlf-bg-color);
+  color: #003375;
+  font-size: 32px;
+  line-height: 50px;
+  font-weight: bold;
+  font-family: "Open Sans", sans-serif;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  margin: 0;
+  padding-inline: 1.2rem;
+  text-wrap: pretty;
+}
+.bootstrap-container.single.industry.protein .journey-supply-push .left,
+.bootstrap-container.single.industry.protein .journey-supply-push .right,
+.bootstrap-container.single.industry.protein .journey-demand-pull .left,
+.bootstrap-container.single.industry.protein .journey-demand-pull .right {
+  position: relative;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.single.industry.protein .journey-supply-push .left,
+  .bootstrap-container.single.industry.protein .journey-supply-push .right,
+  .bootstrap-container.single.industry.protein .journey-demand-pull .left,
+  .bootstrap-container.single.industry.protein .journey-demand-pull .right {
+    padding: 3rem 3rem 0 3rem;
+  }
+}
+.bootstrap-container.single.industry.protein .journey-supply-push .cards,
+.bootstrap-container.single.industry.protein .journey-demand-pull .cards {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.bootstrap-container.single.industry.protein .journey-supply-push .card,
+.bootstrap-container.single.industry.protein .journey-demand-pull .card {
+  margin-block-end: 4rem;
+  border-radius: 30px;
+  box-shadow: 30px 37px 13px 0px rgba(0, 0, 0, 0), 19px 24px 12px 0px rgba(0, 0, 0, 0.01), 11px 13px 10px 0px rgba(0, 0, 0, 0.05), 5px 6px 8px 0px rgba(0, 0, 0, 0.09), 1px 1px 4px 0px rgba(0, 0, 0, 0.1);
+  background-color: transparent;
+}
+.bootstrap-container.single.industry.protein .journey-supply-push .card-header,
+.bootstrap-container.single.industry.protein .journey-demand-pull .card-header {
+  background-color: #002E6E;
+  color: #FFF;
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 24px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  text-align: center;
+  padding: 1rem;
+}
+.bootstrap-container.single.industry.protein .journey-supply-push .card-body,
+.bootstrap-container.single.industry.protein .journey-demand-pull .card-body {
+  background-color: #D7D8E8;
+  color: #003375;
+  font-size: 21px;
+  line-height: 24px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  text-align: center;
+  padding: 2rem;
+}
+.bootstrap-container.single.industry.protein .journey-supply-push .icon-groups,
+.bootstrap-container.single.industry.protein .journey-demand-pull .icon-groups {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-block-start: 2rem;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.single.industry.protein .journey-supply-push .icon-groups,
+  .bootstrap-container.single.industry.protein .journey-demand-pull .icon-groups {
+    padding-block-start: 0;
+  }
+}
+.bootstrap-container.single.industry.protein .journey-supply-push .icon-groups .icon-group img,
+.bootstrap-container.single.industry.protein .journey-demand-pull .icon-groups .icon-group img {
+  height: 360px;
+}
+.bootstrap-container.single.industry.protein .journey-supply-push .left .vertical-line {
+  position: absolute;
+  width: 10px;
+  height: 100%;
+  background-color: #003375;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}
+@media (min-width: 992px) {
+  .bootstrap-container.single.industry.protein .journey-supply-push .left .vertical-line {
+    top: 50px;
+  }
+}
+.bootstrap-container.single.industry.protein .journey-supply-push .left .down-arrow {
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 20px solid #003375;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.single.industry.protein .journey-supply-push .left .down-arrow {
+    bottom: 20px;
+  }
+}
+@media (min-width: 992px) {
+  .bootstrap-container.single.industry.protein .journey-supply-push .right .icon-groups {
+    padding-block-end: 4rem;
+  }
+}
+.bootstrap-container.single.industry.protein .journey-demand-pull .left .vertical-line {
+  position: absolute;
+  width: 10px;
+  height: 90%;
+  background-color: #003375;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}
+@media (min-width: 992px) {
+  .bootstrap-container.single.industry.protein .journey-demand-pull .left .vertical-line {
+    height: 100%;
+    top: -120px;
+  }
+}
+.bootstrap-container.single.industry.protein .journey-demand-pull .left .up-arrow {
+  position: absolute;
+  left: 50%;
+  top: -20px;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 20px solid #003375;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.single.industry.protein .journey-demand-pull .left .up-arrow {
+    top: 0;
+  }
+}
+.bootstrap-container.single.industry.protein .journey-demand-pull .left .cards {
+  padding-block-start: 3rem;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.single.industry.protein .journey-demand-pull .left .cards {
+    padding-block-start: 0;
+  }
+}
+.bootstrap-container .general_info_7.content {
+  padding-block: 3rem;
+}
+.bootstrap-container .general_info_7.content .main-heading {
+  color: #E30613;
+  font-size: 33px;
+  line-height: 45px;
+  text-transform: uppercase;
+  font-weight: 300;
+  font-family: "Open Sans", sans-serif;
+}
+.bootstrap-container .general_info_7.content .main-heading strong {
+  font-weight: bold;
+}
+.bootstrap-container .general_info_8.content {
+  padding-block-end: 3rem;
+}
+.bootstrap-container .general_info_8.content .main-heading {
+  color: #E30613;
+  font-size: 33px;
+  line-height: 45px;
+  text-transform: uppercase;
+  font-weight: 300;
+  font-family: "Open Sans", sans-serif;
+}
+.bootstrap-container .general_info_8.content .main-heading strong {
+  font-weight: bold;
+}
+.bootstrap-container .general_info_8.content .card {
+  justify-content: center;
+  align-items: center;
+}
+@media (min-width: 992px) {
+  .bootstrap-container .general_info_8.content .card.side-border {
+    border-left: 2px solid #003375;
+    border-right: 2px solid #003375;
+  }
+}
+.bootstrap-container .general_info_8.content .card .icon {
+  width: 150px;
+  height: 150px;
+  padding-block: 0.3rem;
+}
+.bootstrap-container .general_info_8.content .card .title {
+  color: #003375;
+  font-size: 16px;
+  line-height: 28px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 700;
+  text-align: center;
+  padding-block: 0.3rem;
+}
+.bootstrap-container .general_info_8.content .card .description {
+  color: #003375;
+  font-size: 16px;
+  line-height: 28px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  text-align: center;
+}
+.bootstrap-container .cta-container {
+  padding-block-end: 2rem;
+  text-align: center !important;
+  display: block !important;
+}
+@media (min-width: 992px) {
+  .bootstrap-container .cta-container {
+    padding-block-end: 3rem;
+    padding-block-end: 3rem;
+  }
+}
+.bootstrap-container .cta-container .cta-inner {
+  display: flex;
+  justify-content: center;
+}
+.bootstrap-container .cta-container .cta-inner .btn.btn-primary {
+  white-space: unset;
+  background-color: #E30613 !important;
+  border: none !important;
+  border-radius: 10px !important;
+  padding: 10px 20px !important;
+  text-transform: capitalize !important;
+  font-size: 16px !important;
+  font-family: "Open Sans", sans-serif !important;
+  font-weight: 400 !important;
+  letter-spacing: normal !important;
+}
+.bootstrap-container .cta-container .cta-inner .btn.btn-primary:hover {
+  background-color: #d60006 !important;
+  color: #fff !important;
+}
+.bootstrap-container .related-resources {
+  position: relative;
+}
+.bootstrap-container .related-resources::before {
+  content: "";
+  position: absolute;
+  display: block;
+  top: 0;
+  left: calc((100vw - 100%) / -2);
+  width: 100vw;
+  height: 100%;
+  background-color: #EDEFF0;
+}
+.bootstrap-container .related-resources .blue {
+  color: #003375;
+}
+.bootstrap-container .related-resources .card {
+  --bs-body-bg: #fff;
+  --bs-border-radius: 10px;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+}
+.bootstrap-container .related-resources .card img {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.bootstrap-container .related-resources .card .category {
+  font-size: 0.9375rem;
+  color: #E30613;
+}
+.bootstrap-container .related-resources .card .post-title {
+  font-size: 1.125rem;
+  color: #000000;
+  font-weight: bold;
+  font-weight: 600;
+  line-height: 26px;
+}
+.bootstrap-container .related-resources .card .card-body {
+  min-height: 100px;
+}
+.bootstrap-container .related-resources .card .card-body.wpk-box-brand:before {
+  border-top-right-radius: 0;
+}
+.bootstrap-container .related-resources .card .card-footer.wpk-box-brand:before {
+  border-top-right-radius: 0;
+}
+.bootstrap-container .related-resources .show-more-top {
+  display: none;
+  text-transform: uppercase;
+}
+@media (min-width: 992px) {
+  .bootstrap-container .related-resources .show-more-top {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}
+.bootstrap-container .related-resources .show-more-bottom {
+  display: flex;
+  text-transform: uppercase;
+  align-items: center;
+  justify-content: center;
+}
+@media (min-width: 992px) {
+  .bootstrap-container .related-resources .show-more-bottom {
+    display: none;
+  }
+}
+.bootstrap-container .related-resources a {
+  color: #E30613;
+  text-decoration: none;
+}
+.bootstrap-container li.tick {
+  list-style-image: url("https://thelogicfactory.com/wp-content/uploads/2023/09/Icon-Tick.svg");
+  margin-bottom: 0.1em;
+}
+.bootstrap-container li.tick span {
+  vertical-align: 0.3em;
+  transform: translate(-0.1em, 0.2em);
+}
+
+/*# sourceMappingURL=single-industry-protein.css.map */

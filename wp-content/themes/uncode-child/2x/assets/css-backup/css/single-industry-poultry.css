@@ -1,0 +1,407 @@
+.bootstrap-container.single.industry.poultry .sub-heading {
+  text-wrap: pretty;
+}
+.bootstrap-container.single.industry.poultry .parent-breadcrumb {
+  color: #009BDC;
+  font-size: 20px;
+  line-height: 28px;
+}
+.bootstrap-container.single.industry.poultry .parent-breadcrumb a {
+  text-decoration: none;
+}
+.bootstrap-container.single.industry.poultry .top-content {
+  text-align: center;
+  padding-block: 3rem;
+}
+.bootstrap-container.single.industry.poultry .icon-groups {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.single.industry.poultry .icon-groups {
+    flex-direction: row;
+  }
+}
+.bootstrap-container.single.industry.poultry .icon-groups .icon-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.single.industry.poultry .icon-groups .icon-group {
+    gap: 1rem;
+  }
+}
+.bootstrap-container.single.industry.poultry .icon-groups .icon-group .icon-title {
+  color: #000000;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 700;
+}
+.bootstrap-container.single.industry.poultry .journey {
+  padding-block-start: 3rem;
+  background-color: var(--tlf-bg-color);
+}
+.bootstrap-container.single.industry.poultry .journey .main-heading {
+  color: #E30613;
+  font-family: gotham, sans-serif;
+  font-size: 33px;
+  line-height: 55px;
+  text-transform: uppercase;
+  text-align: center;
+}
+.bootstrap-container.single.industry.poultry .journey .main-heading strong {
+  font-family: gotham_boldregular, sans-serif;
+  font-size: 40px;
+  line-height: 55px;
+}
+.bootstrap-container.single.industry.poultry .journey .sub-heading {
+  font-family: gotham, sans-serif;
+  color: #000000;
+  font-size: 21px;
+  line-height: 28px;
+  text-align: center;
+}
+.bootstrap-container.single.industry.poultry .journey-supply-push .main-heading,
+.bootstrap-container.single.industry.poultry .journey-demand-pull .main-heading {
+  color: #003375;
+  font-size: 32px;
+  line-height: 50px;
+  font-family: gotham_boldregular, sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  padding-block: 0.3rem;
+}
+.bootstrap-container.single.industry.poultry .journey-supply-push .main-heading::before,
+.bootstrap-container.single.industry.poultry .journey-demand-pull .main-heading::before {
+  content: "";
+  position: absolute;
+  border-top: 10px dashed #003375;
+  border-bottom: 10px dashed #003375;
+  top: -8px;
+  bottom: -8px;
+  left: -8px;
+  right: -8px;
+  opacity: 0.5;
+}
+.bootstrap-container.single.industry.poultry .journey-supply-push .left,
+.bootstrap-container.single.industry.poultry .journey-supply-push .right,
+.bootstrap-container.single.industry.poultry .journey-demand-pull .left,
+.bootstrap-container.single.industry.poultry .journey-demand-pull .right {
+  position: relative;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.single.industry.poultry .journey-supply-push .left,
+  .bootstrap-container.single.industry.poultry .journey-supply-push .right,
+  .bootstrap-container.single.industry.poultry .journey-demand-pull .left,
+  .bootstrap-container.single.industry.poultry .journey-demand-pull .right {
+    padding: 3rem 3rem 0 3rem;
+  }
+}
+.bootstrap-container.single.industry.poultry .journey-supply-push .cards,
+.bootstrap-container.single.industry.poultry .journey-demand-pull .cards {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.bootstrap-container.single.industry.poultry .journey-supply-push .card,
+.bootstrap-container.single.industry.poultry .journey-demand-pull .card {
+  margin-block-end: 4rem;
+  border-radius: 30px;
+  box-shadow: 30px 37px 13px 0px rgba(0, 0, 0, 0), 19px 24px 12px 0px rgba(0, 0, 0, 0.01), 11px 13px 10px 0px rgba(0, 0, 0, 0.05), 5px 6px 8px 0px rgba(0, 0, 0, 0.09), 1px 1px 4px 0px rgba(0, 0, 0, 0.1);
+  background-color: transparent;
+}
+.bootstrap-container.single.industry.poultry .journey-supply-push .card-header,
+.bootstrap-container.single.industry.poultry .journey-demand-pull .card-header {
+  background-color: #002E6E;
+  color: #FFF;
+  font-size: 21px;
+  font-weight: normal;
+  line-height: 24px;
+  font-family: gotham_boldregular, sans-serif;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  text-align: center;
+  padding: 1rem;
+}
+.bootstrap-container.single.industry.poultry .journey-supply-push .card-body,
+.bootstrap-container.single.industry.poultry .journey-demand-pull .card-body {
+  background-color: #D7D8E8;
+  color: #003375;
+  font-size: 21px;
+  line-height: 24px;
+  font-family: gotham_bookregular, sans-serif;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  text-align: center;
+  padding: 2rem;
+}
+.bootstrap-container.single.industry.poultry .journey-supply-push .icon-groups,
+.bootstrap-container.single.industry.poultry .journey-demand-pull .icon-groups {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-block-start: 2rem;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.single.industry.poultry .journey-supply-push .icon-groups,
+  .bootstrap-container.single.industry.poultry .journey-demand-pull .icon-groups {
+    padding-block-start: 0;
+  }
+}
+.bootstrap-container.single.industry.poultry .journey-supply-push .icon-groups .icon-group img,
+.bootstrap-container.single.industry.poultry .journey-demand-pull .icon-groups .icon-group img {
+  height: 360px;
+}
+.bootstrap-container.single.industry.poultry .journey-supply-push .left .vertical-line {
+  position: absolute;
+  width: 10px;
+  height: 100%;
+  background-color: #003375;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}
+@media (min-width: 992px) {
+  .bootstrap-container.single.industry.poultry .journey-supply-push .left .vertical-line {
+    top: 50px;
+  }
+}
+.bootstrap-container.single.industry.poultry .journey-supply-push .left .down-arrow {
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 20px solid #003375;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.single.industry.poultry .journey-supply-push .left .down-arrow {
+    bottom: 20px;
+  }
+}
+@media (min-width: 992px) {
+  .bootstrap-container.single.industry.poultry .journey-supply-push .right .icon-groups {
+    padding-block-end: 4rem;
+  }
+}
+.bootstrap-container.single.industry.poultry .journey-demand-pull .left .vertical-line {
+  position: absolute;
+  width: 10px;
+  height: 90%;
+  background-color: #003375;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}
+@media (min-width: 992px) {
+  .bootstrap-container.single.industry.poultry .journey-demand-pull .left .vertical-line {
+    height: 100%;
+    top: -120px;
+  }
+}
+.bootstrap-container.single.industry.poultry .journey-demand-pull .left .up-arrow {
+  position: absolute;
+  left: 50%;
+  top: -20px;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 20px solid #003375;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.single.industry.poultry .journey-demand-pull .left .up-arrow {
+    top: 0;
+  }
+}
+.bootstrap-container.single.industry.poultry .journey-demand-pull .left .cards {
+  padding-block-start: 3rem;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.single.industry.poultry .journey-demand-pull .left .cards {
+    padding-block-start: 0;
+  }
+}
+.bootstrap-container.single.industry.poultry .callout {
+  padding-block: 3rem;
+}
+.bootstrap-container.single.industry.poultry .callout .main-heading {
+  color: #E30613;
+  font-family: gotham, sans-serif;
+  font-size: 33px;
+  line-height: 55px;
+  text-transform: uppercase;
+  text-wrap: pretty;
+}
+.bootstrap-container.single.industry.poultry .callout .main-heading strong {
+  font-family: gotham_boldregular, sans-serif;
+  font-size: 40px;
+  line-height: 55px;
+}
+.bootstrap-container.single.industry.poultry .callout .content {
+  color: #003375;
+  font-size: 18px;
+  line-height: 28px;
+  font-family: gotham_bookregular, sans-serif;
+  font-weight: 400;
+}
+.bootstrap-container.single.industry.poultry .callout .card {
+  justify-content: center;
+  align-items: center;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.single.industry.poultry .callout .card.side-border {
+    border-left: 2px solid #003375;
+    border-right: 2px solid #003375;
+  }
+}
+.bootstrap-container.single.industry.poultry .callout .card .icon {
+  width: 150px;
+  height: 150px;
+  padding-block: 0.3rem;
+}
+.bootstrap-container.single.industry.poultry .callout .card .title {
+  color: #003375;
+  font-size: 18px;
+  line-height: 28px;
+  font-family: gotham_boldregular, sans-serif;
+  font-weight: 400;
+  text-align: center;
+  padding-block: 0.3rem;
+}
+.bootstrap-container.single.industry.poultry .callout .card .description {
+  color: #003375;
+  font-size: 18px;
+  line-height: 28px;
+  font-family: gotham_bookregular, sans-serif;
+  font-weight: 400;
+  text-align: center;
+}
+.bootstrap-container .cta-container {
+  padding-block-end: 2rem;
+  text-align: center !important;
+  display: block !important;
+}
+@media (min-width: 992px) {
+  .bootstrap-container .cta-container {
+    padding-block-end: 3rem;
+    padding-block-end: 3rem;
+  }
+}
+.bootstrap-container .cta-container .cta-inner {
+  display: flex;
+  justify-content: center;
+}
+.bootstrap-container .cta-container .cta-inner .btn.btn-primary {
+  white-space: unset;
+  background-color: #E30613 !important;
+  border: none !important;
+  border-radius: 10px !important;
+  padding: 10px 20px !important;
+  text-transform: capitalize !important;
+  font-size: 16px !important;
+  font-family: "Open Sans", sans-serif !important;
+  font-weight: 400 !important;
+  letter-spacing: normal !important;
+}
+.bootstrap-container .cta-container .cta-inner .btn.btn-primary:hover {
+  background-color: #d60006 !important;
+  color: #fff !important;
+}
+.bootstrap-container .related-resources {
+  position: relative;
+}
+.bootstrap-container .related-resources::before {
+  content: "";
+  position: absolute;
+  display: block;
+  top: 0;
+  left: calc((100vw - 100%) / -2);
+  width: 100vw;
+  height: 100%;
+  background-color: #EDEFF0;
+}
+.bootstrap-container .related-resources .blue {
+  color: #003375;
+}
+.bootstrap-container .related-resources .card {
+  --bs-body-bg: #fff;
+  --bs-border-radius: 10px;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+}
+.bootstrap-container .related-resources .card img {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.bootstrap-container .related-resources .card .category {
+  font-size: 0.9375rem;
+  color: #E30613;
+}
+.bootstrap-container .related-resources .card .post-title {
+  font-size: 1.125rem;
+  color: #000000;
+  font-weight: bold;
+  font-weight: 600;
+  line-height: 26px;
+}
+.bootstrap-container .related-resources .card .card-body {
+  min-height: 100px;
+}
+.bootstrap-container .related-resources .card .card-body.wpk-box-brand:before {
+  border-top-right-radius: 0;
+}
+.bootstrap-container .related-resources .card .card-footer.wpk-box-brand:before {
+  border-top-right-radius: 0;
+}
+.bootstrap-container .related-resources .show-more-top {
+  display: none;
+  text-transform: uppercase;
+}
+@media (min-width: 992px) {
+  .bootstrap-container .related-resources .show-more-top {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}
+.bootstrap-container .related-resources .show-more-bottom {
+  display: flex;
+  text-transform: uppercase;
+  align-items: center;
+  justify-content: center;
+}
+@media (min-width: 992px) {
+  .bootstrap-container .related-resources .show-more-bottom {
+    display: none;
+  }
+}
+.bootstrap-container .related-resources a {
+  color: #E30613;
+  text-decoration: none;
+}
+.bootstrap-container li.tick {
+  list-style-image: url("https://thelogicfactory.com/wp-content/uploads/2023/09/Icon-Tick.svg");
+  margin-bottom: 0.1em;
+}
+.bootstrap-container li.tick span {
+  vertical-align: 0.3em;
+  transform: translate(-0.1em, 0.2em);
+}
+
+/*# sourceMappingURL=single-industry-poultry.css.map */

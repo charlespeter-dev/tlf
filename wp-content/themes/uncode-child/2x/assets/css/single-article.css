@@ -78,12 +78,14 @@
 }
 .bootstrap-container.post.single-article h2 {
   font-size: calc(1.325rem + 0.9vw);
-  line-height: calc(1.365rem + 1.38vw);
 }
 @media (min-width: 1200px) {
   .bootstrap-container.post.single-article h2 {
     font-size: 2rem;
   }
+}
+.bootstrap-container.post.single-article h2 {
+  line-height: calc(1.365rem + 1.38vw);
 }
 @media (min-width: 1200px) {
   .bootstrap-container.post.single-article h2 {
@@ -92,12 +94,14 @@
 }
 .bootstrap-container.post.single-article h3 {
   font-size: calc(1.28125rem + 0.375vw);
-  line-height: calc(1.34375rem + 1.125vw);
 }
 @media (min-width: 1200px) {
   .bootstrap-container.post.single-article h3 {
     font-size: 1.5625rem;
   }
+}
+.bootstrap-container.post.single-article h3 {
+  line-height: calc(1.34375rem + 1.125vw);
 }
 @media (min-width: 1200px) {
   .bootstrap-container.post.single-article h3 {
@@ -125,44 +129,54 @@
   list-style-image: none;
   list-style-type: disc;
   font-size: calc(1.3rem + 0.6vw);
-  font-weight: bold;
-  line-height: normal;
 }
 @media (min-width: 1200px) {
   .bootstrap-container.post.single-article .resources-quote li {
     font-size: 1.75rem;
   }
 }
+.bootstrap-container.post.single-article .resources-quote li {
+  font-weight: bold;
+  line-height: normal;
+}
 .bootstrap-container.post.single-article .resources-quote .red {
   font-size: calc(1.3625rem + 1.35vw);
-  line-height: calc(1.40625rem + 1.875vw);
-  font-weight: bold;
-  color: #E30613;
 }
 @media (min-width: 1200px) {
   .bootstrap-container.post.single-article .resources-quote .red {
     font-size: 2.375rem;
   }
 }
+.bootstrap-container.post.single-article .resources-quote .red {
+  line-height: calc(1.40625rem + 1.875vw);
+}
 @media (min-width: 1200px) {
   .bootstrap-container.post.single-article .resources-quote .red {
     line-height: 2.8125rem;
   }
 }
+.bootstrap-container.post.single-article .resources-quote .red {
+  font-weight: bold;
+  color: #E30613;
+}
 .bootstrap-container.post.single-article .resources-quote .font-big {
   font-size: calc(1.4875rem + 2.85vw);
-  line-height: calc(1.53125rem + 3.375vw);
-  font-weight: bold;
 }
 @media (min-width: 1200px) {
   .bootstrap-container.post.single-article .resources-quote .font-big {
     font-size: 3.625rem;
   }
 }
+.bootstrap-container.post.single-article .resources-quote .font-big {
+  line-height: calc(1.53125rem + 3.375vw);
+}
 @media (min-width: 1200px) {
   .bootstrap-container.post.single-article .resources-quote .font-big {
     line-height: 4.0625rem;
   }
+}
+.bootstrap-container.post.single-article .resources-quote .font-big {
+  font-weight: bold;
 }
 .bootstrap-container.post.single-article .resources-quote .font-source {
   font-size: 1.125rem;

@@ -1,0 +1,177 @@
+.bootstrap-container.post.single-article .sub-heading {
+  text-transform: uppercase;
+}
+.bootstrap-container.post.single-article .full-width {
+  height: 375px;
+}
+.bootstrap-container.post.single-article .blue {
+  color: #003375;
+}
+.bootstrap-container.post.single-article .red {
+  color: #E30613;
+}
+.bootstrap-container.post.single-article .grey-bg {
+  background-color: #EDEFF0;
+}
+.bootstrap-container.post.single-article .card {
+  --bs-body-bg: #fff;
+  --bs-border-radius: 10px;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+}
+.bootstrap-container.post.single-article .card img {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.bootstrap-container.post.single-article .card .category {
+  font-size: 0.9375rem;
+  color: #E30613;
+}
+.bootstrap-container.post.single-article .card .post-title {
+  font-size: 1.125rem;
+  color: #000000;
+  font-weight: bold;
+  font-weight: 600;
+  line-height: 26px;
+}
+.bootstrap-container.post.single-article .card .card-body {
+  min-height: 100px;
+}
+.bootstrap-container.post.single-article .card .card-body.wpk-box-brand:before {
+  border-top-right-radius: 0;
+}
+.bootstrap-container.post.single-article .card .card-footer.wpk-box-brand:before {
+  border-top-right-radius: 0;
+}
+.bootstrap-container.post.single-article .show-more-top {
+  display: none;
+  text-transform: uppercase;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.post.single-article .show-more-top {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}
+.bootstrap-container.post.single-article .show-more-top a {
+  font-weight: bold;
+}
+.bootstrap-container.post.single-article .show-more-bottom {
+  display: flex;
+  text-transform: uppercase;
+  align-items: center;
+  justify-content: center;
+}
+@media (min-width: 992px) {
+  .bootstrap-container.post.single-article .show-more-bottom {
+    display: none;
+  }
+}
+.bootstrap-container.post.single-article .show-more-bottom a {
+  font-weight: bold;
+}
+.bootstrap-container.post.single-article a {
+  text-decoration: none;
+}
+.bootstrap-container.post.single-article hr {
+  border: 1px solid;
+}
+.bootstrap-container.post.single-article h2 {
+  font-size: calc(1.325rem + 0.9vw);
+  line-height: calc(1.365rem + 1.38vw);
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.post.single-article h2 {
+    font-size: 2rem;
+  }
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.post.single-article h2 {
+    line-height: 2.4rem;
+  }
+}
+.bootstrap-container.post.single-article h3 {
+  font-size: calc(1.28125rem + 0.375vw);
+  line-height: calc(1.34375rem + 1.125vw);
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.post.single-article h3 {
+    font-size: 1.5625rem;
+  }
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.post.single-article h3 {
+    line-height: 2.1875rem;
+  }
+}
+.bootstrap-container.post.single-article li {
+  list-style-image: url("https://thelogicfactory.com/wp-content/uploads/2023/09/Icon-Tick.svg");
+  margin-bottom: 0.1em;
+}
+.bootstrap-container.post.single-article li span {
+  vertical-align: 0.3em;
+  transform: translate(-0.1em, 0.2em);
+}
+.bootstrap-container.post.single-article .resources-quote {
+  display: flex;
+  align-items: center;
+  background-color: #f2f2f2;
+  color: #50626D;
+  font-size: 38px;
+  line-height: 45px;
+  border-radius: 15px;
+}
+.bootstrap-container.post.single-article .resources-quote li {
+  list-style-image: none;
+  list-style-type: disc;
+  font-size: calc(1.3rem + 0.6vw);
+  font-weight: bold;
+  line-height: normal;
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.post.single-article .resources-quote li {
+    font-size: 1.75rem;
+  }
+}
+.bootstrap-container.post.single-article .resources-quote .red {
+  font-size: calc(1.3625rem + 1.35vw);
+  line-height: calc(1.40625rem + 1.875vw);
+  font-weight: bold;
+  color: #E30613;
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.post.single-article .resources-quote .red {
+    font-size: 2.375rem;
+  }
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.post.single-article .resources-quote .red {
+    line-height: 2.8125rem;
+  }
+}
+.bootstrap-container.post.single-article .resources-quote .font-big {
+  font-size: calc(1.4875rem + 2.85vw);
+  line-height: calc(1.53125rem + 3.375vw);
+  font-weight: bold;
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.post.single-article .resources-quote .font-big {
+    font-size: 3.625rem;
+  }
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.post.single-article .resources-quote .font-big {
+    line-height: 4.0625rem;
+  }
+}
+.bootstrap-container.post.single-article .resources-quote .font-source {
+  font-size: 1.125rem;
+  line-height: calc(1.28125rem + 0.375vw);
+}
+@media (min-width: 1200px) {
+  .bootstrap-container.post.single-article .resources-quote .font-source {
+    line-height: 1.5625rem;
+  }
+}
+
+/*# sourceMappingURL=single-article.css.map */

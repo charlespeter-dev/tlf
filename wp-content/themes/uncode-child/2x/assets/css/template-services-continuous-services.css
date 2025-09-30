@@ -32,13 +32,15 @@
 .bootstrap-container .callout-with-cards-sub-heading {
   font-size: 1.25rem;
   line-height: calc(1.3125rem + 0.75vw);
-  color: #000000;
-  text-align: center;
 }
 @media (min-width: 1200px) {
   .bootstrap-container .callout-with-cards-sub-heading {
     line-height: 1.875rem;
   }
+}
+.bootstrap-container .callout-with-cards-sub-heading {
+  color: #000000;
+  text-align: center;
 }
 .bootstrap-container .callout-with-cards-sub-heading p {
   font-size: 1.25rem;
@@ -51,18 +53,22 @@
 }
 .bootstrap-container .callout-with-cards-sub-heading h3 {
   font-size: calc(1.28125rem + 0.375vw);
-  line-height: calc(1.34375rem + 1.125vw);
-  color: #003375;
 }
 @media (min-width: 1200px) {
   .bootstrap-container .callout-with-cards-sub-heading h3 {
     font-size: 1.5625rem;
   }
 }
+.bootstrap-container .callout-with-cards-sub-heading h3 {
+  line-height: calc(1.34375rem + 1.125vw);
+}
 @media (min-width: 1200px) {
   .bootstrap-container .callout-with-cards-sub-heading h3 {
     line-height: 2.1875rem;
   }
+}
+.bootstrap-container .callout-with-cards-sub-heading h3 {
+  color: #003375;
 }
 .bootstrap-container .callout-with-cards-icon {
   width: 200px;
@@ -92,12 +98,14 @@
 .bootstrap-container .callout-with-cards-footer {
   font-size: 1.25rem;
   line-height: calc(1.3125rem + 0.75vw);
-  text-align: center;
 }
 @media (min-width: 1200px) {
   .bootstrap-container .callout-with-cards-footer {
     line-height: 1.875rem;
   }
+}
+.bootstrap-container .callout-with-cards-footer {
+  text-align: center;
 }
 .bootstrap-container .cards-overview {
   position: relative;
@@ -119,13 +127,15 @@
 .bootstrap-container .cards-overview.packages .sub-heading {
   font-size: 1.25rem;
   line-height: calc(1.3125rem + 0.75vw);
-  color: #000000;
-  text-align: center;
 }
 @media (min-width: 1200px) {
   .bootstrap-container .cards-overview.packages .sub-heading {
     line-height: 1.875rem;
   }
+}
+.bootstrap-container .cards-overview.packages .sub-heading {
+  color: #000000;
+  text-align: center;
 }
 .bootstrap-container .cards-overview.packages .sub-heading p {
   font-size: 1.25rem;
@@ -161,19 +171,23 @@
 }
 .bootstrap-container .cards-overview .main-heading {
   font-size: calc(1.40625rem + 1.875vw);
-  line-height: calc(1.46875rem + 2.625vw);
-  color: #003375;
-  text-align: center;
 }
 @media (min-width: 1200px) {
   .bootstrap-container .cards-overview .main-heading {
     font-size: 2.8125rem;
   }
 }
+.bootstrap-container .cards-overview .main-heading {
+  line-height: calc(1.46875rem + 2.625vw);
+}
 @media (min-width: 1200px) {
   .bootstrap-container .cards-overview .main-heading {
     line-height: 3.4375rem;
   }
+}
+.bootstrap-container .cards-overview .main-heading {
+  color: #003375;
+  text-align: center;
 }
 .bootstrap-container .cards-overview .card {
   border: 1px solid #ccc;

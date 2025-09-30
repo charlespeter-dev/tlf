@@ -6,12 +6,14 @@
 }
 .bootstrap-container.about-us h2 {
   font-size: calc(1.40625rem + 1.875vw);
-  line-height: calc(1.46875rem + 2.625vw);
 }
 @media (min-width: 1200px) {
   .bootstrap-container.about-us h2 {
     font-size: 2.8125rem;
   }
+}
+.bootstrap-container.about-us h2 {
+  line-height: calc(1.46875rem + 2.625vw);
 }
 @media (min-width: 1200px) {
   .bootstrap-container.about-us h2 {
@@ -69,19 +71,19 @@
   border-bottom: 1px solid #ccc;
   width: 100%;
 }
+.bootstrap-container.about-us .swiper-button-prev::after {
+  content: unset;
+}
 .bootstrap-container.about-us .swiper-button-prev {
   top: 47px;
   left: 0;
 }
-.bootstrap-container.about-us .swiper-button-prev::after {
+.bootstrap-container.about-us .swiper-button-next::after {
   content: unset;
 }
 .bootstrap-container.about-us .swiper-button-next {
   top: 47px;
   right: 0;
-}
-.bootstrap-container.about-us .swiper-button-next::after {
-  content: unset;
 }
 .bootstrap-container.about-us .swiper-pagination {
   bottom: 0;

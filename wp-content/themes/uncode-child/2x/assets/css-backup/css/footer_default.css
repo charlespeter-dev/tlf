@@ -1,0 +1,68 @@
+/*
+make fluid properties
+
+@link https://www.sassmeister.com/gist/7f22e44ace49b5124eec
+Example:
+@include fluid-type(padding-bottom padding-top, 2em, 4em);
+@include fluid-type(font-size, 14px, 18px);
+Optimized for resolution 360px <---> 1920px
+*/
+.bootstrap-container .footer_default {
+  position: relative;
+}
+.bootstrap-container .footer_default .full-width {
+  height: 350px;
+}
+.bootstrap-container .footer_default .footer-callout-banner-content {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  margin-left: -36px;
+  margin-right: -36px;
+  padding-left: 36px;
+  padding-right: 36px;
+}
+.bootstrap-container .footer_default .footer-callout-banner-content .page-name {
+  font-size: calc(1.28125rem + 0.375vw);
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+@media (min-width: 1200px) {
+  .bootstrap-container .footer_default .footer-callout-banner-content .page-name {
+    font-size: 1.5625rem;
+  }
+}
+.bootstrap-container .footer_default .footer-callout-banner-content .main-heading {
+  font-size: calc(1.40625rem + 1.875vw);
+  color: #fff;
+  font-weight: 700;
+  line-height: normal;
+}
+@media (min-width: 1200px) {
+  .bootstrap-container .footer_default .footer-callout-banner-content .main-heading {
+    font-size: 2.8125rem;
+  }
+}
+.bootstrap-container .footer_default .footer-callout-banner-content .cta .btn {
+  white-space: unset;
+}
+.bootstrap-container .footer_default .footer-callout-banner-content .cta .btn.btn-primary {
+  background-color: #fff !important;
+  border-color: #fff !important;
+  border: 2px solid;
+  color: #E30613 !important;
+  border-radius: 10px !important;
+  padding: 13px 45px !important;
+}
+.bootstrap-container .footer_default .footer-callout-banner-content .cta .btn.btn-primary:hover {
+  background-color: transparent !important;
+  color: #fff !important;
+}
+
+/*# sourceMappingURL=footer_default.css.map */

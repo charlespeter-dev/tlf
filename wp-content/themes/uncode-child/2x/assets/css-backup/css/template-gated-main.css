@@ -1,0 +1,58 @@
+@media (min-width: 992px) {
+  .bootstrap-container .full-width {
+    height: 375px;
+  }
+}
+.bootstrap-container .headline {
+  text-transform: uppercase;
+}
+.bootstrap-container .form {
+  background-color: #F6F7F8;
+  border-radius: 10px;
+  padding-inline: 1rem;
+  padding-block: 1rem;
+}
+@media (min-width: 992px) {
+  .bootstrap-container .form {
+    padding-inline: 3rem;
+    padding-block: 3rem;
+  }
+}
+.bootstrap-container .form .form-heading h3 {
+  color: #003375;
+  font-size: 24px;
+  line-height: 25px;
+}
+.bootstrap-container .main-contents a {
+  color: #009BDC !important;
+}
+.bootstrap-container .main-contents ul > li {
+  list-style-type: disc;
+  text-wrap: pretty;
+}
+.bootstrap-container .main-contents li.tick {
+  list-style-image: url("https://thelogicfactory.com/wp-content/uploads/2023/09/Icon-Tick.svg");
+  margin-bottom: 0.1em;
+}
+.bootstrap-container .main-contents li.tick span {
+  vertical-align: 0.3em;
+  transform: translate(-0.1em, 0.2em);
+}
+.bootstrap-container .speakers-content {
+  align-items: center;
+}
+.bootstrap-container .speakers-content .speaker-name {
+  color: #003375;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 30px;
+  margin-bottom: 1rem;
+}
+.bootstrap-container .speakers-content .speaker-title {
+  color: #E30613;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 30px;
+}
+
+/*# sourceMappingURL=template-gated-main.css.map */
